@@ -14,6 +14,7 @@ Depletion ZAID:
 Depletion info:  
   **Error -2: in Depletion info -- returned value is  ''
 
+  ****Error -2 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -144,6 +145,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -2 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -725,6 +727,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -2 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -1100,9 +1103,9 @@ Total-production cross section (99):
 SECONDARY PARTICLE DATA:
    NO SECONDARY PARTICLE DATA.
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
-  **Error -2 in setting isotope 92235.
+  **Error -2 in setting isotope 92235..
 
 STRING VALUES:
 ZAID:  
@@ -1114,6 +1117,7 @@ Depletion ZAID:
 Depletion info:  
   **Error -2: in Depletion info -- returned value is  ''
 
+  ****Error -2 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -1244,6 +1248,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -2 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -1825,6 +1830,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -2 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -2219,6 +2225,7 @@ Depletion ZAID:
 Depletion info:  
   **Error -16: in Depletion info -- returned value is  ''
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -2349,6 +2356,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -2930,6 +2938,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -3323,6 +3332,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -3451,6 +3461,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -4032,6 +4043,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -4416,7 +4428,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--no collapsing
   ********************************************************** 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -9875,6 +9887,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -9964,6 +9977,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -11577,6 +11591,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -14662,6 +14677,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -14751,6 +14767,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -16366,6 +16383,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -19451,6 +19469,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -19535,6 +19554,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -21165,6 +21185,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -24253,6 +24274,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -24381,6 +24403,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -24962,6 +24985,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -25344,7 +25368,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--collapse to 16_LANL
   ************************************************************ 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -27438,6 +27462,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  16
@@ -27527,6 +27552,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -28165,6 +28191,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -29172,6 +29199,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  16
@@ -29261,6 +29289,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -29901,6 +29930,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -30908,6 +30938,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  16
@@ -30992,6 +31023,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -31647,6 +31679,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -32657,6 +32690,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -32785,6 +32819,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -33366,6 +33401,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -33750,6 +33786,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -33878,6 +33915,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -34459,6 +34497,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -34841,7 +34880,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--set library to mendf5
   ************************************************************ 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.500nm
@@ -34851,6 +34890,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -34937,6 +34977,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   2   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -36567,6 +36608,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -39652,6 +39694,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -39741,6 +39784,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -41354,6 +41398,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -44439,6 +44484,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -44528,6 +44574,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -46143,6 +46190,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -49228,6 +49276,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -49312,6 +49361,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -50942,6 +50992,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -54030,6 +54081,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -54158,6 +54210,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -54739,6 +54792,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -55123,6 +55177,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -55251,6 +55306,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -55832,6 +55888,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -56216,7 +56273,7 @@ SECONDARY PARTICLE DATA:
 
  ***********Diagonal transport correction***********
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -61669,6 +61726,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -61758,6 +61816,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -63371,6 +63430,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -66450,6 +66510,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -66539,6 +66600,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -68154,6 +68216,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -71233,6 +71296,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -71317,6 +71381,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -72947,6 +73012,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -76029,6 +76095,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -76157,6 +76224,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -76738,6 +76806,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -77116,7 +77185,7 @@ SECONDARY PARTICLE DATA:
 
  ***********Bell-Hansen-Sandmeier transport correction***********
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -82579,6 +82648,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -82668,6 +82738,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -84283,6 +84354,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -87370,6 +87442,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -87459,6 +87532,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -89076,6 +89150,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -92163,6 +92238,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -92247,6 +92323,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -93879,6 +93956,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -96969,6 +97047,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -97097,6 +97176,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -97678,6 +97758,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -98056,7 +98137,7 @@ SECONDARY PARTICLE DATA:
 
  ***********NO transport correction***********
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -103515,6 +103596,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -103604,6 +103686,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -105217,6 +105300,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -108302,6 +108386,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -108391,6 +108476,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -110006,6 +110092,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -113091,6 +113178,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -113175,6 +113263,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -114805,6 +114894,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -117893,6 +117983,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -118021,6 +118112,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -118602,6 +118694,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -118984,7 +119077,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--with depletion set
   ************************************************************ 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -124443,6 +124536,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -124532,6 +124626,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -126145,6 +126240,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -129230,6 +129326,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -129319,6 +129416,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -130934,6 +131032,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -134019,6 +134118,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -134103,6 +134203,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -135733,6 +135834,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -138821,6 +138923,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -138949,6 +139052,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -139530,6 +139634,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -139914,6 +140019,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -140042,6 +140148,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -140623,6 +140730,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -141005,7 +141113,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--with current particle set
   ***************************************************************** 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -146464,6 +146572,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -146553,6 +146662,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -148166,6 +148276,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -151251,6 +151362,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -151340,6 +151452,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -152955,6 +153068,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -156040,6 +156154,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -156124,6 +156239,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -157754,6 +157870,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -160842,6 +160959,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -160970,6 +161088,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -161551,6 +161670,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -161933,7 +162053,7 @@ SECONDARY PARTICLE DATA:
      Get all data for requested isotopes--with temperature set
   ***************************************************************** 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 STRING VALUES:
 ZAID:  92235.600nm
@@ -167392,6 +167512,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -167481,6 +167602,7 @@ No. reaction prod--rmo:  2   1
 No. reaction prod--few:  0   0   
 Reaction MT:  2   102   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -169094,6 +169216,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -172179,6 +172302,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -172268,6 +172392,7 @@ No. reaction prod--rmo:  2   2   2   1   2   2
 No. reaction prod--few:  0   0   0   0   0   0   
 Reaction MT:  2   4   17   102   107   103   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -173883,6 +174008,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -176968,6 +177094,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  30
@@ -177052,6 +177179,7 @@ No. reaction prod--rmo:  2   2   2   2   1   2   2   2   2
 No. reaction prod--few:  0   0   2   0   1   2   2   2   2   
 Reaction MT:  2   4   16   17   102   19   20   21   18   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -178682,6 +178810,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -181770,6 +181899,7 @@ Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
+  ****Error -5 setting current particle photon.
 
 INTEGER VALUES:
 No. of groups:  
@@ -181898,6 +182028,7 @@ Reaction MT:  ***ERROR GETTING SIZE FOR Reaction MT.
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS:
 Energy boundaries: 
@@ -182479,6 +182610,7 @@ Reaction prod. multiplicity--few (MT=999):
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   
 
+  ****Error -5 setting current particle photon.
 
 FLOAT64 VECTORS (N):
 Scatter matrix--lower diagonal (0): 
@@ -182863,7 +182995,7 @@ SECONDARY PARTICLE DATA:
 
  ***********C values***********
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 No. reaction prod--all (C=10):2
 No. reaction prod--rmo (C=10):2
@@ -183543,7 +183675,7 @@ Reaction cross section (C=999):
 
  ***********MT values***********
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 No. reaction prod--all (MT=2):2
 No. reaction prod--rmo (MT=2):2
@@ -184156,7 +184288,7 @@ Reaction cross section (MT=999):
      Test using unknown keywords.
   ***************************************************************** 
 
-***********************ISOTOPE=92235***********************
+***********************ISOTOPE=92235.***********************
 
 String value (NDI_COLLAPSE):  
   **Error -4: in string_val (NDI_COLLAPSE) -- returned value is ''

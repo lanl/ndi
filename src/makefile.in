@@ -132,7 +132,6 @@ SRC_TESTC := \
 	test/kerma_example.c \
 	test/kerma_example_handle.c \
 	test/mg_sec_part.c \
-	test/mgn_c.c \
 	test/mpmg.c \
 	test/ndid.c \
 	test/ngk_test.c \

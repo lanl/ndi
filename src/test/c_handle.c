@@ -35,14 +35,14 @@ int main (void)
 
 int testc (void)
 {
-     int handle = 0;
-   int ierr;
+    int handle = 0;
+   int ierr = 0;
    int i;
    int num_zaid = 5;
    int ext_num_zaid = 24;
    char test_zaid[133] = "";
 
-   char *zaid_list[] = { "92235", "1001.600nm", "o16", "pu239", "10020"  };
+   char *zaid_list[] = { "92235.", "1001.600nm", "o16", "pu239", "10020"  };
    char *extend_zaid_list[] = { "o16", "pu239", "U-233", "fe", "016", "Fl-19",
 				"ne20", "i129.6", "pu239.600nm", "u235500nm",
 				"24000", "1001.", "92235.5", "26054.60", "94241.990",
@@ -989,7 +989,7 @@ static int check_ndi_string_val_func_mgn(int handle)
 /****************************************************************
 ****************************************************************/
 
-int check_ndi_int_val_func_mgn(int handle)
+static int check_ndi_int_val_func_mgn(int handle)
 
 {
    int n;
@@ -1021,6 +1021,9 @@ int check_ndi_int_val_func_mgn(int handle)
       "Pn order -- photon prod" };
 
    tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
+   if ( tmp_err ) {
+     printf("  ****Error %d setting current particle photon.\n", tmp_err );
+   }
 
    printf("\nINTEGER VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
@@ -1392,6 +1395,9 @@ static int check_ndi_float_vec_func_mgn(int handle)
 
 
    tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
+   if ( tmp_err ) {
+     printf("  ****Error %d setting current particle photon.\n", tmp_err );
+   }
 
    printf("\nFLOAT64 VECTORS:\n");
 
@@ -1583,6 +1589,9 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
 
 
    tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
+   if ( tmp_err ) {
+     printf("  ****Error %d setting current particle photon.\n", tmp_err );
+   }
    printf("\nFLOAT64 VECTORS (N):\n");
 
    /* Handle data which require a Pn order as input */
