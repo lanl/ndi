@@ -9,7 +9,7 @@
       character*13 str_arr(500)
       real*8 awr(500)
 
-      integer gendir;
+      integer gendir
 
       call ndi2_open_gendir(gendir, "", ierr)
       if ( ierr .ne. 0 ) then
