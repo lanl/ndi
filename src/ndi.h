@@ -34,6 +34,8 @@ extern "C" {
     /* Gendir functions */
     int ndi2_open_gendir(int *handle, const char *path);
     int ndi2_set_option_gendir(int handle, int in_key, const char *value);
+    int ndi2_check_option_gendir(int handle, int in_key, char *out_value,
+                                 int string_size);
     int ndi2_get_handle_gendir(int handle0, int *handle1);
     int ndi2_close_gendir(int handle);
 

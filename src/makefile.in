@@ -140,7 +140,9 @@ SRC_TESTC := \
 	test/ex_gendir_path.c \
 	test/ex_kerma1.c \
 	test/ex_kerma2.c \
+	test/gendir_handle.c \
 	test/gendir_path.c \
+	test/handle_bashing.c \
 	test/kerma_example.c \
 	test/kerma_example_handle.c \
 	test/library_check.c \
@@ -195,6 +197,7 @@ SRC_TESTF := \
 	test/gendir_pathf.F \
 	test/library_checkf.F \
 	test/mpmgf.F \
+	test/mpmg2f.F \
 	test/ndi_testf.F\
 	test/ndi_testf2.F\
 	test/ndidf.F\

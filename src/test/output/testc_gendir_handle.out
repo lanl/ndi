@@ -1,0 +1,39 @@
+GENDIR0 (path=../../src/test/lib/gendir.test)
+  Library type:  multigroup_neutron
+  Library:  mendf5
+  Matrix order:  default
+  Collapse:  16_lanl
+  Transport correction:  none
+  Normalize:  norm
+  Reaction identifier:  mt
+  Average group energy:  from_vel
+  Kerma:  use_data
+  Default fission product:  50999
+  Handle0
+    Gendir path:  ../../src/test/lib/gendir.test
+    Library type:  multigroup_neutron
+    Library:  mendf5
+    Matrix order:  default
+    Collapse:  16_lanl
+    Transport correction:  none
+    Normalize:  norm
+    Reaction identifier:  mt
+    Average group energy:  from_vel
+    Kerma:  use_data
+    Default fission product:  50999
+  Handle1
+    Gendir path:  ../../src/test/lib/gendir.test
+    Library type:  multigroup_neutron
+    Library:  mendf5
+    Matrix order:  default
+    Collapse:  16_lanl
+    Transport correction:  bhs_3
+    Normalize:  norm
+    Reaction identifier:  mt
+    Average group energy:  from_vel
+    Kerma:  use_data_calc
+    Default fission product:  50999
+
+GENDIR1 (path=../../src/test/lib/gendir.test2)
+  Handle0
+    Zaid=4009.991nm

@@ -47,6 +47,15 @@ int ndimp_get_size(state_struct *handle[], const int num_parts,
 	return_val = get_num_unique_reac(handle, num_parts, ierr);
 	break;
 
+    /* All single values */
+    case  NDI_NUM_GRPS:
+    case NDI_PN_ORDER:
+    case NDI_NUM_PNU_PR:
+    case NDI_NUM_REAC:
+    case NDI_FISSIONABLE:
+        return_val = 1;
+        break;
+
     default:
 	*ierr = -4;
 	return_val = 0;

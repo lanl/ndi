@@ -1,0 +1,123 @@
+*********** TEST 1 -- Too many gendir handles ***********
+
+  gendir0 collapse = default
+  gendir1 collapse = default
+  gendir2 collapse = default
+  gendir3 collapse = default
+  gendir4 collapse = default
+  gendir5 collapse = default
+  gendir6 collapse = default
+  gendir7 collapse = default
+  gendir8 collapse = default
+  gendir9 collapse = default
+    **Error -1 in NDI open gendir10.
+    **Error -2 in setting option for gendir10.
+    **Error -2 in checking option for gendir10.
+    **Error -1 in NDI open gendir11.
+    **Error -2 in setting option for gendir11.
+    **Error -2 in checking option for gendir11.
+    **Error -1 in NDI open gendir12.
+    **Error -2 in setting option for gendir12.
+    **Error -2 in checking option for gendir12.
+    **Error -1 in NDI open gendir13.
+    **Error -2 in setting option for gendir13.
+    **Error -2 in checking option for gendir13.
+    **Error -1 in NDI open gendir14.
+    **Error -2 in setting option for gendir14.
+    **Error -2 in checking option for gendir14.
+
+
+*********** TEST 2 -- Ill-gotten, but valid handle ***********
+
+    **Error -2 in setting library type for ill-gotten handle21.
+    **Error -2 in checking option for ill-gotten handle21.
+
+
+*********** TEST 3 -- Too many non-gendir handles ***********
+
+  handle0 collapse = 21_lanl
+  handle1 collapse = 21_lanl
+  handle2 collapse = 21_lanl
+  handle3 collapse = 21_lanl
+  handle4 collapse = 21_lanl
+  handle5 collapse = 21_lanl
+  handle6 collapse = 21_lanl
+  handle7 collapse = 21_lanl
+  handle8 collapse = 21_lanl
+  handle9 collapse = 21_lanl
+    **Error -1 in getting handle10.
+    **Error -2 in setting option for handle10.
+    **Error -2 in checking option for handle10.
+    **Error -1 in getting handle11.
+    **Error -2 in setting option for handle11.
+    **Error -2 in checking option for handle11.
+    **Error -1 in getting handle12.
+    **Error -2 in setting option for handle12.
+    **Error -2 in checking option for handle12.
+    **Error -1 in getting handle13.
+    **Error -2 in setting option for handle13.
+    **Error -2 in checking option for handle13.
+    **Error -1 in getting handle14.
+    **Error -2 in setting option for handle14.
+    **Error -2 in checking option for handle14.
+
+
+*********** TEST 4 -- Too many layers of handles ***********
+
+  handle1 collapse = default
+    **Error -2 in setting library type for handle2.
+    **Error -2 in checking option for handle2.
+    **Error -2 in getting handle3.
+    **Error -2 in setting library type for handle3.
+    **Error -2 in checking option for handle3.
+    **Error -2 in getting handle4.
+    **Error -2 in setting library type for handle4.
+    **Error -2 in checking option for handle4.
+    **Error -2 in getting handle5.
+    **Error -2 in setting library type for handle5.
+    **Error -2 in checking option for handle5.
+    **Error -2 in getting handle6.
+    **Error -2 in setting library type for handle6.
+    **Error -2 in checking option for handle6.
+    **Error -2 in getting handle7.
+    **Error -2 in setting library type for handle7.
+    **Error -2 in checking option for handle7.
+    **Error -2 in getting handle8.
+    **Error -2 in setting library type for handle8.
+    **Error -2 in checking option for handle8.
+    **Error -2 in getting handle9.
+    **Error -2 in setting library type for handle9.
+    **Error -2 in checking option for handle9.
+    **Error -2 in getting handle10.
+    **Error -2 in setting library type for handle10.
+    **Error -2 in checking option for handle10.
+    **Error -2 in getting handle11.
+    **Error -2 in setting library type for handle11.
+    **Error -2 in checking option for handle11.
+    **Error -2 in getting handle12.
+    **Error -2 in setting library type for handle12.
+    **Error -2 in checking option for handle12.
+    **Error -2 in getting handle13.
+    **Error -2 in setting library type for handle13.
+    **Error -2 in checking option for handle13.
+    **Error -2 in getting handle14.
+    **Error -2 in setting library type for handle14.
+    **Error -2 in checking option for handle14.
+
+
+*********** TEST ? -- Close all gendirs ***********
+
+    **Error -2 closing gendir1.
+    **Error -2 closing gendir2.
+    **Error -2 closing gendir3.
+    **Error -2 closing gendir4.
+    **Error -2 closing gendir5.
+    **Error -2 closing gendir6.
+    **Error -2 closing gendir7.
+    **Error -2 closing gendir8.
+    **Error -2 closing gendir9.
+    **Error -2 closing gendir10.
+    **Error -2 closing gendir11.
+    **Error -2 closing gendir12.
+    **Error -2 closing gendir13.
+    **Error -2 closing gendir14.

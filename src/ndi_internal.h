@@ -422,6 +422,7 @@ extern "C" {
 		       int *new_grp, double **new_grp_bounds,
 		       const char *grp_struc, char library_type,
 		       int **new_ebound_index, short *c_flag);
+    int ndi_set_collapse(state_struct *state, const char *value);
 /*
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);

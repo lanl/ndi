@@ -18,7 +18,6 @@
 static int ndi_set_lib_type(state_struct *state, const char *value);
 static int ndi_set_library(state_struct *state, const char *value);
 static int ndi_set_mat_order(state_struct *state, const char *value);
-static int ndi_set_collapse(state_struct *state, const char *value);
 static int ndi_set_ebounds_curr_part(state_struct *state,
 				     const char *value);
 static int ndi_set_norm(state_struct *state, const char *value);
@@ -112,7 +111,6 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
 	/* Specify reaction identifiers--MT or C values */
 	ierr = ndi_set_reac_id(state, value);
 	break;
-
     case NDI_E_AVG:
 	/* Specify how to calculate average bin energies */
 	ierr = ndi_set_e_avg(state, value);
@@ -176,13 +174,14 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
 	if (strncmp(value, "default", 8) == 0) {
 	    strncpy(state->def_fiss_prod_id, DEF_FISSION_PROD,
 		    sizeof(state->def_fiss_prod_id));
-	} else {
-	    strncpy(state->def_fiss_prod_id, value,
+	} else { 
+            strncpy(state->def_fiss_prod_id, value,
 		    sizeof(state->def_fiss_prod_id));
+        /*  Shouldn't need this--no one should be inputting symbols
 	    ierr =
 		ndi_std_zaid(state, state->def_fiss_prod_id,
 			     sizeof(state->def_fiss_prod_id));
-/*        printf ("FISS PROD:>>>>%s<<<<<\n",def_fiss_prod_id ); */
+        */
 	}
 	break;
 
@@ -292,11 +291,11 @@ static int ndi_set_library(state_struct *state, const char *value)
 	strncpy(state->library_vers, "", sizeof(state->library_vers));
     } else {
 	if (ndi_lib_dir(state, state->particle_type, state->library_type, "l", value, 0) == 1) {
-	    if ((val_length + 1) < 26) {	/* Size of library_vers is 13 in ndi_init */
+	    if ((val_length + 1) < MAX_LIB_VERS_LEN) {	/* Size of library_vers is 13 in ndi_init */
 		strncpy(state->library_vers, value,
 			(val_length + 1) * sizeof(char));
 	    } else {
-		strncpy(state->library_vers, value, (26 * sizeof(char)));
+		strncpy(state->library_vers, value, (MAX_LIB_VERS_LEN * sizeof(char)));
 	    }
 	} else {
 	    ierr = 54;
@@ -343,7 +342,7 @@ static int ndi_set_mat_order(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_set_collapse(state_struct *state, const char *value)
+int ndi_set_collapse(state_struct *state, const char *value)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -442,10 +441,11 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 
 
     if (ierr >= 0) {
-	strcpy(state->n_group, value);
+	strcpy(part->n_group, value);
     } else {
-	strcpy(state->n_group, "default");
+	strcpy(part->n_group, "default");
     }
+
     return (ierr);
 }
 

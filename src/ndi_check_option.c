@@ -486,8 +486,10 @@ static int ndi_get_kerma_calc(state_struct *state, char *value,
 
     if (state->kerma_calc == CALC) {
 	strncpy(value, "use_calc", string_size);
+    } else if (state->kerma_calc == DATA_CALC) {
+	strncpy(value, "use_data_calc", string_size);
     } else if (state->kerma_calc == DATA) {
-	strncpy(value, "no_calc", string_size);
+	strncpy(value, "use_data", string_size);
     } else {
 	strncpy(value, "", string_size);
 	ierr = -27;

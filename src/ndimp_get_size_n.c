@@ -24,6 +24,14 @@ ndimp_get_size_n(state_struct *handle[], const int num_parts,
 	return_val = tmp_int * tmp_int;
 	break;
 
+    case NDI_SIG_REAC:
+    case NDI_PNU_PR:
+    case NDI_SIG_PNU_PR:
+    case NDI_CORR_DIAG:
+    case NDI_CORR_BHS:
+        *ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS, &return_val);
+        break;
+
     default:
 	*ierr = -4;
 	return_val = 0;

@@ -38,6 +38,8 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
     case NDI_SIG_REAC:
     case NDI_PNU_PR:
     case NDI_SIG_PNU_PR:
+    case NDI_CORR_DIAG:
+    case NDI_CORR_BHS:
         ierr = 
             GET_COMB_FLOAT_VEC_N(handle, num_parts, in_key,
                                  vec_num, ret_vec, vec_size);
