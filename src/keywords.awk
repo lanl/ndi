@@ -12,7 +12,7 @@
 #  ========================================================================  #
 
 BEGIN {
-    printf("       integer,             parameter :: NDI_REAL = 8\n");
+    printf("       integer,          parameter :: NDI_REAL = 8\n");
     printf("       integer,          parameter :: NDI_INT  = 4\n");
 }
 
