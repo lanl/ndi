@@ -4,10 +4,6 @@
 
 * Hook up NDI 2.0 ndid functionality
 
-* Add chi matrices to mpmg
-
-* Add NDI_E_AVG (average bin energy) to mpmg
-
 * Implement "intermediate convenience functions"
 
 * Handle problems with null string as path for ndi2_open_gendir
@@ -18,7 +14,3 @@
   Consider format change; consider major function rewrite (odiferous functions)
 
 * Factor get_float_vec and get_float_vec_n into raw data layer + transpose layer
-
-* User Baker: PNU doesn't work with isotopes specified using, e.g. 'u235'
-
-* User Baker: mpmg cores if neutron group = 4 while photon group = 12

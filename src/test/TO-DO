@@ -4,3 +4,10 @@
 
 * Write test to check incompatible group structures for particles in mpmg
 
+* Add tests of mpmg chi matrices
+
+* Add tests of mpmg NDI_E_AVG (average bin energy)
+
+* Add test of symbolic isotope spec when setting isotope for mpmg
+
+
