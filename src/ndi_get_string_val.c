@@ -24,6 +24,9 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
 static int get_string_tnreac(state_struct *state, int in_key,
 			     char *ret_val, int str_size);
 
+static int get_string_mpmg(state_struct *state, int in_key, 
+			   char *ret_val, int str_size);
+
 /**********************************************************************/
 
 int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
@@ -70,6 +73,8 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
               } else if ( state->library_type == '0' ) {
               ierr = get_string_depl( in_key, ret_val, str_size );
             */
+        } else if (state->library_type == 'p') {
+	    ierr = get_string_mpmg(state, in_key, ret_val, str_size);
         } else if (state->library_type == ' ') {
             /* Library type was not set */
             ierr = -16;
@@ -317,6 +322,44 @@ static int get_string_tnreac(state_struct *state, int in_key,
 
     case NDI_LIBRARY_NAME:	/* Name of current library */
 	strncpy(ret_val, state->tnreac_stat.library_name, str_size);
+	break;
+
+      /**************  UNKNOWN KEYWORD  *****************/
+
+    default:
+	ierr = -4;
+	break;
+    }
+
+    return (ierr);
+}
+
+/**********************************************************************/
+/**********************************************************************/
+static int get_string_mpmg(state_struct *state, int in_key,
+			   char *ret_val, int str_size)
+{
+
+    int ierr = 0;		/* Error flag: 
+				   0=no error,pos=warning, neg=error */
+
+    if (!state) {
+	return (-2);
+    }
+
+    /* Default return value is empty string */
+    if ((ret_val) && (str_size > 0))
+	*ret_val = '\0';
+
+
+   /*************************/
+    /*   Process input key   */
+   /*************************/
+    switch (in_key) {
+
+    case NDI_ZAID:		/*  NDI_ZAID  */
+	/* Check that isotope is set */
+	strncpy(ret_val, state->iso_stat.zaid, str_size);
 	break;
 
       /**************  UNKNOWN KEYWORD  *****************/

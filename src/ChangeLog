@@ -1,3 +1,14 @@
+2004-05-06  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_get_string_val.c (get_string_mpmg): added mpmg to list of
+	particle types
+
+	* ndi_user_functions_handles.c (NDI2_set_zaid): copied input zaid
+	to multiparticle iso_stat.zaid
+
+	* ndimp_set_option.c (ndimp_set_option): added NORM, MAT_ORDER,
+	TRANS_CORR to list of acceptable keywords
+
 2004-04-29  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* makefile.in (SRC): moved ndi_skip_float_block from SRC_FLOAT to

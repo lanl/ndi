@@ -132,6 +132,7 @@ int NDI2_set_zaid(int handle, const char *zaid)
     if (is_gendir(handle)) {
         return -2;
     } else if (is_mpmg(state_p)) {
+	strcpy(state_p->iso_stat.zaid, zaid); /* absorb in following call? */
         return (ndimp_set_zaid(state_p->handle_map,
                                state_p->handle_free,
                                zaid ));
@@ -228,7 +229,7 @@ int NDI2_set_option(int handle, int in_key, const char *value)
   
     state_p = handle_to_state_p(handle);
 
-    if (is_mpmg(state_p)) {
+    if (is_mpmg(state_p) && in_key == NDI_LIBRARY) {
 	return (ndimp_set_option(state_p, in_key, value));
     } else {
         return (ndi_c_set_option_h(state_p, in_key, value));
@@ -548,26 +549,7 @@ int NDI2_get_string_val(int handle, int in_key, char *ret_val,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-
-    if ((ret_val) && (str_size > 0))
-        *ret_val = '\0';
-
-    if (is_mpmg(state_p)) {
-	return (ndimp_get_string_val(state_p->handle_map, 
-				     state_p->handle_free, 
-				     in_key, ret_val, str_size));
-    } else if (is_gendir(handle)) {
-        if ((in_key == NDI_GENDIR_PATH) ||
-            (in_key == NDI_VERSION)) {
-            return(ndi_c_get_string_val_h(state_p, in_key,
-                                          ret_val, str_size));
-        } else {
-            return -2;
-        }
-    } else {
-	return (ndi_c_get_string_val_h(state_p, 
-				       in_key, ret_val, str_size));
-    }
+    return (ndi_c_get_string_val_h(state_p, in_key, ret_val, str_size));
 }
 
 int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
