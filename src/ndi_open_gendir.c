@@ -36,7 +36,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
     static char *default_file[] = {"/usr/local/codes/data/nuclear/ndi/"
-				   NDI_VERSION_DATA"/share/gendir",
+				   NDI_VERSION_DATA "/share/gendir",
 				   "/usr/projects/data/nuclear/ndi/"
 				   NDI_VERSION_DATA "/share/gendir",
 				   "/usr/gapps/lanl-data/nuclear/ndi/"
@@ -109,7 +109,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
     return (ierr);
 }
 
-int isblank(const char *str)
+static int isblank(const char *str)
 {
 
     int i;

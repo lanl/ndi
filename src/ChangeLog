@@ -1,3 +1,9 @@
+2004-10-25  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_user_functions_handles.c: added basic Doxygen headers
+
+	* ndi_open_gendir.c (isblank): made isblank static
+
 2004-10-18  Mark G. Gray  <mgg@l82.lanl.gov>
 
 	* ndi_internal.h (NDI_CURR_ERR): uncomment and use macro

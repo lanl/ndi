@@ -7,10 +7,9 @@
 #include "ndi_var_type.h"
 
 /*!
-  \fn NDI2_open_gendir
-  \brief initialize level 0 (gendir) handle
+  \brief create gendir handle
   \param handle: level 0 handle
-  \param path: gendir path; "" for default
+  \param path: gendir path string; "" for default path
   \return 0 if successful; negative if error
 */
 int NDI2_open_gendir(int *handle, const char *path)
@@ -30,7 +29,6 @@ int NDI2_open_gendir(int *handle, const char *path)
 }
 
 /*!
-  \fn NDI2_set_option_gendir
   \brief set global option
   \param handle: gendir handle
   \param in_key: option key
@@ -57,7 +55,6 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
 }
 
 /*!
-  \fn NDI2_check_option_gendir
   \brief check global options
   \param handle: gendir handle
   \param in_key: option key
@@ -90,6 +87,11 @@ int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 
 }
 
+/*!
+  \brief release gendir handle
+  \param handle: gendir handle
+  \return 0 if successful, negative if error
+*/
 int NDI2_close_gendir(int handle)
 {
     state_struct *state_p;
@@ -104,7 +106,6 @@ int NDI2_close_gendir(int handle)
 }
 
 /*!
-  \fn NDI2_make_handle
   \brief make child handle of type from parent handle
   \param handle0: parent handle
   \param type: library type
@@ -131,11 +132,23 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
 	return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
 }
 
+/*!
+  \brief set zaid for multi-group transport data handle
+  \param handle: handle
+  \param zaid: Z, A id
+  \return 0 if successful, negative if error
+*/
 int NDI2_set_isotope(int handle, const char *zaid)
 {
     return NDI2_set_zaid(handle, zaid);
 }
 
+/*!
+  \brief set zaid for multi-group transport data handle
+  \param handle: handle
+  \param zaid: Z, A id
+  \return 0 if successful, negative if error
+*/
 int NDI2_set_zaid(int handle, const char *zaid)
 {
     state_struct *state_p;
@@ -151,6 +164,12 @@ int NDI2_set_zaid(int handle, const char *zaid)
     }
 }
 
+/*!
+  \brief set zaid for handle
+  \param handle: handle
+  \param zaid: Z, A id
+  \return 0 if successful, negative if error
+*/
 int NDI2_set_reaction(int handle, const char *zaid)
 {
     state_struct *state_p;
@@ -165,6 +184,13 @@ int NDI2_set_reaction(int handle, const char *zaid)
     }
 }
 
+/*!
+  \brief get size for keyword data from handle
+  \param handle: handle
+  \param in_key: keyword
+  \param ierr: 0 if successful, negative if error
+  \return size
+*/
 int NDI2_get_size(int handle, int in_key, int *ierr)
 {
     state_struct *state_p;
@@ -173,6 +199,14 @@ int NDI2_get_size(int handle, int in_key, int *ierr)
     return (ndi_c_get_size_h(state_p, in_key, ierr));
 }
 
+/*!
+  \brief get size for n-th keyword data from handle
+  \param handle: handle
+  \param in_key: keyword
+  \param vec_num: index
+  \param ierr: 0 if successful, negative if error
+  \return size
+*/
 int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 {
     state_struct *state_p;
@@ -191,8 +225,7 @@ int NDI2_get_size_x(int handle, int in_key, const char *in_str,
 }
 
 /*!
-  \fn NDI2_set_option
-  \brief set handle option
+  \brief set string option for handle
   \param handle: handle
   \param in_key: option key
   \param value: option value
@@ -213,6 +246,14 @@ int NDI2_set_option(int handle, int in_key, const char *value)
     }
 }
 
+/*!
+  \brief set float64 vector option for handle
+  \param handle: handle
+  \param in_key: option key
+  \param option_array: option values
+  \param array_size: size of option array
+  \return 0 if successful, negative if error
+*/
 int NDI2_set_float64_vec_option(int handle, int in_key,
 			    const ndi_float64 * option_array,
 			    int array_size)
@@ -229,6 +270,14 @@ int NDI2_set_float64_vec_option(int handle, int in_key,
     }
 }
 
+/*!
+  \brief get string option value for handle
+  \param handle: handle
+  \param in_key: option key
+  \param out_value: option value
+  \param string_size: maximum size of option string
+  \return 0 if successful, negative if error
+*/
 int NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
 {
     state_struct *state_p;
@@ -237,6 +286,13 @@ int NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
     return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
 }
 
+/*!
+  \brief get integer value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param ret_val: return value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_int_val(int handle, int in_key, int *ret_val)
 {
     state_struct *state_p;
@@ -245,6 +301,14 @@ int NDI2_get_int_val(int handle, int in_key, int *ret_val)
     return (ndi_c_get_int_val_h(state_p, in_key, ret_val));
 }
 
+/*!
+  \brief get n-th integer value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index of requested value
+  \param ret_val: return value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
 {
     state_struct *state_p;
@@ -253,6 +317,14 @@ int NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
     return (ndi_c_get_int_val_n_h(state_p, in_key, vec_num, ret_val));
 }
 
+/*!
+  \brief get integer vector of values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param return_vec: vector of values
+  \param vec_size: maximum size of integer vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -261,6 +333,15 @@ int NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
     return (ndi_c_get_int_vec_h(state_p, in_key, return_vec, vec_size));
 }
 
+/*!
+  \brief get n-th integer vector of values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index of vector
+  \param return_vec: vector of values
+  \param vec_size: maximum size of integer vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
 		   int *return_vec, int vec_size)
 {
@@ -271,6 +352,13 @@ int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
                                       return_vec, vec_size));
 }
 
+/*!
+  \brief get float value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param ret_val: float value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
 {
     state_struct *state_p;
@@ -279,6 +367,14 @@ int NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
     return (ndi_c_get_float32_val_h(state_p, in_key, ret_val));
 }
 
+/*!
+  \brief get n-th float value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index value
+  \param ret_val: float value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
 		       ndi_float32 *ret_val)
 {
@@ -294,6 +390,14 @@ int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
     }
 }
 
+/*!
+  \brief get float vector values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float32_vec(int handle, int in_key,
 		     ndi_float32 * return_vec, int vec_size)
 {
@@ -303,6 +407,15 @@ int NDI2_get_float32_vec(int handle, int in_key,
     return (ndi_c_get_float32_vec_h(state_p, in_key, return_vec, vec_size));
 }
 
+/*!
+  \brief get n-th float vector from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
 		       ndi_float32 * return_vec, int vec_size)
 {
@@ -324,6 +437,15 @@ int NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
     }
 }
 
+/*!
+  \brief get named float vector values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param in_str: name
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float32_vec_x(int handle, int in_key,
 		       const char *in_str, ndi_float32 * return_vec,
 		       int vec_size)
@@ -341,6 +463,13 @@ int NDI2_get_float32_vec_x(int handle, int in_key,
     }
 }
 
+/*!
+  \brief get float value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param ret_val: float value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
 {
     state_struct *state_p;
@@ -349,6 +478,14 @@ int NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
     return (ndi_c_get_float64_val_h(state_p, in_key, ret_val));
 }
 
+/*!
+  \brief get n-th float value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index value
+  \param ret_val: float value
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
                            ndi_float64 *ret_val)
 {
@@ -364,6 +501,14 @@ int NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
     }
 }
 
+/*!
+  \brief get float vector values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float64_vec(int handle, int in_key,
 		     ndi_float64 * return_vec, int vec_size)
 {
@@ -373,6 +518,15 @@ int NDI2_get_float64_vec(int handle, int in_key,
     return (ndi_c_get_float64_vec_h(state_p, in_key, return_vec, vec_size));
 }
 
+/*!
+  \brief get n-th float vector from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 		       ndi_float64 * return_vec, int vec_size)
 {
@@ -394,6 +548,15 @@ int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
     }
 }
 
+/*!
+  \brief get named float vector values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param in_str: name
+  \param return_vec: float vector
+  \param vec_size: maximum size of float vector
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_float64_vec_x(int handle, int in_key,
 		       const char *in_str, ndi_float64 * return_vec,
 		       int vec_size)
@@ -411,6 +574,14 @@ int NDI2_get_float64_vec_x(int handle, int in_key,
     }
 }
 
+/*!
+  \brief get string value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param ret_val: string value
+  \param str_size: maximum size of string
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_string_val(int handle, int in_key, char *ret_val,
                         int str_size)
 {
@@ -420,6 +591,15 @@ int NDI2_get_string_val(int handle, int in_key, char *ret_val,
     return (ndi_c_get_string_val_h(state_p, in_key, ret_val, str_size));
 }
 
+/*!
+  \brief get n-th string value from handle
+  \param handle: handle
+  \param in_key: option key
+  \param vec_num: index
+  \param ret_val: string
+  \param str_size: maximum size of string
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
                           char *ret_val, int str_size)
 {
@@ -430,6 +610,14 @@ int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 				     ret_val, str_size));
 }
 
+/*!
+  \brief get string vector of values from handle
+  \param handle: handle
+  \param in_key: option key
+  \param ret_val: vector of strings
+  \param string_size: maximum size of strings
+  \return 0 if successful, negative if error
+*/
 int NDI2_get_string_vec(int handle, int in_key, char *ret_val,
                         int str_size)
 {
