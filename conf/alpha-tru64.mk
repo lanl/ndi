@@ -18,7 +18,7 @@ CFLAGS		+= -O
 endif
 ASFLAGS		:= $(CFLAGS)
 CPPFLAGS	:= -I.
-LDFLAGS		:= -L .
+LDFLAGS		:= -L.
 LDLIBS		:= -lndi
 
 # defines
