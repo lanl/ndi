@@ -38,10 +38,10 @@ int main ()
     /* Pass valid handle ID that wasn't appropriately allocated */
     printf("\n\n*********** TEST 2 -- Ill-gotten, but valid handle ***********\n\n");
     ill_gotten_handle = (2 * MAX_HANDLE_NUM) + 1;
-    ierr = NDI2_set_lib_type(ill_gotten_handle, "tn");
+    ierr = NDI2_set_option(ill_gotten_handle, NDI_LIB_TYPE, "tn");
     if (ierr)
-        printf("    **Error %d in setting library type for ill-gotten handle%d.\n", ierr,
-               ill_gotten_handle);
+	printf("    **Error %d in setting library type for ill-gotten handle%d.\n",
+	   ierr, ill_gotten_handle);
     ierr = NDI2_check_option(ill_gotten_handle, NDI_COLLAPSE, str_val, STRING_LEN);
     if (ierr)
         printf("    **Error %d in checking option for ill-gotten handle%d.\n", ierr, 
@@ -53,9 +53,9 @@ int main ()
     /* Get too many non-gendir handles */
     printf("\n\n*********** TEST 3 -- Too many non-gendir handles ***********\n\n");
     for (i = 0; i < MAX_HANDLES; i++) {
-        ierr = NDI2_get_handle_gendir(gendir[0], &handle[i]);
+        ierr = NDI2_make_handle(gendir[0], "multigroup_multi", &handle[i]);
         if (ierr)
-            printf("    **Error %d in getting handle%d.\n", ierr, i );
+            printf("    **Error %d in making handle%d.\n", ierr, i );
         ierr = NDI2_set_option(handle[i], NDI_COLLAPSE, "21_lanl");
         if (ierr)
             printf("    **Error %d in setting option for handle%d.\n", ierr, i );
@@ -70,14 +70,11 @@ int main ()
 
     /* Get too many layers of handles */
     printf("\n\n*********** TEST 4 -- Too many layers of handles ***********\n\n");
-    ierr = NDI2_set_lib_type(handle[0], "multigroup_multi");
     for (i = 1; i < MAX_HANDLES; i++) {
-        ierr = NDI2_get_handle(handle[i-1], &handle[i]);
+        ierr = NDI2_make_handle(handle[i-1], "multigroup_multi", &handle[i]);
         if (ierr)
-            printf("    **Error %d in getting handle%d.\n", ierr, i);
-        ierr = NDI2_set_lib_type(handle[i], "multigroup_multi");
-        if (ierr)
-            printf("    **Error %d in setting library type for handle%d.\n", ierr, i );
+            printf("    **Error %d in making handle%d.\n", ierr, i);
+
         ierr = NDI2_check_option(handle[i], NDI_COLLAPSE, str_val, STRING_LEN);
         if (ierr)
             printf("    **Error %d in checking option for handle%d.\n", ierr, i);

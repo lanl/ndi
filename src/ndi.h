@@ -36,14 +36,10 @@ extern "C" {
     int NDI2_set_option_gendir(int handle, int in_key, const char *value);
     int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
                                  int string_size);
-    int NDI2_get_handle_gendir(int handle0, int *handle1);
     int NDI2_close_gendir(int handle);
 
-    int NDI2_open(int *handle, const char *path); /* obsolete */
-    int NDI2_close(int handle);	/* obsolete */
-
     /* data handle functions */
-    int NDI2_set_lib_type(int handle, const char *type);
+    int NDI2_make_handle(int handle0, const char *type, int *handle1);
     int NDI2_set_isotope(int handle, const char *zaid);
     int NDI2_set_zaid(int handle, const char *zaid);
     int NDI2_set_reaction(int handle, const char *zaid);
@@ -51,7 +47,6 @@ extern "C" {
     int NDI2_check_option(int handle, int in_key, char *out_value,
 			  int string_size);
 
-    int NDI2_get_handle(int handle0, int *handle1);
     int NDI2_get_size(int handle, int in_key, int *ierr);
     int NDI2_get_size_n(int handle, int in_key, int vec_num,
 			int *ierr);
@@ -93,9 +88,6 @@ extern "C" {
 			    int str_size);
     int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 			      char *ret_val, int str_size);
-
-    int NDI2_get_handle_mpmg(int handle1, int *handle2);
-
 
 /**********************************************************************/
     /* Backwards compatibility user functions */

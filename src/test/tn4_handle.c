@@ -41,8 +41,8 @@ int testtn4(void)
    if ( ierr != 0 ) {
       return(0);
    }
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- testtn4\n\n");
 
@@ -50,8 +50,6 @@ int testtn4(void)
    /*  TEST OF INTERPOLATION AND INTEGRATION -- TN DATA  */
    printf("\n*******************************\n     TN DATA\n*******************************\n\n");
 
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
-   if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
    ierr = NDI2_set_option(handle, NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 

@@ -31,17 +31,11 @@ c     Initialize gendir
          endif
 
 c     Get mpmg handle 
-         call ndi2_get_handle_gendir(gendir_handle, data_handle, ierr)
+         call ndi2_make_handle(gendir_handle, "multigroup_multi", 
+     $        data_handle, ierr)
          if (ierr .ne. 0) then
             write(*, 20) ierr
- 20         format("  **Error ", i3, " in NDI get_handle mpmg.")
-         endif
-
-c     set mpmg handle type 
-         call ndi2_set_lib_type(data_handle, "multigroup_multi", ierr)
-         if (ierr .ne. 0) then
-            write(*,30) ierr
- 30         format("  **Error ", i3, " in NDI set_lib_type mpmg.")
+ 20         format("  **Error ", i3, " in NDI make_handle mpmg.")
          endif
 
 c     setup particles
@@ -396,27 +390,6 @@ c     ACCESS SINGLE-PARTICLE DATA
          endif
          write (*,335) "#1", part_zaid
             
-         call ndi2_get_int_val_n(data_handle, NDI_PARTICLE_OF_TYPE, 0, 
-     $        handle0, ierr)
-         call ndi2_get_string_val(handle0, NDI_ZAID, part_zaid,
-     $        ierr )
-         if (ierr .ne. 0) then
-            write(*,350) ierr
- 350        format(" ***Error getting handle of particle 0 is ", i3)
-         endif
-         write (*,335) "0", part_zaid
-
-         call ndi2_get_int_val_n(data_handle, NDI_PARTICLE_OF_TYPE, 1,
-     $        handle1, ierr)
-         call ndi2_get_string_val(handle1, NDI_ZAID, part_zaid,
-     $        ierr)
-         if (ierr .ne. 0) then
-            write(*,360) ierr
- 360        format(" ***Error getting handle of particle 1 is ", i3)
-         endif
-         write (*,335) "1", part_zaid
-
-
 c     CLOSE 
          call ndi2_close_gendir(gendir_handle, ierr)
          if (ierr .ne. 0) then

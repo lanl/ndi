@@ -153,11 +153,10 @@ c  '92234.50', 'u-235' /
 c     Test error on initialization before close
       call ndi2_open_gendir(gendir_h, "", ierr) 
 
-      call ndi2_get_handle(gendir_h, handle, ierr)
+      call ndi2_make_handle(gendir_h, "multigroup_neutron", 
+     $     handle, ierr)
 
       num_grp_str = '2_group'
-      call ndi2_set_option(handle,  NDI_LIB_TYPE,
-     $     'multigroup_neutron', ierr )
 
       write(*,300) "lib_type=", ierr
       call ndi2_set_option(handle,  NDI_LIBRARY, 'MENDF5', ierr)

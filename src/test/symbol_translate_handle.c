@@ -58,8 +58,8 @@ int main ()
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
 
-    ierr = NDI2_get_handle(gendir_h, &handle);
-    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+    ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
+    if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
     /*  For all ZAIDs */
     printf( "Interpret izaid before setting lib type.\n");
@@ -69,10 +69,6 @@ int main ()
 	    printf("  ****ERROR = %d\n", ierr );
 	printf ( "  izaid = %d;  SZA = %s\n", izaid[i], zaid_str );
     }
-
-    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-    if (ierr)
-	printf("  **Error %d setting lib type.\n\n", ierr );
 
     /*  For all ZAIDs */
     printf( "\nInterpret izaid after setting lib type.\n");

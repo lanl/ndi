@@ -26,12 +26,9 @@ int main ()
     ierr = NDI2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
-    ierr = NDI2_get_handle(gendir_h, &handle);
+    ierr = NDI2_make_handle(gendir_h, "dosimetry_neutron", &handle);
     if (ierr)
-	printf("  **Error %d getting particle handle.\n\n", ierr );
-    ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "dosimetry_neutron" );
-    if (ierr)
-	printf("  **Error %d in setting library type.\n\n", ierr );
+	printf("  **Error %d making particle handle.\n\n", ierr );
    
     /* Abundances should not require a library type or isotope to be set.
        However, that is currently not true.  "Dosimetry" must be the library

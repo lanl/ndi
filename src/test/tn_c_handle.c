@@ -84,8 +84,9 @@ int test_tn_c(void)
    printf(" ********************************************************** \n\n" );
    
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+   ierr = NDI2_make_handle(gendir_h, "", &handle);
+   /* if( ierr != 0 ) 
+      printf("  Error %d making particle handle.\n", ierr); */
    ierr = check_all_ndi_get_tn_functions(handle);
    ierr = NDI2_close_gendir(gendir_h);
 
@@ -100,9 +101,8 @@ int test_tn_c(void)
    printf(" ********************************************************** \n\n" );
    
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = check_all_ndi_get_tn_functions(handle);
    ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
@@ -118,9 +118,8 @@ int test_tn_c(void)
    printf(" ********************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -146,9 +145,8 @@ int test_tn_c(void)
    printf(" ************************************************************ \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
@@ -175,9 +173,8 @@ int test_tn_c(void)
    printf(" ************************************************************ \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 /*    ierr = ndi_set_option( NDI_LIBRARY, "testtn2" ); */
    ierr = NDI2_set_option(handle, NDI_LIBRARY, "testtn" );
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
@@ -206,9 +203,8 @@ int test_tn_c(void)
    printf(" ****************************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
    printf(" ***********Diagonal transport correction***********\n\n"); 
@@ -262,9 +258,8 @@ int test_tn_c(void)
    printf(" ************************************************************ \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_DEPLETION, "test_depl" );
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
@@ -296,9 +291,8 @@ int test_tn_c(void)
    printf(" ***************************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_CURR_PART, "1" );
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
@@ -327,9 +321,8 @@ int test_tn_c(void)
    printf(" ***************************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_TEMP, "300" );
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
@@ -356,9 +349,8 @@ int test_tn_c(void)
    printf(" ***************************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
    
@@ -397,9 +389,8 @@ int test_tn_c(void)
    printf(" ***************************************************************** \n\n" );
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
    ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
    printf("***********************REACTION=%s***********************\n\n",
 	  zaid_list[0] );

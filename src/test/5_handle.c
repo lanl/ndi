@@ -45,14 +45,11 @@ int test5(void)
     return(0);
   }
 
-  ierr = NDI2_get_handle(gendir_h, &handle);
-  if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+  ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
+  if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- test5\n\n");
   printf("\n\n****************************************\n  Test of MG secondary particle data\n");
-
-  ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
-  if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
   ierr = NDI2_set_isotope( handle, "92235" );
   if ( ierr != 0 ) printf("  Error setting isotope is %d.\n", ierr );

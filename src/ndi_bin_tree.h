@@ -43,7 +43,11 @@ struct ndi_bin_tree_node {
 extern "C" {
 #endif
 
-    struct ndi_bin_tree_node *ndi_build_tree(int in_key,
+    struct ndi_bin_tree_node *ndi_build_tree_float32(FILE *ndi_dir, int in_key,
+					       const char *in_value);
+    struct ndi_bin_tree_node *ndi_build_tree_float64(FILE *ndi_dir, int in_key,
+					       const char *in_value);
+    struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
 					     const char *in_value);
     struct ndi_bin_tree_node *ndi_create_node(char *instr);
     struct ndi_bin_tree_node *ndi_create_inode(char *instr, int int_val);

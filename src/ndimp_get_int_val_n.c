@@ -42,10 +42,6 @@ int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num, int *ret_val)
         }
         break;
 
-    case NDI_PARTICLE_OF_TYPE:
-        ierr = get_particle_index(h, vec_num, ret_val);
-        break;
-
     default:
 	ierr = -4;
 	break;
@@ -119,29 +115,4 @@ static int get_last_group_n(state_struct *h,
     return (ierr);
 }
 
-/**********************************************************************/
-static int get_particle_index(state_struct *h,
-                              const int part_type, int *return_val) 
-{
-    int ierr = 0;
-    int i;
-    state_struct **handle;
-    int num_parts;
-    
-    handle = h->handle_map;
-    num_parts = h->handle_free;
-    *return_val = -1;
-    
-    for (i = 0; i < num_parts; i++) {
-        if (part_type == handle[i]->particle_type) {
-            *return_val = handle[i]->handle;
-            break;
-        }
-    }
-
-    if (*return_val < 0) {
-        ierr = -5;
-    }
-    return(ierr);
-}
 /**********************************************************************/

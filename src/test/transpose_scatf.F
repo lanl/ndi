@@ -28,10 +28,10 @@ c     Single particle test
       write(*,*) " "
       write(*,*)  "*************** Single Particle Test ***************"
       write(*,*) " "
-      call ndi2_get_handle_gendir(gendir, single_part_handle, ierr)
-      call check_err(ierr, "getting single_particle_handle")
-      call ndi2_set_lib_type(single_part_handle, "multigroup_neutron",
-     $     ierr)
+      call ndi2_make_handle(gendir, "multigroup_neutron", 
+     $     single_part_handle, ierr)
+      call check_err(ierr, "making single_particle_handle")
+
       call check_err(ierr, "setting multigroup neutron")
       
       call ndi2_set_option(single_part_handle, NDI_LIBRARY, "mendf6",
@@ -69,11 +69,9 @@ c     Multiparticle test
       write(*,*) " "
       write(*,*)  "*************** Multiparticle Test ***************"
       write(*,*) " "
-      call ndi2_get_handle_gendir(gendir, mpmg_handle, ierr)
-      call check_err(ierr, "getting mpmg handle")
-      call ndi2_set_lib_type(mpmg_handle, "multigroup_multi",
-     $     ierr)
-      call check_err(ierr, "setting multigroup_multi")
+      call ndi2_make_handle(gendir, "multigroup_multi", 
+     $     mpmg_handle, ierr)
+      call check_err(ierr, "making mpmg handle")
      
       call ndi2_set_option(mpmg_handle, NDI_LIBRARY, "ngk6",
      $     ierr)
@@ -135,12 +133,10 @@ c     Single particle test
       write(*,*) " "
       write(*,*)  "*************** Single Particle Test ***************"
       write(*,*) " "
-      call ndi2_get_handle_gendir(gendir2, single_part_handle, ierr)
-      call check_err(ierr, "getting single_particle_handle")
+      call ndi2_make_handle(gendir2, "multigroup_neutron", 
+     $     single_part_handle, ierr)
+      call check_err(ierr, "making single_particle_handle")
 
-      call ndi2_set_lib_type(single_part_handle, "multigroup_neutron",
-     $     ierr)
-      call check_err(ierr, "setting multigroup neutron")
       call ndi2_set_option(single_part_handle, NDI_LIBRARY, "mendf6",
      $     ierr)
       call check_err(ierr, "setting mendf6 library")
@@ -165,13 +161,10 @@ c     Get another data handle after setting transpose
       call ndi2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
      $     'transpose', ierr)
       call check_err(ierr, "setting default mat order")
-      call ndi2_get_handle_gendir(gendir2, single_part_handle2,
-     $     ierr)
-      call check_err(ierr, "getting single_part_handle2")
+      call ndi2_make_handle(gendir2, "multigroup_neutron", 
+     $     single_part_handle2, ierr)
+      call check_err(ierr, "making single_part_handle2")
       
-      call ndi2_set_lib_type(single_part_handle2, "multigroup_neutron",
-     $     ierr)
-      call check_err(ierr, "setting multigroup_neutron")
       call ndi2_set_option(single_part_handle2, NDI_LIBRARY, "mendf6",
      $     ierr)
       call check_err(ierr, "setting mendf6 library")
@@ -194,11 +187,9 @@ c     Multiparticle test
       write(*,*) " "
       write(*,*)  "*************** Multiparticle Test ***************"
       write(*,*) " "
-      call ndi2_get_handle_gendir(gendir2, mpmg_handle, ierr)
-      call check_err(ierr, "getting mpmg handle")
-      call ndi2_set_lib_type(mpmg_handle, "multigroup_multi",
-     $     ierr)
-      call check_err(ierr, "setting multigroup_multi")
+      call ndi2_make_handle(gendir2, "multigroup_multi", 
+     $     mpmg_handle, ierr)
+      call check_err(ierr, "making mpmg handle")
 
 c     Set options
       call ndi2_set_option(mpmg_handle, NDI_LIBRARY, "ngk6",
@@ -238,11 +229,10 @@ c     Get another data handle after setting transpose
       call ndi2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
      $     'transpose', ierr)
       call check_err(ierr, "setting default mat order transpose")
-      call ndi2_get_handle_gendir(gendir2, mpmg_handle2, ierr)
+      call ndi2_make_handle(gendir2, "multigroup_multi", 
+     $     mpmg_handle2, ierr)
       call check_err(ierr, "getting mpmg_handle2")
-      call ndi2_set_lib_type(mpmg_handle2, "multigroup_multi",
-     $     ierr)
-      call check_err(ierr, "setting multigroup_multi")
+
       call ndi2_set_option(mpmg_handle2, NDI_LIBRARY, "ngk6",
      $     ierr)
       call check_err(ierr, "setting ngk6 library")

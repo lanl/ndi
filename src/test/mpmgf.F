@@ -27,41 +27,33 @@ c     Inintialize gendir
       endif
 
 c     Get mpmg handle 
-      call ndi2_get_handle_gendir(gendir_handle, data_handle, ierr)
+      call ndi2_make_handle(gendir_handle, "multigroup_multi", 
+     $     data_handle, ierr)
       if (ierr .ne. 0) then
          write(*, 20) ierr
- 20      format("  **Error ", i3, " in NDI get_handle mpmg.")
+ 20      format("  **Error ", i3, " in NDI make_handle.")
       endif
 
-c      set mpmg handle type 
-       call ndi2_set_lib_type(data_handle, "multigroup_multi", ierr)
-       if (ierr .ne. 0) then
-          write(*,30) ierr
- 30       format("  **Error ", i3, " in NDI set_lib_type mpmg.")
-       endif
-
 c     Initialize particle 1 
-       call ndi2_get_handle_mpmg(data_handle, handle(1), ierr)
+       call ndi2_make_handle(data_handle, "multigroup_neutron", 
+     $     handle(1), ierr)
        if (ierr .ne. 0) then
           write(*,40) ierr
- 40       format("  **Error ", i3, " in NDI get_handle_mpmg 0." )
+ 40       format("  **Error ", i3, " in NDI make_handle 0." )
        endif
 
-       call ndi2_set_option(handle(1), NDI_LIB_TYPE,
-     $      "multigroup_neutron", ierr)
        call ndi2_set_option(handle(1), NDI_LIBRARY, "acti", ierr)
        call ndi2_set_option(handle(1), NDI_COLLAPSE, "2_lanl", ierr)
        call ndi2_set_isotope(handle(1), "U235", ierr)
 
 c     Initialize particle 2 
-       call ndi2_get_handle_mpmg(data_handle, handle(2), ierr)
+       call ndi2_make_handle(data_handle,
+     $      "multigroup_photon", handle(2), ierr)
        if (ierr .ne. 0) then
           write(*, 50) ierr
- 50       format("  **Error ", i3, " in NDI get_handle_mpmg 1." )
+ 50       format("  **Error ", i3, " in NDI make_handle 1." )
        endif
 
-       call ndi2_set_option(handle(2), NDI_LIB_TYPE,
-     $      "multigroup_photon", ierr)
        call ndi2_set_option(handle(2), NDI_LIBRARY, "actig",
      $      ierr)
        call ndi2_set_float64_vec_option(handle(2), NDI_COLLAPSE,
@@ -69,14 +61,13 @@ c     Initialize particle 2
        call ndi2_set_isotope(handle(2), "92000", ierr)
 
 c     Initialize particle 3 
-       call ndi2_get_handle_mpmg(data_handle, handle(3), ierr)
+       call ndi2_make_handle(data_handle, "multigroup_neutron", 
+     $      handle(3), ierr)
        if (ierr .ne. 0) then
           write(*, 60) ierr
- 60       format("  **Error ", i3, " in NDI init 2." )
+ 60       format("  **Error ", i3, " in NDI make_handle 2." )
        endif
 
-       call ndi2_set_option(handle(3), NDI_LIB_TYPE,
-     $      "multigroup_neutron", ierr)
        call ndi2_set_option(handle(3), NDI_LIBRARY, "mendf5",
      $      ierr)
        call ndi2_set_option(handle(3), NDI_COLLAPSE, "2_lanl",

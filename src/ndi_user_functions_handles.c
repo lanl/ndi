@@ -90,19 +90,6 @@ int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 
 }
 
-int NDI2_get_handle_gendir(int handle0, int *handle1)
-{
-    state_struct *state_p;
-
-    state_p = handle_to_state_p(handle0);
-    if (is_gendir(state_p)) {
-        return NDI2_get_handle(handle0, handle1);
-    } else {
-        *handle1 = -1;
-	return -2;
-    }
-}
-
 int NDI2_close_gendir(int handle)
 {
     state_struct *state_p;
@@ -116,16 +103,29 @@ int NDI2_close_gendir(int handle)
     }
 }
 
-int NDI2_set_lib_type(int handle, const char *type)
+/*!
+  \fn NDI2_make_handle
+  \brief make child handle of type from parent handle
+  \param handle0: parent handle
+  \param type: library type
+  \param handle1: child handle
+  \return 0 if successful, negative if error
+*/
+int NDI2_make_handle(int handle0, const char *type, int *handle1)
 {
-    state_struct *state_p;
+    state_struct *parent;
+    state_struct *child;
 
-    state_p = handle_to_state_p(handle);
-    if (is_mpmg(state_p)) {
-        return -4;
-    } else {
-        return (ndi_c_set_option_h(state_p, NDI_LIB_TYPE, type));
-    }
+    *handle1 = -1;		/* invalid handle */
+    parent = handle_to_state_p(handle0); /* get parent state */
+    if (parent)			/* calculate child handle */
+        *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
+    
+    if(__ndi_add_child_handle(parent) != 0) /* add child handle */
+	return -2;
+    
+    child = handle_to_state_p(*handle1);	/* get child state */
+    return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
 }
 
 int NDI2_set_isotope(int handle, const char *zaid)
@@ -425,51 +425,4 @@ int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
     state_p = handle_to_state_p(handle);
     return (ndi_c_get_string_val_n_h(state_p, in_key, vec_num, 
 				     ret_val, str_size));
-}
-
-int NDI2_get_handle_mpmg(int handle0, int *handle1)
-{
-    return NDI2_get_handle(handle0, handle1);
-}
-
-/*!
-  \fn NDI2_get_handle
-  \brief get child handle from parent handle
-  \param handle0: parent handle
-  \param handle1: child handle
-  \return 0 if successful, negative if error
-*/
-int NDI2_get_handle(int handle0, int *handle1)
-{
-    state_struct *parent;
-
-    *handle1 = -1;
-    parent = handle_to_state_p(handle0);	/* get parent state */
-    if (parent)
-        *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
-
-    
-    return(__ndi_add_child_handle(parent));
-}
-
-/* obsolete: replace with above */
-int NDI2_open(int *handle, const char *path)
-{
-
-    int ierr = 0;
-    state_struct *new_state = NULL;
-
-    ierr = ndi_c_init_h(&new_state, path);
-    *handle = set_handle(new_state);
-
-    if (*handle < 0) {
-	ierr = -1;		/* handle array exhausted */
-    }
-    return (ierr);
-}
-
-/* obsolete */
-int NDI2_close(int handle)
-{
-    return (__ndi_close_handle(handle));
 }

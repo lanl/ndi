@@ -36,14 +36,10 @@ int main ()
            printf("  **Error %d in NDI open 0.\n\n", ierr );
 
        /* Get mpmg handle */
-       ierr = NDI2_get_handle_gendir(gendir_handle, &data_handle);
+       ierr = NDI2_make_handle(gendir_handle, "multigroup_multi", 
+			       &data_handle);
        if (ierr)
-           printf("  **Error %d in NDI get_handle 0.\n\n", ierr );
-
-       /* set mpmg handle type */
-       ierr = NDI2_set_lib_type(data_handle, "multigroup_multi");
-       if (ierr)
-           printf("  **Error %d in NDI set_lib_type 0.\n\n", ierr );
+           printf("  **Error %d in NDI make_handle 0.\n\n", ierr );
 
        printf("LIBRARY: %s\n", library[i]);
        ierr = NDI2_set_option(data_handle, NDI_LIBRARY, library[i]);
@@ -330,18 +326,6 @@ int main ()
            printf(" ***Error getting handle #1 is %d\n", ierr);
        printf("  ZAID for particle #1:  %s\n", part_zaid);
 
-       ierr = NDI2_get_int_val_n(data_handle, NDI_PARTICLE_OF_TYPE, 0, &handle0);
-       ierr = NDI2_get_string_val(handle0, NDI_ZAID, part_zaid, ZAID_SIZE);
-       if  (ierr != 0)
-           printf(" ***Error getting handle of particle 0 is %d\n", ierr);
-       printf("  ZAID for particle 0:  %s\n", part_zaid);
-       ierr = NDI2_get_int_val_n(data_handle, NDI_PARTICLE_OF_TYPE, 1, &handle1);
-
-       ierr = NDI2_get_string_val(handle1, NDI_ZAID, part_zaid, ZAID_SIZE);
-       if  (ierr != 0)
-           printf(" ***Error getting handle of particle 1 is %d\n", ierr);
-       printf("  ZAID for particle 1:  %s\n", part_zaid);
-   
        printf("\n\n");
        
        /* CLOSE */

@@ -36,11 +36,8 @@ int main ()
    if ( ierr != 0 ) {
       return(0);
    }
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
-   if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
+   ierr = NDI2_make_handle(gendir_h, "tn", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
    ierr = NDI2_set_option(handle, NDI_LIBRARY, "hale98" );
 

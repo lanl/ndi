@@ -20,8 +20,6 @@
 #include "ndi_var_type.h"
 #include "ndi_bin_tree.h"
 
-static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
-						  const char *in_value);
 
 /**********************************************************************/
 
@@ -41,8 +39,20 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 
     int ierr = 0;
     struct ndi_bin_tree_node *root = NULL;
+    FILE *ndi_dir;
+    char *path = NULL;
+    /* Open gendir */
 
-    root = BUILD_FLOAT_TREE(in_key, in_value);
+    ierr = ndi_open_gendir(&ndi_dir, "", &path);
+    if (path)
+        ndi_free((void **) &path);
+
+    if (ierr < 0) {
+	root = NULL;
+    } else {
+	 root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
+	 fclose(ndi_dir);
+    }
 
     /* Collect the strings into the return vec */
     if (ierr >= 0) {
@@ -59,12 +69,10 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 
 }
 
+/**********************************************************************/
 
-/***********************************************************************/
-/***********************************************************************/
-
-static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
-						  const char *in_value)
+struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
+					   const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
@@ -72,7 +80,6 @@ static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
     char in_line[MAX_IN_STR_LEN];	/* Current input line */
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
     int done = 0;		/* Flag indicating when processing of zaid is done */
-    FILE *ndi_dir;
     dir_entry mg_dir;
     char *zaid_p;
     FLOAT_TYPE curr_flt;
@@ -80,16 +87,6 @@ static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
     struct ndi_bin_tree_node *curr_node;
     char *path;
 
-
-    /* Open gendir */
-
-    ierr = ndi_open_gendir(&ndi_dir, "", &path);
-    if (path)
-        ndi_free((void **) &path);
-
-    if (ierr < 0) {
-	return (NULL);
-    }
 
     strncpy(section, in_value, 50);
     sec_len = strlen(section);
@@ -161,7 +158,6 @@ static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
 	    done = -1;
 	}
     }
-
-    fclose(ndi_dir);
     return (root);
 }
+/***********************************************************************/

@@ -36,8 +36,20 @@ ndid_c_get_string_vec(int in_key, const char *in_value,
 
     int ierr = 0;
     struct ndi_bin_tree_node *root = NULL;
+    FILE *ndi_dir;
+    char *path = NULL;
 
-    root = ndi_build_tree(in_key, in_value);
+    /* Open gendir */
+    ierr = ndi_open_gendir(&ndi_dir, "", &path);
+    if (path)
+        ndi_free((void **) &path);
+
+    if (ierr < 0) {
+	root = NULL;
+    } else {
+	 root = ndi_build_tree(ndi_dir, in_key, in_value);
+	 fclose(ndi_dir);
+    }
 
     /* Collect the strings into the return vec */
     if (ierr >= 0) {

@@ -62,8 +62,8 @@ int test_radchem_chain(void)
    if ( ierr != 0 ) {
       return(0);
    }
-    ierr = NDI2_get_handle(gendir_h, &handle);
-    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+    ierr = NDI2_make_handle(gendir_h, "dosimetry_neutron", &handle);
+    if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
    /* Test abundances */
    ierr = NDI2_set_isotope(handle, "77191");
@@ -77,8 +77,6 @@ int test_radchem_chain(void)
    printf ("Abundance for 39089 is %f.\n\n\n\n", abundance);
 
 
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "dosimetry_neutron" );
-   if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
    /*
    ierr = ndi_set_option( NDI_LIBRARY, "mendf5" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );

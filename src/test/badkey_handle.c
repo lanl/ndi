@@ -27,9 +27,7 @@ int main ()
    char test_zaid[133] = "";
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
-
+   ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
 
    printf("\n\n*********************************************************************\n");
    printf("           Library does not exist\n");

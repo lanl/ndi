@@ -32,10 +32,9 @@ int test_collapse (void)
    ndi_float64 _1_lanl[] = { 17.0, 1.67e-4 };
 
    ierr = NDI2_open_gendir(&gendir_h, "");
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+   ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
-   ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = NDI2_set_option( handle, NDI_LIBRARY, "mendf6" );
    ierr = NDI2_set_option( handle, NDI_E_AVG, "from_e" );
 

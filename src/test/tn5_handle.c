@@ -43,9 +43,8 @@ int testtn5(void)
       return(0);
    }
 
-   ierr = NDI2_get_handle(gendir_h, &handle);
-   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-
+   ierr = NDI2_make_handle(gendir_h, "tnreactions", &handle);
+   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- testtn5\n\n");
 
@@ -53,8 +52,7 @@ int testtn5(void)
    /* TN REACTION DATA */
 
    /* Set NDI TN reaction set */
-   NDI2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
-   if ( ierr != 0 ) printf("    Error setting lib_type is %d.\n", ierr );
+
    ierr = NDI2_set_isotope(handle, "testlib_tn_list.001ztr" );
    if ( ierr != 0 ) printf("    Error setting zaid is %d.\n", ierr );
 

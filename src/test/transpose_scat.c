@@ -27,10 +27,8 @@ int main()
 
     /* Single particle test */
     printf("\n**************** Single Particle Test ****************\n\n");
-    ierr = NDI2_get_handle_gendir(gendir, &single_part_handle);
+    ierr = NDI2_make_handle(gendir, "multigroup_neutron", &single_part_handle);
     check_err(ierr, "getting single_particle_handle");
-    ierr = NDI2_set_lib_type(single_part_handle, "multigroup_neutron");
-    check_err(ierr, "setting multigroup_neutron");
 
     ierr = NDI2_set_option(single_part_handle, NDI_LIBRARY, "mendf6");
     check_err(ierr, "setting mendf6 library");
@@ -64,10 +62,8 @@ int main()
 
     /* Multiparticle test */
     printf("\n\n\n**************** Multiparticle Test ****************\n\n");
-    ierr = NDI2_get_handle_gendir(gendir, &mpmg_handle);
+    ierr = NDI2_make_handle(gendir, "multigroup_multi", &mpmg_handle);
     check_err(ierr, "getting mpmg handle");
-    ierr = NDI2_set_lib_type(mpmg_handle, "multigroup_multi");
-    check_err(ierr, "setting multigroup_multi");
 
     ierr = NDI2_set_option(mpmg_handle, NDI_LIBRARY, "ngk6");
     check_err(ierr, "setting ngk6 library");
@@ -122,11 +118,10 @@ int main()
 
     /* Single particle test */
     printf("\n**************** Single Particle Test ****************\n\n");
-    ierr = NDI2_get_handle_gendir(gendir2, &single_part_handle);
+    ierr = NDI2_make_handle(gendir2, "multigroup_neutron", 
+			    &single_part_handle);
     check_err(ierr, "getting single_particle_handle");
 
-    ierr = NDI2_set_lib_type(single_part_handle, "multigroup_neutron");
-    check_err(ierr, "setting multigroup_neutron");
     ierr = NDI2_set_option(single_part_handle, NDI_LIBRARY, "mendf6");
     check_err(ierr, "setting mendf6 library");
     ierr = NDI2_set_option(single_part_handle, NDI_COLLAPSE, "6_lanl");
@@ -149,11 +144,9 @@ int main()
     ierr = NDI2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
                                  "transpose");
     check_err(ierr, "setting default matrix order");
-    ierr = NDI2_get_handle_gendir(gendir2, &single_part_handle2);
-    check_err(ierr, "getting single_particle_handle2");
-
-    ierr = NDI2_set_lib_type(single_part_handle2, "multigroup_neutron");
-    check_err(ierr, "setting multigroup_neutron");
+    ierr = NDI2_make_handle(gendir2, "multigroup_neutron", 
+			    &single_part_handle2);
+    check_err(ierr, "making single_particle_handle2");
 
     ierr = NDI2_set_option(single_part_handle2, NDI_LIBRARY, "mendf6");
     check_err(ierr, "setting mendf6 library");
@@ -173,11 +166,9 @@ int main()
 
     /* Multiparticle test */
     printf("\n\n\n**************** Multiparticle Test ****************\n\n");
-    ierr = NDI2_get_handle_gendir(gendir2, &mpmg_handle);
+    ierr = NDI2_make_handle(gendir2, "multigroup_multi", &mpmg_handle);
     check_err(ierr, "getting mpmg handle");
 
-    ierr = NDI2_set_lib_type(mpmg_handle, "multigroup_multi");
-    check_err(ierr, "setting multigroup_multi");
     ierr = NDI2_set_option(mpmg_handle, NDI_LIBRARY, "ngk6");
     check_err(ierr, "setting ngk6 library");
     ierr = NDI2_set_zaid(mpmg_handle, "92235");
@@ -213,11 +204,9 @@ int main()
     ierr = NDI2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
                                   "transpose");
     check_err(ierr, "setting default mat order transpose");
-    ierr = NDI2_get_handle_gendir(gendir2, &mpmg_handle2);
+    ierr = NDI2_make_handle(gendir2, "multigroup_multi", &mpmg_handle2);
     check_err(ierr, "getting mpmg2 handle");    
 
-    ierr = NDI2_set_lib_type(mpmg_handle2, "multigroup_multi");
-    check_err(ierr, "setting multigroup_multi");
     ierr = NDI2_set_option(mpmg_handle2, NDI_LIBRARY, "ngk6");
     check_err(ierr, "setting ngk6 library");
     ierr = NDI2_set_zaid(mpmg_handle2, "92235");

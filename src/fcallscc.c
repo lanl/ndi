@@ -80,15 +80,11 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_OPEN_GENDIR NDI2_OPEN_GENDIR\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR NDI2_SET_OPTION_GENDIR\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR NDI2_CHECK_OPTION_GENDIR\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR NDI2_GET_HANDLE_GENDIR\n");
     printf("#define F_NDI2_CLOSE_GENDIR NDI2_CLOSE_GENDIR\n");
-    printf("#define F_NDI2_OPEN NDI2_OPEN\n");
-    printf("#define F_NDI2_SET_LIB_TYPE NDI2_SET_LIB_TYPE\n");
     printf("#define F_NDI2_SET_ZAID NDI2_SET_ZAID\n");
     printf("#define F_NDI2_SET_ISOTOPE NDI2_SET_ISOTOPE\n");
     printf("#define F_NDI2_SET_REACTION NDI2_SET_REACTION\n");
-    printf("#define F_NDI2_GET_HANDLE NDI2_GET_HANDLE\n");
-    printf("#define F_NDI2_GET_HANDLE_MPMG NDI2_GET_HANDLE_MPMG\n");
+    printf("#define F_NDI2_MAKE_HANDLE NDI2_MAKE_HANDLE\n");
     printf("#define F_NDI2_GET_SIZE NDI2_GET_SIZE\n");
     printf("#define F_NDI2_GET_SIZE_N NDI2_GET_SIZE_N\n");
     printf("#define F_NDI2_GET_SIZE_X NDI2_GET_SIZE_X\n");
@@ -111,7 +107,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X NDI2_GET_FLOAT64_VEC_X\n");
     printf("#define F_NDI2_GET_STRING_VAL NDI2_GET_STRING_VAL\n");
     printf("#define F_NDI2_GET_STRING_VAL_N NDI2_GET_STRING_VAL_N\n");
-    printf("#define F_NDI2_CLOSE NDI2_CLOSE\n");
     printf("#endif\n\n");
 
     printf("#ifdef UPPER_WITH\n");
@@ -151,15 +146,12 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_OPEN_GENDIR NDI2_OPEN_GENDIR_\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR NDI2_SET_OPTION_GENDIR_\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR NDI2_CHECK_OPTION_GENDIR_\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR NDI2_GET_HANDLE_GENDIR_\n");
     printf("#define F_NDI2_CLOSE_GENDIR NDI2_CLOSE_GENDIR_\n");
-    printf("#define F_NDI2_OPEN NDI2_OPEN_\n");
     printf("#define F_NDI2_SET_LIB_TYPE NDI2_SET_LIB_TYPE_\n");
     printf("#define F_NDI2_SET_ZAID NDI2_SET_ZAID_\n");
     printf("#define F_NDI2_SET_ISOTOPE NDI2_SET_ISOTOPE_\n");
     printf("#define F_NDI2_SET_REACTION NDI2_SET_REACTION_\n");
-    printf("#define F_NDI2_GET_HANDLE NDI2_GET_HANDLE_\n");
-    printf("#define F_NDI2_GET_HANDLE_MPMG NDI2_GET_HANDLE_MPMG_\n");
+    printf("#define F_NDI2_MAKE_HANDLE NDI2_MAKE_HANDLE_\n");
     printf("#define F_NDI2_GET_SIZE NDI2_GET_SIZE_\n");
     printf("#define F_NDI2_GET_SIZE_N NDI2_GET_SIZE_N_\n");
     printf("#define F_NDI2_GET_SIZE_X NDI2_GET_SIZE_X_\n");
@@ -182,7 +174,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X NDI2_GET_FLOAT64_VEC_X_\n");
     printf("#define F_NDI2_GET_STRING_VAL NDI2_GET_STRING_VAL_\n");
     printf("#define F_NDI2_GET_STRING_VAL_N NDI2_GET_STRING_VAL_N_\n");
-    printf("#define F_NDI2_CLOSE NDI2_CLOSE_\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITHOUT\n");
@@ -220,16 +211,12 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir\n");
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir\n");
-    printf("#define F_NDI2_GET_HANDLE ndi2_get_handle\n");
-    printf("#define F_NDI2_GET_HANDLE_MPMG ndi2_get_handle_mpmg\n");
-    printf("#define F_NDI2_OPEN ndi2_open\n");
+    printf("#define F_NDI2_MAKE_HANDLE ndi2_make_handle\n");
     printf("#define F_NDI2_SET_LIB_TYPE ndi2_set_lib_type\n");
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid\n");
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope\n");
@@ -256,7 +243,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n\n");
-    printf("#define F_NDI2_CLOSE ndi2_close\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITH\n");
@@ -294,16 +280,12 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir_\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir_\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir_\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir_\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir_\n");
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir_\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir_\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir_\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir_\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir_\n");
-    printf("#define F_NDI2_GET_HANDLE ndi2_get_handle_\n");
-    printf("#define F_NDI2_GET_HANDLE_MPMG ndi2_get_handle_mpmg_\n");
-    printf("#define F_NDI2_OPEN ndi2_open_\n");
+    printf("#define F_NDI2_MAKE_HANDLE ndi2_make_handle_\n");
     printf("#define F_NDI2_SET_LIB_TYPE ndi2_set_lib_type_\n");
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid_\n");
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope_\n");
@@ -330,7 +312,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x_\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val_\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n_\n");
-    printf("#define F_NDI2_CLOSE ndi2_close_\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITH2\n");
@@ -368,16 +349,12 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir__\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir__\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir__\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir__\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir__\n");
     printf("#define F_NDI2_OPEN_GENDIR ndi2_open_gendir__\n");
     printf("#define F_NDI2_SET_OPTION_GENDIR ndi2_set_option_gendir__\n");
     printf("#define F_NDI2_CHECK_OPTION_GENDIR ndi2_check_option_gendir__\n");
-    printf("#define F_NDI2_GET_HANDLE_GENDIR ndi2_get_handle_gendir__\n");
     printf("#define F_NDI2_CLOSE_GENDIR ndi2_close_gendir__\n");
-    printf("#define F_NDI2_GET_HANDLE ndi2_get_handle__\n");
-    printf("#define F_NDI2_GET_HANDLE_MPMG ndi2_get_handle_mpmg__\n");
-    printf("#define F_NDI2_OPEN ndi2_open__\n");
+    printf("#define F_NDI2_MAKE_HANDLE ndi2_make_handle__\n");
     printf("#define F_NDI2_SET_LIB_TYPE ndi2_set_lib_type__\n");
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid__\n");
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope__\n");
@@ -404,7 +381,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x__\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val__\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n__\n");
-    printf("#define F_NDI2_CLOSE ndi2_close__\n");
     printf("#endif\n\n");
 
 }

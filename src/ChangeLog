@@ -1,3 +1,13 @@
+2004-07-08  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndimp_get_int_val_n.c (ndimp_get_int_val_n): removed
+	NDI_PARTICLE_OF_TYPE option
+
+2004-07-07  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_user_functions_handles.c (NDI2_make_handle): combine
+	get_handle and set_lib_type into one function
+
 2004-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_get_float_vec_n.c (GET_PNU_PR): added test for non-fissionable

@@ -55,12 +55,9 @@ int main ()
     if (ierr)
 	printf("\n  **Error %d in NDI init.\n", ierr );
 
-    ierr = NDI2_get_handle(gendir_h, &handle);
-    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+    ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
+    if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
-    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-    if (ierr)
-	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
     ierr = NDI2_set_option(handle, NDI_LIBRARY, "chi_test" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);

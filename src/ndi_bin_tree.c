@@ -18,9 +18,11 @@
 #include "ndi_bin_tree.h"
 
 /**********************************************************************/
-/**********************************************************************/
 
-struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
+/***********************************************************************/
+
+struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key, 
+					 const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
@@ -28,23 +30,13 @@ struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
     char in_line[MAX_IN_STR_LEN];	/* Current input line */
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
     int done = 0;		/* Flag indicating when processing of zaid is done */
-    FILE *ndi_dir;
+
     dir_entry mg_dir;
     char *str_of_interest;
     struct ndi_bin_tree_node *root = NULL;
     struct ndi_bin_tree_node *curr_node;
     char *path;
 
-
-    /* Open gendir */
-
-    ierr = ndi_open_gendir(&ndi_dir, "", &path);
-    if (path)
-        ndi_free((void **) &path);
-
-    if (ierr < 0) {
-	return (NULL);
-    }
 
     strncpy(section, in_value, 50);
     sec_len = (int) strlen(section);
@@ -100,7 +92,6 @@ struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
 	}
     }
 
-    fclose(ndi_dir);
     return (root);
 }
 
