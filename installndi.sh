@@ -30,7 +30,7 @@ case $GNU_OS_OUT in
         platform=sun
         NDI_ROOT=/usr/local/codes/data/nuclear/ndi
         ;;
-    *ibm__aix) 
+    *ibm-aix) 
         platform=ppc-aix
         NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
         ;;
