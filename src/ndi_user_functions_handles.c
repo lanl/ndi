@@ -39,11 +39,17 @@ int ndi2_open_gendir(int *handle, const char *path)
 */
 int ndi2_set_option_gendir(int handle, int in_key, const char *value)
 {
+    int new_inkey;
     state_struct *state_p;
 
     if (is_gendir(handle)) {
-	state_p = handle_to_state_p(handle);
-	return (ndi_c_set_option_h(state_p, in_key, value));
+        if ((in_key >= 1006) && (in_key <= 1100)) {
+            new_inkey = in_key - 1000;
+            state_p = handle_to_state_p(handle);
+            return (ndi_c_set_option_h(state_p, new_inkey, value));
+        } else {
+            return -4;
+        }
     } else {
 	return -2;
     }
@@ -61,11 +67,17 @@ int ndi2_set_option_gendir(int handle, int in_key, const char *value)
 int ndi2_check_option_gendir(int handle, int in_key, char *out_value,
 		  int string_size)
 {
+    int new_inkey;
     state_struct *state_p;
 
     if (is_gendir(handle)) {
-        state_p = handle_to_state_p(handle);
-        return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
+        if ((in_key > 1006) && (in_key < 1100)) {
+            new_inkey = in_key - 1000;
+            state_p = handle_to_state_p(handle);
+            return (ndi_c_check_option_h(state_p, new_inkey, out_value, string_size));
+        } else {
+            return -4;
+        }
     } else {
 	return -2;
     }
@@ -100,24 +112,22 @@ int ndi2_set_lib_type(int handle, const char *type)
 
 int ndi2_set_isotope(int handle, const char *zaid)
 {
-    state_struct *state_p;
-
-    if (is_gendir(handle)) {
-        return -2;
-    } else {
-        state_p = handle_to_state_p(handle);
-        return (ndi_c_set_isotope_h(state_p, zaid));
-    }
+    return ndi2_set_zaid(handle, zaid);
 }
 
 int ndi2_set_zaid(int handle, const char *zaid)
 {
     state_struct *state_p;
 
+    state_p = handle_to_state_p(handle);
+    
     if (is_gendir(handle)) {
         return -2;
+    } else if (is_mpmg(state_p)) {
+        return (ndimp_set_zaid(state_p->handle_map,
+                               state_p->handle_free,
+                               zaid ));
     } else {
-        state_p = handle_to_state_p(handle);
         return (ndi_c_set_zaid_h(state_p, zaid));
     }
 }

@@ -28,17 +28,17 @@ int main ()
    /* Inintialize gendir */
    ierr = ndi2_open_gendir(&gendir, "");
    if (ierr)
-     printf("  **Error %d in NDI open 0.\n\n", ierr );
+     printf("  **Error %d in NDI open gendir.\n\n", ierr );
 
    /* Get mpmg handle */
    ierr = ndi2_get_handle_gendir(gendir, &mpmg);
    if (ierr)
-     printf("  **Error %d in NDI get_handle 0.\n\n", ierr );
+     printf("  **Error %d in NDI get_handle mpmg.\n\n", ierr );
 
    /* set mpmg handle type */
    ierr = ndi2_set_lib_type(mpmg, "multigroup_multi");
    if (ierr)
-     printf("  **Error %d in NDI set_lib_type 0.\n\n", ierr );
+     printf("  **Error %d in NDI set_lib_type mpmg.\n\n", ierr );
 
    /*  Initialize particle 0 */
    ierr = ndi2_get_handle_mpmg(mpmg, &handle[0]);
@@ -46,7 +46,7 @@ int main ()
      printf("  **Error %d in NDI get_handle_mpmg 0.\n\n", ierr );
 
    ierr = ndi2_set_option(handle[0], NDI_LIB_TYPE, "multigroup_neutron");
-   ierr = ndi2_set_option(handle[0], NDI_LIBRARY, "specmg");
+   ierr = ndi2_set_option(handle[0], NDI_LIBRARY, "acti");
    ierr = ndi2_set_option(handle[0], NDI_COLLAPSE, "2_lanl");
    ierr = ndi2_set_isotope(handle[0], "U235");
 
@@ -56,7 +56,7 @@ int main ()
      printf("  **Error %d in NDI get_handle_mpmg 1.\n\n", ierr );
 
    ierr = ndi2_set_option(handle[1], NDI_LIB_TYPE, "multigroup_photon");
-   ierr = ndi2_set_option(handle[1], NDI_LIBRARY, "photmg");
+   ierr = ndi2_set_option(handle[1], NDI_LIBRARY, "actig");
    ierr = ndi2_set_float64_vec_option(handle[1], NDI_COLLAPSE, pbounds, pgrps + 1);
    ierr = ndi2_set_isotope(handle[1], "92000");
 

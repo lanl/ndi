@@ -272,8 +272,8 @@ int test_photon (void)
      }
    }
    printf("\n");
-   ierr = ndi_set_option( NDI_LIBRARY, "photmg" );
-   printf("\nDefault library set to photmg:\n\n");
+   ierr = ndi_set_option( NDI_LIBRARY, "actig" );
+   printf("\nDefault library set to actig: (err=%d)\n\n", ierr);
    for ( i = 0; i < ext_num_zaid; i++ ) {
      printf("***********************ISOTOPE=%s***********************\n",
 	    extend_zaid_list[i] );

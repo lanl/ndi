@@ -93,13 +93,14 @@ SRC := \
 	ndi_user_functions_handles.c \
 	ndi_user_functions_no_h.c \
 	ndi_zaid_dir.c \
-	ndimp_set_option.c \
 	ndimp_get_int_val.c \
 	ndimp_get_int_val_n.c \
 	ndimp_get_int_vec.c \
 	ndimp_get_size.c \
 	ndimp_get_size_n.c \
-	ndimp_get_string_val.c 
+	ndimp_get_string_val.c \
+	ndimp_set_option.c \
+	ndimp_set_zaid.c 
 
 SRC_FLOAT := \
 	ndi_collapse_float.c \
@@ -145,6 +146,7 @@ SRC_TESTC := \
 	test/library_check.c \
 	test/mg_sec_part.c \
 	test/mpmg.c \
+	test/mpmg2.c \
 	test/ndid.c \
 	test/ngk_test.c \
 	test/ngk_test_handle.c \

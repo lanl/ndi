@@ -125,7 +125,7 @@ int __ndi_add_child_handle(state_struct *parent)
 	parent->handle_map[h] = child;
 	parent->handle_free++;
 	if (child) {
-	    child->handle = h;
+	    child->handle = h + (parent->handle + 1) * MAX_HANDLE_NUM;
 	}
     } else {
 	return -1;		/* handle array exhausted */

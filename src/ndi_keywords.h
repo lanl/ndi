@@ -153,5 +153,21 @@
 #define NDI_PARTICLE_TYPE             124
 
 #define NDI_GENDIR_PATH               124
+#define NDI_PARTICLE_N                125
+#define NDI_PARTICLE_OF_TYPE          126
+
+/* GLOBAL KEYWORDS */
+#define NDI_COLLAPSE_GLOBAL          1046
+#define NDI_CURR_PART_GLOBAL         1077
+#define NDI_E_AVG_GLOBAL             1069
+#define NDI_E_BOUNDS_CURR_PART_GLOBAL 1036
+#define NDI_FISS_PROD_GLOBAL         1100
+#define NDI_KERMA_GLOBAL             1095
+#define NDI_LIBRARY_GLOBAL           1044
+#define NDI_MAT_ORDER_GLOBAL         1045
+#define NDI_NORM_GLOBAL              1076
+#define NDI_REAC_ID_GLOBAL           1073
+#define NDI_TEMP_GLOBAL              1006
+#define NDI_TRANS_CORR_GLOBAL        1072
 
 #endif				/* __NDI_KEYWORDS_H */

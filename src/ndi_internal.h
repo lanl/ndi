@@ -692,6 +692,8 @@ extern "C" {
     /* multi-particle multi-group functions */
     int ndimp_set_option(state_struct *mpmg_handle, 
                          int in_key, const char *value );
+    int ndimp_set_zaid(state_struct *handle[], const int num_parts,
+                       const char *zaid );
     int ndimp_get_float32_vec(state_struct *handle[], 
 			      const int num_parts,
 			      const int in_key, ndi_float32 * ret_vec,

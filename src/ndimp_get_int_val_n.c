@@ -10,6 +10,8 @@ static int get_comb_reac_mt_n(state_struct *handle[],
 static int get_last_group_n(state_struct *handle[], 
 			    const int num_parts,
 			    const int vec_num, int *return_val);
+static int get_particle_index(state_struct *handle[], const int num_parts,
+                              const int part_type, int *return_val);
 
 /**********************************************************************/
 int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
@@ -32,6 +34,19 @@ int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
     case NDI_LAST_GRP:
 	ierr = get_last_group_n(handle, num_parts, vec_num, ret_val);
 	break;
+
+    case NDI_PARTICLE_N:
+        if ((vec_num < num_parts) &&
+            (vec_num >= 0 )) {
+            *ret_val = handle[vec_num]->handle;
+        } else {
+            ierr = -6;
+        }
+        break;
+
+    case NDI_PARTICLE_OF_TYPE:
+        ierr = get_particle_index(handle, num_parts, vec_num, ret_val);
+        break;
 
     default:
 	ierr = -4;
@@ -102,3 +117,26 @@ static int get_last_group_n(state_struct *handle[],
 
     return (ierr);
 }
+
+/**********************************************************************/
+static int get_particle_index(state_struct *handle[], const int num_parts,
+                              const int part_type, int *return_val) 
+{
+    int ierr = 0;
+    int i;
+    
+    *return_val = -1;
+    
+    for (i = 0; i < num_parts; i++) {
+        if (part_type == handle[i]->particle_type) {
+            *return_val = handle[i]->handle;
+            break;
+        }
+    }
+
+    if (return_val < 0) {
+        ierr = -5;
+    }
+    return(ierr);
+}
+/**********************************************************************/

@@ -79,7 +79,7 @@ static int set_mpmg_library(state_struct *mpmg_handle,
         strncpy(grp_structs[0], "21_lanl", 8);
         strncpy(grp_structs[1], "12_phot", 8);
 
-    } else if (strncmp(token,"m6_30_12", 9) == 0) {
+    } else if (strncmp(token,"m6_ng", 6) == 0) {
         /*num_parts == 2*/
         /* n_lib = mendf6; p_lib = mendf6g */
         /* n_grp = 30_lanl; p_grp = 12_phot */
@@ -98,7 +98,7 @@ static int set_mpmg_library(state_struct *mpmg_handle,
         strncpy(grp_structs[1], "12_phot", 8);
 
 
-    } else if (strncmp(token,"acti_all", 9) == 0) {
+    } else if (strncmp(token,"acti_ng", 8) == 0) {
         /*num_parts == 2*/
         /* n_lib = acti; p_lib = actig */
         /* n_grp = 130_lanl; p_grp = 120_phot */

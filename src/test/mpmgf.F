@@ -23,21 +23,21 @@ c     Inintialize gendir
       call ndi2_open_gendir(gendir, "", ierr)
       if (ierr .ne. 0) then
          write(*, 10) ierr
- 10      format("  **Error ", i3, " in NDI open 0.")
+ 10      format("  **Error ", i3, " in NDI open gendir.")
       endif
 
 c     Get mpmg handle 
       call ndi2_get_handle_gendir(gendir, mpmg, ierr)
       if (ierr .ne. 0) then
          write(*, 20) ierr
- 20      format("  **Error ", i3, " in NDI get_handle 0.")
+ 20      format("  **Error ", i3, " in NDI get_handle mpmg.")
       endif
 
 c      set mpmg handle type 
        call ndi2_set_lib_type(mpmg, "multigroup_multi", ierr)
        if (ierr .ne. 0) then
           write(*,30) ierr
- 30       format("  **Error ", i3, " in NDI set_lib_type 0.")
+ 30       format("  **Error ", i3, " in NDI set_lib_type mpmg.")
        endif
 
 c     Initialize particle 0 
@@ -49,7 +49,7 @@ c     Initialize particle 0
 
        call ndi2_set_option(handle(0), NDI_LIB_TYPE,
      $      "multigroup_neutron", ierr)
-       call ndi2_set_option(handle(0), NDI_LIBRARY, "specmg", ierr)
+       call ndi2_set_option(handle(0), NDI_LIBRARY, "acti", ierr)
        call ndi2_set_option(handle(0), NDI_COLLAPSE, "2_lanl", ierr)
        call ndi2_set_isotope(handle(0), "U235", ierr)
 
@@ -62,7 +62,7 @@ c     Initialize particle 1
 
        call ndi2_set_option(handle(1), NDI_LIB_TYPE,
      $      "multigroup_photon", ierr)
-       call ndi2_set_option(handle(1), NDI_LIBRARY, "photmg",
+       call ndi2_set_option(handle(1), NDI_LIBRARY, "actig",
      $      ierr)
        call ndi2_set_float64_vec_option(handle(1), NDI_COLLAPSE,
      $      pbounds, pebounds, ierr)
