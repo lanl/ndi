@@ -26,6 +26,7 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
     case NDI_E_BOUNDS:
     case NDI_WGTS:
     case NDI_VEL:
+    case NDI_E_AVG:
     case NDI_HEATING:
     case NDI_KERMA:
     case NDI_SIG_TOT:

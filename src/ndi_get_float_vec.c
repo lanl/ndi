@@ -136,8 +136,13 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	if (state->iso_stat.e_bounds.file_ptr) {
 	    if (state->collapse_flag) {
 		for (n = 0; n <= state->grp_num_new; n++) {
-		    return_vec[n] =
-			(FLOAT_TYPE) state->lib_ebounds[state->new_ebounds[n]];
+                    if (n < return_size) {
+                        return_vec[n] =
+                            (FLOAT_TYPE) state->lib_ebounds[state->new_ebounds[n]];
+                    } else {
+                        ierr = 7;
+                        break;
+                    }
 		}
 	    } else {
 		num_elements = state->iso_stat.num_grps + 1;

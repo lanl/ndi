@@ -107,6 +107,7 @@ int main()
     printf("#define GET_COMB_FLOAT_VEC get_comb_float32_vec\n");
     printf("#define GET_COMB_FLOAT_VEC_N get_comb_float32_vec_n\n");
     printf("#define GET_MP_SCAT_MAT ndi_get_scat32_mat\n");
+    printf("#define GET_MPMG_CHI_MAT ndi_get_mpmg_chi32_mat\n");
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf32\n");
     printf("#define NDI_GET_NU ndi_get_nu32\n");
     printf("#define COPY_SGNDF_E ndi_copy_sgndf32\n");
@@ -190,7 +191,8 @@ int main()
     printf("#define NDI2MP_GET_FLOAT_VEC NDI2_get_float64_vec\n");
     printf("#define GET_COMB_FLOAT_VEC get_comb_float64_vec\n");
     printf("#define GET_COMB_FLOAT_VEC_N get_comb_float64_vec_n\n");
-    printf("#define GET_MP_SCAT_MAT ndi_get_scat64_mat\n");
+    printf("#define GET_MP_SCAT_MAT ndi_get_scat64_mat\n"); 
+    printf("#define GET_MPMG_CHI_MAT ndi_get_mpmg_chi64_mat\n");
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf64\n");
     printf("#define NDI_GET_NU ndi_get_nu64\n");
     printf("#define COPY_SGNDF_E ndi_copy_sgndf64\n");

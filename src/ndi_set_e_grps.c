@@ -486,7 +486,8 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 	/* old_grp must be at least as large as new_grp */
 	if (old_grp < *new_grp) {
 	    /* Incompatible group structure */
-	    *c_flag = 0;
+ 	    *c_flag = 0;
+            *new_grp = 0;
 	    return (-23);
 	}
 
@@ -514,6 +515,8 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 		/* Incompatible group structure */
 		if (ebounds)
 		    ndi_free((void **) &ebounds);
+                *c_flag = 0; 
+                *new_grp = 0;
 		return (-23);
 	    }
 	    new_grp_ptr++;

@@ -148,6 +148,7 @@ SRC_TESTC := \
 	test/library_check.c \
 	test/mg_sec_part.c \
 	test/mpmg.c \
+	test/mpmg_grps.c \
 	test/mpmg2.c \
 	test/ndid.c \
 	test/ngk_test.c \
@@ -275,6 +276,9 @@ clean:
 distclean: clean
 	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE) $(TESTOUT) \
 	$(DATA_TESTS) check_data.out 
+
+testclean:
+	$(RM) $(TESTC) $(TESTF) $(TESTOUT) $(DATA_TESTS) check_data.out
 
 install: all
 	umask 002 ; \

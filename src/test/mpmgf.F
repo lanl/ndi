@@ -5,8 +5,8 @@
       program main
 
       integer ierr
-      integer gendir
-      integer mpmg
+      integer gendir_handle
+      integer data_handle
       integer handle(3)
       integer return_int
       integer int_vec_size
@@ -20,28 +20,28 @@
       data pbounds / 20.0, 4.0, 0.1 /
 
 c     Inintialize gendir 
-      call ndi2_open_gendir(gendir, "", ierr)
+      call ndi2_open_gendir(gendir_handle, "", ierr)
       if (ierr .ne. 0) then
          write(*, 10) ierr
  10      format("  **Error ", i3, " in NDI open gendir.")
       endif
 
 c     Get mpmg handle 
-      call ndi2_get_handle_gendir(gendir, mpmg, ierr)
+      call ndi2_get_handle_gendir(gendir_handle, data_handle, ierr)
       if (ierr .ne. 0) then
          write(*, 20) ierr
  20      format("  **Error ", i3, " in NDI get_handle mpmg.")
       endif
 
 c      set mpmg handle type 
-       call ndi2_set_lib_type(mpmg, "multigroup_multi", ierr)
+       call ndi2_set_lib_type(data_handle, "multigroup_multi", ierr)
        if (ierr .ne. 0) then
           write(*,30) ierr
  30       format("  **Error ", i3, " in NDI set_lib_type mpmg.")
        endif
 
 c     Initialize particle 1 
-       call ndi2_get_handle_mpmg(mpmg, handle(1), ierr)
+       call ndi2_get_handle_mpmg(data_handle, handle(1), ierr)
        if (ierr .ne. 0) then
           write(*,40) ierr
  40       format("  **Error ", i3, " in NDI get_handle_mpmg 0." )
@@ -54,7 +54,7 @@ c     Initialize particle 1
        call ndi2_set_isotope(handle(1), "U235", ierr)
 
 c     Initialize particle 2 
-       call ndi2_get_handle_mpmg(mpmg, handle(2), ierr)
+       call ndi2_get_handle_mpmg(data_handle, handle(2), ierr)
        if (ierr .ne. 0) then
           write(*, 50) ierr
  50       format("  **Error ", i3, " in NDI get_handle_mpmg 1." )
@@ -69,7 +69,7 @@ c     Initialize particle 2
        call ndi2_set_isotope(handle(2), "92000", ierr)
 
 c     Initialize particle 3 
-       call ndi2_get_handle_mpmg(mpmg, handle(3), ierr)
+       call ndi2_get_handle_mpmg(data_handle, handle(3), ierr)
        if (ierr .ne. 0) then
           write(*, 60) ierr
  60       format("  **Error ", i3, " in NDI init 2." )
@@ -85,7 +85,7 @@ c     Initialize particle 3
        call ndi2_set_isotope(handle(3), "U238", ierr)
 
 c     start accessing data 
-       call ndi2_get_int_val(mpmg, NDI_NUM_GRPS, return_int,
+       call ndi2_get_int_val(data_handle, NDI_NUM_GRPS, return_int,
      $      ierr)
        if (ierr .ne. 0) then 
           write(*, 70) ierr
@@ -94,7 +94,7 @@ c     start accessing data
        write(*, 80) return_int
  80    format("  Number of groups:  ", i3)
 
-       call ndi2_get_int_val(mpmg, NDI_PN_ORDER, return_int,
+       call ndi2_get_int_val(data_handle, NDI_PN_ORDER, return_int,
      $      ierr)
        if (ierr .ne. 0) then 
           write(*, 90) ierr
@@ -103,7 +103,7 @@ c     start accessing data
         write(*, 100) return_int
  100    format("  Pn order:  ", i3)
 
-        call ndi2_get_int_val(mpmg, NDI_NUM_PNU_PR, return_int,
+        call ndi2_get_int_val(data_handle, NDI_NUM_PNU_PR, return_int,
      $       ierr)
         if (ierr .ne. 0) then 
            write(*, 110) ierr
@@ -112,7 +112,7 @@ c     start accessing data
          write(*, 120) return_int
  120     format("  No. pnu:  ", i3)
 
-         call ndi2_get_int_val(mpmg, NDI_NUM_REAC, return_int,
+         call ndi2_get_int_val(data_handle, NDI_NUM_REAC, return_int,
      $        ierr)
          if (ierr .ne. 0) then 
             write(*, 130) ierr
@@ -122,16 +122,16 @@ c     start accessing data
  140     format("  No. reactions:  ", i3)
          
 c     LAST NEUTRON AND PHOTON GRPS 
-         call ndi2_get_int_val_n(mpmg, NDI_LAST_GRP, 0, return_int,
-     $        ierr)
+         call ndi2_get_int_val_n(data_handle, NDI_LAST_GRP, 0,
+     $         return_int, ierr)
          if (ierr .ne. 0) then 
             write(*, 150) ierr
  150        format("  **Error ", i3, " getting last neutron group.")
          endif
          write(*, 160) return_int
  160     format("  Last neutron group:  ", i3)
-         call ndi2_get_int_val_n(mpmg, NDI_LAST_GRP, 1, return_int,
-     $        eirr)
+         call ndi2_get_int_val_n(data_handle, NDI_LAST_GRP, 1, 
+     $        return_int, ierr)
          if (ierr .ne. 0) then 
             write(*, 170) ierr
  170        format("  **Error ", i3, " getting last photon.")
@@ -141,7 +141,8 @@ c     LAST NEUTRON AND PHOTON GRPS
          
          
 c     LIST OF MTS 
-         call ndi2_get_size(mpmg, NDI_REAC_MT, int_vec_size, ierr) 
+         call ndi2_get_size(data_handle, NDI_REAC_MT, int_vec_size,
+     $        ierr) 
          if (ierr .ne. 0) then 
             write(*, 190) ierr
  190        format("  **Error ", i3, " getting size of reaction MTs.")
@@ -149,7 +150,7 @@ c     LIST OF MTS
          write(*, 200) int_vec_size
  200     format("  Reaction MTs size:  ", i3) 
          
-         call ndi2_get_int_vec(mpmg, NDI_REAC_MT, int_vec,
+         call ndi2_get_int_vec(data_handle, NDI_REAC_MT, int_vec,
      $        MAX_VEC_SIZE, ierr)
          if (ierr .ne. 0) then 
             write(*, 210) ierr
@@ -159,7 +160,8 @@ c     LIST OF MTS
  220     format(5(i5, 2x))
          
 c     EBOUNDS 
-         call ndi2_get_size(mpmg, NDI_E_BOUNDS, flt_vec_size, ierr)
+         call ndi2_get_size(data_handle, NDI_E_BOUNDS, flt_vec_size,
+     $        ierr)
          if (ierr .ne. 0) then 
             write(*, 230) ierr
  230        format("  **Error ", i3, " getting size of ebounds.")
@@ -167,7 +169,7 @@ c     EBOUNDS
          write(*, 240) flt_vec_size
  240     format("  Ebounds size:  ", i3)
          
-         call ndi2_get_float64_vec(mpmg, NDI_E_BOUNDS,
+         call ndi2_get_float64_vec(data_handle, NDI_E_BOUNDS,
      $        flt64_vec, MAX_VEC_SIZE, ierr)
          if (ierr .ne. 0) then 
             write(*, 250) ierr
@@ -178,7 +180,8 @@ c     EBOUNDS
          
          
 c     TOTAL CROSS SECTION 
-         call ndi2_get_size(mpmg, NDI_SIG_TOT, flt_vec_size, ierr)
+         call ndi2_get_size(data_handle, NDI_SIG_TOT, flt_vec_size,
+     $        ierr)
          if (ierr .ne. 0) then 
             write(*, 270) ierr
  270        format("  **Error ", i3,
@@ -187,7 +190,7 @@ c     TOTAL CROSS SECTION
          write(*, 280) flt_vec_size
  280     format("  Total cross-section size:  ", i3)
          
-         call ndi2_get_float64_vec(mpmg, NDI_SIG_TOT, flt64_vec,
+         call ndi2_get_float64_vec(data_handle, NDI_SIG_TOT, flt64_vec,
      $        flt_vec_size, ierr)
          if (ierr .ne. 0) then 
             write(*, 290) ierr
@@ -197,7 +200,8 @@ c     TOTAL CROSS SECTION
          
          
 c     SCATTERING MATRIX 
-         call ndi2_get_size_n(mpmg, NDI_PN_FULL, 0, flt_vec_size, ierr)
+         call ndi2_get_size_n(data_handle, NDI_PN_FULL, 0, flt_vec_size,
+     $        ierr)
          if (ierr .ne. 0) then 
             write(*, 300) ierr
  300        format("  **Error ", i3,
@@ -206,7 +210,7 @@ c     SCATTERING MATRIX
          write(*, 310) flt_vec_size
  310     format("  Scatter matrix size:  ", i3)
    
-         call ndi2_get_float64_vec_n(mpmg, NDI_PN_FULL, 0,
+         call ndi2_get_float64_vec_n(data_handle, NDI_PN_FULL, 0,
      $        flt64_vec, flt_vec_size, ierr)
          if (ierr .ne. 0) then 
             write(*, 320) ierr
@@ -215,7 +219,7 @@ c     SCATTERING MATRIX
          write(*, 260) (flt64_vec(j), j = 1, flt_vec_size)
          
 c     CLOSE 
-         call ndi2_close_gendir(gendir, ierr)
+         call ndi2_close_gendir(gendir_handle, ierr)
          if (ierr .ne. 0) then
             write(*, 330) ierr
  330        format("  **Error ", i3, " in closing NDI 0.")
