@@ -60,7 +60,7 @@
  * Data types
  */
 
-typedef char mg_sec_part_type[6];
+typedef char mg_sec_part_type[8];
 typedef long int_zaid_type;
 
 typedef char mg_zaid[64];
