@@ -1,5 +1,7 @@
 			   -*- outline -*-
 
+* Give gendir its own library_type (g)
+
 * Hook up NDI 2.0 ndid functionality
 
 * Add chi matrices to mpmg

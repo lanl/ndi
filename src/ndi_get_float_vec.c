@@ -85,6 +85,8 @@ int NDI_GET_FLOAT_VEC_H(state_struct *state, int in_key,
 	ierr = GET_FLOAT_VEC_MG(state, in_key, return_vec, return_size);
     } else if (state->library_type == 's') {
 	ierr = GET_FLOAT_VEC_TN(state, in_key, return_vec, return_size);
+    } else if (state->library_type == 'p') {
+	ierr = NDIMP_GET_FLOAT_VEC(state, in_key, return_vec, return_size);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;

@@ -58,15 +58,14 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
 	ierr = ndi_translate_sza_to_symbol(vec_num, ret_val, str_size);
     } else {
 	if ((state->library_type == 'm') || (state->library_type == 'd')) {
-	    ierr =
-		get_string_n_mg(state, in_key, ret_val, vec_num, str_size);
+	    ierr = get_string_n_mg(state, in_key, ret_val, vec_num, str_size);
 	} else if (state->library_type == 's') {
-	    ierr =
-		get_string_n_tn(state, in_key, ret_val, vec_num, str_size);
+	    ierr = get_string_n_tn(state, in_key, ret_val, vec_num, str_size);
 	} else if (state->library_type == 'r') {
-	    ierr =
-		get_string_n_tnreac(state, in_key, ret_val, vec_num,
+	    ierr =get_string_n_tnreac(state, in_key, ret_val, vec_num,
 				    str_size);
+	} else if (state->library_type == 'p') {
+	    ierr = -4;
 	} else if (state->library_type == ' ') {
 	    /* Library type was not set */
 	    ierr = -16;

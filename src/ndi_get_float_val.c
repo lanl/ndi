@@ -72,6 +72,9 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 	ierr = GET_FLOAT_VAL_TN(state, in_key, ret_val);
     } else if (state->library_type == 'd') {
 	ierr = GET_FLOAT_VAL_DOS(state, in_key, ret_val);
+    } else if (state->library_type == 'p') {
+	*ret_val = 0.0;
+	ierr = -4;
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;

@@ -50,6 +50,8 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
 	ierr = get_int_vec_mg(state, in_key, return_vec, vec_size);
     } else if (state->library_type == 's') {
 	ierr = get_int_vec_tn(state, in_key, return_vec, vec_size);
+    } else if (state->library_type == 'p') {
+	ierr = ndimp_get_int_vec(state, in_key, return_vec, vec_size);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;

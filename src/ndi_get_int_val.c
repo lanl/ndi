@@ -50,6 +50,8 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 	ierr = get_int_val_tn(state, in_key, ret_val);
     } else if (state->library_type == 'r') {
 	ierr = get_int_val_tnreac(state, in_key, ret_val);
+    } else if (state->library_type == 'p') {
+	ierr = ndimp_get_int_val(state, in_key, ret_val);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
