@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -36,7 +35,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 {
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
-    static char *default_file[] = {"/usr/local/codes/data/nuclear/ndi"
+    static char *default_file[] = {"/usr/local/codes/data/nuclear/ndi/"
 				   NDI_VERSION_DATA"/share/gendir",
 				   "/usr/projects/data/nuclear/ndi/"
 				   NDI_VERSION_DATA "/share/gendir",
