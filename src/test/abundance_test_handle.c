@@ -14,7 +14,8 @@ int main ()
     int ierr;
     int i;
     int last_Z = 1;
-    int handle = 0;
+    int gendir_h = -1;
+    int handle = -1;
     ndi_float64 return_val;
     ndi_float64 abund_sum = 0.0;
 
@@ -22,9 +23,12 @@ int main ()
     printf("    TEST--Abundances\n " );
     printf(" ********************************************************** \n\n" );
   
-    ierr = ndi2_open(&handle, "");
+    ierr = ndi2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
+    ierr = ndi2_get_handle(gendir_h, &handle);
+    if (ierr)
+	printf("  **Error %d getting particle handle.\n\n", ierr );
     ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "dosimetry_neutron" );
     if (ierr)
 	printf("  **Error %d in setting library type.\n\n", ierr );
@@ -51,6 +55,6 @@ int main ()
      }
      printf("        %11.8f\n\n", abund_sum );
 
-     ierr = ndi2_close(handle);
+     ierr = ndi2_close_gendir(handle);
      return(ierr);
 }

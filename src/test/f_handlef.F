@@ -12,6 +12,7 @@
       character*132 info
       character*30 vers
       character*12 vec_str
+      integer gendir_h
       integer handle
       integer int_val_num
       integer int_val_n_num
@@ -148,10 +149,12 @@ c     $   '27056.600nm', "u235", "u-238", "o-16", "al27"/
 c  '92234.50', 'u-235' /
 
 
-      call ndi2_open(handle, "", ierr)
+      call ndi2_open_gendir(gendir_h, "", ierr)
 
 c     Test error on initialization before close
-      call ndi2_open(handle, "", ierr) 
+      call ndi2_open_gendir(gendir_h, "", ierr) 
+
+      call ndi2_get_handle(gendir_h, handle, ierr)
 
       num_grp_str = '2_group'
       call ndi2_set_option(handle,  NDI_LIB_TYPE,
@@ -388,10 +391,10 @@ c     Float vector from matrix
 
  100  continue
       
-      call ndi2_close(handle, ierr)
+      call ndi2_close_gendir(gendir_h, ierr)
 
 c     Test error on closing twice
-      call ndi2_close(handle, ierr)
+      call ndi2_close_gendir(gendir_h, ierr)
       end
 
 

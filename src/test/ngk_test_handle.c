@@ -13,7 +13,8 @@ int main (void)
     int num_reac;
     int pn_order;
     int int_val;
-    int handle = 0;
+    int gendir_h = -1;
+    int handle = -1;
     char string[132];
     double double_val;
     double *double_vec;
@@ -22,9 +23,12 @@ int main (void)
     char *zaid_list[] = { "92235", "h1"};
 
 
-    ierr = ndi2_open(&handle, "");
+    ierr = ndi2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
+    ierr = ndi2_get_handle(gendir_h, &handle);
+    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
     ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
     ierr = ndi2_set_option(handle, NDI_LIBRARY, "ngk6" );
     if (ierr)
@@ -234,7 +238,7 @@ int main (void)
 
     }
 
-    ierr = ndi2_close(handle);
+    ierr = ndi2_close_gendir(gendir_h);
     return(ierr);
 }       
 /**********************************************************************/

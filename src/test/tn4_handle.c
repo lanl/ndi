@@ -27,6 +27,7 @@ int testtn4(void)
    int num_reac;
    int i,j;
    int num_sec_parts;
+   int gendir_h;
    int handle;
    char part_type[10];
    char zaid[24];
@@ -36,11 +37,12 @@ int testtn4(void)
    strcpy(zaidlist[1], "d+he3->p+a");
    num_reac = 2;
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
-
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- testtn4\n\n");
 
@@ -101,7 +103,7 @@ int testtn4(void)
      printf("\n*****************************\n\n\n");
    }
    
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
 
    return(0);

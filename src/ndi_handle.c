@@ -74,16 +74,19 @@ int set_handle(state_struct *state)
     int i;
     int handle = -1;
 
-    for (i = 0; i < MAX_HANDLE_NUM; i++) {
-	if (!handle_map[i]) {
-	    handle = i;
-	    handle_map[handle] = state;
-	    if (state) {
-		state->handle = handle;
-	    }
-	    break;
-	}
+    if (state) {
+        for (i = 0; i < MAX_HANDLE_NUM; i++) {
+            if (!handle_map[i]) {
+                handle = i;
+                handle_map[handle] = state;
+                if (state) {
+                    state->handle = handle;
+                }
+                break;
+            }
+        }
     }
+
     return (handle);
 }
 
@@ -112,6 +115,9 @@ int __ndi_add_child_handle(state_struct *parent)
 {
     int h;
     state_struct *child = NULL;
+
+    if (! parent) 
+        return(-2);
 
     h = parent->handle_free;	/* get next child handle */
     if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {

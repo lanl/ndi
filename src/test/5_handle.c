@@ -30,6 +30,7 @@ int test5(void)
   int pn_order;
   int arr_size;
   int arr_size2;
+  int gendir_h;
   int handle;
   char zaid[24];
   char ptype[50];
@@ -39,10 +40,13 @@ int test5(void)
   float64 kerma[50];
   float64 prod_mat[2500];
 
-  ierr = ndi2_open(&handle, "");
+  ierr = ndi2_open_gendir(&gendir_h, "");
   if ( ierr != 0 ) {
     return(0);
   }
+
+  ierr = ndi2_get_handle(gendir_h, &handle);
+  if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- test5\n\n");
   printf("\n\n****************************************\n  Test of MG secondary particle data\n");
@@ -110,7 +114,7 @@ int test5(void)
       print_float64_array( prod_mat, arr_size );  
     }
   }
-  (void)ndi2_close(handle);
+  (void)ndi2_close_gendir(gendir_h);
 
   return(ierr);
 }

@@ -37,6 +37,7 @@ int test_tnreac_c(void)
    int ierr;
    int i;
    int num_zaid = 2;
+   int gendir_h = -1;
    int handle = -1;
 
 
@@ -65,7 +66,7 @@ int test_tnreac_c(void)
 	  zaid_list[0] );
    ierr = ndi2_set_isotope(handle, zaid_list[0]);
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
 /****************************************************************
     Test 2 -- Initialized, but lib_type and isotope are not set.
@@ -76,9 +77,11 @@ int test_tnreac_c(void)
    printf("    Lib_type and isotope are not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
 
 /****************************************************************
@@ -90,10 +93,12 @@ int test_tnreac_c(void)
    printf("    Isotope is not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "tnreactions" );
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
 /****************************************************************
     Test 4 -- Get all multigroup data--no special options.
@@ -104,7 +109,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--no collapsing\n " );
    printf(" ********************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "tnreactions" );
 
    /*  For all ZAIDs */
@@ -119,7 +126,7 @@ int test_tnreac_c(void)
       }
       ierr = check_all_ndi_get_tn_functions(handle);
    }  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
 /****************************************************************
     Test 5 -- Get all multigroup data--collasped to 16_LANL.
@@ -130,7 +137,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--collapse to 16_LANL\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option( handle,NDI_LIB_TYPE, "tnreactions" );
    ierr = ndi2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
@@ -146,7 +155,7 @@ int test_tnreac_c(void)
 
    ierr = ndi2_set_option(handle, NDI_COLLAPSE, "default" );
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -159,7 +168,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--set library to testtn\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
 /*    ierr = ndi2_set_option( NDI_LIBRARY, "testtn2" ); */
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "testlib_tn_list" );
@@ -175,7 +186,7 @@ int test_tnreac_c(void)
    }  
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -189,7 +200,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--set transport corrections.\n " );
    printf(" ****************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
 
    printf(" ***********Diagonal transport correction***********\n\n"); 
@@ -229,7 +242,7 @@ int test_tnreac_c(void)
      ierr = check_all_ndi_get_tn_functions(handle);
    }  
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -244,7 +257,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--with depletion set\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
    ierr = ndi2_set_option(handle, NDI_DEPLETION, "testlib_depl" );
 
@@ -260,7 +275,7 @@ int test_tnreac_c(void)
 
    ierr = ndi2_set_option(handle, NDI_DEPLETION, "default" );
    ierr = check_all_ndi_get_tn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -275,7 +290,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--with current particle set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
    ierr = ndi2_set_option(handle, NDI_CURR_PART, "n" );
 
@@ -289,7 +306,7 @@ int test_tnreac_c(void)
      ierr = check_all_ndi_get_tn_functions(handle);
    }  
    
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
     if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
    
@@ -303,7 +320,9 @@ int test_tnreac_c(void)
    printf("    Get all data for requested isotopes--with temperature set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
    ierr = ndi2_set_option(handle, NDI_TEMP, "300" );
 
@@ -317,7 +336,7 @@ int test_tnreac_c(void)
      ierr = check_all_ndi_get_tn_functions(handle);
    }  
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -331,7 +350,9 @@ int test_tnreac_c(void)
    printf("    Get data for requested isotopes using both MT and C values.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
 
    
@@ -358,7 +379,7 @@ int test_tnreac_c(void)
      ierr = check_ndi_get_tn_functions_mt( handle, 2, "MT" );
      ierr = check_ndi_get_tn_functions_mt( handle, 999, "MT" );
    }  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -371,13 +392,15 @@ int test_tnreac_c(void)
    printf("    Test using unknown keywords.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
    printf("***********************REACTION=%s***********************\n\n",
 	  zaid_list[0] );
    ierr = ndi2_set_isotope(handle, zaid_list[0]);
    ierr = ndi_unknown_keyword_tn(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
    return(ierr);
 }

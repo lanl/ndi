@@ -10,6 +10,7 @@ int main ()
    int i;
    int z,a;
    int num_zaid = 5;
+   int gendir_h;
    int handle;
 
    char *zaid_list[] = { "92235.600nm", "1001.", "1039087", "pu239", "10020"  };
@@ -18,9 +19,11 @@ int main ()
    printf("    TEST--RETRIEVE Z and A\n " );
    printf(" ********************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
 
    /*  For all ZAIDs */
@@ -36,7 +39,7 @@ int main ()
 
       printf (  "  Z=%d;  A=%d\n\n\n", z, a);
    }  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
    return(ierr);
 }

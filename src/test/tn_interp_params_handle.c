@@ -10,15 +10,19 @@ int main ()
     int ierr;
     int num_interp;
     int *integer_arr;
+    int gendir_h;
     int handle;
 
     printf("\n\n  ************************************************************** \n" );
     printf("    TEST ACCESSING SIGVBAR AND EINBAR INTERPOLATION PARAMETERS\n " );
     printf(" ************************************************************** \n" );
 
-    ierr = ndi2_open(&handle, "");
+    ierr = ndi2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
+
+    ierr = ndi2_get_handle(gendir_h, &handle);
+    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
     ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "tn" );
     ierr = ndi2_set_option( handle, NDI_LIBRARY, "hale98" );
@@ -78,7 +82,7 @@ int main ()
 	}	
     }
 
-    ierr = ndi2_close(handle);
+    ierr = ndi2_close_gendir(gendir_h);
 
     return(ierr);
 }

@@ -16,14 +16,17 @@ int main ()
    int ierr;
    int ret_int;
    int xs_size;
-   int handle = 0;
+   int gendir_h = -1;
+   int handle = -1;
 
    ndi_float64 ret_flt64_val;
    ndi_float64 ret_flt64[MAX_ARRAY_SIZE];
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle,  NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle,  NDI_DEPLETION, "test2" );
 
@@ -57,7 +60,7 @@ int main ()
    printf( "Target=Pu239; product=94240:\n");
    print_all( ret_int, ret_flt64_val, ret_flt64, xs_size );
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     

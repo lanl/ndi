@@ -18,7 +18,8 @@ int main ()
    int array_size;
    int str_size;
    int num_zaids = 36;
-   int handle = 0;
+   int gendir_h = -1;
+   int handle = -1;
    char zaid[25];
    char *info_str;
    char *str_ptr;
@@ -72,9 +73,11 @@ int main ()
 
 
    /*  Initialize */
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option( handle, NDI_LIBRARY, "chi_test_lib" );
 
@@ -131,7 +134,7 @@ int main ()
 
    }  /* for i */
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 

@@ -22,10 +22,12 @@ int main ()
    int i;
    int num_zaid = 5;
    int ext_num_zaid = 24;
-   int handle = 0;
+   int gendir_h = -1;
+   int handle = -1;
    char test_zaid[133] = "";
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
 
 
@@ -82,7 +84,7 @@ int main ()
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
-   ierr = ndi2_close();
+   ierr = ndi2_close_gendir(gendir_h);
    return(ierr);
 }
 

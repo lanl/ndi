@@ -29,6 +29,7 @@ int test_radchem_chain(void)
    int ierr;
    int curr_izaid;
    int irprod;
+   int gendir_h;
    int handle; 
    char zaid[24];
    char radchem_info[120];
@@ -57,10 +58,12 @@ int test_radchem_chain(void)
    printf(" ********************************************************** \n" );
    printf("    TEST OF RADCHEM FUNCTIONALITY.\n");
    printf(" ********************************************************** \n\n" );
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+    ierr = ndi2_get_handle(gendir_h, &handle);
+    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
    /* Test abundances */
    ierr = ndi2_set_isotope(handle, "77191");
@@ -193,7 +196,7 @@ int test_radchem_chain(void)
      }
 
    }
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    return(ierr);
 }
 

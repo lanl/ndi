@@ -29,6 +29,7 @@ int testtn5(void)
    int isize;
    char tn_info[120];
    int i,j;
+   int gendir_h;
    int handle;
    float64 q_value;
    int num_sec_parts;
@@ -37,10 +38,13 @@ int testtn5(void)
    float64 n_edist[200];
    float64 q;
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
 
   printf("\n\n  NDI TEST SUITE -- testtn5\n\n");
@@ -136,7 +140,7 @@ int testtn5(void)
    
    }
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
    
    return(0);

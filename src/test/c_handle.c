@@ -35,7 +35,8 @@ int main (void)
 
 int testc (void)
 {
-    int handle = 0;
+    int gendir_h = -1;
+    int handle = -1;
    int ierr = 0;
    int i;
    int num_zaid = 5;
@@ -71,7 +72,7 @@ int testc (void)
      printf("  **Error %d in setting isotope %s.\n\n", ierr, zaid_list[0] );
    
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -84,11 +85,14 @@ int testc (void)
    printf("    Lib_type and isotope are not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+  ierr = ndi2_get_handle(gendir_h, &handle);
+  if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -102,12 +106,14 @@ int testc (void)
    printf("    Isotope is not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -120,9 +126,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--no collapsing\n " );
    printf(" ********************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
@@ -138,7 +146,7 @@ int testc (void)
   
       ierr = check_all_ndi_get_mgn_functions(handle);
    }  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
 
 /****************************************************************
     Test 5 -- Get all multigroup data--collasped to 16_LANL.
@@ -149,9 +157,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--collapse to 16_LANL\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_COLLAPSE, "16_group" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
@@ -170,7 +180,7 @@ int testc (void)
 
    ierr = ndi2_set_option(handle, NDI_COLLAPSE, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -183,9 +193,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--set library to mendf5\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf5" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
@@ -203,7 +215,7 @@ int testc (void)
    }  
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -217,9 +229,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--set transport corrections.\n " );
    printf(" ****************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
@@ -266,7 +280,7 @@ int testc (void)
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -281,9 +295,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--with depletion set\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_DEPLETION, "test_depl" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
@@ -302,7 +318,7 @@ int testc (void)
 
    ierr = ndi2_set_option(handle, NDI_DEPLETION, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -317,9 +333,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--with current particle set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_CURR_PART, "n" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
@@ -336,7 +354,7 @@ int testc (void)
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
    
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
     if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
    
@@ -350,9 +368,11 @@ int testc (void)
    printf("    Get all data for requested isotopes--with temperature set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
-     printf("  **Error %d in NDI init.\n\n", ierr );
+       printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_TEMP, "300" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
@@ -369,7 +389,7 @@ int testc (void)
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -383,9 +403,11 @@ int testc (void)
    printf("    Get data for requested isotopes using both MT and C values.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
@@ -417,7 +439,7 @@ int testc (void)
      ierr = check_ndi_get_mgn_functions_mt(  handle, 2, "MT" );
      ierr = check_ndi_get_mgn_functions_mt(  handle, 999, "MT" );
    }  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -430,9 +452,11 @@ int testc (void)
    printf("    Test using unknown keywords.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
@@ -442,7 +466,7 @@ int testc (void)
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
    ierr = ndi_unknown_keyword_mgn(handle);
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -456,10 +480,12 @@ int testc (void)
    printf("    Test ZAID translation.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-  ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
    ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
@@ -515,7 +541,7 @@ int testc (void)
    }
    printf("\n");
 				
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 

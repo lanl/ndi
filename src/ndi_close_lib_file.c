@@ -44,12 +44,6 @@ int ndi_close_lib_file(state_struct *state)
     if (state->lib_stream) {
 	if (fclose(state->lib_stream) != 0)
 	    ret_code = -3;
-    } else {
-        if (state->open_lib_file) {
-            ret_code = 4;
-        } else {
-            return(ret_code);
-        }
     }
 
     /* Deinitialize state */

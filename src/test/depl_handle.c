@@ -28,7 +28,8 @@ int test_depl(void)
    int str_size;
    int arr_size;
    int irprod;
-   int handle = 0;
+   int gendir_h = -1;
+   int handle = -1;
    char *zaid;
    char *depl_info;
    int num_target;
@@ -52,10 +53,12 @@ int test_depl(void)
    printf(" ********************************************************** \n" );
    printf("    TEST OF PRODUCTION/DEPLETION FUNCTIONALITY.\n");
    printf(" ********************************************************** \n\n" );
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf6" );
@@ -213,7 +216,7 @@ int test_depl(void)
 
      }
    }
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    return(0);
 }
 

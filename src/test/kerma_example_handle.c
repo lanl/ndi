@@ -24,7 +24,8 @@ int kerma_example(void)
 {
    int ierr;
    int num_grps;
-   int handle = 0;
+   int gendir_h = -1;
+   int handle = -1;
    float64 heat[100];
    float64 kerma[100];
 
@@ -32,9 +33,12 @@ int kerma_example(void)
   printf("\n\n  NDI TEST SUITE -- kerma_example\n\n");
 
    /* Setup */
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    if (ierr)
@@ -70,7 +74,7 @@ int kerma_example(void)
    if (ierr) 
      printf("\n  **Error %d in getting kerma for isotope u235.\n", ierr );
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 

@@ -27,6 +27,7 @@ int tn_chain(void)
    int num_reac;
    char tn_info[120];
    int i,j,k;
+   int gendir_h;
    int handle;
    float64 q_value;
    int num_reactants, num_rprods;
@@ -39,10 +40,13 @@ int tn_chain(void)
    float64 temp[200], sigvbar[200], n_edist[200], eavg[200];
    int num_grps;
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
   printf("\n\n  NDI TEST SUITE -- testtn_chain\n\n");
 
@@ -206,7 +210,7 @@ int tn_chain(void)
    
    }
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
 
    return(ierr);

@@ -6,13 +6,9 @@
 
 
 static int check_vec_mgn_func(int handle);
-static int check_ndi_int_vec_func_mgn(int handle);
 static int check_ndi_float_vec_func_mgn(int handle);
-static int check_ndi_int_vec_n_func_mgn(int handle);
 static int check_ndi_float_vec_n_func_mgn(int handle);
 static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
-static void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
-static void print_int_vec( int *int_ptr, int num_elements );
 
 
 #ifdef __STANDALONE
@@ -30,11 +26,15 @@ int main ()
 int test_collapse (void)
 {
    int ierr;
+   int gendir_h;
    int handle;
    ndi_float64 _4_lanl[] = { 17.0, 7.79, 2.232, 0.184, 1.67e-4 };
    ndi_float64 _1_lanl[] = { 17.0, 1.67e-4 };
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option( handle, NDI_LIBRARY, "mendf6" );
    ierr = ndi2_set_option( handle, NDI_E_AVG, "from_e" );
@@ -90,7 +90,7 @@ int test_collapse (void)
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235" );
    ierr = check_vec_mgn_func(handle);
 
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    return(ierr);
 }
 
@@ -109,58 +109,6 @@ int check_vec_mgn_func(int handle)
 }
 
   
-/****************************************************************
-****************************************************************/
-
-static int check_ndi_int_vec_func_mgn(int handle)
-
-{
-   int n;
-   int tmp_err = 0;
-   int *ret_vec;
-   int num_keys = 4;
-   int num_elements = 0;
-   int inkey[] = {
-      NDI_RPROD_ALL, 
-      NDI_RPROD_RMO,
-      NDI_RPROD_FEW, 
-      NDI_REAC_MT };
-
-   char *int_vec_str[] = {
-      "No. reaction prod--all", 
-      "No. reaction prod--rmo", 
-      "No. reaction prod--few", 
-      "Reaction MT" };
-
-
-   printf("\nINTEGER VECTORS:\n");
-
-   /* First retrieve number of reaction products */
-   for (n = 0; n < num_keys; n++) {
-      printf( "%s:  ", int_vec_str[n]);
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err );
-      if ( num_elements <= 0 ) {
-	num_elements = 30;
-	printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_str[n] );
-      }
-      ret_vec = (int *)malloc(num_elements * sizeof(int) );
-      tmp_err = ndi2_get_int_vec( handle, inkey[n], ret_vec, num_elements );
-      if (tmp_err) {
-	 printf("\n  **Error %d in %s -- returned value is:\n", tmp_err, 
-		int_vec_str[n] );
-	 print_int_vec( ret_vec,  num_elements );
-      } else {
-	 print_int_vec( ret_vec, num_elements );	 
-      }
-      if (ret_vec) 
-	free(ret_vec);
-   }
-   
-   printf("\n");
-   return(tmp_err);
-   
-}
-
 /****************************************************************
 ****************************************************************/
 
@@ -253,112 +201,6 @@ static int check_ndi_float_vec_func_mgn(int handle)
    return(tmp_err);
 }
 
-
-
-/****************************************************************
-****************************************************************/
-
-static int check_ndi_int_vec_n_func_mgn(int handle)
-
-{
-   int n;
-   int tmp_err = 0;
-   int *id, *mult;
-   int num_keys = 6;
-   int num_elements = 0;
-   int inkey[] = {
-      NDI_RPROD_ID_ALL, 
-      NDI_RPROD_MLT_ALL, 
-      NDI_RPROD_ID_RMO,
-      NDI_RPROD_MLT_RMO, 
-      NDI_RPROD_ID_FEW, 
-      NDI_RPROD_MLT_FEW };
-
-   char *int_vec_n_str[] = {
-      "Reaction prod. ID--all", 
-      "Reaction prod. multiplicity--all", 
-      "Reaction prod. ID--rmo", 
-      "Reaction prod. multiplicity--rmo", 
-      "Reaction prod. ID--few", 
-      "Reaction prod. multiplicity--few" };
-
-
-   printf("\nINTEGER VECTORS (N):\n");
-
-      for ( n = 0; n < num_keys ; n += 2 ) {
-	 /* MT = 2 */
-	 printf( "%s (MT=2): \n", int_vec_n_str[n] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n], 2, &tmp_err );
-	 if ( num_elements <= 0 ) {
-	   num_elements = 30;
-	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n] );
-	 }
-	 id = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n], 2, id, num_elements );
-	 if (tmp_err) {
-	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
-	    print_int_vec( id, num_elements ); 
-	 } else {
-	    print_int_vec( id, num_elements ); 
-	 }
-	 printf( "%s (MT=2): \n", int_vec_n_str[n+1] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n+1], 2, &tmp_err );
-	 if ( num_elements <= 0 ) {
-	   num_elements = 30;
-	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n] );
-	 }
-	 mult = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n+1], 2, mult, num_elements );
-	 if (tmp_err) {
-	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
-	    print_int_vec( mult, num_elements ); 
-	 } else {
-	    print_int_vec( mult, num_elements ); 
-	 }
-
-	 if (id)
-	   free(id);
-
-	 if (mult)
-	   free(mult);
-
-	 /* MT = 999 */
-	 printf( "%s (MT=999): \n", int_vec_n_str[n] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n], 999, &tmp_err );
-	 if ( num_elements <= 0 ) {
-	   num_elements = 30;
-	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n] );	   
-	 }
-	 id = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n], 999, id, num_elements );
-	 if (tmp_err) {
-	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
-	    print_int_vec( id, num_elements ); 
-	 } else {
-	    print_int_vec( id, num_elements ); 
-	 }
-	 printf( "%s (MT=999): \n", int_vec_n_str[n+1] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n+1], 999, &tmp_err );
-	 if ( num_elements <= 0 ) {
-	   num_elements = 30;
-	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n] );
-	 }
-	 mult = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n+1], 999, mult, num_elements );
-	 if (tmp_err) {
-	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
-	    print_int_vec( mult, num_elements ); 
-	 } else {
-	    print_int_vec( mult, num_elements ); 
-	 }
-	 if (id)
-	   free(id);
-	 if (mult)
-	   free(mult);
-      } 
-      printf("\n");  
-      return(tmp_err);
-}
 
 
 /****************************************************************
@@ -498,32 +340,4 @@ static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements ) {
 }
 
 /**********************************************************************/
-/**********************************************************************/
-
-static void print_float32_vec( ndi_float32 *flt_ptr, int num_elements ) {
-
-   int n;
-
-   for (n = 0; n < num_elements; n++) {
-      if ( ( n != 0 ) && ( ( n % 5 ) == 0) )
-	 printf("\n");
-      printf("%13.6e   ", flt_ptr[n]);
-   }
-   printf("\n");
-}
-
-/**********************************************************************/
-
-static void print_int_vec( int *int_ptr, int num_elements ) {
-
-   int n;
-
-   for (n = 0; n < num_elements; n++) {
-      if ( ( (n % 10) == 0) && (n != 0) )
-	 printf("\n");
-      printf("%d   ", int_ptr[n]);
-   }
-   printf("\n");
-}
-
 /**********************************************************************/

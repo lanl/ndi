@@ -14,16 +14,20 @@ int main () {
     int ierr = 0;
     int ret_size;
     int ret_int;
+    int gendir_h;
     int handle;
     int num_p_grps = 2;
     char zaid[132];
     ndi_float64 photon_grp[] = { 20.0, 4.0, 0.1 };
     ndi_float64 *ret_vec64;
 
-    ierr = ndi2_open(&handle, "");
+    ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
@@ -89,7 +93,7 @@ int main () {
    print_float64_vec(ret_vec64, ret_size);
    free(ret_vec64);
 
-
+   ndi2_close_gendir(gendir_h);
    return(ierr);
 }
 

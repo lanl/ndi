@@ -53,55 +53,49 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 	}
 	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
 
-	    /* Then check for directory file given 
-	       by environment variable SNXSPATH */
-	    if (getenv("SNXSPATH")) {
-		strcpy(dir_file, getenv("SNXSPATH"));
-		strcat(dir_file, "/gendir");
-	    }
-	    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-		/* Check for the default file on the X-div LAN */
-		strcpy(dir_file,
-		       "/usr/local/codes/data/nuclear/ndi/"
-		       NDI_VERSION_DATA "/share/gendir");
-		if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-		    /* Check for the default file on the sgi */
-		    strcpy(dir_file,
-			   "/usr/projects/data/nuclear/ndi/"
-			   NDI_VERSION_DATA "/share/gendir");
-		    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-			/* Check for the default file on the secure crays */
-			strcpy(dir_file,
-			       "/usr/local/udata/ndi/" NDI_VERSION_DATA
-			       "/share/gendir");
-			if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-			    /* Check for the default file on LLNL asci white */
-			    strcpy(dir_file,
-				   "/usr/gapps/lanl-data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir");
-			    if ((*dir_stream =
-				 fopen(dir_file, "rb")) == NULL) {
-
-				/* Error: cannot open directory file. */
-				ierr = -1;
-			    }
-			}
-		    }
-		}
-	    }
-	}
+            /* Check for the default file on the X-div LAN */
+            strcpy(dir_file,
+                   "/usr/local/codes/data/nuclear/ndi/"
+                   NDI_VERSION_DATA "/share/gendir");
+            if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+                
+                /* Check for the default file on the sgi */
+                strcpy(dir_file,
+                       "/usr/projects/data/nuclear/ndi/"
+                       NDI_VERSION_DATA "/share/gendir");
+                if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+                    
+                    /* Check for the default file on the secure crays */
+                    strcpy(dir_file,
+                           "/usr/local/udata/ndi/" NDI_VERSION_DATA
+                           "/share/gendir");
+                    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+                        
+                        /* Check for the default file on LLNL asci white */
+                        strcpy(dir_file,
+                               "/usr/gapps/lanl-data/nuclear/ndi/"
+                               NDI_VERSION_DATA "/share/gendir");
+                        if ((*dir_stream =
+                             fopen(dir_file, "rb")) == NULL) {
+                            
+                            /* Error: cannot open directory file. */
+                            ierr = -1;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     if (open_path) {
         *open_path = NULL;
-        if ((*open_path = (char *)ndi_malloc((strlen(dir_file) + 1) * sizeof(char)))) {
-            strncpy(*open_path, dir_file, strlen(dir_file) + 1);
-        } else {
-            ierr = -14;
+        if (ierr >= 0) {
+            if ((*open_path = 
+                 (char *)ndi_malloc((strlen(dir_file) + 1) * sizeof(char)))) {
+                strncpy(*open_path, dir_file, strlen(dir_file) + 1);
+            } else {
+                ierr = -14;
+            }
         }
     } else {
         /*  ???  */

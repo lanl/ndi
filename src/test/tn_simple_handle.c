@@ -22,6 +22,7 @@ int tn_simple(void)
 {
    int ierr;
    int j,k;
+   int gendir_h;
    int handle;
    float64 q_value;
    int num_reactants;
@@ -35,10 +36,13 @@ int tn_simple(void)
 
   printf("\n\n  NDI TEST SUITE -- testtn_simple\n\n");
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
@@ -123,7 +127,7 @@ int tn_simple(void)
 	 printf("\n");
       }
  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
 
    return(ierr);

@@ -10,6 +10,7 @@ int main ()
 {
     int ierr;
     int i;
+    int gendir_h;
     int handle;
     char zaid_str[ZAID_STR_SIZE];
 
@@ -53,9 +54,12 @@ int main ()
     printf("    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID\n " );
     printf(" ********************************************************** \n\n" );
 
-    ierr = ndi2_open(&handle, "");
+    ierr = ndi2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
+
+    ierr = ndi2_get_handle(gendir_h, &handle);
+    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
     /*  For all ZAIDs */
     printf( "Interpret izaid before setting lib type.\n");
@@ -94,7 +98,7 @@ int main ()
 	}
     }
 
-    ierr = ndi2_close(handle);
+    ierr = ndi2_close_gendir(gendir_h);
 
     return(ierr);
 }

@@ -23,6 +23,7 @@ int main ()
    int multiplicity_vec[20];
    int rprod_id[20];
    int part_type;
+   int gendir_h;
    int handle;
    char part_type_str[10];
    float64 reaction_rate = 1.0;
@@ -31,10 +32,13 @@ int main ()
    float64 avg_part_E;
    float64 local_E_dep = 0;
 
-   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
+   ierr = ndi2_get_handle(gendir_h, &handle);
+   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
+
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
@@ -115,7 +119,7 @@ int main ()
      }
    }
  
-   ierr = ndi2_close(handle);
+   ierr = ndi2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
    return(ierr);
 }
