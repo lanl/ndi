@@ -1,3 +1,8 @@
+2004-10-15  Mark G. Gray  <mgg@l81.lanl.gov>
+
+	* ndi_open_gendir.c (ndi_open_gendir): Cleaned up search path
+	logic, handle blank strings
+
 2004-08-24  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_fortran.c (F_NDI2_GET_STRING_VAL): Added Fortran interface

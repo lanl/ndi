@@ -17,6 +17,7 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
+static int isblank(char *str);
 
 /**********************************************************************
 
@@ -35,75 +36,86 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 {
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
+    static char *default_file[] = {"/usr/local/codes/data/nuclear/ndi"
+				   NDI_VERSION_DATA"/share/gendir",
+				   "/usr/projects/data/nuclear/ndi/"
+				   NDI_VERSION_DATA "/share/gendir",
+				   "/usr/gapps/lanl-data/nuclear/ndi/"
+				   NDI_VERSION_DATA "/share/gendir"};
+    int i;
 
-    if (in_path != NULL && strcmp(in_path, "")) {
-	/* Look first for the user specified gendir, if any */
+    if (in_path != NULL && !isblank(in_path)) {
+	/* in_path set */
 	strcpy(dir_file, in_path);
-    } else {
-	/*  Look next for a local gendir, if any */
-	strcpy(dir_file, "gendir");
-    }
-
-    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-	/* Then check for directory file given 
-	   by environment variable NDI_GENDIR_PATH */
-	if (getenv("NDI_GENDIR_PATH")) {
-	    strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
-	}
 	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-
-            /* Check for the default file on the X-div LAN */
-            strcpy(dir_file,
-                   "/usr/local/codes/data/nuclear/ndi/"
-                   NDI_VERSION_DATA "/share/gendir");
-            if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-                
-                /* Check for the default file on the sgi */
-                strcpy(dir_file,
-                       "/usr/projects/data/nuclear/ndi/"
-                       NDI_VERSION_DATA "/share/gendir");
-                if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-                    
-                    /* Check for the default file on the secure crays */
-                    strcpy(dir_file,
-                           "/usr/local/udata/ndi/" NDI_VERSION_DATA
-                           "/share/gendir");
-                    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
-                        
-                        /* Check for the default file on LLNL asci white */
-                        strcpy(dir_file,
-                               "/usr/gapps/lanl-data/nuclear/ndi/"
-                               NDI_VERSION_DATA "/share/gendir");
-                        if ((*dir_stream =
-                             fopen(dir_file, "rb")) == NULL) {
-                            
-                            /* Error: cannot open directory file. */
-                            ierr = -1;
-                        }
-                    }
-                }
-            }
-        }
+	    /* in_path file unreadable */
+	    ierr = 1;
+	    strcpy(dir_file, "gendir");
+	    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+		/* gendir unreadable */
+		if (getenv("NDI_GENDIR_PATH")) {
+		    strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
+		    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+			/* NDI_GENDIR_PATH file unreadable */
+			ierr = 3;
+		    }
+		}
+	    }		
+	}
+    } else {
+	strcpy(dir_file, "gendir");
+	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+	    /* gendir unreadable */
+	    if (getenv("NDI_GENDIR_PATH")) {
+		strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
+		if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+		    /* NDI_GENDIR_PATH file unreadable */
+		    ierr = 2;
+	        }
+	    }		
+	}
     }
 
-    if (open_path) {
-        *open_path = NULL;
-        if (ierr >= 0) {
-            if ((*open_path = 
-                 (char *)ndi_malloc((strlen(dir_file) + 1) * sizeof(char)))) {
-                strncpy(*open_path, dir_file, strlen(dir_file) + 1);
-            } else {
-                ierr = -14;
-            }
-        }
+    if (*dir_stream == NULL) {
+	/* Check for the default file */
+	for (i = 0; i < 3; i++) {
+	    strcpy(dir_file, default_file[i]);
+	    if ((*dir_stream = fopen(dir_file, "rb")) != NULL)
+		break;
+	}
+    }
+
+    if (*dir_stream == NULL) {
+	ierr = -1;
     } else {
-        /*  ???  */
-        if (ierr >= 0)
-            ierr = 7;
+	if (open_path) {
+	    *open_path = NULL;
+	    if (ierr >= 0) {
+		if ((*open_path = 
+		     (char *)ndi_malloc((strlen(dir_file) + 1) * 
+					sizeof(char)))) {
+		    strncpy(*open_path, dir_file, strlen(dir_file) + 1);
+		} else {
+		    ierr = -14;
+		}
+	    }
+	} else {
+	    /*  ???  */
+	    if (ierr >= 0)
+		ierr = 7;
+	}
     }
 
     return (ierr);
+}
+
+int isblank(char *str)
+{
+
+    int i;
+    for (i = 0; isspace(str[i]); i++)
+	;			/* skip leading whitespace */
+    return str[i] == '\0';
 }
 
 /**********************************************************************/
