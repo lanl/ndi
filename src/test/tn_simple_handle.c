@@ -36,14 +36,14 @@ int tn_simple(void)
 
   printf("\n\n  NDI TEST SUITE -- testtn_simple\n\n");
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
      /****** I would suggest you not set the library right now and use the defaults.
@@ -53,28 +53,28 @@ int tn_simple(void)
      library you will get the up-to-date data when it's available, and get not-as-good data
      when that's all there is.  New libraries are supposed to be released very soon.
      ************************/
-   ierr = ndi2_set_option(handle,NDI_LIBRARY, "testlib_tn" );
+   ierr = NDI2_set_option(handle,NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */
-   ierr = ndi2_set_option(handle,NDI_COLLAPSE, "30_group" );
+   ierr = NDI2_set_option(handle,NDI_COLLAPSE, "30_group" );
    num_grps = 30;
 
    /* Get info for reaction d+t->n+a */
-   ierr = ndi2_set_isotope(handle,"d+t->n+a" );
+   ierr = NDI2_set_isotope(handle,"d+t->n+a" );
    if ( ierr != 0 ) printf("  Error setting reaction d+t->n+a is %d.\n", ierr );
    
       /* Again the next pieces of data may not be very useful to user codes,
 	 but is available and demonstrated here.  */
-      ierr = ndi2_get_string_val(handle,NDI_ZAID, zaid, 24);
+      ierr = NDI2_get_string_val(handle,NDI_ZAID, zaid, 24);
       printf("Zaid %s (error = %d).\n", zaid, ierr );
-      ierr = ndi2_get_float64_val(handle,NDI_REAC_Q, &q_value );
+      ierr = NDI2_get_float64_val(handle,NDI_REAC_Q, &q_value );
       printf("  Q-value=%lf; err=%d\n", q_value, ierr );
-      ierr = ndi2_get_int_val(handle,NDI_NUM_REACTANTS, &num_reactants );
+      ierr = NDI2_get_int_val(handle,NDI_NUM_REACTANTS, &num_reactants );
       printf("  Num reactants=%d; err=%d\n", num_reactants, ierr );
-      ierr = ndi2_get_int_vec(handle,NDI_REACTANTS_ID, reac_id, 10 );
+      ierr = NDI2_get_int_vec(handle,NDI_REACTANTS_ID, reac_id, 10 );
       if ( ierr != 0 ) printf("  Error getting id's is %d.\n", ierr );
-      ierr = ndi2_get_int_vec(handle,NDI_REACTANTS_MLT, reac_mlt, 10 );
+      ierr = NDI2_get_int_vec(handle,NDI_REACTANTS_MLT, reac_mlt, 10 );
       if ( ierr != 0 ) printf("  Error getting multiplicities is %d.\n", ierr );
       for ( j = 0; j < num_reactants; j++ ) {
 	 printf("  Number of particle %d is %d.\n", reac_id[j], reac_mlt[j] );
@@ -82,14 +82,14 @@ int tn_simple(void)
       
       /*  Warning: in the next release the keyword NDI_NUM_TEMPS will be
 	  changed to NDI_NUM_TEMPS  */
-      ierr = ndi2_get_int_val(handle,NDI_NUM_TEMPS, &num_sigvbar );
+      ierr = NDI2_get_int_val(handle,NDI_NUM_TEMPS, &num_sigvbar );
       if ( ierr != 0 ) printf( "    num sigvbar err = %d.\n", ierr );
       printf("  There are %d temp,sigvbar pairs.\n", num_sigvbar); 
-      ierr = ndi2_get_float64_vec(handle,NDI_TEMPS, temp, 200 );
+      ierr = NDI2_get_float64_vec(handle,NDI_TEMPS, temp, 200 );
       if ( ierr != 0 ) printf( "    temperature err = %d.\n", ierr );
-      ierr = ndi2_get_float64_vec(handle,NDI_SIGVBARS, sigvbar, 200 );
+      ierr = NDI2_get_float64_vec(handle,NDI_SIGVBARS, sigvbar, 200 );
       if ( ierr != 0 ) printf( "    sigvbars err = %d.\n", ierr );
-      ierr = ndi2_get_float64_vec(handle,NDI_E_AVG, eavg, 200 );
+      ierr = NDI2_get_float64_vec(handle,NDI_E_AVG, eavg, 200 );
       if ( ierr != 0 ) printf( "    avg. incident energy err = %d.\n", ierr );
       for ( j = 0; j < num_sigvbar; j++ ) {
 	/*	printf("  Sigvbar = %e and Eavg = %e at temperature %e.\n", sigvbar[j], eavg[j], temp[j] );
@@ -103,20 +103,20 @@ int tn_simple(void)
       /* Energy distribution data */
 
       /* Find number of secondary particles for which energy-distribution data is given */
-      ierr = ndi2_get_int_val(handle,NDI_NUM_SEC_PARTS, &num_sec_parts );
+      ierr = NDI2_get_int_val(handle,NDI_NUM_SEC_PARTS, &num_sec_parts );
       printf("Num secondary particles = %d; err = %d\n", num_sec_parts, ierr );
 
       /* Set temperature (in MeV).
 	 Energy distribution data will be data for the closest temperature available */
       /*  Note weirdness of temperature being passed in as a string */
-      ierr = ndi2_set_option(handle,NDI_TEMP, "2.0e-4" );
+      ierr = NDI2_set_option(handle,NDI_TEMP, "2.0e-4" );
       if ( ierr != 0 ) printf("  Error setting temperature is %d.\n\n", ierr );
 
       for ( j = 0; j < num_sec_parts; j++ ) {
-	 ierr = ndi2_get_string_val_n(handle,NDI_SEC_PART_TYPES, j, part_type, 10 );
+	 ierr = NDI2_get_string_val_n(handle,NDI_SEC_PART_TYPES, j, part_type, 10 );
 	 printf("Particle %d is a %s.  (err=%d)\n", j, part_type, ierr );
-	 ndi2_set_option(handle,NDI_CURR_PART, part_type );
-	 ierr = ndi2_get_float64_vec(handle, NDI_EDIST, n_edist, 200 );
+	 NDI2_set_option(handle,NDI_CURR_PART, part_type );
+	 ierr = NDI2_get_float64_vec(handle, NDI_EDIST, n_edist, 200 );
 	 printf( "   edist err = %d.\n", ierr );
 	 for ( k = 0; k <= num_grps; k++ ) {
 	   printf ("%11.6f   ", n_edist[k]);
@@ -127,7 +127,7 @@ int tn_simple(void)
 	 printf("\n");
       }
  
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
 
    return(ierr);

@@ -31,13 +31,13 @@ int test_collapse (void)
    ndi_float64 _4_lanl[] = { 17.0, 7.79, 2.232, 0.184, 1.67e-4 };
    ndi_float64 _1_lanl[] = { 17.0, 1.67e-4 };
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_open_gendir(&gendir_h, "");
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
-   ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option( handle, NDI_LIBRARY, "mendf6" );
-   ierr = ndi2_set_option( handle, NDI_E_AVG, "from_e" );
+   ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option( handle, NDI_LIBRARY, "mendf6" );
+   ierr = NDI2_set_option( handle, NDI_E_AVG, "from_e" );
 
    printf("  NDI TEST SUITE -- test_collapse \n");
 
@@ -45,10 +45,10 @@ int test_collapse (void)
    printf("\n********************************************************************\n");
    printf("           4_lanl group\n");
    printf("*********************************************************************\n");
-   ierr = ndi2_set_option( handle, NDI_COLLAPSE, "4_lanl" );
+   ierr = NDI2_set_option( handle, NDI_COLLAPSE, "4_lanl" );
    if (ierr) 
      printf("  **Error %d in setting collapse groups %s.\n\n", ierr,  "4_lanl" );
-   ierr = ndi2_set_isotope( handle, "92235");
+   ierr = NDI2_set_isotope( handle, "92235");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235" );
    ierr = check_vec_mgn_func(handle);
@@ -56,12 +56,12 @@ int test_collapse (void)
    printf("*********************************************************************\n");
    printf("            1-group energy bounds\n");
    printf("*********************************************************************\n");
-   ierr = ndi2_set_float64_vec_option( handle, NDI_COLLAPSE, _1_lanl, 2 );
+   ierr = NDI2_set_float64_vec_option( handle, NDI_COLLAPSE, _1_lanl, 2 );
    if (ierr) 
      printf("  **Error %d in setting collapse groups %s.\n\n", ierr,  "1 energy bounds" );
 
 
-   ierr = ndi2_set_isotope(handle, "92235");
+   ierr = NDI2_set_isotope(handle, "92235");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235" );
    ierr = check_vec_mgn_func(handle);
@@ -70,10 +70,10 @@ int test_collapse (void)
    printf("*********************************************************************\n");
    printf("            4-group energy bounds\n");
    printf("*********************************************************************\n");
-   ierr = ndi2_set_float64_vec_option( handle, NDI_COLLAPSE, _4_lanl, 5 );
+   ierr = NDI2_set_float64_vec_option( handle, NDI_COLLAPSE, _4_lanl, 5 );
    if (ierr) 
      printf("  **Error %d in setting collapse groups %s.\n\n", ierr,  "4 energy bounds" );
-   ierr = ndi2_set_isotope(handle, "92235");
+   ierr = NDI2_set_isotope(handle, "92235");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235" );
    ierr = check_vec_mgn_func(handle);
@@ -82,15 +82,15 @@ int test_collapse (void)
    printf("*********************************************************************\n");
    printf("            1_lanl\n");
    printf("*********************************************************************\n");
-   ierr = ndi2_set_option( handle, NDI_COLLAPSE, "1_lanl" );
+   ierr = NDI2_set_option( handle, NDI_COLLAPSE, "1_lanl" );
    if (ierr) 
      printf("  **Error %d in setting collapse groups %s.\n\n", ierr,  "1_lanl" );
-   ierr = ndi2_set_isotope(handle, "92235");
+   ierr = NDI2_set_isotope(handle, "92235");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235" );
    ierr = check_vec_mgn_func(handle);
 
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    return(ierr);
 }
 
@@ -175,17 +175,17 @@ static int check_ndi_float_vec_func_mgn(int handle)
 
    printf("\nFLOAT64 VECTORS:\n");
 
-   tmp_err = ndi2_set_option( handle, NDI_CURR_PART, "photon" );
+   tmp_err = NDI2_set_option( handle, NDI_CURR_PART, "photon" );
 
    for ( n = 0; n < num_keys; n++ ) {
       printf( "%s: \n", flt_vec_str[n] );
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err );  
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE of %s.\n", flt_vec_str[n] );
       }
       ret_vec64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec( handle, inkey[n], ret_vec64, num_elements );
+      tmp_err = NDI2_get_float64_vec( handle, inkey[n], ret_vec64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		flt_vec_str[n] );
@@ -235,7 +235,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    };
 
 
-   tmp_err = ndi2_set_option( handle, NDI_CURR_PART, "photon" );
+   tmp_err = NDI2_set_option( handle, NDI_CURR_PART, "photon" );
 
    printf("\nFLOAT64 VECTORS (N):\n");
 
@@ -243,13 +243,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    for ( n = 0; n < (num_keys - 1); n++) {
       /* Pn order = 0 */
       printf("%s (0): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 0, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_n( handle, inkey[n], 0, ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_n( handle, inkey[n], 0, ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n]);
 	 print_float64_vec( ret_flt64, num_elements );
@@ -261,13 +261,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
  
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 99, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 99, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_n( handle, inkey[n], 99, ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_n( handle, inkey[n], 99, ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n] );
 	 print_float64_vec( ret_flt64, num_elements );
@@ -281,14 +281,14 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    
    /* Handle data which requires an MT value as input */
    /* MT = 2 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 0, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
       }
    printf("%s (MT=2): \n", flt_vec_n_str[num_keys-1] );
    ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-   tmp_err = ndi2_get_float64_vec_n( handle, inkey[num_keys-1], 2, ret_flt64, num_elements);
+   tmp_err = NDI2_get_float64_vec_n( handle, inkey[num_keys-1], 2, ret_flt64, num_elements);
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );
@@ -300,7 +300,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
      
 
    /* MT = 999 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
@@ -308,7 +308,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
 
    printf("%s (MT=999): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = ndi2_get_float64_vec_n( handle, inkey[num_keys-1], 999, ret_flt64, num_elements );
+   tmp_err = NDI2_get_float64_vec_n( handle, inkey[num_keys-1], 999, ret_flt64, num_elements );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );

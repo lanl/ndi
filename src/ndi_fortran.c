@@ -537,7 +537,7 @@ void F_NDI2_OPEN_GENDIR(int *handle, char *path, int *ierr, int path_len)
 
     c_path = (char *) ndi_malloc((path_len + 1) * sizeof(char));
     (void) ndi_f2c_string(path, &c_path, path_len, path_len+1);
-    *ierr = ndi2_open_gendir(handle, c_path);
+    *ierr = NDI2_open_gendir(handle, c_path);
     if (c_path)
         ndi_free((void **) &c_path);
 }
@@ -549,7 +549,7 @@ void F_NDI2_SET_OPTION_GENDIR(int *handle, int *in_key, char *value,
 
     c_str = (char  *) ndi_malloc((str_len + 1) * sizeof(char));
     (void) ndi_f2c_string(value, &c_str, str_len, str_len+1);
-    *ierr = ndi2_set_option_gendir(*handle, *in_key, c_str);
+    *ierr = NDI2_set_option_gendir(*handle, *in_key, c_str);
     if (c_str)
         ndi_free((void **) &c_str);
 }
@@ -560,7 +560,7 @@ void F_NDI2_CHECK_OPTION_GENDIR(int *handle, int *in_key, char *out_value,
     char *c_str;
 
     c_str = (char *)ndi_malloc((string_size + 1) * sizeof(char));
-    *ierr = ndi2_check_option(*handle, *in_key, c_str, string_size + 1);
+    *ierr = NDI2_check_option(*handle, *in_key, c_str, string_size + 1);
     (void) ndi_c2f_string(c_str, out_value, string_size);
     if (c_str)
         ndi_free((void **) &c_str);
@@ -568,12 +568,12 @@ void F_NDI2_CHECK_OPTION_GENDIR(int *handle, int *in_key, char *out_value,
 
 void F_NDI2_GET_HANDLE_GENDIR(int *handle0, int *handle1, int *ierr)
 {
-    *ierr = ndi2_get_handle_gendir(*handle0, handle1);
+    *ierr = NDI2_get_handle_gendir(*handle0, handle1);
 }
 
 void F_NDI2_CLOSE_GENDIR(int *handle, int *ierr)
 {
-    *ierr = ndi2_close_gendir(*handle);
+    *ierr = NDI2_close_gendir(*handle);
 }
 
 void F_NDI2_OPEN(int *handle, char *path, int *ierr, int len)
@@ -582,7 +582,7 @@ void F_NDI2_OPEN(int *handle, char *path, int *ierr, int len)
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void)ndi_f2c_string(path, &c_val, len, len+1);
-    *ierr = ndi2_open(handle, c_val);
+    *ierr = NDI2_open(handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
 }
@@ -593,7 +593,7 @@ void F_NDI2_SET_LIB_TYPE(int *handle, char *type, int *ierr, int len)
 
     c_str = (char *)ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(type, &c_str, len, len+1);
-    *ierr = ndi2_set_lib_type(*handle, c_str);
+    *ierr = NDI2_set_lib_type(*handle, c_str);
     if (c_str)
         ndi_free((void **) &c_str);
 }
@@ -604,7 +604,7 @@ void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len)
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(zaid, &c_val, len, len + 1);
-    *ierr = ndi2_set_zaid(*handle, c_val);
+    *ierr = NDI2_set_zaid(*handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
 }
@@ -615,7 +615,7 @@ void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len)
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(zaid, &c_val, len, len + 1);
-    *ierr = ndi2_set_isotope(*handle, c_val);
+    *ierr = NDI2_set_isotope(*handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
 }
@@ -626,30 +626,30 @@ void F_NDI2_SET_REACTION(int *handle, char *zaid, int *ierr, int len)
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(zaid, &c_val, len, len + 1);
-    *ierr = ndi2_set_reaction(*handle, c_val);
+    *ierr = NDI2_set_reaction(*handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
 }
 
 void F_NDI2_GET_HANDLE(int *handle0, int *handle1, int *ierr)
 {
-    *ierr = ndi2_get_handle(*handle0, handle1);
+    *ierr = NDI2_get_handle(*handle0, handle1);
 }
 
 void F_NDI2_GET_HANDLE_MPMG(int *handle1, int *handle2, int *ierr)
 {
-    *ierr = ndi2_get_handle_mpmg(*handle1, handle2); 
+    *ierr = NDI2_get_handle_mpmg(*handle1, handle2); 
 }
 
 void F_NDI2_GET_SIZE(int *handle, int *in_key, int *return_val, int *ierr)
 {
-    *return_val = ndi2_get_size(*handle, *in_key, ierr);
+    *return_val = NDI2_get_size(*handle, *in_key, ierr);
 }
 
 void F_NDI2_GET_SIZE_N(int *handle, int *in_key, int *vec_num,
                       int *return_val, int *ierr)
 {
-    *return_val = ndi2_get_size_n(*handle, *in_key, *vec_num, ierr);
+    *return_val = NDI2_get_size_n(*handle, *in_key, *vec_num, ierr);
 }
 
 void F_NDI2_GET_SIZE_X(int *handle, int *in_key, char *in_str,
@@ -659,7 +659,7 @@ void F_NDI2_GET_SIZE_X(int *handle, int *in_key, char *in_str,
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(in_str, &c_val, len, len + 1);
-    *return_val = ndi2_get_size_x(*handle, *in_key, c_val, ierr);
+    *return_val = NDI2_get_size_x(*handle, *in_key, c_val, ierr);
     if (c_val)
 	ndi_free((void **) &c_val);
 }
@@ -671,7 +671,7 @@ void F_NDI2_SET_OPTION(int *handle, int *in_key, char *value,
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(value, &c_val, len, len + 1);
-    *ierr = ndi2_set_option(*handle, *in_key, c_val);
+    *ierr = NDI2_set_option(*handle, *in_key, c_val);
     if (c_val)
 	ndi_free((void **) &c_val);
 }
@@ -680,7 +680,7 @@ void F_NDI2_SET_FLOAT64_VEC_OPTION(int *handle, int *in_key,
                                   ndi_float64 *option_array,
                                   int *array_size, int *ierr)
 {
-    *ierr = ndi2_set_float64_vec_option(*handle, *in_key, 
+    *ierr = NDI2_set_float64_vec_option(*handle, *in_key, 
                                         option_array, *array_size);
 }
 
@@ -689,58 +689,58 @@ void F_NDI2_CHECK_OPTION(int *handle, int *in_key, char *out_value,
 {
     char c_str[MAX_IN_STR_LEN];
 
-    *ierr = ndi2_check_option(*handle, *in_key, c_str, MAX_IN_STR_LEN);
+    *ierr = NDI2_check_option(*handle, *in_key, c_str, MAX_IN_STR_LEN);
     (void) ndi_c2f_string(c_str, out_value, len);
 }
 
 void F_NDI2_GET_INT_VAL(int *handle, int *in_key, int *return_val, int *ierr)
 {
-    *ierr = ndi2_get_int_val(*handle, *in_key, return_val);
+    *ierr = NDI2_get_int_val(*handle, *in_key, return_val);
 }
 
 void F_NDI2_GET_INT_VAL_N(int *handle, int *in_key, int *vec_num,
                          int *return_val, int *ierr)
 {
-    *ierr = ndi2_get_int_val_n(*handle, *in_key, *vec_num, return_val);
+    *ierr = NDI2_get_int_val_n(*handle, *in_key, *vec_num, return_val);
 }
 
 void F_NDI2_GET_INT_VEC(int *handle, int *in_key, int *return_vec,
                        int *vec_size, int *ierr)
 {
-    *ierr = ndi2_get_int_vec(*handle, *in_key, return_vec, *vec_size);
+    *ierr = NDI2_get_int_vec(*handle, *in_key, return_vec, *vec_size);
 }
 
 void F_NDI2_GET_INT_VEC_N(int *handle, int *in_key, int *vec_num,
                          int *return_vec, int *vec_size, int *ierr)
 {
-    *ierr = ndi2_get_int_vec_n(*handle, *in_key, *vec_num, return_vec,
+    *ierr = NDI2_get_int_vec_n(*handle, *in_key, *vec_num, return_vec,
                                *vec_size);
 }
 
 void F_NDI2_GET_FLOAT32_VAL(int *handle, int *in_key,
                            ndi_float32 * return_val, int *ierr)
 {
-    *ierr = ndi2_get_float32_val(*handle, *in_key, return_val);
+    *ierr = NDI2_get_float32_val(*handle, *in_key, return_val);
 }
 
 void F_NDI2_GET_FLOAT32_VAL_N(int *handle, int *in_key, int *vec_num,
                              ndi_float32 * return_val, int *ierr)
 {
-    *ierr = ndi2_get_float32_val_n(*handle, *in_key, *vec_num, return_val);
+    *ierr = NDI2_get_float32_val_n(*handle, *in_key, *vec_num, return_val);
 }
 
 void F_NDI2_GET_FLOAT32_VEC(int *handle, int *in_key,
                            ndi_float32 *return_vec, int *vec_size,
                            int *ierr)
 {
-    *ierr = ndi2_get_float32_vec(*handle, *in_key, return_vec, *vec_size);
+    *ierr = NDI2_get_float32_vec(*handle, *in_key, return_vec, *vec_size);
 }
 
 void F_NDI2_GET_FLOAT32_VEC_N(int *handle, int *in_key, int *vec_num,
                              ndi_float32 *return_vec, int *vec_size,
                              int *ierr)
 {
-    *ierr = ndi2_get_float32_vec_n(*handle, *in_key, *vec_num,
+    *ierr = NDI2_get_float32_vec_n(*handle, *in_key, *vec_num,
                                    return_vec, *vec_size);
 }
 
@@ -753,7 +753,7 @@ void F_NDI2_GET_FLOAT32_VEC_X(int *handle, int *in_key,
 
     c_str = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(in_str, &c_str, len, len + 1);
-    *ierr = ndi2_get_float32_vec_x(*handle, *in_key, c_str, return_vec,
+    *ierr = NDI2_get_float32_vec_x(*handle, *in_key, c_str, return_vec,
                                    *vec_size);
     if (c_str)
         ndi_free((void **) &c_str);
@@ -762,13 +762,13 @@ void F_NDI2_GET_FLOAT32_VEC_X(int *handle, int *in_key,
 void F_NDI2_GET_FLOAT64_VAL(int *handle, int *in_key,
                            ndi_float64 *return_val, int *ierr)
 {
-    *ierr = ndi2_get_float64_val(*handle, *in_key, return_val);
+    *ierr = NDI2_get_float64_val(*handle, *in_key, return_val);
 }
 
 void F_NDI2_GET_FLOAT64_VAL_N(int *handle, int *in_key, int *vec_num,
                              ndi_float64 *return_val, int *ierr)
 {
-    *ierr = ndi2_get_float64_val_n(*handle, *in_key, *vec_num,
+    *ierr = NDI2_get_float64_val_n(*handle, *in_key, *vec_num,
                                    return_val);
 }
 
@@ -776,14 +776,14 @@ void F_NDI2_GET_FLOAT64_VEC(int *handle, int *in_key,
                            ndi_float64 *return_vec, int *vec_size,
                            int *ierr)
 {
-    *ierr = ndi2_get_float64_vec(*handle, *in_key, return_vec, *vec_size);
+    *ierr = NDI2_get_float64_vec(*handle, *in_key, return_vec, *vec_size);
 }
 
 void F_NDI2_GET_FLOAT64_VEC_N(int *handle, int *in_key, int *vec_num,
                              ndi_float64 *return_vec, int *vec_size,
                              int *ierr)
 {
-    *ierr = ndi2_get_float64_vec_n(*handle, *in_key, *vec_num,
+    *ierr = NDI2_get_float64_vec_n(*handle, *in_key, *vec_num,
                                    return_vec, *vec_size);
 }
 
@@ -796,7 +796,7 @@ void F_NDI2_GET_FLOAT64_VEC_X(int *handle, int *in_key,
 
     c_str = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(in_str, &c_str, len, len + 1);
-    *ierr = ndi2_get_float64_vec_x(*handle, *in_key, c_str, return_vec, *vec_size);
+    *ierr = NDI2_get_float64_vec_x(*handle, *in_key, c_str, return_vec, *vec_size);
     if (c_str)
 	ndi_free((void **) &c_str);
 }
@@ -808,7 +808,7 @@ void F_NDI2_GET_STRING_VAL(int *handle, int *in_key, char *return_val,
     int tmp_err;
     int temsize;
 
-    temsize = ndi2_get_size(*handle, *in_key, &tmp_err);
+    temsize = NDI2_get_size(*handle, *in_key, &tmp_err);
     if (temsize < 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, len);
@@ -816,7 +816,7 @@ void F_NDI2_GET_STRING_VAL(int *handle, int *in_key, char *return_val,
     }
 
     c_str = (char *) ndi_malloc(temsize * sizeof(char));
-    *ierr = ndi2_get_string_val(*handle, *in_key, c_str, temsize);
+    *ierr = NDI2_get_string_val(*handle, *in_key, c_str, temsize);
     (void) ndi_c2f_string(c_str, return_val, len);
     (void) ndi_free((void **) &c_str);
 }
@@ -828,7 +828,7 @@ void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
     int tmp_err;
     int temsize;
 
-    temsize = ndi2_get_size_n(*handle, *in_key, *vec_num, &tmp_err);
+    temsize = NDI2_get_size_n(*handle, *in_key, *vec_num, &tmp_err);
     if (temsize < 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, len);
@@ -836,14 +836,14 @@ void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
     }
 
     c_str = (char *) ndi_malloc(temsize * sizeof(char));
-    *ierr = ndi2_get_string_val_n(*handle, *in_key, *vec_num, c_str, temsize);
+    *ierr = NDI2_get_string_val_n(*handle, *in_key, *vec_num, c_str, temsize);
     (void) ndi_c2f_string(c_str, return_val, len);
     (void) ndi_free((void **) &c_str);
 }
 
 void F_NDI2_CLOSE(int *handle, int *ierr)
 {
-    *ierr = ndi2_close(*handle);
+    *ierr = NDI2_close(*handle);
 }
 
 /***************     Internal functions     ***************/

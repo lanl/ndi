@@ -73,26 +73,26 @@ int main ()
 
 
    /*  Initialize */
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option( handle, NDI_LIBRARY, "chi_test_lib" );
+   ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option( handle, NDI_LIBRARY, "chi_test_lib" );
 
    for ( i = 0; i < num_zaids; i++ ) {
 
      /* Set isotope */
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
      if (ierr) 
        printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
 
-     str_size = ndi2_get_size (handle, NDI_INFO, &ierr );
+     str_size = NDI2_get_size (handle, NDI_INFO, &ierr );
      if (ierr) 
        printf("\n  **Error %d info string size.\n", ierr );
      info_str = (char *)malloc( str_size * sizeof(char) );
-     ierr = ndi2_get_string_val( handle, NDI_INFO, info_str, str_size );
+     ierr = NDI2_get_string_val( handle, NDI_INFO, info_str, str_size );
      if (ierr) {
        printf("  Error %d getting information for isotope %s.\n", ierr, zaid_list[i] );
      }
@@ -105,7 +105,7 @@ int main ()
      
      if ( info_str ) { free( info_str ); }
 
-     ierr = ndi2_get_string_val( handle, NDI_ZAID, zaid, 25 );
+     ierr = NDI2_get_string_val( handle, NDI_ZAID, zaid, 25 );
      printf("\nZaid = %s\n\n", zaid );
      
 
@@ -118,11 +118,11 @@ int main ()
        printf( "%c%s:\n", toupper(*(keyword_label[j])), str_ptr );
 
 
-       array_size = ndi2_get_size( handle, keyword_list[j], &ierr );
+       array_size = NDI2_get_size( handle, keyword_list[j], &ierr );
        if (ierr) 
 	 printf("\n  **Error %d %s array size.\n", ierr, keyword_label[j] );
        ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
-       ierr = ndi2_get_float64_vec( handle, keyword_list[j], ret_vec64, array_size);
+       ierr = NDI2_get_float64_vec( handle, keyword_list[j], ret_vec64, array_size);
        if (ierr) {
 	 printf("  **Error %d in %s -- returned value is:\n", ierr, keyword_label[j] );
        }
@@ -134,7 +134,7 @@ int main ()
 
    }  /* for i */
 
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 

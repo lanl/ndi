@@ -17,40 +17,40 @@ int main ()
     printf("    TEST ACCESSING SIGVBAR AND EINBAR INTERPOLATION PARAMETERS\n " );
     printf(" ************************************************************** \n" );
 
-    ierr = ndi2_open_gendir(&gendir_h, "");
+    ierr = NDI2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
 
-    ierr = ndi2_get_handle(gendir_h, &handle);
+    ierr = NDI2_get_handle(gendir_h, &handle);
     if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
-    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "tn" );
-    ierr = ndi2_set_option( handle, NDI_LIBRARY, "hale98" );
+    ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "tn" );
+    ierr = NDI2_set_option( handle, NDI_LIBRARY, "hale98" );
     if (ierr)
 	printf("  **Error %d setting lib type.\n\n", ierr );
 
-     ierr = ndi2_set_reaction(handle, "d+t->n+a");
+     ierr = NDI2_set_reaction(handle, "d+t->n+a");
     if (ierr) {
 	printf("\n  **Error %d in setting reaction d+t->n+a.\n", ierr );
     } else {
 	printf( "\nGet sigvbar interpolation parameters for d+t->n+a.\n");
-	ierr = ndi2_get_int_val( handle, NDI_NUM_SIGVBAR_INTERP, &num_interp );
+	ierr = NDI2_get_int_val( handle, NDI_NUM_SIGVBAR_INTERP, &num_interp );
 	printf( "   Number of interpolation regions (err=%d):  %d\n", 
 		ierr, num_interp );
 	if ( ierr != 0 ) {
 	    printf("  ****ERROR = %d getting number of sigvbar interp regions\n", ierr );
 	} else {
-	    num_interp = ndi2_get_size( handle, NDI_SIGVBAR_INTERP_REG, &ierr );
+	    num_interp = NDI2_get_size( handle, NDI_SIGVBAR_INTERP_REG, &ierr );
 	    integer_arr = (int *)malloc( num_interp * sizeof(int) );
-	    ierr = ndi2_get_int_vec( handle, NDI_SIGVBAR_INTERP_REG, integer_arr, num_interp );
+	    ierr = NDI2_get_int_vec( handle, NDI_SIGVBAR_INTERP_REG, integer_arr, num_interp );
 	    printf( "   Interpolation region boundaries (err=%d; size=%d):\n",
 		    ierr, num_interp);
 	    print_int_array( integer_arr, num_interp );
 	    free( integer_arr );
 
-	    num_interp = ndi2_get_size( handle, NDI_SIGVBAR_INTERP_REG, &ierr );
+	    num_interp = NDI2_get_size( handle, NDI_SIGVBAR_INTERP_REG, &ierr );
 	    integer_arr = (int *)malloc( num_interp * sizeof(int) );
-	    ierr = ndi2_get_int_vec( handle, NDI_SIGVBAR_INTERP_TYPE, integer_arr, num_interp );
+	    ierr = NDI2_get_int_vec( handle, NDI_SIGVBAR_INTERP_TYPE, integer_arr, num_interp );
 	    printf( "   Interpolation types(err=%d; size=%d):\n",
 		    ierr, num_interp);
 	    print_int_array( integer_arr, num_interp );
@@ -58,23 +58,23 @@ int main ()
 	}
 
 	printf( "\nGet einbar interpolation parameters for d+t->n+a.\n");
-	ierr = ndi2_get_int_val( handle, NDI_NUM_EINBAR_INTERP, &num_interp );
+	ierr = NDI2_get_int_val( handle, NDI_NUM_EINBAR_INTERP, &num_interp );
 	printf( "   Number of interpolation regions (err=%d):  %d\n", 
 		ierr, num_interp );
 	if ( ierr != 0 ) {
 	    printf("  ****ERROR = %d getting number of einbar interp regions\n", ierr );
 	} else {
-	    num_interp = ndi2_get_size( handle, NDI_EINBAR_INTERP_REG, &ierr );
+	    num_interp = NDI2_get_size( handle, NDI_EINBAR_INTERP_REG, &ierr );
 	    integer_arr = (int *)malloc( num_interp * sizeof(int) );
-	    ierr = ndi2_get_int_vec( handle, NDI_EINBAR_INTERP_REG, integer_arr, num_interp );
+	    ierr = NDI2_get_int_vec( handle, NDI_EINBAR_INTERP_REG, integer_arr, num_interp );
 	    printf( "   Interpolation region boundaries (err=%d; size=%d):\n",
 		    ierr, num_interp);
 	    print_int_array( integer_arr, num_interp );
 	    free( integer_arr );
 
-	    num_interp = ndi2_get_size( handle, NDI_EINBAR_INTERP_REG, &ierr );
+	    num_interp = NDI2_get_size( handle, NDI_EINBAR_INTERP_REG, &ierr );
 	    integer_arr = (int *)malloc( num_interp * sizeof(int) );
-	    ierr = ndi2_get_int_vec( handle, NDI_EINBAR_INTERP_TYPE, integer_arr, num_interp );
+	    ierr = NDI2_get_int_vec( handle, NDI_EINBAR_INTERP_TYPE, integer_arr, num_interp );
 	    printf( "   Interpolation types(err=%d; size=%d):\n",
 		    ierr, num_interp);
 	    print_int_array( integer_arr, num_interp );
@@ -82,7 +82,7 @@ int main ()
 	}	
     }
 
-    ierr = ndi2_close_gendir(gendir_h);
+    ierr = NDI2_close_gendir(gendir_h);
 
     return(ierr);
 }

@@ -23,26 +23,26 @@ int main (void)
     char *zaid_list[] = { "92235", "h1"};
 
 
-    ierr = ndi2_open_gendir(&gendir_h, "");
+    ierr = NDI2_open_gendir(&gendir_h, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
-    ierr = ndi2_get_handle(gendir_h, &handle);
+    ierr = NDI2_get_handle(gendir_h, &handle);
     if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
-    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-    ierr = ndi2_set_option(handle, NDI_LIBRARY, "ngk6" );
+    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+    ierr = NDI2_set_option(handle, NDI_LIBRARY, "ngk6" );
     if (ierr)
 	printf("  **Error %d setting library ngk6.\n\n", ierr );
     
     for ( i = 0; i < num_zaid; i++ ) {
 	printf("***********************ISOTOPE=%s***********************\n\n",
 	       zaid_list[i] );
-	ierr = ndi2_set_isotope(handle, zaid_list[i]);
+	ierr = NDI2_set_isotope(handle, zaid_list[i]);
 	if (ierr) 
 	    printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
 
 	/* ZAID */
-	ierr = ndi2_get_string_val(handle, NDI_ZAID, string, 132);
+	ierr = NDI2_get_string_val(handle, NDI_ZAID, string, 132);
 	if (ierr) {
 	    printf("\n  **Error %d getting ZAID.\n", ierr );
 	} else {
@@ -50,7 +50,7 @@ int main (void)
 	}
 
 	/* INFO */
-	ierr = ndi2_get_string_val(handle, NDI_INFO, string, 132 );
+	ierr = NDI2_get_string_val(handle, NDI_INFO, string, 132 );
 	if (ierr) {
 	    printf("\n  **Error %d getting INFO.\n", ierr );
 	} else {
@@ -58,7 +58,7 @@ int main (void)
 	}
 
 	/* DATE */
-	ierr = ndi2_get_string_val(handle, NDI_DATE_PROCESSED, string, 132 );
+	ierr = NDI2_get_string_val(handle, NDI_DATE_PROCESSED, string, 132 );
 	if (ierr) {
 	    printf("\n  **Error %d getting DATE PROCESSED.\n", ierr );
 	} else {
@@ -66,7 +66,7 @@ int main (void)
 	}
 
 	/* LAST NEUTRON GROUP */
-	ierr = ndi2_get_int_val(handle, NDI_LAST_GRP, &int_val );
+	ierr = NDI2_get_int_val(handle, NDI_LAST_GRP, &int_val );
 	if (ierr) {
 	    printf("\n  **Error %d getting LAST NEUTRON GROUP.\n", ierr );
 	} else {
@@ -74,7 +74,7 @@ int main (void)
 	}
 
 	/* TEMPERATURE */
-	ierr = ndi2_get_float64_val(handle, NDI_TEMP, &double_val );
+	ierr = NDI2_get_float64_val(handle, NDI_TEMP, &double_val );
 	if (ierr) {
 	    printf("\n  **Error %d getting TEMPERATURE.\n", ierr );
 	} else {
@@ -82,7 +82,7 @@ int main (void)
 	}
 
 	/* SIGMA ZERO */
-	ierr = ndi2_get_float64_val(handle, NDI_SIG_0, &double_val );
+	ierr = NDI2_get_float64_val(handle, NDI_SIG_0, &double_val );
 	if (ierr) {
 	    printf("\n  **Error %d getting SIGMA ZERO.\n", ierr );
 	} else {
@@ -90,7 +90,7 @@ int main (void)
 	}
 
 	/* ATOMIC WEIGHT */
-	ierr = ndi2_get_float64_val(handle, NDI_AT_WGT, &double_val );
+	ierr = NDI2_get_float64_val(handle, NDI_AT_WGT, &double_val );
 	if (ierr) {
 	    printf("\n  **Error %d getting ATOMIC WEIGHT.\n", ierr );
 	} else {
@@ -98,7 +98,7 @@ int main (void)
 	}
 
 	/* AWR */
-	ierr = ndi2_get_float64_val(handle, NDI_AWR, &double_val );
+	ierr = NDI2_get_float64_val(handle, NDI_AWR, &double_val );
 	if (ierr) {
 	    printf("\n  **Error %d getting ATOMIC WEIGHT RATIO.\n", ierr );
 	} else {
@@ -106,9 +106,9 @@ int main (void)
 	}
 
 	/* ENERGY BOUNDARIES */
-	vec_size = ndi2_get_size(handle, NDI_E_BOUNDS, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_E_BOUNDS, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_E_BOUNDS, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_E_BOUNDS, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting ENERGY BOUNDARIES.\n", ierr );
 	} else {
@@ -118,9 +118,9 @@ int main (void)
 	free(double_vec);
 
 	/* WEIGHTS */
-	vec_size = ndi2_get_size(handle, NDI_WGTS, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_WGTS, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_WGTS, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_WGTS, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting WEIGHTS.\n", ierr );
 	} else {
@@ -130,9 +130,9 @@ int main (void)
 	free(double_vec);
 
 	/* VELOCITIES */
-	vec_size = ndi2_get_size(handle, NDI_VEL, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_VEL, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_VEL, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_VEL, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting VELOCITIES.\n", ierr );
 	} else {
@@ -142,9 +142,9 @@ int main (void)
 	free(double_vec);
 
 	/* TOTAL CROSS SECTION */
-	vec_size = ndi2_get_size(handle, NDI_SIG_TOT, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_SIG_TOT, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_SIG_TOT, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_SIG_TOT, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting TOTAL CROSS SECTION.\n", ierr );
 	} else {
@@ -154,9 +154,9 @@ int main (void)
 	free(double_vec);
 
 	/* NU SIGMA(F) */
-	vec_size = ndi2_get_size(handle, NDI_NU_SIG_F_PR, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_NU_SIG_F_PR, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_NU_SIG_F_PR, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_NU_SIG_F_PR, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting NU_SIG_F_PR.\n", ierr );
 	} else {
@@ -166,9 +166,9 @@ int main (void)
 	free(double_vec);
 
 	/* CHI (PR) */
-	vec_size = ndi2_get_size(handle, NDI_CHI_VEC_PR, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_CHI_VEC_PR, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_CHI_VEC_PR, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_CHI_VEC_PR, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting CHI(PR).\n", ierr );
 	} else {
@@ -178,9 +178,9 @@ int main (void)
 	free(double_vec);
 
 	/* CHI (TOT) */
-	vec_size = ndi2_get_size(handle, NDI_CHI_VEC_TOT, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_CHI_VEC_TOT, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_CHI_VEC_TOT, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_CHI_VEC_TOT, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting CHI(TOT).\n", ierr );
 	} else {
@@ -190,9 +190,9 @@ int main (void)
 	free(double_vec);
 
 	/* FISSION Qs */
-	vec_size = ndi2_get_size(handle, NDI_FISS_Q, &ierr );
+	vec_size = NDI2_get_size(handle, NDI_FISS_Q, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-	ierr = ndi2_get_float64_vec(handle, NDI_FISS_Q, double_vec, vec_size );
+	ierr = NDI2_get_float64_vec(handle, NDI_FISS_Q, double_vec, vec_size );
 	if (ierr) {
 	    printf("\n  **Error %d getting FISSION Q.\n", ierr );
 	} else {
@@ -202,15 +202,15 @@ int main (void)
 	free(double_vec);
 
 	/* REACTIONS */
-	vec_size = ndi2_get_size_n(handle, NDI_SIG_REAC, 0, &ierr );
+	vec_size = NDI2_get_size_n(handle, NDI_SIG_REAC, 0, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-        ierr = ndi2_get_int_val(handle, NDI_NUM_REAC, &num_reac);
+        ierr = NDI2_get_int_val(handle, NDI_NUM_REAC, &num_reac);
 	printf("reactions:\n");
 	for (j = 0; j < num_reac; j++ ) {
-	    ierr = ndi2_get_int_val_n(handle, NDI_REAC_MT, j, &int_val );
-	    ierr = ndi2_get_float64_val_n(handle, NDI_REAC_Q, int_val, &double_val );
+	    ierr = NDI2_get_int_val_n(handle, NDI_REAC_MT, j, &int_val );
+	    ierr = NDI2_get_float64_val_n(handle, NDI_REAC_Q, int_val, &double_val );
 	    printf("  mt=%d  q=%e\n", int_val, double_val );
-	    ierr = ndi2_get_float64_vec_n(handle, NDI_SIG_REAC, int_val, double_vec, vec_size );
+	    ierr = NDI2_get_float64_vec_n(handle, NDI_SIG_REAC, int_val, double_vec, vec_size );
 	    if (ierr) {
 		printf("\n  **Error %d getting REACTION %d.\n", ierr, int_val );
 	    } else {
@@ -220,13 +220,13 @@ int main (void)
 	free(double_vec);
 
 	/* SCATTERING MATRIX */
-	vec_size = ndi2_get_size_n(handle, NDI_PN_FULL, 0, &ierr );
+	vec_size = NDI2_get_size_n(handle, NDI_PN_FULL, 0, &ierr );
 	double_vec = (double *)malloc( vec_size * sizeof(double) );
-        ierr = ndi2_get_int_val(handle, NDI_PN_ORDER, &pn_order);
+        ierr = NDI2_get_int_val(handle, NDI_PN_ORDER, &pn_order);
 	printf("scattering:\n");
 	for (j = 0; j < pn_order; j++ ) {
 	    printf("  order=%d\n", j );
-	    ierr = ndi2_get_float64_vec_n(handle, NDI_PN_FULL, j, double_vec, vec_size );
+	    ierr = NDI2_get_float64_vec_n(handle, NDI_PN_FULL, j, double_vec, vec_size );
 	    if (ierr) {
 		printf("\n  **Error %d getting SCATTING MATRIX (%d).\n", ierr, j );
 	    } else {
@@ -238,7 +238,7 @@ int main (void)
 
     }
 
-    ierr = ndi2_close_gendir(gendir_h);
+    ierr = NDI2_close_gendir(gendir_h);
     return(ierr);
 }       
 /**********************************************************************/

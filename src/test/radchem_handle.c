@@ -58,52 +58,52 @@ int test_radchem_chain(void)
    printf(" ********************************************************** \n" );
    printf("    TEST OF RADCHEM FUNCTIONALITY.\n");
    printf(" ********************************************************** \n\n" );
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
       return(0);
    }
-    ierr = ndi2_get_handle(gendir_h, &handle);
+    ierr = NDI2_get_handle(gendir_h, &handle);
     if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
    /* Test abundances */
-   ierr = ndi2_set_isotope(handle, "77191");
-   ierr = ndi2_get_float64_val_n(handle, NDI_ABUNDANCE, 77191, &abundance );
+   ierr = NDI2_set_isotope(handle, "77191");
+   ierr = NDI2_get_float64_val_n(handle, NDI_ABUNDANCE, 77191, &abundance );
    printf ("Abundance for 77191 is %f.\n", abundance);
-   ierr = ndi2_set_isotope(handle, "77193");
-   ierr = ndi2_get_float64_val_n(handle, NDI_ABUNDANCE, 77193, &abundance );
+   ierr = NDI2_set_isotope(handle, "77193");
+   ierr = NDI2_get_float64_val_n(handle, NDI_ABUNDANCE, 77193, &abundance );
    printf ("Abundance for 77193 is %f.\n", abundance);
-   ierr = ndi2_set_isotope(handle, "39089");
-   ierr = ndi2_get_float64_val_n(handle, NDI_ABUNDANCE, 39089, &abundance );
+   ierr = NDI2_set_isotope(handle, "39089");
+   ierr = NDI2_get_float64_val_n(handle, NDI_ABUNDANCE, 39089, &abundance );
    printf ("Abundance for 39089 is %f.\n\n\n\n", abundance);
 
 
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "dosimetry_neutron" );
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "dosimetry_neutron" );
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
    /*
    ierr = ndi_set_option( NDI_LIBRARY, "mendf5" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
    */
-   ierr = ndi2_set_option(handle, NDI_CHAIN, "ir.001zrc" );
+   ierr = NDI2_set_option(handle, NDI_CHAIN, "ir.001zrc" );
    if ( ierr != 0 ) printf("    Error setting radchem is %d.\n", ierr );
-   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "16_group" );
+   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
    if ( ierr != 0 ) printf("    Error setting collapse groups is %d.\n", ierr );
    printf("\n");
 
 
    /* Radchem ZAID */
-   ierr = ndi2_get_string_val(handle, NDI_CHAIN_ZAID, zaid, 24 );
+   ierr = NDI2_get_string_val(handle, NDI_CHAIN_ZAID, zaid, 24 );
    printf("Radchem zaid:\n   %s\n", zaid);
    if ( ierr != 0 ) {
      printf("  Error getting chain zaid = %d.\n", ierr );
    }
    /* Radchem info */
-   ierr = ndi2_get_string_val(handle, NDI_CHAIN_INFO, radchem_info, 120 );
+   ierr = NDI2_get_string_val(handle, NDI_CHAIN_INFO, radchem_info, 120 );
    printf("Radchem info:\n   %s\n", radchem_info );
    if ( ierr != 0 ) {
      printf("  Error getting radchem info = %d.\n", ierr );
    }
    /* Number of targets */
-   ierr = ndi2_get_int_val(handle, NDI_NUM_TARGET, &num_target );
+   ierr = NDI2_get_int_val(handle, NDI_NUM_TARGET, &num_target );
    printf("No. of targets:\n   %d\n", num_target );
    if ( ierr != 0 ) {
      printf("  Error getting number of targets = %d.\n", ierr );
@@ -113,18 +113,18 @@ int test_radchem_chain(void)
    /* Target zaids */
    for ( j = 0; j < num_target; j++ ) {
      
-     ierr = ndi2_get_string_val_n(handle, NDI_TARGET, j, curr_zaid, 24 );
+     ierr = NDI2_get_string_val_n(handle, NDI_TARGET, j, curr_zaid, 24 );
      printf( "\n\n***********************\nCURRENT TARGET:  %s\n", curr_zaid );
      if ( ierr != 0 ) {
        printf("  Error getting current target = %d.\n", ierr );
      }     
-     ierr = ndi2_set_isotope(handle, curr_zaid ); 
+     ierr = NDI2_set_isotope(handle, curr_zaid ); 
      if ( ierr != 0 ) printf("    Error setting isotope %s is %d.\n", curr_zaid, ierr );
      
      /* Abundance */
-     ierr = ndi2_get_int_val_n(handle, NDI_TARGET, j, &curr_izaid );
+     ierr = NDI2_get_int_val_n(handle, NDI_TARGET, j, &curr_izaid );
      printf( "    target(int): %d\n", curr_izaid);
-     ierr = ndi2_get_float64_val_n(handle, NDI_ABUNDANCE, curr_izaid, &abundance );
+     ierr = NDI2_get_float64_val_n(handle, NDI_ABUNDANCE, curr_izaid, &abundance );
      if ( ierr != 0 ) {
        printf("    Error getting abundance for %d is %d.\n", curr_izaid, ierr );
      }
@@ -132,8 +132,8 @@ int test_radchem_chain(void)
      
      
      /* Number of rprods for current target */
-     ierr = ndi2_get_string_val(handle, NDI_ZAID, mg_zaid, 24 );
-     ierr = ndi2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
+     ierr = NDI2_get_string_val(handle, NDI_ZAID, mg_zaid, 24 );
+     ierr = NDI2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
      printf("   No. of rprods available for target %s:   %d\n", mg_zaid, num_rprods );
      if ( ierr != 0 ) {
        printf("  Error getting number of rprods = %d.\n", ierr );
@@ -142,8 +142,8 @@ int test_radchem_chain(void)
      /* Rprod zaid */
      printf("   Rprods available in current radchem set for target %s:\n", mg_zaid );
      for ( i = 0; i < num_rprods; i++ ) {
-       ierr = ndi2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod[i], 30 );
-       ierr = ndi2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
+       ierr = NDI2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod[i], 30 );
+       ierr = NDI2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
        printf( "     %s  %d(int)\n", rprod[i], irprod );
        if ( ierr != 0 ) {
 	 printf("  Error getting current rprod = %d.\n", ierr );
@@ -160,15 +160,15 @@ int test_radchem_chain(void)
      for ( i = 0; i < num_rprods; i++ ) {
 
      
-       ierr = ndi2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
-       ierr = ndi2_get_float64_val_n(handle, NDI_TOT_PROD_Q, irprod, &production_q ); 
+       ierr = NDI2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
+       ierr = NDI2_get_float64_val_n(handle, NDI_TOT_PROD_Q, irprod, &production_q ); 
        printf("     Production Q-value for %d: %f\n", irprod, production_q );
        if ( ierr != 0 ) {
        printf("  Error getting production Q-value = %d.\n", ierr );
        }
 
      
-       ierr = ndi2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod[i], sig_tot, 50 ); 
+       ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod[i], sig_tot, 50 ); 
        printf("     %s:\n", rprod[i] );
        print_float64_array( sig_tot, num_grps );
        if ( ierr != 0 ) {
@@ -196,7 +196,7 @@ int test_radchem_chain(void)
      }
 
    }
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    return(ierr);
 }
 

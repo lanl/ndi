@@ -31,64 +31,64 @@ int main ()
 
    for (i = 0; i < num_libraries; i++) {
        /* Inintialize gendir */
-       ierr = ndi2_open_gendir(&gendir, "");
+       ierr = NDI2_open_gendir(&gendir, "");
        if (ierr)
            printf("  **Error %d in NDI open 0.\n\n", ierr );
 
        /* Get mpmg handle */
-       ierr = ndi2_get_handle_gendir(gendir, &mpmg);
+       ierr = NDI2_get_handle_gendir(gendir, &mpmg);
        if (ierr)
            printf("  **Error %d in NDI get_handle 0.\n\n", ierr );
 
        /* set mpmg handle type */
-       ierr = ndi2_set_lib_type(mpmg, "multigroup_multi");
+       ierr = NDI2_set_lib_type(mpmg, "multigroup_multi");
        if (ierr)
            printf("  **Error %d in NDI set_lib_type 0.\n\n", ierr );
 
        printf("LIBRARY: %s\n", library[i]);
-       ierr = ndi2_set_option(mpmg, NDI_LIBRARY, library[i]);
-       ierr = ndi2_set_zaid(mpmg, "92235");
+       ierr = NDI2_set_option(mpmg, NDI_LIBRARY, library[i]);
+       ierr = NDI2_set_zaid(mpmg, "92235");
 
        /* start accessing data */
-       ierr = ndi2_get_int_val(mpmg, NDI_NUM_GRPS, &return_int);
+       ierr = NDI2_get_int_val(mpmg, NDI_NUM_GRPS, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting number of groups.\n", ierr );
        printf("  Number of groups:  %d\n", return_int);
 
-       ierr = ndi2_get_int_val(mpmg, NDI_PN_ORDER, &return_int);
+       ierr = NDI2_get_int_val(mpmg, NDI_PN_ORDER, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting pn order.\n", ierr );
        printf("  Pn order:  %d\n", return_int);
 
-       ierr = ndi2_get_int_val(mpmg, NDI_NUM_PNU_PR, &return_int);
+       ierr = NDI2_get_int_val(mpmg, NDI_NUM_PNU_PR, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting num pnu.\n", ierr );
        printf("  No. pnu:  %d\n", return_int);
 
-       ierr = ndi2_get_int_val(mpmg, NDI_NUM_REAC, &return_int);
+       ierr = NDI2_get_int_val(mpmg, NDI_NUM_REAC, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting num reactions.\n", ierr );
        printf("  No. reactions:  %d\n", return_int);
 
        /* LAST NEUTRON AND PHOTON GRPS */
-       ierr = ndi2_get_int_val_n(mpmg, NDI_LAST_GRP, 0, &return_int);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_LAST_GRP, 0, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting last neutron group.\n", ierr );
        printf("  Last neutron group:  %d\n", return_int);
-       ierr = ndi2_get_int_val_n(mpmg, NDI_LAST_GRP, 1, &return_int);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_LAST_GRP, 1, &return_int);
        if (ierr) 
            printf("\n  **Error %d getting last photon.\n", ierr );
        printf("  Last photon group:  %d\n", return_int);
 
  
        /* LIST OF MTS */
-       int_vec_size = ndi2_get_size(mpmg, NDI_REAC_MT, &ierr); 
+       int_vec_size = NDI2_get_size(mpmg, NDI_REAC_MT, &ierr); 
        if (ierr) 
            printf("\n  **Error %d getting size of reaction MTs.\n", ierr );
        printf("  Reaction MTs size:  %d\n", int_vec_size); 
    
        int_vec = (int *)calloc(int_vec_size, sizeof(int));
-       ierr = ndi2_get_int_vec(mpmg, NDI_REAC_MT, int_vec, int_vec_size);
+       ierr = NDI2_get_int_vec(mpmg, NDI_REAC_MT, int_vec, int_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting reaction MTs.\n", ierr );
        print_int_vec(int_vec, int_vec_size);
@@ -98,13 +98,13 @@ int main ()
 
 
        /* EBOUNDS */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_E_BOUNDS, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_E_BOUNDS, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of ebounds.\n", ierr );
        printf("  Ebounds size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_E_BOUNDS, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_E_BOUNDS, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting energy boundaries.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -113,13 +113,13 @@ int main ()
        }
 
        /* WEIGHTS */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_WGTS, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_WGTS, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of weigts.\n", ierr );
        printf("  Weights size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_WGTS, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_WGTS, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting weights.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -128,13 +128,13 @@ int main ()
        }
 
        /* VELOCITIES*/
-       flt_vec_size = ndi2_get_size(mpmg, NDI_VEL, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_VEL, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of velocities.\n", ierr );
        printf("  Velocity size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_VEL, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_VEL, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting velocities.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -143,13 +143,13 @@ int main ()
        }
 
        /* TOTAL CROSS SECTION */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_SIG_TOT, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_SIG_TOT, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of total cross section.\n", ierr );
        printf("  Total cross-section size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_SIG_TOT, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_SIG_TOT, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting total cross section.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -158,13 +158,13 @@ int main ()
        }
 
        /* CHI VECTOR */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_CHI_VEC_PR, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_CHI_VEC_PR, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of prompt chi vector.\n", ierr );
        printf("  Prompt chi vector size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_CHI_VEC_PR, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_CHI_VEC_PR, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting prompt chi vector.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -173,13 +173,13 @@ int main ()
        }
 
        /* NUBAR */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_NU_PR, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_NU_PR, &ierr);
        if (ierr)
            printf("\n  **Error %d getting size of prompt nubar.\n", ierr );
        printf("  Prompt nubar size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_NU_PR, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_NU_PR, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting prompt nubar.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -188,13 +188,13 @@ int main ()
        }
 
        /* NU_SIGF */
-       flt_vec_size = ndi2_get_size(mpmg, NDI_NU_SIG_F_PR, &ierr);
+       flt_vec_size = NDI2_get_size(mpmg, NDI_NU_SIG_F_PR, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of prompt nu_sigf.\n", ierr );
        printf("  Prompt nu*sigf size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec(mpmg, NDI_NU_SIG_F_PR, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec(mpmg, NDI_NU_SIG_F_PR, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting prompt nu_sigf.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -203,13 +203,13 @@ int main ()
        }
 
        /* PNU PROMT */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_PNU_PR, 2, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_PNU_PR, 2, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of prompt pnu.\n", ierr );
        printf("  Prompt pnu size (2):  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_PNU_PR, 2, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_PNU_PR, 2, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting prompt pnu.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -218,13 +218,13 @@ int main ()
        }
 
        /* SIG*PNU PROMT */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_SIG_PNU_PR, 2, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_SIG_PNU_PR, 2, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of prompt sig*pnu.\n", ierr );
        printf("  Prompt sig*pnu size (2):  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_SIG_PNU_PR, 2, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_SIG_PNU_PR, 2, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting prompt sig*pnu.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -233,13 +233,13 @@ int main ()
        }
 
        /* REACTION CROSS SECTION (MT=2) */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_SIG_REAC, 2, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_SIG_REAC, 2, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of reaction cross section.\n", ierr );
        printf("  Reaction cross section size (mt=2):  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_SIG_REAC, 2, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_SIG_REAC, 2, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting reaction cross section.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -248,13 +248,13 @@ int main ()
        }
 
        /* DIAGONAL TRANSPORT CORRECTION (2) */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_CORR_DIAG, 2, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_CORR_DIAG, 2, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of diagonal transport correction.\n", ierr );
        printf("  Diagonal transport correction size (2):  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_CORR_DIAG, 2, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_CORR_DIAG, 2, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting diagonal transport correction.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -263,13 +263,13 @@ int main ()
        }
 
        /* BHS TRANSPORT CORRECTION (2) */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_CORR_BHS, 2, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_CORR_BHS, 2, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of BHS transport correction.\n", ierr );
        printf("  BHS transport correction size (2):  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_CORR_BHS, 2, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_CORR_BHS, 2, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting BHS transport correction.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -278,13 +278,13 @@ int main ()
        }
 
        /* SCATTERING MATRIX */
-       flt_vec_size = ndi2_get_size_n(mpmg, NDI_PN_FULL, 0, &ierr);
+       flt_vec_size = NDI2_get_size_n(mpmg, NDI_PN_FULL, 0, &ierr);
        if (ierr) 
            printf("\n  **Error %d getting size of scattering matrix.\n", ierr );
        printf("  Scatter matrix size:  %d\n", flt_vec_size);
    
        flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
-       ierr = ndi2_get_float64_vec_n(mpmg, NDI_PN_FULL, 0, flt64_vec, flt_vec_size);
+       ierr = NDI2_get_float64_vec_n(mpmg, NDI_PN_FULL, 0, flt64_vec, flt_vec_size);
        if (ierr) 
            printf("\n  **Error %d getting scattering matrix.\n", ierr );
        print_float64_vec(flt64_vec, flt_vec_size);
@@ -293,26 +293,26 @@ int main ()
        }
 
        /* Access single-particle data */
-       ierr = ndi2_get_int_val_n(mpmg, NDI_PARTICLE_N, 0, &handle0);
-       ierr = ndi2_get_string_val(handle0, NDI_ZAID, part_zaid, ZAID_SIZE);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_PARTICLE_N, 0, &handle0);
+       ierr = NDI2_get_string_val(handle0, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting handle #0 is %d\n", ierr);
        printf("  ZAID for particle #0:  %s\n", part_zaid);
 
-       ierr = ndi2_get_int_val_n(mpmg, NDI_PARTICLE_N, 1, &handle1);
-       ierr = ndi2_get_string_val(handle1, NDI_ZAID, part_zaid, ZAID_SIZE);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_PARTICLE_N, 1, &handle1);
+       ierr = NDI2_get_string_val(handle1, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting handle #1 is %d\n", ierr);
        printf("  ZAID for particle #1:  %s\n", part_zaid);
 
-       ierr = ndi2_get_int_val_n(mpmg, NDI_PARTICLE_OF_TYPE, 0, &handle0);
-       ierr = ndi2_get_string_val(handle0, NDI_ZAID, part_zaid, ZAID_SIZE);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_PARTICLE_OF_TYPE, 0, &handle0);
+       ierr = NDI2_get_string_val(handle0, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting handle of particle 0 is %d\n", ierr);
        printf("  ZAID for particle 0:  %s\n", part_zaid);
-       ierr = ndi2_get_int_val_n(mpmg, NDI_PARTICLE_OF_TYPE, 1, &handle1);
+       ierr = NDI2_get_int_val_n(mpmg, NDI_PARTICLE_OF_TYPE, 1, &handle1);
 
-       ierr = ndi2_get_string_val(handle1, NDI_ZAID, part_zaid, ZAID_SIZE);
+       ierr = NDI2_get_string_val(handle1, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting handle of particle 1 is %d\n", ierr);
        printf("  ZAID for particle 1:  %s\n", part_zaid);
@@ -320,7 +320,7 @@ int main ()
        printf("\n\n");
        
        /* CLOSE */
-       ierr = ndi2_close_gendir(gendir);
+       ierr = NDI2_close_gendir(gendir);
        if (ierr)
            printf("  **Error %d in closing NDI 0.\n\n", ierr );
    }

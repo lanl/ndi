@@ -67,12 +67,12 @@ int testc (void)
    /* Set isotope */
    printf("***********************ISOTOPE=%s***********************\n\n",
 	  zaid_list[0] );
-   ierr = ndi2_set_isotope(handle, zaid_list[0]);
+   ierr = NDI2_set_isotope(handle, zaid_list[0]);
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, zaid_list[0] );
    
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -85,14 +85,14 @@ int testc (void)
    printf("    Lib_type and isotope are not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-  ierr = ndi2_get_handle(gendir_h, &handle);
+  ierr = NDI2_get_handle(gendir_h, &handle);
   if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
 
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -106,14 +106,14 @@ int testc (void)
    printf("    Isotope is not set.\n " );
    printf(" ********************************************************** \n\n" );
    
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -126,13 +126,13 @@ int testc (void)
    printf("    Get all data for requested isotopes--no collapsing\n " );
    printf(" ********************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -140,13 +140,13 @@ int testc (void)
       /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-      ierr = ndi2_set_isotope(handle, zaid_list[i]);
+      ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
   
       ierr = check_all_ndi_get_mgn_functions(handle);
    }  
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
 
 /****************************************************************
     Test 5 -- Get all multigroup data--collasped to 16_LANL.
@@ -157,14 +157,14 @@ int testc (void)
    printf("    Get all data for requested isotopes--collapse to 16_LANL\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "16_group" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -172,15 +172,15 @@ int testc (void)
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "default" );
+   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -193,14 +193,14 @@ int testc (void)
    printf("    Get all data for requested isotopes--set library to mendf5\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf5" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_LIBRARY, "mendf5" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -208,14 +208,14 @@ int testc (void)
       /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
-   ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
+   ierr = NDI2_set_option(handle, NDI_LIBRARY, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -229,37 +229,37 @@ int testc (void)
    printf("    Get all data for requested isotopes--set transport corrections.\n " );
    printf(" ****************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    printf(" ***********Diagonal transport correction***********\n\n"); 
-   ierr = ndi2_set_option(handle, NDI_TRANS_CORR, "diag_n" );
+   ierr = NDI2_set_option(handle, NDI_TRANS_CORR, "diag_n" );
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
       
       /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
    printf("\n ***********Bell-Hansen-Sandmeier transport correction***********\n\n"); 
-   ierr = ndi2_set_option(handle, NDI_TRANS_CORR, "bhs_n" );
+   ierr = NDI2_set_option(handle, NDI_TRANS_CORR, "bhs_n" );
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
       
       /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
@@ -267,20 +267,20 @@ int testc (void)
 
 
    printf("\n ***********NO transport correction***********\n\n"); 
-   ierr = ndi2_set_option(handle, NDI_TRANS_CORR, "none" );
+   ierr = NDI2_set_option(handle, NDI_TRANS_CORR, "none" );
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
      
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -295,14 +295,14 @@ int testc (void)
    printf("    Get all data for requested isotopes--with depletion set\n " );
    printf(" ************************************************************ \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_DEPLETION, "test_depl" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_DEPLETION, "test_depl" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -310,15 +310,15 @@ int testc (void)
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_set_option(handle, NDI_DEPLETION, "default" );
+   ierr = NDI2_set_option(handle, NDI_DEPLETION, "default" );
    ierr = check_all_ndi_get_mgn_functions(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -333,14 +333,14 @@ int testc (void)
    printf("    Get all data for requested isotopes--with current particle set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_CURR_PART, "n" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_CURR_PART, "n" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -348,13 +348,13 @@ int testc (void)
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
    
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
     if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
    
@@ -368,14 +368,14 @@ int testc (void)
    printf("    Get all data for requested isotopes--with temperature set\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
        printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_TEMP, "300" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_TEMP, "300" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -383,13 +383,13 @@ int testc (void)
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_all_ndi_get_mgn_functions(handle);
    }  
 
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -403,24 +403,24 @@ int testc (void)
    printf("    Get data for requested isotopes using both MT and C values.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    
    printf(" ***********C values***********\n\n"); 
-   ierr = ndi2_set_option(handle, NDI_REAC_ID, "c" );
+   ierr = NDI2_set_option(handle, NDI_REAC_ID, "c" );
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
       
      /* Set isotope, no collapsing */
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_ndi_get_mgn_functions_mt( handle, 10, "C" );
@@ -428,18 +428,18 @@ int testc (void)
    }  
 
    printf(" ***********MT values***********\n\n"); 
-   ierr = ndi2_set_option(handle, NDI_REAC_ID, "mt" );
+   ierr = NDI2_set_option(handle, NDI_REAC_ID, "mt" );
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
      printf("***********************ISOTOPE=%s***********************\n\n",
 	    zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
      ierr = check_ndi_get_mgn_functions_mt(  handle, 2, "MT" );
      ierr = check_ndi_get_mgn_functions_mt(  handle, 999, "MT" );
    }  
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     
@@ -452,21 +452,21 @@ int testc (void)
    printf("    Test using unknown keywords.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    printf("***********************ISOTOPE=%s***********************\n\n",
 	  zaid_list[0] );
-   ierr = ndi2_set_isotope(handle, zaid_list[0]);
+   ierr = NDI2_set_isotope(handle, zaid_list[0]);
       if (ierr) 
 	printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
    ierr = ndi_unknown_keyword_mgn(handle);
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -480,24 +480,24 @@ int testc (void)
    printf("    Test ZAID translation.\n " );
    printf(" ***************************************************************** \n\n" );
 
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
-   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_LIBRARY, "default" );
+   ierr = NDI2_set_option(handle, NDI_E_AVG, "from_e");
 
    printf("\nLibrary is defaulting:\n\n");
 
    for ( i = 0; i < ext_num_zaid; i++ ) {
      printf("***********************ISOTOPE=%s***********************\n",
 	    extend_zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, extend_zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, extend_zaid_list[i]);
      if (ierr) 
        printf("  **Error %d in setting isotope %s.\n\n", ierr, extend_zaid_list[i] );
-     ierr = ndi2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
+     ierr = NDI2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
      if (ierr) {
        printf("  **Error %d in getting ZAID --  returned value is \'%s\'\n\n",
 	      ierr, test_zaid );
@@ -506,15 +506,15 @@ int testc (void)
      }
    }
 
-   ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf5" );
+   ierr = NDI2_set_option(handle, NDI_LIBRARY, "mendf5" );
    printf("\nDefault library set to mendf5:\n\n");
    for ( i = 0; i < ext_num_zaid; i++ ) {
      printf("***********************ISOTOPE=%s***********************\n",
 	    extend_zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, extend_zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, extend_zaid_list[i]);
      if (ierr) 
        printf("  **Error %d in setting isotope %s.\n\n", ierr, extend_zaid_list[i] );
-     ierr = ndi2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
+     ierr = NDI2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
      if (ierr) {
        printf("  **Error %d in getting ZAID --  returned value is \'%s\'\n\n",
 	      ierr, test_zaid );
@@ -523,15 +523,15 @@ int testc (void)
      }
    }
    printf("\n");
-   ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf6" );
+   ierr = NDI2_set_option(handle, NDI_LIBRARY, "mendf6" );
    printf("\nDefault library set to mendf6:\n\n");
    for ( i = 0; i < ext_num_zaid; i++ ) {
      printf("***********************ISOTOPE=%s***********************\n",
 	    extend_zaid_list[i] );
-     ierr = ndi2_set_isotope(handle, extend_zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, extend_zaid_list[i]);
      if (ierr) 
        printf("  **Error %d in setting isotope %s.\n\n", ierr, extend_zaid_list[i] );
-     ierr = ndi2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
+     ierr = NDI2_get_string_val(  handle, NDI_ZAID, test_zaid, 133 );
      if (ierr) {
        printf("  **Error %d in getting ZAID --  returned value is \'%s\'\n\n",
 	      ierr, test_zaid );
@@ -541,7 +541,7 @@ int testc (void)
    }
    printf("\n");
 				
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
@@ -635,7 +635,7 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Integer values */
    for ( n = 0; n < int_val_num_keys; n++ ) {
      printf( "%s (%s=%d):", int_val_str[n], reac_type, reac_id );
-     tmp_err = ndi2_get_int_val_n(  handle, int_val_inkey[n], reac_id, &int_val );
+     tmp_err = NDI2_get_int_val_n(  handle, int_val_inkey[n], reac_id, &int_val );
      if (tmp_err) 
        printf("\n  **Error %d: in %s -- returned value is %d\n", tmp_err, 
 	      int_val_str[n], int_val);
@@ -647,7 +647,7 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Float 64 values */
    for ( n = 0; n < flt_val_num_keys; n++ ) {
      printf( "%s (%s=%d):  ", flt_val_str[n], reac_type, reac_id );
-     tmp_err = ndi2_get_float64_val_n(  handle, flt_val_inkey[n], reac_id, &flt64_val );
+     tmp_err = NDI2_get_float64_val_n(  handle, flt_val_inkey[n], reac_id, &flt64_val );
      if (tmp_err) 
        printf("\n  **Error %d: in %s -- returned value is %22.15e\n", tmp_err, 
 	      flt_val_str[n], flt64_val);
@@ -659,7 +659,7 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Float 32 values */
    for ( n = 0; n < flt_val_num_keys; n++ ) {
      printf( "%s (%s=%d):  ", flt_val_str[n], reac_type, reac_id );
-     tmp_err = ndi2_get_float32_val_n(  handle, flt_val_inkey[n], reac_id, &flt32_val );
+     tmp_err = NDI2_get_float32_val_n(  handle, flt_val_inkey[n], reac_id, &flt32_val );
      if (tmp_err) 
        printf("\n  **Error %d: in %s -- returned value is %13.6e\n", tmp_err, 
 	      flt_val_str[n], flt32_val);
@@ -671,13 +671,13 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Integer vectors */
    for ( n = 0; n < int_vec_num_keys; n++ ) {
      printf( "%s (%s=%d):  \n", int_vec_str[n], reac_type, reac_id );
-     num_elements = ndi2_get_size_n(  handle, int_vec_inkey[n], reac_id, &tmp_err );
+     num_elements = NDI2_get_size_n(  handle, int_vec_inkey[n], reac_id, &tmp_err );
      if ( num_elements <= 0 ) {
        num_elements = 30;
        printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_str[n] );
      }
      int_vec = (int *)malloc(num_elements * sizeof(int) );
-     tmp_err = ndi2_get_int_vec_n(  handle, int_vec_inkey[n], reac_id, int_vec, num_elements );
+     tmp_err = NDI2_get_int_vec_n(  handle, int_vec_inkey[n], reac_id, int_vec, num_elements );
      if (tmp_err) {
        printf("  **Error %d: in %s -- returned value is\n", tmp_err, 
 	      int_vec_str[n]);
@@ -693,13 +693,13 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Float 64 vectors */
    for ( n = 0; n < flt_vec_num_keys; n++ ) {
      printf( "%s (%s=%d):  \n", flt_vec_str[n], reac_type, reac_id );
-     num_elements = ndi2_get_size_n(  handle, flt_vec_inkey[n], reac_id, &tmp_err );
+     num_elements = NDI2_get_size_n(  handle, flt_vec_inkey[n], reac_id, &tmp_err );
      if ( num_elements <= 0 ) {
        num_elements = 30;
        printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_str[n] );
      }
      flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-     tmp_err = ndi2_get_float64_vec_n(  handle, flt_vec_inkey[n], reac_id, flt64_vec, num_elements );
+     tmp_err = NDI2_get_float64_vec_n(  handle, flt_vec_inkey[n], reac_id, flt64_vec, num_elements );
      if (tmp_err) {
        printf("  **Error %d: in %s -- returned value is\n", tmp_err, 
 	      flt_val_str[n]);
@@ -714,13 +714,13 @@ static int check_ndi_get_mgn_functions_mt( int handle, int reac_id, char *reac_t
    /* Float 32 vectors */
    for ( n = 0; n < flt_vec_num_keys; n++ ) {
      printf( "%s (%s=%d):  \n", flt_vec_str[n], reac_type, reac_id );
-     num_elements = ndi2_get_size_n(  handle, flt_vec_inkey[n], reac_id, &tmp_err );
+     num_elements = NDI2_get_size_n(  handle, flt_vec_inkey[n], reac_id, &tmp_err );
      if ( num_elements <= 0 ) {
        num_elements = 30;
        printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_str[n] );
      }
      flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-     tmp_err = ndi2_get_float32_vec_n(  handle, flt_vec_inkey[n], reac_id, flt32_vec, num_elements );
+     tmp_err = NDI2_get_float32_vec_n(  handle, flt_vec_inkey[n], reac_id, flt32_vec, num_elements );
      if (tmp_err) {
        printf("  **Error %d: in %s -- returned value is\n", tmp_err, 
 	      flt_val_str[n]);
@@ -753,7 +753,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* String value */
    printf( "String value (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_string_val(  handle, NDI_COLLAPSE, str_val, 50 );
+   tmp_err = NDI2_get_string_val(  handle, NDI_COLLAPSE, str_val, 50 );
    if (tmp_err) {
      printf("\n  **Error %d: in string_val (NDI_COLLAPSE) -- returned value is \'%s\'\n", 
 	    tmp_err, str_val);
@@ -763,7 +763,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Integer value */
    printf( "Integer value (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_int_val( handle, NDI_COLLAPSE, &int_val );
+   tmp_err = NDI2_get_int_val( handle, NDI_COLLAPSE, &int_val );
    if (tmp_err) {
      printf("\n  **Error %d: in int_val (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, int_val);
@@ -773,7 +773,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float 64 value */
    printf( "Float64 value (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_float64_val( handle, NDI_COLLAPSE, &flt64_val );
+   tmp_err = NDI2_get_float64_val( handle, NDI_COLLAPSE, &flt64_val );
    if (tmp_err) {
      printf("\n  **Error %d: in float_val (NDI_COLLAPSE) -- returned value is %22.15e\n", 
 	    tmp_err, flt64_val);
@@ -783,7 +783,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float 32 value */
    printf( "Float32 value (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_float32_val( handle, NDI_COLLAPSE, &flt32_val );
+   tmp_err = NDI2_get_float32_val( handle, NDI_COLLAPSE, &flt32_val );
    if (tmp_err) {
      printf("\n  **Error %d: in float32_val (NDI_COLLAPSE) -- returned value is %13.6e\n", 
 	    tmp_err, flt32_val);
@@ -793,7 +793,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* String value (n) */
    printf( "String value--0 (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_string_val_n( handle, NDI_COLLAPSE, 0, str_val, 50 );
+   tmp_err = NDI2_get_string_val_n( handle, NDI_COLLAPSE, 0, str_val, 50 );
    if (tmp_err) {
      printf("\n  **Error %d: in string_val_n (NDI_COLLAPSE) -- returned value is \'%s\'\n", 
 	    tmp_err, str_val);
@@ -803,7 +803,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Integer value (n) */
    printf( "Integer value--0 (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_int_val_n( handle, NDI_COLLAPSE, 0, &int_val );
+   tmp_err = NDI2_get_int_val_n( handle, NDI_COLLAPSE, 0, &int_val );
    if (tmp_err) {
      printf("\n  **Error %d: in int_val_n (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, int_val);
@@ -813,7 +813,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float 64 value (n) */
    printf( "Float64 value--0 (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_float64_val_n( handle, NDI_COLLAPSE, 0, &flt64_val );
+   tmp_err = NDI2_get_float64_val_n( handle, NDI_COLLAPSE, 0, &flt64_val );
    if (tmp_err) {
      printf("\n  **Error %d: in float64_val_n (NDI_COLLAPSE) -- returned value is %22.15e\n", 
 	    tmp_err, flt64_val);
@@ -823,7 +823,7 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float 32 value (n) */
    printf( "Float32 value--0 (NDI_COLLAPSE):  ");
-   tmp_err = ndi2_get_float32_val_n( handle, NDI_COLLAPSE, 0, &flt32_val );
+   tmp_err = NDI2_get_float32_val_n( handle, NDI_COLLAPSE, 0, &flt32_val );
    if (tmp_err) {
      printf("\n  **Error %d: in float32_val_n (NDI_COLLAPSE) -- returned value is %13.6e\n", 
 	    tmp_err, flt32_val);
@@ -833,13 +833,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Integer vector */
    printf( "Integer vector (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Int vec).\n" );
    }
    int_vec = (int *)malloc( num_elements * sizeof(int) );
-   tmp_err = ndi2_get_int_vec( handle, NDI_COLLAPSE, int_vec, num_elements );
+   tmp_err = NDI2_get_int_vec( handle, NDI_COLLAPSE, int_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in int_vec (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -852,13 +852,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float64 vector */
    printf( "Float64 vector (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (float64 vec).\n" );     
    }
    flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-   tmp_err = ndi2_get_float64_vec( handle, NDI_COLLAPSE, flt64_vec, num_elements );
+   tmp_err = NDI2_get_float64_vec( handle, NDI_COLLAPSE, flt64_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float64_vec (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -871,13 +871,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float32 vector */
    printf( "Float32 vector (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Float32 vec).\n" );     
    }
    flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-   tmp_err = ndi2_get_float32_vec( handle, NDI_COLLAPSE, flt32_vec, num_elements );
+   tmp_err = NDI2_get_float32_vec( handle, NDI_COLLAPSE, flt32_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float32_vec (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -890,13 +890,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Integer vector (n) */
    printf( "Integer vector--0 (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Int vec n).\n" );
    }
    int_vec = (int *)malloc(num_elements * sizeof(int) );
-   tmp_err = ndi2_get_int_vec_n( handle, NDI_COLLAPSE, 0, int_vec, num_elements );
+   tmp_err = NDI2_get_int_vec_n( handle, NDI_COLLAPSE, 0, int_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in int_vec_n (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -909,13 +909,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float64 vector (n) */
    printf( "Float64 vector--0 (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Float64 vec n).\n" );
    }
    flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-   tmp_err = ndi2_get_float64_vec_n( handle, NDI_COLLAPSE, 0, flt64_vec, num_elements );
+   tmp_err = NDI2_get_float64_vec_n( handle, NDI_COLLAPSE, 0, flt64_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float_vec_n (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -928,13 +928,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float32 vector (n) */
    printf( "Float32 vector--0 (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Float32 vec n).\n" );     
    }
    flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-   tmp_err = ndi2_get_float32_vec_n( handle, NDI_COLLAPSE, 0, flt32_vec, num_elements );
+   tmp_err = NDI2_get_float32_vec_n( handle, NDI_COLLAPSE, 0, flt32_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float_vec_n (NDI_COLLAPSE) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -947,13 +947,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float64 vector (x) */
    printf( "Float64 vector--0 (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Float64 vec x).\n" );
    }
    flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-   tmp_err = ndi2_get_float64_vec_x( handle, NDI_COLLAPSE, "92235", flt64_vec, num_elements );
+   tmp_err = NDI2_get_float64_vec_x( handle, NDI_COLLAPSE, "92235", flt64_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float_vec_x -- NDI_COLLAPSE (92235) -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -966,13 +966,13 @@ static int ndi_unknown_keyword_mgn(int handle)
 
    /* Float32 vector (x) */
    printf( "Float32 vector--0 (NDI_COLLAPSE):  ");
-   num_elements = ndi2_get_size( handle, NDI_COLLAPSE, &tmp_err );
+   num_elements = NDI2_get_size( handle, NDI_COLLAPSE, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR Collapse (Float32 vec x).\n" );     
    }
    flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-   tmp_err = ndi2_get_float32_vec_x( handle, NDI_COLLAPSE, "92235", flt32_vec, num_elements );
+   tmp_err = NDI2_get_float32_vec_x( handle, NDI_COLLAPSE, "92235", flt32_vec, num_elements );
    if (tmp_err) {
      printf("\n  **Error %d: in float_vec_x -- NDI_COLLAPSE (92235)  -- returned value is %d\n", 
 	    tmp_err, num_elements );
@@ -1014,7 +1014,7 @@ static int check_ndi_string_val_func_mgn(int handle)
    printf("STRING VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
      printf( "%s:  ", str_str[n] );
-     tmp_err = ndi2_get_string_val( handle, inkey[n], str_val, 133 );
+     tmp_err = NDI2_get_string_val( handle, inkey[n], str_val, 133 );
      if (tmp_err) 
        printf("\n  **Error %d: in %s -- returned value is  \'%s\'\n", tmp_err, str_str[n], str_val);
      else
@@ -1058,7 +1058,7 @@ static int check_ndi_int_val_func_mgn(int handle)
       "No. of secondary particles",
       "Pn order -- photon prod" };
 
-   tmp_err = ndi2_set_option(handle, NDI_CURR_PART, "0" );
+   tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
    if ( tmp_err ) {
      printf("  ****Error %d setting current particle photon.\n", tmp_err );
    }
@@ -1066,7 +1066,7 @@ static int check_ndi_int_val_func_mgn(int handle)
    printf("\nINTEGER VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
      printf( "%s:  ", int_str[n]);
-     tmp_err = ndi2_get_int_val( handle, inkey[n], &ret_int);
+     tmp_err = NDI2_get_int_val( handle, inkey[n], &ret_int);
      if (tmp_err) 
        printf("\n  **Error %d: in %s -- returned value is %d\n", tmp_err, int_str[n], ret_int);
      else
@@ -1102,7 +1102,7 @@ static int check_ndi_float_val_func_mgn(int handle)
    printf("\nFLOAT64 VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
       printf("%s:  ", flt_val_str[n]);
-      tmp_err = ndi2_get_float64_val( handle, inkey[n], &ret_flt64 );
+      tmp_err = NDI2_get_float64_val( handle, inkey[n], &ret_flt64 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %22.15e\n", tmp_err, flt_val_str[n], ret_flt64 );
       else
@@ -1112,7 +1112,7 @@ static int check_ndi_float_val_func_mgn(int handle)
    printf("\nFLOAT32 VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
       printf("%s:  ", flt_val_str[n]);
-      tmp_err = ndi2_get_float32_val( handle, inkey[n], &ret_flt32 );
+      tmp_err = NDI2_get_float32_val( handle, inkey[n], &ret_flt32 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %13.6e\n", tmp_err, flt_val_str[n], ret_flt32 );
       else
@@ -1150,7 +1150,7 @@ static int check_ndi_string_val_n_func_mgn(int handle)
    for (n = 0; n < num_keys; n++) {
       /* Index = 0 */
       printf( "%s (0):  ", int_val_n_str[n]);
-      tmp_err = ndi2_get_string_val_n( handle, inkey[n], 0, ret_str, 133 );
+      tmp_err = NDI2_get_string_val_n( handle, inkey[n], 0, ret_str, 133 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is \'%s\'.\n", tmp_err, 
 		int_val_n_str[n], ret_str );
@@ -1158,7 +1158,7 @@ static int check_ndi_string_val_n_func_mgn(int handle)
 	 printf("%s\n", ret_str);
       /* Index = 999 */
       printf( "%s (999):  ", int_val_n_str[n]);
-      tmp_err = ndi2_get_string_val_n( handle, inkey[n], 999, ret_str, 133 );
+      tmp_err = NDI2_get_string_val_n( handle, inkey[n], 999, ret_str, 133 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is \'%s\'.\n", tmp_err, 
 		int_val_n_str[n], ret_str );
@@ -1199,7 +1199,7 @@ static int check_ndi_int_val_n_func_mgn(int handle)
    for (n = 0; n < (num_keys - 1 ); n++) {
       /* All should contain MT=2 */
       printf( "%s (MT=2):  ", int_val_n_str[n]);
-      tmp_err = ndi2_get_int_val_n( handle, inkey[n], 2, &ret_int );
+      tmp_err = NDI2_get_int_val_n( handle, inkey[n], 2, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
@@ -1207,7 +1207,7 @@ static int check_ndi_int_val_n_func_mgn(int handle)
 	 printf("%d\n", ret_int);
       /* MT = 16 */
       printf( "%s (MT=16):  ", int_val_n_str[n]);
-      tmp_err = ndi2_get_int_val_n( handle, inkey[n], 16, &ret_int );
+      tmp_err = NDI2_get_int_val_n( handle, inkey[n], 16, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
@@ -1215,7 +1215,7 @@ static int check_ndi_int_val_n_func_mgn(int handle)
 	 printf("%d\n", ret_int);
       /* MT = 9999 */
       printf( "%s (MT=9999):  ", int_val_n_str[n]);
-      tmp_err = ndi2_get_int_val_n( handle, inkey[n], 9999, &ret_int );
+      tmp_err = NDI2_get_int_val_n( handle, inkey[n], 9999, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
@@ -1225,7 +1225,7 @@ static int check_ndi_int_val_n_func_mgn(int handle)
 
    /* Get 1st reaction MT */
    printf( "%s (0):  ", int_val_n_str[num_keys-1]);
-   tmp_err = ndi2_get_int_val_n( handle, inkey[num_keys-1], 0, &ret_int );
+   tmp_err = NDI2_get_int_val_n( handle, inkey[num_keys-1], 0, &ret_int );
    if (tmp_err)
       printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 	     int_val_n_str[num_keys-1], ret_int );
@@ -1233,7 +1233,7 @@ static int check_ndi_int_val_n_func_mgn(int handle)
       printf("%d\n", ret_int);
    /* Get 999th reaction MT */
    printf( "%s (999):  ", int_val_n_str[num_keys-1]);
-   tmp_err = ndi2_get_int_val_n( handle, inkey[num_keys-1], 999, &ret_int );
+   tmp_err = NDI2_get_int_val_n( handle, inkey[num_keys-1], 999, &ret_int );
    if (tmp_err)
       printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 	     int_val_n_str[num_keys-1], ret_int );
@@ -1267,7 +1267,7 @@ static int check_ndi_float_val_n_func_mgn(int handle)
    for ( n = 0; n < num_keys; n++ ) {
       /* MT = 2; All with reaction data should have this */
       printf( "%s (MT=2):  ", flt_val_str[n] );
-      tmp_err = ndi2_get_float64_val_n( handle, inkey[n], 2, &ret_flt64 );
+      tmp_err = NDI2_get_float64_val_n( handle, inkey[n], 2, &ret_flt64 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %22.15e.\n", tmp_err, 
 		flt_val_str[n], ret_flt64 );
@@ -1275,7 +1275,7 @@ static int check_ndi_float_val_n_func_mgn(int handle)
 	 printf("%22.15e\n", ret_flt64);
       /* MT = 999 */
       printf( "%s (MT=999):  ", flt_val_str[n] );
-      tmp_err = ndi2_get_float64_val_n( handle, inkey[n], 999, &ret_flt64 );
+      tmp_err = NDI2_get_float64_val_n( handle, inkey[n], 999, &ret_flt64 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %22.15e.\n", tmp_err, 
 		flt_val_str[n], ret_flt64 );
@@ -1289,7 +1289,7 @@ static int check_ndi_float_val_n_func_mgn(int handle)
    for ( n = 0; n < num_keys; n++ ) {
       /* MT = 2; All with reaction data should have this */
       printf( "%s (MT=2):  ", flt_val_str[n] );
-      tmp_err = ndi2_get_float32_val_n( handle, inkey[n], 2, &ret_flt32 );
+      tmp_err = NDI2_get_float32_val_n( handle, inkey[n], 2, &ret_flt32 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %13.6e.\n", tmp_err, 
 		flt_val_str[n], ret_flt32 );
@@ -1297,7 +1297,7 @@ static int check_ndi_float_val_n_func_mgn(int handle)
 	 printf( "%13.6e\n", ret_flt32 );
       /* MT = 999 */
       printf( "%s (MT=999):  ", flt_val_str[n] );
-      tmp_err = ndi2_get_float32_val_n( handle, inkey[n], 999, &ret_flt32 );
+      tmp_err = NDI2_get_float32_val_n( handle, inkey[n], 999, &ret_flt32 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %13.6e.\n", tmp_err, 
 		flt_val_str[n], ret_flt32 );
@@ -1341,13 +1341,13 @@ static int check_ndi_int_vec_func_mgn(int handle)
    /* First retrieve number of reaction products */
    for (n = 0; n < num_keys; n++) {
       printf( "%s:  ", int_vec_str[n]);
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err );
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_str[n] );
       }
       ret_vec = (int *)malloc(num_elements * sizeof(int) );
-      tmp_err = ndi2_get_int_vec( handle, inkey[n], ret_vec, num_elements );
+      tmp_err = NDI2_get_int_vec( handle, inkey[n], ret_vec, num_elements );
       if (tmp_err) {
 	 printf("\n  **Error %d in %s -- returned value is:\n", tmp_err, 
 		int_vec_str[n] );
@@ -1432,7 +1432,7 @@ static int check_ndi_float_vec_func_mgn(int handle)
       "Photon energy bounds" };
 
 
-   tmp_err = ndi2_set_option(handle, NDI_CURR_PART, "0" );
+   tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
    if ( tmp_err ) {
      printf("  ****Error %d setting current particle photon.\n", tmp_err );
    }
@@ -1441,13 +1441,13 @@ static int check_ndi_float_vec_func_mgn(int handle)
 
    for ( n = 0; n < num_keys; n++ ) {
       printf( "%s: \n", flt_vec_str[n] );
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err );  
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_str[n] );
       }
       ret_vec64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec( handle, inkey[n], ret_vec64, num_elements );
+      tmp_err = NDI2_get_float64_vec( handle, inkey[n], ret_vec64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		flt_vec_str[n] );
@@ -1463,13 +1463,13 @@ static int check_ndi_float_vec_func_mgn(int handle)
    printf("\nFLOAT32 VECTORS:\n");
    for ( n = 0; n < num_keys; n++ ) {
       printf( "%s: \n", flt_vec_str[n] );
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err );  
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
        printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_str[n] );
       }
       ret_vec32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec( handle, inkey[n], ret_vec32, num_elements );
+      tmp_err = NDI2_get_float32_vec( handle, inkey[n], ret_vec32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		flt_vec_str[n] );
@@ -1519,13 +1519,13 @@ static int check_ndi_int_vec_n_func_mgn(int handle)
       for ( n = 0; n < num_keys ; n += 2 ) {
 	 /* MT = 2 */
 	 printf( "%s (MT=2): \n", int_vec_n_str[n] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n], 2, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[n], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", int_vec_n_str[n] );
 	 }
 	 id = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n], 2, id, num_elements );
+	 tmp_err = NDI2_get_int_vec_n( handle, inkey[n], 2, id, num_elements );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
 	    print_int_vec( id, num_elements ); 
@@ -1533,13 +1533,13 @@ static int check_ndi_int_vec_n_func_mgn(int handle)
 	    print_int_vec( id, num_elements ); 
 	 }
 	 printf( "%s (MT=2): \n", int_vec_n_str[n+1] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n+1], 2, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[n+1], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n+1] );
 	 }
 	 mult = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n+1], 2, mult, num_elements );
+	 tmp_err = NDI2_get_int_vec_n( handle, inkey[n+1], 2, mult, num_elements );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
 	    print_int_vec( mult, num_elements ); 
@@ -1554,13 +1554,13 @@ static int check_ndi_int_vec_n_func_mgn(int handle)
 
 	 /* MT = 999 */
 	 printf( "%s (MT=999): \n", int_vec_n_str[n] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n], 999, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[n], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", int_vec_n_str[n] );
 	 }
 	 id = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n], 999, id, num_elements );
+	 tmp_err = NDI2_get_int_vec_n( handle, inkey[n], 999, id, num_elements );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
 	    print_int_vec( id, num_elements ); 
@@ -1568,13 +1568,13 @@ static int check_ndi_int_vec_n_func_mgn(int handle)
 	    print_int_vec( id, num_elements ); 
 	 }
 	 printf( "%s (MT=999): \n", int_vec_n_str[n+1] );
-	 num_elements = ndi2_get_size_n( handle, inkey[n+1], 999, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[n+1], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_n_str[n + 1] );
 	 }
 	 mult = (int *)malloc(num_elements * sizeof(int) );
-	 tmp_err = ndi2_get_int_vec_n( handle, inkey[n+1], 999, mult, num_elements );
+	 tmp_err = NDI2_get_int_vec_n( handle, inkey[n+1], 999, mult, num_elements );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
 	    print_int_vec( mult, num_elements ); 
@@ -1626,7 +1626,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    };
 
 
-   tmp_err = ndi2_set_option(handle, NDI_CURR_PART, "0" );
+   tmp_err = NDI2_set_option(handle, NDI_CURR_PART, "0" );
    if ( tmp_err ) {
      printf("  ****Error %d setting current particle photon.\n", tmp_err );
    }
@@ -1636,13 +1636,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    for ( n = 0; n < (num_keys - 1); n++) {
       /* Pn order = 0 */
       printf("%s (0): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 0, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_n( handle, inkey[n], 0, ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_n( handle, inkey[n], 0, ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n]);
 	 print_float64_vec( ret_flt64, num_elements );
@@ -1654,13 +1654,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
  
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 99, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 99, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", flt_vec_n_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_n( handle, inkey[n], 99, ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_n( handle, inkey[n], 99, ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n] );
 	 print_float64_vec( ret_flt64, num_elements );
@@ -1673,7 +1673,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    
    /* Handle data which requires an MT value as input */
    /* MT = 2 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 2, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 2, &tmp_err );
 
    if ( num_elements <= 0 ) {
      num_elements = 30;
@@ -1681,7 +1681,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    }
    ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
    printf("%s (MT=2): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = ndi2_get_float64_vec_n( handle, inkey[num_keys-1], 2, ret_flt64, num_elements );
+   tmp_err = NDI2_get_float64_vec_n( handle, inkey[num_keys-1], 2, ret_flt64, num_elements );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );
@@ -1692,14 +1692,14 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
      free(ret_flt64);
 
    /* MT = 999 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_n_str[num_keys-1] );
    }
    ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );   
    printf("%s (MT=999): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = ndi2_get_float64_vec_n( handle, inkey[num_keys-1], 999, ret_flt64, num_elements );
+   tmp_err = NDI2_get_float64_vec_n( handle, inkey[num_keys-1], 999, ret_flt64, num_elements );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );
@@ -1715,13 +1715,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    for ( n = 0; n < (num_keys - 1); n++) {
       /* Pn order = 0 */
       printf("%s (0): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 0, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_n_str[n] );
       }
       ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec_n( handle, inkey[n], 0, ret_flt32, num_elements );
+      tmp_err = NDI2_get_float32_vec_n( handle, inkey[n], 0, ret_flt32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n]);
 	 print_float32_vec( ret_flt32, num_elements );
@@ -1733,13 +1733,13 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
 
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_n_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 99, &tmp_err );
+      num_elements = NDI2_get_size_n( handle, inkey[n], 99, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_n_str[n] );
       }
       ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec_n( handle, inkey[n], 99, ret_flt32, num_elements );
+      tmp_err = NDI2_get_float32_vec_n( handle, inkey[n], 99, ret_flt32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n] );
 	 print_float32_vec( ret_flt32, num_elements );
@@ -1752,14 +1752,14 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    
    /* Handle data which requires an MT value as input */
    /* MT = 2 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 0, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 0, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_n_str[num_keys-1] );
    }
    ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
    printf("%s (MT=2): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = ndi2_get_float32_vec_n( handle, inkey[num_keys-1], 2, ret_flt32, num_elements );
+   tmp_err = NDI2_get_float32_vec_n( handle, inkey[num_keys-1], 2, ret_flt32, num_elements );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float32_vec( ret_flt32, num_elements );
@@ -1770,14 +1770,14 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
      free(ret_flt32);
 
    /* MT = 999 */
-   num_elements = ndi2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
+   num_elements = NDI2_get_size_n( handle, inkey[num_keys-1], 999, &tmp_err );
    if ( num_elements <= 0 ) {
      num_elements = 30;
      printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_n_str[num_keys-1] );
    }
    ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
    printf("%s (MT=999): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = ndi2_get_float32_vec_n( handle, inkey[num_keys-1], 999, ret_flt32, num_elements );
+   tmp_err = NDI2_get_float32_vec_n( handle, inkey[num_keys-1], 999, ret_flt32, num_elements );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float32_vec( ret_flt32, num_elements );
@@ -1834,16 +1834,16 @@ static int check_ndi_sec_part_mgn(int handle)
    printf("SECONDARY PARTICLE DATA:\n");
 
    /* FOR EACH PARTICLE: */
-   tmp_err = ndi2_get_int_val( handle, NDI_NUM_SEC_PARTS, &num_sec_parts );
+   tmp_err = NDI2_get_int_val( handle, NDI_NUM_SEC_PARTS, &num_sec_parts );
    if ( num_sec_parts <= 0 ) {
      printf("   NO SECONDARY PARTICLE DATA.\n");
    }
    for ( i = 0; i < num_sec_parts; i++ ) {
 
      /* GET PARTICLE TYPE AND ZAID */
-     tmp_err = ndi2_get_string_val_n( handle, NDI_SEC_PART_TYPES, i, part_type, 133 );
-     tmp_err = ndi2_get_string_val_n( handle, NDI_SEC_PART_ZAIDS, i, part_zaid, 133 );
-     tmp_err = ndi2_set_option(handle, NDI_CURR_PART, part_type );
+     tmp_err = NDI2_get_string_val_n( handle, NDI_SEC_PART_TYPES, i, part_type, 133 );
+     tmp_err = NDI2_get_string_val_n( handle, NDI_SEC_PART_ZAIDS, i, part_zaid, 133 );
+     tmp_err = NDI2_set_option(handle, NDI_CURR_PART, part_type );
      if (tmp_err) 
        printf("\n  **Error %d: in setting particle %s.\n", tmp_err, part_type);
      else
@@ -1853,7 +1853,7 @@ static int check_ndi_sec_part_mgn(int handle)
      /* FIND INT_VAL INFORMATION */
      for ( j = index_start; j < index_start + num_int_val; j++ ) {
        printf( "  %s:  ", sec_part_str[j]);
-       tmp_err = ndi2_get_int_val( handle, inkey[j], &ret_int);
+       tmp_err = NDI2_get_int_val( handle, inkey[j], &ret_int);
        if (tmp_err) 
 	 printf("\n  **Error %d: in %s -- returned value is %d\n", tmp_err, sec_part_str[j], ret_int);
        else
@@ -1865,13 +1865,13 @@ static int check_ndi_sec_part_mgn(int handle)
      /* FIND FLOAT_VEC INFORMATION */
      for ( j = index_start; j < index_start + num_float_vec; j++ ) {
       printf( "  %s (64-bit): \n", sec_part_str[j] );
-      num_elements = ndi2_get_size( handle, inkey[j], &tmp_err );  
+      num_elements = NDI2_get_size( handle, inkey[j], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec( handle, inkey[j], ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec( handle, inkey[j], ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		sec_part_str[j] );
@@ -1884,13 +1884,13 @@ static int check_ndi_sec_part_mgn(int handle)
      }
      for ( j = index_start; j < index_start + num_float_vec; j++ ) {
       printf( "  %s (32-bit): \n", sec_part_str[j] );
-      num_elements = ndi2_get_size( handle, inkey[j], &tmp_err );  
+      num_elements = NDI2_get_size( handle, inkey[j], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j] );
       }
       ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec( handle, inkey[j], ret_flt32, num_elements );
+      tmp_err = NDI2_get_float32_vec( handle, inkey[j], ret_flt32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		sec_part_str[j] );
@@ -1912,13 +1912,13 @@ static int check_ndi_sec_part_mgn(int handle)
        for ( j = index_start; j < index_start + num_float_vec_n; j++ ) {
 	 /* Pn order = 0 */
 	 printf("  %s Pn=0 (64-bit): \n", sec_part_str[j] );
-	 num_elements = ndi2_get_size_n( handle, inkey[j], 0, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[j], 0, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j] );
 	 }
 	 ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) ); 
-	 tmp_err = ndi2_get_float64_vec_n( handle, inkey[j], 0, ret_flt64, num_elements );
+	 tmp_err = NDI2_get_float64_vec_n( handle, inkey[j], 0, ret_flt64, num_elements );
 	 if (tmp_err) {
 	   printf("  **Error %d in %s--returned value is:\n", tmp_err, sec_part_str[j]);
 	   print_float64_vec( ret_flt64, num_elements );
@@ -1930,13 +1930,13 @@ static int check_ndi_sec_part_mgn(int handle)
  
 	 /* Pn order = 99 */
 	 printf("  %s Pn=99 (64-bit): \n", sec_part_str[j] );
-	 num_elements = ndi2_get_size_n( handle, inkey[j], 99, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[j], 99, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j] );
 	 }
 	 ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-	 tmp_err = ndi2_get_float64_vec_n( handle, inkey[j], 99, ret_flt64, num_elements );
+	 tmp_err = NDI2_get_float64_vec_n( handle, inkey[j], 99, ret_flt64, num_elements );
 	 if (tmp_err) {
 	   printf("  **Error %d in %s--returned value is:\n", tmp_err, sec_part_str[j] );
 	   print_float64_vec( ret_flt64, num_elements );
@@ -1952,13 +1952,13 @@ static int check_ndi_sec_part_mgn(int handle)
        for ( j = index_start; j < index_start + num_float_vec_n; j++ ) {
 	 /* Pn order = 0 */
 	 printf("  %s Pn=0 (32-bit): \n", sec_part_str[j] );
-	 num_elements = ndi2_get_size_n( handle, inkey[j], 0, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[j], 0, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j] );
 	 }
 	 ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-	 tmp_err = ndi2_get_float32_vec_n( handle, inkey[j], 0, ret_flt32, num_elements );
+	 tmp_err = NDI2_get_float32_vec_n( handle, inkey[j], 0, ret_flt32, num_elements );
 	 if (tmp_err) {
 	   printf("  **Error %d in %s--returned value is:\n", tmp_err, sec_part_str[j]);
 	   print_float32_vec( ret_flt32, num_elements );
@@ -1970,13 +1970,13 @@ static int check_ndi_sec_part_mgn(int handle)
 
 	 /* Pn order = 99 */
 	 printf("  %s Pn=99 (32-bit): \n", sec_part_str[j] );
-	 num_elements = ndi2_get_size_n( handle, inkey[j], 99, &tmp_err );
+	 num_elements = NDI2_get_size_n( handle, inkey[j], 99, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   printf("***ERROR GETTING SIZE FOR %s id.\n", sec_part_str[j]);
 	 }
 	 ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-	 tmp_err = ndi2_get_float32_vec_n( handle, inkey[j], 99, ret_flt32, num_elements );
+	 tmp_err = NDI2_get_float32_vec_n( handle, inkey[j], 99, ret_flt32, num_elements );
 	 if (tmp_err) {
 	   printf("  **Error %d in %s--returned value is:\n", tmp_err, sec_part_str[j] );
 	   print_float32_vec( ret_flt32, num_elements );
@@ -2021,15 +2021,15 @@ static int check_ndi_float_vec_x_func_mgn(int handle)
 
    for ( n = 0; n < num_keys; n++) {
       /* First rprod */
-     ndi2_get_string_val( handle, NDI_ZAID, tmp_zaid, 133 );
+     NDI2_get_string_val( handle, NDI_ZAID, tmp_zaid, 133 );
       printf("%s (%s==>%s): \n", flt_vec_x_str[n], tmp_zaid, "92235" );
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err ); 
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err ); 
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_x_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_x( handle, inkey[n], "92235", ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_x( handle, inkey[n], "92235", ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_x_str[n]);
 	 print_float64_vec( ret_flt64, num_elements );
@@ -2041,13 +2041,13 @@ static int check_ndi_float_vec_x_func_mgn(int handle)
 
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_x_str[n] );
-      num_elements = ndi2_get_size( handle, inkey[n], &tmp_err ); 
+      num_elements = NDI2_get_size( handle, inkey[n], &tmp_err ); 
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_x_str[n] );
       }
       ret_flt64 = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-      tmp_err = ndi2_get_float64_vec_x( handle, inkey[n], "92235", ret_flt64, num_elements );
+      tmp_err = NDI2_get_float64_vec_x( handle, inkey[n], "92235", ret_flt64, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_x_str[n] );
 	 print_float64_vec( ret_flt64, num_elements );
@@ -2064,13 +2064,13 @@ static int check_ndi_float_vec_x_func_mgn(int handle)
    for ( n = 0; n < num_keys; n++) {
       /* Pn order = 0 */
       printf("%s (0): \n", flt_vec_x_str[n] );
-      num_elements = ndi2_get_size(handle, inkey[n], &tmp_err ); 
+      num_elements = NDI2_get_size(handle, inkey[n], &tmp_err ); 
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_x_str[n] );
       }
       ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec_x(handle, inkey[n], "92335", ret_flt32, num_elements );
+      tmp_err = NDI2_get_float32_vec_x(handle, inkey[n], "92335", ret_flt32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_x_str[n]);
 	 print_float32_vec( ret_flt32, num_elements );
@@ -2082,13 +2082,13 @@ static int check_ndi_float_vec_x_func_mgn(int handle)
 
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_x_str[n] );
-      num_elements = ndi2_get_size_n( handle, inkey[n], 99, &tmp_err ); 
+      num_elements = NDI2_get_size_n( handle, inkey[n], 99, &tmp_err ); 
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s id.\n", flt_vec_x_str[n] );
       }
       ret_flt32 = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-      tmp_err = ndi2_get_float32_vec_x( handle, inkey[n], "92235", ret_flt32, num_elements );
+      tmp_err = NDI2_get_float32_vec_x( handle, inkey[n], "92235", ret_flt32, num_elements );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_x_str[n] );
 	 print_float32_vec( ret_flt32, num_elements );

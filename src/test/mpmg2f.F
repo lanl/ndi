@@ -103,7 +103,7 @@ c     LAST NEUTRON AND PHOTON GRPS
  170        format("  **Error ", i3, " getting last photon.")
          endif
          write(*, 180) return_int
- 180     format("  Last photon group:  ", i3,)
+ 180     format("  Last photon group:  ", i3)
          
          
 c     LIST OF MTS 

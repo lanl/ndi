@@ -60,23 +60,23 @@ int main ()
 
 
    /*  Initialize */
-   ierr = ndi2_open_gendir(&gendir_h, "");
+   ierr = NDI2_open_gendir(&gendir_h, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = ndi2_get_handle(gendir_h, &handle);
+   ierr = NDI2_get_handle(gendir_h, &handle);
    if( ierr != 0) printf("  Error %d getting particle handle.\n", ierr);
-   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
 
 
    for ( i = 0; i < num_zaids; i++ ) {
 
      /* Set isotope */
-     ierr = ndi2_set_isotope(handle, zaid_list[i]);
+     ierr = NDI2_set_isotope(handle, zaid_list[i]);
      if (ierr) 
        printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
 
 
-     ierr = ndi2_get_string_val(handle, NDI_ZAID, zaid, 25 );
+     ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 25 );
      printf("\nZaid = %s\n\n", zaid );
      
 
@@ -89,11 +89,11 @@ int main ()
        printf( "%c%s:\n", toupper(*(keyword_label[j])), str_ptr );
 
 
-       array_size = ndi2_get_size(handle, keyword_list[j], &ierr );
+       array_size = NDI2_get_size(handle, keyword_list[j], &ierr );
        if (ierr) 
 	 printf("\n  **Error %d %s array size.\n", ierr, keyword_label[j] );
        ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
-       ierr = ndi2_get_float64_vec(handle, keyword_list[j], ret_vec64, array_size);
+       ierr = NDI2_get_float64_vec(handle, keyword_list[j], ret_vec64, array_size);
        printf("  **Error %d in %s -- returned value is:\n", ierr, keyword_label[j] );
        print_float64_vec( ret_vec64, array_size );	 
        printf("\n");
@@ -103,11 +103,11 @@ int main ()
 
      /* Total fission cross section */
      printf ( "Total fission:\n");
-     array_size = ndi2_get_size_n(handle, NDI_SIG_REAC, 18, &ierr );
+     array_size = NDI2_get_size_n(handle, NDI_SIG_REAC, 18, &ierr );
      if (ierr) 
 	 printf("\n  **Error %d total_fission array size.\n", ierr );
      ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
-     ierr = ndi2_get_float64_vec_n(handle, NDI_SIG_REAC, 18, ret_vec64, array_size);
+     ierr = NDI2_get_float64_vec_n(handle, NDI_SIG_REAC, 18, ret_vec64, array_size);
      printf("  **Error %d in total_fission -- returned value is:\n", ierr );
      print_float64_vec( ret_vec64, array_size );	 
      printf("\n");
@@ -116,7 +116,7 @@ int main ()
 
    }  /* for i */
 
-   ierr = ndi2_close_gendir(gendir_h);
+   ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
 
