@@ -34,7 +34,7 @@ char nuc_data_type[2];      /*  Obsolete? */
 
 /*    GENERAL STATE VARIABLES -- initialized when lib_type changes */
 int curr_part_index;        /*  index of current particle */
-char *n_group[MAX_NGROUP_STR_LEN];  /*  Type of group structure to collapse to */
+char n_group[MAX_NGROUP_STR_LEN];  /*  Type of group structure to collapse to */
 int grp_num_new;            /*  Number of groups to collapse to */
 
 

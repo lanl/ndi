@@ -69,6 +69,7 @@ SRC := \
 	ndi_init.c \
 	ndi_init_iso_state.c \
 	ndi_init_state.c \
+	ndi_state_handle.c \
 	ndi_interp_integ.c \
 	ndi_malloc.c \
 	ndi_misc.c \
@@ -128,7 +129,8 @@ SRC_TESTC := \
 	test/tn_use.c \
 	test/tnreac_c.c \
 	test/za.c \
-	test/pnu.c
+	test/pnu.c \
+	test/handle.c
 
 SRC_TESTF := \
 	test/ndi_testf.F\
