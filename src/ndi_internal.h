@@ -397,8 +397,12 @@ extern "C" {
     int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key,
 				  const char *in_str,
 				  ndi_float64 * return_vec, int vec_size);
-    int ndi_c_get_string_val_h();
-    int ndi_c_get_string_val_n_h();
+    int ndi_c_get_string_val_h(state_struct *state, int in_key,
+			       char *ret_val, int str_size);
+    int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
+				 char *ret_val, int str_size);
+    int ndi_c_get_string_vec_h(state_struct *state, int in_key,
+			       char *str_arr, int arr_size);
 
     int ndi_set0(state_struct *state, char l_type);
     /*    int ndi_set0_tn_sec_part ( sec_part_distr *part ); */
@@ -628,6 +632,7 @@ extern "C" {
     int set_handle(state_struct *state);
     int __ndi_close_handle(int handle);
     int __ndi_add_child_handle(state_struct *parent);
+    char *ndi_get_section(state_struct *state);
 
    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,

@@ -14,7 +14,9 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
+#include "ndi_bin_tree.h"
 
+static int get_gendir_size(state_struct *state, int in_key, int *ierr);
 static int get_mg_size(state_struct *state, int in_key, int *ierr);
 static int get_tn_size(state_struct *state, int in_key, int *ierr);
 static int get_tnreac_size(state_struct *state, int in_key, int *ierr);
@@ -52,7 +54,7 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 	size = (int) strlen(state->open_gendir_file) + 1;
     } else {
 	if (is_gendir(state)) {
-	    *ierr = -2;		/* case not currently handled */
+	    *ierr = get_gendir_size(state, in_key, ierr);
 	} else if ((state->library_type == 'm') || 
 	    (state->library_type == 'd')) {
 	    size = get_mg_size(state, in_key, ierr);
@@ -85,10 +87,62 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 /**********************************************************************/
 /**********************************************************************/
 
+static int get_gendir_size(state_struct *state, int in_key, int *ierr)
+{
+    int return_value = 0;	/* default */
+    struct ndi_bin_tree_node *root = NULL;
+    FILE *ndi_dir;
+    char *path = NULL;
+    char *in_value;
+
+    *ierr = 0;			/* default */
+
+    if (!state) {		/* check state sanity */
+	*ierr = -2;
+	return(return_value);
+    }
+
+    in_value = ndi_get_section(state);
+    if (in_value == 0) {
+	*ierr = -16;		/* Library type not set */
+	return(return_value);
+    }
+	
+    /* Open gendir */
+    *ierr = ndi_open_gendir(&ndi_dir, "", &path);
+    if (path)
+        ndi_free((void **) &path);
+
+    if (*ierr < 0) {
+	root = NULL;
+    } else {
+	 /* Build a binary tree with ZAID as key */
+	 root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
+	 fclose(ndi_dir);
+    }
+
+    switch (in_key) {
+	/* String values--return size of string */
+    case NDI_ZAID:		/*  ZAID  */
+	*ierr = ndi_count_nodes(root, &return_value);
+	break;
+    case NDI_TEMP:		/* Temperature */
+    case NDI_SIG_0:		/* sig_0 */
+    case NDI_AT_WGT:		/* atomic weight */
+    case NDI_AWR:		/* atomic weight ratio */
+	*ierr = ndi_count_size(root, &return_value);
+	break;
+    default:      /**********  UNKNOWN KEYWORD  ***********/
+	*ierr = -4;
+	break;
+    }
+    ndi_close_tree(&root);
+    return(return_value);
+}
+
+/**********************************************************************/
 static int get_mg_size(state_struct *state, int in_key, int *ierr)
 {
-
-
     int return_value = 0;	/* Default return value is '0' */
     char tmp_str[MAX_IN_STR_LEN];
 

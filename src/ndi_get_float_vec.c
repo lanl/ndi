@@ -124,38 +124,17 @@ static int GET_FLOAT_VEC_GENDIR(state_struct *state, int in_key,
     struct ndi_bin_tree_node *root = NULL;
     FILE *ndi_dir;
     char *path = NULL;
+    char *in_value;
 
-    char *in_value[] = {"multigroup_neutron", 
-			"neutron_depletion", 
-			"multigroup_photon", 
-		        "tndata", 
-			"tn_reactions", 
-			"dosimetry_neutron",
-			"radchem_chain" };
-    int sec;
-
-    /* Find library section */
-    if (state->library_type == 'm' && state->particle_type == 1) {
-	if (state->ndi_depl_set != 1)
-	    sec = 0;
-	else
-	    sec = 1;
-    } else if (state->library_type == 'm' && state->particle_type == 0) {
-	sec = 2;
-    } else if (state->library_type == 's') {
-	sec = 3;
-    } else if (state->library_type == 'r') {
-	sec = 4;
-    } else if (state->library_type == 'd') {
-	if (state->ndi_depl_set != 1)
-	    sec = 5;
-	else 
-	    sec = 6;
-    } else if (state->library_type == ' ') {
-	/* Library type was not set */
-	return(-16);
+    if (!state) {		/* check state sanity */
+	return (-2);
     }
 
+    in_value = ndi_get_section(state);
+    if (in_value == 0) {
+	return(-16);		/* Library type not set */
+    }
+	
     /* Open gendir */
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
@@ -164,14 +143,13 @@ static int GET_FLOAT_VEC_GENDIR(state_struct *state, int in_key,
     if (ierr < 0) {
 	root = NULL;
     } else {
-	 root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value[sec]);
+	 root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
 	 fclose(ndi_dir);
     }
     /* Collect the floats into the return vec */
     if (ierr >= 0) {
 	ierr = COLLECT_FLOAT_VAL(root, return_vec, return_size);
     }
-
     ndi_close_tree(&root);
     return (ierr);
 }

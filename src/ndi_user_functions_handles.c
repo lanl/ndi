@@ -426,3 +426,13 @@ int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
     return (ndi_c_get_string_val_n_h(state_p, in_key, vec_num, 
 				     ret_val, str_size));
 }
+
+int NDI2_get_string_vec(int handle, int in_key, char *ret_val,
+                        int str_size)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    return (ndi_c_get_string_vec_h(state_p, in_key, ret_val, str_size));
+}
+

@@ -66,6 +66,7 @@ SRC := \
 	ndi_get_size_x.c \
 	ndi_get_string_val.c \
 	ndi_get_string_val_n.c \
+	ndi_get_string_vec.c \
 	ndi_handle.c \
 	ndi_init.c \
 	ndi_init_iso_state.c \

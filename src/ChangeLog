@@ -1,3 +1,8 @@
+2004-07-09  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_user_functions_handles.c (NDI2_get_string_vec): added
+	functional ndid replacement in 2.0 interface
+
 2004-07-08  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndimp_get_int_val_n.c (ndimp_get_int_val_n): removed

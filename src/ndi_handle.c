@@ -134,3 +134,39 @@ int __ndi_add_child_handle(state_struct *parent)
     
     return 0;
 }
+
+char *ndi_get_section(state_struct *state)
+{
+    static char *in_value[] = {"multigroup_neutron", 
+			       "neutron_depletion", 
+			       "multigroup_photon", 
+			       "tndata", 
+			       "tn_reactions", 
+			       "dosimetry_neutron",
+			       "radchem_chain",
+			       "" };
+    int sec;
+
+    /* Find library section */
+    if (state->library_type == 'm' && state->particle_type == 1) {
+	if (state->ndi_depl_set != 1)
+	    sec = 0;
+	else
+	    sec = 1;
+    } else if (state->library_type == 'm' && state->particle_type == 0) {
+	sec = 2;
+    } else if (state->library_type == 's') {
+	sec = 3;
+    } else if (state->library_type == 'r') {
+	sec = 4;
+    } else if (state->library_type == 'd') {
+	if (state->ndi_depl_set != 1)
+	    sec = 5;
+	else 
+	    sec = 6;
+    } else {
+	sec = 7;
+    }
+
+    return (in_value[sec]);
+}
