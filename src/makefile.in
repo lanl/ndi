@@ -368,10 +368,10 @@ endif
 # rules for calculating dependency files
 
 .dep/%.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
 
 .dep/%_float32.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
 
 .dep/%_float64.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
