@@ -13,7 +13,7 @@ void print_int_vec( int *int_ptr, int num_elements );
 int main ()
 
 {
-    int ierr;
+    int ierr = 0;
     int i, j, k;
     int str_size;
     int num_zaids = 36;
@@ -43,23 +43,23 @@ int main ()
     ndi_float64 *p = NULL;
     ndi_float64 *norm = NULL;
     ndi_float64 *mean = NULL;
-
+    ndi_float64 *sp = NULL;
 
     /*  Initialize */
-    ierr = ndi_init();
+    ierr += ndi_init();
     if (ierr)
 	printf("\n  **Error %d in NDI init.\n", ierr );
 
-    ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
+    ierr += ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
-    ierr = ndi_set_option( NDI_LIBRARY, "chi_test_lib" );
+    ierr += ndi_set_option( NDI_LIBRARY, "chi_test_lib" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);
 
     for ( i = 0; i < num_zaids; i++ ) 
     {
-	ierr = ndi_set_isotope(zaid_list[i]); /* Set isotope */
+	ierr += ndi_set_isotope(zaid_list[i]); /* Set isotope */
 	if (ierr) 
 	    printf("\n  **Error %d in setting isotope %s.\n", 
 		   ierr, zaid_list[i] );
@@ -68,7 +68,7 @@ int main ()
 	if (ierr) 
 	    printf("\n  **Error %d info string size.\n", ierr );
 	info_str = (char *)malloc( str_size * sizeof(char) );
-	ierr = ndi_get_string_val( NDI_INFO, info_str, str_size );
+	ierr += ndi_get_string_val( NDI_INFO, info_str, str_size );
 	if (ierr)
 	    printf("  Error %d getting information for isotope %s.\n", 
 		   ierr, zaid_list[i] );
@@ -82,10 +82,10 @@ int main ()
      
 	if ( info_str ) free( info_str );
 
-	ierr = ndi_get_string_val( NDI_ZAID, zaid, 25 );
+	ierr += ndi_get_string_val( NDI_ZAID, zaid, 25 );
 	printf("\nZaid = %s\n\n", zaid );
      
-	ierr = ndi_get_int_val(NDI_NUM_PNU, &num_pnu);
+	ierr += ndi_get_int_val(NDI_NUM_PNU, &num_pnu);
 	if (ierr)
 	    printf("\n  **Error %d getting NUM_PNU.\n", ierr);
 
@@ -102,7 +102,7 @@ int main ()
 	norm = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	mean = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 
-	ierr = ndi_get_float64_vec(NDI_NU_PR, nu, num_grps);
+	ierr += ndi_get_float64_vec(NDI_NU_PR, nu, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_PR.\n", ierr);
 	for (j = 0; j < num_grps; j++)
@@ -113,7 +113,7 @@ int main ()
 
 	for (j = 0; j < num_pnu; j++)
 	{
-	    ierr = ndi_get_float64_vec_n(NDI_PNU, j, p, num_grps);
+	    ierr += ndi_get_float64_vec_n(NDI_PNU, j, p, num_grps);
 	    if (ierr)
 		printf("\n  **Error %d NDI_PNU.\n", ierr);
 	    for (k = 0; k < num_grps; k++)
@@ -122,9 +122,34 @@ int main ()
 		mean[k] += j * p[k];
 	    }
 	}
+
 	print_float64_vec(norm, num_grps);
 	print_float64_vec(mean, num_grps);
 
+	sp = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+	
+	ierr += ndi_get_float64_vec(NDI_NU_SIG_F_PR, p, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_NU_SIG_F_PR.\n", ierr);
+
+	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU, 0, sp, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
+
+	for (k = 0; k < num_grps; k++)
+	    sp[k] -= p[k] / nu[k];
+	print_float64_vec(sp, num_grps);
+
+	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU, 1, sp, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
+
+	for (k = 0; k < num_grps; k++)
+	    sp[k] -= p[k];
+
+	print_float64_vec(sp, num_grps);
+
+	free((void *)sp);
 	free((void *)nu);
 	free((void *)p);
 	free((void *)mean);
@@ -132,7 +157,7 @@ int main ()
 
    }  /* for i */
 
-    ierr = ndi_close();
+    ierr += ndi_close();
     if (ierr)
 	printf("  **Error %d in closing NDI.\n\n", ierr );
 

@@ -1098,7 +1098,7 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
     long j;
     long k;
 
-    assert(0 <= vec_num && vec_num < MAX_NU);
+    assert(0 <= i && i < MAX_NU);
 				/* get number of groups */
     if (collapse_flag)
 	num_grps = grp_num_new;
@@ -1127,7 +1127,7 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
 
     for (j = i; j < MAX_NU; j++)
     {
-	GET_PNU(p, num_grps);	/* get probabilities */
+	GET_PNU(p, j);		/* get probabilities */
 	for (k = 0; k < num_grps; k++) /* add to sum */
 	    sig_pnu[k] += ndi_perm(j, i) * p[k];
     }

@@ -1,0 +1,18 @@
+2003-09-26  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_state.c: removed erroneous * from n_group declaration
+
+2003-09-18  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* makefile.in (SRC_TESTC): added test_pnu.c
+
+	* ndi_get_float_vec_n.c: added NDI_PNU and NDI_SIG_PNU
+
+	* ndi_get_size.c: added NDI_NUM_PNU
+
+	* ndi_get_size_n.c: added NDI_PNU and NDI_SIG_PNU
+
+2003-09-16  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_get_int_val.c: added NDI_NUM_PNU case 
+
