@@ -173,16 +173,12 @@ all: $(TARGET)
 check: $(TARGET) $(TESTOUT)
 	@ for i in $(TESTOUT) ; \
 	do  \
-	sed 's/\(\.[0-9]\{5\}\)[0-9]*/\1/g' < $$i > $$i.trunc; \
-	sed 's/\(\.[0-9]\{5\}\)[0-9]*/\1/g' < $(srcdir)/test/output/$$i > $$i.trunc2; \
-	if cmp -s $$i.trunc $$i.trunc2; \
+	if (perl $(srcdir)/test/fcmp.pl $$i $(srcdir)/test/output/$$i); \
 	then \
 	echo PASSED: $$i ; \
 	else \
-	diff $$i.trunc $$i.trunc2 > $$i.diff ; \
 	echo *****TEST FAILED:  $$i ; \
 	fi ; \
-	rm *.trunc*; \
 	done
 
 check_all: $(TARGET) $(TESTC) $(TESTF)
