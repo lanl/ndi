@@ -1,0 +1,80 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Spontaneous Fission Data & Control number: 6\\ \hline
+Stakeholder: Randy Baker & Request date: October 22, 2004\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ Provide spontaneous fission neutron production
+rate (SFR) and normalized spontaneous fission neutron energy spectra
+(SFS) on our standard energy group structure for each isotope in the
+library.  Accurate data needed for important isotopes: $^{235,238}$U, $^{239,240}$Pu, $^{252}$Cf. \\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Unknown & Comment: Initial attempts at contacting
+end-users unsuccessful. \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Size: $(\mathtt{num\_grps} + 1) \times \mathtt{sizeof(double)}$ per
+isotope; \\ 
+Speed: Accessed at host initialization, efficient
+execution not required; \\ 
+Accuracy: unknown. \\ \hline 
+Model: SOURCES 4C code from RSICC Code Package CC-661 \\ \hline 
+Response: SFR - real($\frac{\#}{\mathrm{s}\cdot\mathrm{g}}$); \\ 
+SFS - real array of size \texttt{num\_grps}; $0
+\le \chi_g \le 1$, $\sum_g \chi_g = \left\{ \begin{array}{ll} 1 &
+\mbox{if fissionable} \\ 0 & \mbox{otherwise} \end{array} \right.$. \\
+\hline 
+Representation: SFR - real; \\ 
+SFS - real array of size \texttt{num\_grps} or parameterized analytic
+description. \\ \hline 
+Query: What is the SFR for specified isotope?
+\\ What is the SFS for a specified isotope on a standard group
+structure?\\ \hline T-16 evaluations: E. F. Shores (X--5),
+D. G. Madland (T--16)\\ \hline Exception handling: Must return
+reasonable data for all isotopes; zero for non-fissionables \\ \hline
+Attachments: See Table~\ref{table:sf} \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Unknown \\ \hline
+Important Aspiration? Unknown \\ \hline
+Classification: Unknown \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+\newpage
+
+\begin{table}[h]
+\caption{Neutron Production by Spontaneous Fission} \label{table:sf}
+\begin{center}
+\begin{tabular}{|r@{}l|r@{$\times$}l|r@{$\times$}l|r@{$\times$}l|} \hline
+\multicolumn{2}{c|}{Nuclide} & \multicolumn{2}{c|}{$T_{1/2}\ \mathrm{y}$ (fission)} &
+\multicolumn{2}{c|}{$T_{1/2}\ \mathrm{y}$ (decay)} & \multicolumn{2}{c|}{
+$\frac{\#}{\mathrm{s}\dot\mathrm{g}}$} \\ \hline
+$\mbox{}^{235}_{\ 92}$ & U & 1.8 & $10^{17}$ & 6.8 & $10^8$ & 8.0
+& $10^{-4}$ \\ \hline
+$\mbox{}^{238}_{\ 92}$ & U & 8.0 & $10^{15}$ & 4.5 & $10^9$ & 1.6
+& $10^{-3}$ \\ \hline
+$\mbox{}^{239}_{\ 94}$ & Pu & 5.5 & $10^{5}$ & 2.4 & $10^4$ & 3.0
+& $10^{-3}$ \\ \hline
+$\mbox{}^{240}_{\ 94}$ & Pu & 1.2 & $10^{11}$ & 6.6 & $10^3$ & 1.0
+& $10^{3}$ \\ \hline
+$\mbox{}^{252}_{\ 98}$ & Cf & 6.6 & $10^{1}$ & 2.7 & $10^0$ & 2.3
+& $10^{12}$ \\ \hline
+\end{tabular}
+\end{center}
+\end{table}

@@ -1,0 +1,22 @@
+digraph ndi {
+	orientation=landscape;
+	label="green=past accomplishment\nyellow=work in progress(12/21/04)\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	caw[label="Chuck Wingate"];
+	morgan[label="Morgan White"];
+	jomc[label="Joann Campbell"];
+
+	/* project */
+	ndi[label="NDI 2.0.1", shape="ellipse"];
+	
+	jomc -> ndi[label="A=8 TN Data;\nLLNL MG Data", color=yellow4];
+	ndi -> jomc[label="LLNL MG Support", color=yellow1];
+	ndi -> morgan[label="Hi Fi MG Support", color=green1];
+	morgan -> ndi[label="Legacy RC Data", color=yellow4];
+	ndi -> caw[label="TN Temp. Interp.", color=yellow1];
+
+	{rank = max; jomc; morgan}
+	{rank = min; caw}
+}

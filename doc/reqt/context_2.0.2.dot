@@ -1,0 +1,27 @@
+digraph ndi {
+	orientation=landscape;
+	label="green=past accomplishment\nyellow=work in progress(03/18/05)\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	drnuke[label="Steven Nolen"];
+	caw[label="Chuck Wingate"];
+	rsb[label="Randal Baker"];
+	dahl[label="Jon Dahl"];
+	morgan[label="Morgan White"];
+	jomc[label="Joann Campbell"];
+
+	/* project */
+	ndi[label="NDI 2.0.2", shape="ellipse"];
+	
+	jomc -> ndi[label="HR MG Data;\nLLNL MG Data", color=yellow4];
+	ndi -> jomc[label="LLNL MG Support", color=yellow1];
+	ndi -> morgan[label="Hi Fi MG Support", color=red];
+	ndi -> caw[label="PD React. ID,\nTN Temp. Interp.", color=yellow1];
+	ndi -> rsb[label="SF Data", color=red];
+	ndi -> drnuke[label="Dis. Cos. SN Data", color=red];
+	ndi -> dahl[label="HR MG Data", color=red];
+	
+	{rank = max; jomc; morgan; dahl}
+	{rank = min; caw; drnuke; rsb}
+}

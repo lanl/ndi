@@ -1,0 +1,55 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: LLNL Data Support & Control number: 7\\ \hline
+Stakeholder: Joann Campbell & Request date: October 19, 2004\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ Provide new keywords and calculation capabilities to
+support LLNL data in NDI format.  Specifically:
+\begin{enumerate}
+\item Support LLNL group structure \label{item:gs}
+\item Support LLNL transport correction data on file and in code \label{item:tc}
+\item Add new \texttt{ENERGY\_N} and \texttt{ENERGY\_AVAIL} name-value
+pair to format and code to
+return data if present instead of existing calculation 
+\item Add Kerma and Heating Calculation from LLNL data to code
+\end{enumerate} \\ \hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: 2Q05 L5 milestone (only Items~\ref{item:gs} and
+\ref{item:tc} required for milestone) \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Size: $\mathtt{num\_grps} \times \mathtt{sizeof(double)} \times 3$ per
+isotope; \\ 
+Speed: Accessed at host initialization, efficient execution not required; \\
+Accuracy: Precision of data. \\ \hline 
+Model: LLNL models for energy branches \\ \hline 
+Response: \texttt{ENERGY\_N}, \texttt{ENERGY\_AVAIL},
+\texttt{TRANS\_CORR}, \texttt{AVE\_ENERGY}, \texttt{HEATING}, and
+\texttt{KERMA} - real arrays of size \texttt{num\_grps} \\ \hline
+Representation:  \texttt{ENERGY\_N}, \texttt{ENERGY\_AVAIL}, and
+\texttt{TRANS\_CORR} - real arrays of size \texttt{num\_grps}; \\ \hline
+Query: What is the \texttt{ENERGY\_N}, \texttt{ENERGY\_AVAIL},
+\texttt{TRANS\_CORR}, \texttt{HEATING}, or \texttt{KERMA} for specified
+isotope on a standard group structure?  \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+\vspace{24pt}

@@ -1,0 +1,41 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Hi Fi mg support & Control number: 13\\ \hline
+Stakeholder: Morgan White & Request date: October 19, 2004\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Provide Partisn compatable specification for use of default group structure. \\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: 4Q05 L2 milestone \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Command:
+\begin{verbatim}
+/* Use 615 group default structure on data file */
+ierr = NDI2_set_option(handle, NDI_COLLAPSE, "615_default");
+\end{verbatim} \\ \hline
+Exceptions: Return error if requested number of groups does not match
+actual number of groups on data file.  \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+\vspace{24pt}
