@@ -1,7 +1,8 @@
 
 /*
- * File:	ndi_misc_depl.c
- * Description:	Miscellaneous functions dealing with depletion (no floats)
+ * File:	ndi_misc_float.c
+ * Description:	Miscellaneous functions operating with floats.
+
  * Time-stamp:	<2000-02-08 15:43:38 jomc>
  *
  */
@@ -34,29 +35,52 @@ int NDI_INIT_FLOAT_VEC( FLOAT_TYPE *vec, int num_elements ) {
    return(ierr);
 }
 /*********************************************************************/
-int GET_SIMPLE_FLOAT_VEC(FILE *stream, long int f_ptr, 
-			 FLOAT_TYPE *return_vec, 
-			 int collapse_type, int num)
+int GET_SIMPLE_FLOAT_VEC( FILE *stream, long int f_ptr, 
+			  int collapse_type,
+			  int library_grp_num, 
+			  FLOAT_TYPE *return_vec, 
+			  int return_size)
+
+     /* Reads data from stream begining at f_ptr.  If collapse_flag
+	is set (and collapse_type != 0), then collapse into the
+	return_vec array.  Method of collapse is specified by variable
+	collapse_type:
+	   < 0:  Do not collapse.
+	   = 0:  use normal weighted averaging.
+	   = 1:  weighted average of the reciprocal (e.g. velocities).
+           = 2:  simply sum with "flooring"--see Note (e.g. chi vectors).
+           = 3:  simply sum with no "flooring" (e.g. weights ).
+     */
+
 {
   /* Add return_size */
 
    /*  collapse_type < 0 means this data should not be collapsed */
 
    int ierr = 0;
+   int num_elements = library_grp_num;
    FLOAT_TYPE *temp_vec = NULL;
+
 
    if ( f_ptr > 0 ) {
       if  ( ( collapse_type >= 0 ) && ( collapse_flag ) ) {
-	 temp_vec = (FLOAT_TYPE *)ndi_malloc( num * sizeof(FLOAT_TYPE) );
-	 if (!temp_vec) {
+	num_elements = grp_num_new;
+	temp_vec = (FLOAT_TYPE *)ndi_malloc( library_grp_num  * sizeof(FLOAT_TYPE) );
+	if (!temp_vec) {
 	    /* Out of memory */
 	    return(-14);
-	 }
-	 ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, temp_vec, num );
-	 ierr = NDI_COLLAPSE_FLOAT( temp_vec, num, return_vec, collapse_type );
-	 if (temp_vec) ndi_free( (void**)&temp_vec );
+	}
+	ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, 
+				    library_grp_num,
+				    temp_vec, library_grp_num );
+	ierr = NDI_COLLAPSE_FLOAT( temp_vec, library_grp_num, 
+				   collapse_type,
+				   return_vec, return_size );
+	if (temp_vec) ndi_free( (void**)&temp_vec );
       } else {
-	 ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, return_vec, num );
+	ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, 
+				    library_grp_num,
+				    return_vec, return_size );
       }
    } else {
       /* Error: data not available */
@@ -154,11 +178,7 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
    int ierr = 0;
    int reac_index;
    int mt = 0;
-   int num_grps;
-   int temp_size = mg->num_grps;
-   FLOAT_TYPE *temp_vec = NULL;
-   
-   
+    
  
    if ( reac_id == 'c' ) {
       mt = ndi_c_c_to_mt( vec_num );
@@ -170,12 +190,6 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
       mt = vec_num;
    }
 
-  if (collapse_flag) {
-      num_grps = grp_num_new;
-   } else {
-      num_grps = mg->num_grps;
-   }
-   
    ierr = ndi_find_reac_index( mg->reac_mt, &reac_index, 
 			       mt, mg->num_reac );
    
@@ -183,44 +197,16 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
       /* Reaction cross-section exists for this isotope--
 	 set temp_size and temp_vec */
 
-      if ( collapse_flag ) {
-	 temp_size = mg->num_grps;
-	 temp_vec = (FLOAT_TYPE *)ndi_malloc( temp_size * sizeof(FLOAT_TYPE) );
-	 if (!temp_vec) {
-	    /* Out of memory */
-	    return(-14);
-	 }
-      } else {
-	 temp_size = num_grps;
-	 temp_vec = return_vec;
-	 /* Bounds check */
-	 if ( temp_size > *return_size ) {
-	    ierr = 7;
-	    temp_size = *return_size;
-	 }
-      }
-
-      ierr = NDI_READ_FLOAT_BLOCK(lib_stream, 
-				  mg->sig_reac.stat[reac_index].file_ptr, 
-				  temp_vec, temp_size );
-
-      /* Collapse vector if necessary */
-      if ( collapse_flag ) {
-	 ierr = NDI_COLLAPSE_FLOAT( temp_vec, temp_size, return_vec, 0 );
-	 if (temp_vec ) ndi_free( (void**)&temp_vec );
-      }
+     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, mg->sig_reac.stat[reac_index].file_ptr, 
+				  0, mg->num_grps, return_vec, *return_size );
 
    } else {   /* ierr >= 0 ... */
-      /* Error: no data for this isotope */
-      if ( num_grps <= *return_size ) {
-	 ierr =  NDI_INIT_FLOAT_VEC( return_vec, num_grps );
-      } else {
-	 ierr =  NDI_INIT_FLOAT_VEC( return_vec, *return_size );
-      }
-      ierr = 9;
+     /* Error: no data for this isotope */
+     ierr =  NDI_INIT_FLOAT_VEC( return_vec, *return_size );
+     ierr = 9;
    }
 
-   *return_size -= num_grps;
+
    return(ierr);
 }
 
@@ -279,7 +265,9 @@ int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
   /* collapse if necessary */
   
   if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
-    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, return_vec, collapse );
+    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, 
+				  collapse,
+				  return_vec, return_size );
     if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
       ierr = tmp_err;
     }
@@ -332,7 +320,9 @@ int DIVIDE_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
   /* collapse if necessary */
 
   if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
-    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, return_vec, collapse );
+    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, 
+				  collapse,
+				  return_vec, return_size );
     if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
       ierr = tmp_err;
     }
@@ -424,7 +414,11 @@ int GET_ABUNDANCE( int izaid, FLOAT_TYPE *return_val ) {
 /*********************************************************************/
 int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr, 
 		   FLOAT_TYPE *return_vec, int return_size,
-		   int collapse_type, int num_grp )
+		   int collapse_type, int lib_num_grp )
+
+     /*  NOTE: lib_num_grp is the number of groups on the library */
+
+
 {
 
   int ierr = 0;
@@ -436,31 +430,36 @@ int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr,
 
   if ( f_ptr > 0 ) {
     /* Read chi matrix from file  */
-    chi_matrix = (FLOAT_TYPE *)ndi_malloc( num_grp * num_grp * sizeof(FLOAT_TYPE) );
+    chi_matrix = (FLOAT_TYPE *)ndi_malloc( lib_num_grp * lib_num_grp 
+					   * sizeof(FLOAT_TYPE) );
     if (!chi_matrix) {
       /* Out of memory */
       return(-14);
     }
     /* Do not want the matrix collapsed so use read_float_block instead of
-       get_simple_float_vec */
-    ierr = NDI_READ_FLOAT_BLOCK( stream, f_ptr, chi_matrix, num_grp * num_grp );
+       get_simple_float_vec ( or use collapse_flag == -1) */
+    ierr = NDI_READ_FLOAT_BLOCK( stream, f_ptr, 
+				 lib_num_grp * lib_num_grp,
+				 chi_matrix, lib_num_grp * lib_num_grp );
   
 
     /* Get wgts for averaging */
     if ( iso_stat.wgts.file_ptr > 0 ) {
 
-      weights = (FLOAT_TYPE *)ndi_malloc( num_grp * sizeof(FLOAT_TYPE) );
+      weights = (FLOAT_TYPE *)ndi_malloc( lib_num_grp * sizeof(FLOAT_TYPE) );
       /* Check returned value */
-      ierr = NDI_READ_FLOAT_BLOCK( stream, iso_stat.wgts.file_ptr, weights, num_grp );
+      ierr = NDI_READ_FLOAT_BLOCK( stream, iso_stat.wgts.file_ptr,
+				   lib_num_grp,
+				   weights, lib_num_grp );
     }
 
     /* Flux-average matrix to form vector */
-    temp_vec = (FLOAT_TYPE *)ndi_malloc( num_grp * sizeof(FLOAT_TYPE) );
+    temp_vec = (FLOAT_TYPE *)ndi_malloc( lib_num_grp * sizeof(FLOAT_TYPE) );
     /* Check returned value */
-    for ( out = 0; out < num_grp; out++ ) {
+    for ( out = 0; out < lib_num_grp; out++ ) {
       temp_vec[out] = 0.0;
-      for ( in = 0; in < num_grp; in++ ) {
-	temp_vec[out] +=  weights[in] * chi_matrix[in * num_grp + out];
+      for ( in = 0; in < lib_num_grp; in++ ) {
+	temp_vec[out] +=  weights[in] * chi_matrix[in * lib_num_grp + out];
       }
     }
 
@@ -469,10 +468,11 @@ int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr,
     /* What about checking return_size ? */
 
     if (collapse_flag) {
-      ierr = NDI_COLLAPSE_FLOAT( temp_vec, num_grp, return_vec, collapse_type );
+      ierr = NDI_COLLAPSE_FLOAT( temp_vec, lib_num_grp, collapse_type,
+				 return_vec, return_size );
     } else {
       /* This is really ugly--do something better! */
-      for ( out = 0; out < num_grp; out++ ) {
+      for ( out = 0; out < lib_num_grp; out++ ) {
 	if ( out < return_size ) {
 	  return_vec[out] = temp_vec[out];
 	} else {

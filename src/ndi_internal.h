@@ -257,9 +257,11 @@ extern "C" {
    int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);
    int ndi_collapse_float32( const ndi_float32 *old_vec, int old_grp_num, 
-			     ndi_float32 *collapse_vec, int recip_flag );
+			     int recip_flag,
+			     ndi_float32 *return_vec, int return_size );
    int ndi_collapse_float64( const ndi_float64 *old_vec, int old_grp_num, 
-			     ndi_float64 *collapse_vec, int recip_flag );
+			     int recip_flag,
+			     ndi_float64 *return_vec, int return_size );
    int ndi_collapse_mat32( const FLOAT_TYPE *old_mat, int old_grp_num_in,
 			   int old_grp_num_out, int new_grp_num_in,
 			   int new_grp_num_out, const int *new_ebounds_in, 
@@ -272,10 +274,12 @@ extern "C" {
 			    const int *new_ebounds_out, const ndi_float64 *local_weight,
 			    FLOAT_TYPE *new_mat, int new_size );
    int skip_float_block(FILE *stream, int *bsize, const int num_floats);
-   int ndi_read_float32_block(FILE *stream, long file_pos, ndi_float32 *flt_vec, 
-			      const int num_floats);
-   int ndi_read_float64_block(FILE *stream, long file_pos, ndi_float64 *flt_vec, 
-			      const int num_floats);
+   int ndi_read_float32_block(FILE *stream, long file_pos, 
+			      const int num_floats,
+			      ndi_float32 *return_vec, const int return_size );
+   int ndi_read_float64_block(FILE *stream, long file_pos, 
+			      const int num_floats,
+			      ndi_float64 *return_vec, const int return_size );
    int ndi_skip_rx_prod( FILE *stream, stat_flag *rx_prod,  short mt_flag );
    int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 			const char *data_type, int *num_prod,  short mt_flag);
@@ -324,11 +328,11 @@ extern "C" {
    int ndi_init_float32_vec( ndi_float32 *vec, int num_elements );
    int ndi_init_float64_vec( ndi_float64 *vec, int num_elements );
    int ndi_get_simple_float32_vec(FILE *stream, long int f_ptr, 
-				  ndi_float32 *return_vec, 
-				  int collapse_type, int num);
+				  int collapse_type, int library_grp_num,
+				  ndi_float32 *return_vec, int return_size );
    int ndi_get_simple_float64_vec(FILE *stream, long int f_ptr, 
-				  ndi_float64 *return_vec, 
-				  int collapse_type, int num);
+				  int collapse_type, int library_grp_num,
+				  ndi_float64 *return_vec,  int return_size );
    int ndi_transpose_float32( ndi_float32 *in_mat, int row_num, int col_num );
    int ndi_transpose_float64( ndi_float64 *in_mat, int row_num, int col_num );
    int ndi_vec2mat32(const ndi_float32 *vec, int num_vec, 

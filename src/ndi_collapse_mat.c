@@ -99,6 +99,7 @@
   }
 
   for (k = 0; k < new_grp_num_in; k++) {
+    /* What on earth is this mess? */
      if ( ( k + 1 ) > new_grp_num_in ) {       
         /* Bounds check */
 	ierr = -21;
@@ -106,6 +107,7 @@
      }
 
      for (l = 0; l < new_grp_num_out; l++ ) {
+       /* What on earth is this mess? */
        if ( ( l + 1 ) > new_grp_num_out ) {     
           /* Bounds check */
 	  ierr = -21;
@@ -120,7 +122,8 @@
 	up_bounds_out = new_ebounds_out[l + 1];
         if ( l == 0 ) {
 	   low_bounds_out = 0;
-	} else if ( ( l + 1 ) ==  new_grp_num_out  ) {
+	} 
+	if ( ( l + 1 ) ==  new_grp_num_out  ) {
 	   up_bounds_out = old_grp_num_out;
         }
 

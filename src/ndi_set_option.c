@@ -45,9 +45,9 @@ int ndi_c_set_option ( int in_key, const char *in_value )
 
 {
    int ierr = 0;       /* Error flag: 0=no error, pos=warning, neg=error */
-   int pindex;         /* Secondary particle index */
+   int pindex= 0;      /* Secondary particle index */
    char *value;        /* Copy of input value of option */
-   int in_value_len;   /* Size of the in_value string */
+   int in_value_len = 0;   /* Size of the in_value string */
    
    /* Check that ndi_init has been called. */
    if (!ndi_initialized) {

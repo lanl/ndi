@@ -21,10 +21,12 @@
 
 #ifdef FLOAT32
 int ndi_collapse_float32( const FLOAT_TYPE *old_vec, int old_grp_num, 
-			 FLOAT_TYPE *collapse_vec, int recip_flag )
+			  int recip_flag,
+			  FLOAT_TYPE *return_vec, int return_size )
 #else
 int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num, 
-			 FLOAT_TYPE *collapse_vec, int recip_flag )
+			  int recip_flag,
+			  FLOAT_TYPE *return_vec, int return_size )
 #endif
 /*********************************************************************
     
@@ -33,7 +35,8 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
     Parameters: 
     old_vec -- in: original, uncollapsed vector
     old_grp_num -- in: number of groups in uncollapsed vector
-    collapse_vec -- out: resulting collapsed vector
+    return_vec -- out: resulting collapsed vector
+    return_size -- in: size of array return_vec
     recip_flag -- in: indicates method of collapse
                   0 = use normal weighted averaging 
                   1 = weighted average of the reciprocal (e.g. velocities)
@@ -49,13 +52,16 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 
     Return values:  
     Returns negative value for error condition, positive value for 
-    warning, and a '0' if everything's ok.  collapse_vec points to
+    warning, and a '0' if everything's ok.  return_vec points to
     collapsed vector.
 
     NOTE: If recip_flag = 2, then it is assumed that the vector should
     be 'floored'.  That is all data below the lowest new energy bin should
     be added to the lowest energy bin; all data above the highest new 
     energy bin should be added to the highest energy bin.
+
+    NOTE:  There is no bounds checking on old_vec.  It is assumed that
+    it is at least of size old_grp_num.
 
 ***********************************************************************/
 
@@ -72,8 +78,15 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
   }
 
   for ( i = 0; i < grp_num_new; i++ ) {
+   
+    /* Bounds check */
+    if ( i >= return_size ) {
+      ierr = 7;
+      break;
+    }
+
     wt_sum = 0;
-    collapse_vec[i] = 0;
+    return_vec[i] = 0;
     low_bound = new_ebounds[i];
     up_bound = new_ebounds[i + 1];
     if ( recip_flag == 2 ) {
@@ -89,14 +102,14 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 	switch (recip_flag) {
 	    
 	case 0:                     /* Use normal flux-weighted averaging */
-	   collapse_vec[i] += old_vec[j] * lib_weight[j];
+	   return_vec[i] += old_vec[j] * lib_weight[j];
 	   break;
 	case 1:                     /* Use reciprocal averaging */
-	    collapse_vec[i] += lib_weight[j] / old_vec[j];
+	    return_vec[i] += lib_weight[j] / old_vec[j];
  	    break;
 	case 2:                     /* Simply sum */
         case 3:
-	    collapse_vec[i] += old_vec[j];
+	    return_vec[i] += old_vec[j];
 	    break;
 	}
 	
@@ -108,17 +121,17 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 	
     case 0:
        if ( wt_sum > 0 ) {
-	  collapse_vec[i] /= wt_sum;
+	  return_vec[i] /= wt_sum;
        } else {
 	  ierr = -12;
        }
        break;
 	
     case 1:
-       if ( collapse_vec[i] != 0 ) {
-	  collapse_vec[i] = wt_sum / collapse_vec[i];
+       if ( return_vec[i] != 0 ) {
+	  return_vec[i] = wt_sum / return_vec[i];
        } else {
-	  collapse_vec[i] = 0;
+	  return_vec[i] = 0;
 	  ierr = 5;
        }
        break;

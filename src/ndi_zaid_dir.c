@@ -199,7 +199,7 @@ static void ndi_find_zaid_string( char *in_line, int in_size,
 
    *zaid_string = '\0';
 
-   if ( curr_char = strstr( in_line, "z=" ) ) {
+   if ( ( curr_char = strstr( in_line, "z=" ) ) ) {
      /* Start of zaid should be two ( 'z' and '=') past curr_char */
      curr_char += 2;
      str_length = (int)( curr_char - in_line );

@@ -985,8 +985,9 @@ static int read_simple_array (FILE *stream, stat_flag *sf,
       sf->file_ptr = ftell(stream);
       *global_p = (ndi_float64 *)ndi_malloc( data_num * sizeof(ndi_float64) );
       if (*global_p) {
-	 ierr = ndi_read_float64_block(stream, sf->file_ptr, *global_p, 
-				       data_num );
+	 ierr = ndi_read_float64_block(stream, sf->file_ptr, 
+				       data_num,
+				       *global_p, data_num );
 	 sf->length =  data_num;
       } else {
 	 /* Out of memory */

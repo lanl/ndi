@@ -21,11 +21,13 @@
 /**********************************************************************/
 
 #ifdef FLOAT32
-int  ndi_read_float32_block(FILE *stream, long file_pos, FLOAT_TYPE *flt_vec, 
-			  const int num_floats) 
+int  ndi_read_float32_block(FILE *stream, long file_pos, 
+			    const int num_floats,
+			    FLOAT_TYPE *return_vec, const int return_size ) 
 #else
-int  ndi_read_float64_block(FILE *stream, long file_pos, FLOAT_TYPE *flt_vec, 
-			   const int num_floats)
+int  ndi_read_float64_block(FILE *stream, long file_pos,
+			    const int num_floats,
+			    FLOAT_TYPE *return_vec, const int return_size )
 #endif
 /*********************************************************************
     
@@ -34,12 +36,13 @@ int  ndi_read_float64_block(FILE *stream, long file_pos, FLOAT_TYPE *flt_vec,
 
     Parameters: 
     stream -- in: file to read from (open library file).
-    flt_vec -- out: floating point array containing values read from stream.
+    return_vec -- out: floating point array containing values read from stream.
     num_floats -- in: number of floating-point values to read from stream.
+    return_size -- in: size of the return_vec array.
 
     Return values:  
     Returns negative value for error condition, positive value for 
-    warning, and a '0' if everything's ok.  flt_vec points to array of
+    warning, and a '0' if everything's ok.  return_vec points to array of
     values read in.
 
 ***********************************************************************/
@@ -50,13 +53,21 @@ int  ndi_read_float64_block(FILE *stream, long file_pos, FLOAT_TYPE *flt_vec,
    char in_line[132 + 1];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
-   FLOAT_TYPE *cur_flt_ptr = flt_vec;
+   FLOAT_TYPE *cur_flt_ptr = return_vec;
   
+   /* Add return_size */
 
    /* Go to start of data, read line and count floats */
    /*  Check for data not available */
    fseek( stream, file_pos, SEEK_SET );
    while (float_count < num_floats) {
+
+     /* Check to see if we've reached the end of return_vec */
+     if ( float_count >= return_size ) {
+       ierr = 7;
+       break;
+     }
+
       if (fgets(in_line, sizeof(in_line), stream) != NULL) {
 /*	 printf("\n>>%s\n", in_line);  */
 	 token  = strtok( in_line, seps );

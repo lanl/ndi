@@ -119,7 +119,8 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
 	 } else {
 	    num_elements = iso_stat.num_grps + 1;
 	    ierr = NDI_READ_FLOAT_BLOCK(lib_stream, iso_stat.e_bounds.file_ptr, 
-					return_vec, num_elements);
+					num_elements,
+					return_vec, return_size );
 	 }	
       } else {
 	 /* Error: data not available */
@@ -146,14 +147,16 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
       num_elements = iso_stat.num_grps;
       /*  Check bounds */
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, iso_stat.wgts.file_ptr,
-				   return_vec, 3, num_elements );
+				   3, num_elements,
+				   return_vec, return_size );
       break;
 
    case NDI_VEL:                             /* Velocities */
       num_elements = iso_stat.num_grps;
       /*  Check bounds */
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, iso_stat.vel.file_ptr,
-				   return_vec, 1, num_elements );
+				   1, num_elements,
+				   return_vec, return_size );
       break;
 
    case NDI_HEATING:                            /* Heating */
@@ -192,7 +195,8 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
       num_elements = iso_stat.num_grps;
       /*  Check bounds */
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, iso_stat.sig_tot.file_ptr,
-				   return_vec, 0, num_elements );
+				   0, num_elements,
+				   return_vec, return_size );
 
 /*       printf("SIG_TOT RETURNED\n"); */
       if ( (ierr >= 0) && (trans_corr != ' ') ) { 
@@ -289,7 +293,8 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
       /*  Check bounds */
       if (iso_stat.norm.file_ptr) {
 	 ierr = NDI_READ_FLOAT_BLOCK( lib_stream, iso_stat.norm.file_ptr, 
-				      return_vec, NUM_NORM );
+				      NUM_NORM,
+				      return_vec, return_size );
       } else {
 	 /* Error: data not available -- make all values 1.0 */
 	 for ( n = 0; n < 4; n++ ) {
@@ -306,7 +311,8 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
       /*  Check bounds */
       if (iso_stat.fiss_q.file_ptr) {
 	 ierr = NDI_READ_FLOAT_BLOCK(lib_stream, iso_stat.fiss_q.file_ptr, 
-				     return_vec, NUM_FISSION_Q);
+				     NUM_FISSION_Q,
+				     return_vec, return_size );
       } else {
 	 /* Error: data not available */
 	 ierr = -9;
@@ -335,7 +341,8 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
        if (iso_stat.sec_part[curr_part_index].e_bounds.file_ptr) {
 	 ierr = NDI_READ_FLOAT_BLOCK( lib_stream, 
 				      iso_stat.sec_part[curr_part_index].e_bounds.file_ptr,
-				      return_vec, num_elements);
+				      num_elements,
+				      return_vec, return_size );
        } else {
 	 /* Error: data not available */
 	 ierr = -9;
@@ -385,19 +392,22 @@ static int GET_FLOAT_VEC_TN( int in_key, FLOAT_TYPE *return_vec,
    case NDI_TEMPS:                           /* Temperatures */
       num_elements = tn_stat.num_temps;
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, tn_stat.temps.file_ptr,
-				   return_vec, -1, num_elements );
+				   -1, num_elements,
+				   return_vec, return_size );
       break;
 
    case NDI_SIGVBARS:                          /* Sigma Vbars */
       num_elements = tn_stat.num_temps;
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, tn_stat.sigvbars.file_ptr,
-				   return_vec, -1, num_elements );
+				   -1, num_elements,
+				   return_vec, return_size );
       break;
 
    case NDI_EINBAR:                     /* Thermal-average of total inc. energy */
       num_elements = tn_stat.num_temps;
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, tn_stat.einbars.file_ptr,
-				   return_vec, -1, num_elements );
+				   -1, num_elements,
+				   return_vec, return_size );
       break;
 
    case NDI_EDIST:                  /* Curr. particle's energy distribution at current temp. */
@@ -453,6 +463,7 @@ static int GET_CHI_MAT (FILE *stream, long mat_ptr, long vec_ptr,
    int num_full_mat = 0;
    int row;
    int coll_num_grps = 0;
+   int mat_size = return_size;
    FLOAT_TYPE *temp_mat = NULL;
    FLOAT_TYPE *row_ptr = NULL;
 
@@ -468,6 +479,7 @@ static int GET_CHI_MAT (FILE *stream, long mat_ptr, long vec_ptr,
 
    if ( collapse_flag ) {
       temp_mat = (FLOAT_TYPE *)ndi_malloc( num_full_mat * sizeof(FLOAT_TYPE) );
+      mat_size = num_full_mat;
       if ( !temp_mat ) {
 	 /* Out of memory */
 	 return(-14);
@@ -478,14 +490,18 @@ static int GET_CHI_MAT (FILE *stream, long mat_ptr, long vec_ptr,
 
    if ( mat_ptr ) { 
       /*  Full matrix is in library  */
-      ierr = NDI_READ_FLOAT_BLOCK(stream, mat_ptr, temp_mat, num_full_mat);	
+      ierr = NDI_READ_FLOAT_BLOCK(stream, mat_ptr, 
+				  num_full_mat,
+				  temp_mat, mat_size );	
    } else {
       /* Matrix is constructed from vector */
       if ( vec_ptr ) {
 	 FLOAT_TYPE *vec_array;
 	 vec_array = (FLOAT_TYPE *)ndi_malloc( lib_num_grps * sizeof(FLOAT_TYPE) );
 	 if ( vec_array ) {
-	    ierr = NDI_READ_FLOAT_BLOCK(stream, vec_ptr, vec_array, lib_num_grps);
+	    ierr = NDI_READ_FLOAT_BLOCK(stream, vec_ptr, 
+					lib_num_grps,
+					vec_array, lib_num_grps );
 	    ierr = NDI_VEC2MAT(vec_array, lib_num_grps, temp_mat, num_full_mat );
 	    if ( vec_array ) ndi_free((void**)&vec_array);
 	 } else {
@@ -703,7 +719,8 @@ static int NDI_GET_HEATING( stat_flag  *heating, stat_flag *kerma,
   if ( heating->file_ptr > 0 ) {
     /* A heating vector exists in the library */
     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, heating->file_ptr,
-				 return_vec, 0, num_elements );
+				 0, num_elements,
+				 return_vec, return_size );
   } else if ( kerma->file_ptr > 0 ) {
     /* A kerma exists in the library, try to calculate heating */
     ndi_float64 *temp_tot_sigma, *temp_kerma;
@@ -714,10 +731,12 @@ static int NDI_GET_HEATING( stat_flag  *heating, stat_flag *kerma,
       ierr = -14;
     } else {
       ierr = ndi_get_simple_float64_vec( lib_stream, kerma->file_ptr,
-					 temp_kerma, -1, num_elements );
+					 -1, num_elements,
+					 temp_kerma, num_elements );
       if ( ierr >= 0 ) {
 	ierr = ndi_get_simple_float64_vec( lib_stream, iso_stat.sig_tot.file_ptr,
-					   temp_tot_sigma, -1, num_elements );
+					   -1, num_elements,
+					   temp_tot_sigma, num_elements );
 	ierr = DIVIDE_FLOAT_VEC( temp_kerma, temp_tot_sigma, num_elements, 
 				 -1, return_vec, return_size );
       }
@@ -757,7 +776,8 @@ static int NDI_GET_KERMA ( stat_flag  *kerma, stat_flag *heating,
   if ( kerma->file_ptr > 0 ) {
     /* A kerma vector exists in the library */
     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, kerma->file_ptr,
-				 return_vec, 0, num_elements );
+				 0, num_elements,
+				 return_vec, return_size );
   } else if ( heating->file_ptr > 0 ) {
     /* A heating exists in the library, try to calculate kerma */
     ndi_float64 *temp_tot_sigma, *temp_heat;
@@ -768,10 +788,12 @@ static int NDI_GET_KERMA ( stat_flag  *kerma, stat_flag *heating,
       ierr = -14;
     } else {
       ierr = ndi_get_simple_float64_vec( lib_stream, heating->file_ptr,
-					 temp_heat, -1, num_elements );
+					 -1, num_elements,
+					 temp_heat, num_elements );
       if ( ierr >= 0 ) {
 	ierr = ndi_get_simple_float64_vec( lib_stream, iso_stat.sig_tot.file_ptr,
-					   temp_tot_sigma, -1, num_elements );
+					   -1, num_elements,
+					   temp_tot_sigma, num_elements );
 	ierr = MULT_FLOAT_VEC( temp_tot_sigma, temp_heat, num_elements, 
 			       -1, return_vec, return_size );
       }
@@ -866,6 +888,8 @@ static int NDI_GET_CHI_VEC( isotope_status *mg, char chi_type,
 		  minus the number of elements filled ). May be less zero 
 		  on exit.
 
+       NOTE:  RETURN_SIZE IS NOT CURRENTLY MODIFIED IN THIS SUBROUTINE.  
+
        Note: This function normalizes the vector to one.  If 'return_vec'
        is not large enough to contain the whole vector, it is truncated and
        will not be normalized to one--the full vector is normalized to one.
@@ -935,7 +959,8 @@ static int NDI_GET_CHI_VEC( isotope_status *mg, char chi_type,
    if ( chi_ptr ) {
       /* (1) Read chi from library */
       ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, chi_ptr,
-				   return_vec, 2, mg->num_grps );
+				   2, mg->num_grps,
+				   return_vec, *return_size );
       
    } else if ( chi_mat_ptr ) {
      /* (2)  Form chi vector by flux-averaging chi matrix */
@@ -954,10 +979,12 @@ static int NDI_GET_CHI_VEC( isotope_status *mg, char chi_type,
 
      chi1_vec = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
      chi2_vec = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
-     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, chi1_ptr, chi1_vec, 2, 
-				  num_grps );
-     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, chi2_ptr, chi2_vec, 2,
-				  num_grps);
+     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, chi1_ptr, 
+				  2, mg->num_grps,
+				  chi1_vec, num_grps );
+     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, chi2_ptr, 
+				  2, mg->num_grps,
+				  chi2_vec, num_grps);
       for ( n = 0; n < num_grps; n++ ) {
 	 if ( chi_type == 't' ) {
 	    chi_value = (  chi_wgt1 * chi1_vec[n] ) + ( chi_wgt2 * chi2_vec[n] );
@@ -1234,8 +1261,9 @@ static int CALC_CHI_WGT( char nu_type, FLOAT_TYPE *nu_avg ) {
       wgts =  (ndi_float64 *)ndi_malloc( num_elements * sizeof( ndi_float64 ) );
       curr_size = num_elements;
 
-      ierr = ndi_get_simple_float64_vec( lib_stream, iso_stat.wgts.file_ptr, wgts, 
-					 2, num_elements );
+      ierr = ndi_get_simple_float64_vec( lib_stream, iso_stat.wgts.file_ptr, 
+					 2, iso_stat.num_grps,
+					 wgts, num_elements );
       
       /* Check errors */
       wgt_ptr = wgts;
@@ -1333,20 +1361,23 @@ static int NDI_GET_NUSIGF( char nu_type, FLOAT_TYPE *return_vec,
    if ( nu_sigf_ptr ) {
       /* Read nu_sigf from library */
       /* Check if iso_stat.num_grps is appropriate */
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf_ptr, return_vec, 
-				   0, iso_stat.num_grps );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf_ptr, 
+				   0, iso_stat.num_grps,
+				   return_vec, *return_size );
 
    } else if ( nu_sigf1_ptr && nu_sigf2_ptr ) {
       /* Calculate nu_sigf from other two nu_sigf's */
       nu_sigf1_vec = (FLOAT_TYPE *)ndi_malloc( num_elements * sizeof(FLOAT_TYPE) );
       nu_sigf2_vec = (FLOAT_TYPE *)ndi_malloc( num_elements * sizeof(FLOAT_TYPE) );
       curr_size = num_elements;
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf1_ptr, nu_sigf1_vec, 
-				   0, iso_stat.num_grps );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf1_ptr, 
+				   0, iso_stat.num_grps,
+				   nu_sigf1_vec, num_elements );
       /* Check error */
       curr_size = num_elements;
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf2_ptr, nu_sigf2_vec, 
-				   0, iso_stat.num_grps );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_sigf2_ptr, 
+				   0, iso_stat.num_grps,
+				   nu_sigf2_vec, num_elements );
       /* Check error */
       for ( n = 0; n < num_elements; n++ ) {
 	 /* Check bounds */
@@ -1478,16 +1509,22 @@ static int NDI_GET_NU( isotope_status *mg, char nu_type, FLOAT_TYPE *return_vec,
    if ( nu_ptr ) {
       /* Read nu from library */
       /* Check if mg->num_grps is appropriate */
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_ptr, return_vec, 0, curr_size );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu_ptr, 
+				   0, mg->num_grps,
+				   return_vec, *return_size );
    } else if ( nu1_ptr && nu2_ptr ) {
       /* Calculate nu from other two nu's */
       nu1_vec = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
       nu2_vec = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
       curr_size = num_grps;
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu1_ptr, nu1_vec, 0, curr_size );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu1_ptr, 
+				   0, mg->num_grps,
+				   nu1_vec, num_grps );
       /* Check errors */
       curr_size = num_grps;
-      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu2_ptr, nu2_vec, 0, curr_size );
+      ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, nu2_ptr, 
+				   0, mg->num_grps,
+				   nu2_vec, num_grps );
       /* Check errors */
       for (n = 0; n < num_grps; n++ ) {
 	 /* Check bounds */

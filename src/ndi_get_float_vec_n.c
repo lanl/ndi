@@ -25,8 +25,10 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
 			    multi_stat down_mat, int num_grps, 
 			    int vec_num, FLOAT_TYPE *return_mat, 
 			    int return_size );
-static int NDI_COLLAPSE_PROD_MAT(FLOAT_TYPE *coll_mat, int new_in,
-				 FLOAT_TYPE *old_mat, int old_in, int old_out );
+static int NDI_COLLAPSE_PROD_MAT(FLOAT_TYPE *old_mat, 
+				 int old_in, int old_out,
+				 int new_in,
+				 FLOAT_TYPE *return_vec, int return_size );
 static int NDI_FULL2DIAG( FLOAT_TYPE *full_mat, int num_grps, FLOAT_TYPE *return_vec,
 			  int return_size );
 static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
@@ -35,7 +37,8 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 static int PN_DOWN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size );
 static int PN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size );
 static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
-			     FLOAT_TYPE *return_vec, int vec_num );
+			     int vec_num,
+			     FLOAT_TYPE *return_vec, int return_size );
 static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num, 
@@ -154,7 +157,9 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
 
      if ( curr_part_index >= 0 ) {
        if ( curr_part_index < iso_stat.num_sec_parts ) { 
-	 ierr = GET_PN_PROD_FULL( lib_stream, iso_stat.sec_part[curr_part_index], return_vec, vec_num  );
+	 ierr = GET_PN_PROD_FULL( lib_stream, iso_stat.sec_part[curr_part_index], 
+				  vec_num,
+				  return_vec, return_size );
 
 	 /* Transpose result, if necessary */
 	 if ( collapse_flag != 0 ) {
@@ -238,6 +243,7 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
    int num_grps = iso_stat.num_grps;
    int diag_size = ( num_grps * ( num_grps + 1) ) / 2;
    int full_mat_size = num_grps * num_grps;
+   int curr_vec_size = return_size;
    FLOAT_TYPE *curr_vec = return_vec;
    FLOAT_TYPE *curr_mat = NULL;
    FLOAT_TYPE *temp_vec = NULL;
@@ -257,11 +263,13 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 	 
 	 if ( collapse_flag ) {
 	   temp_vec = (FLOAT_TYPE *)ndi_malloc( diag_size * sizeof(FLOAT_TYPE) );
+	   curr_vec_size = diag_size;
 	   if (!temp_vec) return(-14);
 	   curr_vec = temp_vec;
 	 }
 	 ierr = NDI_READ_FLOAT_BLOCK(stream, down_diag->stat[vec_num].file_ptr,
-				     curr_vec, diag_size );
+				     diag_size,
+				     curr_vec, curr_vec_size );
 	 if ( collapse_flag ) {
 	   temp_mat = (FLOAT_TYPE *)ndi_malloc( full_mat_size * sizeof(FLOAT_TYPE) );
 	   if (!temp_mat) return(-14);
@@ -291,6 +299,7 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 	   temp_mat = (FLOAT_TYPE *)ndi_malloc( full_mat_size * sizeof(FLOAT_TYPE) );
 	   if (!temp_mat) return(-14);
 	   ierr = NDI_READ_FLOAT_BLOCK( stream, full_mat->stat[vec_num].file_ptr,
+					full_mat_size,
 					temp_mat, full_mat_size );
 	   
 	   /*** check return value ***/
@@ -346,6 +355,7 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
 	
    int ierr = 0;
    int tmp_err = 0;
+   int temp_mat_size;
    int num_full_mat =  num_grps * num_grps;
    int num_down = (num_grps * (num_grps + 1) ) / 2;
    FLOAT_TYPE *temp_mat = NULL;
@@ -360,12 +370,14 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
 
    if ( collapse_flag ) {
       temp_mat = (FLOAT_TYPE *)ndi_malloc( num_full_mat * sizeof(FLOAT_TYPE) );
+      temp_mat_size = num_full_mat;
       if ( !temp_mat ) {
 	 /* Out of memory */
 	 return(-14);
       }
    } else {
       temp_mat = return_mat;
+      temp_mat_size = return_size;
    }
     
    if ( full_mat.num_objs > 0 ) { 
@@ -373,7 +385,8 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
       if ( full_mat.num_objs > vec_num) { 
 	 if ( full_mat.stat[vec_num].file_ptr ) {
 	    ierr = NDI_READ_FLOAT_BLOCK(stream, full_mat.stat[vec_num].file_ptr, 
-					temp_mat, num_full_mat);	
+					num_full_mat,
+					temp_mat, temp_mat_size );	
 	 } else {
 	    /* No file pointer set */
 	    ierr = 9;
@@ -391,7 +404,8 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
 	       FLOAT_TYPE *diag_array;
 	       diag_array = (FLOAT_TYPE *)ndi_malloc( num_down * sizeof(FLOAT_TYPE) );
 	       if ( diag_array ) {
-		  ierr = NDI_READ_FLOAT_BLOCK( stream, down_mat.stat[vec_num].file_ptr, 
+		  ierr = NDI_READ_FLOAT_BLOCK( stream, down_mat.stat[vec_num].file_ptr,
+					       num_down,
 					       diag_array, num_down );
 		  ierr = NDI_DIAG2FULL( NULL, 0, diag_array, num_down, num_grps, 
 					num_grps, temp_mat );
@@ -484,18 +498,27 @@ static int NDI_DIAG2FULL(FLOAT_TYPE *low_diag, int num_ld, FLOAT_TYPE *up_diag,
 
 /*********************************************************************/
 
-static int NDI_COLLAPSE_PROD_MAT(FLOAT_TYPE *coll_mat, int new_in,
-				 FLOAT_TYPE *old_mat, int old_in, 
-				 int old_out ) 
+static int NDI_COLLAPSE_PROD_MAT( FLOAT_TYPE *old_mat,
+				  int old_in, int old_out,
+				  int new_in,
+				  FLOAT_TYPE *return_vec, int return_size ) 
+
+     /*  NOTE:  Currently there is no way to specify collapsing
+	 the secondary particle energy structure.  That'll have 
+	 to wait for coupled functionality to be implemented.
+	 So,   new_out = old_out
+
+     */
 
 {
 
    int i, k, l;
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   FLOAT_TYPE in_sum = 0;                         /* Summing rows */
-   FLOAT_TYPE wt_sum = 0;                         /* Sum of weights */
    int *new_bound_in = new_ebounds;               /* New row boundaries */
    int new_out = old_out;
+   int ret_vec_index;
+   FLOAT_TYPE in_sum = 0;                         /* Summing rows */
+   FLOAT_TYPE wt_sum = 0;                         /* Sum of weights */
 
    if ( grp_num_new <= 0 ) {
       /* Number of groups not set  */
@@ -511,7 +534,12 @@ static int NDI_COLLAPSE_PROD_MAT(FLOAT_TYPE *coll_mat, int new_in,
 	    wt_sum += lib_weight[i];
 	 }
 	 if ( wt_sum > 0 ) {
-	    coll_mat[ (k * new_out) + l ] = in_sum / wt_sum;
+	   ret_vec_index = (k * new_out) + l; 
+	   if ( ret_vec_index >= return_size ) {
+	     if ( ierr >= 0 ) ierr = 7;
+	     return(ierr);
+	   }
+	   return_vec[ ret_vec_index ] = in_sum / wt_sum;
 	 } else {
 	    /* Error: unexpected library data--weight sum should not be 0 */
 	    ierr = -12;
@@ -667,11 +695,12 @@ static int PN_DOWN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size ) {
 /*********************************************************************/
 
 static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
-			     FLOAT_TYPE *return_vec, int vec_num )
+			     int vec_num,
+			     FLOAT_TYPE *return_vec, int return_size )
 {
    int ierr = 0;
    FLOAT_TYPE *temp_vec = NULL;
-   int num = sec_part.num_grps * iso_stat.num_grps;
+   int matrix_num = sec_part.num_grps * iso_stat.num_grps;
 
 
    if (sec_part.pn_prod_full.num_objs > 0 ) {
@@ -679,14 +708,17 @@ static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
 	 if (sec_part.pn_prod_full.stat[vec_num].file_ptr) {
 
 	    if ( collapse_flag ) {
-	       temp_vec = (FLOAT_TYPE *)ndi_malloc(num * sizeof(FLOAT_TYPE) );
+	       temp_vec = (FLOAT_TYPE *)ndi_malloc( matrix_num * sizeof(FLOAT_TYPE) );
 	       if ( temp_vec ) {
 		  ierr = NDI_READ_FLOAT_BLOCK(stream,
 					      sec_part.pn_prod_full.stat[vec_num].file_ptr,
-					      temp_vec, num);
+					      matrix_num,
+					      temp_vec, matrix_num );
 		  if ( ierr >= 0 ) {
-		     ierr = NDI_COLLAPSE_PROD_MAT(return_vec, grp_num_new, temp_vec, 
-						  iso_stat.num_grps, sec_part.num_grps );
+		     ierr = NDI_COLLAPSE_PROD_MAT( temp_vec, 
+						   iso_stat.num_grps, sec_part.num_grps,
+						   grp_num_new,
+						   return_vec, return_size );
 		  }
 		  if ( temp_vec ) ndi_free( (void**)&temp_vec );
 	       } else {
@@ -696,7 +728,8 @@ static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
 	    } else {
 	       ierr = NDI_READ_FLOAT_BLOCK(stream,
 					   sec_part.pn_prod_full.stat[vec_num].file_ptr,
-					   return_vec, num);
+					   matrix_num,
+					   return_vec, return_size );
 	    }
 	 } else {
 	    /* Error reading file pointer */
@@ -833,8 +866,8 @@ static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num,
    int j;
    int ierr = 0;
    int array_size = 0;
-   int nusigf_type;
-   int chi_type;
+   int nusigf_type = 0;
+   int chi_type = 0;
    char transpose_state;
    FLOAT_TYPE *pn_ptr = return_vec;
    FLOAT_TYPE *nusigf = NULL;
