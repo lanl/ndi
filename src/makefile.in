@@ -25,6 +25,7 @@ DEP		= gcc -MM
 CPP		= @CPP@
 RANLIB		= @RANLIB@
 INSTALL		= @INSTALL@
+AWK		= @AWK@
 
 VERSION 	:= version.h
 FMANGLE 	:= fmangle.h
@@ -162,6 +163,7 @@ install: all
 	$(INSTALL) -g $(GROUP) -m 664 libndi.a $(libdir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi.h $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi_keywords.h $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 664 ndi_keywords.i $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi_var_type.h $(includedir)
 
 libndi.a: $(VERSION) $(FMANGLE) $(VAR_TYPE) $(OBJ)
@@ -179,7 +181,7 @@ $(VAR_TYPE): ndi_define_float.c
 	ndi_define_float > $@
 	$(RM) ndi_define_float
 
-$(FMANGLE): fcallscc.c fcallscf.f
+$(FMANGLE): fcallscc.c fcallscf.f ndi_keywords.i
 	@echo Making $(FMANGLE)
 	$(RM) f_calls_c
 	$(CC) -c $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
@@ -190,6 +192,9 @@ $(FMANGLE): fcallscc.c fcallscf.f
 
 testc_all: $(TARGET) $(OBJ_TESTC)
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(OBJ_TESTC) -o $@ $(LDLIBS)
+
+ndi_keywords.i: ndi_keywords.h
+	$(AWK) -f $(srcdir)/keywords.awk $(srcdir)/ndi_keywords.h > ndi_keywords.i
 
 # pattern rules
 
