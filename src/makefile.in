@@ -26,6 +26,7 @@ CPP		= @CPP@
 RANLIB		= @RANLIB@
 INSTALL		= @INSTALL@
 AWK		= @AWK@
+MD5SUM		= @MD5SUM@
 
 VERSION 	:= version.h
 FMANGLE 	:= fmangle.h
@@ -195,6 +196,12 @@ testc_all: $(TARGET) $(OBJ_TESTC)
 
 ndi_keywords.i: ndi_keywords.h
 	$(AWK) -f $(srcdir)/keywords.awk $(srcdir)/ndi_keywords.h > ndi_keywords.i
+
+ndi.md: $(SRC)
+	$(MD5SUM) $(srcdir)/*.[ch] > ndi.md
+
+ndi.sv: 
+	$(MD5SUM) --check ndi.md
 
 # pattern rules
 
