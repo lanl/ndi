@@ -1,4 +1,3 @@
-
 /*
  * File:	ndi_set_option.c
  * Description:	User function--set defaults.
@@ -24,9 +23,17 @@ static int ndi_set_ebounds_curr_part( state_struct *state, const char *value );
 static int ndi_set_norm ( state_struct *state, const char *value );
 static int ndi_set_trans_corr_diag( state_struct *state, const char *value );
 static int ndi_set_reac_id( state_struct *state, const char *value );
+static int ndi_set_e_avg( state_struct *state, const char *value );
+static int ndi_set_kerma_calc( state_struct *state, const char *value );
 
 static int get_order( const char *value );
 static int ndi_niceStrCp( char *new_str, const char *old_str, int new_len );
+static int ndi_lib_dir(state_struct *state, char pt_type, char l_type, 
+                       const char *value_type, const char *in_value, 
+                       int reaction_flag );
+static void ndi_find_zaid_string( char *in_line, int in_size, 
+				  char *zaid_string, int string_size, 
+				  char *seps );
 
 /**********************************************************************/
 int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
@@ -48,6 +55,7 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
    char *value;        /* Copy of input value of option */
    int in_value_len = 0;   /* Size of the in_value string */
    
+
    /* Check that ndi_init has been called. */
    if ((!state) || (! state->ndi_initialized)) {
       return(-2); }
@@ -102,6 +110,16 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
       /* Specify reaction identifiers--MT or C values */
       ierr = ndi_set_reac_id( state, value );
       break;
+
+   case NDI_E_AVG:
+       /* Specify how to calculate average bin energies */
+      ierr = ndi_set_e_avg( state, value );
+      break;
+
+   case NDI_KERMA:
+       /* Should the kerma/heating be calculated if library data not found */
+       ierr = ndi_set_kerma_calc( state, value);
+       break;
 
    case NDI_DEPLETION:
       /* Set depletion chain -- for multigroup only */
@@ -251,27 +269,16 @@ static int ndi_set_library( state_struct *state, const char *value )
    if ( strncmp( value, "default", 8 ) == 0 ) {
       strncpy( state->library_vers, "", sizeof(state->library_vers) );
    } else {
-      if ( ( val_length + 1 ) < 26 ) {   /* Size of library_vers is 13 in ndi_init */
-	 strncpy( state->library_vers, value, (val_length + 1) * sizeof(char) );
-      } else {
-	 strncpy( state->library_vers, value, ( 26 * sizeof(char) ) );
-      }
+       if ( ndi_lib_dir(state, state->particle_type, state->library_type,"l", value, 0 ) == 1) {
+           if ( ( val_length + 1 ) < 26 ) {   /* Size of library_vers is 13 in ndi_init */
+               strncpy( state->library_vers, value, (val_length + 1) * sizeof(char) );
+           } else {
+               strncpy( state->library_vers, value, ( 26 * sizeof(char) ) );
+           }
+       } else {
+           ierr = 54;
+       }
    }
-
-
-/*    if ( strncmp( value, "mendf5", 7 ) == 0 ) { */
-/*       strncpy( library_vers, value, 7 ); */
-/*    } else if ( strncmp( value, "mendf6", 7 ) == 0 ) { */
-/*       strncpy( library_vers, value, 7  ); */
-/*    } else if ( strncmp( value, "rmoxsct", 8 ) == 0 ) { */
-/*       strncpy( library_vers, value, 8 ); */
-/*    } else if ( strncmp( value, "default", 8 ) == 0 ) { */
-/*       strncpy( library_vers, "", sizeof(library_vers) ); */
-/*    } else { */
-      /* "Error:  invalid NDI input argument. */ 
-/*       ierr = -5; */
-/*    } */
-
 
    return(ierr);
 }
@@ -520,6 +527,52 @@ static int ndi_set_reac_id( state_struct *state, const char *value )
 }
 /**********************************************************************/
 /**********************************************************************/
+
+static int ndi_set_e_avg( state_struct *state, const char *value )
+
+{ 
+   int ierr = 0;
+
+   if ( strncmp( value, "from_vel", 9 ) == 0 ) {
+      /* E = 1/2 m * v^2  */
+       state->e_avg_calc = VEL_CALC;
+   } else if ( strncmp( value, "from_e", 7 ) == 0 ) {
+      state->e_avg_calc = E_MEAN;
+   } else if ( strncmp( value, "from_sgndf", 11 ) == 0 ) {
+      state->e_avg_calc = SGNDF;
+   } else {
+      /* "Error:  invalid NDI input argument. */
+      ierr = -5;
+   }
+
+   return(ierr);
+   
+}
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_set_kerma_calc( state_struct *state, const char *value )
+
+{ 
+   int ierr = 0;
+
+   if ( strncmp( value, "use_data", 9 ) == 0 ) {
+       /* If kerma/heating not available on library, use calculation */
+       state->kerma_calc = DATA; 
+   } else if ( strncmp( value, "use_calc", 9 ) == 0 ) {
+       state->kerma_calc = CALC;       
+   } else if ( strncmp( value, "use_data_calc", 14 ) == 0 ) {
+       state->kerma_calc = DATA_CALC;       
+   } else {
+      /* "Error:  invalid NDI input argument. */
+      ierr = -5;
+   }
+
+   return(ierr);
+   
+}
+/**********************************************************************/
+/**********************************************************************/
 static int get_order( const char *value ) {
 
    char *under_score = NULL;
@@ -574,3 +627,188 @@ static int ndi_niceStrCp( char *new_str, const char *old_str, int new_len )
 
 /**********************************************************************/
 /**********************************************************************/
+
+static int ndi_lib_dir(state_struct *state, char pt_type, char l_type, 
+                       const char *value_type, const char *in_value, 
+                       int reaction_flag )
+
+/*  Purpose: 
+    
+    Parameters: 
+    pt_type -- in: incident particle type (e.g. 'n' neutron)
+    l_type -- in: library type (e.g. 'm' multigroup)
+    in_value -- in: zaid we're searching for on gendir
+    reaction_flag -- Are we reading reaction data--depletion (True = -1, false=0)
+
+    Return values:  Returns -1 on error, 0 if the value was not found, and 1 if
+    the value was found.
+
+***********************************************************************/
+
+{
+
+   char section[30]; /* Gendir section (e.g. neutron_multigroup) */
+   size_t sec_len;   /* Length of 'section' string */
+   char in_line[MAX_IN_STR_LEN];  /* Current input line */
+   char zaid_string[MAX_IN_STR_LEN];  /* First string on current line */
+   char seps[] = " ,\t\n";
+   int ierr = 0;     /* Error flag: 0=no error,pos=warning, neg=error */
+   int done = 0;     /* Flag indicating when processing of zaid is done */
+   char tmp_str[MAX_IN_STR_LEN];
+   dir_entry dir_rec;
+
+
+   /* Check if library type is set */
+     
+   if ( ( pt_type == 'n' ) && ( l_type == 'm' ) ) {
+     if ( reaction_flag == 0 ) {
+       strcpy( section, "multigroup_neutron" );
+     } else {
+       strcpy( section, "neutron_depletion" );
+     }
+   }else if ( ( pt_type == 'n' ) && ( l_type == 'd' ) ) {
+     if ( reaction_flag == 0 ) {
+       strcpy( section, "dosimetry_neutron" );
+     } else {
+       strcpy( section, "radchem_chain" );
+     }
+   } else if ( (pt_type == 'p') && ( l_type == 'm' ) ) {
+      strcpy( section, "multigroup_photon" );
+   } else if ( (pt_type == '0') && ( l_type == 's' ) ) {
+      strcpy( section, "tndata" );
+   } else if ( ( pt_type == '0' ) && ( l_type == 'r' ) ) {
+      strcpy( section, "tn_reactions" );
+      /*
+   } else if ( ( pt_type == 'n' ) && ( l_type == '0' ) ) {
+      strcpy( section, "neutron_depletion" );
+      */
+   } else {
+      /* Error: library type not set */
+      return(-16);
+   }
+
+   if ( ! state->ndi_dir ) {
+     /* Error opening file */
+     return( -1 );
+   }
+
+   (void)rewind(state->ndi_dir); 
+   sec_len = strlen(section);
+
+   while (done == 0) { 
+      
+      /* Find correct section of directory file */
+      if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
+	 if (strncmp(in_line, section, sec_len) == 0) {
+	    
+	    while ( (done == 0) && ( ierr >= 0 ) ) {
+	       
+                /* Search section */
+                if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
+		  
+                    /* Check if current input line contains the desired value */
+                    if ( strstr( in_line, "z=" ) ) {
+                        (void) ndi_find_zaid_string( in_line, MAX_IN_STR_LEN, zaid_string, 
+                                                     MAX_IN_STR_LEN, seps );
+                        ierr = read_dir_block( in_line, state->ndi_dir, &dir_rec );
+                        if (strncmp(value_type, "z", 2) == 0 ) {
+                            if (strncmp(in_value, dir_rec.zaid, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }
+                        } else if (strncmp(value_type, "l", 2) == 0 ) {
+                            if (strncmp(in_value, dir_rec.lib, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }                         
+                        } else if (strncmp(value_type, "f", 2)== 0  ) {
+                            if (strncmp(in_value, dir_rec.path, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }
+                        } else if (strncmp(value_type, "ft", 3) == 0 ) {
+                            if (strncmp(in_value, dir_rec.lib_type, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }
+                        } else if (strncmp(value_type, "o", 2)== 0 ) {
+                            sprintf(tmp_str, "%ld", dir_rec.offset);
+                            if (strncmp(in_value, tmp_str, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }
+                        } else if (strncmp(value_type, "aw", 3)== 0 ) {
+                            sprintf(tmp_str, "%lf", dir_rec.at_wgt);
+                            if (strncmp(in_value, tmp_str, strlen(in_value) +1) == 0 ) {
+                                return(1);
+                            }
+                        } else {
+                            return(-1);
+                        }
+                    }
+                } else {
+                    /* Error reading file */
+                    ierr = -11;
+                    done = -1;
+                }
+            }   /* while */ 
+	 }      /* strncmp */
+      } else {
+	  /* Error reading file */
+	  ierr = -11;
+	  done = -1;
+      }
+   }  /* while */
+
+   return(ierr);
+}
+	    
+/**********************************************************************/
+
+static void ndi_find_zaid_string( char *in_line, int in_size, 
+				  char *zaid_string, int string_size, 
+				  char *seps ) {
+  
+  /* This function assumes that the string is terminated by '\0'.
+     There is no other test to prevent the function from going
+     right off the end of the string.
+
+     Also assumes that zaid is of the form z=92235 (no spaces).
+     */
+
+   char *curr_char = NULL;
+   char *target_char = zaid_string;
+   char *tmpstr;
+   int i;
+   int str_length;
+   int curr_size = in_size;
+   int target_count = 0;
+
+   *zaid_string = '\0';
+
+   if ( ( curr_char = strstr( in_line, "z=" ) ) ) {
+     /* Start of zaid should be two ( 'z' and '=') past curr_char */
+     curr_char += 2;
+     str_length = (int)( curr_char - in_line );
+     curr_size = in_size - str_length/((int)sizeof(char));
+     if ( curr_size <= 1 ) {
+       return;
+     }
+
+     for ( i = 0; i < curr_size; i++ ) {
+       tmpstr = strchr( seps, *curr_char );       
+       if ( ( *curr_char != '\0' ) && 
+	    ( tmpstr == NULL ) &&
+	    ( target_count < string_size ) ) {
+	 /* The current character is not is the seperation characters */
+	 *target_char = *curr_char;
+	 target_char++;
+	 target_count++;
+	 curr_char++;
+       } else {
+	 *target_char = '\0';
+	 break;
+       }
+     }
+   }
+
+   return;
+}
+
+/***********************************************************************/
+/***********************************************************************/

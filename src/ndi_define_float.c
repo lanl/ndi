@@ -47,6 +47,8 @@ int main ()
    printf("#define GET_SIMPLE_FLOAT_VEC ndi_get_simple_float32_vec\n");
    printf("#define NDI_GET_HEATING ndi_get_heating32\n");
    printf("#define NDI_GET_KERMA ndi_get_kerma32\n");
+   printf("#define NDI_GET_OLD_HEATING ndi_get_old_heating32\n");
+   printf("#define NDI_GET_OLD_KERMA ndi_get_old_kerma32\n");
    printf("#define MULT_FLOAT_VEC ndi_mult_float32_vec\n");
    printf("#define DIVIDE_FLOAT_VEC ndi_divide_float32_vec\n");
    printf("#define GET_CHI_MAT ndi_get_chi_mat32\n");
@@ -77,6 +79,9 @@ int main ()
    printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float32_vec\n");
    printf("#define GET_COMB_FLOAT_VEC get_comb_float32_vec\n");
    printf("#define GET_MP_SCAT_MAT ndi_get_scat32_mat\n");
+   printf("#define NDI_GET_NUSIGF ndi_get_nusigf32\n");
+   printf("#define NDI_GET_NU ndi_get_nu32\n");
+   printf("#define COPY_SGNDF_E ndi_copy_sgndf32\n");
 
 
    printf("#else\n");
@@ -118,6 +123,8 @@ int main ()
    printf("#define GET_SIMPLE_FLOAT_VEC ndi_get_simple_float64_vec\n");
    printf("#define NDI_GET_HEATING ndi_get_heating64\n");
    printf("#define NDI_GET_KERMA ndi_get_kerma64\n");
+   printf("#define NDI_GET_OLD_HEATING ndi_get_old_heating64\n");
+   printf("#define NDI_GET_OLD_KERMA ndi_get_old_kerma64\n");
    printf("#define MULT_FLOAT_VEC ndi_mult_float64_vec\n");
    printf("#define DIVIDE_FLOAT_VEC ndi_divide_float64_vec\n");
    printf("#define GET_CHI_MAT ndi_get_chi_mat64\n");
@@ -148,6 +155,9 @@ int main ()
    printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float64_vec\n");
    printf("#define GET_COMB_FLOAT_VEC get_comb_float64_vec\n");
    printf("#define GET_MP_SCAT_MAT ndi_get_scat64_mat\n");
+   printf("#define NDI_GET_NUSIGF ndi_get_nusigf64\n");
+   printf("#define NDI_GET_NU ndi_get_nu64\n");
+   printf("#define COPY_SGNDF_E ndi_copy_sgndf64\n");
 
    printf("#endif\n\n\n");
 

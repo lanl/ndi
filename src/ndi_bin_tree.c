@@ -36,7 +36,7 @@ struct ndi_bin_tree_node *ndi_build_tree( int in_key, const char *in_value )
 
 
    /* Open gendir */
-   ierr = ndi_open_gendir(&ndi_dir); 
+   ierr = ndi_open_gendir(&ndi_dir, NULL); 
    if ( ierr < 0 ) {
       return(NULL);
    }

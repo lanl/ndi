@@ -49,6 +49,8 @@ int ndi_c_get_size_h( state_struct *state, int in_key, int *ierr)
    /* Special case--library type need not be set if asking for version. */
    if ( in_key == NDI_VERSION ) {
       size = (int) strlen(NDI_VERSION_DATA) + 1;
+   } else if ( in_key == NDI_GENDIR_PATH ) {
+       size = (int) strlen(state->ndi_gendir_path) + 1;
    } else {
       if ( ( state->library_type == 'm' ) ||
 	   ( state->library_type == 'd' )) {

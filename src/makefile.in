@@ -165,14 +165,22 @@ SRC_TESTC := \
 	test/tnreac_c.c \
 	test/tnreac_c_handle.c \
 	test/za.c \
-	test/za_handle.c 
+	test/za_handle.c \
+	test/pnu.c \
+	test/gendir_path.c \
+	test/library_check.c \
+	test/avg_e.c \
+	test/ekerma.c \
+	test/sgndf.c
 
 SRC_TESTF := \
 	test/ndi_testf.F\
 	test/ndi_testf2.F\
 	test/ndidf.F\
 	test/radchemf.F\
-	test/symbol_translatef.F
+	test/symbol_translatef.F \
+	test/gendir_pathf.F \
+	test/library_checkf.F
 
 DATA_TEST_SRC := \
 	test/mgn_data.c \

@@ -37,8 +37,8 @@ static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg *sec
 			     FLOAT_TYPE *return_vec, int return_size );
 static int GET_DIAG_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num );
 static int GET_BHS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num );
-static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int vec_num, 
-			     int n_type );
+static int GET_TRANSFER_MAT( state_struct *state, int n_type, int vec_num, 
+                             FLOAT_TYPE *return_vec,  int vec_size );
 static int GET_PNU_PR(state_struct *state, FLOAT_TYPE *return_vec, int vec_num);
 static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE *return_vec, int vec_num);
 
@@ -182,7 +182,7 @@ int NDI_GET_FLOAT_VEC_N_H( state_struct *state, int in_key, int vec_num,
 
    case NDI_TRANSFER_MAT_TOT:                   /* Transfer matrix -- total */
    case NDI_TRANSFER_MAT_PR:                    /* Transfer matrix -- prompt */
-      ierr = GET_TRANSFER_MAT( state, return_vec, vec_num, in_key );
+      ierr = GET_TRANSFER_MAT( state, in_key, vec_num, return_vec, vec_num  );
 
       /* Transpose result, if necessary */
       if ( state->collapse_flag != 0 ) {
@@ -421,7 +421,7 @@ static int GET_FULL_PN_MAT (state_struct *state, FILE *stream, multi_stat full_m
 		  if ( diag_array ) ndi_free((void**)&diag_array);
 		  if ( ierr >= 0 ) {
 		    /* Warning: full scattering matrix is constructed from downscatter only */
-		    ierr = 10;
+		    /* ierr = 10;  ??? */
 		  }
 	       } else {
 		  /* Out of memory */
@@ -857,13 +857,13 @@ static int GET_BHS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_nu
 
 /*********************************************************************/
 
-static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int vec_num, 
-			     int n_type )
+static int GET_TRANSFER_MAT( state_struct *state, int n_type, int vec_num, 
+                             FLOAT_TYPE *return_vec,  int vec_size )
 {
    int i;
    int j;
    int ierr = 0;
-   int array_size = 0;
+   int array_size = vec_size;
    int nusigf_type = 0;
    int chi_type = 0;
    char transpose_state;
@@ -883,11 +883,11 @@ static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int ve
    
    case NDI_TRANSFER_MAT_PR:
       nusigf_type = NDI_NU_SIG_F_PR;
-      chi_type = NDI_CHI_MAT_PR;
+      chi_type = NDI_CHI_VEC_PR;
       break;
    case NDI_TRANSFER_MAT_TOT:
-      nusigf_type = NDI_NU_SIG_F_PR;
-      chi_type = NDI_CHI_MAT_PR;
+      nusigf_type = NDI_NU_SIG_F_TOT;
+      chi_type = NDI_CHI_VEC_TOT;
       break;
    default:
       ierr = -13;
@@ -905,12 +905,12 @@ static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int ve
       array_size = ndi_c_get_size_h( state, chi_type, &ierr );
       chi_mat = (FLOAT_TYPE *)ndi_malloc ( array_size * sizeof(FLOAT_TYPE) );
       /* Check for error */
-      ierr = NDI_GET_FLOAT_VEC_H( state, NDI_CHI_MAT_TOT, chi_mat, array_size );
+      ierr = NDI_GET_FLOAT_VEC_H( state, chi_type, chi_mat, array_size );
 
       array_size = ndi_c_get_size_h( state, nusigf_type, &ierr );
       nusigf = (FLOAT_TYPE *)ndi_malloc ( array_size * sizeof(FLOAT_TYPE) );
       /* Check for error */
-      ierr = NDI_GET_FLOAT_VEC_H( state, NDI_NU_SIG_F_TOT, nusigf, array_size );
+      ierr = NDI_GET_FLOAT_VEC_H( state, nusigf_type, nusigf, array_size );
 
       array_size = ndi_c_get_size_n_h( state, NDI_PN_FULL, vec_num, &ierr );
       scat_mat = (FLOAT_TYPE *)ndi_malloc( array_size * sizeof(FLOAT_TYPE) );
@@ -932,9 +932,14 @@ static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int ve
    if ( vec_num == 0 ) {
       for (i = 0; i < num_grps; i++) {
 	 for (j = 0; j < num_grps; j++ ) {
-	    *(return_vec + ((i * num_grps) + j) ) = *(scat_mat + ((i * num_grps) + j) ) 
-	       + *(nusigf + j) * *(chi_mat +  ((i * num_grps) + j));
-	 }
+             if ( ((i * num_grps) + j) < vec_size) {
+                 *(return_vec + ((i * num_grps) + j) ) = *(scat_mat + ((i * num_grps) + j) ) 
+/*                     + *(nusigf + i) * *(chi_mat +  ((i * num_grps) + j)); */
+                     + *(nusigf + i) * *(chi_mat + j);
+             } else {
+                 ierr = 7;
+             }
+         }
       }
       if ( nusigf ) ndi_free( (void**)&nusigf );
       if ( chi_mat ) ndi_free( (void**)&chi_mat );

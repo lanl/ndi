@@ -71,8 +71,7 @@ ISOTOPE=> He-4<
 ISOTOPE=>O16<
   Zaid = >8016.600nm<
 ISOTOPE=>C-12<
-
-  **Error -8 in setting isotope C-12.
+  Zaid = >6012.600nm<
 ISOTOPE=>i-127<
 
   **Error -8 in setting isotope i-127.

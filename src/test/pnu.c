@@ -54,7 +54,7 @@ int main ()
     if (ierr)
 	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
 
-    ierr += ndi_set_option( NDI_LIBRARY, "chi_test_lib" );
+    ierr += ndi_set_option( NDI_LIBRARY, "chi_test" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);
 

@@ -1,4 +1,4 @@
-
+                                                            
 /*
  * File:	ndi_check_option.c
  * Description:	User function--check defaults.
@@ -23,7 +23,8 @@ static int ndi_get_collapse( state_struct *state, char *value, int string_size )
 static int ndi_get_trans_corr_diag( state_struct *state, char *value, int string_size );
 static int ndi_get_norm( state_struct *state, char *value, int string_size );
 static int ndi_get_reac_id( state_struct *state, char *value, int string_size );
-
+static int ndi_get_e_avg( state_struct *state, char *value, int string_size );
+static int ndi_get_kerma_calc( state_struct *state, char *value, int string_size );
 
 /**********************************************************************/
 int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int string_size )
@@ -86,6 +87,16 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
    case NDI_REAC_ID:
       /* Specify reaction identifiers--MT or C values */
       ierr = ndi_get_reac_id( state, out_value, string_size );
+      break;
+
+   case NDI_E_AVG:
+       /* Specify how to calculate average bin energies */
+       ierr = ndi_get_e_avg( state, out_value, string_size );
+      break;
+
+   case NDI_KERMA:
+       /* Kerma and heating calculated if not found on library? */
+       ierr = ndi_get_kerma_calc( state, out_value, string_size );
       break;
 
    case NDI_CHAIN:
@@ -377,7 +388,7 @@ static int ndi_get_norm(  state_struct *state, char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_reac_id(  state_struct *state, char *value, int string_size )
+static int ndi_get_reac_id( state_struct *state, char *value, int string_size )
 
 /* Valid  values:
    mt, c
@@ -398,6 +409,64 @@ static int ndi_get_reac_id(  state_struct *state, char *value, int string_size )
       strncpy( value, "mt", string_size );
    } else if ( state->reac_id == 'c' ) {
       strncpy( value, "c", string_size );
+   } else {
+      strncpy( value, "", string_size );
+      ierr = -27;
+   }
+
+   return(ierr);
+   
+}
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_get_e_avg( state_struct *state, char *value, int string_size )
+
+/* Valid  values:
+  "from_vel", "from_e"
+
+   Global variables used (and valid values):
+   enum e_avg_calc --  VEL_CALC, E_MEAN, SGNDF
+
+-------------------------------------------------------------------------*/
+
+{ 
+   int ierr = 0;
+
+   if ( state->e_avg_calc == VEL_CALC ) {
+       strncpy( value, "from_vel", string_size );
+   } else if ( state->e_avg_calc == E_MEAN ) {
+      strncpy( value, "from_e", string_size );
+   } else if ( state->e_avg_calc == SGNDF ) {
+      strncpy( value, "from_sgndf", string_size );
+   } else {
+      strncpy( value, "", string_size );
+      ierr = -27;
+   }
+
+   return(ierr);
+   
+}
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_get_kerma_calc( state_struct *state, char *value, int string_size )
+
+/* Valid  values:
+  "use_calc", "no_calc"
+
+   Global variables used (and valid values):
+   enum kerma_calc_type kerma_calc -- DATA, CALC, DATA_CALC
+
+-------------------------------------------------------------------------*/
+
+{ 
+   int ierr = 0;
+
+   if ( state->kerma_calc == CALC ) {
+       strncpy( value, "use_calc", string_size );
+   } else if ( state->kerma_calc == DATA) {
+      strncpy( value, "no_calc", string_size );
    } else {
       strncpy( value, "", string_size );
       ierr = -27;

@@ -48,7 +48,8 @@ int ndi_c_init_h(state_struct **curr_state)
 
    /* Open directory file and initialize state variables */
  
-   ierr = ndi_open_gendir( &(state->ndi_dir) );
+   if ( state->ndi_gendir_path ) { ndi_free( (void**)&state->ndi_gendir_path); }
+   ierr = ndi_open_gendir( &state->ndi_dir, state );
    if ( ierr < 0 ) {
      /* Fatal error opening gendir */
      state->ndi_initialized = 0;
@@ -62,6 +63,7 @@ int ndi_c_init_h(state_struct **curr_state)
    ndi_fill_elements(state);
 
    /*  Set default values */
+   if (state->library_vers)  ndi_free((void**)&state->library_vers);
    state->library_vers = (char *)ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
    strncpy( state->library_vers, "", sizeof(state->library_vers) );
    state->particle_type = -1;

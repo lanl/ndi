@@ -45,33 +45,36 @@ int ndi_c_get_string_val_h( state_struct *state, int in_key, char *ret_val, int 
       ierr = 7;
    }
 
-   /* Special case--library type need not be set if asking for version. */
-   if ( in_key == NDI_VERSION ) {
-      strncpy( ret_val, NDI_VERSION_DATA, str_size );
+   /* Check that ndi_init has been called. */
+   if (!state) {
+       return(-2); 
+   } else if ( in_key == NDI_VERSION ) {
+       /* Special case--library type need not be set if asking for version. */
+       strncpy( ret_val, NDI_VERSION_DATA, str_size );
+   }  else if (!state->ndi_initialized) {
+       return(-2);       
+   } else if ( in_key == NDI_GENDIR_PATH ) {
+       strncpy( ret_val, state->ndi_gendir_path, str_size );
+   }
+    
+
+   if ( ( state->library_type == 'm' ) || 
+        ( state->library_type == 'd' ) ) {
+       ierr = get_string_mg( state, in_key, ret_val, str_size );
+   } else if ( state->library_type == 's' ) {
+       ierr = get_string_tn( state, in_key, ret_val, str_size );
+   } else if ( state->library_type == 'r' ) {
+       ierr = get_string_tnreac( state, in_key, ret_val, str_size );
+       /*
+         } else if ( state->library_type == '0' ) {
+         ierr = get_string_depl( in_key, ret_val, str_size );
+       */
+   } else if ( state->library_type == ' ' ) {
+       /* Library type was not set */
+       ierr = -16;
    } else {
-     /* check that ndi_init has been called. */
-     if ((!state) || (!state->ndi_initialized)) {
-       return(-2); }
-
-      if ( ( state->library_type == 'm' ) || 
-	   ( state->library_type == 'd' ) ) {
-	 ierr = get_string_mg( state, in_key, ret_val, str_size );
-      } else if ( state->library_type == 's' ) {
-	 ierr = get_string_tn( state, in_key, ret_val, str_size );
-      } else if ( state->library_type == 'r' ) {
-	 ierr = get_string_tnreac( state, in_key, ret_val, str_size );
-
-	 /*
-	   } else if ( state->library_type == '0' ) {
-	   ierr = get_string_depl( in_key, ret_val, str_size );
-	   */
-      } else if ( state->library_type == ' ' ) {
-	/* Library type was not set */
-          ierr = -16;
-      } else {
-	 /* Incompatible library type -- bad input key */ 
-	 ierr = -4;
-      }
+       /* Incompatible library type -- bad input key */ 
+       ierr = -4;
    }
 
    return(ierr);

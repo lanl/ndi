@@ -152,4 +152,6 @@
 #define NDI_SIG_PNU_PR                123
 #define NDI_PARTICLE_TYPE             124
 
+#define NDI_GENDIR_PATH               124
+
 #endif	/* __NDI_KEYWORDS_H */

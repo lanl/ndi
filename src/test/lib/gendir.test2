@@ -1,0 +1,6 @@
+multigroup_neutron
+  z=1001.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00780E+00
+    awr=9.99142E-01 end
+end
+

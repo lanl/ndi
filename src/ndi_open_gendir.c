@@ -18,8 +18,10 @@
 /*include ndi_internal.h only for ndi_malloc and ndi_free functions */
 #include "ndi_internal.h"
 
+#include "ndi_state.h"
+
 /**********************************************************************/
-int ndi_open_gendir(FILE **dir_stream)
+int ndi_open_gendir(FILE **dir_stream, state_struct *state )
 
 /**********************************************************************
 
@@ -37,11 +39,12 @@ int ndi_open_gendir(FILE **dir_stream)
   
   int ierr = 0;
   char *dir_file;
+  int str_size;
   
   /* Open directory file and initialize state variables */
   dir_file = (char *)ndi_malloc(250 * sizeof(char));
   /*  Look first for directory file "gendir" in current dir */
-  strcpy( dir_file, "gendir");  
+  strcpy( dir_file, "./gendir");  
   if ( (*dir_stream = fopen(dir_file, "rb") ) == NULL ) {
 
     /* Then check for directory file given 
@@ -89,6 +92,12 @@ int ndi_open_gendir(FILE **dir_stream)
     }
   }
   
+  if ((state) && (ierr != -1)) {
+      if ( state->ndi_gendir_path ) { ndi_free( (void**)&state->ndi_gendir_path); }
+      str_size = strlen(dir_file) + 1;
+      state->ndi_gendir_path = ndi_malloc( str_size * sizeof(char));
+      strncpy( state->ndi_gendir_path, dir_file, str_size);
+  }
   ndi_free((void**)&dir_file);
   return(ierr);
 

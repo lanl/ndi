@@ -161,6 +161,7 @@ c     Test error on initialization before close
       call ndi_set_option( NDI_MAT_ORDER, 'column', ierr)
       write(*,300) "mat_order=", ierr
  300  format(a10,i3)
+      call ndi_set_option( NDI_E_AVG, 'from_e', ierrr)
 
 c      call ndi_set_option( NDI_COLLAPSE, num_grp_str, ierr) 
 

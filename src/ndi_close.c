@@ -47,6 +47,7 @@ int ndi_c_close_h(state_struct **curr_state)
    }
    
    /* Close directory file and library file */
+   if ( state->ndi_gendir_path ) { ndi_free( (void**)&state->ndi_gendir_path); }
    if ( fclose(state->ndi_dir) != 0 ) {
      ret_code = 3;
    } else {
@@ -67,6 +68,8 @@ int ndi_c_close_h(state_struct **curr_state)
    state->library_type = ' '; 
    state->mat_order = 'd';     /* No transpose */
    state->reac_id = 'm';       /* Use MT numbers to identify reactions */
+   state->e_avg_calc = VEL_CALC;
+   state->kerma_calc = DATA;
    state->curr_reac_index = -1;
    strncpy(state->nuc_data_type, "", sizeof(state->nuc_data_type) );  /* OBSOLETE? */
 

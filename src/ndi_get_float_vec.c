@@ -30,7 +30,8 @@ static int NDI_GET_HEATING( state_struct *state, stat_flag  *heating, stat_flag 
 			    FLOAT_TYPE *return_vec, int return_size );
 static int NDI_GET_KERMA ( state_struct *state, stat_flag  *kerma, stat_flag *heating, 
 			    FLOAT_TYPE *return_vec, int return_size );
-static int NDI_GET_CHI_VEC( state_struct *state,isotope_status *mg, char chi_type, 
+static int NDI_GET_OLD_HEATING ( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
+static int NDI_GET_CHI_VEC( state_struct *state, isotope_status *mg, char chi_type, 
 			    FLOAT_TYPE *return_vec, int *return_size );
 static int GET_DEPL_XS( state_struct *state,isotope_status *mg, FLOAT_TYPE *return_vec, int return_size );
 static int GET_EDIST_VEC( state_struct *state, FILE *lib_stream, FLOAT_TYPE *return_vec, int return_size );
@@ -39,6 +40,7 @@ static int NDI_GET_NUSIGF( state_struct *state, char nu_type, FLOAT_TYPE *return
 			   int *return_size);
 static int NDI_GET_NU( state_struct *state, isotope_status *mg, char nu_type, FLOAT_TYPE *return_vec, 
 		       int *return_size);
+static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE *return_vec, int return_size);
 
 /**********************************************************************/
 
@@ -157,12 +159,20 @@ static int GET_FLOAT_VEC_MG(  state_struct *state, int in_key, FLOAT_TYPE *retur
       break;
 
    case NDI_HEATING:                            /* Heating */
-     ierr = NDI_GET_HEATING( state, &state->iso_stat.heat, &state->iso_stat.kerma, return_vec, return_size );
+       if (state->kerma_calc == CALC) {
+           ierr = NDI_GET_OLD_HEATING( state, return_vec, return_size );
+       } else {
+           ierr = NDI_GET_HEATING( state, &state->iso_stat.heat, &state->iso_stat.kerma, return_vec, return_size );
+       }
      break;
 
    case NDI_KERMA:                            /* kerma */
      /* Units are MeV*barn -- this is just heating * tot_sigma */
-     ierr = NDI_GET_KERMA(  state, &state->iso_stat.kerma, &state->iso_stat.heat, return_vec, return_size );
+       if (state->kerma_calc == CALC) {
+           ierr = NDI_GET_OLD_KERMA( state, return_vec, return_size );
+       } else {
+           ierr = NDI_GET_KERMA( state, &state->iso_stat.kerma, &state->iso_stat.heat, return_vec, return_size );
+       }
      break;
 
    case NDI_HEATING_CURR_PART:               /* Partial heating for current particle */
@@ -581,10 +591,13 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
  
 static int NDI_CALC_E_AVG(  state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
 
-   int i,j;
+   int i;
    int num_grps;
    int ierr = 0;
-   FLOAT_TYPE wt_sum, e_sum;
+   int calc_flag = 0;
+   FLOAT_TYPE *vel;
+   /* Assuming inc part = neutrons and that vel units are cm/shake */
+   double v2_to_e_factor = (M_NEUT_KG) / 2 * 1e12 / (J_TO_MEV);
 
 
    NDI_INIT_FLOAT_VEC( return_vec, return_size );
@@ -604,24 +617,58 @@ static int NDI_CALC_E_AVG(  state_struct *state, FLOAT_TYPE *return_vec, int ret
       num_grps = state->grp_num_new;
    } 
 
-   for ( i = 0; i < num_grps; i++ ) {
-      wt_sum = 0;
-      e_sum = 0;
-      if ( state->collapse_flag ) {
-	 for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
-	    e_sum += (FLOAT_TYPE) fabs( (double) 
-					state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
-					- state->lib_ebounds[j] * state->lib_ebounds[j] ) * state->lib_weight[j];
-	    wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
-/* 	    printf("e=%e wt=%e\n", e_sum, wt_sum); */
-	 }
-      } else {
-	 e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
-	 wt_sum = 1;
-      }
-      return_vec[i] = e_sum /(2 *  wt_sum);
-/*       printf("esum = %e  wtsum = %e  avg = %e\n", e_sum, wt_sum, return_vec[i]);  */
-   }
+    if (state->e_avg_calc == SGNDF) {
+        if (ndi_use_sgndf_values(state, num_grps) != 0) {
+            /* Use hard-wired values */
+            ierr = COPY_SGNDF_E(num_grps, return_vec, return_size);
+            return(ierr);
+        } else {
+            calc_flag = -1;  /* Calculate from average velocity */
+        }
+    }
+
+    if ( (state->e_avg_calc == VEL_CALC) ||
+         (calc_flag != 0) ){
+        /* E(avg) = 1/2 m vel(avg)^2 */
+        if ( fabs(v2_to_e_factor ) < DBL_EPSILON) {
+            ierr = 5;
+            return (ierr);
+        }
+        
+        vel = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+        ierr = GET_SIMPLE_FLOAT_VEC( state, state->lib_stream, state->iso_stat.vel.file_ptr,
+                                     1, state->iso_stat.num_grps,
+                                     vel, num_grps );
+        for (i = 0; i < num_grps; i++ ) {
+            if (i < return_size) {
+                return_vec[i] = v2_to_e_factor * vel[i] * vel[i];
+            }
+        }
+        if (vel) ndi_free((void **)&vel);
+    } else if (state->e_avg_calc == E_MEAN) {
+     /*   Arithmetic mean energy */
+        int j;
+        double wt_sum, e_sum;
+
+        for ( i = 0; i < num_grps; i++ ) {
+            wt_sum = 0;
+            e_sum = 0;
+            if ( state->collapse_flag ) {
+                for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
+                    e_sum += (FLOAT_TYPE) fabs( (double) 
+                                                state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
+                                                - state->lib_ebounds[j] * state->lib_ebounds[j] ) * state->lib_weight[j];
+                    wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
+                }
+            } else {
+                e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
+                wt_sum = 1;
+            }
+            return_vec[i] = e_sum /(2 *  wt_sum);
+        }
+    } else {
+        ierr = -13;
+    }
 
    return(ierr);
 }
@@ -656,9 +703,11 @@ static int NDI_CALC_E_N( state_struct *state, FLOAT_TYPE *return_vec, int return
       num_grps = state->grp_num_new;
    } 
 
-   p0_size =  num_grps * num_grps;
+    /*p0_size =  num_grps * num_grps;*/
+    p0_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &ierr);
+   
    p0_vec = (FLOAT_TYPE *)ndi_malloc( p0_size * sizeof(FLOAT_TYPE));
-   ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_PN_FULL, 0, p0_vec, p0_size );
+   ierr = NDI_GET_FLOAT_VEC_N( NDI_TRANSFER_MAT_PR, 0, p0_vec, p0_size );
    eavg = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
    ierr = NDI_GET_FLOAT_VEC_H( state, NDI_E_AVG, eavg, num_grps );
    for ( i = 0; i < num_grps; i++ ) {
@@ -713,8 +762,10 @@ static int NDI_CALC_E_AVAIL(  state_struct *state, FLOAT_TYPE *return_vec, int r
    ierr = NDI_GET_FLOAT_VEC_H( state, NDI_E_AVG, eavg, num_grps );
 
    for ( i = 0; i < num_reac; i++ ) {
-      ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_SIG_REAC, MT[i], rx_cross_sec, 
-                                    num_grps );
+       if ( (MT[i] > 18) && (MT[i] < 22)) {
+           continue;
+       }
+      ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_SIG_REAC, MT[i], rx_cross_sec, num_grps );
       ierr = NDI_GET_FLOAT_VAL_N_H( state, NDI_REAC_Q, MT[i], &Q );
       for ( j = 0; j < num_grps; j++ ) {
 	 return_vec[j] += (eavg[j] + Q) * rx_cross_sec[j];
@@ -778,6 +829,9 @@ static int NDI_GET_HEATING( state_struct *state, stat_flag  *heating, stat_flag 
     }
     if ( temp_tot_sigma ) { ndi_free((void **)&temp_tot_sigma); }
     if ( temp_kerma ) { ndi_free((void **)&temp_kerma); }
+  } else if ((state->kerma_calc == DATA_CALC) && (state->iso_stat.num_reac > 0)) {
+      ierr = NDI_GET_OLD_HEATING( state, return_vec, return_size);
+      if (ierr >= 0) { ierr = 10;}      
   } else {
     ierr = 9;
   }
@@ -839,6 +893,9 @@ static int NDI_GET_KERMA (  state_struct *state, stat_flag  *kerma, stat_flag *h
     }
     if ( temp_tot_sigma ) { ndi_free((void **)&temp_tot_sigma); }
     if ( temp_heat ) { ndi_free((void **)&temp_heat); }
+  } else if ( (state->kerma_calc == DATA_CALC) && (state->iso_stat.num_reac > 0)) {
+      ierr = NDI_GET_OLD_KERMA( state, return_vec, return_size);
+      if (ierr >= 0) { ierr = 10;}
   } else {
     ierr = 9;
   }
@@ -885,6 +942,141 @@ static int GET_E_BOUNDS_CURR_PART( state_struct *state, FLOAT_TYPE *return_vec, 
      }
 
      return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+static int NDI_GET_OLD_HEATING ( state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
+    int i;
+    int ierr;
+    int num_grps;
+    ndi_float64 *tot_sig;
+    ndi_float64 *vec;
+    
+    ierr = ndi_get_int_val(NDI_NUM_GRPS, &num_grps);
+    if (num_grps > 0) {
+        tot_sig = (ndi_float64 *)ndi_malloc(num_grps * sizeof(ndi_float64));
+        vec = (ndi_float64 *)ndi_malloc(num_grps * sizeof(ndi_float64));
+    } else {
+        ierr = 5;
+        return(ierr);
+    }
+    ierr = ndi_get_float64_vec(NDI_SIG_TOT, tot_sig, num_grps); 
+    ierr = ndi_get_old_kerma64( state, vec, num_grps);
+
+    for (i = 0; i < num_grps; i++) {
+        if ( fabs(tot_sig[i]) > DBL_EPSILON) {
+            vec[i] = vec[i] / tot_sig[i];
+        } else {
+            vec[i] = 0.0;
+            ierr = 5;
+        }
+        if (i < return_size) {
+            return_vec[i] = (FLOAT_TYPE)vec[i];
+        } else {
+            ierr = 7;
+        }
+    }
+
+    if (tot_sig) {ndi_free((void **)&tot_sig);}
+    if (vec) {ndi_free((void **)&vec);}
+
+    return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+int NDI_GET_OLD_KERMA ( state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
+
+  int ierr = 0;
+  int i,j;
+  int num_elements;
+  int tmp_size;
+  int num_reactions;
+  int *mt;
+  int mat_size;
+  ndi_float64 *tmp_vec = NULL;
+  ndi_float64 *curr_xs = NULL;
+  ndi_float64 fissq[NUM_FISSION_Q];
+  ndi_float64 *eavg = NULL;
+  ndi_float64 q;
+  ndi_float64 *scat_mat = NULL;
+  ndi_float64 *elastic_scat = NULL;
+  ndi_float64 *inelastic_scat = NULL;
+  
+
+   (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
+
+   /* Units are MeV * barns */
+   num_elements = state->iso_stat.num_grps;
+   
+   /*  Check bounds */
+   if ( num_elements <= 0 ) {
+       ierr = 9;
+       return(ierr);
+   }
+   
+   if (state->collapse_flag) {
+       num_elements = state->grp_num_new;
+   }
+
+   ierr = ndi_get_int_val(NDI_NUM_REAC, &num_reactions);
+   mt = (int *)ndi_malloc(num_reactions * sizeof(int));
+   ierr = ndi_get_int_vec(NDI_REAC_MT, mt, num_reactions);
+
+   tmp_vec = (ndi_float64 *)ndi_malloc(num_elements * sizeof(ndi_float64));
+   curr_xs = (ndi_float64 *)ndi_malloc(num_elements * sizeof(ndi_float64));
+   eavg = (ndi_float64 *)ndi_malloc(num_elements * sizeof(ndi_float64));
+   ndi_init_float64_vec(tmp_vec, num_elements);
+   tmp_size = num_elements;
+   ierr = ndi_get_float64_vec(NDI_E_AVG, eavg, num_elements);
+   ierr = ndi_get_float64_vec(NDI_FISS_Q, fissq, NUM_FISSION_Q);
+
+   for (i = 0; i < num_reactions; i++) {
+       if ( (mt[i] > 18 ) && (mt[i] < 22 ) ) {
+           /* Partial fission cross sections contained in MT = 18 */
+           continue;
+       }
+       ierr = ndi_get_float64_vec_n(NDI_SIG_REAC, mt[i], curr_xs, num_elements);
+       if (mt[i] == 18) {
+           q = fissq[0] - fissq[5];   /* Q(prompt fiss) - Q(prompt n) */
+       } else {
+           ierr = ndi_get_float64_val_n(NDI_REAC_Q, mt[i], &q);
+       }
+       for (j = 0; j < num_elements; j++) {
+           tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
+/*            printf ("%d: %e   q=%e  e=%e  xs=%e\n", j, tmp_vec[j], q, eavg[j], curr_xs[j]); */
+       }
+   }
+
+   /* Handle energy from scattering */
+   mat_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, 0, &ierr);
+   scat_mat = (ndi_float64 *)ndi_malloc(mat_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec_n(NDI_PN_FULL, 0, scat_mat, mat_size);
+   for (i = 0; i < num_elements; i++) {   /* i = incident energy */
+       for (j = 0; j < num_elements; j++) {    /* j = outgoing energy */
+           tmp_vec[i] -= scat_mat[j + (i * num_elements)] * eavg[j]; 
+       }
+   }
+
+
+   for (i = 0; i < num_elements; i++){
+       if ( i < return_size ) {
+           return_vec[i] = tmp_vec[i];
+       } else {
+           ierr = 7;
+       }
+   }
+
+   if (tmp_vec) {ndi_free((void**)&tmp_vec);}
+   if (curr_xs) {ndi_free((void**)&curr_xs);}
+   if (eavg) {ndi_free((void**)&eavg);}
+   if (scat_mat) {ndi_free((void**)&scat_mat);}
+   if (elastic_scat) {ndi_free((void**)&scat_mat);}
+   if (inelastic_scat) {ndi_free((void**)&scat_mat);}
+
+   return(ierr);
+
 }
 
 /*********************************************************************/
@@ -1688,4 +1880,41 @@ static int NDI_GET_NU( state_struct *state, isotope_status *mg, char nu_type, FL
 
 /*********************************************************************/
 /*********************************************************************/
+static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE *return_vec, int return_size) {
 
+    int ierr = 0;
+    int i;
+    ndi_float64 *eavg_p;
+    ndi_float64 _16_llnl_eavg[] = {14.149974, 12.900168, 11.025994, 8.7271099, 6.8058861,
+                                   4.5529926, 3.2272797, 1.9317643, 0.87432668, 0.32892994,
+                                   0.11622681, 4.26904e-2, 1.567259e-2, 5.7608294e-3, 
+                                   1.4494968e-3, 2.8695381e-4};
+    ndi_float64 _30_lanl_eavg[30] = {15.741605, 14.069769, 12.900168, 11.025994, 8.7271099, 
+                                     6.8058861, 4.5529926, 3.2272797, 2.5168648, 1.9670423, 1.5314896, 
+                                     1.0662404, 0.65543265, 0.40027916, 0.23876023, 0.11622681, 
+                                     4.26904e-2, 1.567259e-2, 5.7608294e-3, 2.1196273e-3, 7.8051786e-4,
+                                     2.8695381e-4, 1.0553574e-4, 3.8819478e-5, 1.4288539e-5, 5.259767e-6, 
+                                     1.9375072e-6, 7.1294634e-7, 2.6175908e-7, 4.7190667e-8};    
+    
+    if (num_grps == 16) {
+        eavg_p = _16_llnl_eavg;
+    } else if (num_grps == 30) {
+        eavg_p = _30_lanl_eavg;
+    } else {
+        ierr = -13;
+        return (ierr);
+    }
+    for (i = 0; i < num_grps; i++) {
+        if (i < return_size) {
+            return_vec[i] = (FLOAT_TYPE)*eavg_p;
+            eavg_p++;
+        } else {
+            ierr = 7;
+            break;
+        }
+    }
+    return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/

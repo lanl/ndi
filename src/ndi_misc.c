@@ -466,3 +466,54 @@ int ndi_get_nth_inc_part_type( state_struct *state, int vec_num, char *ret_str, 
     }
     return (ierr );
 }
+/**********************************************************************/
+int ndi_use_sgndf_values(state_struct *state, int num_grps) {
+
+    /* Test to see if the current energy group structure is one for
+       which we have hard-wired average energy values.
+
+       num_grps: either the number of groups the user expects
+
+       Currently this is 16_llnl and 30_lanl.
+
+       Return value:  0=this not an SGNDF energy structure,
+                     -1=this is an SGNDF energy structure
+    */
+
+    int i;
+    int ierr;
+    int ret_val = -1;
+    ndi_float64 egrp_bounds[31];
+    ndi_float64 *bound_p = NULL;
+    ndi_float64 _30_group[] = { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+                                2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303, 
+                                0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
+                                1.235e-3, 4.54e-4, 1.67e-4, 6.14e-5, 2.26E-5, 
+                                8.32E-6, 3.06E-6, 1.13E-6, 4.14E-7, 1.52E-7, 
+                                1.39E-10 };
+    ndi_float64 _16_LLNL[] = { 17.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+                               2.865, 1.353, 0.5, 0.184, 6.76e-2, 2.48e-2,
+                               9.12e-3, 3.35e-3, 4.54e-4, 1.67e-4 };
+
+
+    if ((num_grps == 16) ||
+        (num_grps == 30)) {
+        ierr = ndi_c_get_float64_vec_h(state, NDI_E_BOUNDS, egrp_bounds, 31);
+        if (num_grps == 16) {
+            bound_p = _16_LLNL;
+        } else if (num_grps == 30){
+            bound_p = _30_group;
+        }
+        for (i = 0; i <= num_grps; i++) {
+            if (fabs(*bound_p - egrp_bounds[i]) > DBL_EPSILON) {
+                ret_val = 0;
+                break;
+            }
+            bound_p++;
+        }
+    }
+
+    return(ret_val);
+}
+/**********************************************************************/
+

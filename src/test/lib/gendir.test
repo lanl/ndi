@@ -314,6 +314,20 @@ multigroup_neutron
   z=92235.620nm  d=11/7/2003  l=specmg
     f=../../src/test/lib/mpmg  ft=asc  ln=1  o=0  ng=130
     t=2.5300000E-08  s0=1.0000000E+10  aw=2.3504414E+02  awr=2.3302500E+02 end
+  z=3006.601nm  d=12/15/2003  l=kerma_test
+    f=../../src/test/lib/kerma_test_lib  ft=asc  ln=1  o=0
+    ng=30  t=2.530000000000E-08  s0=1.000000000000E+30  aw=6.015100000000E+00
+    awr=5.963426905861E+00 end
+  z=6012.600nm  d=12/15/2003  l=kerma_test
+    f=../../src/test/lib/kerma_test_lib  ft=asc  ln=908
+    o=64251  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.20011E+01  awr=1.18980E+01 end
+  z=92235.601nm  d=12/15/2003  l=kerma_test
+    f=../../src/test/lib/kerma_test_lib  ft=asc  ln=1524
+    o=99868  ng=30  t=2.530000000000E-08  s0=1.000000000000E+30  aw=2.350442000000E+02
+    awr=2.330250380453E+02 end
+  z=94239.600nm  d=12/15/2003  l=kerma_test
+    f=../../src/test/lib/kerma_test_lib  ft=asc  ln=2749
+    o=187412  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02  awr=2.37002E+02 end
 end
 
 multigroup_photon

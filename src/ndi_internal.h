@@ -20,6 +20,8 @@
 /* Defines
  */
 
+#define M_NEUT_KG       1.67492716e-27
+#define J_TO_MEV        1.602177e-13
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
@@ -64,6 +66,9 @@ typedef long int_zaid_type;
 
 typedef char mg_zaid[64];
 typedef char tn_zaid[64];
+
+enum e_avg_type {VEL_CALC, E_MEAN, SGNDF};
+enum kerma_calc_type {DATA, CALC, DATA_CALC};  
 
 typedef struct _dir_entry {
    char zaid[MAX_IN_STR_LEN];
@@ -258,6 +263,7 @@ typedef struct _state_struct {
     int handle;
     FILE *ndi_dir;              /*  Gendir (directory) file */
     FILE *lib_stream;           /*  Current library file */
+    char *ndi_gendir_path;      /*  Path for current (open) gendir file */
     char *open_lib_file;        /*  Path for current (open) library file */
     short *ndi_elements;        /*  Lookup table for element symbols */
     char *library_vers;         /*  Default library type (mendf5,mendf6,rmoxsct,"") */
@@ -266,6 +272,9 @@ typedef struct _state_struct {
     char mat_order;             /*  Transpose return matrices? 
 			              d=no(default), t=yes(transpose) */
     char reac_id;               /*  Reaction identifier: m=MT (default), c=c-value */
+    enum e_avg_type e_avg_calc;   /* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
+    enum kerma_calc_type kerma_calc;  /* CALC=>calculate kerma; DATA=>get data from library
+                                            DATA_CALC=> get data from lib; use calc if not avail*/
     int curr_reac_index;        /*  Obsolete? */
     char nuc_data_type[2];      /*  Obsolete? */
 
@@ -377,7 +386,7 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
 		    int reaction_flag );
    int ndi_close_lib_file(state_struct *state);
    FILE *ndi_open_lib_file(state_struct *state, const char *path);
-   int ndi_open_gendir(FILE **ndi_dir);
+   int ndi_open_gendir(FILE **ndi_dir, state_struct *state );
    int  ndi_init_iso_state(state_struct *state, FILE *stream,  char lib_type,  long int iso_start, 
 			   const char *zaid );
    int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size);
@@ -389,6 +398,8 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);
 */
+    int ndi_get_old_kerma64 ( state_struct *state, ndi_float64 *return_vec, int return_size );
+    int ndi_get_old_kerma32 ( state_struct *state, ndi_float32 *return_vec, int return_size );
    int ndi_collapse_float32( state_struct *state, const ndi_float32 *old_vec, int old_grp_num, 
 			     int recip_flag,
 			     ndi_float32 *return_vec, int return_size );
@@ -453,6 +464,8 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
   int ndi_empty_string( char *in_str );
   void check_fissionable_err ( int *curr_err, int fission_flag );
   int ndi_get_nth_inc_part_type( state_struct *state, int vec_num, char *in_str, const int str_size );
+  int ndi_use_sgndf_values(state_struct *state, int num_grps);
+
 
   /***  Subroutines in file ndi_misc_depl.c ***/
    int ndi_depletion( state_struct *state, const char *in_zaid );
