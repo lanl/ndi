@@ -717,7 +717,9 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
-	 }    
+	 } else {
+             tn_stat.q_set = 1;
+         }
       }
       /* Number of interpolation regions */
 /*       else if ( strncmp( in_keyword, "num_int_sigvbars", 17 ) == 0 ) { */
@@ -1834,19 +1836,21 @@ static int find_mg_sec_part_index( mg_sec_part_type part_type )
 static int skip_comment( FILE *stream )
 
 {
-  char seps[] = " ,\t"; 
+  char seps[] = " ,\t\n"; 
   int ierr = 0;
+  char *first_token = NULL;
   char comment[MAX_IN_STR_LEN];
 
   ierr = -11;  /* Default error -- error reading file */
 
   while ( fgets(comment, sizeof(comment), stream) != NULL ) {
-
-    if ( strncmp (strtok( comment, seps ), "end_comment", 12) == 0) {
-      /* Check that there is nothing following?? */
-      ierr = 0;  /* No error */
-      break;
-    }
+      first_token = strtok( comment, seps );
+      if ( ( first_token != NULL ) &&
+           ( strncmp (first_token, "end_comment", 12) == 0)) {
+          /* Check that there is nothing following?? */
+          ierr = 0;  /* No error */
+          break;
+      }
   }
 
   return( ierr );
