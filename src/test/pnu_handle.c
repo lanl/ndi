@@ -13,7 +13,7 @@ void print_int_vec( int *int_ptr, int num_elements );
 int main ()
 
 {
-    int ierr;
+    int ierr = 0;
     int i, j, k;
     int str_size;
     int num_zaids = 36;
@@ -39,12 +39,12 @@ int main ()
 
     int num_pnu;
     int num_grps;
-
     ndi_float64 *nu = NULL;
     ndi_float64 *p = NULL;
     ndi_float64 *norm = NULL;
     ndi_float64 *mean = NULL;
-
+    ndi_float64 *sf = NULL;
+    ndi_float64 *sp = NULL;
 
     /*  Initialize */
     ierr = NDI2_init(&handle);
@@ -68,6 +68,7 @@ int main ()
 	str_size = NDI2_get_size (handle, NDI_INFO, &ierr );
 	if (ierr) 
 	    printf("\n  **Error %d info string size.\n", ierr );
+
 	info_str = (char *)malloc( str_size * sizeof(char) );
 	ierr = NDI2_get_string_val(handle, NDI_INFO, info_str, str_size );
 	if (ierr)
@@ -86,9 +87,9 @@ int main ()
 	ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 25 );
 	printf("\nZaid = %s\n\n", zaid );
      
-	ierr = NDI2_get_int_val(handle, NDI_NUM_PNU, &num_pnu);
+	ierr = NDI2_get_int_val(handle, NDI_NUM_PNU_PR, &num_pnu);
 	if (ierr)
-	    printf("\n  **Error %d getting NUM_PNU.\n", ierr);
+	    printf("\n  **Error %d getting NUM_PNU_PR.\n", ierr);
 
 	num_grps = NDI2_get_size(handle, NDI_NU_PR, &ierr);
 	if (ierr)
@@ -96,16 +97,18 @@ int main ()
 
 	nu = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	    
-	num_grps = NDI2_get_size_n(handle, NDI_PNU, 0, &ierr);
+	num_grps = NDI2_get_size_n(handle, NDI_PNU_PR, 0, &ierr);
 	if (ierr)
-	    printf("\n  **Error %d NDI_PNU size.\n", ierr);
+	    printf("\n  **Error %d NDI_PNU_PR size.\n", ierr);
+
 	p = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+	ierr += NDI2_get_float64_vec(handle, NDI_NU_PR, nu, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_NU_PR.\n", ierr);
+
 	norm = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	mean = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 
-	ierr = NDI2_get_float64_vec(handle, NDI_NU_PR, nu, num_grps);
-	if (ierr)
-	    printf("\n  **Error %d NDI_NU_PR.\n", ierr);
 	for (j = 0; j < num_grps; j++)
 	{
 	    norm[j] = -1.0;
@@ -114,18 +117,53 @@ int main ()
 
 	for (j = 0; j < num_pnu; j++)
 	{
-	    ierr = NDI2_get_float64_vec_n(handle, NDI_PNU, j, p, num_grps);
+	    ierr = NDI2_get_float64_vec_n(handle, NDI_PNU_PR, j, p, num_grps);
 	    if (ierr)
-		printf("\n  **Error %d NDI_PNU.\n", ierr);
+		printf("\n  **Error %d NDI_PNU_PR.\n", ierr);
 	    for (k = 0; k < num_grps; k++)
 	    {
 		norm[k] += p[k];
 		mean[k] += j * p[k];
 	    }
 	}
+
 	print_float64_vec(norm, num_grps);
 	print_float64_vec(mean, num_grps);
 
+	num_grps = NDI2_get_size_n(handle, NDI_SIG_PNU_PR, 0, &ierr);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
+
+	sf = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+	sp = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+	
+	ierr += NDI2_get_float64_vec(handle, NDI_NU_SIG_F_PR, sf, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_NU_SIG_F_PR.\n", ierr);
+
+	ierr += NDI2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 0, sp, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
+
+	for (k = 0; k < num_grps; k++)
+	    sp[k] -= sf[k] / nu[k];
+	print_float64_vec(sp, num_grps);
+
+	num_grps = NDI2_get_size_n(handle, NDI_SIG_PNU_PR, 1, &ierr);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
+
+	ierr += NDI2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 1, sp, num_grps);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
+
+	for (k = 0; k < num_grps; k++)
+	    sp[k] -= sf[k];
+
+	print_float64_vec(sp, num_grps);
+
+	free((void *)sf);
+	free((void *)sp);
 	free((void *)nu);
 	free((void *)p);
 	free((void *)mean);
