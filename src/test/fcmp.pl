@@ -77,7 +77,7 @@ if (scalar(@ARGV) != 2) { die("Usage: fcmp.pl [-s -r # -a #] file1 file2\n"); }
 $file1 = $ARGV[0];
 $file2 = $ARGV[1];
 
-$number = "[+-]?[0-9]*[.][0-9]*[eE][+-]?[0-9]+";
+$number = "[+-]?([0-9]+[.]?[0-9]*|[.][0-9]+)([eE][+-]?[0-9]+)?";
 
 open(FILE1, "tr -s ' \t' '\n\n' < $file1 |") or 
     die "Cannot open file: $file1\n";

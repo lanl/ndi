@@ -1,3 +1,7 @@
+2004-10-05  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* fcmp.pl (fcmp): expanded number regexp
+
 2004-08-24  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndidf_handle.F (main): Added Fortran test for NDI 2 handle
