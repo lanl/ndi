@@ -316,7 +316,7 @@ $(FMANGLE): fcallscc.c fcallscf.f ndi_keywords.i
 	$(CC) -c $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
 	$(FC) -c $(FFLAGS) -I$(srcdir) $(srcdir)/fcallscf.f
 	$(FC) $(FFLAGS) -I$(srcdir) -o f_calls_c fcallscf.o fcallscc.o
-	f_calls_c > $@
+	./f_calls_c > $@
 	$(RM) f_calls_c fcallscc.o fcallscf.o
 
 testc_all: $(TARGET) $(OBJ_TESTC)

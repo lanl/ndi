@@ -1,3 +1,7 @@
+2004-12-15  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* makefile.in ($(FMANGLE)): added ./
+
 2004-12-03  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_fortran.c	(F_NDI_GET_STRING_VAL): fixed zero size test
