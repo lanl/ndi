@@ -17,6 +17,7 @@ static int GET_COMB_FLOAT_VEC_N(state_struct *handle[],
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 			  const int in_key, const int vec_num,
+                          const char mat_order,
 			  FLOAT_TYPE * ret_vec, const int vec_size)
 {
 
@@ -33,6 +34,12 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 	ierr =
 	    GET_MP_SCAT_MAT(handle, num_parts, vec_num, ret_vec,
 			    vec_size);
+        if ((mat_order == 't') && (ierr >= 0)) {
+            int num_grps, tmp_err;
+            tmp_err = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS,
+                                        &num_grps);
+            (void)NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps );
+        }
 	break;
 
     case NDI_SIG_REAC:
@@ -73,6 +80,7 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
     int col_end = 0;
     int num_grps_in, num_grps_out;
     int reset_curr_part_flag;
+    char transpose_state;
     char out_part_type_state[132];
     char out_part_type[132];
     ndi_float64 *ebounds_out = NULL;
@@ -90,6 +98,10 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 	if (!(in_part = (handle[in]))) {
 	    return (-99);
 	}
+        /* NO TRANSPOSE */
+        transpose_state = in_part->mat_order;
+        in_part->mat_order = 'd';
+        
 	tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps_in);
 	row_end = row_start + num_grps_in;
 	col_start = 0;
@@ -104,10 +116,12 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 	}
 	for (out = 0; out < num_parts; out++) {
 	    if (!(out_part = (handle[out]))) {
+                in_part->mat_order = transpose_state;
 		return (-99);
 	    }
 	    /* Check that each particle is multigroup */
 	    if (out_part->library_type != 'm') {
+                in_part->mat_order = transpose_state;
 		return (-99);
 	    }
 	    tmp_err =
@@ -202,6 +216,7 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 				   out_part_type_state);
 	}
 	row_start = row_end;
+        in_part->mat_order = transpose_state;
     }				/* in loop */
 
     return (ierr);

@@ -12,7 +12,8 @@ static int GET_COMB_FLOAT_VEC(state_struct *handle[],
 
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC(state_struct *handle[], const int num_parts,
-			const int in_key, FLOAT_TYPE * ret_vec,
+			const int in_key, const char mat_order,
+                        FLOAT_TYPE * ret_vec,
 			const int vec_size)
 {
 
@@ -45,6 +46,15 @@ int NDIMP_GET_FLOAT_VEC(state_struct *handle[], const int num_parts,
 	    GET_COMB_FLOAT_VEC(handle, num_parts, in_key, ret_vec,
 			       vec_size);
 	break;
+
+/*
+    case NDI_CHI_MAT_TOT:
+    case NDI_CHI_MAT_PR:
+    case NDI_CHI_MAT_DEL:
+        if ((mat_order == 't') && (ierr >= 0))
+            TRANSPOSE_FLOAT(ret_vec, );
+        break;
+*/
 
     default:
 	ierr = -4;

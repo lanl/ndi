@@ -697,19 +697,23 @@ extern "C" {
                        const char *zaid );
     int ndimp_get_float32_vec(state_struct *handle[], 
 			      const int num_parts,
-			      const int in_key, ndi_float32 * ret_vec,
+			      const int in_key, const char mat_order,
+                              ndi_float32 * ret_vec,
 			      const int vec_size);
     int ndimp_get_float64_vec(state_struct *handle[], 
 			      const int num_parts,
-			      const int in_key, ndi_float64 * ret_vec,
+			      const int in_key, const char mat_order,
+                              ndi_float64 * ret_vec,
 			      const int vec_size);
     int ndimp_get_float32_vec_n(state_struct *handle[], 
 				const int num_parts,
 				const int in_key, const int vec_num,
+                                const char mat_order,
 				ndi_float32 * ret_vec, const int vec_size);
     int ndimp_get_float64_vec_n(state_struct *handle[], 
 				const int num_parts,
 				const int in_key, const int vec_num,
+                                const char mat_order,
 				ndi_float64 * ret_vec, const int vec_size);
     int ndimp_get_int_val(state_struct *handle[], const int num_parts,
 			  const int in_key, int *return_val);
