@@ -124,7 +124,7 @@ int NDI_TRANSPOSE_FLOAT( FLOAT_TYPE *in_mat, int row_num,
 /*********************************************************************/
 
 int NDI_VEC2MAT(const FLOAT_TYPE *vec, int num_vec, 
-		FLOAT_TYPE *return_mat, int num_mat) {
+		FLOAT_TYPE *return_mat, int num_mat, int mat_size ) {
 
    int ierr = 0;
    int i = 0;
@@ -141,8 +141,14 @@ int NDI_VEC2MAT(const FLOAT_TYPE *vec, int num_vec,
   
    for ( j = 0; j < cols; j++ ) {
       for ( i = 0; i < num_vec; i++ ) {
-	 return_mat[mat_cnt] = vec[i];
-	 mat_cnt++;
+	  if ( mat_cnt < mat_size ) {
+	      return_mat[mat_cnt] = vec[i];
+	      mat_cnt++;
+	  } else {
+	      /* matrix is not big enough */
+	      ierr = 7;
+	      return(ierr);
+	  }
       }
    }
    return(ierr);

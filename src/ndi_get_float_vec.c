@@ -515,7 +515,7 @@ static int GET_CHI_MAT (FILE *stream, long mat_ptr, long vec_ptr,
 	    ierr = NDI_READ_FLOAT_BLOCK(stream, vec_ptr, 
 					lib_num_grps,
 					vec_array, lib_num_grps );
-	    ierr = NDI_VEC2MAT(vec_array, lib_num_grps, temp_mat, num_full_mat );
+	    ierr = NDI_VEC2MAT(vec_array, lib_num_grps, temp_mat, num_full_mat, mat_size );
 	    if ( vec_array ) ndi_free((void**)&vec_array);
 	 } else {
 	    /* Out of memory */
