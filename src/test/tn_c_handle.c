@@ -97,6 +97,7 @@ int test_tn_c(void)
    printf(" ********************************************************** \n\n" );
    
    ierr = NDI2_init(&handle);
+   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
    ierr = check_all_ndi_get_tn_functions(handle);
    ierr = NDI2_close(handle);
    if (ierr)
@@ -113,7 +114,6 @@ int test_tn_c(void)
 
    ierr = NDI2_init(&handle);
    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
-   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {

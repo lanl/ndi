@@ -104,6 +104,7 @@ int testc (void)
    ierr = ndi_init();
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = check_all_ndi_get_mgn_functions();
    ierr = ndi_close();
    if (ierr)
