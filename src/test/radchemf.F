@@ -4,7 +4,7 @@
       program main
 
       
-      character*13 zaid, tmp_zaid
+      character*13 zaid, tmp_zaid, num_grp_str
       integer return_int, vec_num, return_int_vec(20)
       integer num_target, i, tmp_izaid
       real*8 return_flt, return_flt_vec(900), awr(500)
@@ -21,7 +21,7 @@ c     Test error on initialization before close
       if ( ierr.ne.0 ) then
          print *, "Error setting library type is ", ierr
       endif
-      call ndi_set_option( NDI_CHAIN, "y.700zrc", ierr)
+      call ndi_set_option( NDI_CHAIN, "y", ierr)
       if ( ierr.ne.0 ) then
          print *, "Error setting library chain is ", ierr
       endif

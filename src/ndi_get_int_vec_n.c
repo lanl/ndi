@@ -48,15 +48,7 @@ int ndi_c_get_int_vec_n(int in_key, int vec_num, int *return_vec,
    /* Check that ndi_init has been called. */
    if (!ndi_initialized) {
       return(-2); }
-  
-
-   /* Currently, there is no instance where a negative vec_num can be
-      valid.  Check here for that, and return if found. */
-   if ( vec_num < 0 ) {
-     ierr = -6;
-     return (ierr);
-   }
-
+ 
    if ( library_type == 'm' ) {
       ierr = get_int_vec_n_mg( in_key, vec_num, return_vec, vec_size );
    } else if (library_type == 'r' ) {
@@ -120,7 +112,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	  num_elements =  curr_state.length;
 	  if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "id", &num_elements, READ_MT);
+				    ID_PARAM, &num_elements, READ_MT);
 	    (void) ndi_translate_fiss_prod( return_vec, num_elements );
 
 	 } else {
@@ -156,7 +148,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	  num_elements =  curr_state.length;
 	  if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "mult", &num_elements, READ_MT);
+				    MULT_PARAM, &num_elements, READ_MT);
 	 } else {
 	    /* Error: data not available for this isotope */
 	    ierr = -9;
@@ -192,7 +184,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	 num_elements =  curr_state.length;
 	 if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "id", &num_elements, READ_MT );
+				    ID_PARAM, &num_elements, READ_MT );
 	    (void) ndi_translate_fiss_prod( return_vec, num_elements );
 	 } else {
 	   /* Error: data not available for this isotope */
@@ -231,7 +223,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	  num_elements =  curr_state.length;
 	  if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "mult", &num_elements, READ_MT );
+				    MULT_PARAM, &num_elements, READ_MT );
 	 } else {
 	    /* Error: data not available for this isotope */
 	    ierr = -9;
@@ -268,7 +260,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	  num_elements =  curr_state.length;
 	  if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "id", &num_elements, READ_MT );
+				    ID_PARAM, &num_elements, READ_MT );
 	    (void) ndi_translate_fiss_prod( return_vec, num_elements );
 
 	 } else {
@@ -307,7 +299,7 @@ static int get_int_vec_n_mg(int in_key, int vec_num,
 	  num_elements =  curr_state.length;
 	  if (curr_state.file_ptr) {
 	    ierr = ndi_read_rx_prod(lib_stream, curr_state.file_ptr, &return_vec,
-				    "mult", &num_elements, READ_MT );
+				    MULT_PARAM, &num_elements, READ_MT );
 	 } else {
 	    /* Error: data not available for this isotope */
 	    ierr = -9;
@@ -359,7 +351,7 @@ static int get_int_vec_n_tnreac(int in_key, int vec_num,
       if ( tnreac_stat.reac_num > vec_num) {
 	num_elements = tnreac_stat.rprods[vec_num].length;
 	 ierr = ndi_read_rx_prod( lib_stream, tnreac_stat.rprods[vec_num].file_ptr,
-				  &return_vec, "id", &num_elements, 
+				  &return_vec, ID_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err(tnreac_stat.reac_num);
@@ -371,7 +363,7 @@ static int get_int_vec_n_tnreac(int in_key, int vec_num,
       if ( tnreac_stat.reac_num > vec_num) {
 	num_elements = tnreac_stat.rprods[vec_num].length;
 	 ierr = ndi_read_rx_prod( lib_stream, tnreac_stat.rprods[vec_num].file_ptr,
-				  &return_vec, "mult", &num_elements, 
+				  &return_vec, MULT_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err(tnreac_stat.reac_num);
@@ -383,7 +375,7 @@ static int get_int_vec_n_tnreac(int in_key, int vec_num,
       if ( tnreac_stat.reac_num > vec_num) {
 	num_elements = tnreac_stat.reactants[vec_num].length;
 	 ierr = ndi_read_rx_prod( lib_stream, tnreac_stat.reactants[vec_num].file_ptr,
-				  &return_vec, "id", &num_elements, 
+				  &return_vec, ID_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err(tnreac_stat.reac_num);
@@ -395,7 +387,7 @@ static int get_int_vec_n_tnreac(int in_key, int vec_num,
       if ( tnreac_stat.reac_num > vec_num) {
 	num_elements = tnreac_stat.reactants[vec_num].length;
 	 ierr = ndi_read_rx_prod( lib_stream, tnreac_stat.reactants[vec_num].file_ptr,
-				  &return_vec, "mult", 
+				  &return_vec, MULT_PARAM, 
 				  &num_elements, 
 				  NO_MT );
       } else {

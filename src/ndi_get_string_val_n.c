@@ -2,7 +2,7 @@
 /*
  * File:	ndi_get_string_val_n.c
  * Description:	User function--return a string element from a list.
- * Time-stamp:	<2000-02-03 14:57:24 jomc>
+ * Time-stamp:	<2003-03-24 18:41:12 jomc>
  *
  */
 
@@ -26,7 +26,7 @@ static int get_string_n_tnreac( int in_key, char *ret_val,
 /**********************************************************************/
 
 int ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val, 
-			 int str_size) 
+			   int str_size) 
 
 /*  Purpose: Return a single string value.
     
@@ -43,7 +43,6 @@ int ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val,
 {
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
 
-
    if ( ( ret_val ) && ( str_size > 0 ) ) {
       *ret_val = '\0';
    } else {
@@ -54,33 +53,30 @@ int ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val,
    if (!ndi_initialized) {
       return(-2); }
 
-   /* Currently, there is no instance where a negative vec_num can be
-      valid.  Check here for that, and return if found. */
-   if ( vec_num < 0 ) {
-     ierr = -6;
-     return (ierr);
-   }
-
-   if ( ( library_type == 'm' ) ||
-	( library_type == 'd' ) ) {
-      ierr = get_string_n_mg( in_key, ret_val, vec_num, str_size );
-   } else if ( library_type == 's' ) {
-      ierr = get_string_n_tn( in_key, ret_val, vec_num, str_size );
-   } else if ( library_type == 'r' ) {
-      ierr = get_string_n_tnreac( in_key, ret_val, vec_num, str_size );
-      } else if ( library_type == ' ' ) {
-	/* Library type was not set--defaulting to multigroup n */
-	library_type = 'm';
-	if ( particle_type == ' ' ) {
-	  particle_type = 'n';
-	}
-	ierr = get_string_n_mg( in_key, ret_val, vec_num, str_size );
-	if ( ierr >= 0 ) {
-	  ierr = 8;
-	}
+   if ( in_key == NDI_ZAID ) {
+       ierr = ndi_translate_sza_to_symbol( vec_num, ret_val, str_size );
    } else {
-      /* Incompatible library type */
-      ierr = -16;
+     if ( ( library_type == 'm' ) ||
+	  ( library_type == 'd' ) ) {
+	 ierr = get_string_n_mg( in_key, ret_val, vec_num, str_size );
+     } else if ( library_type == 's' ) {
+	 ierr = get_string_n_tn( in_key, ret_val, vec_num, str_size );
+     } else if ( library_type == 'r' ) {
+	 ierr = get_string_n_tnreac( in_key, ret_val, vec_num, str_size );
+     } else if ( library_type == ' ' ) {
+	 /* Library type was not set--defaulting to multigroup n */
+	 library_type = 'm';
+	 if ( particle_type == ' ' ) {
+	     particle_type = 'n';
+	 }
+	 ierr = get_string_n_mg( in_key, ret_val, vec_num, str_size );
+	 if ( ierr >= 0 ) {
+	     ierr = 8;
+	 }
+     } else {
+	 /* Incompatible library type */
+	 ierr = -16;
+     }   
    }
 
    return(ierr);
@@ -98,7 +94,9 @@ static int get_string_n_mg( int in_key, char *ret_val,
    *ret_val = '\0';
 
    /* Check that isotope is set */
-   if ( in_key != NDI_TARGET ) {     
+   if ( ( in_key != NDI_TARGET ) &&
+	( in_key != NDI_ZAID ) )
+   {     
      /* Special case for targets -- isotope need not be set */
      if (! iso_stat.set_flag) {
        return(-7);
@@ -110,6 +108,10 @@ static int get_string_n_mg( int in_key, char *ret_val,
    /*   Process input key   */
    /*************************/
    switch (in_key) {
+
+   case NDI_ZAID:                   /* Translate input SZA to string */
+       ierr = ndi_translate_sza_to_symbol( vec_num, ret_val, str_size );
+       break;
 
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
       if ( ( iso_stat.num_sec_parts > vec_num ) && ( iso_stat.sec_part ) &&
@@ -171,21 +173,7 @@ static int get_string_n_mg( int in_key, char *ret_val,
 
 
    case NDI_INC_PART_TYPES:          /* Incident particle types */
-     if ( ! chain_stat.set_flag ) {
-       ierr = ndi_set_default_depl();
-     }
-     if ( chain_stat.num_inc_parts <= 0 ) {
-        strcpy(ret_val,"1");  /* Default is neutron */
-	ierr = 9;
-     } else {
-       if ( chain_stat.num_inc_parts > vec_num ) {
-	 if ( sprintf( ret_val, "%d", chain_stat.inc_part_types[vec_num] ) > str_size ) {
-	   /* Error */
-	 }
-       } else {
-	 ierr = ndi_check_array_err(chain_stat.num_inc_parts);
-       } 
-     }
+       ierr = ndi_get_nth_inc_part_type( vec_num, ret_val, str_size );
      break;
       
      /**************  UNKNOWN KEYWORD  *****************/

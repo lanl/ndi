@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int testtn_new(void);
 
 #ifdef __STANDALONE
 int main (void)
@@ -50,7 +51,7 @@ int testtn_new(void)
    /* Set NDI for "big5" TN reaction set */
    ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
    if ( ierr != 0 ) printf("    Error setting lib_type is %d.\n", ierr );
-   ierr = ndi_set_isotope( "big5" );
+   ierr = ndi_set_isotope( "testlib_tn_list" );
    if ( ierr != 0 ) printf("    Error setting zaid is %d.\n", ierr );
 
    /* Getting the zaid would only by of much interest if the ZAID were
@@ -115,7 +116,7 @@ int testtn_new(void)
    /* Change now to Hale98 TN data */
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
-/*    ierr = ndi_set_option( NDI_LIBRARY, "testtn" ); */
+/*    ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn" ); */
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */

@@ -20,18 +20,31 @@
 /**********************************************************************/
 
 int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
-		     const char *data_type, int *num_prod, short mt_flag)
+		     const int data_type, int *num_prod, short mt_flag)
 
-/*  Purpose: Return an integer array which is an element of
-    a matrix.
+/*  Purpose: Read a block of data which consists of an integer specifying
+    the number of pairs to follow (num), optionally an integer (representing
+    an MT number), and then 'num' pairs of integers.  If the option MT is
+    present, it must be on the line immediately following 'num'.
+      e.g.
+         ( with MT -- usually representing old-style reaction products)
+      rprod_all
+	 2
+	 2
+	 1    1    1001    1
+
+	 ( without MT -- representing new-style rprods/reactants or interp params )
+      rprods
+	 2
+	 1  1  2004  1
     
     Parameters: 
     stream -- in:library file pointer.
     file_pos -- in:absolute offset of data in file (for use with fseek).
     int_vec -- out:returned array of integers (length of num_prod).
-    data_type -- in:reaction data to return--"id" or "mult"(multiplicity).
+    data_type -- in:return vec of first "0" or second "1" element of pairs.
     num_prod -- in/out:number of reactions products.
-    mt_flag -- in:0=MT given in library(tn data), -1=mt given(multigroup). 
+    mt_flag -- in:0=no MT number , -1=MT number present(multigroup). 
 
     Assumptions:
     Input lines have maximum MAX_IN_STR_LEN characters. Reaction id and 
@@ -59,10 +72,9 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 
 
    /* Check input parameters */
-   if ( (strncmp(data_type, "id", 3 ) != 0) &&
-	(strncmp(data_type, "mult", 5 ) != 0) ) {
-      /* Internal error: invalid input parameter. */
-      return(-13);
+   if ( (data_type < 0) && (data_type > 1) ) {
+       /* Internal error: invalid input parameter. */
+       return(-13);
    }
 
    /**********************************************/
@@ -113,10 +125,11 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
      
    while (int_count < num_prod_in) {
     
-      /*  Read reaction product id from string  */
+      /*  Read reaction id, rprod id, or interpolation boudaries,
+          i.e. first element of each pair  */
       if ((token = strtok(tok_str, seps)) != NULL) {
 	 tok_str = NULL; /* ==>Next 'strtok' scans remaining characters */
-	 if (strncmp(data_type, "id", 3 ) == 0) {
+	 if (data_type == 0) {
 	    *curr_int_ptr = (int) strtol(token, NULL, 0);
 	    /*** Test returned value of strtol--unexpected data -12 ***/
 	    curr_int_ptr++;
@@ -134,9 +147,10 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 	 }      
       }    /*  if ((token=... */
     
-      /*  Read reaction product multiplicity  */
+      /*  Read reaction product multiplicity or interpolation type
+          i.e. second element of each pair  */
       if ((token = strtok(tok_str, seps)) != NULL) {
-	 if (strncmp(data_type, "mult", 5 ) == 0) {
+	  if (data_type == 1) {
 	    *curr_int_ptr = (int) strtol(token, NULL, 0 );
 	    /*** Test returned value of strtol--unexpected data -12 ***/
 	    curr_int_ptr++;

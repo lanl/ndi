@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int tn_simple(void);
 
 #ifdef __STANDALONE
 int main ()
@@ -47,7 +48,7 @@ int tn_simple(void)
      library you will get the up-to-date data when it's available, and get not-as-good data
      when that's all there is.  New libraries are supposed to be released very soon.
      ************************/
-   ierr = ndi_set_option( NDI_LIBRARY, "testtn" );
+   ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */

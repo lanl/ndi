@@ -183,9 +183,9 @@ c     Return string values
          print *, info
          write(*,2) 
  2       format( / )
-         call ndi_get_string_val(NDI_VERSION, vers, ierr)
-         print *, 'VERSION: ', vers
-         write(*,2)
+c         call ndi_get_string_val(NDI_VERSION, vers, ierr)
+c         print *, 'VERSION: ', vers
+c         write(*,2)
          
 c     Return integer values
 

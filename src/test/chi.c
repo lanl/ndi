@@ -75,7 +75,7 @@ int main ()
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
-
+   ierr = ndi_set_option( NDI_LIBRARY, "chi_test_lib" );
 
    for ( i = 0; i < num_zaids; i++ ) {
 

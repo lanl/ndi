@@ -52,14 +52,15 @@
 
 #define NDI_NUM_TEMPS                  47
 #define NDI_NUM_SIGVBARS               47
+#define NDI_NUM_SIGVBAR_INTERP         48
 #define NDI_NUM_INTERP                 48
 #define NDI_TEMPS                      49
 #define NDI_SIGVBARS                   50
 #define NDI_NUM_RPRODS                 51
 #define NDI_RPRODS_ID                  52
 #define NDI_RPRODS_MLT                 53
-#define NDI_INTERP_REG                 54
-#define NDI_INTERP_TYPE                55
+#define NDI_SIGVBAR_INTERP_REG         54
+#define NDI_SIGVBAR_INTERP_TYPE        55
 
 #define NDI_HEATING                    56
 #define NDI_NU_TOT                     57
@@ -140,5 +141,10 @@
 #define NDI_DATE_SOURCE               114
 #define NDI_LIBRARY_NAME              115
 #define NDI_LAST_GRP                  116
+#define NDI_FISSIONABLE               117
+
+#define NDI_NUM_EINBAR_INTERP         118
+#define NDI_EINBAR_INTERP_REG         119
+#define NDI_EINBAR_INTERP_TYPE        120
 
 #endif	/* __NDI_KEYWORDS_H */

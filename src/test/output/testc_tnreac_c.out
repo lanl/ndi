@@ -1,0 +1,3146 @@
+
+
+  NDI TEST SUITE -- test_tnreac_c 
+
+  ************************* TEST 1 ************************* 
+    MULTIGROUP NEUTRON DATA TEST
+     Try getting data when NDI is not initialized.
+  ********************************************************** 
+
+STRING VALUES:
+ZAID:  
+  **Error -2: in ZAID -- returned value is  ''
+Info:  
+  **Error -2: in Info -- returned value is  ''
+
+
+INTEGER VALUES:
+No. of reactions:  
+  **Error -2: in No. of reactions -- returned value is 0
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  
+  **Error -2 in Reaction -- returned value is ''.
+Reaction (999):  
+  **Error -2 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=16):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (i=16):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (0):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (999):  
+  **Error -2 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -2 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -2 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -2 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -2 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -2 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -2 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -2 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -2 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  
+  **Error -2: in ZAID -- returned value is  ''
+Info:  
+  **Error -2: in Info -- returned value is  ''
+
+
+INTEGER VALUES:
+No. of reactions:  
+  **Error -2: in No. of reactions -- returned value is 0
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  
+  **Error -2 in Reaction -- returned value is ''.
+Reaction (999):  
+  **Error -2 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=16):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -2 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (i=16):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (0):  
+  **Error -2 in No. of reactants -- returned value is 0.
+No. of reactants (999):  
+  **Error -2 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -2 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -2 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -2 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -2 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -2 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -2 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -2 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -2 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 2 ************************* 
+    MULTIGROUP NEUTRON DATA TEST
+     Lib_type and isotope are not set.
+  ********************************************************** 
+
+STRING VALUES:
+ZAID:  
+  **Error -7: in ZAID -- returned value is  ''
+Info:  
+  **Error -7: in Info -- returned value is  ''
+
+
+INTEGER VALUES:
+No. of reactions:  
+  **Error -7: in No. of reactions -- returned value is 0
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  
+  **Error -7 in Reaction -- returned value is ''.
+Reaction (999):  
+  **Error -7 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=16):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (i=16):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (0):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (999):  
+  **Error -7 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -7 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -7 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -7 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -7 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -7 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -7 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -7 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -7 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 3 ************************* 
+    MULTIGROUP NEUTRON DATA TEST
+     Isotope is not set.
+  ********************************************************** 
+
+STRING VALUES:
+ZAID:  
+  **Error -7: in ZAID -- returned value is  ''
+Info:  
+  **Error -7: in Info -- returned value is  ''
+
+
+INTEGER VALUES:
+No. of reactions:  
+  **Error -7: in No. of reactions -- returned value is 0
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  
+  **Error -7 in Reaction -- returned value is ''.
+Reaction (999):  
+  **Error -7 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=16):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -7 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (i=16):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (0):  
+  **Error -7 in No. of reactants -- returned value is 0.
+No. of reactants (999):  
+  **Error -7 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -7 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -7 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -7 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -7 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -7 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=2): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -7 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -7 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -7 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 4 ************************* 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--no collapsing
+  ********************************************************** 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 5 *************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--collapse to 16_LANL
+  ************************************************************ 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 6 *************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--set library to testtn
+  ************************************************************ 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 7 ********************************* 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--set transport corrections.
+  ****************************************************************** 
+
+ ***********Diagonal transport correction***********
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+ ***********Bell-Hansen-Sandmeier transport correction***********
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+ ***********NO transport correction***********
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 9 *************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--with depletion set
+  ************************************************************ 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 10 ******************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--with current particle set
+  ***************************************************************** 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 11 ******************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get all data for requested isotopes--with temperature set
+  ***************************************************************** 
+
+***********************REACTION=testlib_tn_list***********************
+
+STRING VALUES:
+ZAID:  testlib_tn_list.001ztr
+Info:  list thermonuclear reactions for testlib_tn - the test library
+
+
+
+INTEGER VALUES:
+No. of reactions:  12
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+t->n+a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  2
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  1
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   
+Reaction product multiplicity (i=2): 
+1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   
+Reactant multiplicity (i=2): 
+2   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+***********************REACTION=li_list***********************
+
+STRING VALUES:
+ZAID:  li_list.001ztr
+Info:  list thermonuclear reactions involving d+li isotopes
+
+
+
+INTEGER VALUES:
+No. of reactions:  4
+
+
+FLOAT64 VALUES:
+
+FLOAT32 VALUES:
+
+
+STRING VALUES (N):
+Reaction (0):  d+li6->2a
+Reaction (999):  
+  **Error -6 in Reaction -- returned value is ''.
+
+
+INTEGER VALUES (N):
+No. of reaction products (i=2):  3
+No. of reaction products (i=16):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reaction products (i=9999):  
+  **Error -6 in No. of reaction products -- returned value is 0.
+No. of reactants (i=2):  2
+No. of reactants (i=16):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (i=9999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+No. of reactants (0):  2
+No. of reactants (999):  
+  **Error -6 in No. of reactants -- returned value is 0.
+
+
+FLOAT64 VALUES (N):
+
+FLOAT32 VALUES (N):
+
+
+INTEGER VECTORS:
+
+
+FLOAT64 VECTORS:
+
+
+FLOAT32 VECTORS:
+
+
+INTEGER VECTORS (N):
+Reaction product ID (i=2): 
+1001   1003   2004   
+Reaction product multiplicity (i=2): 
+1   1   1   
+Reaction product ID (i=999): 
+***ERROR GETTING SIZE FOR Reaction product ID id.
+  **Error -6 in Reaction product ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction product multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reaction product multiplicity.
+  **Error -6 in Reaction product multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant ID (i=2): 
+1002   3006   
+Reactant multiplicity (i=2): 
+1   1   
+Reactant ID (i=999): 
+***ERROR GETTING SIZE FOR Reactant ID id.
+  **Error -6 in Reactant ID--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reactant multiplicity (i=999): 
+***ERROR GETTING SIZE FOR Reactant multiplicity.
+  **Error -6 in Reactant multiplicity--returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+
+FLOAT64 VECTORS (N):
+
+
+FLOAT32 VECTORS (N):
+
+
+
+  ************************* TEST 12 ******************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Get data for requested isotopes using both MT and C values.
+  ***************************************************************** 
+
+ ***********C values***********
+
+***********************REACTION=testlib_tn_list***********************
+
+No. reaction prod--all (C=10):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (C=10):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (C=10):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (C=10):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (C=10):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (C=10):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (C=10):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+No. reaction prod--all (C=999):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (C=999):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (C=999):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (C=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (C=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (C=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (C=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+***********************REACTION=li_list***********************
+
+No. reaction prod--all (C=10):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (C=10):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (C=10):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (C=10):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (C=10):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (C=10):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (C=10):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (C=10):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+No. reaction prod--all (C=999):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (C=999):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (C=999):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (C=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (C=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (C=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (C=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (C=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+ ***********MT values***********
+
+***********************REACTION=testlib_tn_list***********************
+
+No. reaction prod--all (MT=2):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (MT=2):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (MT=2):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (MT=2):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (MT=2):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (MT=2):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (MT=2):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+No. reaction prod--all (MT=999):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (MT=999):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (MT=999):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (MT=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (MT=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (MT=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (MT=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+***********************REACTION=li_list***********************
+
+No. reaction prod--all (MT=2):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (MT=2):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (MT=2):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (MT=2):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (MT=2):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (MT=2):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (MT=2):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (MT=2):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+No. reaction prod--all (MT=999):
+  **Error -4: in No. reaction prod--all -- returned value is 0
+No. reaction prod--rmo (MT=999):
+  **Error -4: in No. reaction prod--rmo -- returned value is 0
+No. reaction prod--few (MT=999):
+  **Error -4: in No. reaction prod--few -- returned value is 0
+
+Reaction Q (MT=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+
+Reaction Q (MT=999):  
+  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+
+Reaction prod. ID--all (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--all.
+  **Error -4: in Reaction prod. ID--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--all (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--all.
+  **Error -4: in Reaction prod. multiplicity--all -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--rmo (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--rmo.
+  **Error -4: in Reaction prod. ID--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--rmo (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--rmo.
+  **Error -4: in Reaction prod. multiplicity--rmo -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. ID--few (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. ID--few.
+  **Error -4: in Reaction prod. ID--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Reaction prod. multiplicity--few (MT=999):  
+***ERROR GETTING SIZE FOR Reaction prod. multiplicity--few.
+  **Error -4: in Reaction prod. multiplicity--few -- returned value is
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+
+Reaction cross section (MT=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Reaction cross section (MT=999):  
+***ERROR GETTING SIZE FOR Reaction cross section.
+  **Error -16: in Reaction Q -- returned value is
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+
+
+
+  ************************* TEST 13 ******************************** 
+    MULTIGROUP NEUTRON DATA TEST
+     Test using unknown keywords.
+  ***************************************************************** 
+
+***********************REACTION=testlib_tn_list***********************
+
+String value (NDI_COLLAPSE):  
+  **Error -4: in string_val (NDI_COLLAPSE) -- returned value is ''
+Integer value (NDI_COLLAPSE):  
+  **Error -4: in int_val (NDI_COLLAPSE) -- returned value is 0
+Float64 value (NDI_COLLAPSE):  
+  **Error -16: in float_val (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
+Float32 value (NDI_COLLAPSE):  
+  **Error -16: in float32_val (NDI_COLLAPSE) -- returned value is  0.000000e+00
+String value--0 (NDI_COLLAPSE):  
+  **Error -4: in string_val_n (NDI_COLLAPSE) -- returned value is ''
+Integer value--0 (NDI_COLLAPSE):  
+  **Error -4: in int_val_n (NDI_COLLAPSE) -- returned value is 0
+Float64 value--0 (NDI_COLLAPSE):  
+  **Error -16: in float64_val_n (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
+Float32 value--0 (NDI_COLLAPSE):  
+  **Error -16: in float32_val_n (NDI_COLLAPSE) -- returned value is  0.000000e+00
+Integer vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Int vec).
+
+  **Error -16: in int_vec (NDI_COLLAPSE) -- returned value is 30
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Float64 vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (float64 vec).
+
+  **Error -16: in float64_vec (NDI_COLLAPSE) -- returned value is 30
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Float32 vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float32 vec).
+
+  **Error -16: in float32_vec (NDI_COLLAPSE) -- returned value is 30
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+Integer vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Int vec n).
+
+  **Error -4: in int_vec_n (NDI_COLLAPSE) -- returned value is 30
+0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   0   0   
+0   0   0   0   0   0   0   0   0   
+Float64 vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float64 vec n).
+
+  **Error -16: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+Float32 vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float32 vec n).
+
+  **Error -16: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
+

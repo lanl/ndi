@@ -1,0 +1,1646 @@
+NDI: chain version=1.0
+
+-----------------------------------------------------
+This file was created from the file 'radlib_ndi_v2.0'
+by removing the v2.0 features not in the v1.0 format.
+-----------------------------------------------------
+
+Full documentation for this file may be found in reference:
+
+Morgan C White. "Release of NDI Formatted Libraries 'radlib', 'y21grp' and 'y21grp_n',"
+Los Alamos National Laboratory memorandum X-5:MCW-03-13 (January 22, 2003).
+
+This file contains the yttrium (Y), thulium (Tm), iridium (Ir) and lutetium (Lu)
+chains that are commonly known as the 'radlib' chain library.  The original version
+of radlib did not include lutetium.  When the original chain information was updated
+to include lutetium, several other updates occured as well.  All changes are noted by
+appropriate comment sections in the chain table.  (1) The yttrium chain was resequenced
+to remove unused reactions; these included the serveral inelastic reactions that were
+given but had products that were considered to have decayed immediately back to the
+ground state and an (n,3n) reaction that contained all zero values as it did not
+threshold in until after the top energy in the 21 group structure.  (2) The thulium
+chain was extended to include generic destruction reactions for some targets.  This has
+been further extended herein to include destruction reactions for all targets.  (3) The
+iridium chain was resequenced to remove one unused inelastic reaction.  This file attempts
+to be the superset of the two previous radlib chains and prefers the original number
+sequences where available.  The additional reactions added during the update are simply
+added as continuing sequence numbers past the last original number.  Obviously, lutetium
+uses the sequence numbers from the updated radlib file.
+
+All chains on this file have library_name equal 'radlib'.
+
+The chains specified within this file are appropriate for use with dosimetry data from
+the libraries:
+
+  Chains            Dosimetry Data Library Names
+
+   y.001zrc         y21grp or y21grp_n
+  tm.001zrc         y21grp or y21grp_n
+  ir.001zrc         y21grp or y21grp_n
+  lu.001zrc                   y21grp_n (ONLY)
+
+\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/\|/
+The use of these chains with dosimetry data other than above may give erroneous results.
+/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\/|\
+
+
+
+******************************************************************************************
+************************** begin chain table *********************************************
+******************************************************************************************
+
+zaid
+  y.001zrc
+
+info
+  Yttrium (Y) Radiochemistry Chain (Library 'radlib' X-5:MCW-03-13)
+
+library_name
+  radlib
+
+num_inc_parts
+  1
+
+inc_part
+  1
+
+  num_targets
+    11
+
+  target
+    39086
+    num_products
+      3
+    product
+      39087
+      1
+      2  1
+    product
+      1039087
+      1
+      3  1
+    product
+      -999
+      1
+      4  1
+
+  target
+    1039087
+    num_products
+      6
+    product
+      39087
+      1
+      6  1
+    product
+      39088
+      1
+      7  1
+    product
+      1039088
+      1
+      8  1
+    product
+      2039088
+      1
+      9  1
+    product
+      39086
+      1
+      10 1
+    product
+      -999
+      1
+      11 1
+
+  target
+    39087
+    num_products
+      6
+    product
+      1039087
+      1
+      13 1
+    product
+      39088
+      1
+      14 1
+    product
+      1039088
+      1
+      15 1
+    product
+      2039088
+      1
+      16 1
+    product
+      39086
+      1
+      17 1
+    product
+      -999
+      1
+      18 1
+
+  target
+    2039088
+    num_products
+      7
+    product
+      39088
+      1
+      20 1
+    product
+      1039088
+      1
+      21 1
+    product
+      39089
+      1
+      22 1
+    product
+      1039089
+      1
+      23 1
+    product
+      39087
+      1
+      24 1
+    product
+      1039087
+      1
+      25 1
+    product
+      -999
+      1
+      26 1
+
+  target
+    1039088
+    num_products
+      7
+    product
+      39088
+      1
+      28 1
+    product
+      2039088
+      1
+      29 1
+    product
+      39089
+      1
+      30 1
+    product
+      1039089
+      1
+      31 1
+    product
+      39087
+      1
+      32 1
+    product
+      1039087
+      1
+      33 1
+    product
+      -999
+      1
+      34 1
+
+  target
+    39088
+    num_products
+      7
+    product
+      1039088
+      1
+      36 1
+    product
+      2039088
+      1
+      37 1
+    product
+      39089
+      1
+      38 1
+    product
+      1039089
+      1
+      39 1
+    product
+      39087
+      1
+      40 1
+    product
+      1039087
+      1
+      41 1
+    product
+      -999
+      1
+      42 1
+
+  target
+    1039089
+    num_products
+      6
+    product
+      39089
+      1
+      44 1
+    product
+      39090
+      1
+      45 1
+    product
+      39088
+      1
+      46 1
+    product
+      1039088
+      1
+      47 1
+    product
+      2039088
+      1
+      48 1
+    product
+      -999
+      1
+      49 1
+
+  target
+    39089
+    num_products
+      6
+    product
+      1039089
+      1
+      51 1
+    product
+      39090
+      1
+      52 1
+    product
+      39088
+      1
+      53 1
+    product
+      1039088
+      1
+      54 1
+    product
+      2039088
+      1
+      55 1
+    product
+      -999
+      1
+      56 1
+
+  target
+    39090
+    num_products
+      5
+    product
+      39091
+      1
+      58 1
+    product
+      39089
+      1
+      59 1
+    product
+      1039089
+      1
+      60 1
+    product
+      39088
+      1
+      61 1
+    product
+      -999
+      1
+      62 1
+
+  target
+    39091
+    num_products
+      5
+    product
+      39092
+      1
+      64 1
+    product
+      39090
+      1
+      65 1
+    product
+      39089
+      1
+      66 1
+    product
+      1039089
+      1
+      67 1
+    product
+      -999
+      1
+      68 1
+
+  target
+    39092
+    num_products
+      3
+    product
+      39091
+      1
+      70 1
+    product
+      39090
+      1
+      71 1
+    product
+      -999
+      1
+      72 1
+end
+
+******************************************************************************************
+************************** begin chain table *********************************************
+******************************************************************************************
+
+zaid
+  tm.001zrc
+
+info
+  Thulium (Tm) Radiochemistry Chain (Library 'radlib' X-5:MCW-03-13)
+
+library_name
+  radlib
+
+num_inc_parts
+  1
+
+inc_part
+  1
+
+  num_targets
+    8
+
+  target
+    69166
+    num_products
+      2
+    product
+      69167
+      1
+      1  1
+    product
+      -999
+      1
+      2  1
+
+  target
+    69167
+    num_products
+      3
+    product
+      69166
+      1
+      3  1
+    product
+      69168
+      1
+      4  1
+    product
+      -999
+      1
+      5  1
+
+  target
+    69168
+    num_products
+      4
+    product
+      69167
+      1
+      6  1
+    product
+      69166
+      1
+      7  1
+    product
+      69169
+      1
+      8  1
+    product
+       -999
+      1
+      24 1
+
+  target
+    69169
+    num_products
+      4
+    product
+      69168
+      1
+      9  1
+    product
+      69167
+      1
+      10 1
+    product
+      69170
+      1
+      11 1
+    product
+       -999
+      1
+      25 1
+
+  target
+    69170
+    num_products
+      4
+    product
+      69169
+      1
+      12 1
+    product
+      69168
+      1
+      13 1
+    product
+      69171
+      1
+      14 1
+    product
+       -999
+      1
+      26 1
+
+  target
+    69171
+    num_products
+      4
+    product
+      69170
+      1
+      15 1
+    product
+      69169
+      1
+      16 1
+    product
+      69172
+      1
+      17 1
+    product
+       -999
+      1
+      27 1
+
+  target
+    69172
+    num_products
+      4
+    product
+      69171
+      1
+      18 1
+    product
+      69170
+      1
+      19 1
+    product
+      69173
+      1
+      20 1
+    product
+       -999
+      1
+      28 1
+
+  target
+    69173
+    num_products
+      3
+    product
+      69172
+      1
+      21 1
+    product
+      69171
+      1
+      22 1
+    product
+      -999
+      1
+      23 1
+end
+
+******************************************************************************************
+************************** begin chain table *********************************************
+******************************************************************************************
+
+zaid
+  ir.001zrc
+
+info
+  Iridium (Ir) Radiochemistry Chain (Library 'radlib' X-5:MCW-03-13)
+
+library_name
+  radlib
+
+num_inc_parts
+  1
+
+inc_part
+  1
+
+  num_targets
+    9
+
+  target
+    77188
+    num_products
+      2
+    product
+      77189
+      1
+      1  1
+    product
+      -999
+      1
+      2  1
+
+  target
+    77189
+    num_products
+      3
+    product
+      77188
+      1
+      3  1
+    product
+      77190
+      1
+      4  1
+    product
+      -999
+      1
+      5  1
+
+  target
+    77190
+    num_products
+      4
+    product
+      77189
+      1
+      6  1
+    product
+      77188
+      1
+      7  1
+    product
+      77191
+      1
+      8  1
+    product
+       -999
+      1
+      31 1
+
+  target
+    77191
+    num_products
+      4
+    product
+      77190
+      1
+      9  1
+    product
+      77189
+      1
+      10 1
+    product
+      77192
+      1
+      11 1
+    product
+       -999
+      1
+      32 1
+
+  target
+    77192
+    num_products
+      5
+    product
+      77191
+      1
+      12 1
+    product
+      77190
+      1
+      13 1
+    product
+      77193
+      1
+      14 1
+    product
+      1077193
+      1
+      15 1
+    product
+       -999
+      1
+      33 1
+
+  target
+    1077193
+    num_products
+      4
+    product
+      77192
+      1
+      16 1
+    product
+      77191
+      1
+      17 1
+    product
+      77194
+      1
+      18 1
+    product
+       -999
+      1
+      34 1
+
+  target
+    77193
+    num_products
+      5
+    product
+      1077193
+      1
+      20 1
+    product
+      77192
+      1
+      21 1
+    product
+      77191
+      1
+      22 1
+    product
+      77194
+      1
+      23 1
+    product
+      -999
+      1
+      24 1
+
+  target
+    77194
+    num_products
+      4
+    product
+      77193
+      1
+      25 1
+    product
+      77192
+      1
+      26 1
+    product
+      77195
+      1
+      27 1
+    product
+       -999
+      1
+      35 1
+
+  target
+    77195
+    num_products
+      3
+    product
+      77194
+      1
+      28 1
+    product
+      77193
+      1
+      29 1
+    product
+      -999
+      1
+      30 1
+end
+
+******************************************************************************************
+************************** begin chain table *********************************************
+******************************************************************************************
+
+zaid
+  lu.001zrc
+
+info
+  Lutetium (Lu) Radiochemistry Chain (Library 'radlib' X-5:MCW-03-13)
+
+library_name
+  radlib
+
+num_inc_parts
+  1
+
+inc_part
+  1
+
+  num_targets
+    24
+
+  target
+    71170
+    num_products
+      1
+    product
+      71171
+      1
+      1 1
+
+  target
+    71171
+    num_products
+      5
+    product
+        71170
+      1
+      2 1
+    product
+        71172
+      1
+      3 1
+    product
+      1071172
+      1
+      4 1
+    product
+      2071172
+      1
+      5 1
+    product
+      3071172
+      1
+      6 1
+
+  target
+    3071172
+    num_products
+      6
+    product
+        71171
+      1
+      7 1
+    product
+        71172
+      1
+      8 1
+    product
+        71173
+      1
+      9 1
+    product
+      1071172
+      1
+      10 1
+    product
+      1071173
+      1
+      11 1
+    product
+      2071172
+      1
+      12 1
+
+  target
+    2071172
+    num_products
+      7
+    product
+        71171
+      1
+      13 1
+    product
+        71172
+      1
+      14 1
+    product
+        71173
+      1
+      15 1
+    product
+      1071172
+      1
+      16 1
+    product
+      1071173
+      1
+      17 1
+    product
+      2071173
+      1
+      18 1
+    product
+      3071172
+      1
+      19 1
+
+  target
+    1071172
+    num_products
+      7
+    product
+        71171
+      1
+      20 1
+    product
+        71172
+      1
+      21 1
+    product
+        71173
+      1
+      22 1
+    product
+      1071173
+      1
+      23 1
+    product
+      2071172
+      1
+      24 1
+    product
+      2071173
+      1
+      25 1
+    product
+      3071172
+      1
+      26 1
+
+  target
+    71172
+    num_products
+      7
+    product
+        71171
+      1
+      27 1
+    product
+        71173
+      1
+      28 1
+    product
+      1071172
+      1
+      29 1
+    product
+      1071173
+      1
+      30 1
+    product
+      2071172
+      1
+      31 1
+    product
+      2071173
+      1
+      32 1
+    product
+      3071172
+      1
+      33 1
+
+  target
+    2071173
+    num_products
+      10
+    product
+        71172
+      1
+      34 1
+    product
+        71173
+      1
+      35 1
+    product
+        71174
+      1
+      36 1
+    product
+      1071172
+      1
+      37 1
+    product
+      1071173
+      1
+      38 1
+    product
+      1071174
+      1
+      39 1
+    product
+      2071172
+      1
+      40 1
+    product
+      2071174
+      1
+      41 1
+    product
+      3071172
+      1
+      42 1
+    product
+      3071174
+      1
+      43 1
+
+  target
+    1071173
+    num_products
+      10
+    product
+        71172
+      1
+      44 1
+    product
+        71173
+      1
+      45 1
+    product
+        71174
+      1
+      46 1
+    product
+      1071172
+      1
+      47 1
+    product
+      1071174
+      1
+      48 1
+    product
+      2071172
+      1
+      49 1
+    product
+      2071173
+      1
+      50 1
+    product
+      2071174
+      1
+      51 1
+    product
+      3071172
+      1
+      52 1
+    product
+      3071174
+      1
+      53 1
+
+  target
+    71173
+    num_products
+      10
+    product
+        71172
+      1
+      54 1
+    product
+        71174
+      1
+      55 1
+    product
+      1071172
+      1
+      56 1
+    product
+      1071173
+      1
+      57 1
+    product
+      1071174
+      1
+      58 1
+    product
+      2071172
+      1
+      59 1
+    product
+      2071173
+      1
+      60 1
+    product
+      2071174
+      1
+      61 1
+    product
+      3071172
+      1
+      62 1
+    product
+      3071174
+      1
+      63 1
+
+  target
+    3071174
+    num_products
+      13
+    product
+        71172
+      1
+      64 1
+    product
+        71173
+      1
+      65 1
+    product
+        71174
+      1
+      66 1
+    product
+        71175
+      1
+      67 1
+    product
+      1071172
+      1
+      68 1
+    product
+      1071173
+      1
+      69 1
+    product
+      1071174
+      1
+      70 1
+    product
+      1071175
+      1
+      71 1
+    product
+      2071172
+      1
+      72 1
+    product
+      2071173
+      1
+      73 1
+    product
+      2071174
+      1
+      74 1
+    product
+      2071175
+      1
+      75 1
+    product
+      3071172
+      1
+      76 1
+
+  target
+    2071174
+    num_products
+      13
+    product
+        71172
+      1
+      77 1
+    product
+        71173
+      1
+      78 1
+    product
+        71174
+      1
+      79 1
+    product
+        71175
+      1
+      80 1
+    product
+      1071172
+      1
+      81 1
+    product
+      1071173
+      1
+      82 1
+    product
+      1071174
+      1
+      83 1
+    product
+      1071175
+      1
+      84 1
+    product
+      2071172
+      1
+      85 1
+    product
+      2071173
+      1
+      86 1
+    product
+      2071175
+      1
+      87 1
+    product
+      3071172
+      1
+      88 1
+    product
+      3071174
+      1
+      89 1
+
+  target
+    1071174
+    num_products
+      13
+    product
+        71172
+      1
+      90 1
+    product
+        71173
+      1
+      91 1
+    product
+        71174
+      1
+      92 1
+    product
+        71175
+      1
+      93 1
+    product
+      1071172
+      1
+      94 1
+    product
+      1071173
+      1
+      95 1
+    product
+      1071175
+      1
+      96 1
+    product
+      2071172
+      1
+      97 1
+    product
+      2071173
+      1
+      98 1
+    product
+      2071174
+      1
+      99 1
+    product
+      2071175
+      1
+      100 1
+    product
+      3071172
+      1
+      101 1
+    product
+      3071174
+      1
+      102 1
+
+  target
+    71174
+    num_products
+      13
+    product
+        71172
+      1
+      103 1
+    product
+        71173
+      1
+      104 1
+    product
+        71175
+      1
+      105 1
+    product
+      1071172
+      1
+      106 1
+    product
+      1071173
+      1
+      107 1
+    product
+      1071174
+      1
+      108 1
+    product
+      1071175
+      1
+      109 1
+    product
+      2071172
+      1
+      110 1
+    product
+      2071173
+      1
+      111 1
+    product
+      2071174
+      1
+      112 1
+    product
+      2071175
+      1
+      113 1
+    product
+      3071172
+      1
+      114 1
+    product
+      3071174
+      1
+      115 1
+
+  target
+    2071175
+    num_products
+      11
+    product
+        71173
+      1
+      116 1
+    product
+        71174
+      1
+      117 1
+    product
+        71175
+      1
+      118 1
+    product
+        71176
+      1
+      119 1
+    product
+      1071173
+      1
+      120 1
+    product
+      1071174
+      1
+      121 1
+    product
+      1071175
+      1
+      122 1
+    product
+      1071176
+      1
+      123 1
+    product
+      2071173
+      1
+      124 1
+    product
+      2071174
+      1
+      125 1
+    product
+      3071174
+      1
+      126 1
+
+  target
+    1071175
+    num_products
+      11
+    product
+        71173
+      1
+      127 1
+    product
+        71174
+      1
+      128 1
+    product
+        71175
+      1
+      129 1
+    product
+        71176
+      1
+      130 1
+    product
+      1071173
+      1
+      131 1
+    product
+      1071174
+      1
+      132 1
+    product
+      1071176
+      1
+      133 1
+    product
+      2071173
+      1
+      134 1
+    product
+      2071174
+      1
+      135 1
+    product
+      2071175
+      1
+      136 1
+    product
+      3071174
+      1
+      137 1
+
+  target
+    71175
+    num_products
+      11
+    product
+        71173
+      1
+      138 1
+    product
+        71174
+      1
+      139 1
+    product
+        71176
+      1
+      140 1
+    product
+      1071173
+      1
+      141 1
+    product
+      1071174
+      1
+      142 1
+    product
+      1071175
+      1
+      143 1
+    product
+      1071176
+      1
+      144 1
+    product
+      2071173
+      1
+      145 1
+    product
+      2071174
+      1
+      146 1
+    product
+      2071175
+      1
+      147 1
+    product
+      3071174
+      1
+      148 1
+
+  target
+    1071176
+    num_products
+      6
+    product
+        71175
+      1
+      149 1
+    product
+        71176
+      1
+      150 1
+    product
+        71177
+      1
+      151 1
+    product
+      1071175
+      1
+      152 1
+    product
+      1071177
+      1
+      153 1
+    product
+      2071175
+      1
+      154 1
+
+  target
+    71176
+    num_products
+      7
+    product
+        71175
+      1
+      155 1
+    product
+        71177
+      1
+      156 1
+    product
+      1071175
+      1
+      157 1
+    product
+      1071176
+      1
+      158 1
+    product
+      1071177
+      1
+      159 1
+    product
+      2071175
+      1
+      160 1
+    product
+      2071177
+      1
+      161 1
+
+  target
+    2071177
+    num_products
+      3
+    product
+      71176
+      1
+      162 1
+    product
+      71177
+      1
+      163 1
+    product
+      71178
+      1
+      164 1
+
+  target
+    1071177
+    num_products
+      6
+    product
+        71176
+      1
+      165 1
+    product
+        71177
+      1
+      166 1
+    product
+        71178
+      1
+      167 1
+    product
+      1071176
+      1
+      168 1
+    product
+      1071178
+      1
+      169 1
+    product
+      2071177
+      1
+      170 1
+
+  target
+    71177
+    num_products
+      6
+    product
+        71176
+      1
+      171 1
+    product
+        71178
+      1
+      172 1
+    product
+      1071176
+      1
+      173 1
+    product
+      1071177
+      1
+      174 1
+    product
+      1071178
+      1
+      175 1
+    product
+      2071177
+      1
+      176 1
+
+  target
+    1071178
+    num_products
+      5
+    product
+        71177
+      1
+      177 1
+    product
+        71178
+      1
+      178 1
+    product
+        71179
+      1
+      179 1
+    product
+      1071177
+      1
+      180 1
+    product
+      2071177
+      1
+      181 1
+
+  target
+    71178
+    num_products
+      5
+    product
+        71177
+      1
+      182 1
+    product
+        71179
+      1
+      183 1
+    product
+      1071177
+      1
+      184 1
+    product
+      1071178
+      1
+      185 1
+    product
+      2071177
+      1
+      186 1
+
+  target
+    71179
+    num_products
+      3
+    product
+        71178
+      1
+      187 1
+    product
+        71180
+      1
+      188 1
+    product
+      1071178
+      1
+      189 1
+end

@@ -51,13 +51,6 @@ int ndi_c_get_int_val_n(int in_key, int vec_num, int *ret_val)
    if (!ndi_initialized) {
       return(-2); }
 
-   /* Currently, there is no instance where a negative vec_num can be
-      valid.  Check here for that, and return if found. */
-   if ( vec_num < 0 ) {
-     ierr = -6;
-     return (ierr);
-   }
-
    if ( ( library_type == 'm' ) || 
 	( library_type == 'd' ) ){
       ierr = get_int_val_n_mg( in_key, vec_num, ret_val );

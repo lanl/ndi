@@ -3,7 +3,7 @@
 #include <string.h>
 #include "ndi.h"
 
-
+int testc (void);
 static int check_all_ndi_get_mgn_functions(void);
 static int check_ndi_get_mgn_functions_mt( int reac_id, char *reac_type );
 static int ndi_unknown_keyword_mgn(void);
@@ -956,11 +956,10 @@ static int check_ndi_string_val_func_mgn(void)
    int n = 0;
    int tmp_err = 0;
    char str_val[132 + 1];
-   int num_keys = 5;
+   int num_keys = 4;
    int inkey[] = {
      NDI_ZAID,
      NDI_INFO,
-     NDI_VERSION,
      NDI_DEPL_ZAID,
      NDI_DEPL_INFO
    };
@@ -968,7 +967,6 @@ static int check_ndi_string_val_func_mgn(void)
    char *str_str[] = {
      "ZAID",
      "Info",
-     "NDI Version",
      "Depletion ZAID",
      "Depletion info"
    };

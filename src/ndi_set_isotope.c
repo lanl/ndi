@@ -72,7 +72,7 @@ int	ndi_c_set_zaid(const char *in_zaid)
    strcpy(tmp_zaid, in_zaid);
    if ( (library_type == 'm' ) ||
 	(library_type == 'd') ) {
-      ierr = ndi_std_zaid(tmp_zaid);
+      ierr = ndi_std_zaid(tmp_zaid, sizeof(tmp_zaid) );
 
       /* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/

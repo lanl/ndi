@@ -10,7 +10,8 @@
 .PHONY:		all check clean distclean install
 
 SHELL		:= /bin/sh
-INSTALL		:= $(shell pwd)/install-sh -c
+VPATH		:= ../src
+INSTALL		:= $(shell pwd)/../src/install-sh -c
 VERSION 	:= version.h
 FMANGLE 	:= fmangle.h
 VAR_TYPE	:= ndi_var_type.h
@@ -70,6 +71,7 @@ SRC := \
 	ndi_misc_depl.c \
 	ndi_open_gendir.c \
 	ndi_open_lib_file.c \
+	ndi_parse_zaid.c \
 	ndi_read_dir_block.c \
 	ndi_read_int_block.c \
 	ndi_read_rx_prod.c \
@@ -81,6 +83,7 @@ SRC := \
 	ndi_skip_rx_prod.c \
 	ndi_state.c \
 	ndi_std_zaid.c \
+	ndi_sza_symbol_translation.c \
 	ndi_zaid_dir.c
 
 SRC_FLOAT := \
@@ -150,6 +153,7 @@ check: $(TARGET) $(TESTC) $(TESTF)
 
 clean:
 	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
+	$(RM) f_calls_c fcallscc.o fcallscf.o $(FMANGLE) $(VERSION)
 
 distclean: clean
 	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE)
@@ -159,15 +163,15 @@ install: all
 	$(INSTALL) -g $(GROUP) -m 775 -d $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 775 -d $(libdir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 libndi.a $(libdir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 ndi.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 ndi_keywords.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 ndi_var_type.h $(includedir)
+	$(INSTALL) -g $(GROUP) -m 664 ../src/ndi.h $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 664 ../src/ndi_keywords.h $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 664 ../src/ndi_var_type.h $(includedir)
 
 libndi.a: $(VERSION) $(FMANGLE) $(VAR_TYPE) $(OBJ)
 	$(AR) $(ARFLAGS) $@ $(OBJ)
 
-$(VERSION): VERSION
-	echo '#define NDI_VERSION "'`cat VERSION`'"' > $@
+$(VERSION): ../src/VERSION
+	echo '#define NDI_VERSION "'`cat ../src/VERSION`'"' > $@
 
 $(VAR_TYPE): ndi_define_float.c
 	@echo Making $(VAR_TYPE)
@@ -176,14 +180,11 @@ $(VAR_TYPE): ndi_define_float.c
 	ndi_define_float > $@
 	$(RM) ndi_define_float
 
-$(FMANGLE): fcallscc.c fcallscf.f
-	@echo Making $(FMANGLE)
-	$(RM) f_calls_c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) fcallscc.c
-	$(FC) -c $(FFLAGS) $(CPPFLAGS) fcallscf.f
-	$(FC) $(FFLAGS) $(CPPFLAGS) -o f_calls_c fcallscf.o fcallscc.o
+f_calls_c: fcallscc.o fcallscf.o
+	$(FC) $(FFLAGS) -o f_calls_c fcallscf.o fcallscc.o
+
+$(FMANGLE): f_calls_c
 	f_calls_c > $@
-	$(RM) f_calls_c fcallscc.o fcallscf.o
 
 testc_all: $(TARGET) $(OBJ_TESTC)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJ_TESTC) -o $@ $(LDLIBS)
@@ -217,7 +218,6 @@ test/%.o: test/%.c
 
 %_float64.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(FLOAT64FLAGS) -c -o $@ $<
-
 
 # include dependency files, if we were not invoked as "make clean"
 # or "make distclean"

@@ -164,7 +164,7 @@ int ndi_c_set_option ( int in_key, const char *in_value )
        strncpy( def_fiss_prod_id, DEF_FISSION_PROD, sizeof(def_fiss_prod_id) );
      } else {
        strncpy( def_fiss_prod_id, value, sizeof( def_fiss_prod_id ) );
-       ierr = ndi_std_zaid( def_fiss_prod_id );
+       ierr = ndi_std_zaid( def_fiss_prod_id, sizeof(def_fiss_prod_id) );
 /*        printf ("FISS PROD:>>>>%s<<<<<\n",def_fiss_prod_id ); */
      }
      break;

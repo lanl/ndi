@@ -26,7 +26,7 @@ int ndi_fill_elements ( void )
     the z-number.  The array can be referenced using the element_index
     function and the chemical symbol.
 
-    It is assumed that only the first 103 elements will ever be needed.
+    It is assumed that only the first MAX_Z elements will ever be needed.
     This is implemented in a very inelegant way--it is assumed that the
     ndi_elements array has 26 rows (representing the first letter of the
     symbol) and 27 columns (representing the 2nd letter or blank space).
@@ -39,11 +39,13 @@ int ndi_fill_elements ( void )
 ***********************************************************************/
 {
    int ret_code = 0;
+   int rows = 26;
+   int cols = 27;
    int i;
 
    /*  Allocate space and zero array  */
    if ( ndi_elements ) ndi_free( (void **) &ndi_elements );
-   ndi_elements = (short *)ndi_malloc(703 * sizeof(short));
+   ndi_elements = (short *)ndi_malloc((rows * cols + 1) * sizeof(short));
    memset( ndi_elements, 0, sizeof(ndi_elements) );
    for ( i = 0; i < 702; i++ ) {
      ndi_elements[i] = 0;
@@ -151,7 +153,7 @@ int ndi_fill_elements ( void )
    ndi_elements[element_index("fm")] = 100;
    ndi_elements[element_index("md")] = 101;
    ndi_elements[element_index("no")] = 102;
-   ndi_elements[element_index("lr")] = 103;
+   ndi_elements[element_index("lr")] = 103;  /* Value of MAX_Z */
 
    return(ret_code);
   

@@ -199,7 +199,7 @@ static int get_int_vec_tn( int in_key, int *return_vec, int return_size ) {
       if ( tn_stat.rprods.length > 0 ) {
 	num_elements = tn_stat.rprods.length;
 	 ierr = ndi_read_rx_prod( lib_stream, tn_stat.rprods.file_ptr,
-				  &return_vec, "id", &num_elements, 
+				  &return_vec, ID_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err( tn_stat.rprods.length);
@@ -211,7 +211,7 @@ static int get_int_vec_tn( int in_key, int *return_vec, int return_size ) {
       if ( tn_stat.rprods.length > 0 ) {
 	num_elements = tn_stat.rprods.length;
 	 ierr = ndi_read_rx_prod( lib_stream, tn_stat.rprods.file_ptr,
-				  &return_vec, "mult", &num_elements, 
+				  &return_vec, MULT_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err( tn_stat.rprods.length);
@@ -223,7 +223,7 @@ static int get_int_vec_tn( int in_key, int *return_vec, int return_size ) {
       if ( tn_stat.reactants.length > 0 ) {
 	num_elements = tn_stat.reactants.length;
 	 ierr = ndi_read_rx_prod( lib_stream, tn_stat.reactants.file_ptr,
-				  &return_vec, "id", &num_elements, 
+				  &return_vec, ID_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err( tn_stat.reactants.length);
@@ -235,12 +235,60 @@ static int get_int_vec_tn( int in_key, int *return_vec, int return_size ) {
       if ( tn_stat.reactants.length > 0 ) {
 	num_elements = tn_stat.reactants.length;
 	 ierr = ndi_read_rx_prod( lib_stream, tn_stat.reactants.file_ptr,
-				  &return_vec, "mult", &num_elements, 
+				  &return_vec, MULT_PARAM, &num_elements, 
 				  NO_MT );
       } else {
 	 ierr = ndi_check_array_err( tn_stat.reactants.length);
       }
       break;
+
+   case NDI_SIGVBAR_INTERP_REG:   
+      /* Vector giving end of sigvbar interpolation regions */
+       if ( tn_stat.int_sigvbars.length > 0 ) {
+	   num_elements = tn_stat.int_sigvbars.length;
+	   ierr = ndi_read_rx_prod( lib_stream, tn_stat.int_sigvbars.file_ptr,
+				    &return_vec, BOUNDARY_PARAM, &num_elements, 
+				    NO_MT );
+       } else {
+	   ierr = ndi_check_array_err( tn_stat.int_sigvbars.length);
+       }
+       break;
+
+   case NDI_SIGVBAR_INTERP_TYPE:  
+      /* Vector of interpolation types for each sigvbar interp region */
+       if ( tn_stat.int_sigvbars.length > 0 ) {
+	   num_elements = tn_stat.int_sigvbars.length;
+	   ierr = ndi_read_rx_prod( lib_stream, tn_stat.int_sigvbars.file_ptr,
+				    &return_vec, TYPE_PARAM, &num_elements, 
+				    NO_MT );
+       } else {
+	   ierr = ndi_check_array_err( tn_stat.int_sigvbars.length);
+       }
+       break;
+
+   case NDI_EINBAR_INTERP_REG:   
+      /* Vector giving end of einbar interpolation regions */
+       if ( tn_stat.int_einbars.length > 0 ) {
+	   num_elements = tn_stat.int_einbars.length;
+	   ierr = ndi_read_rx_prod( lib_stream, tn_stat.int_einbars.file_ptr,
+				    &return_vec, BOUNDARY_PARAM, &num_elements, 
+				    NO_MT );
+       } else {
+	   ierr = ndi_check_array_err( tn_stat.int_einbars.length);
+       }
+       break;
+
+   case NDI_EINBAR_INTERP_TYPE:  
+      /* Vector of interpolation types for each einbar interp region */
+       if ( tn_stat.int_einbars.length > 0 ) {
+	   num_elements = tn_stat.int_einbars.length;
+	   ierr = ndi_read_rx_prod( lib_stream, tn_stat.int_einbars.file_ptr,
+				    &return_vec, TYPE_PARAM, &num_elements, 
+				    NO_MT );
+       } else {
+	   ierr = ndi_check_array_err( tn_stat.int_einbars.length);
+       }
+       break;
 
    case NDI_SEC_PART_TYPES:  
       /* Vector of secondary particle types */

@@ -137,7 +137,7 @@
       data sec_part_str / "NumGrps", "PnOrder", "Ebounds", "PartHeat",
      $     "PartKerma", "ProdFull" /
 
-      Data zaid_list / "92235.600nm", "1001.600nm", "26056.600nm",
+      Data zaid_list / "92235.600nm", "1001.600nm", "26054.600nm",
      $   "b10", "s", "o16", "k41", "f19" /
 c     $   "27056.600nm", "u235", "u-238", "o-16", "al27"/
 c  "92234.50", "u-235" /
@@ -184,7 +184,7 @@ c         print *, zd_cnt,":  >", str_arr(zd_cnt), "<  ", awr(zd_cnt), "  err = 
             goto 101
          endif
 
-         call ndi_set_option( NDI_CURR_PART, "photon", ierr )
+         call ndi_set_option( NDI_CURR_PART, "0", ierr )
 
 c     Return string values
          call ndi_get_string_val(NDI_ZAID, tmp_zaid, ierr)
@@ -193,9 +193,9 @@ c     Return string values
          print *, info
          write(*,2) 
  2       format( / )
-         call ndi_get_string_val(NDI_VERSION, vers, ierr)
-         print *, "VERSION: ", vers
-         write(*,2)
+c         call ndi_get_string_val(NDI_VERSION, vers, ierr)
+c         print *, "VERSION: ", vers
+c         write(*,2)
          
 c     Return integer values
 
@@ -351,7 +351,7 @@ c     Return secondary particle data
 
 c     Integer values
          index_start = 1
-         do 90 i = index_start, sec_part_int_val
+         do 90 i = index_start, index_start + sec_part_int_val - 1
             write(*, 92) sec_part_str(i)
  92         format(a12, ": ")
             call ndi_get_size(sec_part(i), num_element, ierr)
@@ -363,7 +363,7 @@ c     Integer values
 
 c     Float vector
          index_start = index_start + sec_part_int_val
-         do 93 i = index_start, index_start + sec_part_float_vec 
+         do 93 i = index_start, index_start + sec_part_float_vec - 1
             write(*, 94) sec_part_str(i)
  94         format(a12, ": ")
             call ndi_get_size(sec_part(i), num_element, ierr)
@@ -375,8 +375,8 @@ c     Float vector
 
 
 c     Float vector from matrix
-         index_start = index_start + sec_part_float_vec_n
-         do 96 i = index_start, index_start + sec_part_float_vec 
+         index_start = index_start + sec_part_float_vec 
+         do 96 i = index_start, index_start + sec_part_float_vec_n - 1
             vec_num = 2
             write(*,97) sec_part_str(i), vec_num
  97         format(a12, i2,": ")
@@ -402,16 +402,16 @@ c     Float vector from matrix
          print *, "  **Error ", ierr, " setting lib type."
       endif
 
-      call ndi_set_isotope( "94239.02", ierr)
+      call ndi_set_isotope( "94239.99", ierr)
       if (ierr . ne . 0 ) then
-         print *, "  **Error ", ierr, " setting 94239.02."
+         print *, "  **Error ", ierr, " setting 94239.99."
       else 
          print *, "  **Isotope set successfully."
       endif
 
-      call ndi_set_isotope( "92235.07", ierr)
+      call ndi_set_isotope( "92235.99", ierr)
       if (ierr . ne . 0 ) then
-         print *, "  **Error ", ierr, " setting 92235.07."
+         print *, "  **Error ", ierr, " setting 92235.."
       else 
          print *, "  **Isotope set successfully."
       endif

@@ -1,0 +1,429 @@
+multigroup_neutron
+  z=1001.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00780E+00
+    awr=9.99142E-01 end
+  z=1002.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=558  o=35193  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00
+    awr=1.99680E+00 end
+  z=1003.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=1131  o=70995  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.01600E+00
+    awr=2.99009E+00 end
+  z=3006.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=1689  o=106314  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=6.01510E+00
+    awr=5.96343E+00 end
+  z=3007.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=2324  o=144270  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00
+    awr=6.95573E+00 end
+  z=5010.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=2943  o=181582  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00129E+01
+    awr=9.92688E+00 end
+  z=8016.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=3576  o=219463  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.59905E+01
+    awr=1.58531E+01 end
+  z=9019.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=4193  o=256764  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.89982E+01
+    awr=1.88350E+01 end
+  z=16000.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=4804  o=293851  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.20636E+01
+    awr=3.17882E+01 end
+  z=24000.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=5429  o=331421  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.19957E+01
+    awr=5.15490E+01 end
+  z=26000.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=6040  o=368584  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.58281E+01
+    awr=5.53485E+01 end
+  z=26054.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=6656  o=405860  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.39394E+01
+    awr=5.34760E+01 end
+  z=26056.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=7267  o=443023  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.59345E+01
+    awr=5.54540E+01 end
+  z=45117.900nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=7878  o=480110  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.16545E+02
+    awr=1.15544E+02 end
+  z=46119.900nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=8475  o=516713  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.18543E+02
+    awr=1.17525E+02 end
+  z=50998.990nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=9072  o=553392  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=50999.990nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=9629  o=588685  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=53129.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=10202  o=624511  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.28905E+02
+    awr=1.27798E+02 end
+  z=92233.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=10771  o=660149  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.33045E+02
+    awr=2.31043E+02 end
+  z=92235.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=11431  o=699637  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=94238.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=12234  o=747228  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02
+    awr=2.36005E+02 end
+  z=94239.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=12910  o=787250  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02
+    awr=2.37002E+02 end
+  z=94240.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=13602  o=827805  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
+    awr=2.37992E+02 end
+  z=94241.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=14295  o=868385  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41049E+02
+    awr=2.38978E+02 end
+  z=94242.600nm  d=5/2/2003  l=mendf6  f=../../src/test/lib/mendf6_gen
+    ft=asc  ln=14956  o=907899  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42058E+02
+    awr=2.39979E+02 end
+  z=1001.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00782E+00
+    awr=9.99167E-01 end
+  z=1002.550nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=558  o=35269  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00
+    awr=1.99680E+00 end
+  z=1003.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=1131  o=71071  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.01605E+00
+    awr=2.99014E+00 end
+  z=3006.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=1689  o=106389  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=6.01512E+00
+    awr=5.96345E+00 end
+  z=3007.550nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=2324  o=144345  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00
+    awr=6.95573E+00 end
+  z=8016.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=2943  o=181732  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.59949E+01
+    awr=1.58575E+01 end
+  z=9019.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=3560  o=219033  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.89984E+01
+    awr=1.88352E+01 end
+  z=24000.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=4171  o=256196  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.19959E+01
+    awr=5.15493E+01 end
+  z=26000.550nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=4782  o=293359  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.58462E+01
+    awr=5.53665E+01 end
+  z=45117.900nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=5398  o=330635  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.16545E+02
+    awr=1.15544E+02 end
+  z=46119.900nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=5995  o=367315  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.18543E+02
+    awr=1.17525E+02 end
+  z=50120.350nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=6592  o=403995  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.17000E+02
+    awr=1.15995E+02 end
+  z=50998.990nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=7189  o=440675  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=50999.990nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=7746  o=475968  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=92233.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=8319  o=511794  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.33040E+02
+    awr=2.31038E+02 end
+  z=92235.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=8979  o=551283  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=92238.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=9672  o=591863  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38051E+02
+    awr=2.36006E+02 end
+  z=94239.550nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=10365  o=632443  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39052E+02
+    awr=2.36999E+02 end
+  z=94240.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=11057  o=672998  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
+    awr=2.37992E+02 end
+  z=94241.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=11750  o=713578  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41057E+02
+    awr=2.38986E+02 end
+  z=94242.500nm  d=5/1/2003  l=mendf5  f=../../src/test/lib/mendf5_gen
+    ft=asc  ln=12411  o=753092  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42059E+02
+    awr=2.39979E+02 end
+  z=1001.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=1  o=0  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=1.00782E+00  awr=9.99167E-01 end
+  z=1002.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=558  o=35269  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00  awr=1.99680E+00 end
+  z=1003.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=1131  o=71071  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=3.01605E+00  awr=2.99014E+00 end
+  z=3006.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=1689  o=106389  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=6.01512E+00  awr=5.96345E+00 end
+  z=3007.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=2324  o=144345  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00  awr=6.95573E+00 end
+  z=8016.990nm  d=5/1/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=2958  o=182240  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=1.59949E+01  awr=1.58575E+01 end
+  z=26000.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=3575  o=219469  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=5.58462E+01  awr=5.53665E+01 end
+  z=50998.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=4177  o=256258  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02  awr=2.28024E+02 end
+  z=50999.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=4734  o=291551  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02  awr=2.28024E+02 end
+  z=92233.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=5307  o=327377  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.33040E+02  awr=2.31038E+02 end
+  z=92235.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=5985  o=366978  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02  awr=2.33025E+02 end
+  z=92238.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=6664  o=406604  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.38051E+02  awr=2.36006E+02 end
+  z=94238.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=7343  o=446230  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02  awr=2.36005E+02 end
+  z=94239.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=8021  o=485831  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.39052E+02  awr=2.36999E+02 end
+  z=94240.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=8699  o=525432  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02  awr=2.37992E+02 end
+  z=94241.990nm  d=5/2/2003  l=rmoxsct
+    f=../../src/test/lib/rmoxsct_gen  ft=asc  ln=9378  o=565058  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.41057E+02  awr=2.38986E+02 end
+  z=1001.666ngk  d=5/1/2003  l=ngk6  f=../../src/test/lib/mendf6_ngk
+    ft=asc  ln=1  o=0  ng=33  t=2.530000000000e-08  s0=1.000000000000e+30
+    aw=1.007800000000e+00  awr=9.991420000000e-01 end
+  z=1002.666ngk  d=5/1/2003  l=ngk6  f=../../src/test/lib/mendf6_ngk
+    ft=asc  ln=1491  o=116910  ng=33  t=2.530000000000e-08  s0=1.000000000000e+30
+    aw=2.014100000000e+00  awr=1.996800000000e+00 end
+  z=92235.666ngk  d=5/1/2003  l=ngk6
+    f=../../src/test/lib/mendf6_ngk  ft=asc  ln=2991  o=234516  ng=33
+    t=2.530000000000e-08  s0=1.000000000000e+30  aw=2.350440000000e+02
+    awr=2.330250000000e+02 end
+  z=92238.666ngk  d=5/1/2003  l=ngk6
+    f=../../src/test/lib/mendf6_ngk  ft=asc  ln=4551  o=356301  ng=33
+    t=2.530000000000e-08  s0=1.000000000000e+30  aw=2.380510000000e+02
+    awr=2.360060000000e+02 end
+  z=94239.666ngk  d=5/1/2003  l=ngk6
+    f=../../src/test/lib/mendf6_ngk  ft=asc  ln=6111  o=478086  ng=33
+    t=2.530000000000e-08  s0=1.000000000000e+30  aw=2.390550000000e+02
+    awr=2.370020000000e+02 end
+  z=92236.601nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=3  o=98  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.602nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=50  o=2412  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.603nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=97  o=4806  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.604nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=144  o=7122  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.605nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=191  o=9534  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.606nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=238  o=11860  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.607nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=288  o=14281  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.608nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=335  o=16602  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.609nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=382  o=19003  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.610nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=429  o=21326  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.611nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=476  o=23745  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.612nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=523  o=26078  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.613nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=574  o=28506  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.614nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=621  o=30825  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.615nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=668  o=33224  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.616nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=715  o=35545  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.617nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=762  o=37962  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.618nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=809  o=40293  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.619nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=858  o=42720  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.620nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=915  o=45239  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.621nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=972  o=47839  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.622nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1029  o=50301  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.623nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1086  o=52852  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.624nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1143  o=55319  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.625nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1203  o=57882  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.626nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1260  o=60373  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.627nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1317  o=62945  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.628nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1374  o=65439  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.629nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1431  o=68029  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.630nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1488  o=70533  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.631nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1549  o=73133  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.632nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1606  o=75621  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.633nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1663  o=78188  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.634nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1720  o=80677  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.635nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1777  o=83262  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+  z=92236.636nm  d=4/30/2003  l=chi_test
+    f=../../src/test/lib/chi_test_lib  ft=asc  ln=1834  o=85761  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
+end
+
+neutron_depletion
+  z=test2  d=4/30/2003  l=testlib_depl
+    f=../../src/test/lib/testlib_depl2  ft=asc  ln=1  o=0 end
+end
+
+dosimetry_neutron
+  z=39086.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=26  o=1260  ng=21  t=2.53e-8  s0=1e+10  aw=85.9151  awr=85.1770 end
+  z=1039087.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0
+    ft=asc  ln=106  o=4157  ng=21  t=2.53e-8  s0=1e+10  aw=86.9106  awr=86.1640 end
+  z=39087.713ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=207  o=8452  ng=21  t=2.53e-8  s0=1e+10  aw=86.9106  awr=86.1640 end
+  z=2039088.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0
+    ft=asc  ln=308  o=12748  ng=21  t=2.53e-8  s0=1e+10  aw=87.9092  awr=87.1540 end
+  z=1039088.713ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0
+    ft=asc  ln=416  o=17514  ng=21  t=2.53e-8  s0=1e+10  aw=87.9092  awr=87.1540 end
+  z=39088.723ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=524  o=22280  ng=21  t=2.53e-8  s0=1e+10  aw=87.9092  awr=87.1540 end
+  z=1039089.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0
+    ft=asc  ln=632  o=27041  ng=21  t=2.53e-8  s0=1e+10  aw=88.9057  awr=88.1420 end
+  z=39089.713ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=733  o=31341  ng=21  t=2.53e-8  s0=1e+10  aw=88.9057  awr=88.1420 end
+  z=39090.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=834  o=35637  ng=21  t=2.53e-8  s0=1e+10  aw=89.9073  awr=89.1350 end
+  z=39091.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=928  o=39468  ng=21  t=2.53e-8  s0=1e+10  aw=90.9069  awr=90.1260 end
+  z=39092.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1022  o=43299  ng=21  t=2.53e-8  s0=1e+10  aw=91.9095  awr=91.1200 end
+  z=69166.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1102  o=46200  ng=21  t=2.53e-8  s0=1e+10  aw=165.9355  awr=164.5100 end
+  z=69167.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1168  o=48173  ng=21  t=2.53e-8  s0=1e+10  aw=166.9340  awr=165.5000 end
+  z=69168.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1241  o=50610  ng=21  t=2.53e-8  s0=1e+10  aw=167.9326  awr=166.4900 end
+  z=69169.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1314  o=53047  ng=21  t=2.53e-8  s0=1e+10  aw=168.9312  awr=167.4800 end
+  z=69170.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1387  o=55486  ng=21  t=2.53e-8  s0=1e+10  aw=169.9399  awr=168.4800 end
+  z=69171.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1460  o=57926  ng=21  t=2.53e-8  s0=1e+10  aw=170.9384  awr=169.4700 end
+  z=69172.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1533  o=60366  ng=21  t=2.53e-8  s0=1e+10  aw=171.9370  awr=170.4600 end
+  z=69173.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1606  o=62806  ng=21  t=2.53e-8  s0=1e+10  aw=172.9356  awr=171.4500 end
+  z=77188.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1679  o=65246  ng=21  t=2.53e-8  s0=1e+10  aw=187.9546  awr=186.3400 end
+  z=77189.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1745  o=67219  ng=21  t=2.53e-8  s0=1e+10  aw=188.9532  awr=187.3300 end
+  z=77190.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1818  o=69656  ng=21  t=2.53e-8  s0=1e+10  aw=189.9619  awr=188.3300 end
+  z=77191.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1891  o=72093  ng=21  t=2.53e-8  s0=1e+10  aw=190.9605  awr=189.3201 end
+  z=77192.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=1964  o=74532  ng=21  t=2.53e-8  s0=1e+10  aw=192.9677  awr=191.3100 end
+  z=1077193.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0
+    ft=asc  ln=2044  o=77437  ng=21  t=2.53e-8  s0=1e+10  aw=192.9677  awr=191.3100 end
+  z=77193.713ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=2117  o=79881  ng=21  t=2.53e-8  s0=1e+10  aw=193.0080  awr=191.3500 end
+  z=77194.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=2211  o=83716  ng=21  t=2.53e-8  s0=1e+10  aw=193.9663  awr=192.3000 end
+  z=77195.703ny  d=4/30/2003  l=dostest f=../../src/test/lib/y21grp_v1.0  ft=asc
+    ln=2284  o=86156  ng=21  t=2.53e-8  s0=1e+10  aw=194.9648  awr=193.2900 end
+  z=39086.000xxx  d=4/30/2003  l=abuntest f=../../src/test/lib/abundance_lib
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=8.89058E+01
+    awr=8.81420E+01 end
+
+radchem_chain
+  z=y.001zrc  d=4/30/2003  f=../../src/test/lib/radlib_v1.0  ft=asc
+    ln=52  o=2730 end
+  z=tm.001zrc  d=4/30/2003  f=../../src/test/lib/radlib_v1.0  ft=asc
+    ln=374  o=6338 end
+  z=ir.001zrc  d=4/30/2003  f=../../src/test/lib/radlib_v1.0  ft=asc
+    ln=549  o=8347 end
+  z=lu.001zrc  d=4/30/2003  f=../../ndi/src/test/lib/radlib_v1.0  ft=asc
+    ln=753  o=10664 end
+
+tndata
+  z=d+t->n+a.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=10  o=217 end
+  z=d+he3->p+a.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=88  o=3516 end
+  z=d+d->n+he3.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=198  o=8892 end
+  z=d+d->p+t.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=276  o=12184 end
+  z=t+li6->n+2a.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=386  o=17545 end
+  z=he3+li6->p+2a.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=453  o=20778 end
+  z=d+li7->n+2a.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=520  o=24018 end
+  z=p+t->n+he3.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=587  o=27251 end
+  z=p+li7->n+be7.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=706  o=33142 end
+  z=t+li6->d+li7.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=783  o=36970 end
+  z=he3+li6->d+be7.980ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=850  o=40204 end
+  z=t+t->2n+a.860ztn  d=5/1/2003  l=testlib_tn f=../../src/test/lib/testlib_tn
+    ft=asc  ln=917  o=43442 end
+  z=d+t->n+a.xxxztn  d=5/1/2003  f=../../src/test/lib/tn_interp_lib
+    l=hale98 ft=asc  ln=5  o=78 end
+end
+
+tn_reactions
+  z=h_list.001ztr  d=5/1/2003  f=../../src/test/lib/tnreac_test
+    l=testlib_tn_list ft=asc  ln=8  o=201 end
+  z=li_list.001ztr  d=5/1/2003  f=../../src/test/lib/tnreac_test
+    l=testlib_tn_list ft=asc  ln=51  o=669 end
+  z=testlib_tn_list.001ztr  d=5/1/2003
+    l=testlib_tn_list f=../../src/test/lib/tnreac_test  ft=asc  ln=88  o=1110 end
+end
+

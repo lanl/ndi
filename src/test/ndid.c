@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int test_ndid(void);
 static void print_list( char *list, int list_num );
 static void print_f64list( float64 *list, int list_num );
 
@@ -55,21 +56,21 @@ int test_ndid(void)
   print_list( str_arr, arr_num );
   print_f64list( awr, arr_num );
 
-  if ( str_arr ) { ndi_free( (void**)&str_arr);}
-  if ( awr ) { ndi_free( (void**)&awr);}
+  if ( str_arr ) {free(str_arr);}
+  if ( awr ) { free(awr);}
 
   ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
    if (ierr)
      printf("  **Error %d in setting lib type.\n\n", ierr );
-   ierr = ndi_set_isotope("94239.02");
+   ierr = ndi_set_isotope("94239.99");
    if (ierr)
-     printf("  **Error %d in setting 94239.02.\n\n", ierr );
+     printf("  **Error %d in setting 94239.50.\n\n", ierr );
    else
      printf("  **Isotope set successfully.\n" );
  
-   ierr = ndi_set_isotope("92235.07");
+   ierr = ndi_set_isotope("92235.60");
    if (ierr)
-     printf("  **Error %d in setting 92235.07.\n\n", ierr );
+     printf("  **Error %d in setting 92235.60.\n\n", ierr );
    else
      printf("  **Isotope set successfully.\n");
  

@@ -383,3 +383,61 @@ int ndi_empty_string( char *in_str )
 }
 
 /**********************************************************************/
+void check_fissionable_err ( int *curr_err, int fission_flag ) {
+
+    /* Purpose: This subroutine should be used when returning fission
+       data.  If fission data has been requested for a non-fissioning
+       isotope, then the user should not be returned an error indicating
+       that no fission data was available.
+
+       If fission_flag == 0, then the isotope is considered to be
+       a non-fissionable isotope.  If the current error indicates that
+       the data was not found on the library (9 or -9), then the error
+       will be changed to 0.
+    */
+
+    if ( fission_flag == 0 ) {
+	if ( ( *curr_err == 9 ) || ( *curr_err == -9 ) ) {
+	    *curr_err = 0;
+	}
+    }
+
+    return;
+}
+/**********************************************************************/
+int ndi_get_nth_inc_part_type( int vec_num, char *ret_str, const int str_size )
+{
+
+    int ierr = 0;
+    char tmp_str[MAX_IN_STR_LEN];
+
+    if ( str_size <= 0 ) {
+	return(7);
+    }
+
+    if ( ! chain_stat.set_flag ) {
+	ierr = ndi_set_default_depl();
+    }
+
+    if ( chain_stat.num_inc_parts <= 0 ) {
+        strcpy(tmp_str, "1");  /* Default is neutron */
+	ierr = 9;
+    } else {
+	if ( chain_stat.num_inc_parts > vec_num ) {
+	    sprintf( tmp_str, "%d", chain_stat.inc_part_types[vec_num] );
+	} else {
+	    ierr = ndi_check_array_err(chain_stat.num_inc_parts);
+	} 
+    }
+     
+    if ( ( strlen(tmp_str) + 1 ) <= str_size ) {
+	strcpy( ret_str, tmp_str );
+    } else {
+	strncpy( ret_str, tmp_str, str_size * sizeof(char) );
+	ret_str[str_size - 1] = '\0';
+	if ( ierr == 0 ) {
+	    ierr = 7;
+	}
+    }
+    return (ierr );
+}

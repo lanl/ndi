@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int tn_chain(void);
 
 #ifdef __STANDALONE
 int main ()
@@ -49,7 +50,7 @@ int tn_chain(void)
    /* Set NDI for "big5" TN reaction set */
    ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
    if ( ierr != 0 ) printf("    Error setting lib_type is %d.\n", ierr );
-   ierr = ndi_set_isotope( "big5" );
+   ierr = ndi_set_isotope( "testlib_tn_list.001ztr" );
    if ( ierr != 0 ) printf("    Error setting zaid is %d.\n", ierr );
 
    /* Getting the zaid would only by of much interest if the ZAID were
@@ -122,7 +123,7 @@ int tn_chain(void)
      library you will get the up-to-date data when it's available, and get not-as-good data
      when that's all there is.  New libraries are supposed to be released very soon.
      ************************/
-   ierr = ndi_set_option( NDI_LIBRARY, "testtn" );
+   ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */

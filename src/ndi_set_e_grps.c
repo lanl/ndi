@@ -201,6 +201,10 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       4.54e-4 };
 
+   ndi_float64 _12_group2[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
+			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
+			       1.67e-4 };
+
    ndi_float64 _10_group[] = { 17.0, 13.5, 10.0, 7.79, 3.68, 2.232, 0.5, 
 			       0.184, 2.48e-2, 3.35e-3, 1.67e-4 };
 
@@ -301,6 +305,11 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
    } else if( ( strncmp( grp_struc, "12_group", sizeof(char) * 9 ) == 0 ) ||
 	      ( strncmp( grp_struc, "12_lanl", sizeof(char) * 8 ) == 0 ) ) {
      new_grp_ptr = _12_group;
+     *new_grp = 12;
+      
+   } else if( ( strncmp( grp_struc, "12_group2", sizeof(char) * 10 ) == 0 ) ||
+	      ( strncmp( grp_struc, "12_lanl2", sizeof(char) * 9 ) == 0 ) ) {
+     new_grp_ptr = _12_group2;
      *new_grp = 12;
      
    } else if( ( strncmp( grp_struc, "10_group", sizeof(char) * 9 ) == 0) ||

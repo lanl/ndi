@@ -50,26 +50,32 @@ int ndi_c_get_size_n(int in_key, int vec_num, int *ierr)
       *ierr = -2;
       return(size); }
    
-   if ( ( library_type == 'm' ) ||
-	( library_type == 'd' )) {
-      size = get_mg_size_n( in_key, vec_num, ierr );
-   } else if (library_type == 's' ) {
-      size = get_tn_size( in_key, vec_num, ierr );
-   } else if (library_type == 'r' ) {
-      size = get_tnreac_size( in_key, vec_num, ierr );
-   } else if ( library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     library_type = 'm';
-     if ( particle_type == ' ' ) {
-       particle_type = 'n';
-     }
-     size = get_mg_size_n( in_key, vec_num, ierr );
-     if ( *ierr >= 0 ) {
-       *ierr = 8;
-     }
+   if ( in_key == NDI_ZAID ) {
+       char tmp_str[MAX_IN_STR_LEN];
+       *ierr = ndi_translate_sza_to_symbol( vec_num, tmp_str, MAX_IN_STR_LEN );
+       size = (int) strlen(tmp_str) + 1;
    } else {
-      *ierr = -16;
-      size = 0;
+       if ( ( library_type == 'm' ) ||
+	    ( library_type == 'd' )) {
+	   size = get_mg_size_n( in_key, vec_num, ierr );
+       } else if (library_type == 's' ) {
+	   size = get_tn_size( in_key, vec_num, ierr );
+       } else if (library_type == 'r' ) {
+	   size = get_tnreac_size( in_key, vec_num, ierr );
+       } else if ( library_type == ' ' ) {
+	   /* Library type was not set--defaulting to multigroup n */
+	   library_type = 'm';
+	   if ( particle_type == ' ' ) {
+	       particle_type = 'n';
+	   }
+	   size = get_mg_size_n( in_key, vec_num, ierr );
+	   if ( *ierr >= 0 ) {
+	       *ierr = 8;
+	   }
+       } else {
+	   *ierr = -16;
+	   size = 0;
+       }
    }
    
    if ( size < 0 ) {
@@ -88,6 +94,7 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
 
    int return_value = 0;              /* Default return value is '0' */
    int rprod_index;
+   char tmp_str[MAX_IN_STR_LEN];
 
    *ierr = 0;                          /* Default error value */
 
@@ -112,6 +119,8 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
    case NDI_RPROD_FEW:             /* sigma edit reaction products -- few */
    case NDI_REAC_MT:               /* Reaction mt for reaction indexed by vec_num */ 
    case NDI_REAC_Q:                /* Reaction Q value for reaction indexed by vec_num */ 
+   case NDI_ABUNDANCE:             /* Abundance of input sza */
+   case NDI_TOT_PROD_Q:            /* Total production Q for input product */
      return_value = 1;
      break;
 
@@ -190,6 +199,10 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
      } 
      break;
 
+   case NDI_INC_PART_TYPES:        /* nth incident particle type */
+       *ierr = ndi_get_nth_inc_part_type( vec_num, tmp_str, MAX_IN_STR_LEN );
+       return_value = (int) strlen(tmp_str) + 1;
+       break;
 
      /**** Simple array values ****/
 
@@ -306,6 +319,8 @@ static int get_tn_size( int in_key, int vec_num, int *ierr ) {
 
 
    int return_value = 0;              /* Default return value is '0' */
+   char tmp_str[MAX_IN_STR_LEN];
+
    *ierr = 0;                         /* Default error value */
 
    /* Check that isotope is set */
@@ -317,14 +332,20 @@ static int get_tn_size( int in_key, int vec_num, int *ierr ) {
    switch (in_key) {
 
      /****  Single-valued data -- return "1" ****/
-   case NDI_RPRODS_ID:  
    case NDI_RPRODS_MLT:  
-   case NDI_REACTANTS_ID:  
    case NDI_REACTANTS_MLT:  
      return_value = 1;
      break;
 
      /**** String values ****/
+   case NDI_RPRODS_ID: 
+       *ierr = ndi_c_get_string_val_n( NDI_RPRODS_ID, vec_num, tmp_str, MAX_IN_STR_LEN );
+       return_value = (int) strlen(tmp_str) + 1;
+       break;
+   case NDI_REACTANTS_ID:  
+       *ierr = ndi_c_get_string_val_n( NDI_REACTANTS_ID, vec_num, tmp_str, MAX_IN_STR_LEN );
+       return_value = (int) strlen(tmp_str) + 1;
+       break;
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
      /* This gives the size of the string returned if the nth part type is asked for */
        if ( ( tn_stat.num_sec_parts > vec_num ) && 

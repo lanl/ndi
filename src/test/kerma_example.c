@@ -7,6 +7,7 @@
 typedef float float32;
 typedef double float64;
 
+int kerma_example(void);
 static void print_float64_vec( float64 *flt64_ptr, int num_elements );
 
 #ifdef __STANDALONE

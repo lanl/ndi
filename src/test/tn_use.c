@@ -6,6 +6,9 @@
 typedef float float32;
 typedef double float64;
 
+int update_inventory( int part_type, int num_parts, char *proddep_flag );
+int particle_is_transportable ( int part_type );
+int construct_source_for_transport( float64 *edist, float64 reac_rate, int mult, int num_grps );
 
 int main ()
 
@@ -33,6 +36,8 @@ int main ()
    }
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
+
+   ierr = ndi_set_option( NDI_LIBRARY, "hale98" );
 
    /* Set energy bins--for energy distribution--to 30 groups */
    ierr = ndi_set_option( NDI_COLLAPSE, "30_group" );
@@ -111,6 +116,7 @@ int main ()
  
    ierr = ndi_close();
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
+   return(ierr);
 }
 
 int update_inventory( int part_type, int num_parts, char *proddep_flag ) {

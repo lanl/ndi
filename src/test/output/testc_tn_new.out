@@ -1,0 +1,293 @@
+
+
+  NDI TEST SUITE -- testtn_new
+
+    Error = 0 getting zaid testlib_tn_list.001ztr.
+Num reac = 12; err = 0
+Reaction 0: d+t->n+a
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1002 multiplicity is 1.
+  Reactant 1003 multiplicity is 1.
+  Rprod 1 multiplicity is 1.
+  Rprod 2004 multiplicity is 1.
+Reaction 1: d+d->n+he3
+  Number of reactants = 1; number of rprods = 2
+  Reactant 1002 multiplicity is 2.
+  Rprod 1 multiplicity is 1.
+  Rprod 2003 multiplicity is 1.
+Reaction 2: d+d->p+t
+  Number of reactants = 1; number of rprods = 2
+  Reactant 1002 multiplicity is 2.
+  Rprod 1001 multiplicity is 1.
+  Rprod 1003 multiplicity is 1.
+Reaction 3: t+t->2n+a
+  Number of reactants = 1; number of rprods = 2
+  Reactant 1003 multiplicity is 2.
+  Rprod 1 multiplicity is 2.
+  Rprod 2004 multiplicity is 1.
+Reaction 4: d+he3->p+a
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1002 multiplicity is 1.
+  Reactant 2003 multiplicity is 1.
+  Rprod 1001 multiplicity is 1.
+  Rprod 2004 multiplicity is 1.
+Reaction 5: t+li6->n+2a
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1003 multiplicity is 1.
+  Reactant 3006 multiplicity is 1.
+  Rprod 1 multiplicity is 1.
+  Rprod 2004 multiplicity is 2.
+Reaction 6: he3+li6->p+2a
+  Number of reactants = 2; number of rprods = 2
+  Reactant 2003 multiplicity is 1.
+  Reactant 3006 multiplicity is 1.
+  Rprod 1001 multiplicity is 1.
+  Rprod 2004 multiplicity is 2.
+Reaction 7: t+li6->d+li7
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1003 multiplicity is 1.
+  Reactant 3006 multiplicity is 1.
+  Rprod 1002 multiplicity is 1.
+  Rprod 3007 multiplicity is 1.
+Reaction 8: he3+li6->d+be7
+  Number of reactants = 2; number of rprods = 2
+  Reactant 2003 multiplicity is 1.
+  Reactant 3006 multiplicity is 1.
+  Rprod 1002 multiplicity is 1.
+  Rprod 4007 multiplicity is 1.
+Reaction 9: d+li7->n+2a
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1002 multiplicity is 1.
+  Reactant 3007 multiplicity is 1.
+  Rprod 1 multiplicity is 1.
+  Rprod 2004 multiplicity is 2.
+Reaction 10: p+t->n+he3
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1001 multiplicity is 1.
+  Reactant 1003 multiplicity is 1.
+  Rprod 1 multiplicity is 1.
+  Rprod 2003 multiplicity is 1.
+Reaction 11: p+li7->n+be7
+  Number of reactants = 2; number of rprods = 2
+  Reactant 1001 multiplicity is 1.
+  Reactant 3007 multiplicity is 1.
+  Rprod 1 multiplicity is 1.
+  Rprod 4007 multiplicity is 1.
+zaid 0:  d+t->n+a
+zaid 1:  d+d->n+he3
+zaid 2:  d+d->p+t
+zaid 3:  t+t->2n+a
+zaid 4:  d+he3->p+a
+zaid 5:  t+li6->n+2a
+zaid 6:  he3+li6->p+2a
+zaid 7:  t+li6->d+li7
+zaid 8:  he3+li6->d+be7
+zaid 9:  d+li7->n+2a
+zaid 10:  p+t->n+he3
+zaid 11:  p+li7->n+be7
+
+*******************************
+     TN DATA
+*******************************
+
+Zaid d+t->n+a.980ztn (error = 0).
+  Q-value=17.589420; err=0
+  Num reactants=2; err=0
+  Number of particle 1002 is 1.
+  Number of particle 1003 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+   edist err = 0.
+   0.000000      1.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid d+d->n+he3.980ztn (error = 0).
+  Q-value=3.268940; err=0
+  Num reactants=1; err=0
+  Number of particle 1002 is 2.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+   edist err = 0.
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      1.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid d+d->p+t.980ztn (error = 0).
+  Q-value=4.032710; err=0
+  Num reactants=1; err=0
+  Number of particle 1002 is 2.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+   edist err = 0.
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      1.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid t+t->2n+a.860ztn (error = 0).
+  Q-value=11.332120; err=0
+  Num reactants=1; err=0
+  Number of particle 1003 is 2.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+   edist err = 0.
+   0.000000      0.000000      0.000000      0.000000      0.116767      0.203026   
+   0.319307      0.104619      0.075773      0.054322      0.038416      0.045652   
+   0.022243      0.010713      0.005076      0.003458      0.000543      0.000073   
+   0.000010      0.000001      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid d+he3->p+a.980ztn (error = 0).
+  Q-value=18.353190; err=0
+  Num reactants=2; err=0
+  Number of particle 1002 is 1.
+  Number of particle 2003 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+   edist err = 0.
+   0.000000      1.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid t+li6->n+2a.980ztn (error = 0).
+  Q-value=16.115090; err=0
+  Num reactants=2; err=0
+  Number of particle 1003 is 1.
+  Number of particle 3006 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+
+Zaid he3+li6->p+2a.980ztn (error = 0).
+  Q-value=16.878860; err=0
+  Num reactants=2; err=0
+  Number of particle 2003 is 1.
+  Number of particle 3006 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+
+Zaid t+li6->d+li7.980ztn (error = 0).
+  Q-value=0.992720; err=0
+  Num reactants=2; err=0
+  Number of particle 1003 is 1.
+  Number of particle 3006 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+
+Zaid he3+li6->d+be7.980ztn (error = 0).
+  Q-value=0.112310; err=0
+  Num reactants=2; err=0
+  Number of particle 2003 is 1.
+  Number of particle 3006 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+
+Zaid d+li7->n+2a.980ztn (error = 0).
+  Q-value=15.122370; err=0
+  Num reactants=2; err=0
+  Number of particle 1002 is 1.
+  Number of particle 3007 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+
+Zaid p+t->n+he3.980ztn (error = 0).
+  Q-value=0.000000; err=-9
+  Num reactants=2; err=0
+  Number of particle 1001 is 1.
+  Number of particle 1003 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+   edist err = 0.
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      1.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   
+
+*****************************
+
+
+Zaid p+li7->n+be7.980ztn (error = 0).
+  Q-value=0.000000; err=-9
+  Num reactants=2; err=0
+  Number of particle 1001 is 1.
+  Number of particle 3007 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 0; err = -9
+
+*****************************
+
+

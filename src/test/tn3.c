@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int testtn3(void);
 
 #ifdef __STANDALONE
 int main (void)
@@ -44,10 +45,10 @@ int testtn3(void)
 
    /* TN REACTION DATA */
 
-   /* Set NDI for "big5" TN reaction set */
+   /* Set NDI TN reaction set */
    ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
    if ( ierr != 0 ) printf("    Error setting lib_type is %d.\n", ierr );
-   ierr = ndi_set_isotope( "big5" );
+   ierr = ndi_set_isotope( "h_list.001ztr" );
    if ( ierr != 0 ) printf("    Error setting zaid is %d.\n", ierr );
 
    /* Getting the zaid would only by of much interest if the ZAID were
@@ -78,17 +79,16 @@ int testtn3(void)
    /*  NEW TN DATA  */
    printf("\n*******************************\n     TN DATA\n*******************************\n\n");
 
-   /* Change now to Hale98 TN data */
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
-   ierr = ndi_set_option( NDI_LIBRARY, "testtn" );
+   ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */
    ierr = ndi_set_option( NDI_COLLAPSE, "30_group" );
 
 
-   /* For each reaction in the "big5" set that was collected above,
+   /* For each reaction in the reaction set that was collected above,
       get all available TN data */
    for ( i = 0; i < num_reac; i++ ) {
       ierr = ndi_set_isotope( zaidlist[i] );

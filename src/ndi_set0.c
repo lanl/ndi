@@ -98,6 +98,7 @@ static int set0_mg(void) {
    (void)strncpy(iso_stat.date_source, "", sizeof(iso_stat.date_source) );
    (void)strncpy(iso_stat.library_name, "", sizeof(iso_stat.library_name) );
    iso_stat.set_flag = 0;
+   iso_stat.fissionable = 0;
    iso_stat.num_grps = -1;
    iso_stat.temp = -1.0;
    iso_stat.sig_0 = -1.0;
@@ -225,6 +226,8 @@ static int set0_tn(void) {
    tn_stat.num_temps = -1;
    tn_stat.int_sigvbars.length = 0;
    tn_stat.int_sigvbars.file_ptr = 0;
+   tn_stat.int_einbars.length = 0;
+   tn_stat.int_einbars.file_ptr = 0;
    tn_stat.temps.length = 0;
    tn_stat.temps.file_ptr = 0;
    tn_stat.sigvbars.length = 0;

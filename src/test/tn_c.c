@@ -4,6 +4,7 @@
 #include "ndi.h"
 
 
+int test_tn_c(void);
 static int check_all_ndi_get_tn_functions(void);
 static int check_ndi_get_tn_functions_mt( int reac_id, char *reac_type );
 static int ndi_unknown_keyword_tn(void);
@@ -111,6 +112,7 @@ int test_tn_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -166,6 +168,7 @@ int test_tn_c(void)
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
 /*    ierr = ndi_set_option( NDI_LIBRARY, "testtn2" ); */
    ierr = ndi_set_option( NDI_LIBRARY, "testtn" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -192,6 +195,7 @@ int test_tn_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    printf(" ***********Diagonal transport correction***********\n\n"); 
    ierr = ndi_set_option( NDI_TRANS_CORR, "diag_n" );
@@ -246,6 +250,7 @@ int test_tn_c(void)
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    ierr = ndi_set_option( NDI_DEPLETION, "test_depl" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -276,7 +281,8 @@ int test_tn_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
-   ierr = ndi_set_option( NDI_CURR_PART, "n" );
+   ierr = ndi_set_option( NDI_CURR_PART, "1" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -305,6 +311,7 @@ int test_tn_c(void)
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    ierr = ndi_set_option( NDI_TEMP, "300" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -330,6 +337,7 @@ int test_tn_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
 
    
    printf(" ***********C values***********\n\n"); 
@@ -368,6 +376,7 @@ int test_tn_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
+   ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
    printf("***********************REACTION=%s***********************\n\n",
 	  zaid_list[0] );
    ierr = ndi_set_isotope(zaid_list[0]);
@@ -785,17 +794,15 @@ static int check_ndi_string_val_func_tn(void)
    int n = 0;
    int tmp_err = 0;
    char str_val[132 + 1];
-   int num_keys =3;
+   int num_keys =2;
    int inkey[] = {
      NDI_ZAID,
-     NDI_INFO,
-     NDI_VERSION
+     NDI_INFO
    };
 
    char *str_str[] = {
      "ZAID",
-     "Info",
-     "NDI Version"
+     "Info"
    };
 
    printf("STRING VALUES:\n");
@@ -965,24 +972,24 @@ static int check_ndi_int_val_n_func_tn(void)
 
    /* First retrieve number of reaction products */
    for (n = 0; n < num_keys; n++) {
-      /* All should contain MT=2 */
-      printf( "%s (MT=2):  ", int_val_n_str[n]);
+      /* All should contain MT=0 */
+      printf( "%s (i=0):  ", int_val_n_str[n]);
+      tmp_err = ndi_get_int_val_n( inkey[n], 0, &ret_int );
+      if (tmp_err)
+	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
+		int_val_n_str[n], ret_int );
+      else
+	 printf("%d\n", ret_int);
+      /* MT = 2 */
+      printf( "%s (i=2):  ", int_val_n_str[n]);
       tmp_err = ndi_get_int_val_n( inkey[n], 2, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
       else
 	 printf("%d\n", ret_int);
-      /* MT = 16 */
-      printf( "%s (MT=16):  ", int_val_n_str[n]);
-      tmp_err = ndi_get_int_val_n( inkey[n], 16, &ret_int );
-      if (tmp_err)
-	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
-		int_val_n_str[n], ret_int );
-      else
-	 printf("%d\n", ret_int);
       /* MT = 9999 */
-      printf( "%s (MT=9999):  ", int_val_n_str[n]);
+      printf( "%s (i=9999):  ", int_val_n_str[n]);
       tmp_err = ndi_get_int_val_n( inkey[n], 9999, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
@@ -1160,9 +1167,9 @@ static int check_ndi_float_vec_func_tn(void)
 
    printf("\nFLOAT64 VECTORS:\n");
 
-   tmp_err = ndi_set_option( NDI_CURR_PART, "neutron" );
+   tmp_err = ndi_set_option( NDI_CURR_PART, "1" );
    if (tmp_err) {
-     printf("  **Error %d setting current particle neutron.\n", tmp_err);
+     printf("  **Error %d setting current particle 1 (neutron).\n", tmp_err);
    }
    for ( n = 0; n < num_keys; n++ ) {
       printf( "%s: \n", flt_vec_str[n] );

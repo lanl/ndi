@@ -7,6 +7,7 @@ typedef float float32;
 typedef double float64;
 
 
+int test_radchem_chain(void);
 static void print_float64_array( float64 *array, int num );
 
 
@@ -78,7 +79,7 @@ int test_radchem_chain(void)
    ierr = ndi_set_option( NDI_LIBRARY, "mendf5" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
    */
-   ierr = ndi_set_option( NDI_CHAIN, "ir.700zrc" );
+   ierr = ndi_set_option( NDI_CHAIN, "ir.001zrc" );
    if ( ierr != 0 ) printf("    Error setting radchem is %d.\n", ierr );
    ierr = ndi_set_option( NDI_COLLAPSE, "16_group" );
    if ( ierr != 0 ) printf("    Error setting collapse groups is %d.\n", ierr );

@@ -19,7 +19,7 @@
 /* Defines
  */
 
-#define NDI_VERSION_DATA        "beta1.2.7"
+#define NDI_VERSION_DATA        "beta1.2.8"
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
@@ -30,10 +30,15 @@
 
 #define READ_MT                -1
 #define NO_MT                   0
+#define ID_PARAM                0
+#define MULT_PARAM              1
+#define BOUNDARY_PARAM          0
+#define TYPE_PARAM              1
 
 #define MAX_IN_STR_LEN        133
 #define MAX_LIB_VERS_LEN       26
 #define MAX_NGROUP_STR_LEN     20
+#define MAX_Z                 103
 
 /**********************************************************************/
 
@@ -147,6 +152,7 @@ typedef struct _multigroup_status {
   char date_processed[MAX_IN_STR_LEN];
   char date_source[MAX_IN_STR_LEN];
   char library_name[MAX_IN_STR_LEN];
+  int fissionable;
   int num_grps;
   int up_grps;
   int down_grps;
@@ -204,6 +210,7 @@ typedef struct _tn_status {
   double q_value;
   double *e_bounds;
   stat_flag int_sigvbars;
+  stat_flag int_einbars;
   stat_flag temps;
   stat_flag sigvbars;
   stat_flag einbars;
@@ -266,7 +273,7 @@ extern "C" {
    int ndi_open_gendir(FILE **ndi_dir);
    int  ndi_init_iso_state(FILE *stream,  char lib_type,  long int iso_start, 
 			   const char *zaid );
-   int ndi_std_zaid(char *in_zaid);
+   int ndi_std_zaid(char *in_zaid, int zaid_size);
    int ndi_fill_elements ( void );
    int element_index( const char *el_symbol );
    int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
@@ -297,7 +304,7 @@ extern "C" {
 			      ndi_float64 *return_vec, const int return_size );
    int ndi_skip_rx_prod( FILE *stream, stat_flag *rx_prod,  short mt_flag );
    int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
-			const char *data_type, int *num_prod,  short mt_flag);
+			const int data_type, int *num_prod,  short mt_flag);
    int ndi_read_string_block(FILE *stream, const int num_strings, char **p  );
    int read_dir_block( char *in_line, FILE *dir_stream, dir_entry *dir_rec );
    int  ndi_read_int_block(FILE *stream, const int num_ints,
@@ -333,6 +340,8 @@ extern "C" {
   int ndi_parse_mg_zaid ( char *zaid, int *z, int *a );
   int double_compare( const double a, const double b );
   int ndi_empty_string( char *in_str );
+    void check_fissionable_err ( int *curr_err, int fission_flag );
+    int ndi_get_nth_inc_part_type( int vec_num, char *in_str, const int str_size );
 
   /***  Subroutines in file ndi_misc_depl.c ***/
    int ndi_depletion( const char *in_zaid );
@@ -400,6 +409,12 @@ extern "C" {
   int ndi_nu_avail( char nu_type );
   int ndi_sigf_avail( void );
   
+    /*** Subroutines in file ndi_parse_zaid.c ***/
+    int ndi_parse_str_zaid( char *zaid_str, int *Z, int *A, int *S );
+    int ndi_parse_int_zaid( int izaid, int *Z, int *A, int *S );
+
+    /*** Subroutines in file ndi_sza_symbol_translations.c ***/
+    int ndi_translate_sza_to_symbol( int sza, char *sym_str, int str_size);
 
    /*** Subroutines in file ndi_interp_integ.c ***/
   int ndi_integrate_bins( double *distr_x, double *distr_y, interp_params *interp,

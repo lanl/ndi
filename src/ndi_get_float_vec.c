@@ -207,49 +207,58 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
    case NDI_NU_TOT:                  /* nubar total */
      num_elements = return_size;
      ierr = NDI_GET_NU( &iso_stat, 't', return_vec, &num_elements );
+     (void) check_fissionable_err( &ierr, iso_stat.fissionable );
      break;
 
    case NDI_NU_PR:                   /* nubar prompt */
      num_elements = return_size;
      ierr = NDI_GET_NU( &iso_stat, 'p', return_vec, &num_elements );
+     (void) check_fissionable_err( &ierr, iso_stat.fissionable );
      break;
 
    case NDI_NU_DEL:                  /* nubar delayed */
      num_elements = return_size;
      ierr = NDI_GET_NU( &iso_stat, 'd', return_vec, &num_elements );
-     break;
+     (void) check_fissionable_err( &ierr, iso_stat.fissionable );
+    break;
 
    case NDI_NU_SIG_F_TOT:             /* nubar total sigma fission */
       num_elements = return_size;
       ierr = NDI_GET_NUSIGF( 't', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_NU_SIG_F_PR:             /* nubar prompt sigma fission */
       num_elements = return_size;
       ierr = NDI_GET_NUSIGF( 'p', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_NU_SIG_F_DEL:             /* nubar delayed sigma fission */
       num_elements = return_size;
       ierr = NDI_GET_NUSIGF( 'd', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_CHI_VEC_TOT:                       /* chi total vector */
       num_elements = return_size;
       /*  Check bounds */
       ierr = NDI_GET_CHI_VEC( &iso_stat, 't', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
  
    case NDI_CHI_VEC_PR:                      /* chi prompt vector */
       num_elements = return_size;
       /*  Check bounds */
       ierr = NDI_GET_CHI_VEC( &iso_stat, 'p', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_CHI_VEC_DEL:                     /* chi delayed vector */
       num_elements = return_size;
       /*  Check bounds */
       ierr = NDI_GET_CHI_VEC( &iso_stat, 'd', return_vec, &num_elements );
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
  
    case NDI_CHI_MAT_TOT:                        /* chi total matrix */
@@ -262,6 +271,7 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
 	 (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
 	 ierr = 9;
       }
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_CHI_MAT_PR:                      /* chi prompt matrix */
@@ -274,6 +284,7 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
 	 (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
 	 ierr = 9;
       }
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_CHI_MAT_DEL:                     /* chi delayed matrix */
@@ -286,6 +297,7 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
 	 (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
 	 ierr = 9;
       }
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_NORM:                        /* Normalization factors */
@@ -317,6 +329,7 @@ static int GET_FLOAT_VEC_MG( int in_key, FLOAT_TYPE *return_vec,
 	 /* Error: data not available */
 	 ierr = -9;
       }
+      (void) check_fissionable_err( &ierr, iso_stat.fissionable );
       break;
 
    case NDI_REAC_Q:                             /* edit reaction q */

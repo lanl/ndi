@@ -63,13 +63,6 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
 #endif
 
 
-   /* Currently, there is no instance where a negative vec_num can be
-      valid.  Check here for that, and return if found. */
-   if ( vec_num < 0 ) {
-     ierr = -6;
-     return (ierr);
-   }
-
    if ( library_type == ' ' ) {
      /* Library type was not set--defaulting to multigroup n */
      library_type = 'm';

@@ -207,7 +207,7 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
    /* Change input rprod to integer */
    strcpy( tmp_zaid, rprod );
    if ( strcmp( tmp_zaid, "-999") != 0 ) {
-     ierr = ndi_std_zaid( tmp_zaid );
+     ierr = ndi_std_zaid( tmp_zaid, sizeof(tmp_zaid) );
    }  
    token = strtok( tmp_zaid, "." );
    if ( token != NULL ) {

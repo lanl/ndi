@@ -170,12 +170,6 @@ static int get_mg_size( int in_key, int *ierr ) {
      } 
      break;
 
-/*  Note:  version request handled specially above  */
-/*   case NDI_VERSION:    */                        /* NDI VERSION */
-/*      return_value = 30; */
-/*       return_value = strlen(NDI_VERSION_DATA) + 1; */
-/*      break;   */
-
       /* Single values--return "1" */
    case NDI_NUM_GRPS:         /* Number of groups */
    case NDI_TEMP:             /* Temperature */
@@ -191,6 +185,10 @@ static int get_mg_size( int in_key, int *ierr ) {
    case NDI_NUM_GRPS_CURR_PART:       /* number of groups -- current particle */
    case NDI_PN_ORDER_CURR_PART:       /* number of production matrices--current particle */
    case NDI_NUM_TARGET:       /* number of chain targets */
+   case NDI_LAST_GRP:         /* Kludged ngk last neutron group */
+   case NDI_FISSIONABLE:      /* Boolean value -- does this isotope have fission info */
+   case NDI_ATOMIC_NUM:       /* Z of the current zaid */
+   case NDI_MASS_NUM:         /* A of the current zaid */
       return_value = 1;
       break;
 
@@ -354,19 +352,27 @@ static int get_tn_size( int in_key, int *ierr ) {
    case NDI_INFO:                               /* Information */
       return_value = (int) strlen(tn_stat.info) + 1;
       break;
-   case NDI_VERSION:                            /* NDI VERSION */
-      return_value = (int) strlen(NDI_VERSION_DATA) + 1;
+   case NDI_DATE_PROCESSED:                     /* Date library was processed */
+      return_value = (int) strlen(tn_stat.date_processed) + 1;
+      break;
+   case NDI_DATE_SOURCE:                     /* Date of library source info */
+      return_value = (int) strlen(tn_stat.date_source) + 1;
+      break;
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+      return_value = (int) strlen(tn_stat.library_name) + 1;
       break;
       
       /* Single values--return "1" */
    case NDI_NUM_TEMPS:          /* Number of sigma tempuratures */
-   case NDI_NUM_INTERP:         /* Number of interpolation regions */ 
+   case NDI_NUM_SIGVBAR_INTERP: /* Number of sigvbar interpolation regions */ 
+   case NDI_NUM_EINBAR_INTERP:  /* Number of einbar interpolation regions */ 
    case NDI_NUM_SEC_PARTS:      /* Number of sec particles w/energy info  */
    case NDI_NUM_REAC:           /* Number of reactions  */
    case NDI_NUM_RPRODS:         /* Number of reaction products*/
    case NDI_NUM_REACTANTS:      /* Number of reactants*/
    case NDI_REAC_Q:             /* Q-value for current reaction */ 
    case NDI_NUM_GRPS:           /* Number of energy grps used in edist of sec. parts */
+   case NDI_EAVG_OUT:           /* Average energy of outgoing secondary particle */
    case NDI_EOUTBAR:            /* Average energy of outgoing secondary particle */
       return_value = 1;
       break;
@@ -410,6 +416,26 @@ static int get_tn_size( int in_key, int *ierr ) {
        return_value =  tn_stat.reactants.length;
      break;
 
+   case NDI_SIGVBAR_INTERP_REG:
+       if ( tn_stat.int_sigvbars.length )
+	   return_value = tn_stat.int_sigvbars.length;
+       break;
+
+   case NDI_SIGVBAR_INTERP_TYPE:
+       if ( tn_stat.int_sigvbars.length )
+	   return_value = tn_stat.int_sigvbars.length;
+       break;
+
+   case NDI_EINBAR_INTERP_REG:
+       if ( tn_stat.int_einbars.length )
+	   return_value = tn_stat.int_einbars.length;
+       break;
+
+   case NDI_EINBAR_INTERP_TYPE:
+       if ( tn_stat.int_einbars.length )
+	   return_value = tn_stat.int_einbars.length;
+       break;
+
    case NDI_SEC_PART_TYPES:  
       /* Vector of secondary particle types */
      if ( tn_stat.num_sec_parts >= 0 ) {
@@ -420,20 +446,6 @@ static int get_tn_size( int in_key, int *ierr ) {
       /* The number returned is the number of groups in the currently-set group stucture */
      return_value = tn_num_grps;
      break;
-
-   case NDI_INTERP_REG:                       
-      /* interpolation regions */
-      if(tn_stat.int_sigvbars.length) {
-	 return_value =  tn_stat.int_sigvbars.length;
-      }
-      break;
-
-   case NDI_INTERP_TYPE:        
-      /* interpolation types */
-      if (tn_stat.int_sigvbars.length) {
-	 return_value =  tn_stat.int_sigvbars.length;
-      }
-      break;
 
    case NDI_EINBAR:
       /* thermal-averaged total incoming energy for each temp. */
@@ -488,13 +500,16 @@ static int get_tnreac_size( int in_key, int *ierr ) {
    case NDI_INFO:                               /* Information */
       return_value = (int) strlen(tnreac_stat.info) + 1;
       break;
-
-      /*   case NDI_VERSION:           */                 /* NDI VERSION */
-      /* Special case -- handled above 
-     return_value = strlen(NDI_VERSION) + 1;
+   case NDI_DATE_PROCESSED:                     /* Date library was processed */
+      return_value = (int) strlen(tnreac_stat.date_processed) + 1;
       break;
-      */
-      
+   case NDI_DATE_SOURCE:                     /* Date of library source info */
+      return_value = (int) strlen(tnreac_stat.date_source) + 1;
+      break;
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+      return_value = (int) strlen(tnreac_stat.library_name) + 1;
+      break;
+
       /* Single values--return "1" */
    case NDI_NUM_REAC:       /* Number of reactions */
       return_value = 1;

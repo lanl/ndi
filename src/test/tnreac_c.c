@@ -4,6 +4,7 @@
 #include "ndi.h"
 
 
+int test_tnreac_c(void);
 static int check_all_ndi_get_tn_functions(void);
 static int check_ndi_get_tn_functions_mt( int reac_id, char *reac_type );
 static int ndi_unknown_keyword_tn(void);
@@ -39,8 +40,8 @@ int test_tnreac_c(void)
 
 
    char *zaid_list[] = { 
-     "big5",
-     "testjunk"
+     "testlib_tn_list",
+     "li_list"
    };
 
 
@@ -159,7 +160,7 @@ int test_tnreac_c(void)
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
 /*    ierr = ndi_set_option( NDI_LIBRARY, "testtn2" ); */
-   ierr = ndi_set_option( NDI_LIBRARY, "testtn" );
+   ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn_list" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -243,7 +244,7 @@ int test_tnreac_c(void)
 
    ierr = ndi_init();
    ierr = ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
-   ierr = ndi_set_option( NDI_DEPLETION, "test_depl" );
+   ierr = ndi_set_option( NDI_DEPLETION, "testlib_depl" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -787,17 +788,15 @@ static int check_ndi_string_val_func_tn(void)
    int n = 0;
    int tmp_err = 0;
    char str_val[132 + 1];
-   int num_keys =3;
+   int num_keys =2;
    int inkey[] = {
      NDI_ZAID,
-     NDI_INFO,
-     NDI_VERSION
+     NDI_INFO
    };
 
    char *str_str[] = {
      "ZAID",
-     "Info",
-     "NDI Version"
+     "Info"
    };
 
    printf("STRING VALUES:\n");
@@ -854,7 +853,7 @@ static int check_ndi_float_val_func_tn(void)
    int tmp_err = 0;
    ndi_float64 ret_flt64 = 0.0;
    ndi_float32 ret_flt32 = 0.0;
-   int num_keys = 1;
+   int num_keys = 0;
    int inkey[] = {
      0
    };
@@ -955,24 +954,24 @@ static int check_ndi_int_val_n_func_tn(void)
 
    /* First retrieve number of reaction products */
    for (n = 0; n < num_keys; n++) {
-      /* All should contain MT=2 */
-      printf( "%s (MT=2):  ", int_val_n_str[n]);
+      /* All should contain i=2 */
+      printf( "%s (i=2):  ", int_val_n_str[n]);
       tmp_err = ndi_get_int_val_n( inkey[n], 2, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
       else
 	 printf("%d\n", ret_int);
-      /* MT = 16 */
-      printf( "%s (MT=16):  ", int_val_n_str[n]);
+      /* i = 16 */
+      printf( "%s (i=16):  ", int_val_n_str[n]);
       tmp_err = ndi_get_int_val_n( inkey[n], 16, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
 		int_val_n_str[n], ret_int );
       else
 	 printf("%d\n", ret_int);
-      /* MT = 9999 */
-      printf( "%s (MT=9999):  ", int_val_n_str[n]);
+      /* i = 9999 */
+      printf( "%s (i=9999):  ", int_val_n_str[n]);
       tmp_err = ndi_get_int_val_n( inkey[n], 9999, &ret_int );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %d.\n", tmp_err, 
@@ -981,7 +980,7 @@ static int check_ndi_int_val_n_func_tn(void)
 	 printf("%d\n", ret_int);
    }
 
-   /* Get 1st reaction MT */
+   /* Get 1st reaction */
    printf( "%s (0):  ", int_val_n_str[num_keys-1]);
    tmp_err = ndi_get_int_val_n( inkey[num_keys-1], 0, &ret_int );
    if (tmp_err)
@@ -989,7 +988,7 @@ static int check_ndi_int_val_n_func_tn(void)
 	     int_val_n_str[num_keys-1], ret_int );
    else
       printf("%d\n", ret_int);
-   /* Get 999th reaction MT */
+   /* Get 999th reaction */
    printf( "%s (999):  ", int_val_n_str[num_keys-1]);
    tmp_err = ndi_get_int_val_n( inkey[num_keys-1], 999, &ret_int );
    if (tmp_err)
@@ -1025,16 +1024,16 @@ static int check_ndi_float_val_n_func_tn(void)
    printf("\nFLOAT64 VALUES (N):\n");
 
    for ( n = 0; n < num_keys; n++ ) {
-      /* MT = 2; All with reaction data should have this */
-      printf( "%s (MT=2):  ", flt_val_str[n] );
+      /* i = 2; All with reaction data should have this */
+      printf( "%s (i=2):  ", flt_val_str[n] );
       tmp_err = ndi_get_float64_val_n( inkey[n], 2, &ret_flt64 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %22.15e.\n", tmp_err, 
 		flt_val_str[n], ret_flt64 );
       else
 	 printf("%22.15e\n", ret_flt64);
-      /* MT = 999 */
-      printf( "%s (MT=999):  ", flt_val_str[n] );
+      /* i = 999 */
+      printf( "%s (i=999):  ", flt_val_str[n] );
       tmp_err = ndi_get_float64_val_n( inkey[n], 999, &ret_flt64 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %22.15e.\n", tmp_err, 
@@ -1047,16 +1046,16 @@ static int check_ndi_float_val_n_func_tn(void)
    printf("FLOAT32 VALUES (N):\n");
 
    for ( n = 0; n < num_keys; n++ ) {
-      /* MT = 2; All with reaction data should have this */
-      printf( "%s (MT=2):  ", flt_val_str[n] );
+      /* i = 2; All with reaction data should have this */
+      printf( "%s (i=2):  ", flt_val_str[n] );
       tmp_err = ndi_get_float32_val_n( inkey[n], 2, &ret_flt32 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %13.6e.\n", tmp_err, 
 		flt_val_str[n], ret_flt32 );
       else
 	 printf( "%13.6e\n", ret_flt32 );
-      /* MT = 999 */
-      printf( "%s (MT=999):  ", flt_val_str[n] );
+      /* i = 999 */
+      printf( "%s (i=999):  ", flt_val_str[n] );
       tmp_err = ndi_get_float32_val_n( inkey[n], 999, &ret_flt32 );
       if (tmp_err)
 	 printf("\n  **Error %d in %s -- returned value is %13.6e.\n", tmp_err, 
@@ -1218,8 +1217,8 @@ static int check_ndi_int_vec_n_func_tn(void)
    printf("\nINTEGER VECTORS (N):\n");
 
       for ( n = 0; n < num_keys ; n += 2 ) {
-	 /* MT = 2 */
-	 printf( "%s (MT=2): \n", int_vec_n_str[n] );
+	 /* i = 2 */
+	 printf( "%s (i=2): \n", int_vec_n_str[n] );
 	 num_elements = ndi_get_size_n( inkey[n], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
@@ -1233,7 +1232,7 @@ static int check_ndi_int_vec_n_func_tn(void)
 	 } else {
 	    print_int_vec( id, num_elements ); 
 	 }
-	 printf( "%s (MT=2): \n", int_vec_n_str[n+1] );
+	 printf( "%s (i=2): \n", int_vec_n_str[n+1] );
 	 num_elements = ndi_get_size_n( inkey[n+1], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
@@ -1253,8 +1252,8 @@ static int check_ndi_int_vec_n_func_tn(void)
 	 if (mult)
 	   free(mult);
 
-	 /* MT = 999 */
-	 printf( "%s (MT=999): \n", int_vec_n_str[n] );
+	 /* i = 999 */
+	 printf( "%s (i=999): \n", int_vec_n_str[n] );
 	 num_elements = ndi_get_size_n( inkey[n], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
@@ -1268,7 +1267,7 @@ static int check_ndi_int_vec_n_func_tn(void)
 	 } else {
 	    print_int_vec( id, num_elements ); 
 	 }
-	 printf( "%s (MT=999): \n", int_vec_n_str[n+1] );
+	 printf( "%s (i=999): \n", int_vec_n_str[n+1] );
 	 num_elements = ndi_get_size_n( inkey[n+1], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;

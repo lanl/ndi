@@ -6,7 +6,7 @@
 typedef float float32;
 typedef double float64;
 
-
+int test_depl(void);
 static void print_float64_array( float64 *array, int num );
 
 
@@ -59,7 +59,7 @@ int test_depl(void)
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
    ierr = ndi_set_option( NDI_LIBRARY, "mendf5" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
-   ierr = ndi_set_option( NDI_DEPLETION, "test" );
+   ierr = ndi_set_option( NDI_DEPLETION, "test2" );
    if ( ierr != 0 ) printf("    Error setting depletion is %d.\n", ierr );
    ierr = ndi_set_option( NDI_COLLAPSE, "30_group" );
    if ( ierr != 0 ) printf("    Error setting collapse groups is %d.\n", ierr );

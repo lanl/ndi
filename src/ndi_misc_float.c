@@ -3,7 +3,7 @@
  * File:	ndi_misc_float.c
  * Description:	Miscellaneous functions operating with floats.
 
- * Time-stamp:	<2000-02-08 15:43:38 jomc>
+ * Time-stamp:	<2003-03-24 13:51:13 jomc>
  *
  */
 
@@ -206,7 +206,10 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
      ierr = 9;
    }
 
-
+   /* Check fission reactions for non-fissionable isotope */
+   if ( ( mt == 18 ) || ( mt == 19 ) || ( mt == 20 ) || ( mt == 21 ) ||( mt == 38 ) ) {
+       (void) check_fissionable_err( &ierr, iso_stat.fissionable );
+   }
    return(ierr);
 }
 
@@ -361,21 +364,16 @@ int NORM_FLOAT_VEC ( FLOAT_TYPE *vec_p, int num_elements,
 /*********************************************************************/
 int GET_ABUNDANCE( int izaid, FLOAT_TYPE *return_val ) {
 
+#include "ndi_abundance.h"
+
   char zaid_char[16];
   int i;
   int ierr = 0;
   int a;
   int element_in;
   int element_curr;
-  int num_of_abundance_vals = 4;
   int element_found_flag = 0;    /* If isotope of same element as izaid 
                                     is found, then = 1, else = 0 */
-
-  int abundance_id[] = 
-  { 39089, 69169, 77191, 77193  };
-
-  ndi_float64 abundance_value[] =
-  { 1.0, 1.0, 0.373, 0.627  };
 
   *return_val = 0.0;
 
@@ -383,7 +381,7 @@ int GET_ABUNDANCE( int izaid, FLOAT_TYPE *return_val ) {
   sprintf( zaid_char, "%d", izaid );
   ierr = ndi_parse_mg_zaid( zaid_char, &element_in, &a );
 
-  for ( i = 0; i < num_of_abundance_vals; i++ ) {
+  for ( i = 0; i < num_of_abundance_values; i++ ) {
     /* Check element of current isotope */
     sprintf( zaid_char, "%d", abundance_id[i] );
     ierr = ndi_parse_mg_zaid( zaid_char, &element_curr, &a );

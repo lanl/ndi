@@ -7,6 +7,7 @@ typedef float float32;
 typedef double float64;
 
 static void print_float64_array( float64 *array, int num );
+int test5(void);
 
 #ifdef __STANDALONE
 int main ()
@@ -43,7 +44,7 @@ int test5(void)
   }
 
   printf("\n\n  NDI TEST SUITE -- test5\n\n");
-
+  printf("\n\n****************************************\n  Test of MG secondary particle data\n");
 
   ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
   if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
@@ -53,7 +54,7 @@ int test5(void)
 
   arr_size = ndi_get_size( NDI_ZAID, &ierr2 );  
   ierr = ndi_get_string_val( NDI_ZAID, zaid, 24);
-  printf("********************\nZAID %s     (size = %d; error = %d,%d).\n", 
+  printf("****************************************\n\nZAID %s     (size = %d; error = %d,%d).\n", 
 	 zaid, arr_size, ierr2, ierr );
 
   arr_size = ndi_get_size( NDI_NUM_SEC_PARTS, &ierr2 );  
@@ -105,7 +106,7 @@ int test5(void)
       ierr = ndi_get_float64_vec_n( NDI_PN_PROD_FULL_CURR_PART, j, prod_mat, 2500 );
       printf("    Production matrix of order %d    (size = %d; error = %d,%d):\n",
 	     j, arr_size, ierr2, ierr );
-/*        print_float64_array( prod_mat, arr_size );  */
+      print_float64_array( prod_mat, arr_size );  
     }
   }
   (void)ndi_close();

@@ -117,6 +117,10 @@ static int get_int_val_mg( int in_key, int *ret_val ) {
       }
       break;
 
+   case NDI_FISSIONABLE:             /* Does this isotope have fission data?  */
+      *ret_val = iso_stat.fissionable;
+      break;
+
    case NDI_UP_GRPS:                 /* Number of upscatter groups  */
       if ( iso_stat.up_grps >= 0 ) {
 	 *ret_val = iso_stat.up_grps;
@@ -284,10 +288,18 @@ static int get_int_val_tn( int in_key, int *ret_val ) {
 	 ierr = -9;
       }
       break;
-
-   case  NDI_NUM_INTERP:               /* Number of interpolation regions  */
+      
+   case NDI_NUM_SIGVBAR_INTERP:       /* Number of sigvbar interpolation regions  */
       if ( tn_stat.int_sigvbars.length >= 0 ) {
 	 *ret_val =  tn_stat.int_sigvbars.length;
+      } else {
+	 ierr = -9;
+      }
+      break;
+      
+   case NDI_NUM_EINBAR_INTERP:        /* Number of einbar interpolation regions  */
+      if ( tn_stat.int_einbars.length >= 0 ) {
+	 *ret_val =  tn_stat.int_einbars.length;
       } else {
 	 ierr = -9;
       }

@@ -1,0 +1,10 @@
+  Q-value=17.589400; err=0
+  Num reactants=2; err=0
+  Subtracting 1 particles/s from particle 1002.
+  Number of particle 1002 is 1.
+  Subtracting 1 particles/s from particle 1003.
+  Number of particle 1003 is 1.
+Particle 0 is a 1.  (err=0)
+Particle 1 is a 2004.  (err=0)
+local_E_dep is 3.541861e+00.
+  Adding 1 particles/s to particle 2004.

@@ -1,0 +1,165 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "ndi.h"
+
+void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
+void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
+void print_int_vec( int *int_ptr, int num_elements );
+
+
+int main ()
+
+{
+   int ierr;
+   int i,j;
+   int array_size;
+   int num_zaids = 4;
+   char zaid[25];
+   char *str_ptr;
+   char *zaid_list[] = { 
+       "H2", "Be7", "U235", "Pu239"
+   };
+
+   int num_keywords = 13;
+   int keyword_list[] = { NDI_FISS_Q,
+			  NDI_NU_TOT,
+			  NDI_NU_PR,
+			  NDI_NU_DEL,
+			  NDI_NU_SIG_F_TOT,
+			  NDI_NU_SIG_F_PR,
+			  NDI_NU_SIG_F_DEL,
+			  NDI_CHI_VEC_TOT,
+			  NDI_CHI_VEC_PR,
+			  NDI_CHI_VEC_DEL,
+			  NDI_CHI_MAT_TOT,
+			  NDI_CHI_MAT_PR,
+			  NDI_CHI_MAT_DEL,
+   };
+
+   char *keyword_label[]= { "fission_q",
+			    "nu total",
+			    "nu prompt",
+			    "nu delayed",
+			    "nu_sig_f total",
+			    "nu_sig_f prompt",
+			    "nu_sig_f delayed",
+			    "total chi vector",
+			    "prompt chi vector",
+			    "delayed chi vector",
+			    "total chi matrix",
+			    "prompt chi matrix",
+			    "delayed chi matrix"
+   };
+
+   ndi_float64 *ret_vec64 = NULL;
+
+
+   /*  Initialize */
+   ierr = ndi_init();
+   if (ierr)
+     printf("  **Error %d in NDI init.\n\n", ierr );
+   ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
+
+
+   for ( i = 0; i < num_zaids; i++ ) {
+
+     /* Set isotope */
+     ierr = ndi_set_isotope(zaid_list[i]);
+     if (ierr) 
+       printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
+
+
+     ierr = ndi_get_string_val( NDI_ZAID, zaid, 25 );
+     printf("\nZaid = %s\n\n", zaid );
+     
+
+     /*  Loop over keywords */
+     for ( j = 0; j < num_keywords; j++ ) {
+
+       /* Stupid, messy print to get capitalized string */
+       str_ptr = keyword_label[j];
+       str_ptr++;
+       printf( "%c%s:\n", toupper(*(keyword_label[j])), str_ptr );
+
+
+       array_size = ndi_get_size( keyword_list[j], &ierr );
+       if (ierr) 
+	 printf("\n  **Error %d %s array size.\n", ierr, keyword_label[j] );
+       ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
+       ierr = ndi_get_float64_vec( keyword_list[j], ret_vec64, array_size);
+       printf("  **Error %d in %s -- returned value is:\n", ierr, keyword_label[j] );
+       print_float64_vec( ret_vec64, array_size );	 
+       printf("\n");
+       if (ret_vec64) { free(ret_vec64); }
+
+     }   /* for j */
+
+     /* Total fission cross section */
+     printf ( "Total fission:\n");
+     array_size = ndi_get_size_n( NDI_SIG_REAC, 18, &ierr );
+     if (ierr) 
+	 printf("\n  **Error %d total_fission array size.\n", ierr );
+     ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
+     ierr = ndi_get_float64_vec_n( NDI_SIG_REAC, 18, ret_vec64, array_size);
+     printf("  **Error %d in total_fission -- returned value is:\n", ierr );
+     print_float64_vec( ret_vec64, array_size );	 
+     printf("\n");
+     if (ret_vec64) { free(ret_vec64); }
+     
+
+   }  /* for i */
+
+   ierr = ndi_close();
+   if (ierr)
+     printf("  **Error %d in closing NDI.\n\n", ierr );
+
+   return(ierr);
+}
+
+/**********************************************************************/
+
+void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements ) {
+
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
+	 printf("\n");
+      printf("%22.15e  ", flt64_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+void print_float32_vec( ndi_float32 *flt_ptr, int num_elements ) {
+
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( n != 0 ) && ( ( n % 6 ) == 0) )
+	 printf("\n");
+      printf("%13.6e   ", flt_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/
+
+void print_int_vec( int *int_ptr, int num_elements ) {
+
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( (n % 10) == 0) && (n != 0) )
+	 printf("\n");
+      printf("%d   ", int_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/

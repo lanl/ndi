@@ -6,6 +6,7 @@
 typedef float float32;
 typedef double float64;
 
+int testtn4(void);
 
 #ifdef __STANDALONE
 int main (void)
@@ -46,10 +47,9 @@ int testtn4(void)
    /*  TEST OF INTERPOLATION AND INTEGRATION -- TN DATA  */
    printf("\n*******************************\n     TN DATA\n*******************************\n\n");
 
-   /* Change now to Hale98 TN data */
    ierr = ndi_set_option( NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
-   ierr = ndi_set_option( NDI_LIBRARY, "testint" );
+   ierr = ndi_set_option( NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */
