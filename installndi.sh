@@ -1,5 +1,6 @@
 #!/bin/sh
 
+GROUP=pdata
 GNU_OS_OUT=`gnu-os`
 BUILD_DIR=build-$GNU_OS_OUT
 DEBUG_DIR=debug-$GNU_OS_OUT
@@ -30,7 +31,7 @@ case $GNU_OS_OUT in
         NDI_ROOT=/usr/local/codes/data/nuclear/ndi
         ;;
     *ibm__aix) 
-        platform=ppc_aix
+        platform=ppc-aix
         NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
         ;;
 esac
@@ -65,5 +66,6 @@ gmake prefix=$INSTALL_DIR install
 cd ../$DEBUG_DIR/src
 cp libndi.a $INSTALL_DIR/lib/libndi_debug.a
 chmod 664 $INSTALL_DIR/lib/libndi_debug.a
+chgrp $GROUP
 cd ../..
 
