@@ -208,7 +208,8 @@ SRC_TESTF := \
 	test/ndidf_handle.F\
 	test/radchemf.F\
 	test/symbol_translatef.F \
-	test/transpose_scatf.F 
+	test/transpose_scatf.F \
+	test/21grp_ck.F
 
 DATA_TEST_SRC := \
 	test/mgn_data.c \
