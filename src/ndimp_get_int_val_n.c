@@ -134,7 +134,7 @@ static int get_particle_index(state_struct *handle[], const int num_parts,
         }
     }
 
-    if (return_val < 0) {
+    if (*return_val < 0) {
         ierr = -5;
     }
     return(ierr);

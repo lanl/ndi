@@ -284,7 +284,7 @@ install: all
 	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi.h $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi_keywords.h $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 664 ndi_keywords.i $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi_var_type.h $(includedir)
+	$(INSTALL) -g $(GROUP) -m 664 ndi_var_type.h $(includedir)
 
 libndi.a: $(VERSION) $(FMANGLE) $(VAR_TYPE) $(OBJ)
 	$(AR) $(ARFLAGS) $@ $(OBJ)
