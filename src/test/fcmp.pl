@@ -61,7 +61,7 @@ sub fcmp {			# approximately equal
     }
 }
 
-our ($opt_s, $opt_r, $opt_a);	# declare options
+my ($opt_s, $opt_r, $opt_a);	# declare options
 $opt_s = 0; 
 $opt_r = 1.0e-5;
 $opt_a = 1.0e-10;
