@@ -30,22 +30,6 @@ int ndi2_open_gendir(int *handle, const char *path)
     return (ierr);
 }
 
-/* obsolete */
-int ndi2_open(int *handle, const char *path)
-{
-
-    int ierr = 0;
-    state_struct *new_state = NULL;
-
-    ierr = ndi_c_init_h(&new_state, path);
-    *handle = set_handle(new_state);
-
-    if (*handle < 0) {
-	ierr = -1;		/* handle array exhausted */
-    }
-    return (ierr);
-}
-
 /*!
   \fn ndi2_set_option_gendir
   \brief set global option
@@ -91,39 +75,10 @@ int ndi2_get_handle_gendir(int handle0, int *handle1)
     return ndi2_get_handle(handle0, handle1);
 }
 
-/*!
-  \fn ndi2_get_handle
-  \brief get child handle from parent handle
-  \param handle0: parent handle
-  \param handle1: child handle
-  \return 0 if successful, negative if error
-*/
-int ndi2_get_handle(int handle0, int *handle1)
+int ndi2_close_gendir(int handle)
 {
-    int h;
-    state_struct *parent;
-    state_struct *child = NULL;
-
-    parent = handle_to_state_p(handle0);	/* get parent state */
-    h = parent->handle_free;	/* get next child handle */
-
-    if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
-	ndi_c_clone_h(parent, &child);
-	parent->handle_map[h] = child;
-	if (child) {
-	    child->handle = h;
-	}
-    } else {
-	return -1;		/* handle array exhausted */
-    }
- 
-    *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + h;
-    return 0;
-}
-
-int ndi2_get_handle_mpmg(int handle0, int *handle1)
-{
-    return ndi2_get_handle(handle0, handle1);
+    assert(is_gendir(handle));
+    return (__ndi_close_handle(handle));
 }
 
 int ndi2_set_lib_type(int handle, const char *type)
@@ -138,7 +93,7 @@ int ndi2_set_isotope(int handle, const char *zaid)
 {
     state_struct *state_p;
 
-    /* if (handle < MAX_HANDLE_NUM) return -2; */
+    /* if (is_gendir(handle)) return -2; */
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_set_isotope_h(state_p, zaid));
@@ -148,7 +103,7 @@ int ndi2_set_zaid(int handle, const char *zaid)
 {
     state_struct *state_p;
 
-    /* if (handle < MAX_HANDLE_NUM) return -2; */
+    /* if (is_gendir(handle)) return -2; */
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_set_zaid_h(state_p, zaid));
@@ -158,7 +113,7 @@ int ndi2_set_reaction(int handle, const char *zaid)
 {
     state_struct *state_p;
 
-    /* if (handle < MAX_HANDLE_NUM) return -2; */
+    /* if (is_gendir(handle) return -2; */
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_set_reaction_h(state_p, zaid));
@@ -188,8 +143,8 @@ int ndi2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 
     if (is_mpmg(state_p)) {
 	return (ndimp_get_size_n(state_p->handle_map, 
-			       state_p->handle_free, 
-			       in_key, vec_num, ierr));
+				 state_p->handle_free, 
+				 in_key, vec_num, ierr));
     } else {
 	return (ndi_c_get_size_n_h(state_p, 
 				   in_key, vec_num, ierr));
@@ -205,7 +160,6 @@ int ndi2_get_size_x(int handle, int in_key, const char *in_str,
     return (ndi_c_get_size_x_h(state_p, in_key, in_str, ierr));
 }
 
-
 /*!
   \fn ndi2_set_option
   \brief set handle option
@@ -218,7 +172,7 @@ int ndi2_set_option(int handle, int in_key, const char *value)
 {
     state_struct *state_p;
 
-    /* if (handle < MAX_HANDLE_NUM) return -2; */
+    /* if (is_gendir(handle)) return -2; */
   
     state_p = handle_to_state_p(handle);
     return (ndi_c_set_option_h(state_p, in_key, value));
@@ -410,9 +364,9 @@ int ndi2_get_float64_vec_n(int handle, int in_key, int vec_num,
 
     if (is_mpmg(state_p)) {
 	return (ndimp_get_float64_vec_n(state_p->handle_map, 
-				      state_p->handle_free, 
-				      in_key, vec_num, 
-				      return_vec, vec_size));
+					state_p->handle_free, 
+					in_key, vec_num, 
+					return_vec, vec_size));
     } else {
 	return (ndi_c_get_float64_vec_n_h(state_p, 
 					  in_key, vec_num, 
@@ -458,10 +412,56 @@ int ndi2_get_string_val_n(int handle, int in_key, int vec_num,
 				     ret_val, str_size));
 }
 
-int ndi2_close_gendir(int handle)
+int ndi2_get_handle_mpmg(int handle0, int *handle1)
 {
-    assert(is_gendir(handle));
-    return (__ndi_close_handle(handle));
+    return ndi2_get_handle(handle0, handle1);
+}
+
+/*!
+  \fn ndi2_get_handle
+  \brief get child handle from parent handle
+  \param handle0: parent handle
+  \param handle1: child handle
+  \return 0 if successful, negative if error
+*/
+int ndi2_get_handle(int handle0, int *handle1)
+{
+    int h;
+    state_struct *parent;
+    state_struct *child = NULL;
+
+    parent = handle_to_state_p(handle0);	/* get parent state */
+    h = parent->handle_free;	/* get next child handle */
+
+    if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
+	ndi_c_clone_h(parent, &child);
+	parent->handle_map[h] = child;
+	parent->handle_free++;
+	if (child) {
+	    child->handle = h;
+	}
+    } else {
+	return -1;		/* handle array exhausted */
+    }
+ 
+    *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + h;
+    return 0;
+}
+
+/* obsolete: replace with above */
+int ndi2_open(int *handle, const char *path)
+{
+
+    int ierr = 0;
+    state_struct *new_state = NULL;
+
+    ierr = ndi_c_init_h(&new_state, path);
+    *handle = set_handle(new_state);
+
+    if (*handle < 0) {
+	ierr = -1;		/* handle array exhausted */
+    }
+    return (ierr);
 }
 
 /* obsolete */
@@ -469,3 +469,5 @@ int ndi2_close(int handle)
 {
     return (__ndi_close_handle(handle));
 }
+
+

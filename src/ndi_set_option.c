@@ -211,7 +211,8 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 
    Global variables changed (and valid values):
    particle_type -- 1-neutron, 0-photon, -1-tn
-   library_type -- m
+   library_type -- m-multigroup, s-tn, r-tnreactions, d-dosimetry,
+                   p-multiparticle multigroup  
 
 -------------------------------------------------------------------------*/
 {
@@ -241,6 +242,11 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 	       0) {
 	state->particle_type = 1;
 	state->library_type = 'd';
+
+    } else if (strncmp(value, "multigroup_multi", (17 * sizeof(char))) ==
+	       0) {
+	state->particle_type = -1;
+	state->library_type = 'p';
 
     } else {
 	/* "Error:  invalid NDI input argument. */

@@ -62,6 +62,7 @@ int ndi_c_close_h(state_struct **curr_state)
     if (state->open_lib_file) {
 	ndi_free((void **) &state->open_lib_file);
     }
+
     if (ierr < 0) {
 	ret_code = ierr;
     } else if ((ret_code >= 0) && (ierr != 0)) {
@@ -93,5 +94,4 @@ int ndi_c_close_h(state_struct **curr_state)
     return (ret_code);
 
 }
-
 /**********************************************************************/
