@@ -38,6 +38,9 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
             int num_grps, tmp_err;
             tmp_err = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS,
                                         &num_grps);
+            if ( (tmp_err != 0) &&
+                 ((ierr >= 0) || (tmp_err < 0 )))
+                ierr = tmp_err;
             (void)NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps );
         }
 	break;
