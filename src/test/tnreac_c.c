@@ -90,6 +90,7 @@ int test_tnreac_c(void)
    printf(" ********************************************************** \n\n" );
    
    ierr = ndi_init();
+   ierr = ndi_set_option( NDI_LIB_TYPE, "tnreactions" );
    ierr = check_all_ndi_get_tn_functions();
    ierr = ndi_close();
 
