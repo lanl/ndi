@@ -363,9 +363,9 @@ extern "C" {
    int ndi_transpose_float32( ndi_float32 *in_mat, int row_num, int col_num );
    int ndi_transpose_float64( ndi_float64 *in_mat, int row_num, int col_num );
    int ndi_vec2mat32(const ndi_float32 *vec, int num_vec, 
-		     ndi_float32 *return_mat, int num_mat);
+		     ndi_float32 *return_mat, int num_mat, int mat_size);
    int ndi_vec2mat64(const ndi_float64 *vec, int num_vec, 
-		     ndi_float64 *return_mat, int num_mat);
+		     ndi_float64 *return_mat, int num_mat, int mat_size);
    int ndi_get_sig_reac32( isotope_status *mg, int mt, ndi_float32 *return_vec,
 			   int *return_size );
    int ndi_get_sig_reac64( isotope_status *mg, int mt, ndi_float64 *return_vec,
