@@ -57,7 +57,7 @@ int test_depl(void)
    }
    ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
-   ierr = ndi_set_option( NDI_LIBRARY, "mendf5" );
+   ierr = ndi_set_option( NDI_LIBRARY, "mendf6" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
    ierr = ndi_set_option( NDI_DEPLETION, "test2" );
    if ( ierr != 0 ) printf("    Error setting depletion is %d.\n", ierr );

@@ -46,63 +46,68 @@
      $                 "pu-240.6",
      $                 " h-1.50 ",
      $                 "Fl-19" /
-      print *, ""
-       print *, ""
-       print *, "  ****************************************************"
-       print *, "    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID "
-       print *, " *****************************************************"
-       print *, ""
+      write(*, 2)
+ 2    format(/,/,
+     $     "  ****************************************************",/,
+     $     "    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID ",/,
+     $     "  ****************************************************", /)
 
        call ndi_init(ierr)
        if ( ierr .ne. 0 ) then
-          print *, "  **Error %d in NDI init."
+          write(*, 3)
+ 3        format("  **Error %d in NDI init.")
        endif
 
 c     For all ZAIDS
-       print *, "Interpret izaid before setting lib type."
+       write(*,40)
+ 40    format( "Interpret izaid before setting lib type.")
        do 100, i = 1, num_izaid
           call ndi_get_string_val_n( NDI_ZAID, izaid(i), zaid_str,
      $         ierr )
           if ( ierr .ne. 0 ) then
-             print *, "  ****ERROR = ", ierr
+             write(*,4) ierr
+ 4           format("  ****ERROR = ", i5)
           endif
-          print *, "  izaid = ", izaid(i), "  SZA = ", zaid_str
+          write(*,5) izaid(i), zaid_str
+ 5        format("  izaid = ", i9,  "  SZA = ", a9)
  100  continue
 
       call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr )
       if ( ierr .ne. 0 ) then
-         print *, "  ****ERROR ", ierr, " setting lib type."
-         print *, ""
+         write(*, 6) ierr
+ 6       format("  ****ERROR ", i5,  " setting lib type.", /)
       endif
 
 c     For all ZAIDs 
-      print *, " "
-      print *, "Interpret izaid after setting lib type."
+      write(*, 7)
+ 7    format(/, "Interpret izaid after setting lib type.")
       do 200, i = 1, num_izaid
           call ndi_get_string_val_n( NDI_ZAID, izaid(i), zaid_str,
      $         ierr )
           if ( ierr .ne. 0 ) then
-             print *, "  ****ERROR = ", ierr
+             write(*, 4) ierr
           endif
-          print *, "  izaid = ", izaid(i), "  SZA = ", zaid_str
+          write(*, 5)  izaid(i), zaid_str
  200   continue
         
 c     For all ZAIDs
-      print *, " "
-      print *, "Check translation of symbols in set_isotope."
+       write(*,*)
+ 8     format(/, "Check translation of symbols in set_isotope.")
 
       do 300, i = 1, num_zaid
-         print *, "ISOTOPE=>", zaid_list(i), "<"
+         write(*, 9) zaid_list(i)
+ 9       format("ISOTOPE=>", a13,  "<" )
          call ndi_set_isotope( zaid_list(i), ierr )
          if ( ierr .ne. 0 ) then
-            print *, "  **Error ", ierr, " in setting isotope ",
-     $           zaid_list(i)
+            write(*,10) ierr,  zaid_list(i)
+ 10         format( "  **Error ", i5,  " in setting isotope ", a13)
          else
             call ndi_get_string_val( NDI_ZAID, zaid_str, ierr )
             if ( ierr .ne. 0 ) then
-               print *, "  ****ERROR = ", ierr
+               write(*, 4) ierr
             endif
-            print *, "  Zaid = >", zaid_str, "<"
+            write(*, 11) zaid_str
+ 11         format( "  Zaid = >", a13,  "<")
          endif
  300   continue
 

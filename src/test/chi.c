@@ -67,7 +67,7 @@ int main ()
 			    "delayed chi matrix"
    };
 
-   ndi_float32 *ret_vec32 = NULL;
+   ndi_float64 *ret_vec64 = NULL;
 
 
    /*  Initialize */
@@ -117,14 +117,14 @@ int main ()
        array_size = ndi_get_size( keyword_list[j], &ierr );
        if (ierr) 
 	 printf("\n  **Error %d %s array size.\n", ierr, keyword_label[j] );
-       ret_vec32 = (ndi_float32 *)malloc(array_size * sizeof(ndi_float32) );
-       ierr = ndi_get_float32_vec( keyword_list[j], ret_vec32, array_size);
+       ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
+       ierr = ndi_get_float64_vec( keyword_list[j], ret_vec64, array_size);
        if (ierr) {
 	 printf("  **Error %d in %s -- returned value is:\n", ierr, keyword_label[j] );
        }
-       print_float32_vec( ret_vec32, array_size );	 
+       print_float64_vec( ret_vec64, array_size );	 
        printf("\n");
-       if (ret_vec32) { free(ret_vec32); }
+       if (ret_vec64) { free(ret_vec64); }
 
      }   /* for j */
 
@@ -144,9 +144,9 @@ void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements ) {
    int n;
 
    for (n = 0; n < num_elements; n++) {
-      if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
+      if ( ( n != 0 ) && ( ( n % 6 ) == 0) )
 	 printf("\n");
-      printf("%22.15e  ", flt64_ptr[n]);
+      printf("%13.6e   ", flt64_ptr[n]);
    }
    printf("\n");
 }

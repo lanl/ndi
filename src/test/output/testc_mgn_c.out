@@ -34489,7 +34489,7 @@ STRING VALUES:
 ZAID:  92235.500nm
 Info:  zaid = 92235.500nm from mendf5                                                 
 
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
@@ -39293,7 +39293,7 @@ STRING VALUES:
 ZAID:  1001.600nm
 Info:  zaid =  1001.600nm from mendf6                                                 
 
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
@@ -44083,7 +44083,7 @@ STRING VALUES:
 ZAID:  8016.500nm
 Info:  zaid =  8016.500nm from mendf5                                                 
 
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
@@ -48875,7 +48875,7 @@ STRING VALUES:
 ZAID:  94239.550nm
 Info:  zaid = 94239.550nm from mendf5                                                 
 
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
@@ -53680,7 +53680,7 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 
@@ -54776,7 +54776,7 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
+Depletion ZAID:  test2
 Depletion info:  basic neutron depletion data for 7 target isotopes
 
 

@@ -1,83 +1,82 @@
+
+
+  ****************************************************
+    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID 
+  ****************************************************
+
+Interpret izaid before setting lib type.
+  izaid =      1001  SZA = H1       
+  izaid =         0  SZA = g        
+  izaid =         1  SZA = n        
+  izaid =     92235  SZA = U235     
+  izaid =    103270  SZA = Lr270    
+  izaid =   2095240  SZA = Am240m2  
+  izaid =  20001002  SZA = H2m20    
+  ****ERROR =   -22
+  izaid =    110290  SZA =          
+  ****ERROR =   -22
+  izaid =      -999  SZA =          
+  ****ERROR =   -22
+  izaid =    999999  SZA =          
+  ****ERROR =   -22
+  izaid =         2  SZA =          
+  ****ERROR =   -22
+  izaid =    110000  SZA =          
+  ****ERROR =   -22
+  izaid =   1109000  SZA =          
+
+Interpret izaid after setting lib type.
+  izaid =      1001  SZA = H1       
+  izaid =         0  SZA = g        
+  izaid =         1  SZA = n        
+  izaid =     92235  SZA = U235     
+  izaid =    103270  SZA = Lr270    
+  izaid =   2095240  SZA = Am240m2  
+  izaid =  20001002  SZA = H2m20    
+  ****ERROR =   -22
+  izaid =    110290  SZA =          
+  ****ERROR =   -22
+  izaid =      -999  SZA =          
+  ****ERROR =   -22
+  izaid =    999999  SZA =          
+  ****ERROR =   -22
+  izaid =         2  SZA =          
+  ****ERROR =   -22
+  izaid =    110000  SZA =          
+  ****ERROR =   -22
+  izaid =   1109000  SZA =          
  
- 
-   ****************************************************
-     TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID 
-  *****************************************************
- 
- Interpret izaid before setting lib type.
-   izaid =  1001   SZA = H1                                                                                                                                   
-   izaid =  0   SZA = g                                                                                                                                    
-   izaid =  1   SZA = n                                                                                                                                    
-   izaid =  92235   SZA = U235                                                                                                                                 
-   izaid =  103270   SZA = Lr270                                                                                                                                
-   izaid =  2095240   SZA = Am240m2                                                                                                                              
-   izaid =  20001002   SZA = H2m20                                                                                                                                
-   ****ERROR =  -22
-   izaid =  110290   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  -999   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  999999   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  2   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  110000   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  1109000   SZA =                                                                                                                                      
-  
- Interpret izaid after setting lib type.
-   izaid =  1001   SZA = H1                                                                                                                                   
-   izaid =  0   SZA = g                                                                                                                                    
-   izaid =  1   SZA = n                                                                                                                                    
-   izaid =  92235   SZA = U235                                                                                                                                 
-   izaid =  103270   SZA = Lr270                                                                                                                                
-   izaid =  2095240   SZA = Am240m2                                                                                                                              
-   izaid =  20001002   SZA = H2m20                                                                                                                                
-   ****ERROR =  -22
-   izaid =  110290   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  -999   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  999999   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  2   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  110000   SZA =                                                                                                                                      
-   ****ERROR =  -22
-   izaid =  1109000   SZA =                                                                                                                                      
-  
- Check translation of symbols in set_isotope.
- ISOTOPE=>92235.600nm             <
-   Zaid = >92235.600nm                                                                                                                          <
- ISOTOPE=>1001.                   <
-   Zaid = >1001.600nm                                                                                                                           <
- ISOTOPE=> 1002.                  <
-   Zaid = >1002.600nm                                                                                                                           <
- ISOTOPE=>1003                    <
-   Zaid = >1003.600nm                                                                                                                           <
- ISOTOPE=> 1039087                <
-   **Error  -8  in setting isotope  1039087                
- ISOTOPE=>pu239                   <
-   Zaid = >94239.600nm                                                                                                                          <
- ISOTOPE=>10020                   <
-   **Error  -8  in setting isotope 10020                   
- ISOTOPE=>h2                      <
-   Zaid = >1002.600nm                                                                                                                           <
- ISOTOPE=> He-4                   <
-   **Error  -8  in setting isotope  He-4                   
- ISOTOPE=>O16                     <
-   Zaid = >8016.600nm                                                                                                                           <
- ISOTOPE=>C-12                    <
-   **Error  -8  in setting isotope C-12                    
- ISOTOPE=>i-127                   <
-   **Error  -8  in setting isotope i-127                   
- ISOTOPE=>TM169                   <
-   **Error  -8  in setting isotope TM169                   
- ISOTOPE=>TA-182                  <
-   **Error  -8  in setting isotope TA-182                  
- ISOTOPE=>pu-240.6                <
-   Zaid = >94240.600nm                                                                                                                          <
- ISOTOPE=> h-1.50                 <
-   Zaid = >1001.500nm                                                                                                                           <
- ISOTOPE=>Fl-19                   <
-   **Error  -22  in setting isotope Fl-19                   
+ISOTOPE=>92235.600nm  <
+  Zaid = >92235.600nm  <
+ISOTOPE=>1001.        <
+  Zaid = >1001.600nm   <
+ISOTOPE=> 1002.       <
+  Zaid = >1002.600nm   <
+ISOTOPE=>1003         <
+  Zaid = >1003.600nm   <
+ISOTOPE=> 1039087     <
+  **Error    -8 in setting isotope  1039087     
+ISOTOPE=>pu239        <
+  Zaid = >94239.600nm  <
+ISOTOPE=>10020        <
+  **Error    -8 in setting isotope 10020        
+ISOTOPE=>h2           <
+  Zaid = >1002.600nm   <
+ISOTOPE=> He-4        <
+  **Error    -8 in setting isotope  He-4        
+ISOTOPE=>O16          <
+  Zaid = >8016.600nm   <
+ISOTOPE=>C-12         <
+  **Error    -8 in setting isotope C-12         
+ISOTOPE=>i-127        <
+  **Error    -8 in setting isotope i-127        
+ISOTOPE=>TM169        <
+  **Error    -8 in setting isotope TM169        
+ISOTOPE=>TA-182       <
+  **Error    -8 in setting isotope TA-182       
+ISOTOPE=>pu-240.6     <
+  Zaid = >94240.600nm  <
+ISOTOPE=> h-1.50      <
+  Zaid = >1001.500nm   <
+ISOTOPE=>Fl-19        <
+  **Error   -22 in setting isotope Fl-19        
