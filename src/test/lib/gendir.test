@@ -310,7 +310,7 @@ multigroup_neutron
     t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
   z=92236.636nm  d=4/30/2003  l=chi_test
     f=../../src/test/lib/chi_test_lib  ft=asc  ln=1834  o=85761  ng=6
-    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end\
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
   z=92235.620nm  d=11/7/2003  l=specmg
     f=../../src/test/lib/mpmg  ft=asc  ln=1  o=0  ng=130
     t=2.5300000E-08  s0=1.0000000E+10  aw=2.3504414E+02  awr=2.3302500E+02 end
