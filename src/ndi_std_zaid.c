@@ -19,7 +19,8 @@ static void ndi_process_extension(char *in_str, char **ext_p);
 
 /**********************************************************************/
 
-int ndi_std_zaid(state_struct * state, char *in_zaid, int zaid_size)
+int
+ndi_std_zaid(state_struct * state, char *in_zaid, int zaid_size)
 {
 
 /*  Purpose: To return a full or partial zaid (depending on the input
@@ -72,7 +73,8 @@ int ndi_std_zaid(state_struct * state, char *in_zaid, int zaid_size)
 /**********************************************************************/
 	    /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
-static void ndi_process_extension(char *in_str, char **ext_p)
+static void
+ndi_process_extension(char *in_str, char **ext_p)
 {
 
     /* Set pointer ext_p to the beginning of the ZAID extension 

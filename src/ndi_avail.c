@@ -18,7 +18,8 @@
 
 /*********************************************************************/
 
-int ndi_nusigf_avail(state_struct * state, char nu_type)
+int
+ndi_nusigf_avail(state_struct * state, char nu_type)
 {
 
     /*  Purpose:  Determines if the indicated nusigf value for the current
@@ -88,7 +89,8 @@ int ndi_nusigf_avail(state_struct * state, char nu_type)
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_nu_avail(state_struct * state, char nu_type)
+int
+ndi_nu_avail(state_struct * state, char nu_type)
 {
 
     /*  Purpose:  Determines if the indicated nu value 
@@ -169,7 +171,8 @@ int ndi_nu_avail(state_struct * state, char nu_type)
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_sigf_avail(state_struct * state)
+int
+ndi_sigf_avail(state_struct * state)
 {
 
     /*  Purpose:  Determines if the indicated fission cross-section is 

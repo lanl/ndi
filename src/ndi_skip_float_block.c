@@ -19,7 +19,8 @@
 /**********************************************************************/
 
 
-int skip_float_block(FILE * stream, int *bsize, const int num_floats)
+int
+skip_float_block(FILE * stream, int *bsize, const int num_floats)
 
 /*  Purpose: Skip over a specifed (num_floats) number of floating-point 
     numbers.

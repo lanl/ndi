@@ -17,8 +17,9 @@
 
 
 /**********************************************************************/
-int ndi_find_part_index(const char *ptype, const sec_part_distr * part,
-			int num_parts)
+int
+ndi_find_part_index(const char *ptype, const sec_part_distr * part,
+		    int num_parts)
 
 /*  This is only used for tndata */
 {
@@ -44,8 +45,9 @@ int ndi_find_part_index(const char *ptype, const sec_part_distr * part,
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_find_iso_index(const char *ptype, const char **string_array,
-		       int num_parts)
+int
+ndi_find_iso_index(const char *ptype, const char **string_array,
+		   int num_parts)
 
 /*  This is currently only used for depletion data */
 {

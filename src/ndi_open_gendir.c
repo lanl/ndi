@@ -30,7 +30,8 @@
   value for warning, and zero if everything is ok.
 
 **********************************************************************/
-int ndi_open_gendir(FILE ** dir_stream, char *path)
+int
+ndi_open_gendir(FILE ** dir_stream, char *path)
 {
 
     int ierr = 0;

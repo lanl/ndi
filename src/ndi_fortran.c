@@ -88,8 +88,9 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
 
 /***************     Functions     ***************/
 
-void F_NDID_GET_SIZE(int *in_key, char *in_value, int *arr_size, int *ierr,
-		     int flen)
+void
+F_NDID_GET_SIZE(int *in_key, char *in_value, int *arr_size, int *ierr,
+		int flen)
 {
 
     char *c_val;
@@ -105,9 +106,10 @@ void F_NDID_GET_SIZE(int *in_key, char *in_value, int *arr_size, int *ierr,
 	ndi_free((void **) &c_val);
 }
 
-void F_NDID_GET_STRING_VEC(int *in_key, char *in_value, char *str_arr,
-			   int *arr_size, int *str_size, int *ierr,
-			   int flen1, int flen2)
+void
+F_NDID_GET_STRING_VEC(int *in_key, char *in_value, char *str_arr,
+		      int *arr_size, int *str_size, int *ierr,
+		      int flen1, int flen2)
 {
 
     /* Is str_size needed?  */
@@ -148,10 +150,11 @@ void F_NDID_GET_STRING_VEC(int *in_key, char *in_value, char *str_arr,
 	ndi_free((void **) &c_zaid);
 }
 
-void F_NDID_ZAID_FLOAT64_VEC(int *in_key, char *in_value, char *str_arr,
-			     int *arr_size, int *str_size,
-			     ndi_float64 * float_vec, int *fl_arr_size,
-			     int *ierr, int flen1, int flen2)
+void
+F_NDID_ZAID_FLOAT64_VEC(int *in_key, char *in_value, char *str_arr,
+			int *arr_size, int *str_size,
+			ndi_float64 * float_vec, int *fl_arr_size,
+			int *ierr, int flen1, int flen2)
 {
     char *curr_zaid;
     char *c_val;
@@ -195,10 +198,11 @@ void F_NDID_ZAID_FLOAT64_VEC(int *in_key, char *in_value, char *str_arr,
 }
 
 
-void F_NDID_ZAID_FLOAT32_VEC(int *in_key, char *in_value, char *str_arr,
-			     int *arr_size, int *str_size,
-			     ndi_float32 * float_vec, int *fl_arr_size,
-			     int *ierr, int flen1, int flen2)
+void
+F_NDID_ZAID_FLOAT32_VEC(int *in_key, char *in_value, char *str_arr,
+			int *arr_size, int *str_size,
+			ndi_float32 * float_vec, int *fl_arr_size,
+			int *ierr, int flen1, int flen2)
 {
     char *curr_zaid;
     char *c_val;
@@ -242,17 +246,20 @@ void F_NDID_ZAID_FLOAT32_VEC(int *in_key, char *in_value, char *str_arr,
 	ndi_free((void **) &c_zaid);
 }
 
-void F_NDI_INIT(int *ierr)
+void
+F_NDI_INIT(int *ierr)
 {
     *ierr = ndi_c_init();
 }
 
-void F_NDI_CLOSE(int *ierr)
+void
+F_NDI_CLOSE(int *ierr)
 {
     *ierr = ndi_c_close();
 }
 
-void F_NDI_SET_OPTION(int *in_key, char *in_value, int *ierr, int len)
+void
+F_NDI_SET_OPTION(int *in_key, char *in_value, int *ierr, int len)
 {
 
     char *c_val;
@@ -264,7 +271,8 @@ void F_NDI_SET_OPTION(int *in_key, char *in_value, int *ierr, int len)
 	ndi_free((void **) &c_val);
 }
 
-void F_NDI_CHECK_OPTION(int *in_key, char *out_value, int *ierr, int len)
+void
+F_NDI_CHECK_OPTION(int *in_key, char *out_value, int *ierr, int len)
 {
 
     char c_str[MAX_IN_STR_LEN];
@@ -274,7 +282,8 @@ void F_NDI_CHECK_OPTION(int *in_key, char *out_value, int *ierr, int len)
 
 }
 
-void F_NDI_SET_ISOTOPE(char *zaid, int *ierr, int zaid_len)
+void
+F_NDI_SET_ISOTOPE(char *zaid, int *ierr, int zaid_len)
 {
 
     char *c_zaid;
@@ -287,7 +296,8 @@ void F_NDI_SET_ISOTOPE(char *zaid, int *ierr, int zaid_len)
 
 }
 
-void F_NDI_SET_ZAID(char *zaid, int *ierr, int zaid_len)
+void
+F_NDI_SET_ZAID(char *zaid, int *ierr, int zaid_len)
 {
 
     char *c_zaid;
@@ -301,7 +311,8 @@ void F_NDI_SET_ZAID(char *zaid, int *ierr, int zaid_len)
 }
 
 
-void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len)
+void
+F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len)
 {
 
     char *c_zaid;
@@ -316,19 +327,21 @@ void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len)
 
 
 
-void F_NDI_GET_SIZE(int *in_key, int *return_val, int *ierr)
+void
+F_NDI_GET_SIZE(int *in_key, int *return_val, int *ierr)
 {
     *return_val = ndi_c_get_size(*in_key, ierr);
 }
 
-void F_NDI_GET_SIZE_N(int *in_key, int *vec_num, int *return_val,
-		      int *ierr)
+void
+F_NDI_GET_SIZE_N(int *in_key, int *vec_num, int *return_val, int *ierr)
 {
     *return_val = ndi_c_get_size_n(*in_key, *vec_num, ierr);
 }
 
-void F_NDI_GET_SIZE_X(int *in_key, char *in_value, int *return_val,
-		      int *ierr, int len)
+void
+F_NDI_GET_SIZE_X(int *in_key, char *in_value, int *return_val,
+		 int *ierr, int len)
 {
     char *c_val;
 
@@ -339,63 +352,68 @@ void F_NDI_GET_SIZE_X(int *in_key, char *in_value, int *return_val,
 	ndi_free((void **) &c_val);
 }
 
-void F_NDI_GET_INT_VAL(int *in_key, int *return_val, int *ierr)
+void
+F_NDI_GET_INT_VAL(int *in_key, int *return_val, int *ierr)
 {
     *ierr = ndi_c_get_int_val(*in_key, return_val);
 }
 
-void F_NDI_GET_INT_VAL_N(int *in_key, int *vec_num, int *return_val,
-			 int *ierr)
+void
+F_NDI_GET_INT_VAL_N(int *in_key, int *vec_num, int *return_val, int *ierr)
 {
     *ierr = ndi_c_get_int_val_n(*in_key, *vec_num, return_val);
 }
 
-void F_NDI_GET_INT_VEC(int *in_key, int *return_val, int *vec_size,
-		       int *ierr)
+void
+F_NDI_GET_INT_VEC(int *in_key, int *return_val, int *vec_size, int *ierr)
 {
     *ierr = ndi_c_get_int_vec(*in_key, return_val, *vec_size);
 }
 
-void F_NDI_GET_INT_VEC_N(int *in_key, int *vec_num, int *return_val,
-			 int *vec_size, int *ierr)
+void
+F_NDI_GET_INT_VEC_N(int *in_key, int *vec_num, int *return_val,
+		    int *vec_size, int *ierr)
 {
     *ierr = ndi_c_get_int_vec_n(*in_key, *vec_num, return_val, *vec_size);
 }
 
 
-void F_NDI_GET_FLOAT64_VAL(int *in_key, ndi_float64 * return_val,
-			   int *ierr)
+void
+F_NDI_GET_FLOAT64_VAL(int *in_key, ndi_float64 * return_val, int *ierr)
 {
     *ierr = ndi_c_get_float64_val(*in_key, return_val);
 }
 
 
-void F_NDI_GET_FLOAT64_VAL_N(int *in_key, int *vec_num,
-			     ndi_float64 * return_val, int *ierr)
+void
+F_NDI_GET_FLOAT64_VAL_N(int *in_key, int *vec_num,
+			ndi_float64 * return_val, int *ierr)
 {
 
     *ierr = ndi_c_get_float64_val_n(*in_key, *vec_num, return_val);
 }
 
 
-void F_NDI_GET_FLOAT64_VEC(int *in_key, ndi_float64 * return_val,
-			   int *vec_size, int *ierr)
+void
+F_NDI_GET_FLOAT64_VEC(int *in_key, ndi_float64 * return_val,
+		      int *vec_size, int *ierr)
 {
     *ierr = ndi_c_get_float64_vec(*in_key, return_val, *vec_size);
 }
 
-void F_NDI_GET_FLOAT64_VEC_N(int *in_key, int *vec_num,
-			     ndi_float64 * return_vec, int *vec_size,
-			     int *ierr)
+void
+F_NDI_GET_FLOAT64_VEC_N(int *in_key, int *vec_num,
+			ndi_float64 * return_vec, int *vec_size, int *ierr)
 {
 
     *ierr =
 	ndi_c_get_float64_vec_n(*in_key, *vec_num, return_vec, *vec_size);
 }
 
-void F_NDI_GET_FLOAT64_VEC_X(int *in_key, char *in_str,
-			     ndi_float64 * return_vec, int *vec_size,
-			     int *ierr, int in_str_len)
+void
+F_NDI_GET_FLOAT64_VEC_X(int *in_key, char *in_str,
+			ndi_float64 * return_vec, int *vec_size,
+			int *ierr, int in_str_len)
 {
     char *c_str;
 
@@ -407,40 +425,43 @@ void F_NDI_GET_FLOAT64_VEC_X(int *in_key, char *in_str,
 
 }
 
-void F_NDI_GET_FLOAT32_VAL(int *in_key, ndi_float32 * return_val,
-			   int *ierr)
+void
+F_NDI_GET_FLOAT32_VAL(int *in_key, ndi_float32 * return_val, int *ierr)
 {
     *ierr = ndi_c_get_float32_val(*in_key, return_val);
 }
 
 
-void F_NDI_GET_FLOAT32_VAL_N(int *in_key, int *vec_num,
-			     ndi_float32 * return_val, int *ierr)
+void
+F_NDI_GET_FLOAT32_VAL_N(int *in_key, int *vec_num,
+			ndi_float32 * return_val, int *ierr)
 {
 
     *ierr = ndi_c_get_float32_val_n(*in_key, *vec_num, return_val);
 }
 
 
-void F_NDI_GET_FLOAT32_VEC(int *in_key, ndi_float32 * return_val,
-			   int *vec_size, int *ierr)
+void
+F_NDI_GET_FLOAT32_VEC(int *in_key, ndi_float32 * return_val,
+		      int *vec_size, int *ierr)
 {
     *ierr = ndi_c_get_float32_vec(*in_key, return_val, *vec_size);
 }
 
 
-void F_NDI_GET_FLOAT32_VEC_N(int *in_key, int *vec_num,
-			     ndi_float32 * return_vec, int *vec_size,
-			     int *ierr)
+void
+F_NDI_GET_FLOAT32_VEC_N(int *in_key, int *vec_num,
+			ndi_float32 * return_vec, int *vec_size, int *ierr)
 {
 
     *ierr =
 	ndi_c_get_float32_vec_n(*in_key, *vec_num, return_vec, *vec_size);
 }
 
-void F_NDI_GET_FLOAT32_VEC_X(int *in_key, char *in_str,
-			     ndi_float32 * return_vec, int *vec_size,
-			     int *ierr, int in_str_len)
+void
+F_NDI_GET_FLOAT32_VEC_X(int *in_key, char *in_str,
+			ndi_float32 * return_vec, int *vec_size,
+			int *ierr, int in_str_len)
 {
     char *c_str;
 
@@ -452,8 +473,9 @@ void F_NDI_GET_FLOAT32_VEC_X(int *in_key, char *in_str,
 
 }
 
-void F_NDI_GET_STRING_VAL(int *in_key, char *return_val,
-			  int *ierr, int char_len)
+void
+F_NDI_GET_STRING_VAL(int *in_key, char *return_val,
+		     int *ierr, int char_len)
 {
 
     char *c_str;
@@ -473,8 +495,9 @@ void F_NDI_GET_STRING_VAL(int *in_key, char *return_val,
     (void) ndi_free((void **) &c_str);
 }
 
-void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
-			    int *ierr, int char_len)
+void
+F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
+		       int *ierr, int char_len)
 {
 
     char *c_str;
@@ -494,7 +517,8 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
     (void) ndi_free((void **) &c_str);
 }
 
-void ndi_c2f_string(char *cstring, char *fstring, int flen)
+void
+ndi_c2f_string(char *cstring, char *fstring, int flen)
 {
 
     char *tmp_ptr = fstring;
@@ -524,7 +548,8 @@ void ndi_c2f_string(char *cstring, char *fstring, int flen)
 }
 
 
-void ndi_f2c_string(char *fstring, char **cstring, int flen, int clen)
+void
+ndi_f2c_string(char *fstring, char **cstring, int flen, int clen)
 {
 
     int i;

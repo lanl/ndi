@@ -22,8 +22,9 @@ static int GET_PROD_Q(state_struct * state, const int rprod_in,
 
 /**********************************************************************/
 
-int NDI_GET_FLOAT_VAL_N_H(state_struct * state, int in_key, int vec_num,
-			  FLOAT_TYPE * ret_val)
+int
+NDI_GET_FLOAT_VAL_N_H(state_struct * state, int in_key, int vec_num,
+		      FLOAT_TYPE * ret_val)
 
 /**********************************************************************/
 /*  Purpose: Return a single real value which is an element of
@@ -156,8 +157,9 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct * state, int in_key, int vec_num,
 /*********************************************************************/
 /*********************************************************************/
 
-static int GET_PROD_Q(state_struct * state, const int rprod_in,
-		      FLOAT_TYPE * return_val)
+static int
+GET_PROD_Q(state_struct * state, const int rprod_in,
+	   FLOAT_TYPE * return_val)
 {
     int i;
     int ierr = 0;

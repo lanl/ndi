@@ -18,8 +18,9 @@
 
 /**********************************************************************/
 
-int ndi_read_rx_prod(FILE * stream, long file_pos, int **int_vec,
-		     const int data_type, int *num_prod, short mt_flag)
+int
+ndi_read_rx_prod(FILE * stream, long file_pos, int **int_vec,
+		 const int data_type, int *num_prod, short mt_flag)
 
 /*  Purpose: Read a block of data which consists of an integer specifying
     the number of pairs to follow (num), optionally an integer (representing

@@ -20,20 +20,22 @@
 /**********************************************************************/
 
 #ifdef FLOAT32
-int ndi_collapse_mat32(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-		       int old_grp_num_out, int new_grp_num_in,
-		       int new_grp_num_out, const int *new_ebounds_in,
-		       const int *new_ebounds_out,
-		       const ndi_float64 * local_weight,
-		       FLOAT_TYPE * new_mat, int new_size)
+int
+ndi_collapse_mat32(const FLOAT_TYPE * old_mat, int old_grp_num_in,
+		   int old_grp_num_out, int new_grp_num_in,
+		   int new_grp_num_out, const int *new_ebounds_in,
+		   const int *new_ebounds_out,
+		   const ndi_float64 * local_weight,
+		   FLOAT_TYPE * new_mat, int new_size)
 {
 #else
-int ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-		       int old_grp_num_out, int new_grp_num_in,
-		       int new_grp_num_out, const int *new_ebounds_in,
-		       const int *new_ebounds_out,
-		       const ndi_float64 * local_weight,
-		       FLOAT_TYPE * new_mat, int new_size)
+int
+ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
+		   int old_grp_num_out, int new_grp_num_in,
+		   int new_grp_num_out, const int *new_ebounds_in,
+		   const int *new_ebounds_out,
+		   const ndi_float64 * local_weight,
+		   FLOAT_TYPE * new_mat, int new_size)
 {
 #endif
 

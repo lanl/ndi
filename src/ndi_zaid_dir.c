@@ -27,10 +27,11 @@ static void ndi_find_first_string( char *in_line, int in_size,
 
 /**********************************************************************/
 
-int ndi_zaid_dir(state_struct * state, int pt_type, char l_type,
-		 const char *in_zaid, char *real_zaid, char *library,
-		 char *lib_path, char *lib_file_type, long int *iso_start,
-		 double *at_wgt, int reaction_flag)
+int
+ndi_zaid_dir(state_struct * state, int pt_type, char l_type,
+	     const char *in_zaid, char *real_zaid, char *library,
+	     char *lib_path, char *lib_file_type, long int *iso_start,
+	     double *at_wgt, int reaction_flag)
 
 /*  Purpose: 
     
@@ -202,9 +203,9 @@ int ndi_zaid_dir(state_struct * state, int pt_type, char l_type,
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 
-static void ndi_find_zaid_string(char *in_line, int in_size,
-				 char *zaid_string, int string_size,
-				 char *seps)
+static void
+ndi_find_zaid_string(char *in_line, int in_size,
+		     char *zaid_string, int string_size, char *seps)
 {
 
     /* This function assumes that the string is terminated by '\0'.

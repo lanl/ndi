@@ -20,7 +20,8 @@
 /**********************************************************************/
 /**********************************************************************/
 
-struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
+struct ndi_bin_tree_node *
+ndi_build_tree(int in_key, const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
@@ -106,13 +107,13 @@ struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
 /***********************************************************************/
 /***********************************************************************/
 
-struct ndi_bin_tree_node *ndi_create_node(char *instr)
+struct ndi_bin_tree_node *
+ndi_create_node(char *instr)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
 
-    tmp_node =
-	(struct ndi_bin_tree_node *)
+    tmp_node = (struct ndi_bin_tree_node *)
 	malloc(sizeof(struct ndi_bin_tree_node));
     tmp_node->key = (char *) malloc(instr_len * sizeof(char));
     strncpy(tmp_node->key, instr, instr_len);
@@ -123,13 +124,13 @@ struct ndi_bin_tree_node *ndi_create_node(char *instr)
 }
 
 
-struct ndi_bin_tree_node *ndi_create_inode(char *instr, int int_val)
+struct ndi_bin_tree_node *
+ndi_create_inode(char *instr, int int_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
 
-    tmp_node =
-	(struct ndi_bin_tree_node *)
+    tmp_node = (struct ndi_bin_tree_node *)
 	ndi_malloc(sizeof(struct ndi_bin_tree_node));
     tmp_node->key = (char *) ndi_malloc(instr_len * sizeof(char));
     strncpy(tmp_node->key, instr, instr_len);
@@ -140,14 +141,13 @@ struct ndi_bin_tree_node *ndi_create_inode(char *instr, int int_val)
 
 }
 
-struct ndi_bin_tree_node *ndi_create_f32node(char *instr,
-					     ndi_float32 ndi_float32_val)
+struct ndi_bin_tree_node *
+ndi_create_f32node(char *instr, ndi_float32 ndi_float32_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
 
-    tmp_node =
-	(struct ndi_bin_tree_node *)
+    tmp_node = (struct ndi_bin_tree_node *)
 	ndi_malloc(sizeof(struct ndi_bin_tree_node));
     tmp_node->key = (char *) ndi_malloc(instr_len * sizeof(char));
     strncpy(tmp_node->key, instr, instr_len);
@@ -158,14 +158,13 @@ struct ndi_bin_tree_node *ndi_create_f32node(char *instr,
 
 }
 
-struct ndi_bin_tree_node *ndi_create_f64node(char *instr,
-					     ndi_float64 float64_val)
+struct ndi_bin_tree_node *
+ndi_create_f64node(char *instr, ndi_float64 float64_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
 
-    tmp_node =
-	(struct ndi_bin_tree_node *)
+    tmp_node = (struct ndi_bin_tree_node *)
 	ndi_malloc(sizeof(struct ndi_bin_tree_node));
     tmp_node->key = (char *) ndi_malloc(instr_len * sizeof(char));
     strncpy(tmp_node->key, instr, instr_len);
@@ -176,8 +175,9 @@ struct ndi_bin_tree_node *ndi_create_f64node(char *instr,
 
 }
 
-void ndi_insert_node(struct ndi_bin_tree_node **root_p,
-		     struct ndi_bin_tree_node *new_node)
+void
+ndi_insert_node(struct ndi_bin_tree_node **root_p,
+		struct ndi_bin_tree_node *new_node)
 {
 
     struct ndi_bin_tree_node **curr_node = root_p;
@@ -203,8 +203,9 @@ void ndi_insert_node(struct ndi_bin_tree_node **root_p,
     }
 }
 
-int ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
-		     int arr_size_p)
+int
+ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
+		 int arr_size_p)
 {
     /* Top level for collect keys, so that input parameters from top-level are not changed */
 
@@ -216,8 +217,9 @@ int ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
     return (ierr);
 }
 
-int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
-		      int *arr_size_p)
+int
+_ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
+		  int *arr_size_p)
 {
 
     int curr_size = 0;
@@ -244,8 +246,9 @@ int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
 }
 
 
-int ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
-		     int arr_size)
+int
+ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
+		 int arr_size)
 {
     /* Top level for collect ivals, so that input parameters from top-level are not changed */
 
@@ -257,8 +260,9 @@ int ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
     return (ierr);
 }
 
-int _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
-		      int *arr_size_p)
+int
+_ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
+		  int *arr_size_p)
 {
 
     int ierr = 0;
@@ -285,8 +289,9 @@ int _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
 }
 
 
-int ndi_collect_f32val(struct ndi_bin_tree_node *root,
-		       ndi_float32 * float32_array_p, int arr_size)
+int
+ndi_collect_f32val(struct ndi_bin_tree_node *root,
+		   ndi_float32 * float32_array_p, int arr_size)
 {
     /* Top level for collect f32vals, so that input parameters from top-level are not changed */
 
@@ -298,8 +303,9 @@ int ndi_collect_f32val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int _ndi_collect_f32val(struct ndi_bin_tree_node *root,
-			ndi_float32 ** float32_array_p, int *arr_size_p)
+int
+_ndi_collect_f32val(struct ndi_bin_tree_node *root,
+		    ndi_float32 ** float32_array_p, int *arr_size_p)
 {
 
     int ierr = 0;
@@ -328,8 +334,9 @@ int _ndi_collect_f32val(struct ndi_bin_tree_node *root,
 }
 
 
-int ndi_collect_f64val(struct ndi_bin_tree_node *root,
-		       ndi_float64 * float64_array_p, int arr_size)
+int
+ndi_collect_f64val(struct ndi_bin_tree_node *root,
+		   ndi_float64 * float64_array_p, int arr_size)
 {
     /* Top level for collect f64vals, so that input parameters from top-level are not changed */
 
@@ -341,8 +348,9 @@ int ndi_collect_f64val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int _ndi_collect_f64val(struct ndi_bin_tree_node *root,
-			ndi_float64 ** float64_array_p, int *arr_size_p)
+int
+_ndi_collect_f64val(struct ndi_bin_tree_node *root,
+		    ndi_float64 ** float64_array_p, int *arr_size_p)
 {
 
     int ierr = 0;
@@ -370,14 +378,16 @@ int _ndi_collect_f64val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
+int
+ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
     return (_ndi_count_nodes(root, arr_size_p));
 }
 
-int _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
+int
+_ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     /* NOTE:  currently on the first call from the main function,
@@ -398,14 +408,16 @@ int _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
     return (ierr);
 }
 
-int ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
+int
+ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
     return (_ndi_count_size(root, arr_size_p));
 }
 
-int _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
+int
+_ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     /* NOTE:  currently on the first call from the main function,
@@ -426,7 +438,8 @@ int _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
     return (ierr);
 }
 
-int ndi_close_tree(struct ndi_bin_tree_node **root)
+int
+ndi_close_tree(struct ndi_bin_tree_node **root)
 {
 
     int ierr = 0;

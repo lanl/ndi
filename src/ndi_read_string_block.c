@@ -19,7 +19,8 @@
 /**********************************************************************/
 
 
-int ndi_read_string_block(FILE * stream, const int num_strings, char **p)
+int
+ndi_read_string_block(FILE * stream, const int num_strings, char **p)
 
 /*  Purpose: Skip over a specifed (num_strings) number of floating-point 
     numbers.

@@ -22,8 +22,9 @@ static int get_int_vec_tn(state_struct * state, int in_key,
 
 /**********************************************************************/
 
-int ndi_c_get_int_vec_h(state_struct * state, int in_key, int *return_vec,
-			int vec_size)
+int
+ndi_c_get_int_vec_h(state_struct * state, int in_key, int *return_vec,
+		    int vec_size)
 
 /*  Purpose: Return an array of integers.
     
@@ -63,8 +64,9 @@ int ndi_c_get_int_vec_h(state_struct * state, int in_key, int *return_vec,
 
 /**********************************************************************/
 /**********************************************************************/
-static int get_int_vec_mg(state_struct * state, int in_key,
-			  int *return_vec, int vec_size)
+static int
+get_int_vec_mg(state_struct * state, int in_key,
+	       int *return_vec, int vec_size)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -180,8 +182,9 @@ static int get_int_vec_mg(state_struct * state, int in_key,
 
 /**********************************************************************/
 /**********************************************************************/
-static int get_int_vec_tn(state_struct * state, int in_key,
-			  int *return_vec, int return_size)
+static int
+get_int_vec_tn(state_struct * state, int in_key,
+	       int *return_vec, int return_size)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */

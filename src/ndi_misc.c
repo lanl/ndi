@@ -21,7 +21,8 @@
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_comp_zaids(const void *z1, const void *z2)
+int
+ndi_comp_zaids(const void *z1, const void *z2)
 {
 
     long int a1, a2;
@@ -48,7 +49,8 @@ int ndi_comp_zaids(const void *z1, const void *z2)
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_init_int_vec(int *vec, int num_elements)
+int
+ndi_init_int_vec(int *vec, int num_elements)
 {
 
     int i;
@@ -65,7 +67,8 @@ int ndi_init_int_vec(int *vec, int num_elements)
 /*********************************************************************/
 /**********************************************************************/
 
-int ndi_free_ptr_array(int array_size, char **array)
+int
+ndi_free_ptr_array(int array_size, char **array)
 {
 
     int i;
@@ -80,7 +83,8 @@ int ndi_free_ptr_array(int array_size, char **array)
 }
 
 /**********************************************************************/
-int ndi_get_rprod_int_n(state_struct * state, int vec_num, int *rprod_id)
+int
+ndi_get_rprod_int_n(state_struct * state, int vec_num, int *rprod_id)
 {
 
     int ierr = 0;
@@ -118,8 +122,8 @@ int ndi_get_rprod_int_n(state_struct * state, int vec_num, int *rprod_id)
 }
 
 /**********************************************************************/
-int ndi_get_rprod_vec_mg(state_struct * state, int *rprod_vec,
-			 int vec_size)
+int
+ndi_get_rprod_vec_mg(state_struct * state, int *rprod_vec, int vec_size)
 {
 
     int ierr = 0;
@@ -164,8 +168,9 @@ int ndi_get_rprod_vec_mg(state_struct * state, int *rprod_vec,
 }
 
 /**********************************************************************/
-int ndi_get_rprod_id_n(state_struct * state, int vec_num, char *rprod_id,
-		       int str_size)
+int
+ndi_get_rprod_id_n(state_struct * state, int vec_num, char *rprod_id,
+		   int str_size)
 {
 
     int ierr = 0;
@@ -208,7 +213,8 @@ int ndi_get_rprod_id_n(state_struct * state, int vec_num, char *rprod_id,
 
 /**********************************************************************/
 
-int ndi_check_array_err(int num)
+int
+ndi_check_array_err(int num)
 
    /* Determine if there was no data contained in the library or
       if the subscript was just out of range.  Works only for values
@@ -227,9 +233,9 @@ int ndi_check_array_err(int num)
 }
 
 /**********************************************************************/
-int ndi_read_float_pair(FILE * stream, long int file_pos, int num_prs,
-			double *flt_vecx, double *flt_vecy,
-			int return_size)
+int
+ndi_read_float_pair(FILE * stream, long int file_pos, int num_prs,
+		    double *flt_vecx, double *flt_vecy, int return_size)
 
 /*
   Purpose:  Read from the current stream a pair of floating-point
@@ -296,8 +302,9 @@ int ndi_read_float_pair(FILE * stream, long int file_pos, int num_prs,
 }
 
 /*********************************************************************/
-int ndi_translate_fiss_prod(state_struct * state, int *zaid_list,
-			    int num_zaids)
+int
+ndi_translate_fiss_prod(state_struct * state, int *zaid_list,
+			int num_zaids)
      /* Takes an array of zaids (integers), and will translate 99999
         (indicating a fission product) to the default fission product
         ZAID.
@@ -323,7 +330,8 @@ int ndi_translate_fiss_prod(state_struct * state, int *zaid_list,
 
 /*********************************************************************/
 
-int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
+int
+ndi_parse_mg_zaid(char *zaid, int *z, int *a)
 {
 
     /* Take input of multigroup ZAID, e.g. 92235.600nm, and return
@@ -364,7 +372,8 @@ int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
 /**********************************************************************/
 /**********************************************************************/
 
-int double_compare(const double a, const double b)
+int
+double_compare(const double a, const double b)
      /*  Return =  0, if a == b
         =  1, if a > b
         = -1, if a < b
@@ -392,7 +401,8 @@ int double_compare(const double a, const double b)
 }
 
 /**********************************************************************/
-int ndi_empty_string(char *in_str)
+int
+ndi_empty_string(char *in_str)
 
      /* Empty string returns true (-1) if the input character array
         contains only whitespace before the newline.  It will return 
@@ -415,7 +425,8 @@ int ndi_empty_string(char *in_str)
 }
 
 /**********************************************************************/
-void check_fissionable_err(int *curr_err, int fission_flag)
+void
+check_fissionable_err(int *curr_err, int fission_flag)
 {
 
     /* Purpose: This subroutine should be used when returning fission
@@ -439,8 +450,9 @@ void check_fissionable_err(int *curr_err, int fission_flag)
 }
 
 /**********************************************************************/
-int ndi_get_nth_inc_part_type(state_struct * state, int vec_num,
-			      char *ret_str, const int str_size)
+int
+ndi_get_nth_inc_part_type(state_struct * state, int vec_num,
+			  char *ret_str, const int str_size)
 {
 
     int ierr = 0;
@@ -483,7 +495,8 @@ int ndi_get_nth_inc_part_type(state_struct * state, int vec_num,
 }
 
 /**********************************************************************/
-int ndi_use_sgndf_values(state_struct * state, int num_grps)
+int
+ndi_use_sgndf_values(state_struct * state, int num_grps)
 {
 
     /* Test to see if the current energy group structure is one for

@@ -67,8 +67,9 @@ int ndi_read_double_block(FILE * stream, long file_pos,
 
 /**********************************************************************/
 
-int ndi_init_iso_state(state_struct * state, FILE * stream, char lib_type,
-		       long int iso_start, const char *zaid)
+int
+ndi_init_iso_state(state_struct * state, FILE * stream, char lib_type,
+		   long int iso_start, const char *zaid)
 
 /*  Purpose:  Scan isotope data in library file and set initial values 
     of state variables.
@@ -158,8 +159,8 @@ int ndi_init_iso_state(state_struct * state, FILE * stream, char lib_type,
 /*************************************************************************/
 /*************************************************************************/
 
-static int read_mg_data(state_struct * state, FILE * stream,
-			const char *zaid)
+static int
+read_mg_data(state_struct * state, FILE * stream, const char *zaid)
 {
 
     char in_keyword[MAX_IN_STR_LEN];
@@ -726,8 +727,8 @@ static int read_mg_data(state_struct * state, FILE * stream,
 
 /*************************************************************************/
 
-static int read_tn_data(state_struct * state, FILE * stream,
-			const char *zaid)
+static int
+read_tn_data(state_struct * state, FILE * stream, const char *zaid)
 {
 
     char in_keyword[MAX_IN_STR_LEN];
@@ -920,8 +921,8 @@ static int read_tn_data(state_struct * state, FILE * stream,
 /**********************************************************************/
 /*************************************************************************/
 
-static int read_tn_reac_data(state_struct * state, FILE * stream,
-			     const char *zaid)
+static int
+read_tn_reac_data(state_struct * state, FILE * stream, const char *zaid)
 {
 
     char in_keyword[MAX_IN_STR_LEN];
@@ -1027,8 +1028,8 @@ static int read_tn_reac_data(state_struct * state, FILE * stream,
 
 /**********************************************************************/
 
-static int read_depl_data(state_struct * state, FILE * stream,
-			  const char *zaid)
+static int
+read_depl_data(state_struct * state, FILE * stream, const char *zaid)
 {
 
     char in_keyword[MAX_IN_STR_LEN];
@@ -1192,7 +1193,8 @@ static int read_depl_data(state_struct * state, FILE * stream,
 /**********************************************************************/
 /*************************************************************************/
 
-static int set_simple_array(FILE * stream, stat_flag * sf, int data_num)
+static int
+set_simple_array(FILE * stream, stat_flag * sf, int data_num)
 {
 
     int block_size = 0;
@@ -1215,8 +1217,9 @@ static int set_simple_array(FILE * stream, stat_flag * sf, int data_num)
 
 /**********************************************************************/
 
-static int read_simple_array(FILE * stream, stat_flag * sf,
-			     int data_num, ndi_float64 ** global_p)
+static int
+read_simple_array(FILE * stream, stat_flag * sf,
+		  int data_num, ndi_float64 ** global_p)
 {
 
 
@@ -1253,8 +1256,8 @@ static int read_simple_array(FILE * stream, stat_flag * sf,
 /**********************************************************************/
 /**********************************************************************/
 
-static int read_double_array(FILE * stream, int data_num,
-			     double **double_p)
+static int
+read_double_array(FILE * stream, int data_num, double **double_p)
 {
 
 
@@ -1287,7 +1290,8 @@ static int read_double_array(FILE * stream, int data_num,
 }
 
 /**********************************************************************/
-static int read_next_string(FILE * stream, char *str_array, int str_size)
+static int
+read_next_string(FILE * stream, char *str_array, int str_size)
 
      /* Reads into str_array the next non-blank line.  Str_array
         is assumed to be a character array, rather than dynamically
@@ -1310,7 +1314,8 @@ static int read_next_string(FILE * stream, char *str_array, int str_size)
 }
 
 /**********************************************************************/
-static int set_int_array(FILE * stream, long *int_p, int data_num)
+static int
+set_int_array(FILE * stream, long *int_p, int data_num)
 {
     int ierr = 0;
 
@@ -1327,7 +1332,8 @@ static int set_int_array(FILE * stream, long *int_p, int data_num)
 }
 
 /**********************************************************************/
-static int set_string_array(FILE * stream, char **str_p, int data_num)
+static int
+set_string_array(FILE * stream, char **str_p, int data_num)
 {
     int ierr = 0;
 
@@ -1345,8 +1351,8 @@ static int set_string_array(FILE * stream, char **str_p, int data_num)
 
 /**********************************************************************/
 /**********************************************************************/
-static int set_sec_part_types(FILE * stream, int_zaid_type ** int_p,
-			      int data_num)
+static int
+set_sec_part_types(FILE * stream, int_zaid_type ** int_p, int data_num)
 {
     int ierr = 0;
 
@@ -1366,9 +1372,10 @@ static int set_sec_part_types(FILE * stream, int_zaid_type ** int_p,
 
 /**********************************************************************/
 /**********************************************************************/
-static int set_reaction_array(FILE * stream, char **str_p,
-			      stat_flag ** reac_p, stat_flag ** rprods_p,
-			      int data_num)
+static int
+set_reaction_array(FILE * stream, char **str_p,
+		   stat_flag ** reac_p, stat_flag ** rprods_p,
+		   int data_num)
 {
     int ierr = 0;
     int reac_count = 0;
@@ -1428,7 +1435,8 @@ static int set_reaction_array(FILE * stream, char **str_p,
 }
 
 /**********************************************************************/
-static int set_reaction_prod(FILE * stream, multi_stat * sf, int data_num)
+static int
+set_reaction_prod(FILE * stream, multi_stat * sf, int data_num)
 {
     int n;
     int ierr = 0;
@@ -1457,8 +1465,9 @@ static int set_reaction_prod(FILE * stream, multi_stat * sf, int data_num)
 
 
 /**********************************************************************/
-static int set_depl_array(state_struct * state, FILE * stream,
-			  depl_target_struct * target, int data_num)
+static int
+set_depl_array(state_struct * state, FILE * stream,
+	       depl_target_struct * target, int data_num)
 {
     int ierr = 0;
     int target_count;
@@ -1556,8 +1565,9 @@ static int set_depl_array(state_struct * state, FILE * stream,
 
 /**********************************************************************/
 /**********************************************************************/
-static int set_chain_array(state_struct * state, FILE * stream,
-			   depl_target_struct * target, int data_num)
+static int
+set_chain_array(state_struct * state, FILE * stream,
+		depl_target_struct * target, int data_num)
 {
     int ierr = 0;
     int target_count;
@@ -1689,8 +1699,9 @@ static int set_chain_array(state_struct * state, FILE * stream,
 /**********************************************************************/
 /**********************************************************************/
 
-static int set_pn_array(FILE * stream, multi_stat * sf, int pn_order,
-			int in_grps, int out_grps, int num_elements)
+static int
+set_pn_array(FILE * stream, multi_stat * sf, int pn_order,
+	     int in_grps, int out_grps, int num_elements)
 
 /* It is assumed that 'num_objs' was set when the pn number was read */
 /* The number of incoming and outgoing energy groups must be set */
@@ -1742,9 +1753,10 @@ static int set_pn_array(FILE * stream, multi_stat * sf, int pn_order,
 
 /**********************************************************************/
 
-static int set_sig_reac(FILE * stream, multi_stat * sf, int num_reac,
-			int in_grps, int **in_e_mt,
-			double **in_q_value, int *fission_flag)
+static int
+set_sig_reac(FILE * stream, multi_stat * sf, int num_reac,
+	     int in_grps, int **in_e_mt,
+	     double **in_q_value, int *fission_flag)
 
 /* It is assumed that 'num_objs' has not been set */
 /* The number of  energy groups must be set */
@@ -1812,9 +1824,10 @@ static int set_sig_reac(FILE * stream, multi_stat * sf, int num_reac,
 }
 
 /**********************************************************************/
-static int ndi_setup_edist(char *keyword, FILE * stream,
-			   sec_part_distr * sec_part, int num_parts,
-			   int *parts_filled)
+static int
+ndi_setup_edist(char *keyword, FILE * stream,
+		sec_part_distr * sec_part, int num_parts,
+		int *parts_filled)
 {
     int ierr = 0;
     int tmp_err = 0;
@@ -1881,7 +1894,8 @@ static int ndi_setup_edist(char *keyword, FILE * stream,
 }
 
 /**********************************************************************/
-static int fill_edist(FILE * stream, int ntemp, edist_data * dist)
+static int
+fill_edist(FILE * stream, int ntemp, edist_data * dist)
 {
     int ierr = 0;
     int i;
@@ -1919,8 +1933,8 @@ static int fill_edist(FILE * stream, int ntemp, edist_data * dist)
 }
 
 /**********************************************************************/
-static int ndi_read_interp_param(FILE * stream, int ninterp,
-				 interp_params * param)
+static int
+ndi_read_interp_param(FILE * stream, int ninterp, interp_params * param)
 
    /* Malloc's the space for nbt's and int_types.
     */
@@ -1984,8 +1998,9 @@ static int ndi_read_interp_param(FILE * stream, int ninterp,
 
 
 /**********************************************************************/
-static int ndi_create_tn_sec_part(state_struct * state, int num_parts,
-				  sec_part_distr ** sec_part)
+static int
+ndi_create_tn_sec_part(state_struct * state, int num_parts,
+		       sec_part_distr ** sec_part)
 {
 
     int i;
@@ -2007,8 +2022,9 @@ static int ndi_create_tn_sec_part(state_struct * state, int num_parts,
 
 
 /**********************************************************************/
-static int ndi_create_mg_sec_part(state_struct * state, int num_parts,
-				  sec_part_mg ** sec_part)
+static int
+ndi_create_mg_sec_part(state_struct * state, int num_parts,
+		       sec_part_mg ** sec_part)
 {
 
     int i;
@@ -2025,8 +2041,9 @@ static int ndi_create_mg_sec_part(state_struct * state, int num_parts,
 }
 
 /**********************************************************************/
-static int get_mg_part_type(const char *in_keyword, const char *prefix,
-			    int *part_type)
+static int
+get_mg_part_type(const char *in_keyword, const char *prefix,
+		 int *part_type)
      /* 
         Strip prefix from the front of in_keyword and return part_type.
         Returns error value 
@@ -2047,7 +2064,8 @@ static int get_mg_part_type(const char *in_keyword, const char *prefix,
 }
 
 /**********************************************************************/
-static int find_mg_sec_part_index(state_struct * state, int part_type)
+static int
+find_mg_sec_part_index(state_struct * state, int part_type)
      /* Returns the index within state->iso_stat.sec_parts of the particle of type
         "part_type".
       */
@@ -2070,7 +2088,8 @@ static int find_mg_sec_part_index(state_struct * state, int part_type)
 }
 
 /**********************************************************************/
-static int skip_comment(FILE * stream)
+static int
+skip_comment(FILE * stream)
 {
     char seps[] = " ,\t\n";
     int ierr = 0;
@@ -2093,9 +2112,10 @@ static int skip_comment(FILE * stream)
 }
 
 /**********************************************************************/
-int ndi_read_double_block(FILE * stream, long file_pos,
-			  const int num_floats, double *return_vec,
-			  const int return_size)
+int
+ndi_read_double_block(FILE * stream, long file_pos,
+		      const int num_floats, double *return_vec,
+		      const int return_size)
 {
     int float_count = 0;	/* Current number of floats processed */
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */

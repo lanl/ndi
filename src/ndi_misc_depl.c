@@ -20,7 +20,8 @@
 
 /**********************************************************************/
 
-int ndi_depletion(state_struct * state, const char *in_zaid)
+int
+ndi_depletion(state_struct * state, const char *in_zaid)
    /* The library type must already have been set to multigroup */
 {
     int ierr = 0;
@@ -89,7 +90,8 @@ int ndi_depletion(state_struct * state, const char *in_zaid)
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_default_depl(state_struct * state)
+int
+ndi_set_default_depl(state_struct * state)
 {
 
     int ierr = 0;
@@ -117,8 +119,9 @@ int ndi_set_default_depl(state_struct * state)
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_curr_target(state_struct * state, depl_target_struct ** targ_p,
-			int *target_index)
+int
+ndi_set_curr_target(state_struct * state, depl_target_struct ** targ_p,
+		    int *target_index)
 
      /* Set *targ_p to point at the target struct whose zaid is given by the global
         var 'zaid'.  The param target_index will be the index of the desired target in
@@ -194,8 +197,9 @@ int ndi_set_curr_target(state_struct * state, depl_target_struct ** targ_p,
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_curr_rprod(state_struct * state, depl_rprod_struct ** rprod_p,
-		       const char *rprod, int *prod_index)
+int
+ndi_set_curr_rprod(state_struct * state, depl_rprod_struct ** rprod_p,
+		   const char *rprod, int *prod_index)
 
      /* Set *rprod_p to point at the rprod struct whose zaid is given by the input
         rprod.  The param prod_index will be the index of the desired rprod in the 
@@ -286,7 +290,8 @@ int ndi_set_curr_rprod(state_struct * state, depl_rprod_struct ** rprod_p,
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_radchem(state_struct * state, const char *in_zaid)
+int
+ndi_radchem(state_struct * state, const char *in_zaid)
    /* The library type must already have been set to dosimetry */
 {
     int ierr = 0;

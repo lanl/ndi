@@ -20,7 +20,8 @@ static int ndi_init_dir_rec(dir_entry * dir_rec);
 
 /**********************************************************************/
 
-int read_dir_block(char *in_line, FILE * dir_stream, dir_entry * dir_rec)
+int
+read_dir_block(char *in_line, FILE * dir_stream, dir_entry * dir_rec)
 
 
 /**********************************************************************/
@@ -133,7 +134,8 @@ int read_dir_block(char *in_line, FILE * dir_stream, dir_entry * dir_rec)
 
 /**********************************************************************/
 
-static int ndi_init_dir_rec(dir_entry * dir_rec)
+static int
+ndi_init_dir_rec(dir_entry * dir_rec)
 {
 
     int ierr = 0;

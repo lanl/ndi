@@ -20,8 +20,9 @@
 
 /**********************************************************************/
 
-int ndid_c_get_string_vec(int in_key, const char *in_value,
-			  char *ret_str_arr, int arr_size)
+int
+ndid_c_get_string_vec(int in_key, const char *in_value,
+		      char *ret_str_arr, int arr_size)
 
 /*  Purpose: 
     

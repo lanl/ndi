@@ -6,7 +6,8 @@
 #include "ndi_var_type.h"
 
 
-int ndi2_open(int *handle, const char *path)
+int
+ndi2_open(int *handle, const char *path)
 {
 
     int ierr = 0;
@@ -22,7 +23,8 @@ int ndi2_open(int *handle, const char *path)
     return (ierr);
 }
 
-int ndi2_set_isotope(const int handle, const char *zaid)
+int
+ndi2_set_isotope(const int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -31,7 +33,8 @@ int ndi2_set_isotope(const int handle, const char *zaid)
 }
 
 
-int ndi2_set_zaid(const int handle, const char *zaid)
+int
+ndi2_set_zaid(const int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -39,7 +42,8 @@ int ndi2_set_zaid(const int handle, const char *zaid)
     return (ndi_c_set_zaid_h(state_p, zaid));
 }
 
-int ndi2_get_isotope(const int handle, const char *zaid, int *handle2)
+int
+ndi2_get_isotope(const int handle, const char *zaid, int *handle2)
 {
     int i;
     int h;
@@ -62,12 +66,14 @@ int ndi2_get_isotope(const int handle, const char *zaid, int *handle2)
     return (ndi_c_set_zaid_h(child, zaid));
 }
 
-int ndi2_get_zaid(const int handle, const char *zaid, int *handle2)
+int
+ndi2_get_zaid(const int handle, const char *zaid, int *handle2)
 {
     return (ndi2_get_isotope(handle, zaid, handle2));
 }
 
-int ndi2_set_reaction(const int handle, const char *zaid)
+int
+ndi2_set_reaction(const int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -75,7 +81,8 @@ int ndi2_set_reaction(const int handle, const char *zaid)
     return (ndi_c_set_reaction_h(state_p, zaid));
 }
 
-int ndi2_get_size(const int handle, int in_key, int *ierr)
+int
+ndi2_get_size(const int handle, int in_key, int *ierr)
 {
     state_struct *state_p;
 
@@ -83,7 +90,8 @@ int ndi2_get_size(const int handle, int in_key, int *ierr)
     return (ndi_c_get_size_h(state_p, in_key, ierr));
 }
 
-int ndi2_get_size_n(const int handle, int in_key, int vec_num, int *ierr)
+int
+ndi2_get_size_n(const int handle, int in_key, int vec_num, int *ierr)
 {
     state_struct *state_p;
 
@@ -91,8 +99,9 @@ int ndi2_get_size_n(const int handle, int in_key, int vec_num, int *ierr)
     return (ndi_c_get_size_n_h(state_p, in_key, vec_num, ierr));
 }
 
-int ndi2_get_size_x(const int handle, int in_key, const char *in_str,
-		    int *ierr)
+int
+ndi2_get_size_x(const int handle, int in_key, const char *in_str,
+		int *ierr)
 {
     state_struct *state_p;
 
@@ -100,7 +109,8 @@ int ndi2_get_size_x(const int handle, int in_key, const char *in_str,
     return (ndi_c_get_size_x_h(state_p, in_key, in_str, ierr));
 }
 
-int ndi2_set_option(const int handle, int in_key, const char *value)
+int
+ndi2_set_option(const int handle, int in_key, const char *value)
 {
     state_struct *state_p;
 
@@ -108,9 +118,10 @@ int ndi2_set_option(const int handle, int in_key, const char *value)
     return (ndi_c_set_option_h(state_p, in_key, value));
 }
 
-int ndi2_set_float64_vec_option(const int handle, int in_key,
-				const ndi_float64 * option_array,
-				const int array_size)
+int
+ndi2_set_float64_vec_option(const int handle, int in_key,
+			    const ndi_float64 * option_array,
+			    const int array_size)
 {
     state_struct *state_p;
 
@@ -119,8 +130,9 @@ int ndi2_set_float64_vec_option(const int handle, int in_key,
 	    (state_p, in_key, option_array, array_size));
 }
 
-int ndi2_check_option(const int handle, int in_key, char *out_value,
-		      int string_size)
+int
+ndi2_check_option(const int handle, int in_key, char *out_value,
+		  int string_size)
 {
     state_struct *state_p;
 
@@ -128,7 +140,8 @@ int ndi2_check_option(const int handle, int in_key, char *out_value,
     return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
 }
 
-int ndi2_get_int_val(const int handle, int in_key, int *ret_val)
+int
+ndi2_get_int_val(const int handle, int in_key, int *ret_val)
 {
     state_struct *state_p;
 
@@ -136,8 +149,8 @@ int ndi2_get_int_val(const int handle, int in_key, int *ret_val)
     return (ndi_c_get_int_val_h(state_p, in_key, ret_val));
 }
 
-int ndi2_get_int_val_n(const int handle, int in_key, int vec_num,
-		       int *ret_val)
+int
+ndi2_get_int_val_n(const int handle, int in_key, int vec_num, int *ret_val)
 {
     state_struct *state_p;
 
@@ -145,8 +158,9 @@ int ndi2_get_int_val_n(const int handle, int in_key, int vec_num,
     return (ndi_c_get_int_val_n_h(state_p, in_key, vec_num, ret_val));
 }
 
-int ndi2_get_int_vec(const int handle, int in_key, int *return_vec,
-		     int vec_size)
+int
+ndi2_get_int_vec(const int handle, int in_key, int *return_vec,
+		 int vec_size)
 {
     state_struct *state_p;
 
@@ -154,8 +168,9 @@ int ndi2_get_int_vec(const int handle, int in_key, int *return_vec,
     return (ndi_c_get_int_vec_h(state_p, in_key, return_vec, vec_size));
 }
 
-int ndi2_get_int_vec_n(const int handle, int in_key, int vec_num,
-		       int *return_vec, int vec_size)
+int
+ndi2_get_int_vec_n(const int handle, int in_key, int vec_num,
+		   int *return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -164,8 +179,8 @@ int ndi2_get_int_vec_n(const int handle, int in_key, int vec_num,
 	    (state_p, in_key, vec_num, return_vec, vec_size));
 }
 
-int ndi2_get_float32_val(const int handle, int in_key,
-			 ndi_float32 * ret_val)
+int
+ndi2_get_float32_val(const int handle, int in_key, ndi_float32 * ret_val)
 {
     state_struct *state_p;
 
@@ -173,8 +188,9 @@ int ndi2_get_float32_val(const int handle, int in_key,
     return (ndi_c_get_float32_val_h(state_p, in_key, ret_val));
 }
 
-int ndi2_get_float32_val_n(const int handle, int in_key, int vec_num,
-			   ndi_float32 * ret_val)
+int
+ndi2_get_float32_val_n(const int handle, int in_key, int vec_num,
+		       ndi_float32 * ret_val)
 {
     state_struct *state_p;
 
@@ -182,8 +198,9 @@ int ndi2_get_float32_val_n(const int handle, int in_key, int vec_num,
     return (ndi_c_get_float32_val_n_h(state_p, in_key, vec_num, ret_val));
 }
 
-int ndi2_get_float32_vec(const int handle, int in_key,
-			 ndi_float32 * return_vec, int vec_size)
+int
+ndi2_get_float32_vec(const int handle, int in_key,
+		     ndi_float32 * return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -192,8 +209,9 @@ int ndi2_get_float32_vec(const int handle, int in_key,
 	    (state_p, in_key, return_vec, vec_size));
 }
 
-int ndi2_get_float32_vec_n(const int handle, int in_key, int vec_num,
-			   ndi_float32 * return_vec, int vec_size)
+int
+ndi2_get_float32_vec_n(const int handle, int in_key, int vec_num,
+		       ndi_float32 * return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -202,9 +220,10 @@ int ndi2_get_float32_vec_n(const int handle, int in_key, int vec_num,
 	    (state_p, in_key, vec_num, return_vec, vec_size));
 }
 
-int ndi2_get_float32_vec_x(const int handle, int in_key,
-			   const char *in_str, ndi_float32 * return_vec,
-			   int vec_size)
+int
+ndi2_get_float32_vec_x(const int handle, int in_key,
+		       const char *in_str, ndi_float32 * return_vec,
+		       int vec_size)
 {
     state_struct *state_p;
 
@@ -213,8 +232,8 @@ int ndi2_get_float32_vec_x(const int handle, int in_key,
 	    (state_p, in_key, in_str, return_vec, vec_size));
 }
 
-int ndi2_get_float64_val(const int handle, int in_key,
-			 ndi_float64 * ret_val)
+int
+ndi2_get_float64_val(const int handle, int in_key, ndi_float64 * ret_val)
 {
     state_struct *state_p;
 
@@ -222,8 +241,9 @@ int ndi2_get_float64_val(const int handle, int in_key,
     return (ndi_c_get_float64_val_h(state_p, in_key, ret_val));
 }
 
-int ndi2_get_float64_val_n(const int handle, int in_key, int vec_num,
-			   ndi_float64 * ret_val)
+int
+ndi2_get_float64_val_n(const int handle, int in_key, int vec_num,
+		       ndi_float64 * ret_val)
 {
     state_struct *state_p;
 
@@ -231,8 +251,9 @@ int ndi2_get_float64_val_n(const int handle, int in_key, int vec_num,
     return (ndi_c_get_float64_val_n_h(state_p, in_key, vec_num, ret_val));
 }
 
-int ndi2_get_float64_vec(const int handle, int in_key,
-			 ndi_float64 * return_vec, int vec_size)
+int
+ndi2_get_float64_vec(const int handle, int in_key,
+		     ndi_float64 * return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -241,8 +262,9 @@ int ndi2_get_float64_vec(const int handle, int in_key,
 	    (state_p, in_key, return_vec, vec_size));
 }
 
-int ndi2_get_float64_vec_n(const int handle, int in_key, int vec_num,
-			   ndi_float64 * return_vec, int vec_size)
+int
+ndi2_get_float64_vec_n(const int handle, int in_key, int vec_num,
+		       ndi_float64 * return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -251,9 +273,10 @@ int ndi2_get_float64_vec_n(const int handle, int in_key, int vec_num,
 	    (state_p, in_key, vec_num, return_vec, vec_size));
 }
 
-int ndi2_get_float64_vec_x(const int handle, int in_key,
-			   const char *in_str, ndi_float64 * return_vec,
-			   int vec_size)
+int
+ndi2_get_float64_vec_x(const int handle, int in_key,
+		       const char *in_str, ndi_float64 * return_vec,
+		       int vec_size)
 {
     state_struct *state_p;
 
@@ -262,8 +285,9 @@ int ndi2_get_float64_vec_x(const int handle, int in_key,
 	    (state_p, in_key, in_str, return_vec, vec_size));
 }
 
-int ndi2_get_string_val(const int handle, int in_key, char *ret_val,
-			int str_size)
+int
+ndi2_get_string_val(const int handle, int in_key, char *ret_val,
+		    int str_size)
 {
     state_struct *state_p;
 
@@ -271,8 +295,9 @@ int ndi2_get_string_val(const int handle, int in_key, char *ret_val,
     return (ndi_c_get_string_val_h(state_p, in_key, ret_val, str_size));
 }
 
-int ndi2_get_string_val_n(const int handle, int in_key, int vec_num,
-			  char *ret_val, int str_size)
+int
+ndi2_get_string_val_n(const int handle, int in_key, int vec_num,
+		      char *ret_val, int str_size)
 {
     state_struct *state_p;
 
@@ -281,7 +306,8 @@ int ndi2_get_string_val_n(const int handle, int in_key, int vec_num,
 	    (state_p, in_key, vec_num, ret_val, str_size));
 }
 
-int ndi2_close(const int handle)
+int
+ndi2_close(const int handle)
 {
 
     return (__ndi_close_handle(handle));

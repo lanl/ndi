@@ -10,9 +10,10 @@ static int GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
 			      const int vec_size);
 
 /**********************************************************************/
-int NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
-			const int in_key, FLOAT_TYPE * ret_vec,
-			const int vec_size)
+int
+NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
+		    const int in_key, FLOAT_TYPE * ret_vec,
+		    const int vec_size)
 {
 
     int ierr = 0;
@@ -54,9 +55,10 @@ int NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
-			      const int in_key, FLOAT_TYPE * return_vec,
-			      const int vec_size)
+static int
+GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
+		   const int in_key, FLOAT_TYPE * return_vec,
+		   const int vec_size)
 {
 
     int ierr = 0;

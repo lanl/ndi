@@ -5,8 +5,9 @@
 #include "ndi_state.h"
 
 /**********************************************************************/
-int ndimp_get_int_val(const int *handle_arr, const int num_parts,
-		      const int in_key, int *return_val)
+int
+ndimp_get_int_val(const int *handle_arr, const int num_parts,
+		  const int in_key, int *return_val)
 {
 
     int i;

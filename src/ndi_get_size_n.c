@@ -24,8 +24,9 @@ static int get_tnreac_size(state_struct * state, int in_key, int vec_num,
 
 /**********************************************************************/
 
-int ndi_c_get_size_n_h(state_struct * state, int in_key, int vec_num,
-		       int *ierr)
+int
+ndi_c_get_size_n_h(state_struct * state, int in_key, int vec_num,
+		   int *ierr)
 
 /* Purpose: Return the size of a "vector" in a multi-dimensional array.
    The vector is identified by vec_num (a zero-based index).
@@ -86,8 +87,8 @@ int ndi_c_get_size_n_h(state_struct * state, int in_key, int vec_num,
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_mg_size_n(state_struct * state, int in_key, int vec_num,
-			 int *ierr)
+static int
+get_mg_size_n(state_struct * state, int in_key, int vec_num, int *ierr)
 {
 
     int return_value = 0;	/* Default return value is '0' */
@@ -352,8 +353,8 @@ static int get_mg_size_n(state_struct * state, int in_key, int vec_num,
 /**********************************************************************/
 
 
-static int get_tn_size(state_struct * state, int in_key, int vec_num,
-		       int *ierr)
+static int
+get_tn_size(state_struct * state, int in_key, int vec_num, int *ierr)
 {
 
 
@@ -430,8 +431,8 @@ static int get_tn_size(state_struct * state, int in_key, int vec_num,
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_tnreac_size(state_struct * state, int in_key, int vec_num,
-			   int *ierr)
+static int
+get_tnreac_size(state_struct * state, int in_key, int vec_num, int *ierr)
 {
 
 

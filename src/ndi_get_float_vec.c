@@ -62,8 +62,9 @@ static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
 
 /**********************************************************************/
 
-int NDI_GET_FLOAT_VEC_H(state_struct * state, int in_key,
-			FLOAT_TYPE * return_vec, int return_size)
+int
+NDI_GET_FLOAT_VEC_H(state_struct * state, int in_key,
+		    FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -100,8 +101,9 @@ int NDI_GET_FLOAT_VEC_H(state_struct * state, int in_key,
 
 /**********************************************************************/
 /**********************************************************************/
-static int GET_FLOAT_VEC_MG(state_struct * state, int in_key,
-			    FLOAT_TYPE * return_vec, int return_size)
+static int
+GET_FLOAT_VEC_MG(state_struct * state, int in_key,
+		 FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -442,8 +444,9 @@ static int GET_FLOAT_VEC_MG(state_struct * state, int in_key,
 
 /**********************************************************************/
 /**********************************************************************/
-static int GET_FLOAT_VEC_TN(state_struct * state, int in_key,
-			    FLOAT_TYPE * return_vec, int return_size)
+static int
+GET_FLOAT_VEC_TN(state_struct * state, int in_key,
+		 FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -536,9 +539,10 @@ static int GET_FLOAT_VEC_TN(state_struct * state, int in_key,
 /*********************************************************************/
 /*********************************************************************/
 
-static int GET_CHI_MAT(state_struct * state, FILE * stream, long mat_ptr,
-		       long vec_ptr, FLOAT_TYPE * return_mat,
-		       int lib_num_grps, int return_size)
+static int
+GET_CHI_MAT(state_struct * state, FILE * stream, long mat_ptr,
+	    long vec_ptr, FLOAT_TYPE * return_mat,
+	    int lib_num_grps, int return_size)
 {
 
     /* lib_num_grps is the number of groups--uncollapsed */
@@ -673,8 +677,9 @@ static int GET_CHI_MAT(state_struct * state, FILE * stream, long mat_ptr,
 
 /*********************************************************************/
 
-static int NDI_CALC_E_AVG(state_struct * state, FLOAT_TYPE * return_vec,
-			  int return_size)
+static int
+NDI_CALC_E_AVG(state_struct * state, FLOAT_TYPE * return_vec,
+	       int return_size)
 {
 
     int i;
@@ -771,8 +776,9 @@ static int NDI_CALC_E_AVG(state_struct * state, FLOAT_TYPE * return_vec,
 
 /*********************************************************************/
 
-static int NDI_CALC_E_N(state_struct * state, FLOAT_TYPE * return_vec,
-			int return_size)
+static int
+NDI_CALC_E_N(state_struct * state, FLOAT_TYPE * return_vec,
+	     int return_size)
 {
 
     int i;			/* counter over incident groups */
@@ -824,8 +830,9 @@ static int NDI_CALC_E_N(state_struct * state, FLOAT_TYPE * return_vec,
 
 /*********************************************************************/
 
-static int NDI_CALC_E_AVAIL(state_struct * state, FLOAT_TYPE * return_vec,
-			    int return_size)
+static int
+NDI_CALC_E_AVAIL(state_struct * state, FLOAT_TYPE * return_vec,
+		 int return_size)
 {
 
     int i;			/* counter over reactions */
@@ -889,9 +896,10 @@ static int NDI_CALC_E_AVAIL(state_struct * state, FLOAT_TYPE * return_vec,
 
 /*********************************************************************/
 /*********************************************************************/
-static int NDI_GET_HEATING(state_struct * state, stat_flag * heating,
-			   stat_flag * kerma, FLOAT_TYPE * return_vec,
-			   int return_size)
+static int
+NDI_GET_HEATING(state_struct * state, stat_flag * heating,
+		stat_flag * kerma, FLOAT_TYPE * return_vec,
+		int return_size)
 {
 
     int ierr = 0;
@@ -971,9 +979,10 @@ static int NDI_GET_HEATING(state_struct * state, stat_flag * heating,
 
 /*********************************************************************/
 /*********************************************************************/
-static int NDI_GET_KERMA(state_struct * state, stat_flag * kerma,
-			 stat_flag * heating, FLOAT_TYPE * return_vec,
-			 int return_size)
+static int
+NDI_GET_KERMA(state_struct * state, stat_flag * kerma,
+	      stat_flag * heating, FLOAT_TYPE * return_vec,
+	      int return_size)
 {
 
     int ierr = 0;
@@ -1054,8 +1063,9 @@ static int NDI_GET_KERMA(state_struct * state, stat_flag * kerma,
 
 /*********************************************************************/
 /*********************************************************************/
-static int GET_E_BOUNDS_CURR_PART(state_struct * state,
-				  FLOAT_TYPE * return_vec, int return_size)
+static int
+GET_E_BOUNDS_CURR_PART(state_struct * state,
+		       FLOAT_TYPE * return_vec, int return_size)
 {
 
     int i;
@@ -1094,8 +1104,9 @@ static int GET_E_BOUNDS_CURR_PART(state_struct * state,
 
 /*********************************************************************/
 /*********************************************************************/
-static int NDI_GET_OLD_HEATING(state_struct * state,
-			       FLOAT_TYPE * return_vec, int return_size)
+static int
+NDI_GET_OLD_HEATING(state_struct * state,
+		    FLOAT_TYPE * return_vec, int return_size)
 {
     int i;
     int ierr;
@@ -1141,8 +1152,9 @@ static int NDI_GET_OLD_HEATING(state_struct * state,
 
 /*********************************************************************/
 /*********************************************************************/
-int NDI_GET_OLD_KERMA(state_struct * state, FLOAT_TYPE * return_vec,
-		      int return_size)
+int
+NDI_GET_OLD_KERMA(state_struct * state, FLOAT_TYPE * return_vec,
+		  int return_size)
 {
 
     int ierr = 0;
@@ -1254,8 +1266,9 @@ int NDI_GET_OLD_KERMA(state_struct * state, FLOAT_TYPE * return_vec,
 
 /*********************************************************************/
 /*********************************************************************/
-static int SIG_TOT_TRANS_CORR(state_struct * state,
-			      FLOAT_TYPE * return_vec, int return_size)
+static int
+SIG_TOT_TRANS_CORR(state_struct * state,
+		   FLOAT_TYPE * return_vec, int return_size)
 {
 
     int i;
@@ -1313,9 +1326,9 @@ static int SIG_TOT_TRANS_CORR(state_struct * state,
 /*********************************************************************/
 /*********************************************************************/
 
-static int NDI_GET_CHI_VEC(state_struct * state, isotope_status * mg,
-			   char chi_type, FLOAT_TYPE * return_vec,
-			   int *return_size)
+static int
+NDI_GET_CHI_VEC(state_struct * state, isotope_status * mg,
+		char chi_type, FLOAT_TYPE * return_vec, int *return_size)
 {
 
     /*  Purpose:  Fill array 'return_vec' with appropriate chi vector
@@ -1430,8 +1443,7 @@ static int NDI_GET_CHI_VEC(state_struct * state, isotope_status * mg,
 			   return_vec, *return_size, 2, mg->num_grps);
 
 	/* Enough info available to calculate chi from other chi vectors */
-    } else if (chi1_ptr && chi2_ptr &&
-	       ndi_nusigf_avail(state, chi_type1)
+    } else if (chi1_ptr && chi2_ptr && ndi_nusigf_avail(state, chi_type1)
 	       && ndi_nusigf_avail(state, chi_type2)
 	       && mg->wgts.file_ptr) {
 
@@ -1493,8 +1505,9 @@ static int NDI_GET_CHI_VEC(state_struct * state, isotope_status * mg,
 }
 
 /*********************************************************************/
-static int GET_DEPL_XS(state_struct * state, isotope_status * mg,
-		       FLOAT_TYPE * return_vec, int return_size)
+static int
+GET_DEPL_XS(state_struct * state, isotope_status * mg,
+	    FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -1603,8 +1616,9 @@ static int GET_DEPL_XS(state_struct * state, isotope_status * mg,
 }
 
 /*********************************************************************/
-static int GET_EDIST_VEC(state_struct * state, FILE * lib_stream,
-			 FLOAT_TYPE * return_vec, int return_size)
+static int
+GET_EDIST_VEC(state_struct * state, FILE * lib_stream,
+	      FLOAT_TYPE * return_vec, int return_size)
 {
     /* It is assumed that the temperature data will be given in ASCENDING order!!!! */
 
@@ -1720,8 +1734,8 @@ static int GET_EDIST_VEC(state_struct * state, FILE * lib_stream,
 /*********************************************************************/
 /*********************************************************************/
 
-static int CALC_CHI_WGT(state_struct * state, char nu_type,
-			FLOAT_TYPE * nu_avg)
+static int
+CALC_CHI_WGT(state_struct * state, char nu_type, FLOAT_TYPE * nu_avg)
 {
 
 /* Purpose: Calculates the weight to give to chi when summing to form third chi.
@@ -1792,8 +1806,9 @@ static int CALC_CHI_WGT(state_struct * state, char nu_type,
 
 /*********************************************************************/
 /*********************************************************************/
-static int NDI_GET_NUSIGF(state_struct * state, char nu_type,
-			  FLOAT_TYPE * return_vec, int *return_size)
+static int
+NDI_GET_NUSIGF(state_struct * state, char nu_type,
+	       FLOAT_TYPE * return_vec, int *return_size)
 {
 
     /*  Purpose:  Return the appropriate nu*sigmaf (Nu * fission cross-section)
@@ -1957,9 +1972,9 @@ static int NDI_GET_NUSIGF(state_struct * state, char nu_type,
 
 /*********************************************************************/
 /*********************************************************************/
-static int NDI_GET_NU(state_struct * state, isotope_status * mg,
-		      char nu_type, FLOAT_TYPE * return_vec,
-		      int *return_size)
+static int
+NDI_GET_NU(state_struct * state, isotope_status * mg,
+	   char nu_type, FLOAT_TYPE * return_vec, int *return_size)
 {
 
     /*  Purpose:  Return the appropriate nu value (average number of particles
@@ -2108,8 +2123,8 @@ static int NDI_GET_NU(state_struct * state, isotope_status * mg,
 
 /*********************************************************************/
 /*********************************************************************/
-static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
-			int return_size)
+static int
+COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -2127,7 +2142,7 @@ static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
 	1.0662404, 0.65543265, 0.40027916, 0.23876023, 0.11622681,
 	4.26904e-2, 1.567259e-2, 5.7608294e-3, 2.1196273e-3, 7.8051786e-4,
 	2.8695381e-4, 1.0553574e-4, 3.8819478e-5, 1.4288539e-5,
-	    5.259767e-6,
+	5.259767e-6,
 	1.9375072e-6, 7.1294634e-7, 2.6175908e-7, 4.7190667e-8
     };
 

@@ -5,8 +5,9 @@
 
 /**********************************************************************/
 
-int ndimp_get_size_n(const int *handle_arr, const int num_parts,
-		     int in_key, int vec_num, int *ierr)
+int
+ndimp_get_size_n(const int *handle_arr, const int num_parts,
+		 int in_key, int vec_num, int *ierr)
 {
 
     int return_val = 0;

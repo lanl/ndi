@@ -25,7 +25,8 @@
     positive value for warning, and a '0' if everything's ok.
     
 ***********************************************************************/
-int ndi_c_close_h(state_struct ** curr_state)
+int
+ndi_c_close_h(state_struct ** curr_state)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */

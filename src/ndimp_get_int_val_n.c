@@ -10,8 +10,9 @@ static int get_last_group_n(const int *handle_arr, const int num_parts,
 			    const int vec_num, int *return_val);
 
 /**********************************************************************/
-int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
-			const int in_key, const int vec_num, int *ret_val)
+int
+ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
+		    const int in_key, const int vec_num, int *ret_val)
 {
 
     int ierr = 0;
@@ -40,8 +41,9 @@ int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
-			      const int vec_num, int *return_val)
+static int
+get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
+		   const int vec_num, int *return_val)
 {
 
     int ierr = 0;
@@ -66,8 +68,9 @@ static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int get_last_group_n(const int *handle_arr, const int num_parts,
-			    const int vec_num, int *return_val)
+static int
+get_last_group_n(const int *handle_arr, const int num_parts,
+		 const int vec_num, int *return_val)
 {
 
     int temp_val = 0;

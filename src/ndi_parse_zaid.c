@@ -23,8 +23,9 @@ static int ndi_find_symbolic_state(char *in_str);
 
 /**********************************************************************/
 
-int ndi_parse_str_zaid(state_struct * state, char *zaid_str, int *Z,
-		       int *A, int *S)
+int
+ndi_parse_str_zaid(state_struct * state, char *zaid_str, int *Z,
+		   int *A, int *S)
 {
 
     /* Parse a ZAID represented as a string.  This ZAID can be symbolic
@@ -56,8 +57,9 @@ int ndi_parse_str_zaid(state_struct * state, char *zaid_str, int *Z,
 }
 
 /**********************************************************************/
-int ndi_parse_symbolic_zaid(state_struct * state, char *in_zaid, int *Z,
-			    int *A, int *S)
+int
+ndi_parse_symbolic_zaid(state_struct * state, char *in_zaid, int *Z,
+			int *A, int *S)
 {
     /* Parse a symbolic zaid, i.e. of the form U235 or Pu-239.  
        The zaid may have an ending extension, i.e. H1.600nm.
@@ -102,7 +104,8 @@ int ndi_parse_symbolic_zaid(state_struct * state, char *in_zaid, int *Z,
 }
 
 /**********************************************************************/
-int ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
+int
+ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
 {
 
     int ierr = 0;
@@ -119,7 +122,8 @@ int ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
 
 /**********************************************************************/
 
-static int ndi_find_symbolic_state(char *in_str)
+static int
+ndi_find_symbolic_state(char *in_str)
 {
 
     /*  Find the state in the input string.  The state will be

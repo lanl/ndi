@@ -32,7 +32,8 @@
     end-of-string character.
 
 ***********************************************************************/
-int ndi_close_lib_file(state_struct * state)
+int
+ndi_close_lib_file(state_struct * state)
 {
     int ret_code = 0;		/* Return code--returned error value */
 
@@ -60,4 +61,5 @@ int ndi_close_lib_file(state_struct * state)
     return (ret_code);
 
 }
+
 /**********************************************************************/

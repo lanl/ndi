@@ -29,7 +29,8 @@
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-int ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
+int
+ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
 {
     int ierr = 0;
     struct ndi_bin_tree_node *root = NULL;
@@ -52,7 +53,8 @@ int ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
+int
+ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
 {
     int ierr = 0;
     struct ndi_bin_tree_node *root = NULL;

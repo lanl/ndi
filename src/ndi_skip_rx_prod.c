@@ -18,7 +18,8 @@
 
 /**********************************************************************/
 
-int ndi_skip_rx_prod(FILE * stream, stat_flag * rx_prod, short mt_flag)
+int
+ndi_skip_rx_prod(FILE * stream, stat_flag * rx_prod, short mt_flag)
 
 /*  Purpose:  Skip over reaction product data in library file.
 
