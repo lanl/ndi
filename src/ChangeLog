@@ -1,3 +1,8 @@
+2004-04-29  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* makefile.in (SRC): moved ndi_skip_float_block from SRC_FLOAT to
+	SRC 
+
 2004-04-28  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_set_float_vec_option.c ((state_struct *state,

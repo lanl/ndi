@@ -87,6 +87,7 @@ SRC := \
 	ndi_set_float_vec_option.c \
 	ndi_set_option.c \
 	ndi_skip_rx_prod.c \
+	ndi_skip_float_block.c \
 	ndi_state.c \
 	ndi_std_zaid.c \
 	ndi_sza_symbol_translation.c \
@@ -112,7 +113,6 @@ SRC_FLOAT := \
 	ndi_get_float_vec_x.c \
 	ndi_misc_float.c \
 	ndi_read_float_block.c \
-	ndi_skip_float_block.c \
 	ndid_zaid_float_vec.c \
 	ndimp_get_float_vec.c \
 	ndimp_get_float_vec_n.c 
