@@ -9,7 +9,7 @@
 # Standard macros
 CC		:= cc
 FC		:= f77
-CFLAGS		:= -Wall
+CFLAGS		:=
 FFLAGS		:= -g -extend_source -cpp
 ifdef DEBUG
 CFLAGS		+= -g
