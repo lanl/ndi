@@ -1834,7 +1834,7 @@ static int find_mg_sec_part_index( mg_sec_part_type part_type )
 static int skip_comment( FILE *stream )
 
 {
-  char seps[] = " ,\t\n"; 
+  char seps[] = " ,\t"; 
   int ierr = 0;
   char comment[MAX_IN_STR_LEN];
 
