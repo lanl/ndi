@@ -42,6 +42,7 @@ if [ -d $NDI_ROOT/$ndi_version ]; then
 else
     umask 002
     mkdir $NDI_ROOT/$ndi_version
+    chgrp pdata $NDI_ROOT/$ndi_version
 fi
 
 if [ -d $INSTALL_DIR ]; then
