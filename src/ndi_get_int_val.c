@@ -153,7 +153,7 @@ static int get_int_val_mg( int in_key, int *ret_val ) {
       }
       break;
 
-   case NDI_NUM_PNU:
+   case NDI_NUM_PNU_PR:
        *ret_val = 10;	/* number of fission neutron probabilities */
        break;
 

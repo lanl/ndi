@@ -69,7 +69,6 @@ SRC := \
 	ndi_init.c \
 	ndi_init_iso_state.c \
 	ndi_init_state.c \
-	ndi_state_handle.c \
 	ndi_interp_integ.c \
 	ndi_malloc.c \
 	ndi_misc.c \
@@ -89,7 +88,8 @@ SRC := \
 	ndi_state.c \
 	ndi_std_zaid.c \
 	ndi_sza_symbol_translation.c \
-	ndi_zaid_dir.c
+	ndi_zaid_dir.c \
+	ndi_mpmg.c
 
 SRC_FLOAT := \
 	ndi_collapse_float.c \
@@ -129,8 +129,7 @@ SRC_TESTC := \
 	test/tn_use.c \
 	test/tnreac_c.c \
 	test/za.c \
-	test/pnu.c \
-	test/handle.c
+	test/pnu.c
 
 SRC_TESTF := \
 	test/ndi_testf.F\

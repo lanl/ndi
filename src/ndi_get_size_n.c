@@ -212,8 +212,8 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
    case NDI_SIG_REAC:        /* reaction cross section */      
    case NDI_CORR_DIAG:       /* Diagonal transport correction  */
    case NDI_CORR_BHS:        /* Bell-Hansen-Sandmeier transport correction */
-   case NDI_PNU:		/* fission neutron mult. probabilities */
-   case NDI_SIG_PNU:		/* fission neutron mult. cross sections */
+   case NDI_PNU_PR:		/* fission neutron mult. probabilities */
+   case NDI_SIG_PNU_PR:		/* fission neutron mult. cross sections */
      if ( collapse_flag != 0 ) {
        return_value =  grp_num_new;              
      } else {

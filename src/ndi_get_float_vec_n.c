@@ -44,8 +44,8 @@ static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num, 
 			     int n_type );
-static int GET_PNU(FLOAT_TYPE *return_vec, int vec_num);
-static int GET_SIG_PNU(FLOAT_TYPE *return_vec, int vec_num);
+static int GET_PNU_PR(FLOAT_TYPE *return_vec, int vec_num);
+static int GET_SIG_PNU_PR(FLOAT_TYPE *return_vec, int vec_num);
 
 /**********************************************************************/
 
@@ -144,12 +144,12 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
      break;
 
 
-   case NDI_PNU:		/* fission neutron mult probabilities */
-       ierr = GET_PNU(return_vec, vec_num);
+   case NDI_PNU_PR:		/* fission neutron mult probabilities */
+       ierr = GET_PNU_PR(return_vec, vec_num);
        break;
 
-   case NDI_SIG_PNU:
-       ierr = GET_SIG_PNU(return_vec, vec_num);
+   case NDI_SIG_PNU_PR:
+       ierr = GET_SIG_PNU_PR(return_vec, vec_num);
        break;
 
    case NDI_PN_PROD_FULL_CURR_PART:        /* Full production matrix for current particle */
@@ -977,7 +977,7 @@ static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
 #define MAX_NU 10
 
 /*!
-  \fn GET_PNU
+  \fn GET_PNU_PR
   \param return_vec: array of probability per group
   \param vec_num: number of fission neutrons
 
@@ -986,7 +986,7 @@ static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
   "Distribution of Fission Neutron Numbers"
   Phys. Rev. 108, 738 (1957)
 */
-static int GET_PNU(FLOAT_TYPE *return_vec, int vec_num)
+static int GET_PNU_PR(FLOAT_TYPE *return_vec, int vec_num)
 {
     FLOAT_TYPE *nu = NULL;
     int num_grps;
@@ -1077,7 +1077,7 @@ static long ndi_perm(long n, long m)
 }
 
 /*!
-  \fn GET_SIG_PNU
+  \fn GET_SIG_PNU_PR
   \param sig_pnu: array of transport fission cross section multiplicities
   \param i: number of fission neutrons
 
@@ -1087,7 +1087,7 @@ static long ndi_perm(long n, long m)
   "On the Probability of Initiating a Persistent Fission Chain"
   LA-2608 (1976)
 */
-static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
+static int GET_SIG_PNU_PR(FLOAT_TYPE *sig_pnu, int i)
 {
 
     FLOAT_TYPE *nu = NULL;
@@ -1135,7 +1135,7 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
 
     for (j = i; j < MAX_NU; j++)
     {
-	GET_PNU(p, j);		/* get probabilities */
+	GET_PNU_PR(p, j);		/* get probabilities */
 	for (k = 0; k < num_grps; k++) /* add to sum */
 	    sig_pnu[k] += ndi_perm(j, i) * p[k];
     }

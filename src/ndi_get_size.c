@@ -189,7 +189,7 @@ static int get_mg_size( int in_key, int *ierr ) {
    case NDI_FISSIONABLE:      /* Boolean value -- does this isotope have fission info */
    case NDI_ATOMIC_NUM:       /* Z of the current zaid */
    case NDI_MASS_NUM:         /* A of the current zaid */
-   case NDI_NUM_PNU:		/* number of P(nu) vectors available */
+   case NDI_NUM_PNU_PR:		/* number of P(nu) vectors available */
       return_value = 1;
       break;
 

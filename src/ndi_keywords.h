@@ -147,8 +147,8 @@
 #define NDI_EINBAR_INTERP_REG         119
 #define NDI_EINBAR_INTERP_TYPE        120
 
-#define NDI_NUM_PNU                   121
-#define NDI_PNU                       122
-#define NDI_SIG_PNU                   123
+#define NDI_NUM_PNU_PR                121
+#define NDI_PNU_PR                    122
+#define NDI_SIG_PNU_PR                123
 
 #endif	/* __NDI_KEYWORDS_H */

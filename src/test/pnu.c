@@ -87,18 +87,18 @@ int main ()
 	ierr += ndi_get_string_val( NDI_ZAID, zaid, 25 );
 	printf("\nZaid = %s\n\n", zaid );
      
-	ierr += ndi_get_int_val(NDI_NUM_PNU, &num_pnu);
+	ierr += ndi_get_int_val(NDI_NUM_PNU_PR, &num_pnu);
 	if (ierr)
-	    printf("\n  **Error %d getting NUM_PNU.\n", ierr);
+	    printf("\n  **Error %d getting NUM_PNU_PR.\n", ierr);
 
 	num_grps = ndi_get_size(NDI_NU_PR, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_PR size.\n", ierr);
 
 	nu = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
-	num_grps = ndi_get_size_n(NDI_PNU, 0, &ierr);
+	num_grps = ndi_get_size_n(NDI_PNU_PR, 0, &ierr);
 	if (ierr)
-	    printf("\n  **Error %d NDI_PNU size.\n", ierr);
+	    printf("\n  **Error %d NDI_PNU_PR size.\n", ierr);
 
 	p = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	ierr += ndi_get_float64_vec(NDI_NU_PR, nu, num_grps);
@@ -116,9 +116,9 @@ int main ()
 
 	for (j = 0; j < num_pnu; j++)
 	{
-	    ierr += ndi_get_float64_vec_n(NDI_PNU, j, p, num_grps);
+	    ierr += ndi_get_float64_vec_n(NDI_PNU_PR, j, p, num_grps);
 	    if (ierr)
-		printf("\n  **Error %d NDI_PNU.\n", ierr);
+		printf("\n  **Error %d NDI_PNU_PR.\n", ierr);
 	    for (k = 0; k < num_grps; k++)
 	    {
 		norm[k] += p[k];
@@ -129,9 +129,9 @@ int main ()
 	print_float64_vec(norm, num_grps);
 	print_float64_vec(mean, num_grps);
 
-	num_grps = ndi_get_size_n(NDI_SIG_PNU, 0, &ierr);
+	num_grps = ndi_get_size_n(NDI_SIG_PNU_PR, 0, &ierr);
 	if (ierr)
-	    printf("\n  **Error %d NDI_SIG_PNU size.\n", ierr);
+	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
 
 	sf = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	sp = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
@@ -140,21 +140,21 @@ int main ()
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_SIG_F_PR.\n", ierr);
 
-	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU, 0, sp, num_grps);
+	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU_PR, 0, sp, num_grps);
 	if (ierr)
-	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
+	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
 
 	for (k = 0; k < num_grps; k++)
 	    sp[k] -= sf[k] / nu[k];
 	print_float64_vec(sp, num_grps);
 
-	num_grps = ndi_get_size_n(NDI_SIG_PNU, 1, &ierr);
+	num_grps = ndi_get_size_n(NDI_SIG_PNU_PR, 1, &ierr);
 	if (ierr)
-	    printf("\n  **Error %d NDI_SIG_PNU size.\n", ierr);
+	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
 
-	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU, 1, sp, num_grps);
+	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU_PR, 1, sp, num_grps);
 	if (ierr)
-	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
+	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
 
 	for (k = 0; k < num_grps; k++)
 	    sp[k] -= sf[k];
