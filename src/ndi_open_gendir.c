@@ -61,22 +61,22 @@ int ndi_open_gendir(FILE **dir_stream)
 	
 	/* Check for file /usr/local/codes/data/sn/gendir
 	   ---  the standard file on the X-div LAN ----    */
-	strcpy( dir_file, "/usr/local/codes/data/nuclear/ndi/" NDI_VERSION_DATA "/gendir" ); 
+	strcpy( dir_file, "/usr/local/codes/data/nuclear/ndi/" NDI_VERSION_DATA "/share/gendir" ); 
 	if ( ( *dir_stream = fopen( dir_file, "rb" ) ) == NULL ) {
 	  
 	  /* Check for file /usr/projects/data/nuclear/ndi/gendir
 	     ---  the standard file on the sgi open and secure ----    */
-	  strcpy( dir_file, "/usr/projects/data/nuclear/ndi/" NDI_VERSION_DATA "/gendir" ); 
+	  strcpy( dir_file, "/usr/projects/data/nuclear/ndi/" NDI_VERSION_DATA "/share/gendir" ); 
 	  if ( ( *dir_stream = fopen( dir_file, "rb" ) ) == NULL ) {
 	    
 	    /* Check for file /usr/local/udata/ndi/gendir
 	       ---  the standard file on the secure crays ----    */
-	    strcpy( dir_file, "/usr/local/udata/ndi/" NDI_VERSION_DATA "/gendir" ); 
+	    strcpy( dir_file, "/usr/local/udata/ndi/" NDI_VERSION_DATA "/share/gendir" ); 
 	    if ( ( *dir_stream = fopen( dir_file, "rb" ) ) == NULL ) {
 
 	      /* Check for file /usr/gapps/lanl-data/nuclear/ndi/gendir
 		 ---  the standard file on LLNL asci white ----    */
-	      strcpy( dir_file, "/usr/gapps/lanl-data/nuclear/ndi/" NDI_VERSION_DATA "/gendir" ); 
+	      strcpy( dir_file, "/usr/gapps/lanl-data/nuclear/ndi/" NDI_VERSION_DATA "/share/gendir" ); 
 	      if ( ( *dir_stream = fopen( dir_file, "rb" ) ) == NULL ) {
 
 		/* Error: cannot open directory file. */
