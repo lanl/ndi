@@ -191,6 +191,7 @@ SRC_TESTF := \
 	test/f_handlef2.F \
 	test/gendir_pathf.F \
 	test/library_checkf.F \
+	test/mpmgf.F \
 	test/ndi_testf.F\
 	test/ndi_testf2.F\
 	test/ndidf.F\

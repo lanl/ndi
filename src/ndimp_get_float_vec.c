@@ -57,7 +57,7 @@ int NDIMP_GET_FLOAT_VEC(state_struct *handle[], const int num_parts,
 /**********************************************************************/
 static int GET_COMB_FLOAT_VEC(state_struct *handle[], 
 			      const int num_parts,
-			      const int in_key, FLOAT_TYPE * return_vec,
+			      const int in_key, FLOAT_TYPE *return_vec,
 			      const int vec_size)
 {
 

@@ -86,13 +86,20 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
 			    int *ierr, int char_len);
 
 /* NDI 2.0 user functions with handles */
-
+void F_NDI2_OPEN_GENDIR(int *handle, char *path, int *ierr, int path_len);
+void F_NDI2_SET_OPTION_GENDIR(int *handle, int *in_key, char *value, int *ierr,
+                              int str_len);
+void F_NDI2_CHECK_OPTION_GENDIR(int *handle, int *in_key, char *out_value,
+                                int *ierr, int string_size);
+void F_NDI2_GET_HANDLE_GENDIR(int *handle0, int *handle1, int *ierr);
+void F_NDI2_CLOSE_GENDIR(int *handle, int *ierr);
 void F_NDI2_OPEN(int *handle, char *path, int *ierr, int len);
+void F_NDI2_SET_LIB_TYPE(int *handle, char *type, int *ierr, int len);
 void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_SET_REACTION(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_GET_HANDLE(int *handle0, int *handle1, int *ierr);
-void F_NDI2_GET_MPMG_HANDLE(int *handle1, int *handle2, int *ierr);
+void F_NDI2_GET_HANDLE_MPMG(int *handle1, int *handle2, int *ierr);
 void F_NDI2_GET_SIZE(int *handle, int *in_key, int *return_val, int *ierr);
 void F_NDI2_GET_SIZE_N(int *handle, int *in_key, int *vec_num,
                        int *return_val, int *ierr);
@@ -524,6 +531,51 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
 
 /***************     NDI 2.0 functions with handles     ***************/
 
+void F_NDI2_OPEN_GENDIR(int *handle, char *path, int *ierr, int path_len)
+{
+    char *c_path;
+
+    c_path = (char *) ndi_malloc((path_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(path, &c_path, path_len, path_len+1);
+    *ierr = ndi2_open_gendir(handle, c_path);
+    if (c_path)
+        ndi_free((void **) &c_path);
+}
+
+void F_NDI2_SET_OPTION_GENDIR(int *handle, int *in_key, char *value, 
+                              int *ierr,int str_len)
+{
+    char *c_str;
+
+    c_str = (char  *) ndi_malloc((str_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(value, &c_str, str_len, str_len+1);
+    *ierr = ndi2_set_option_gendir(*handle, *in_key, c_str);
+    if (c_str)
+        ndi_free((void **) &c_str);
+}
+
+void F_NDI2_CHECK_OPTION_GENDIR(int *handle, int *in_key, char *out_value,
+                                int *ierr, int string_size)
+{
+    char *c_str;
+
+    c_str = (char *)ndi_malloc((string_size + 1) * sizeof(char));
+    *ierr = ndi2_check_option(*handle, *in_key, c_str, string_size + 1);
+    (void) ndi_c2f_string(c_str, out_value, string_size);
+    if (c_str)
+        ndi_free((void **) &c_str);
+}
+
+void F_NDI2_GET_HANDLE_GENDIR(int *handle0, int *handle1, int *ierr)
+{
+    *ierr = ndi2_get_handle_gendir(*handle0, handle1);
+}
+
+void F_NDI2_CLOSE_GENDIR(int *handle, int *ierr)
+{
+    *ierr = ndi2_close_gendir(*handle);
+}
+
 void F_NDI2_OPEN(int *handle, char *path, int *ierr, int len)
 {
     char *c_val;
@@ -533,6 +585,17 @@ void F_NDI2_OPEN(int *handle, char *path, int *ierr, int len)
     *ierr = ndi2_open(handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
+}
+
+void F_NDI2_SET_LIB_TYPE(int *handle, char *type, int *ierr, int len)
+{
+    char *c_str;
+
+    c_str = (char *)ndi_malloc((len + 1) * sizeof(char));
+    (void) ndi_f2c_string(type, &c_str, len, len+1);
+    *ierr = ndi2_set_lib_type(*handle, c_str);
+    if (c_str)
+        ndi_free((void **) &c_str);
 }
 
 void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len)
@@ -573,9 +636,9 @@ void F_NDI2_GET_HANDLE(int *handle0, int *handle1, int *ierr)
     *ierr = ndi2_get_handle(*handle0, handle1);
 }
 
-void F_NDI2_GET_MPMG_HANDLE(int *handle1, int *handle2, int *ierr)
+void F_NDI2_GET_HANDLE_MPMG(int *handle1, int *handle2, int *ierr)
 {
-/*     *ierr = ndi2_get_mpmg_handle(*handle1, handle2); */
+    *ierr = ndi2_get_handle_mpmg(*handle1, handle2); 
 }
 
 void F_NDI2_GET_SIZE(int *handle, int *in_key, int *return_val, int *ierr)
@@ -820,6 +883,10 @@ static void ndi_f2c_string(char *fstring, char **cstring, int flen, int clen)
 
     int i;
 
+    if ((flen == 0) && (clen >= 1)) {
+        **cstring = '\0';
+        return;
+    }
 
     for (i = flen - 1; i > 0; i--) {
 	if (fstring[i] != ' ')

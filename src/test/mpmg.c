@@ -16,7 +16,7 @@ int main ()
    int ierr;
    int gendir;
    int mpmg;
-   int handle[2];
+   int handle[3];
    int return_int = 0;
    int int_vec_size = 0;
    int *int_vec = NULL;
@@ -61,7 +61,6 @@ int main ()
    ierr = ndi2_set_isotope(handle[1], "92000");
 
    /*  Initialize particle 2 */
-/*
    ierr = ndi2_get_handle_mpmg(mpmg, &handle[2]);
    if (ierr)
      printf("  **Error %d in NDI init 2.\n\n", ierr );
@@ -71,7 +70,7 @@ int main ()
    ierr = ndi2_set_option(handle[2], NDI_COLLAPSE, "2_lanl");
 
    ierr = ndi2_set_isotope(handle[2], "U238");
-*/
+
 
    /* start accessing data */
    ierr = ndi2_get_int_val(mpmg, NDI_NUM_GRPS, &return_int);
