@@ -21,7 +21,7 @@ bindir		= $(exec_prefix)/bin
 libdir		= $(prefix)/lib
 includedir	= $(prefix)/include
 
-GCC		= gcc
+DEP		= gcc -MM
 CPP		= @CPP@
 RANLIB		= @RANLIB@
 INSTALL		= @INSTALL@
@@ -201,8 +201,8 @@ testc_%: test/%.c
 testf_%: $(TARGET)
 
 testf_%: test/%.F
-	$(CPP) -I$(srcdir) $(CPPFLAGS) $< > $@.f 
-	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) -o $@ $@.f $(LDLIBS)
+	$(CPP) -P -I$(srcdir) $(CPPFLAGS) $< > $@.f 
+	$(FC) $(FFLAGS) -I$(srcdir) $(LDFLAGS) -o $@ $@.f $(LDLIBS)
 
 test/%.o: test/%.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
@@ -214,7 +214,8 @@ test/%.o: test/%.c
 	$(FC) $(FFLAGS) -c -o $@ $<
 
 %.o: %.F
-	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
+	$(CPP) -P -I$(srcdir) $(CPPFLAGS) $< > $@.f 
+	$(FC) $(FFLAGS) -I$(srcdir) -c -o $@ $<
 
 %_float32.o: %.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) -c -o $@ $<
@@ -233,10 +234,10 @@ endif
 # rules for calculating dependency files
 
 .dep/%.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(GCC) -MM -I$(srcdir) $(CPPFLAGS) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
 
 .dep/%_float32.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(GCC) -MM -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
 
 .dep/%_float64.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(GCC) -MM -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
+	$(DEP) -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
