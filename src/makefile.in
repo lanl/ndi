@@ -21,6 +21,7 @@ bindir		= $(exec_prefix)/bin
 libdir		= $(prefix)/lib
 includedir	= $(prefix)/include
 
+CPP		= @CPP@
 RANLIB		= @RANLIB@
 INSTALL		= @INSTALL@
 
@@ -181,8 +182,8 @@ $(FMANGLE): fcallscc.c fcallscf.f
 	@echo Making $(FMANGLE)
 	$(RM) f_calls_c
 	$(CC) -c $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
-	$(FC) -c $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscf.f
-	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) -o f_calls_c fcallscf.o fcallscc.o
+	$(FC) -c $(FFLAGS) -I$(srcdir) $(srcdir)/fcallscf.f
+	$(FC) $(FFLAGS) -I$(srcdir) -o f_calls_c fcallscf.o fcallscc.o
 	f_calls_c > $@
 	$(RM) f_calls_c fcallscc.o fcallscf.o
 
@@ -199,7 +200,8 @@ testc_%: test/%.c
 testf_%: $(TARGET)
 
 testf_%: test/%.F
-	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+	$(CPP) -I$(srcdir) $(CPPFLAGS) $< > $@.f 
+	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) -o $@ $@.f $(LDLIBS)
 
 test/%.o: test/%.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
