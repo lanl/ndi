@@ -137,8 +137,9 @@ SRC_TESTF := \
 	test/symbol_translatef.F
 
 DATA_TEST_SRC := \
+	test/mgn_data.c \
 	test/tn_data.c \
-	test/mgn_data.c
+	test/dosn_data.c
 
 ifneq (,$(findstring cray, $(CONFIG)))
 SRC += ndi_fortran_cray.c
