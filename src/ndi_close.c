@@ -35,15 +35,15 @@ int ndi_c_close_h(state_struct **curr_state)
    if ( curr_state ) {
        state = *curr_state;
        if ( ! state ) {
-           return(2);
+           return(-2);
        }
    } else {
-       return (2);
+       return (-2);
    }
 
    if (!state->ndi_initialized) {
       /* Warning: NDI close failed--already closed */
-      return(2);
+      return(-2);
    }
    
    /* Close directory file and library file */

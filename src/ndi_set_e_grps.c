@@ -432,11 +432,6 @@ int ndi_set_e_grps( const int old_grp, double *old_grp_bounds,
 	 } else {
 	    /* Incompatible group structure */
 	    if (ebounds) ndi_free((void**)&ebounds);
-/*
-	    *new_grp = 0;
-            *c_flag = 0;
-	    strcpy( state->n_group, "default" );
-*/
 	    return(-23);
 	 }
 	 new_grp_ptr++;
@@ -449,7 +444,6 @@ int ndi_set_e_grps( const int old_grp, double *old_grp_bounds,
       /* Collapse_flag set to '0' above and grp_num_new set above */
       double *curr_e_ptr;
 
-/*       if (state->new_ebounds) ndi_free((void**)&state->new_ebounds); */
       if (new_grp_bounds) {
           if (*new_grp_bounds) ndi_free( (void **)&(*new_grp_bounds));
           if ( *new_grp > 0 ) {
@@ -462,24 +456,17 @@ int ndi_set_e_grps( const int old_grp, double *old_grp_bounds,
               }
           } else {
               /* No default group structure */
-/*
- *new_grp = 0;
- *c_flag = 0;
- strcpy( state->n_group, "default" );
-*/
-              ierr = - 5;
+             ierr = -5;
           }
       } else {
-          /* Incompatible library type */
-/*
- *new_grp = 0;
- *c_flag = 0;
- strcpy( state->n_group, "default" );
-*/
-          ierr = -16;
+          ierr = -13;
       }
    } else {
-       ierr = -13;
+       if (library_type == ' ') {
+           ierr = -16;
+       } else {
+           ierr = -13;
+       }
    }
 
    return(ierr);

@@ -92,6 +92,9 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
    if ( (ret_val) && ( str_size > 0 ))
        *ret_val = '\0';
 
+     if (! state->iso_stat.set_flag) {
+       return(-7);
+     }
 
    /*************************/
    /*   Process input key   */
@@ -100,50 +103,37 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
 
    case NDI_ZAID:                                  /*  NDI_ZAID  */
      /* Check that isotope is set */
-     if (! state->iso_stat.set_flag) {
-       return(-7);
-     }
-     strncpy( ret_val, state->iso_stat.zaid, str_size );
-     break;
+       strncpy( ret_val, state->iso_stat.zaid, str_size );
+       break;
      
-     /***  Change these to use strncpy when bounds checking is implemented */
+       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_INFO:                                  /*  Information  */
      /* Check that isotope is set */
-     if (! state->iso_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->iso_stat.info, str_size );
      break;
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
      /* Check that isotope is set */
-     if (! state->iso_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->iso_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
      /* Check that isotope is set */
-     if (! state->iso_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->iso_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
      /* Check that isotope is set */
-     if (! state->iso_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->iso_stat.library_name, str_size );
      break;
 
    case NDI_DEPL_ZAID:                                  /* Depletion ZAID  */
+       /*
      if ( ! state->ndi_depl_set ) {
        ierr = ndi_set_default_depl(state);
      }
+       */
      if ( state->num_target <= 0 ) {
        return(-7);
      }
@@ -153,9 +143,11 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_DEPL_INFO:                                  /*  Depletion nformation  */
+       /*
      if ( ! state->ndi_depl_set ) {
        ierr = ndi_set_default_depl(state);
      }
+       */
      if ( state->num_target <= 0 ) {
        return(-7);
      }
@@ -236,34 +228,16 @@ static int get_string_tn(  state_struct *state, int in_key, char *ret_val, int s
       break;
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
-     /* Check that isotope is set */
-     if (! state->tn_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tn_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
-     /* Check that isotope is set */
-     if (! state->tn_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tn_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
-     /* Check that isotope is set */
-     if (! state->tn_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tn_stat.library_name, str_size );
      break;
-
-/*  Note:  version request handled specially above */
-/*   case NDI_VERSION:    */                       /* Interface version data */
-/*      strncpy( ret_val, NDI_VERSION_DATA, str_size );
-      break;
-*/
 
       /**************  UNKNOWN KEYWORD  *****************/
 
@@ -318,34 +292,17 @@ static int get_string_tnreac(  state_struct *state, int in_key, char *ret_val,
 
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
-     /* Check that isotope is set */
-     if (! state->tnreac_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tnreac_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
      /* Check that isotope is set */
-     if (! state->tnreac_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tnreac_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
-     /* Check that isotope is set */
-     if (! state->tnreac_stat.set_flag) {
-       return(-7);
-     }
      strncpy( ret_val, state->tnreac_stat.library_name, str_size );
      break;
-
-/*  Note:  version request handled specially above */
-/*   case NDI_VERSION:    */                       /* Interface version data */
-/*      strncpy( ret_val, NDI_VERSION_DATA, str_size );
-      break;
-*/
 
       /**************  UNKNOWN KEYWORD  *****************/
 

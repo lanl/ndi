@@ -57,9 +57,12 @@ int ndi_c_get_size_h( state_struct *state, int in_key, int *ierr)
 	 size = get_tn_size( state, in_key, ierr );
       } else if (state->library_type == 'r' ) {
 	 size = get_tnreac_size( state, in_key, ierr );
+      } else if (state->library_type == ' ') {
+          *ierr = -16;
+          size = 0;
       } else {
-	 *ierr = -16;
-	 size = 0;
+          *ierr = -4;
+          size = 0;
       }
    }
 

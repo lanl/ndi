@@ -100,7 +100,11 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
        }
      } else {
        /* Incompatible library type */
-       ierr = -16;
+         if ( state->library_type == ' ' ) {
+             ierr = -16;
+         } else {
+             ierr = -4;
+         }
      } 
      break;
 
@@ -117,7 +121,11 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
          }
        } else {
 	 /* Operation is valid only for tn data */
-	 ierr = -16;
+           if ( state->library_type == ' ' ) {
+               ierr = -16;
+           } else {
+               ierr = -4;
+           }
        }
      } else {
        ierr = 9;

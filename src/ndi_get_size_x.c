@@ -49,10 +49,13 @@ int ndi_c_get_size_x_h( state_struct *state, int in_key, const char *in_str, int
    
    if ( state->library_type == 'm' ) {
       size = get_mg_size_x( state, in_key, in_str, ierr );
+   } else  if ( state->library_type == ' ' ) {
+       *ierr = -16;
+       size = 0;
    } else {
-      /* Incompatible library type */
-      *ierr = -16;
-      size = 0;
+       /* Incompatible library type */
+       *ierr = -4;
+       size = 0;
    }
    
    if ( size < 0 ) { size = 0; }

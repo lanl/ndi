@@ -1665,7 +1665,7 @@ static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_par
      num_particles_read++;
    } else {
      /* Error */
-     return(-7);
+     return(-15);
    }
 
    /* Fill particle type */

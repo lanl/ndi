@@ -123,9 +123,10 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
       } else if ( state->library_type == 'm' ) {
 	pindex = ndi_find_mg_part_index( atoi(value), state->iso_stat.sec_part, state->iso_stat.num_sec_parts );
 	
+      } else  if ( state->library_type == ' ' ) {
+          ierr = -16;
       } else {
-	 /* Operation is valid only for tn data */
-	 ierr = -16;
+          ierr = -4;
       }
 
       state->curr_part_index = pindex;

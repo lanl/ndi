@@ -40,8 +40,12 @@ int ndi_depletion( state_struct *state, const char *in_zaid )
    }
 
    if ( state->library_type != 'm' ) {
-      /* Incompatible library type */
-      return( -16 );
+       if ( state->library_type != ' ' ) {
+           return( -16 );
+       } else {
+           /* Incompatible library type */
+           return(-4);
+       }
    }
 
    /* Initialize depletion data */
@@ -295,8 +299,12 @@ int ndi_radchem ( state_struct *state, const char *in_zaid )
    }
 
    if ( state->library_type != 'd' ) {
-      /* Incompatible library type */
-      return( -16 );
+       if ( state->library_type != ' ' ) {
+           return( -16 );
+       } else {
+           /* Incompatible library type */
+           return(-4);
+       }
    }
 
    /* Initialize depletion data? */
