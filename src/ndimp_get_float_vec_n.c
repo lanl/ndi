@@ -133,6 +133,10 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 		ebounds_out =
 		    (ndi_float64 *) ndi_malloc(temp_size *
 					       sizeof(ndi_float64));
+
+		tmp_err =
+		    ndi_c_get_float64_vec_h(out_part, NDI_E_BOUNDS, 
+					    ebounds_out, temp_size);
 		/* Save e_bounds_curr_part state for later reset? */
 		tmp_err =
 		    ndi_c_set_float64_vec_option_h(in_part,

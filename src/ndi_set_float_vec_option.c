@@ -250,18 +250,17 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 			       &part->grp_num_new, &part->collapse_ebounds,
 			       "user", state->library_type,
 			       &part->new_ebounds, &part->collapse_flag);
-
+	    if (ierr >= 0) {
+		strcpy(part->n_group, "user");
+	    } else {
+		strcpy(part->n_group, "default");
+	    }
 	}
     } else {
 	/* Bad input for current library type */
 	ierr = -4;
     }
 
-    if (ierr >= 0) {
-	strcpy(part->n_group, "user");
-    } else {
-	strcpy(part->n_group, "default");
-    }
     return (ierr);
 }
 

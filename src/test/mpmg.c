@@ -58,6 +58,8 @@ int main ()
    ierr = NDI2_set_option(handle[1], NDI_LIB_TYPE, "multigroup_photon");
    ierr = NDI2_set_option(handle[1], NDI_LIBRARY, "actig");
    ierr = NDI2_set_float64_vec_option(handle[1], NDI_COLLAPSE, pbounds, pgrps + 1);
+   if (ierr)
+     printf("  **Error %d in NDI set_float64_vec_option 1.\n\n", ierr );
    ierr = NDI2_set_isotope(handle[1], "92000");
 
    /*  Initialize particle 2 */

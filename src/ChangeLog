@@ -1,3 +1,10 @@
+2004-04-28  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_set_float_vec_option.c ((state_struct *state,
+				     const ndi_float64 * ebound_array,
+				     const int new_num_grps): moved
+				     n_group assigment inside if test 
+
 2004-04-27  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_c_values.c: comment out unused functions: ndi_mt_to_label
