@@ -1,3 +1,8 @@
+2004-12-20  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* makefile.in (test%.out): added ./
+	(check_data): added ./
+
 2004-12-15  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* makefile.in ($(FMANGLE)): added ./

@@ -272,7 +272,7 @@ check_data: $(TARGET) $(DATA_TESTS)
 	@ $(RM) $@.out
 	@ for i in $(DATA_TESTS); \
 	do \
-	$$i >> $@.out; \
+	./$$i >> $@.out; \
 	rm $$i; \
 	done
 
@@ -349,7 +349,7 @@ test/%.o: test/%.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
 
 test%.out:  test%
-	NDI_GENDIR_PATH=$(testlib)/gendir.test $< > $@ 2>&1
+	NDI_GENDIR_PATH=$(testlib)/gendir.test ./$< > $@ 2>&1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
