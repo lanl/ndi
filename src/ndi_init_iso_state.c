@@ -627,7 +627,6 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       /* comment */
       else if (strncmp(in_keyword, "comment", 8) == 0) {
 	ierr = skip_comment( stream );
-	return(ierr);
       } 
 
       /*********  END  *************/
@@ -789,7 +788,6 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       /* comment */
       else if (strncmp(in_keyword, "comment", 8) == 0) {
 	ierr = skip_comment( stream );
-	return(ierr);
       } 
 
       /*********  END  *************/
@@ -882,7 +880,6 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
       /* comment */
       else if (strncmp(in_keyword, "comment", 8) == 0) {
 	ierr = skip_comment( stream );
-	return(ierr);
       } 
 
       /*********  END  *************/
@@ -1033,7 +1030,6 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
       /* comment */
       else if (strncmp(in_keyword, "comment", 8) == 0) {
 	ierr = skip_comment( stream );
-	return(ierr);
       } 
 
       /*********  END  *************/
