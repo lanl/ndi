@@ -10,11 +10,13 @@
 CC		:= cc
 FC		:= f77
 CFLAGS		:=
-FFLAGS		:= -g -extend_source -cpp
+FFLAGS		:= -extend_source -cpp
 ifdef DEBUG
 CFLAGS		+= -g
+FFLAGS		+= -g
 else
 CFLAGS		+= -O
+FFLAGS		+= -O
 endif
 ASFLAGS		:= $(CFLAGS)
 CPPFLAGS	:= -I.

@@ -20,12 +20,14 @@ CFLAGS		:= -qcheck=all -qarch=auto
 #CFLAGS		+= -qflag-i:i
 #CFLAGS		+= -qsuppress=1501-510:1518-099
 #CFLAGS		+= -qlanglvl=90pure
-FC	= xlf
-FFLAGS		:= -qfixed=132 -g
+FC		= xlf
+FFLAGS		:= -qfixed=132
 ifdef DEBUG
 CFLAGS		+= -g
+FFLAGS		+= -g
 else
 CFLAGS		+= -O
+FFLAGS		+= -O
 endif
 ASFLAGS		:= $(CFLAGS)
 CPPFLAGS	:= -I.

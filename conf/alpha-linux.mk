@@ -10,11 +10,12 @@
 CC		:= cc
 FC		:= f77
 CFLAGS		:= -Wall
-FFLAGS		:= -O
 ifdef DEBUG
 CFLAGS		+= -g
+FFLAGS		:= -g
 else
 CFLAGS		+= -O
+FFLAGS		:= -O
 endif
 ASFLAGS		:= $(CFLAGS)
 CPPFLAGS	:= -I.
