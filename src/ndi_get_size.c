@@ -109,7 +109,7 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
     }
 	
     /* Open gendir */
-    *ierr = ndi_open_gendir(&ndi_dir, "", &path);
+    *ierr = ndi_open_gendir(&ndi_dir, state->open_gendir_file, &path);
     if (path)
         ndi_free((void **) &path);
 

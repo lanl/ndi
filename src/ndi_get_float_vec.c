@@ -136,7 +136,7 @@ static int GET_FLOAT_VEC_GENDIR(state_struct *state, int in_key,
     }
 	
     /* Open gendir */
-    ierr = ndi_open_gendir(&ndi_dir, "", &path);
+    ierr = ndi_open_gendir(&ndi_dir, state->open_gendir_file, &path);
     if (path)
         ndi_free((void **) &path);
 
