@@ -1009,6 +1009,8 @@ static int GET_PNU(FLOAT_TYPE *return_vec, int vec_num)
 	return(-14);		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+    if (ierr < 0)
+	return (ierr);
 
     sigma = sqrt(2.0) * 1.08;	/* Terrell's fit value */
 
@@ -1111,6 +1113,8 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
 	return(-14);		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+    if (ierr < 0)
+	return (ierr);
 
 				/* get sig_f */
     nu_sig_f = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
@@ -1118,12 +1122,16 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
 	return(-14);		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC(NDI_NU_SIG_F_PR, nu_sig_f, num_grps);
+    if (ierr < 0)
+	return (ierr);
 
     p = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!p)
 	return(-14);		/* out of memory */
 
     ierr = NDI_INIT_FLOAT_VEC(sig_pnu, num_grps);
+    if (ierr < 0)
+	return (ierr);
 
     for (j = i; j < MAX_NU; j++)
     {
@@ -1145,4 +1153,3 @@ static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
 
 /*********************************************************************/
 /*********************************************************************/
-

@@ -38,11 +38,11 @@ int main ()
 
     int num_pnu;
     int num_grps;
-
     ndi_float64 *nu = NULL;
     ndi_float64 *p = NULL;
     ndi_float64 *norm = NULL;
     ndi_float64 *mean = NULL;
+    ndi_float64 *sf = NULL;
     ndi_float64 *sp = NULL;
 
     /*  Initialize */
@@ -53,6 +53,7 @@ int main ()
     ierr += ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
+
     ierr += ndi_set_option( NDI_LIBRARY, "chi_test_lib" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);
@@ -67,6 +68,7 @@ int main ()
 	str_size = ndi_get_size (NDI_INFO, &ierr );
 	if (ierr) 
 	    printf("\n  **Error %d info string size.\n", ierr );
+
 	info_str = (char *)malloc( str_size * sizeof(char) );
 	ierr += ndi_get_string_val( NDI_INFO, info_str, str_size );
 	if (ierr)
@@ -94,17 +96,18 @@ int main ()
 	    printf("\n  **Error %d NDI_NU_PR size.\n", ierr);
 
 	nu = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
-	    
 	num_grps = ndi_get_size_n(NDI_PNU, 0, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_PNU size.\n", ierr);
-	p = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
-	norm = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
-	mean = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 
+	p = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	ierr += ndi_get_float64_vec(NDI_NU_PR, nu, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_PR.\n", ierr);
+
+	norm = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+	mean = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+
 	for (j = 0; j < num_grps; j++)
 	{
 	    norm[j] = -1.0;
@@ -126,9 +129,14 @@ int main ()
 	print_float64_vec(norm, num_grps);
 	print_float64_vec(mean, num_grps);
 
+	num_grps = ndi_get_size_n(NDI_SIG_PNU, 0, &ierr);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU size.\n", ierr);
+
+	sf = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	sp = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	
-	ierr += ndi_get_float64_vec(NDI_NU_SIG_F_PR, p, num_grps);
+	ierr += ndi_get_float64_vec(NDI_NU_SIG_F_PR, sf, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_SIG_F_PR.\n", ierr);
 
@@ -137,18 +145,23 @@ int main ()
 	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
 
 	for (k = 0; k < num_grps; k++)
-	    sp[k] -= p[k] / nu[k];
+	    sp[k] -= sf[k] / nu[k];
 	print_float64_vec(sp, num_grps);
+
+	num_grps = ndi_get_size_n(NDI_SIG_PNU, 1, &ierr);
+	if (ierr)
+	    printf("\n  **Error %d NDI_SIG_PNU size.\n", ierr);
 
 	ierr += ndi_get_float64_vec_n(NDI_SIG_PNU, 1, sp, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_SIG_PNU.\n", ierr);
 
 	for (k = 0; k < num_grps; k++)
-	    sp[k] -= p[k];
+	    sp[k] -= sf[k];
 
 	print_float64_vec(sp, num_grps);
 
+	free((void *)sf);
 	free((void *)sp);
 	free((void *)nu);
 	free((void *)p);
