@@ -127,7 +127,8 @@ SRC_TESTC := \
 	test/tn_simple.c \
 	test/tn_use.c \
 	test/tnreac_c.c \
-	test/za.c
+	test/za.c \
+	test/pnu.c
 
 SRC_TESTF := \
 	test/ndi_testf.F\

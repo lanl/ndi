@@ -29,8 +29,8 @@ int ndi_c_get_size_n(int in_key, int vec_num, int *ierr)
 
    Parameters:
    in_key -- in: key to specify type of data required
+   vec_num -- in: indicates the index of the element (**zero-based**)
    ierr -- out: error flag, where 0=no error,pos=warning, neg=error
-   vecnum -- in: indicates the index of the element (**zero-based**)
 
    Returns: Returns the integer indicating the number of elements
    in the array.  For single-valued data (temperature, sigma0, etc.)
@@ -212,6 +212,8 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
    case NDI_SIG_REAC:        /* reaction cross section */      
    case NDI_CORR_DIAG:       /* Diagonal transport correction  */
    case NDI_CORR_BHS:        /* Bell-Hansen-Sandmeier transport correction */
+   case NDI_PNU:		/* fission neutron mult. probabilities */
+   case NDI_SIG_PNU:		/* fission neutron mult. cross sections */
      if ( collapse_flag != 0 ) {
        return_value =  grp_num_new;              
      } else {

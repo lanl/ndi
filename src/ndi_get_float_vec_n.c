@@ -953,9 +953,11 @@ static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num,
 
   See M. Abamowitz and I. A. Stegun
   'Handbook of Mathematical Functions'
-  Cover (1972), p. 297, Eq. 7.1.1
+  Dover (1972), p. 297, Eq. 7.1.1
+  Accurate to within 2.5E-5
   \param x
   \return 2/sqrt(pi) int_0^x exp(-t^2) dt
+
  */
 static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
 {
