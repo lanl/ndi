@@ -396,6 +396,10 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 	new_grp_ptr = _12_group2;
 	*new_grp = 12;
 
+    } else if (strncmp(grp_struc, "12_phot", sizeof(char) * 10) == 0)  {
+	new_grp_ptr = _12_phot;
+	*new_grp = 12;
+
     } else if ((strncmp(grp_struc, "10_group", sizeof(char) * 9) == 0) ||
 	       (strncmp(grp_struc, "10_lanl", sizeof(char) * 8) == 0)) {
 	new_grp_ptr = _10_group;

@@ -10,7 +10,7 @@ static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL }; /* gendir array */
   \param handle
   \return 1 if gendir
 */
-int is_gendir(handle)
+int is_gendir(int handle)
 {
     return 0 <= handle && handle < MAX_HANDLE_NUM;
 }

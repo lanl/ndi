@@ -29,7 +29,7 @@ static int ndi_set_kerma_calc(state_struct *state, const char *value);
 
 static int get_order(const char *value);
 static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
-static int ndi_lib_dir(state_struct *state, char pt_type, char l_type,
+static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 		       const char *value_type, const char *in_value,
 		       int reaction_flag);
 static void ndi_find_zaid_string(char *in_line, int in_size,
@@ -361,7 +361,6 @@ static int ndi_set_collapse(state_struct *state, const char *value)
 -------------------------------------------------------------------------*/
 {
     int ierr = 0;
-    int num_grps = 0;
 
     if (!state) {
 	return (-2);
@@ -369,7 +368,6 @@ static int ndi_set_collapse(state_struct *state, const char *value)
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
 	/* Multigroup or dosimetry */
-	num_grps = state->iso_stat.num_grps;
 	ierr =
 	    ndi_set_e_grps(state->iso_stat.num_grps, state->lib_ebounds,
 			   &state->grp_num_new, &state->collapse_ebounds,
@@ -660,15 +658,15 @@ static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_lib_dir(state_struct *state, char pt_type, char l_type,
+static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 		       const char *value_type, const char *in_value,
 		       int reaction_flag)
 
 /*  Purpose: 
     
     Parameters: 
-    pt_type -- in: incident particle type (e.g. 'n' neutron)
-    l_type -- in: library type (e.g. 'm' multigroup)
+    pt_type -- in: incident particle type (e.g. 1=neutron)
+    l_type -- in: library type (e.g. 'm'=multigroup)
     in_value -- in: zaid we're searching for on gendir
     reaction_flag -- Are we reading reaction data--depletion (True = -1, false=0)
 

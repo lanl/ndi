@@ -174,7 +174,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 	if (!state->ndi_depl_set) {
 	    ierr = ndi_set_default_depl(state);
 	}
-	if (state->num_target >= 0) {
+	if (state->num_target > 0) {
 	    *ret_val = state->num_target;
 	} else {
 	    *ret_val = 0;

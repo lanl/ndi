@@ -480,19 +480,19 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	}
 
 	/* sigma edit reaction products -- all */
-	else if (strncmp(in_keyword, "rprod_all", 24) == 0) {
+	else if (strncmp(in_keyword, "rprod_all", 10) == 0) {
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_all,
 				     state->iso_stat.num_reac);
 	}
 
 	/* sigma edit reaction products -- rmo */
-	else if (strncmp(in_keyword, "rprod_rmo", 24) == 0) {
+	else if (strncmp(in_keyword, "rprod_rmo", 10) == 0) {
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_rmo,
 				     state->iso_stat.num_reac);
 	}
 
 	/* sigma edit reaction products -- few */
-	else if (strncmp(in_keyword, "rprod_few", 24) == 0) {
+	else if (strncmp(in_keyword, "rprod_few", 10) == 0) {
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_few,
 				     state->iso_stat.num_reac);
 	}

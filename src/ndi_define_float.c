@@ -7,7 +7,9 @@ int main()
     print_var_type_header();
     printf("#ifndef __NDI_VAR_TYPE_H\n");
     printf("#define __NDI_VAR_TYPE_H\n\n");
- 
+    
+    printf("#include <float.h>\n");
+
   if ( sizeof(float) == 8 ) {
        printf("#define FLOAT32_EPSILON FLT_EPSILON\n");
        printf("#define FLOAT64_EPSILON FLT_EPSILON\n");
@@ -28,7 +30,13 @@ int main()
 
     printf("#ifdef FLOAT32\n");
     printf("#define FLOAT_TYPE ndi_float32\n");
-    printf("#define FLOAT_EPSILON FLOAT32_EPSILON\n");
+    if ( sizeof(float) == 8 ) {
+        printf("#define FLOAT_EPSILON FLT_EPSILON\n");
+    } else if ( sizeof(float) == 4 ) {
+        printf("#define FLOAT_EPSILON FLT_EPSILON\n");
+    } else {
+        printf("#define FLOAT_EPSILON FLT_EPSILON\n");
+    }
     printf("#define GET_PN_DOWN_FULL ndi_get_pn_down_full32\n");
     printf("#define GET_FULL_PN_MAT ndi_get_full_pn_mat32\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg32\n");
@@ -97,6 +105,7 @@ int main()
     printf("#define CREATE_FLOAT_NODE ndi_create_f32node\n");
     printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float32_vec\n");
     printf("#define GET_COMB_FLOAT_VEC get_comb_float32_vec\n");
+    printf("#define GET_COMB_FLOAT_VEC_N get_comb_float32_vec_n\n");
     printf("#define GET_MP_SCAT_MAT ndi_get_scat32_mat\n");
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf32\n");
     printf("#define NDI_GET_NU ndi_get_nu32\n");
@@ -105,7 +114,13 @@ int main()
 
     printf("#else\n");
     printf("#define FLOAT_TYPE ndi_float64\n");
-    printf("#define FLOAT_EPSILON FLOAT64_EPSILON\n");
+    if ( sizeof(float) == 8 ) {
+        printf("#define FLOAT_EPSILON DBL_EPSILON\n");
+    } else if ( sizeof(float) == 4 ) {
+        printf("#define FLOAT_EPSILON DBL_EPSILON\n");
+    } else {
+        printf("#define FLOAT_EPSILON DBL_EPSILON\n");
+    }
     printf("#define GET_PN_DOWN_FULL ndi_get_pn_down_full64\n");
     printf("#define GET_FULL_PN_MAT ndi_get_full_pn_mat64\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg64\n");
@@ -174,6 +189,7 @@ int main()
     printf("#define CREATE_FLOAT_NODE ndi_create_f64node\n");
     printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float64_vec\n");
     printf("#define GET_COMB_FLOAT_VEC get_comb_float64_vec\n");
+    printf("#define GET_COMB_FLOAT_VEC_N get_comb_float64_vec_n\n");
     printf("#define GET_MP_SCAT_MAT ndi_get_scat64_mat\n");
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf64\n");
     printf("#define NDI_GET_NU ndi_get_nu64\n");

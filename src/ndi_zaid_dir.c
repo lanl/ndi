@@ -70,6 +70,15 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
     dir_entry dir_rec;
 
 
+    /* Initialize */
+    strcpy(real_zaid, "");
+    strcpy(library, "");
+    strcpy(lib_path, "");
+    strcpy(lib_file_type, "");
+    *iso_start = 0;
+    *at_wgt = 0.0;
+
+
     /* Check if library type is set */
 
     if (!state) {
@@ -89,7 +98,11 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	    strcpy(section, "radchem_chain");
 	}
     } else if ((pt_type == 0) && (l_type == 'm')) {
-	strcpy(section, "multigroup_photon");
+	if (reaction_flag == 0) {
+            strcpy(section, "multigroup_photon");
+	} else {
+	    strcpy(section, "photon_depletion");
+	}
     } else if ((pt_type == -1) && (l_type == 's')) {
 	strcpy(section, "tndata");
     } else if ((pt_type == -1) && (l_type == 'r')) {

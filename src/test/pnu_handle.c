@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <float.h>
+#include <math.h>
 
 #include "ndi.h"
 
@@ -15,9 +17,9 @@ int main ()
 {
     int ierr = 0;
     int i, j, k;
-    int str_size;
-    int num_zaids = 36;
     int handle;
+    int str_size;
+    int num_zaids = 37;
     char zaid[25];
     char *info_str;
     char *zaid_list[] = { "92236.601nm", "92236.602nm", "92236.603nm", 
@@ -34,7 +36,8 @@ int main ()
 
 			  "92236.628nm", "92236.629nm", "92236.630nm",
 			  "92236.631nm", "92236.632nm", "92236.631nm", 
-			  "92236.634nm", "92236.635nm", "92236.632nm" 
+			  "92236.634nm", "92236.635nm", "92236.632nm",
+                          "1001.600nm"
     };
 
     int num_pnu;
@@ -146,7 +149,9 @@ int main ()
 	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
 
 	for (k = 0; k < num_grps; k++)
-	    sp[k] -= sf[k] / nu[k];
+            if (fabs(nu[k]) > DBL_EPSILON ) {
+                sp[k] -= sf[k] / nu[k];
+            } 
 	print_float64_vec(sp, num_grps);
 
 	num_grps = ndi2_get_size_n(handle, NDI_SIG_PNU_PR, 1, &ierr);

@@ -1,0 +1,27 @@
+Size of REAC_MT is 9
+REACTION 2:
+   Product          1; multiplicity 1
+   Product      92235; multiplicity 1
+REACTION 4:
+   Product          1; multiplicity 1
+   Product      92235; multiplicity 1
+REACTION 16:
+   Product          1; multiplicity 2
+   Product      92234; multiplicity 1
+REACTION 17:
+   Product          1; multiplicity 3
+   Product      92233; multiplicity 1
+REACTION 102:
+   Product      92236; multiplicity 1
+REACTION 19:
+   Product          1; multiplicity 0
+   Product      46119; multiplicity 1
+REACTION 20:
+   Product          1; multiplicity 0
+   Product      46119; multiplicity 1
+REACTION 21:
+   Product          1; multiplicity 0
+   Product      46119; multiplicity 1
+REACTION 18:
+   Product          1; multiplicity 0
+   Product      46119; multiplicity 1

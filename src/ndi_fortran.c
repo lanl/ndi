@@ -608,7 +608,7 @@ void F_NDI2_SET_OPTION(int *handle, int *in_key, char *value,
 
     c_val = (char *) ndi_malloc((len + 1) * sizeof(char));
     (void) ndi_f2c_string(value, &c_val, len, len + 1);
-    *ierr = ndi_c_set_option(*in_key, c_val);
+    *ierr = ndi2_set_option(*handle, *in_key, c_val);
     if (c_val)
 	ndi_free((void **) &c_val);
 }

@@ -51,11 +51,13 @@ int ndi_c_close_h(state_struct **curr_state)
 	    ierr = ndi_c_close_h(&(state->handle_map[i]));
 
     /* Close directory file and library file */
-    if (fclose(state->ndi_dir) != 0) {
+    if (state->ndi_dir) {
+        if (fclose(state->ndi_dir) != 0) {
 	ret_code = 3;
-    } else {
-	state->ndi_dir = NULL;
-	strcpy(state->open_gendir_file, "");
+        } else {
+            state->ndi_dir = NULL;
+            strcpy(state->open_gendir_file, "");
+        }
     }
 
     ierr = ndi_close_lib_file(state);

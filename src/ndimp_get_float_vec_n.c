@@ -8,6 +8,11 @@
 static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 			   const int in_key, FLOAT_TYPE * return_vec,
 			   const int vec_size);
+static int GET_COMB_FLOAT_VEC_N(state_struct *handle[], 
+                                const int num_parts,
+                                const int in_key, const int vec_num,
+                                FLOAT_TYPE * return_vec,
+                                const int vec_size);
 
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
@@ -30,6 +35,14 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 			    vec_size);
 	break;
 
+    case NDI_SIG_REAC:
+    case NDI_PNU_PR:
+    case NDI_SIG_PNU_PR:
+        ierr = 
+            GET_COMB_FLOAT_VEC_N(handle, num_parts, in_key,
+                                 vec_num, ret_vec, vec_size);
+        break;
+        
     default:
 	ierr = -4;
 	break;
@@ -184,6 +197,42 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 	}
 	row_start = row_end;
     }				/* in loop */
+
+    return (ierr);
+}
+
+/**********************************************************************/
+static int GET_COMB_FLOAT_VEC_N(state_struct *handle[], 
+                                const int num_parts,
+                                const int in_key, const int vec_num,
+                                FLOAT_TYPE * return_vec,
+                                const int vec_size)
+
+{
+
+    int ierr = 0;
+    int i;
+    int tmp_err = 0;
+    int curr_size = vec_size;
+    int last_size = 0;
+    FLOAT_TYPE *curr_p = return_vec;
+    state_struct *statep;
+
+    for (i = 0; i < num_parts; i++) {
+	if (curr_size <= 0) {
+	    ierr = 7;
+	    break;
+	}
+	if ((statep = (handle[i]))) {
+	    last_size = ndi_c_get_size_n_h(statep, in_key, vec_num, &tmp_err);
+	    tmp_err =
+		NDI_GET_FLOAT_VEC_N_H(statep, in_key, vec_num, curr_p, curr_size);
+	    /* Check return error */
+	    curr_size -= last_size;
+	    curr_p += last_size;
+	}
+    }
+
 
     return (ierr);
 }

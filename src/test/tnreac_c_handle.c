@@ -37,7 +37,7 @@ int test_tnreac_c(void)
    int ierr;
    int i;
    int num_zaid = 2;
-   int handle;
+   int handle = -1;
 
 
    char *zaid_list[] = { 

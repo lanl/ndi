@@ -334,6 +334,216 @@ multigroup_photon
   z=92000.620pm  d=11/7/2003  l=photmg
     f=../../src/test/lib/mpmg  ft=asc  ln=20440  o=1570122
     ng=120  t=0.0000000E+00  s0=1.0000000E+10  aw=2.3802878E+02 end
+  z=1000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2  o=28
+    ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.007800000000E+00 end
+  z=2000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=144
+    o=9200  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.014900000000E+00 end
+  z=3000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=286
+    o=18372  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=6.015100000000E+00 end
+  z=4000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=428
+    o=27544  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=7.010000000000E+00 end
+  z=5000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=570
+    o=36716  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.001290000000E+01 end
+  z=6000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=712
+    o=45888  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.200110000000E+01 end
+  z=7000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=854
+    o=55060  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.400310000000E+01 end
+  z=8000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=996
+    o=64232  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.599050000000E+01 end
+  z=9000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1138
+    o=73404  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.899820000000E+01 end
+  z=11000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1280
+    o=82576  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.298950000000E+01 end
+  z=12000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1422
+    o=91748  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.430510000000E+01 end
+  z=13000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1564
+    o=100920  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.698180000000E+01 end
+  z=14000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1706
+    o=110092  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.808530000000E+01 end
+  z=15000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1848
+    o=119264  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.097410000000E+01 end
+  z=16000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=1990
+    o=128436  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.206360000000E+01 end
+  z=17000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2132
+    o=137608  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.545260000000E+01 end
+  z=18000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2274
+    o=146780  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.994800000000E+01 end
+  z=19000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2416
+    o=155952  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=3.910190000000E+01 end
+  z=20000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2558
+    o=165124  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=4.008030000000E+01 end
+  z=21000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2700
+    o=174296  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=4.495410000000E+01 end
+  z=22000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2842
+    o=183468  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=4.787890000000E+01 end
+  z=23000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=2984
+    o=192640  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.094160000000E+01 end
+  z=24000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3126
+    o=201812  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.199570000000E+01 end
+  z=25000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3268
+    o=210984  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.493800000000E+01 end
+  z=26000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3410
+    o=220156  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.582810000000E+01 end
+  z=27000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3552
+    o=229328  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.893320000000E+01 end
+  z=28000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3694
+    o=238500  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=5.868810000000E+01 end
+  z=29000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3836
+    o=247672  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=6.354560000000E+01 end
+  z=31000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=3978
+    o=256844  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=6.972000000000E+01 end
+  z=33000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4120
+    o=266016  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=7.492160000000E+01 end
+  z=36000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4262
+    o=275188  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=7.792040000000E+01 end
+  z=39000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4404
+    o=284360  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=8.890580000000E+01 end
+  z=40000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4546
+    o=293532  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=9.121960000000E+01 end
+  z=41000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4688
+    o=302704  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=9.290320000000E+01 end
+  z=42000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4830
+    o=311876  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=9.594020000000E+01 end
+  z=43000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=4972
+    o=321048  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=9.900050000000E+01 end
+  z=45000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5114
+    o=330220  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.029050000000E+02 end
+  z=46000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5256
+    o=339392  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.019056000000E+02 end
+  z=47000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5398
+    o=348564  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.078680000000E+02 end
+  z=48000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5540
+    o=357736  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.124258000000E+02 end
+  z=49000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5682
+    o=366908  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.148204000000E+02 end
+  z=50000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5824
+    o=376080  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.175000000000E+02 end
+  z=53000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=5966
+    o=385252  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.269045000000E+02 end
+  z=54000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6108
+    o=394424  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.312990000000E+02 end
+  z=55000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6250
+    o=403596  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.329057000000E+02 end
+  z=56000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6392
+    o=412768  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.378996000000E+02 end
+  z=58000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6534
+    o=421940  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.399059000000E+02 end
+  z=63000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6676
+    o=431112  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.519646000000E+02 end
+  z=64000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6818
+    o=440284  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.572490000000E+02 end
+  z=67000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=6960
+    o=449456  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.649298000000E+02 end
+  z=68000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7102
+    o=458628  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.659304000000E+02 end
+  z=69000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7244
+    o=467800  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.689342000000E+02 end
+  z=72000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7386
+    o=476972  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.784873000000E+02 end
+  z=73000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7528
+    o=486144  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.809545000000E+02 end
+  z=74000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7670
+    o=495316  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.838564000000E+02 end
+  z=75000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7812
+    o=504488  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.849528000000E+02 end
+  z=77000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=7954
+    o=513660  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.922142000000E+02 end
+  z=78000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8096
+    o=522832  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.950900000000E+02 end
+  z=79000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8238
+    o=532004  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=1.969660000000E+02 end
+  z=82000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8380
+    o=541176  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.072622000000E+02 end
+  z=83000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8522
+    o=550348  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.089803000000E+02 end
+  z=90000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8664
+    o=559520  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.300361000000E+02 end
+  z=91000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8806
+    o=568692  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.310347000000E+02 end
+  z=92000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=8948
+    o=577864  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.320333000000E+02 end
+  z=93000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9090
+    o=587036  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.370482000000E+02 end
+  z=94000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9232
+    o=596208  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.360458000000E+02 end
+  z=95000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9374
+    o=605380  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.410568000000E+02 end
+  z=96000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9516
+    o=614552  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.410578000000E+02 end
+  z=97000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9658
+    o=623724  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.490797000000E+02 end
+  z=98000.020pm  d=12/22/2003  l=mendf6g
+    f=../../src/test/lib/mendf6g_gen  ft=asc  ln=9800
+    o=632896  ng=12  t=0.000000000000E+00  s0=1.000000000000E+30  aw=2.490797000000E+02 end
 end
 
 neutron_depletion

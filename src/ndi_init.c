@@ -57,8 +57,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *path)
 
     /* Initialize variables */
     state->handle = -1;
-    state->open_lib_file = (char *) ndi_malloc(sizeof(char));
-    state->open_lib_file[0] = '\0';
+    state->open_lib_file = NULL;
     ndi_fill_elements(state);
 
     /*  Set default values */
@@ -120,8 +119,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 
     /* Initialize variables */
     state->handle = -1;
-    state->open_lib_file = (char *) ndi_malloc(sizeof(char));
-    state->open_lib_file[0] = '\0';
+    state->open_lib_file = NULL;
     ndi_fill_elements(state);
 
     /*  Set default values */

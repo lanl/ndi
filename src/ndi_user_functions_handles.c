@@ -26,7 +26,7 @@ int ndi2_open_gendir(int *handle, const char *path)
 	ierr = -1;		/* handle array exhausted */
     }
 
-    assert(is_gendir(handle));
+    assert(is_gendir(*handle));
     return (ierr);
 }
 

@@ -56,6 +56,18 @@ ndimp_get_int_val(state_struct *handle[], const int num_parts,
 	}
 	break;
 
+    case NDI_FISSIONABLE:
+	/* Return true value, if any single-particle value is true*/
+	for (i = 0; i < num_parts; i++) {
+	    if ((statep = (handle[i]))) {
+		tmp_err = ndi_c_get_int_val_h(statep, in_key, return_val);
+		if (*return_val) {
+                    break;
+		}
+	    }
+	}
+	break;
+
     default:
 	ierr = -4;
 	break;

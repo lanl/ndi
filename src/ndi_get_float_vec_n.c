@@ -1112,11 +1112,15 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     FLOAT_TYPE b;
     int g;
 
-    assert(0 <= vec_num && vec_num < MAX_NU);
+/*     assert(0 <= vec_num && vec_num < MAX_NU); */
 
     if (!state) {
 	return (-2);
     }
+    if ( (vec_num < 0) || (vec_num >= MAX_NU ) ) {
+        return (-6);
+    }
+ 
     /* get number of groups */
     if (state->collapse_flag)
 	num_grps = state->grp_num_new;
@@ -1220,11 +1224,15 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     long j;
     long k;
 
-    assert(0 <= i && i < MAX_NU);
+/*     assert(0 <= i && i < MAX_NU); */
 
     if (!state) {
 	return (-2);
     }
+    if ( (i < 0) || (i >= MAX_NU ) ) {
+        return (-6);
+    }
+
     /* get number of groups */
     if (state->collapse_flag)
 	num_grps = state->grp_num_new;
@@ -1264,7 +1272,9 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     }
 
     for (k = 0; k < num_grps; k++)	/* normalize */
-	sig_pnu[k] *= nu_sig_f[k] / (ndi_fact(i) * nu[k]);
+        if (nu_sig_f[k] > FLOAT_EPSILON) {
+            sig_pnu[k] *= nu_sig_f[k] / (ndi_fact(i) * nu[k]);
+        }
 
 
     if (nu)

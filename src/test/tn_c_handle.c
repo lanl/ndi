@@ -40,7 +40,7 @@ int test_tn_c(void)
    int ierr;
    int i;
    int num_zaid = 8;
-   int handle;
+   int handle = -1;
 
 
    char *zaid_list[] = { "d+t->n+a.980ztn",

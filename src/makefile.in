@@ -130,7 +130,6 @@ SRC_TESTC := \
 	test/depl_handle.c \
 	test/depl2.c \
 	test/depl2_handle.c \
-	test/pnu.c \
 	test/depl_zaid.c \
 	test/ekerma.c \
 	test/ebounds.c \
@@ -150,6 +149,8 @@ SRC_TESTC := \
 	test/ngk_test_handle.c \
 	test/nonfissionables.c \
 	test/nonfissionables_handle.c \
+	test/old_rprod.c \
+	test/photon.c \
 	test/pnu.c \
 	test/pnu_handle.c \
 	test/radchem.c \
@@ -177,6 +178,7 @@ SRC_TESTC := \
 	test/tn_use_handle.c \
 	test/tnreac_c.c \
 	test/tnreac_c_handle.c \
+	test/transfer_mat.c \
 	test/za.c \
 	test/za_handle.c 
 
@@ -185,6 +187,8 @@ SRC_TESTF := \
 	test/ex_gendir_pathf.F \
 	test/ex_kerma1f.F \
 	test/ex_kerma2f.F  \
+	test/f_handlef.F \
+	test/f_handlef2.F \
 	test/gendir_pathf.F \
 	test/library_checkf.F \
 	test/ndi_testf.F\

@@ -499,7 +499,6 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
      */
 
     int i;
-    int ierr;
     int ret_val = -1;
     ndi_float64 egrp_bounds[31];
     ndi_float64 *bound_p = NULL;
@@ -518,8 +517,7 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
 
 
     if ((num_grps == 16) || (num_grps == 30)) {
-	ierr =
-	    ndi_c_get_float64_vec_h(state, NDI_E_BOUNDS, egrp_bounds, 31);
+	(void)ndi_c_get_float64_vec_h(state, NDI_E_BOUNDS, egrp_bounds, 31);
 	if (num_grps == 16) {
 	    bound_p = _16_LLNL;
 	} else if (num_grps == 30) {

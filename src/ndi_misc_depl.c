@@ -56,6 +56,10 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
 		     &iso_start, &at_wgt, -1);
 
     /* Check validity of data read from gendir */
+    if (strcmp(lib_path, "") == 0 ) {
+        ierr = -8;
+        return(-8);
+    }
 
     /* Set global variable to indicate the name of the new depl dataset */
     strcpy(state->depl_dataset, tmp_zaid);

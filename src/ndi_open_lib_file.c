@@ -53,10 +53,6 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
 	    != NULL) {
 	    strcpy(state->open_lib_file, path);
 	}
-    } else {
-	state->open_lib_file = (char *) ndi_malloc(sizeof(char));
-	if (state->open_lib_file)
-	    state->open_lib_file[0] = '\0';
     }
 
     return (temp_file_p);

@@ -12,7 +12,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include <float.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"

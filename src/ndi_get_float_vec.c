@@ -11,7 +11,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include <float.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -546,7 +545,6 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
     int ierr = 0;
     int tmp_err = 0;
     int num_full_mat = 0;
-    int no_norm;
     int row;
     int coll_num_grps = 0;
     int mat_size = return_size;
@@ -565,7 +563,6 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
 	return (ierr);
     }
 
-    no_norm = state->no_norm;
     num_full_mat = lib_num_grps * lib_num_grps;
 
     if (state->collapse_flag) {
@@ -1204,7 +1201,6 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     int ierr = 0;
     int i, j;
     int num_elements;
-    int tmp_size;
     int num_reactions;
     int *mt;
     int mat_size;
@@ -1245,7 +1241,6 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     curr_xs = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     eavg = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     ndi_init_float64_vec(tmp_vec, num_elements);
-    tmp_size = num_elements;
     ierr = ndi_get_float64_vec(NDI_E_AVG, eavg, num_elements);
     ierr = ndi_get_float64_vec(NDI_FISS_Q, fissq, NUM_FISSION_Q);
 

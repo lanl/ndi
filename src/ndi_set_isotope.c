@@ -94,16 +94,24 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     }
 
     /* Open library file if needed */
-    if (strcmp(lib_path, state->open_lib_file) != 0) {
-	/* close current lib file and open new one */
-	if (state->lib_stream)
-	    ierr = ndi_close_lib_file(state);
-      /*** check returned error value ***/
-	if ((state->lib_stream =
-	     ndi_open_lib_file(state, lib_path)) == NULL) {
-	    /* Error opening library file */
-	    ierr = -1;
-	}
+    if (state->open_lib_file) {
+        if (strcmp(lib_path, state->open_lib_file) != 0) {
+            /* Close current lib file and open new one */
+            if (state->lib_stream)
+                ierr = ndi_close_lib_file(state);
+            if ((state->lib_stream =
+                 ndi_open_lib_file(state, lib_path)) == NULL) {
+                /* Error opening library file */
+                ierr = -1;
+            }
+        }
+    } else {
+        /* No library file is currently open */
+        if ((state->lib_stream =
+             ndi_open_lib_file(state, lib_path)) == NULL) {
+            /* Error opening library file */
+            ierr = -1;
+        }
     }
 
    /*** check returned error value ****/
