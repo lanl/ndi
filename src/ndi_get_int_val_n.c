@@ -101,101 +101,90 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
    /*************************/
     switch (in_key) {
 
-    case NDI_RPROD_ALL:
-	/* No. of products for reaction  MT 'vec_num' -- all */
-	if (state->reac_id == 'c') {
-	    mt = ndi_c_c_to_mt(vec_num);
-	    if (mt <= 0) {
-		ierr = -6;
-		return (-24);	/* Invalid MT or reaction identifier */
-	    }
-	} else {
-	    mt = vec_num;
-	}
 
-	ierr =
-	    ndi_find_rprod_index(state->lib_stream,
-				 &state->iso_stat.rprod_all, &rprod_index,
-				 mt);
-	if (ierr >= 0) {
-	    if (rprod_index < state->iso_stat.rprod_all.num_objs) {
-		*ret_val =
-		    state->iso_stat.rprod_all.stat[rprod_index].length;
-	    } else {
-		ierr =
-		    ndi_check_array_err(state->iso_stat.rprod_all.
-					num_objs);
-	    }
-	} else {
-	    /* Data not in library */
-	    ierr = 9;
-	    *ret_val = 0;
-	}
-	break;
+   case NDI_RPROD_ALL:  
+      /* No. of products for reaction  MT 'vec_num' -- all */
+      if ( state->reac_id == 'c' ) {
+	 mt = ndi_c_c_to_mt( vec_num );
+	 if ( mt <= 0 ) {
+	    ierr = -24;
+	    return(ierr);  /* Invalid MT or reaction identifier */
+	 }
+      } else {
+	 mt = vec_num;
+      }
 
-    case NDI_RPROD_RMO:
-	/* No. of products for reaction indexed by vec_num -- rmo  */
-	if (state->reac_id == 'c') {
-	    mt = ndi_c_c_to_mt(vec_num);
-	    if (mt <= 0) {
-		ierr = -6;
-		return (-24);	/* Invalid MT or reaction identifier */
-	    }
+      ierr = ndi_find_rprod_index(state->lib_stream, 
+                                  &state->iso_stat.rprod_all, 
+				  &rprod_index, mt);
+      if ( ierr >= 0 ) {
+	if ( rprod_index < state->iso_stat.rprod_all.num_objs ) {
+	  *ret_val =  state->iso_stat.rprod_all.stat[rprod_index].length;
 	} else {
-	    mt = vec_num;
+	  ierr = ndi_check_array_err(state->iso_stat.rprod_all.num_objs);
 	}
+      }  else {
+	 /* Data not in library */
+	 ierr = 9;
+	 *ret_val = 0;
+      }
+      break;
+    
+   case NDI_RPROD_RMO:  
+      /* No. of products for reaction indexed by vec_num -- rmo  */
+      if ( state->reac_id == 'c' ) {
+	 mt = ndi_c_c_to_mt( vec_num );
+	 if ( mt <= 0 ) {
+	    ierr = -24;
+	    return(ierr);    /* Invalid MT or reaction identifier */
+	 }
+      } else {
+	 mt = vec_num;
+      }
 
-	ierr =
-	    ndi_find_rprod_index(state->lib_stream,
-				 &state->iso_stat.rprod_rmo, &rprod_index,
-				 mt);
-	if (ierr >= 0) {
-	    if (rprod_index < state->iso_stat.rprod_rmo.num_objs) {
-		*ret_val =
-		    state->iso_stat.rprod_rmo.stat[rprod_index].length;
-	    } else {
-		ierr =
-		    ndi_check_array_err(state->iso_stat.rprod_rmo.
-					num_objs);
-	    }
+      ierr = ndi_find_rprod_index(state->lib_stream, 
+                                  &state->iso_stat.rprod_rmo, 
+				  &rprod_index, mt );
+      if ( ierr >= 0 ) {
+	if ( rprod_index < state->iso_stat.rprod_rmo.num_objs ) {
+	  *ret_val =  state->iso_stat.rprod_rmo.stat[rprod_index].length;
 	} else {
-	    /* Data not in library */
-	    ierr = 9;
-	    *ret_val = 0;
+	  ierr = ndi_check_array_err(state->iso_stat.rprod_rmo.num_objs);
 	}
-	break;
+      } else {
+	 /* Data not in library */
+	 ierr = 9;
+	 *ret_val = 0;
+      }
+      break;
+    
+   case NDI_RPROD_FEW:  
+      /* No. of products for reaction indexed by vec_num -- few  */
+      if ( state->reac_id == 'c' ) {
+	 mt = ndi_c_c_to_mt( vec_num );
+	 if ( mt <= 0 ) {
+	    ierr = -24;
+	    return(ierr);    /* Invalid MT or reaction identifier */
+	 }
+      } else {
+	 mt = vec_num;
+      }
 
-    case NDI_RPROD_FEW:
-	/* No. of products for reaction indexed by vec_num -- few  */
-	if (state->reac_id == 'c') {
-	    mt = ndi_c_c_to_mt(vec_num);
-	    if (mt <= 0) {
-		ierr = -6;
-		return (-24);	/* Invalid MT or reaction identifier */
-	    }
+      ierr = ndi_find_rprod_index(state->lib_stream, 
+                                  &state->iso_stat.rprod_few, 
+				  &rprod_index, mt );
+      if ( ierr >= 0 ) {
+	if ( rprod_index < state->iso_stat.rprod_few.num_objs ) {
+	  *ret_val =  state->iso_stat.rprod_few.stat[rprod_index].length;
 	} else {
-	    mt = vec_num;
+	  ierr = ndi_check_array_err(state->iso_stat.rprod_few.num_objs);
 	}
-
-	ierr =
-	    ndi_find_rprod_index(state->lib_stream,
-				 &state->iso_stat.rprod_few, &rprod_index,
-				 mt);
-	if (ierr >= 0) {
-	    if (rprod_index < state->iso_stat.rprod_few.num_objs) {
-		*ret_val =
-		    state->iso_stat.rprod_few.stat[rprod_index].length;
-	    } else {
-		ierr =
-		    ndi_check_array_err(state->iso_stat.rprod_few.
-					num_objs);
-	    }
-	} else {
-	    /* Data not in library */
-	    ierr = 9;
-	    *ret_val = 0;
-	}
-	break;
+      } else {
+	 /* Data not in library */
+	 ierr = 9;
+	 *ret_val = 0;
+      }
+      break;
 
       /***********************************************************************/
 	/*           This section looks at non-standard isotope data           */
@@ -205,7 +194,14 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	/* Reaction mt for reaction indexed by vec_num */
 	if (state->iso_stat.reac_mt) {
 	    if (state->iso_stat.num_reac > vec_num) {
-		*ret_val = state->iso_stat.reac_mt[vec_num];
+                if (state->reac_id == 'c') {
+                    *ret_val = ndi_c_mt_to_c(state->iso_stat.reac_mt[vec_num]);
+                    if (*ret_val <= 0) {
+                        ierr = -24;
+                    }
+                } else {
+                    *ret_val = state->iso_stat.reac_mt[vec_num];
+                }
 	    } else {
 		/* Index out of range */
 		ierr = ndi_check_array_err(state->iso_stat.num_reac);

@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 void ndi_print_fmangle_body(void);
 
 

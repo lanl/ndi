@@ -124,6 +124,7 @@ int testc (void)
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -153,6 +154,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_COLLAPSE, "16_group" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -186,6 +188,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf5" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -218,6 +221,7 @@ int testc (void)
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    printf(" ***********Diagonal transport correction***********\n\n"); 
    ierr = ndi2_set_option(handle, NDI_TRANS_CORR, "diag_n" );
@@ -282,6 +286,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_DEPLETION, "test_depl" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -317,6 +322,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_CURR_PART, "n" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -349,6 +355,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_TEMP, "300" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {
@@ -380,6 +387,7 @@ int testc (void)
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
 
    
    printf(" ***********C values***********\n\n"); 
@@ -426,6 +434,8 @@ int testc (void)
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+
    printf("***********************ISOTOPE=%s***********************\n\n",
 	  zaid_list[0] );
    ierr = ndi2_set_isotope(handle, zaid_list[0]);
@@ -451,6 +461,8 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option(handle, NDI_LIBRARY, "default" );
+   ierr = ndi2_set_option(handle, NDI_E_AVG, "from_e");
+
    printf("\nLibrary is defaulting:\n\n");
 
    for ( i = 0; i < ext_num_zaid; i++ ) {

@@ -120,6 +120,8 @@ SRC_TESTC := \
 	test/5_handle.c \
 	test/abundance_test.c \
 	test/abundance_test_handle.c \
+	test/avg_e.c \
+	test/avg_e2.c \
 	test/c.c \
 	test/c_handle.c \
 	test/chi.c \
@@ -128,9 +130,19 @@ SRC_TESTC := \
 	test/depl_handle.c \
 	test/depl2.c \
 	test/depl2_handle.c \
+	test/pnu.c \
+	test/depl_zaid.c \
+	test/ekerma.c \
 	test/ebounds.c \
+	test/err22.c \
+	test/ex_avg_e.c \
+	test/ex_gendir_path.c \
+	test/ex_kerma1.c \
+	test/ex_kerma2.c \
+	test/gendir_path.c \
 	test/kerma_example.c \
 	test/kerma_example_handle.c \
+	test/library_check.c \
 	test/mg_sec_part.c \
 	test/mpmg.c \
 	test/ndid.c \
@@ -142,6 +154,7 @@ SRC_TESTC := \
 	test/pnu_handle.c \
 	test/radchem.c \
 	test/radchem_handle.c \
+	test/sgndf.c \
 	test/symbol_translate.c \
 	test/symbol_translate_handle.c \
 	test/tn3.c \
@@ -165,22 +178,20 @@ SRC_TESTC := \
 	test/tnreac_c.c \
 	test/tnreac_c_handle.c \
 	test/za.c \
-	test/za_handle.c \
-	test/pnu.c \
-	test/gendir_path.c \
-	test/library_check.c \
-	test/avg_e.c \
-	test/ekerma.c \
-	test/sgndf.c
+	test/za_handle.c 
 
 SRC_TESTF := \
+	test/ex_avg_ef.F \
+	test/ex_gendir_pathf.F \
+	test/ex_kerma1f.F \
+	test/ex_kerma2f.F  \
+	test/gendir_pathf.F \
+	test/library_checkf.F \
 	test/ndi_testf.F\
 	test/ndi_testf2.F\
 	test/ndidf.F\
 	test/radchemf.F\
-	test/symbol_translatef.F \
-	test/gendir_pathf.F \
-	test/library_checkf.F
+	test/symbol_translatef.F 
 
 DATA_TEST_SRC := \
 	test/mgn_data.c \

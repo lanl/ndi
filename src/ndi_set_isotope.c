@@ -65,9 +65,10 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     /* Convert input zaid to standard zaid and read data from gendir */
     strcpy(tmp_zaid, in_zaid);
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
-	ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
-
-	/* printf("tmp_zaid = %s \n", tmp_zaid ); */
+       if ( ! (strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
+           ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
+       }
+      /* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/
 	if (ierr < 0)
 	    return (ierr);

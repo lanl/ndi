@@ -5,46 +5,46 @@
   ****************************************************
 
 Interpret izaid before setting lib type.
-  izaid =      1001  SZA = H1       
-  izaid =         0  SZA = g        
-  izaid =         1  SZA = n        
-  izaid =     92235  SZA = U235     
-  izaid =    103270  SZA = Lr270    
-  izaid =   2095240  SZA = Am240m2  
-  izaid =  20001002  SZA = H2m20    
+  izaid =      1001  SZA = H1                  
+  izaid =         0  SZA = g                   
+  izaid =         1  SZA = n                   
+  izaid =     92235  SZA = U235                
+  izaid =    103270  SZA = Lr270               
+  izaid =   2095240  SZA = Am240m2             
+  izaid =  20001002  SZA = H2m20               
   ****ERROR =   -22
-  izaid =    110290  SZA =          
+  izaid =    110290  SZA =                     
+  izaid =      -999  SZA = Generic Destruction 
+  izaid =     99999  SZA = Fission Product     
   ****ERROR =   -22
-  izaid =      -999  SZA =          
+  izaid =    999999  SZA =                     
   ****ERROR =   -22
-  izaid =    999999  SZA =          
+  izaid =         2  SZA =                     
   ****ERROR =   -22
-  izaid =         2  SZA =          
+  izaid =    110000  SZA =                     
   ****ERROR =   -22
-  izaid =    110000  SZA =          
-  ****ERROR =   -22
-  izaid =   1109000  SZA =          
+  izaid =   1109000  SZA =                     
 
 Interpret izaid after setting lib type.
-  izaid =      1001  SZA = H1       
-  izaid =         0  SZA = g        
-  izaid =         1  SZA = n        
-  izaid =     92235  SZA = U235     
-  izaid =    103270  SZA = Lr270    
-  izaid =   2095240  SZA = Am240m2  
-  izaid =  20001002  SZA = H2m20    
+  izaid =      1001  SZA = H1                  
+  izaid =         0  SZA = g                   
+  izaid =         1  SZA = n                   
+  izaid =     92235  SZA = U235                
+  izaid =    103270  SZA = Lr270               
+  izaid =   2095240  SZA = Am240m2             
+  izaid =  20001002  SZA = H2m20               
   ****ERROR =   -22
-  izaid =    110290  SZA =          
+  izaid =    110290  SZA =                     
+  izaid =      -999  SZA = Generic Destruction 
+  izaid =     99999  SZA = Fission Product     
   ****ERROR =   -22
-  izaid =      -999  SZA =          
+  izaid =    999999  SZA =                     
   ****ERROR =   -22
-  izaid =    999999  SZA =          
+  izaid =         2  SZA =                     
   ****ERROR =   -22
-  izaid =         2  SZA =          
+  izaid =    110000  SZA =                     
   ****ERROR =   -22
-  izaid =    110000  SZA =          
-  ****ERROR =   -22
-  izaid =   1109000  SZA =          
+  izaid =   1109000  SZA =                     
  
 ISOTOPE=>92235.600nm  <
   Zaid = >92235.600nm  <

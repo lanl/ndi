@@ -677,96 +677,152 @@ static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE * return_vec,
 			  int return_size)
 {
 
-    int i;
+    int i,j;
     int num_grps;
     int ierr = 0;
     int calc_flag = 0;
-    FLOAT_TYPE *vel;
+    int low_bound, up_bound;
+    ndi_float64 *vel;
+    double numer, denom;
     /* Assuming inc part = neutrons and that vel units are cm/shake */
     double v2_to_e_factor = (M_NEUT_KG) / 2 * 1e12 / (J_TO_MEV);
+    double legacy_v2_to_e_factor = 0.0052271; /* Converts to MeV; originally hardwired by Eldon Linnebur? */
 
 
     NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
     if (state) {
 	num_grps = state->iso_stat.num_grps;
+
+        if ( num_grps <= 0 ) {
+            ierr = 9;
+            return(ierr);
+        }
+
+        if (state->collapse_flag) {
+            num_grps = state->grp_num_new;
+        }
+        
+        if (state->e_avg_calc == SGNDF) {
+            if (ndi_use_sgndf_values(state, num_grps) != 0) {
+                /* Use hard-wired values */
+                ierr = COPY_SGNDF_E(num_grps, return_vec, return_size);
+                return (ierr);
+            } else {
+                calc_flag = -1;	/* Calculate from average velocity */
+            }
+        }
+        
+        if ((state->e_avg_calc == VEL_CALC) || (calc_flag != 0)) {
+            /* E(avg) = 1/2 m vel(avg)^2 */
+            if (fabs(v2_to_e_factor) < DBL_EPSILON) {
+                ierr = 5;
+                return (ierr);
+            }
+            
+            vel = (ndi_float64 *) ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
+            ierr = ndi_get_simple_float64_vec(state, state->lib_stream,
+                                              state->iso_stat.vel.file_ptr, -1,
+                                              state->iso_stat.num_grps, vel, state->iso_stat.num_grps);
+            for (i = 0; i < num_grps; i++) {
+                if (i < return_size) {
+                    numer = 0.0;
+                    denom = 0.0;
+                    if (state->collapse_flag) {             /* Collapse */
+                        low_bound = state->new_ebounds[i];
+                        up_bound = state->new_ebounds[i+1];
+                    } else {
+                        low_bound = i;
+                        up_bound = i + 1;
+                    }
+                    for (j = low_bound; j < up_bound; j++) {
+                        numer += vel[j] * vel[j] * state->lib_weight[j];
+                        denom += state->lib_weight[j];
+                    }
+                    if (denom > (FLOAT_EPSILON * numer)) {
+                        return_vec[i] = (FLOAT_TYPE)v2_to_e_factor * (numer / denom);
+                    } else {
+                        ierr = 5;
+                        break;
+                    }
+                } else {
+                    ierr = 7;
+                    break;
+                }
+            }
+            if (vel)
+                ndi_free((void **) &vel);
+            
+        } else if (state->e_avg_calc == LEGACY_VEL_CALC) {
+            vel = (ndi_float64 *)ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
+            ierr = ndi_get_simple_float64_vec( state, state->lib_stream, 
+                                               state->iso_stat.vel.file_ptr,
+                                               -1, state->iso_stat.num_grps,
+                                               vel, state->iso_stat.num_grps );
+            for (i = 0; i < num_grps; i++ ) {
+                if (i < return_size) {
+                    numer = 0.0;
+                    denom = 0.0;
+                    if (state->collapse_flag) {             /* Collapse */
+                        low_bound = state->new_ebounds[i];
+                        up_bound = state->new_ebounds[i+1];
+                    } else {
+                        low_bound = i;
+                        up_bound = i + 1;
+                    }
+                    for (j = low_bound; j < up_bound; j++) {
+                        numer += vel[j] * state->lib_weight[j];
+                        if (vel[j] > (DBL_EPSILON * state->lib_weight[j])) {
+                            denom += state->lib_weight[j] / vel[j];
+                        } else {
+                            ierr = 5;
+                            return(ierr);
+                        }
+                    }
+                    if (denom > (FLOAT_EPSILON * numer)) {
+                        return_vec[i] = (FLOAT_TYPE)legacy_v2_to_e_factor * (numer / denom);
+                    } else {
+                        ierr = 5;
+                        return(ierr);                
+                    }
+                } else {
+                    ierr = 7;
+                }
+            }
+            if (vel) ndi_free((void **)&vel);
+            
+        } else if (state->e_avg_calc == E_MEAN) {
+            /*   Arithmetic mean energy */
+            int j;
+            double wt_sum, e_sum;
+            
+            for ( i = 0; i < num_grps; i++ ) {
+                wt_sum = 0;
+                e_sum = 0;
+                if ( state->collapse_flag ) {
+                    for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
+                        e_sum += (ndi_float64) fabs( (double) 
+                                                     state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
+                                                     - state->lib_ebounds[j] * state->lib_ebounds[j] ) 
+                                                     * state->lib_weight[j];
+                        wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
+                    }
+                } else {
+                    e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
+                    wt_sum = 1;
+                }
+                return_vec[i] = (FLOAT_TYPE) e_sum /(2 *  wt_sum);
+            }
+ 
+        } else {
+            ierr = -13;
+        }
+
     } else {
-	return (-2);
+        ierr = -2;
     }
-
-    if (num_grps <= 0) {
-	ierr = 9;
-	return (ierr);
-    }
-
-    if (state->collapse_flag) {
-	num_grps = state->grp_num_new;
-    }
-
-    if (state->e_avg_calc == SGNDF) {
-	if (ndi_use_sgndf_values(state, num_grps) != 0) {
-	    /* Use hard-wired values */
-	    ierr = COPY_SGNDF_E(num_grps, return_vec, return_size);
-	    return (ierr);
-	} else {
-	    calc_flag = -1;	/* Calculate from average velocity */
-	}
-    }
-
-    if ((state->e_avg_calc == VEL_CALC) || (calc_flag != 0)) {
-	/* E(avg) = 1/2 m vel(avg)^2 */
-	if (fabs(v2_to_e_factor) < DBL_EPSILON) {
-	    ierr = 5;
-	    return (ierr);
-	}
-
-	vel = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
-	ierr =
-	    GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
-				 state->iso_stat.vel.file_ptr, 1,
-				 state->iso_stat.num_grps, vel, num_grps);
-	for (i = 0; i < num_grps; i++) {
-	    if (i < return_size) {
-		return_vec[i] = v2_to_e_factor * vel[i] * vel[i];
-	    }
-	}
-	if (vel)
-	    ndi_free((void **) &vel);
-    } else if (state->e_avg_calc == E_MEAN) {
-	/*   Arithmetic mean energy */
-	int j;
-	double wt_sum, e_sum;
-
-	for (i = 0; i < num_grps; i++) {
-	    wt_sum = 0;
-	    e_sum = 0;
-	    if (state->collapse_flag) {
-		for (j = state->new_ebounds[i];
-		     j < state->new_ebounds[i + 1]; j++) {
-		    e_sum += (FLOAT_TYPE) fabs((double)
-					       state->lib_ebounds[j +
-								  1] *
-					       state->lib_ebounds[j + 1]
-					       -
-					       state->lib_ebounds[j] *
-					       state->lib_ebounds[j]) *
-			state->lib_weight[j];
-		    wt_sum +=
-			state->lib_weight[j] *
-			fabs(state->lib_ebounds[j + 1] -
-			     state->lib_ebounds[j]);
-		}
-	    } else {
-		e_sum = state->lib_ebounds[i + 1] + state->lib_ebounds[i];
-		wt_sum = 1;
-	    }
-	    return_vec[i] = e_sum / (2 * wt_sum);
-	}
-    } else {
-	ierr = -13;
-    }
-
-    return (ierr);
+        
+    return(ierr);
 }
 
 /*********************************************************************/
@@ -805,7 +861,7 @@ static int NDI_CALC_E_N(state_struct *state, FLOAT_TYPE * return_vec,
     p0_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &ierr);
 
     p0_vec = (FLOAT_TYPE *) ndi_malloc(p0_size * sizeof(FLOAT_TYPE));
-    ierr = NDI_GET_FLOAT_VEC_N(NDI_TRANSFER_MAT_PR, 0, p0_vec, p0_size);
+    ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0, p0_vec, p0_size);
     eavg = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_E_AVG, eavg, num_grps);
     for (i = 0; i < num_grps; i++) {
@@ -1116,17 +1172,17 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
     ierr = ndi_get_old_kerma64(state, vec, num_grps);
 
     for (i = 0; i < num_grps; i++) {
-	if (fabs(tot_sig[i]) > DBL_EPSILON) {
-	    vec[i] = vec[i] / tot_sig[i];
-	} else {
-	    vec[i] = 0.0;
-	    ierr = 5;
-	}
-	if (i < return_size) {
-	    return_vec[i] = (FLOAT_TYPE) vec[i];
-	} else {
-	    ierr = 7;
-	}
+        if ( fabs(tot_sig[i]) > (vec[i] * DBL_EPSILON) ) {
+            vec[i] = vec[i] / tot_sig[i];
+        } else {
+            vec[i] = 0.0;
+            ierr = 5;
+        }
+        if (i < return_size) {
+            return_vec[i] = (FLOAT_TYPE)vec[i];
+        } else {
+            ierr = 7;
+        }
     }
 
     if (tot_sig) {
@@ -1152,6 +1208,8 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     int num_reactions;
     int *mt;
     int mat_size;
+    int old_reac_size = 3;
+    char old_reac_id[3];
     ndi_float64 *tmp_vec = NULL;
     ndi_float64 *curr_xs = NULL;
     ndi_float64 fissq[NUM_FISSION_Q];
@@ -1177,14 +1235,14 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
 	num_elements = state->grp_num_new;
     }
 
-    ierr = ndi_get_int_val(NDI_NUM_REAC, &num_reactions);
+    ierr = ndi_c_check_option_h(state, NDI_REAC_ID, old_reac_id, old_reac_size);
+    ierr = ndi_c_set_option_h(state, NDI_REAC_ID, "mt");
+    ierr = ndi_c_get_int_val_h(state, NDI_NUM_REAC, &num_reactions);
     mt = (int *) ndi_malloc(num_reactions * sizeof(int));
-    ierr = ndi_get_int_vec(NDI_REAC_MT, mt, num_reactions);
+    ierr = ndi_c_get_int_vec_h(state, NDI_REAC_MT, mt, num_reactions);
 
-    tmp_vec =
-	(ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
-    curr_xs =
-	(ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
+    tmp_vec = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
+    curr_xs = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     eavg = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     ndi_init_float64_vec(tmp_vec, num_elements);
     tmp_size = num_elements;
@@ -1220,7 +1278,6 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
 	}
     }
 
-
     for (i = 0; i < num_elements; i++) {
 	if (i < return_size) {
 	    return_vec[i] = tmp_vec[i];
@@ -1247,6 +1304,8 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     if (inelastic_scat) {
 	ndi_free((void **) &scat_mat);
     }
+
+    ndi_c_set_option_h(state, NDI_REAC_ID, old_reac_id);
 
     return (ierr);
 
@@ -1505,6 +1564,8 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
     int num_grps = 0;
     int num_elements = 0;
     int MTarray[MAX_DEPL_REAC];
+    int old_reac_size = 3;
+    char old_reac_id[3];
     depl_target_struct *curr_targ;
     depl_rprod_struct *curr_prod;
     FLOAT_TYPE *curr_xs = NULL;
@@ -1571,13 +1632,14 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
 	}
     }
 
+   ierr = ndi_c_check_option_h(state, NDI_REAC_ID, old_reac_id, old_reac_size);
+   ierr = ndi_c_set_option_h(state, NDI_REAC_ID, "mt");
 
     /* For each MT, get the x.s. and add to running total */
 
     for (i = 0; i < mtindex; i++) {
 	num_elements = num_grps;
-	sig_reac_err =
-	    GET_SIG_REAC(state, mg, MTarray[i], curr_xs, &num_elements);
+	sig_reac_err = GET_SIG_REAC(state, mg, MTarray[i], curr_xs, &num_elements);
 	if (sig_reac_err == 9) {
 	    ierr = 9;
 	} else {
@@ -1595,9 +1657,10 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
 	}
     }
 
-    if (curr_xs)
+    (void) ndi_c_set_option_h(state, NDI_REAC_ID, old_reac_id);
+     if (curr_xs)
 	ndi_free((void **) &curr_xs);
-    return (ierr);
+     return (ierr);
 
 }
 

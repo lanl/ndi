@@ -8,12 +8,12 @@
       character*ZAID_STR_SIZE zaid_str
 
       integer num_izaid
-      integer izaid(13)
+      integer izaid(14)
 
       integer num_zaid
       character*24 zaid_list(17)
 
-      num_izaid = 13
+      num_izaid = 14
       data izaid / 1001,
      $  0,
      $  1,
@@ -23,6 +23,7 @@
      $  20001002,
      $  110290,
      $  -999,
+     $  99999,
      $  999999,
      $  2,
      $  110000,
@@ -69,7 +70,7 @@ c     For all ZAIDS
  4           format("  ****ERROR = ", i5)
           endif
           write(*,5) izaid(i), zaid_str
- 5        format("  izaid = ", i9,  "  SZA = ", a9)
+ 5        format("  izaid = ", i9,  "  SZA = ", a20)
  100  continue
 
       call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr )

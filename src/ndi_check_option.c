@@ -246,7 +246,9 @@ static int ndi_get_library(state_struct *state, char *value,
 	return (-2);
     }
 
-    strncpy(value, state->library_vers, string_size);
+   if (state->library_vers) {
+       strncpy( value, state->library_vers, string_size );
+   } 
 
     if (strncmp(value, "", string_size) == 0) {
 	strncpy(value, "default", string_size);
@@ -454,12 +456,15 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 	strncpy(value, "from_e", string_size);
     } else if (state->e_avg_calc == SGNDF) {
 	strncpy(value, "from_sgndf", string_size);
+    } else if ( state->e_avg_calc == LEGACY_VEL_CALC ) {
+        strncpy( value, "legacy_calc", string_size );
     } else {
 	strncpy(value, "", string_size);
 	ierr = -27;
     }
 
     return (ierr);
+
 
 }
 

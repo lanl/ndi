@@ -72,8 +72,8 @@ typedef long int_zaid_type;
 typedef char mg_zaid[64];
 typedef char tn_zaid[64];
 
-enum e_avg_type { VEL_CALC, E_MEAN, SGNDF };
-enum kerma_calc_type { DATA, CALC, DATA_CALC };
+enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC};
+enum kerma_calc_type {DATA, CALC, DATA_CALC};  
 
 typedef struct _dir_entry {
     char zaid[MAX_IN_STR_LEN];
@@ -508,6 +508,7 @@ extern "C" {
     int ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
 				  char *in_str, const int str_size);
     int ndi_use_sgndf_values(state_struct *state, int num_grps);
+    int ndi_special_sza( int sza, char *sym_str, int str_size );
 
 
   /***  Subroutines in file ndi_misc_depl.c ***/

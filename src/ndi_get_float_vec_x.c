@@ -95,8 +95,7 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 /*********************************************************************/
 /*********************************************************************/
 
-int
-GET_PROD_REAC(state_struct *state, const char *rprod_in,
+int GET_PROD_REAC(state_struct *state, const char *rprod_in,
 	      FLOAT_TYPE * return_vec, int vec_size)
 {
     int i, j;
@@ -106,10 +105,12 @@ GET_PROD_REAC(state_struct *state, const char *rprod_in,
     int num_elements;
     int curr_mt;
     int sig_reac_err = 0;
+    int old_reac_size = 3;
+    char old_reac_id[3];
     FLOAT_TYPE *curr_xs = NULL;
-
     depl_target_struct *curr_targ;
     depl_rprod_struct *curr_prod;
+
 
     if (state) {
 	curr_targ = state->depl_target;
@@ -118,7 +119,6 @@ GET_PROD_REAC(state_struct *state, const char *rprod_in,
     }
 
     /* CHECK ERRORS */
-
 
     if (!state->ndi_depl_set) {
 	ierr = ndi_set_default_depl(state);
@@ -161,13 +161,14 @@ GET_PROD_REAC(state_struct *state, const char *rprod_in,
     /* For each reaction, read MT and mult */
     /*     find sig_reac for MT, multiply by mult. and  and to total */
 
+    ierr = ndi_c_check_option_h(state, NDI_REAC_ID, old_reac_id, old_reac_size);
+    ierr = ndi_c_set_option_h(state, NDI_REAC_ID, "mt");
     for (i = 0; i < curr_prod->num_reac; i++) {
 	curr_mt = curr_prod->mt[i];
 	/* Must change get_sig_reac to not convert to c values */
 	num_elements = num_grps;
-	sig_reac_err =
-	    GET_SIG_REAC(state, &state->iso_stat, curr_mt, curr_xs,
-			 &num_elements);
+	sig_reac_err = GET_SIG_REAC(state, &state->iso_stat, curr_mt, curr_xs,
+                                    &num_elements);
 	if (sig_reac_err == 9) {
 	    ierr = 9;
 	} else {
@@ -186,9 +187,11 @@ GET_PROD_REAC(state_struct *state, const char *rprod_in,
 	}
     }
 
+    ndi_c_set_option_h(state, NDI_REAC_ID, old_reac_id);
     if (curr_xs)
 	ndi_free((void **) &curr_xs);
     return (ierr);
+
 }
 
 /*********************************************************************/

@@ -1,8 +1,8 @@
 #include "ndi_keywords.h"
 
 #define FLOAT_VEC_SIZE 2000
-#define AWR_SIZE 500
-#define STR_SIZE 500
+#define AWR_SIZE 2000
+#define STR_SIZE 2000
 #define ZAID_SIZE 13
 
       program main

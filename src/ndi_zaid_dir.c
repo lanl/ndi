@@ -128,12 +128,9 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 							zaid_string,
 							MAX_IN_STR_LEN,
 							seps);
-			    if (strncmp
-				(zaid_string, in_zaid,
-				 strlen(in_zaid)) == 0) {
-				ierr =
-				    read_dir_block(in_line, state->ndi_dir,
-						   &dir_rec);
+			    if (strncmp(zaid_string, in_zaid, strlen(in_zaid)) == 0) {
+				ierr = read_dir_block(in_line, state->ndi_dir,
+                                                      &dir_rec);
 				strcpy(tmp_zaid, dir_rec.zaid);
 				strcpy(library, dir_rec.lib);
 				strcpy(lib_path, dir_rec.path);
@@ -142,27 +139,15 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 				*at_wgt = dir_rec.at_wgt;
 
 				/*  Check current library against user-default library */
-				if ((reaction_flag != 0) || (
-								/* Chain libraries currently are undefined */
-								(strchr
-								 (in_zaid,
-								  '.') !=
-								 NULL)
-								&&
-								(isalnum
-								 (*
-								  (strchr
-								   (in_zaid,
-								    '.') +
-								   1))))) {
+				if ( (reaction_flag != 0) ||   /* Chain libraries currently are undefined */
+                                     ( (strchr(in_zaid, '.') != NULL) &&
+                                       (isalnum (* (strchr (in_zaid, '.') + 1))))) {
 				    /* A library is implied in the ZAID */
 				    done = -1;
 				} else {
-				    if (strcmp(state->library_vers, "") !=
-					0) {
-					if (strcmp
-					    (state->library_vers,
-					     library) == 0) {
+				    if (( ! state->library_vers) ||
+                                        (strcmp(state->library_vers, "") != 0)) {
+					if (strcmp(state->library_vers, library) == 0) {
 					    /* Current library matches user-specified default */
 					    done = -1;
 					}
@@ -196,6 +181,7 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	strcpy(real_zaid, tmp_zaid);
     }
     return (ierr);
+
 }
 
 

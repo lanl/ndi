@@ -7,9 +7,28 @@ int main()
     print_var_type_header();
     printf("#ifndef __NDI_VAR_TYPE_H\n");
     printf("#define __NDI_VAR_TYPE_H\n\n");
+ 
+  if ( sizeof(float) == 8 ) {
+       printf("#define FLOAT32_EPSILON FLT_EPSILON\n");
+       printf("#define FLOAT64_EPSILON FLT_EPSILON\n");
+       printf("typedef float ndi_float32;\n");
+       printf("typedef float ndi_float64;\n\n");
+   } else if ( sizeof(float) == 4 ) {
+       printf("#define FLOAT32_EPSILON FLT_EPSILON\n");
+       printf("#define FLOAT64_EPSILON DBL_EPSILON\n");
+       printf("typedef float ndi_float32;\n");
+       printf("typedef double ndi_float64;\n\n");
+   } else {
+      /*  Error!!!! */
+       printf("#define FLOAT32_EPSILON FLT_EPSILON\n");
+       printf("#define FLOAT64_EPSILON DBL_EPSILON\n");
+       printf("typedef float ndi_float32;\n");
+       printf("typedef double ndi_float64;\n\n");
+   }
 
     printf("#ifdef FLOAT32\n");
     printf("#define FLOAT_TYPE ndi_float32\n");
+    printf("#define FLOAT_EPSILON FLOAT32_EPSILON\n");
     printf("#define GET_PN_DOWN_FULL ndi_get_pn_down_full32\n");
     printf("#define GET_FULL_PN_MAT ndi_get_full_pn_mat32\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg32\n");
@@ -54,8 +73,7 @@ int main()
     printf("#define GET_CHI_MAT ndi_get_chi_mat32\n");
     printf("#define SIG_TOT_TRANS_CORR ndi_sig_tot_trans_corr32\n");
     printf("#define GET_E_BOUNDS_CURR_PART ndi_e_bounds32_curr_part\n");
-    printf
-	("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr32\n");
+    printf("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr32\n");
     printf("#define PN_FULL_TRANS_CORR ndi_pn_full_trans_corr32\n");
     printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat32\n");
     printf("#define NDI_INIT_FLOAT_VEC ndi_init_float32_vec\n");
@@ -87,6 +105,7 @@ int main()
 
     printf("#else\n");
     printf("#define FLOAT_TYPE ndi_float64\n");
+    printf("#define FLOAT_EPSILON FLOAT64_EPSILON\n");
     printf("#define GET_PN_DOWN_FULL ndi_get_pn_down_full64\n");
     printf("#define GET_FULL_PN_MAT ndi_get_full_pn_mat64\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg64\n");
@@ -131,15 +150,14 @@ int main()
     printf("#define GET_CHI_MAT ndi_get_chi_mat64\n");
     printf("#define SIG_TOT_TRANS_CORR ndi_sig_tot_trans_corr64\n");
     printf("#define GET_E_BOUNDS_CURR_PART ndi_e_bounds64_curr_part\n");
-    printf
-	("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr64\n");
+    printf("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr64\n");
     printf("#define PN_FULL_TRANS_CORR ndi_pn_full_trans_corr64\n");
     printf("#define GET_SIG_REAC ndi_get_sig_reac64\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs64\n");
     printf("#define GET_PROD_REAC ndi_get_prod_reac64\n");
     printf("#define GET_PROD_Q ndi_get_prod_q64\n");
     printf("#define GET_PN_PROD_FULL_P ndi_get_pn_prod_full64\n");
-    printf("#define GET_TRANSFER_MAT gget_transfer_mat64\n");
+    printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat64\n");
     printf("#define NDI_INIT_FLOAT_VEC ndi_init_float64_vec\n");
     printf("#define GET_DIAG_CORR ndi_get_diag_corr64\n");
     printf("#define COPY_MATRIX ndi_copy_matrix64\n");
@@ -163,18 +181,6 @@ int main()
 
     printf("#endif\n\n\n");
 
-    if (sizeof(float) == 8) {
-	printf("typedef float ndi_float32;\n");
-	printf("typedef float ndi_float64;\n");
-    } else if (sizeof(float) == 4) {
-	printf("typedef float ndi_float32;\n");
-	printf("typedef double ndi_float64;\n");
-    } else {
-	/*  Error!!!! */
-	printf("typedef float ndi_float32;\n");
-	printf("typedef double ndi_float64;\n");
-    }
-    printf("\n");
     printf
 	("/**********************************************************************/\n\n");
     printf("#endif	/* __NDI_VAR_TYPE_H */\n\n");

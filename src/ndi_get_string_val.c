@@ -59,25 +59,24 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
 	return (-2);
     } else if (in_key == NDI_GENDIR_PATH) {
 	strncpy(ret_val, state->open_gendir_file, str_size);
-    }
-
-
-    if ((state->library_type == 'm') || (state->library_type == 'd')) {
-	ierr = get_string_mg(state, in_key, ret_val, str_size);
-    } else if (state->library_type == 's') {
-	ierr = get_string_tn(state, in_key, ret_val, str_size);
-    } else if (state->library_type == 'r') {
-	ierr = get_string_tnreac(state, in_key, ret_val, str_size);
-	/*
-	   } else if ( state->library_type == '0' ) {
-	   ierr = get_string_depl( in_key, ret_val, str_size );
-	 */
-    } else if (state->library_type == ' ') {
-	/* Library type was not set */
-	ierr = -16;
     } else {
-	/* Incompatible library type -- bad input key */
-	ierr = -4;
+        if ((state->library_type == 'm') || (state->library_type == 'd')) {
+            ierr = get_string_mg(state, in_key, ret_val, str_size);
+        } else if (state->library_type == 's') {
+            ierr = get_string_tn(state, in_key, ret_val, str_size);
+        } else if (state->library_type == 'r') {
+            ierr = get_string_tnreac(state, in_key, ret_val, str_size);
+            /*
+              } else if ( state->library_type == '0' ) {
+              ierr = get_string_depl( in_key, ret_val, str_size );
+            */
+        } else if (state->library_type == ' ') {
+            /* Library type was not set */
+            ierr = -16;
+        } else {
+            /* Incompatible library type -- bad input key */
+            ierr = -4;
+        }
     }
 
     return (ierr);

@@ -117,9 +117,8 @@ int ndi_set_default_depl(state_struct *state)
 /**********************************************************************/
 /**********************************************************************/
 
-int
-ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
-		    int *target_index)
+int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
+                        int *target_index)
 
      /* Set *targ_p to point at the target struct whose zaid is given by the global
         var 'zaid'.  The param target_index will be the index of the desired target in
@@ -195,19 +194,18 @@ ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
 /**********************************************************************/
 /**********************************************************************/
 
-int
-ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
-		   const char *rprod, int *prod_index)
+int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
+                       const char *rprod, int *prod_index)
 
-     /* Set *rprod_p to point at the rprod struct whose zaid is given by the input
-        rprod.  The param prod_index will be the index of the desired rprod in the 
-        rprod_p array.  If no such prod is found, rprod_p will be NULL and prod_index
-        will be set to -1.  On entry *rprod_p will point to the beginning of the rprod
-        array.
-
-        On entering prod_index is the number of rprods in the current array.  On exit,
-        it will be the index of the desired rprod.
-      */
+/* Set *rprod_p to point at the rprod struct whose zaid is given by the input
+   rprod.  The param prod_index will be the index of the desired rprod in the 
+   rprod_p array.  If no such prod is found, rprod_p will be NULL and prod_index
+   will be set to -1.  On entry *rprod_p will point to the beginning of the rprod
+   array.
+   
+   On entering prod_index is the number of rprods in the current array.  On exit,
+   it will be the index of the desired rprod.
+*/
 {
 
     int i;
@@ -240,7 +238,8 @@ ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
     /* Change input rprod to integer */
     strcpy(tmp_zaid, rprod);
 
-    if (strcmp(tmp_zaid, "-999") != 0) {
+    if ((strcmp(tmp_zaid, "-999") != 0) &&
+        ( strcmp( tmp_zaid, "99999" ) != 0 )) {
 	if (tmp_zaid[0] == '-') {
 	    curr_zaid = &tmp_zaid[1];
 	    zaid_size -= 1;

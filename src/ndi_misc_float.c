@@ -37,11 +37,10 @@ int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 }
 
 /*********************************************************************/
-int
-GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
-		     long int f_ptr, int collapse_type,
-		     int library_grp_num, FLOAT_TYPE * return_vec,
-		     int return_size)
+int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
+                         long int f_ptr, int collapse_type,
+                         int library_grp_num, FLOAT_TYPE * return_vec,
+                         int return_size)
 
      /* Reads data from stream begining at f_ptr.  If collapse_flag
         is set (and collapse_type != 0), then collapse into the
@@ -128,9 +127,8 @@ int NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
 
 /*********************************************************************/
 
-int
-NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
-	    FLOAT_TYPE * return_mat, int num_mat, int mat_size)
+int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
+                FLOAT_TYPE * return_mat, int num_mat, int mat_size)
 {
 
     int ierr = 0;
@@ -165,9 +163,8 @@ NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
 /*********************************************************************/
 /*********************************************************************/
 
-int
-GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
-	     FLOAT_TYPE * return_vec, int *return_size)
+int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
+                 FLOAT_TYPE * return_vec, int *return_size)
 
 /*  Purpose:  Returns the cross-section for particle 'mg' for the 
     reaction indicated by the mt corresponding to 'vec_num'.
@@ -198,8 +195,8 @@ GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
     if (state->reac_id == 'c') {
 	mt = ndi_c_c_to_mt(vec_num);
 	if (mt <= 0) {
-	    ierr = -6;
-	    return (-24);	/* Invalid MT or reaction identifier */
+	    ierr = -24;
+	    return (ierr);	/* Invalid MT or reaction identifier */
 	}
     } else {
 	mt = vec_num;
@@ -211,10 +208,9 @@ GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 	/* Reaction cross-section exists for this isotope--
 	   set temp_size and temp_vec */
 
-	ierr =
-	    GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
-				 mg->sig_reac.stat[reac_index].file_ptr, 0,
-				 mg->num_grps, return_vec, *return_size);
+	ierr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
+                                    mg->sig_reac.stat[reac_index].file_ptr, 0,
+                                    mg->num_grps, return_vec, *return_size);
 
     } else {			/* ierr >= 0 ... */
 	/* Error: no data for this isotope */
@@ -234,7 +230,6 @@ GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 
 int COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
 {
-
     int ierr = 0;
     int i;
 
@@ -248,10 +243,9 @@ int COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
 
 /*********************************************************************/
 
-int
-MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
-	       const ndi_float64 * vec2, int num_elements,
-	       int collapse, FLOAT_TYPE * return_vec, int return_size)
+int MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
+                   const ndi_float64 * vec2, int num_elements,
+                   int collapse, FLOAT_TYPE * return_vec, int return_size)
 {
     /*  collapse < 0 means that this vector should not be collapsed */
 
@@ -304,10 +298,9 @@ MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 }
 
 /*********************************************************************/
-int
-DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
-		 const ndi_float64 * vec2, int num_elements,
-		 int collapse, FLOAT_TYPE * return_vec, int return_size)
+int DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
+                     const ndi_float64 * vec2, int num_elements,
+                     int collapse, FLOAT_TYPE * return_vec, int return_size)
 {
 
 
@@ -367,9 +360,8 @@ DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 }
 
 /*********************************************************************/
-int
-NORM_FLOAT_VEC(FLOAT_TYPE * vec_p, int num_elements,
-	       const FLOAT_TYPE norm_val)
+int NORM_FLOAT_VEC(FLOAT_TYPE * vec_p, int num_elements,
+                   const FLOAT_TYPE norm_val)
 {
 
     /* Assumes that the numbers will be non-negative */
@@ -446,10 +438,9 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 }
 
 /*********************************************************************/
-int
-CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
-	       FLOAT_TYPE * return_vec, int return_size,
-	       int collapse_type, int lib_num_grp)
+int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
+                   FLOAT_TYPE * return_vec, int return_size,
+                   int collapse_type, int lib_num_grp)
 
      /*  NOTE: lib_num_grp is the number of groups on the library */
 {

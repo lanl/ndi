@@ -470,7 +470,7 @@ Reactant multiplicity:  ***ERROR GETTING SIZE FOR Reactant multiplicity.
 
 
 FLOAT64 VECTORS:
-  **Error -5 setting current particle 1 (neutron).
+  **Error -16 setting current particle 1 (neutron).
 Temperatures: 
 ***ERROR GETTING SIZE FOR Temperatures.
   **Error -16 in Temperatures -- returned value is:

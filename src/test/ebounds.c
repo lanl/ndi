@@ -37,6 +37,7 @@ int test_collapse (void)
    ierr = ndi2_open(&handle, "");
    ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi2_set_option( handle, NDI_LIBRARY, "mendf6" );
+   ierr = ndi2_set_option( handle, NDI_E_AVG, "from_e" );
 
    printf("  NDI TEST SUITE -- test_collapse \n");
 
@@ -100,10 +101,10 @@ int check_vec_mgn_func(int handle)
   int tmp_err = 0;
 
 /*    tmp_err = check_ndi_int_vec_func_mgn(handle); */
-   tmp_err = check_ndi_float_vec_func_mgn(handle);
+  tmp_err = check_ndi_float_vec_func_mgn(handle);
 /*    tmp_err = check_ndi_int_vec_n_func_mgn(handle); */
-/*    tmp_err = check_ndi_float_vec_n_func_mgn(handle); */
-
+  tmp_err = check_ndi_float_vec_n_func_mgn(handle); 
+   
   return(tmp_err);
 }
 
@@ -369,12 +370,11 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    int n;
    int tmp_err = 0;
    ndi_float64 *ret_flt64;
-   int num_keys = 8;
+   int num_keys = 7;
    int num_elements = 0;
    int inkey[] = {
       NDI_PN_DOWN_FULL, 
       NDI_PN_FULL, 
-      NDI_PN_PROD_FULL_CURR_PART,
       NDI_TRANSFER_MAT_TOT,
       NDI_TRANSFER_MAT_PR,
       NDI_CORR_DIAG,
@@ -385,7 +385,6 @@ static int check_ndi_float_vec_n_func_mgn(int handle)
    char *flt_vec_n_str[] = {
       "Scatter matrix--lower diagonal", 
       "Scatter matrix--full", 
-      "Photon prod matrix--full",
       "Transfer matrix--total",
       "Transfer matrix--prompt",
       "Transport correction--diagonal",

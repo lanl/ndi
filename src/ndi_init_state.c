@@ -33,7 +33,14 @@ int ndi_init_state_common(state_struct *state)
 	ndi_free((void **) &(state->collapse_ebounds));
     state->collapse_ebounds = NULL;
 
-    return (ierr);
+    state->curr_part_index = -1;
+    strcpy( state->n_group, "default" );
+    state->grp_num_new = 0;
+    if (state->library_vers) {
+        strncpy(state->library_vers, "", 2);
+    }
+
+    return( ierr );
 }
 
 /**********************************************************************/

@@ -12,7 +12,7 @@ int main ()
     int i;
     char zaid_str[ZAID_STR_SIZE];
 
-    int num_izaid = 13;
+    int num_izaid = 14;
     int izaid[] = { 1001,
 		    0,
 		    1,
@@ -22,6 +22,7 @@ int main ()
 		    20001002,
 		    110290,
 		    -999,
+                    99999,
 		    999999,
 		    2,
 		    110000,

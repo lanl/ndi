@@ -39,10 +39,10 @@ static int PN_FULL_TRANS_CORR(state_struct *state,
 static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 			    sec_part_mg *sec_part, int vec_num,
 			    FLOAT_TYPE * return_vec, int return_size);
-static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
-			 int vec_num);
-static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
-			int vec_num);
+static int GET_DIAG_CORR(state_struct *state, int vec_num, 
+                         FLOAT_TYPE * return_vec, int vec_size);
+static int GET_BHS_CORR(state_struct *state, int vec_num,
+                        FLOAT_TYPE * return_vec, int vec_size);
 static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 			    FLOAT_TYPE * return_vec, int vec_size);
 static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
@@ -206,7 +206,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     case NDI_TRANSFER_MAT_TOT:	/* Transfer matrix -- total */
     case NDI_TRANSFER_MAT_PR:	/* Transfer matrix -- prompt */
 	ierr =
-	    GET_TRANSFER_MAT(state, in_key, vec_num, return_vec, vec_num);
+	    GET_TRANSFER_MAT(state, in_key, vec_num, return_vec, return_size);
 
 	/* Transpose result, if necessary */
 	if (state->collapse_flag != 0) {
@@ -224,12 +224,12 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 
     case NDI_CORR_DIAG:	/* Diagonal transport correction  */
 
-	ierr = GET_DIAG_CORR(state, return_vec, vec_num);
+	ierr = GET_DIAG_CORR(state, vec_num, return_vec, return_size);
 	break;
 
     case NDI_CORR_BHS:		/* Bell-Hansen-Sandmeier transport correction */
 
-	ierr = GET_BHS_CORR(state, return_vec, vec_num);
+	ierr = GET_BHS_CORR(state, vec_num, return_vec, return_size);
 	break;
 
     case NDI_TOT_PROD_XS:	/* Total production x.s. for target given by 
@@ -827,8 +827,8 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 
 /*********************************************************************/
 
-static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
-			 int vec_num)
+static int GET_DIAG_CORR(state_struct *state, int vec_num,
+                         FLOAT_TYPE * return_vec, int vec_size)
 {
     char transpose_state;
     char corr_state;
@@ -849,7 +849,7 @@ static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
 	num = state->iso_stat.num_grps;
     }
     array_size = num * num;
-    ierr = NDI_INIT_FLOAT_VEC(return_vec, num);
+    ierr = NDI_INIT_FLOAT_VEC(return_vec, vec_size);
     temp_vec = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
     if (!temp_vec) {
 	/* Out of memory */
@@ -873,8 +873,13 @@ static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
        where index(0) = 0
      */
     for (i = 0; i < num; i++) {
-	*(return_vec + i) = *(temp_vec + curr_index);
-	curr_index += num - i;
+        if ( i < vec_size) {
+            *(return_vec + i) = *(temp_vec + curr_index);
+            curr_index += num - i;
+        } else {
+            ierr = 7;
+            break;
+        }
     }
 
     if (temp_vec)
@@ -885,8 +890,8 @@ static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
 
 /*********************************************************************/
 
-static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
-			int vec_num)
+static int GET_BHS_CORR(state_struct *state, int vec_num, 
+                        FLOAT_TYPE * return_vec, int vec_size)
 {
     char transpose_state = ' ';
     char corr_state = ' ';
@@ -915,7 +920,7 @@ static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
      */
     array_size = num * num;
 
-    ierr = NDI_INIT_FLOAT_VEC(return_vec, num);
+    ierr = NDI_INIT_FLOAT_VEC(return_vec, vec_size);
     temp_vec = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
     if (!temp_vec) {
 	/* Out of memory */
@@ -940,7 +945,12 @@ static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
 	for (j = 0; j < num; j++) {
 	    scat_sum += *(temp_vec + (i * num) + j);
 	}
-	*(return_vec + i) = scat_sum;
+        if (i < vec_size) {
+            *(return_vec + i) = scat_sum;
+        } else {
+            ierr = 7;
+            break;
+        }
     }
 
     if (temp_vec)
@@ -1017,10 +1027,8 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 	pn_ptr = scat_mat;
     }
 
-    array_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, vec_num, &ierr);
-    ierr =
-	NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_FULL, vec_num, pn_ptr,
-			      array_size);
+    ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_FULL, vec_num, pn_ptr,
+                                 array_size);
     state->mat_order = transpose_state;
 
     if (state->collapse_flag) {

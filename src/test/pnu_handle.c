@@ -54,7 +54,7 @@ int main ()
     ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
-    ierr = ndi2_set_option(handle, NDI_LIBRARY, "chi_test_lib" );
+    ierr = ndi2_set_option(handle, NDI_LIBRARY, "chi_test" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);
 

@@ -143,15 +143,20 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
 				       state->tn_stat.sec_part,
 				       state->sec_part_filled);
 	} else if (state->library_type == 'm') {
+            /* Check that isotope is set */
+            if (!state->iso_stat.set_flag) {
+                return (-7);
+            }
 	    pindex =
 		ndi_find_mg_part_index(atoi(value),
 				       state->iso_stat.sec_part,
 				       state->iso_stat.num_sec_parts);
-
 	} else if (state->library_type == ' ') {
 	    ierr = -16;
+            return(ierr);
 	} else {
 	    ierr = -4;
+            return(ierr);
 	}
 
 	state->curr_part_index = pindex;
@@ -281,9 +286,7 @@ static int ndi_set_library(state_struct *state, const char *value)
     if (strncmp(value, "default", 8) == 0) {
 	strncpy(state->library_vers, "", sizeof(state->library_vers));
     } else {
-	if (ndi_lib_dir
-	    (state, state->particle_type, state->library_type, "l", value,
-	     0) == 1) {
+	if (ndi_lib_dir(state, state->particle_type, state->library_type, "l", value, 0) == 1) {
 	    if ((val_length + 1) < 26) {	/* Size of library_vers is 13 in ndi_init */
 		strncpy(state->library_vers, value,
 			(val_length + 1) * sizeof(char));
@@ -465,13 +468,14 @@ static int ndi_set_norm(state_struct *state, const char *value)
 	return (-2);
     }
 
-    if (strstr(value, "default") != NULL) {
-	state->no_norm = 0;
-    } else if (strstr(value, "no_norm")) {
-	state->no_norm = -1;
-    } else {
-	state->no_norm = 0;
-    }
+   if ( strstr( value, "default" ) != NULL ) {
+      state->no_norm = 0;
+   } else if ( strstr( value, "no_norm" ) ) {
+      state->no_norm = -1;
+   } else {
+      state->no_norm = 0;
+      ierr = -5;
+   }
 
     return (ierr);
 }
@@ -557,6 +561,8 @@ static int ndi_set_e_avg(state_struct *state, const char *value)
 	state->e_avg_calc = E_MEAN;
     } else if (strncmp(value, "from_sgndf", 11) == 0) {
 	state->e_avg_calc = SGNDF;
+   } else if ( strncmp( value, "legacy_calc", 12 ) == 0 ) {
+      state->e_avg_calc = LEGACY_VEL_CALC;
     } else {
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;
@@ -679,23 +685,23 @@ static int ndi_lib_dir(state_struct *state, char pt_type, char l_type,
 
     /* Check if library type is set */
 
-    if ((pt_type == 'n') && (l_type == 'm')) {
+    if ((pt_type == 1) && (l_type == 'm')) {
 	if (reaction_flag == 0) {
 	    strcpy(section, "multigroup_neutron");
 	} else {
 	    strcpy(section, "neutron_depletion");
 	}
-    } else if ((pt_type == 'n') && (l_type == 'd')) {
+    } else if ((pt_type == 1) && (l_type == 'd')) {
 	if (reaction_flag == 0) {
 	    strcpy(section, "dosimetry_neutron");
 	} else {
 	    strcpy(section, "radchem_chain");
 	}
-    } else if ((pt_type == 'p') && (l_type == 'm')) {
+    } else if ((pt_type == 0) && (l_type == 'm')) {
 	strcpy(section, "multigroup_photon");
-    } else if ((pt_type == '0') && (l_type == 's')) {
+    } else if ((pt_type == -1) && (l_type == 's')) {
 	strcpy(section, "tndata");
-    } else if ((pt_type == '0') && (l_type == 'r')) {
+    } else if ((pt_type == -1) && (l_type == 'r')) {
 	strcpy(section, "tn_reactions");
 	/*
 	   } else if ( ( pt_type == 'n' ) && ( l_type == '0' ) ) {

@@ -157,7 +157,14 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 	if ((state->iso_stat.num_reac > 0) && (state->iso_stat.reac_mt)) {
 	    source_ptr = state->iso_stat.reac_mt;
 	    for (n = 0; n < state->iso_stat.num_reac; n++) {
-		*curr_int = *source_ptr;
+                if (state->reac_id == 'c') {
+                    *curr_int = ndi_c_mt_to_c(*source_ptr);
+                    if (*curr_int <= 0) {
+                        ierr = -24;
+                    }
+                } else {
+ 		*curr_int = *source_ptr;
+                }
 		curr_int++;
 		source_ptr++;
 	    }
@@ -166,6 +173,7 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 	    ierr = -9;
 	}
 	break;
+
 
       /**********  UNKNOWN KEYWORD  ***********/
 

@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
+#include <float.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -121,32 +123,32 @@ ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	    wt_sum += state->lib_weight[j];
 	}
 
-	/* Divide by weighting factor */
-	switch (recip_flag) {
-
-	case 0:
-	    if (wt_sum > 0) {
-		return_vec[i] /= wt_sum;
-	    } else {
-		ierr = -12;
-	    }
-	    break;
-
-	case 1:
-	    if (return_vec[i] != 0) {
-		return_vec[i] = wt_sum / return_vec[i];
-	    } else {
-		return_vec[i] = 0;
-		ierr = 5;
-	    }
-	    break;
-
-	case 2:
-	case 3:
-	    break;
-	}
-
+   /* Divide by weighting factor */
+    switch (recip_flag) {
+	
+    case 0:
+       if ( wt_sum > fabs((double) return_vec[i] * FLOAT_EPSILON) ) {
+	  return_vec[i] /= wt_sum;
+       } else {
+	  ierr = -12;
+       }
+       break;
+	
+    case 1:
+       if ( return_vec[i] > fabs((double) wt_sum * FLOAT_EPSILON) ) {
+	  return_vec[i] = wt_sum / return_vec[i];
+       } else {
+	  return_vec[i] = 0;
+	  ierr = 5;
+       }
+       break;
+	
+    case 2:
+    case 3:
+       break;
     }
-
-    return (ierr);
+    
+  }
+  
+  return(ierr);
 }
