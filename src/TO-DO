@@ -1,11 +1,5 @@
 			   -*- outline -*-
 
-* Add F90 interface to ndi_get_string_vec
-
-* Test ndid F90 equivalents in 2.0
-
-* Code 2.0 equivalent to ndid_get_num if needed
-
 * Implement "intermediate convenience functions"
 
 * Handle problems with null string as path for ndi2_open_gendir
