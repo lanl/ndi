@@ -117,7 +117,7 @@ SRC_TESTC := \
 	test/5_handle.c \
 	test/abundance_test.c \
 	test/abundance_test_handle.c \
-	test/c_handle.c \
+	test/c.c \
 	test/c_handle.c \
 	test/chi.c \
 	test/chi_handle.c \
