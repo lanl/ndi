@@ -133,41 +133,42 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
 		     *at_wgt = dir_rec.at_wgt;
 		     
 		     /*  Check current library against user-default library */
-		     if ( strchr(in_zaid, '.') != NULL ) {        /* Will be NULL for reaction datasets */
-			if (isalnum( *(strchr(in_zaid, '.') + 1) )) {
-			   done = -1;
-			} else {
-			   if ( strcmp(library_vers, "") != 0 ) {
-			      if ( strcmp( library_vers, library ) == 0 ) {
-				 done = -1;
-			      }
-			   } else {
-			      done = -1;
-			   }
-			}
+		     if ( ( strchr(in_zaid, '.') != NULL ) &&
+			  (isalnum( *(strchr(in_zaid, '.') + 1) ) ) ) {
+			 /* A library is implied in the ZAID */
+			 done = -1;
 		     } else {
-			done = -1;
+			 if ( strcmp(library_vers, "") != 0 ) {
+			     if ( strcmp( library_vers, library ) == 0 ) {
+				 /* Current library matches user-specified default */
+				 done = -1;
+			     }
+			 } else {
+			     /* No default library specified by user */
+			     done = -1;
+			 }
 		     }
-		   }
-		   
+		   } /* strncmp*/
+		     
 		 } else if ( strncmp(in_line, "end", 3 ) == 0 ) {
-		    /* Isotope not found in gendir */
-		    ierr = -8;
-		    done = -1;
+		     /* Isotope not found in gendir */
+		     ierr = -8;
+		     done = -1;
 		 } 
 	       } else {
-		 /* Error reading file */
-		 ierr = -11;
-		 done = -1;
+		   /* Error reading file */
+		   ierr = -11;
+		   done = -1;
 	       }
 	    }   /* while */ 
 	 }      /* strncmp */
       } else {
-	/* Error reading file */
-	ierr = -11;
-	done = -1;
+	  /* Error reading file */
+	  ierr = -11;
+	  done = -1;
       }
-   }
+   }  /* while */
+
    if ( ierr >= 0 ) {
      strcpy( real_zaid, tmp_zaid );
    }
