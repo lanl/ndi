@@ -1,3 +1,14 @@
+2004-04-27  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_c_values.c: comment out unused functions: ndi_mt_to_label
+	and ndi_label_to_mt 
+
+	* ndi_set_option.c (ndi_set_ebounds_curr_part): moved n_group
+	assignment inside if test
+	
+	* ndi_user_functions_handles.c (ndi2_get_handle): removed unused
+	variable: return_handle
+
 2004-02-05  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_user_functions_handles.c (ndi2_get_isotope): added get routine

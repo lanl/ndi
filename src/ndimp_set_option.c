@@ -46,7 +46,7 @@ static int set_mpmg_library(state_struct *mpmg_handle,
     int i;
     int ierr = 0;
     int tmp_err = 0;
-    int num_parts;
+    int num_parts = 0;
     int value_len;
     char *library;
     char *token;

@@ -600,7 +600,6 @@ int ndi2_get_handle_mpmg(int handle0, int *handle1)
 */
 int ndi2_get_handle(int handle0, int *handle1)
 {
-    int return_handle;
     state_struct *parent;
 
     *handle1 = -1;

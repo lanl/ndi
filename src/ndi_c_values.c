@@ -16,8 +16,10 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
+/*
 static int ndi_mt_to_label(int mt, char *label);
 static int ndi_label_to_mt(const char *in_value);
+*/
 
 /**********************************************************************/
 
@@ -266,6 +268,7 @@ int ndi_c_mt_to_c(int mt)
 
 /**********************************************************************/
 
+#ifdef COMMENT_OUT 
 /**********************************************************************/
 
 static int ndi_mt_to_label(int mt, char *label)
@@ -503,7 +506,7 @@ static int ndi_label_to_mt(const char *in_value)
 	ndi_free((void **) &label);
     return (mt);
 }
-
+#endif
 
 /**********************************************************************/
 /**********************************************************************/
