@@ -171,7 +171,7 @@ DEPENDENCIES	+= $(SRC_FLOAT:%.c=.dep/%_float64.d)
 all: $(TARGET)
 
 check: $(TARGET) $(TESTOUT)
-	for i in $(TESTOUT) ; \
+	@ for i in $(TESTOUT) ; \
 	do  \
 	if ! cmp -s $$i $(srcdir)/test/output/$$i ; \
 	then \
