@@ -1,6 +1,7 @@
 2004-12-15  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* makefile.in ($(FMANGLE)): added ./
+	($(VAR_TYPE)): added ./
 
 2004-12-03  Mark G. Gray  <mgg@lambda.lanl.gov>
 

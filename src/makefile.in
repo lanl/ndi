@@ -307,7 +307,7 @@ $(VAR_TYPE): ndi_define_float.c
 	$(RM) ndi_define_float
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -o ndi_define_float \
 	$(srcdir)/ndi_define_float.c
-	ndi_define_float > $@
+	./ndi_define_float > $@
 	$(RM) ndi_define_float
 
 $(FMANGLE): fcallscc.c fcallscf.f ndi_keywords.i
