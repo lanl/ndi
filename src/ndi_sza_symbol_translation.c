@@ -16,8 +16,7 @@
 
 /**********************************************************************/
 
-int
-ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
+int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
 {
 
     int Z, A, S;

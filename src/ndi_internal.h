@@ -267,7 +267,7 @@ typedef struct _state_struct {
     short ndi_initialized;	/*  ndi_init called: 0=false, 1=true */
     int handle;
     FILE *ndi_dir;		/*  Gendir (directory) file */
-    char open_gendir_file[MAX_IN_PATH_LEN]; /*  Current gendir file name */
+    char open_gendir_file[MAX_IN_PATH_LEN];	/*  Current gendir file name */
     FILE *lib_stream;		/*  Current library file */
     char *open_lib_file;	/* Path for open library file */
     short *ndi_elements;	/*  Lookup table for element symbols */

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 
-void *
-ndi_malloc(size_t size)
+void *ndi_malloc(size_t size)
 {
 
     if (size <= 0)
@@ -10,8 +9,7 @@ ndi_malloc(size_t size)
 	return (malloc(size));
 }
 
-void *
-ndi_calloc(size_t nmemb, size_t size)
+void *ndi_calloc(size_t nmemb, size_t size)
 {
 
     if ((nmemb <= 0) || (size <= 0))

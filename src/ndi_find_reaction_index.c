@@ -54,8 +54,7 @@ ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 }
 
 /**********************************************************************/
-int
-ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
+int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 {
     int ierr = 0;
     int i;

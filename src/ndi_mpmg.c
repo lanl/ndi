@@ -38,8 +38,7 @@ struct ndi_mpmg {
 
    when state is active
 */
-ndi_mpmg *
-ndi_mpmg_new(char *zaid)
+ndi_mpmg *ndi_mpmg_new(char *zaid)
 {
     ndi_mpmg *this;
     char photon_zaid[15];
@@ -87,8 +86,7 @@ ndi_mpmg_new(char *zaid)
 
   when state is active
 */
-void
-ndi_mpmg_free(ndi_mpmg * this)
+void ndi_mpmg_free(ndi_mpmg * this)
 {
     int ierr;
 
@@ -108,8 +106,7 @@ ndi_mpmg_free(ndi_mpmg * this)
 }
 
 #ifdef foo
-static int
-get_int_val(ndi_mpmg * this, int key, int *val)
+static int get_int_val(ndi_mpmg * this, int key, int *val)
 {
     int ierr = 0;		/* fatal < 0 < warning */
     ndi_state_handle *n;
@@ -285,8 +282,7 @@ get_int_val(ndi_mpmg * this, int key, int *val)
     return (ierr);
 }
 
-static int
-GET_FLOAT_VAL(ndi_mpmg * this, int key, FLOAT_TYPE * val)
+static int GET_FLOAT_VAL(ndi_mpmg * this, int key, FLOAT_TYPE * val)
 {
 
     int ierr = 0;
@@ -348,8 +344,8 @@ GET_FLOAT_VAL(ndi_mpmg * this, int key, FLOAT_TYPE * val)
     return (ierr);
 }
 
-static int
-GET_FLOAT_VEC(ndi_mpmg * this, int key, FLOAT_TYPE * vec, int vec_size)
+static int GET_FLOAT_VEC(ndi_mpmg * this, int key, FLOAT_TYPE * vec,
+			 int vec_size)
 {
     int ierr = 0;
     int num_elements;

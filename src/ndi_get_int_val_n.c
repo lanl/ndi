@@ -27,9 +27,8 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
 
 /**********************************************************************/
 
-int
-ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
-		      int *ret_val)
+int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
+			  int *ret_val)
 
 /*  Purpose: Return a single integer value which is an element of
     a vector.
@@ -74,9 +73,8 @@ ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
 
 /**********************************************************************/
 /**********************************************************************/
-static int
-get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
-		 int *ret_val)
+static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
+			    int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -281,9 +279,8 @@ get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 
 /**********************************************************************/
 /**********************************************************************/
-static int
-get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
-		 int *ret_val)
+static int get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
+			    int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -361,9 +358,8 @@ get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
 
 /**********************************************************************/
 
-static int
-get_int_val_n_tnreac(state_struct *state, int in_key,
-		     int vec_num, int *ret_val)
+static int get_int_val_n_tnreac(state_struct *state, int in_key,
+				int vec_num, int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -423,9 +419,8 @@ get_int_val_n_tnreac(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-get_nth_int(state_struct *state, stat_flag sf, int in_key,
-	    int *return_val, int vec_num)
+static int get_nth_int(state_struct *state, stat_flag sf, int in_key,
+		       int *return_val, int vec_num)
 {
     int ierr = 0;
     int *return_vec;

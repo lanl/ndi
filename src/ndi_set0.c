@@ -28,8 +28,7 @@ static int set0_edist_data(edist_data *distr, int reset_flag);
 
 /**********************************************************************/
 
-int
-ndi_set0(state_struct *state, char l_type)
+int ndi_set0(state_struct *state, char l_type)
 
 /*  Purpose: Initialize iso_stat (isotope status) structure.  Initialize
     isotope-status values and free pointers. Initialize lib_ebounds and
@@ -72,8 +71,7 @@ ndi_set0(state_struct *state, char l_type)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-set0_mg(state_struct *state)
+static int set0_mg(state_struct *state)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -202,8 +200,7 @@ set0_mg(state_struct *state)
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_set0_mg_sec_part(sec_part_mg *part)
+int ndi_set0_mg_sec_part(sec_part_mg *part)
 {
 
     int ierr = 0;
@@ -241,8 +238,7 @@ ndi_set0_mg_sec_part(sec_part_mg *part)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-set0_tn(state_struct *state)
+static int set0_tn(state_struct *state)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -313,8 +309,7 @@ set0_tn(state_struct *state)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-set0_tnreac(state_struct *state)
+static int set0_tnreac(state_struct *state)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -367,8 +362,7 @@ set0_tnreac(state_struct *state)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-set0_depl(state_struct *state)
+static int set0_depl(state_struct *state)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -427,8 +421,7 @@ set0_depl(state_struct *state)
 /**********************************************************************/
 
 /* int ndi_set0_tn_sec_part ( sec_part_distr *part ) */
-int
-ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
+int ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
 {
 
     /* reset_flag indicates whether this particle has just been
@@ -459,8 +452,7 @@ ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
 }
 
 /* static int set0_interp_param ( interp_params *param ) */
-static int
-set0_interp_param(interp_params *param, int reset_flag)
+static int set0_interp_param(interp_params *param, int reset_flag)
 {
     /* reset_flag indicates whether this particle has just been
        created and therefore has no array allocated, or whether it
@@ -487,8 +479,7 @@ set0_interp_param(interp_params *param, int reset_flag)
 }
 
 /* static int set0_edist_data ( edist_data *distr ) */
-static int
-set0_edist_data(edist_data *distr, int reset_flag)
+static int set0_edist_data(edist_data *distr, int reset_flag)
 {
     /* reset_flag indicates whether this particle has just been
        created and therefore has no array allocated, or whether it

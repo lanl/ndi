@@ -22,8 +22,7 @@ static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
 
 /**********************************************************************/
 
-int
-ndi_c_c_to_mt(int c_val)
+int ndi_c_c_to_mt(int c_val)
 {
 
 /*  Sources:  C-values: xeroxed copy of "Introduction" chapter of draft OMEGA 
@@ -129,8 +128,7 @@ ndi_c_c_to_mt(int c_val)
 
 /**********************************************************************/
 
-int
-ndi_c_mt_to_c(int mt)
+int ndi_c_mt_to_c(int mt)
 {
 
 /*  Sources:  C-values: xeroxed copy of "Introduction" chapter of draft OMEGA 
@@ -271,8 +269,7 @@ ndi_c_mt_to_c(int mt)
 
 /**********************************************************************/
 
-static int
-ndi_mt_to_label(int mt, char *label)
+static int ndi_mt_to_label(int mt, char *label)
 {
 
 /*  Sources:  MT-values: ENDF Format Manual, NNDC, Brookhaven, Appendix B
@@ -408,8 +405,7 @@ ndi_mt_to_label(int mt, char *label)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_label_to_mt(const char *in_value)
+static int ndi_label_to_mt(const char *in_value)
 {
 
 /*  Sources:  MT-values: ENDF Format Manual, NNDC, Brookhaven, Appendix B
@@ -511,8 +507,7 @@ ndi_label_to_mt(const char *in_value)
 
 /**********************************************************************/
 
-static int
-ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
+static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
    /* Copies old_str to new_str making all characters lowercase 
       and stripping starting and ending whitespace.  The string
       cannot contain any "internal" whitespace.  The first whitespace

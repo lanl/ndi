@@ -12,9 +12,8 @@ static int get_sum_of_particle_sizes(const int *handle_arr,
 
 /**********************************************************************/
 
-int
-ndimp_get_size(const int *handle_arr, const int num_parts,
-	       int in_key, int *ierr)
+int ndimp_get_size(const int *handle_arr, const int num_parts,
+		   int in_key, int *ierr)
 {
 
     int return_val = 0;
@@ -59,9 +58,9 @@ ndimp_get_size(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int
-get_sum_of_particle_sizes(const int *handle_arr,
-			  const int num_parts, const int in_key, int *ierr)
+static int get_sum_of_particle_sizes(const int *handle_arr,
+				     const int num_parts, const int in_key,
+				     int *ierr)
 {
 
     int i;
@@ -82,8 +81,8 @@ get_sum_of_particle_sizes(const int *handle_arr,
 }
 
 /**********************************************************************/
-static int
-get_num_unique_reac(const int *handle_arr, const int num_parts, int *ierr)
+static int get_num_unique_reac(const int *handle_arr, const int num_parts,
+			       int *ierr)
 {
 
     int i;

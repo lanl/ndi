@@ -8,9 +8,8 @@ static int get_comb_reac_mt(const int *handle_arr, const int num_parts,
 			    int *return_vec, const int vec_size);
 
 /**********************************************************************/
-int
-ndimp_get_int_vec(const int *handle_arr, const int num_parts,
-		  const int in_key, int *ret_vec, const int vec_size)
+int ndimp_get_int_vec(const int *handle_arr, const int num_parts,
+		      const int in_key, int *ret_vec, const int vec_size)
 {
 
     int ierr = 0;
@@ -35,9 +34,8 @@ ndimp_get_int_vec(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int
-get_comb_reac_mt(const int *handle_arr, const int num_parts,
-		 int *return_vec, const int vec_size)
+static int get_comb_reac_mt(const int *handle_arr, const int num_parts,
+			    int *return_vec, const int vec_size)
 {
 
     int ierr = 0;

@@ -20,8 +20,7 @@
 /**********************************************************************/
 /**********************************************************************/
 
-struct ndi_bin_tree_node *
-ndi_build_tree(int in_key, const char *in_value)
+struct ndi_bin_tree_node *ndi_build_tree(int in_key, const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
@@ -107,8 +106,7 @@ ndi_build_tree(int in_key, const char *in_value)
 /***********************************************************************/
 /***********************************************************************/
 
-struct ndi_bin_tree_node *
-ndi_create_node(char *instr)
+struct ndi_bin_tree_node *ndi_create_node(char *instr)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
@@ -124,8 +122,7 @@ ndi_create_node(char *instr)
 }
 
 
-struct ndi_bin_tree_node *
-ndi_create_inode(char *instr, int int_val)
+struct ndi_bin_tree_node *ndi_create_inode(char *instr, int int_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
@@ -141,8 +138,8 @@ ndi_create_inode(char *instr, int int_val)
 
 }
 
-struct ndi_bin_tree_node *
-ndi_create_f32node(char *instr, ndi_float32 ndi_float32_val)
+struct ndi_bin_tree_node *ndi_create_f32node(char *instr,
+					     ndi_float32 ndi_float32_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
@@ -158,8 +155,8 @@ ndi_create_f32node(char *instr, ndi_float32 ndi_float32_val)
 
 }
 
-struct ndi_bin_tree_node *
-ndi_create_f64node(char *instr, ndi_float64 float64_val)
+struct ndi_bin_tree_node *ndi_create_f64node(char *instr,
+					     ndi_float64 float64_val)
 {
     int instr_len = (int) strlen(instr) + 1;
     struct ndi_bin_tree_node *tmp_node = NULL;
@@ -378,16 +375,14 @@ _ndi_collect_f64val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int
-ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
+int ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
     return (_ndi_count_nodes(root, arr_size_p));
 }
 
-int
-_ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
+int _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     /* NOTE:  currently on the first call from the main function,
@@ -408,16 +403,14 @@ _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
     return (ierr);
 }
 
-int
-ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
+int ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
     return (_ndi_count_size(root, arr_size_p));
 }
 
-int
-_ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
+int _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     /* NOTE:  currently on the first call from the main function,
@@ -438,8 +431,7 @@ _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
     return (ierr);
 }
 
-int
-ndi_close_tree(struct ndi_bin_tree_node **root)
+int ndi_close_tree(struct ndi_bin_tree_node **root)
 {
 
     int ierr = 0;

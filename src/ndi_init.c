@@ -30,8 +30,7 @@
     file.  State variables are set: ndi_initialized,library_vers, 
     mat_order,...
 ***********************************************************************/
-int
-ndi_c_init_h(state_struct **curr_state, const char *path)
+int ndi_c_init_h(state_struct **curr_state, const char *path)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */
@@ -95,8 +94,7 @@ ndi_c_init_h(state_struct **curr_state, const char *path)
 /*  Purpose:  Clone parent state to child state
 
 ***********************************************************************/
-int
-ndi_c_clone_h(state_struct *parent, state_struct **child)
+int ndi_c_clone_h(state_struct *parent, state_struct **child)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */

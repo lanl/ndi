@@ -19,8 +19,7 @@
 /**********************************************************************/
 
 
-int
-ndi_fill_elements(state_struct *state)
+int ndi_fill_elements(state_struct *state)
 
 /*  Purpose:  Fill the external short array ndi_elements with 
     the z-number.  The array can be referenced using the element_index

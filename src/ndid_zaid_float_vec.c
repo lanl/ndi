@@ -63,8 +63,8 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 /***********************************************************************/
 /***********************************************************************/
 
-static struct ndi_bin_tree_node *
-BUILD_FLOAT_TREE(int in_key, const char *in_value)
+static struct ndi_bin_tree_node *BUILD_FLOAT_TREE(int in_key,
+						  const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];

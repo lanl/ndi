@@ -462,8 +462,7 @@ new_integrate_xy(double *x, double *y, int npts, int interp_type,
 /*********************************************************************/
 /********************************************************************************/
 
-int
-ndi_init_double_vec(double *vec, int num_elements)
+int ndi_init_double_vec(double *vec, int num_elements)
 {
 
     int ierr = 0;
@@ -664,8 +663,7 @@ histogram_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-lin_lin_integrate(double xstart, double xend, double *x, double *y)
+double lin_lin_integrate(double xstart, double xend, double *x, double *y)
 {
     /* Interp scheme = 2 */
 
@@ -684,8 +682,7 @@ lin_lin_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-log_log_integrate(double xstart, double xend, double *x, double *y)
+double log_log_integrate(double xstart, double xend, double *x, double *y)
 {
     /* Interp scheme = 5 */
 
@@ -729,8 +726,7 @@ log_log_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-lin_log_integrate(double xstart, double xend, double *x, double *y)
+double lin_log_integrate(double xstart, double xend, double *x, double *y)
 {
     /* Interp scheme = 3 (y is linear in the ln of x) */
 
@@ -765,8 +761,7 @@ lin_log_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-log_lin_integrate(double xstart, double xend, double *x, double *y)
+double log_lin_integrate(double xstart, double xend, double *x, double *y)
 {
     /* Interp scheme = 4 */
 
@@ -802,8 +797,7 @@ log_lin_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-hale_integrate(double xstart, double xend, double *x, double *y)
+double hale_integrate(double xstart, double xend, double *x, double *y)
 {
 
     /* Interp scheme = 6
@@ -886,8 +880,7 @@ hale_integrate(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-discrete_integrate(double xstart, double xend, double *x, double *y)
+double discrete_integrate(double xstart, double xend, double *x, double *y)
 {
     /* Interpolation scheme = 0 */
     /*  xend is always the current probability to add */
@@ -1085,8 +1078,7 @@ log_lin_integrate_x(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-double
-hale_integrate_x(double xstart, double xend, double *x, double *y)
+double hale_integrate_x(double xstart, double xend, double *x, double *y)
 {
 
     /* Interp scheme = 6
@@ -1281,8 +1273,7 @@ discrete_integrate_x(double xstart, double xend, double *x, double *y)
 }
 
 /*********************************************************************/
-static double
-erfn(double sign, double x)
+static double erfn(double sign, double x)
 {
 
     int i;

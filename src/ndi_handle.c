@@ -5,8 +5,7 @@
 
 static state_struct *handle_map[MAX_HANDLE_NUM];
 
-state_struct *
-handle_to_state_p(int handle)
+state_struct *handle_to_state_p(int handle)
 {
 
     state_struct *state_p = NULL;
@@ -22,8 +21,7 @@ handle_to_state_p(int handle)
     return (state_p);
 }
 
-int
-set_handle(state_struct *state)
+int set_handle(state_struct *state)
 {
 
     int i;
@@ -43,8 +41,7 @@ set_handle(state_struct *state)
     return (handle);
 }
 
-int
-__ndi_close_handle(int handle)
+int __ndi_close_handle(int handle)
 {
 
     int ret_val;

@@ -114,8 +114,7 @@ struct ndi_state_handle {
 
    when state is active
 */
-ndi_state_handle *
-ndi_state_handle_new(void)
+ndi_state_handle *ndi_state_handle_new(void)
 {
     ndi_state_handle *this;
 
@@ -226,8 +225,7 @@ ndi_state_handle_new(void)
 /*
   Return a shallow copy of that
 */
-ndi_state_handle *
-ndi_state_handle_copy(ndi_state_handle * that)
+ndi_state_handle *ndi_state_handle_copy(ndi_state_handle * that)
 {
     ndi_state_handle *this;
     int i;
@@ -304,8 +302,7 @@ ndi_state_handle_copy(ndi_state_handle * that)
 
   when state is active
 */
-void
-ndi_state_handle_free(ndi_state_handle * this)
+void ndi_state_handle_free(ndi_state_handle * this)
 {
     free((void *) this);
 }
@@ -313,8 +310,7 @@ ndi_state_handle_free(ndi_state_handle * this)
 /*
   Swap state in this with global state.  
 */
-void
-ndi_state_handle_swap(ndi_state_handle * this)
+void ndi_state_handle_swap(ndi_state_handle * this)
 {
 
     ndi_state_handle *temp;

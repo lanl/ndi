@@ -21,8 +21,7 @@ static double ndi_find_closest_bound_index(double inval, double val1,
 					   double val2);
 
 /**********************************************************************/
-int
-ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
+int ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 		     int mt)
 {
     int ierr = 0;
@@ -58,8 +57,7 @@ ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 }
 
 /**********************************************************************/
-int
-ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
+int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 {
     int ierr = 0;
     int i;
@@ -82,8 +80,7 @@ ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_find_tn_part_index(const long ptype, const sec_part_distr *part,
+int ndi_find_tn_part_index(const long ptype, const sec_part_distr *part,
 		       int num_parts)
 
 /*  This is only used for tndata */
@@ -102,8 +99,7 @@ ndi_find_tn_part_index(const long ptype, const sec_part_distr *part,
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
+int ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
 		       int num_parts)
 
 /*  This is only used for multigroup secondary particles */
@@ -124,8 +120,7 @@ ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_find_iso_index(const char *ptype, const char **string_array,
+int ndi_find_iso_index(const char *ptype, const char **string_array,
 		   int num_parts)
 
 /*  This is currently only used for depletion data */
@@ -146,8 +141,7 @@ ndi_find_iso_index(const char *ptype, const char **string_array,
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_find_temp_bound_index(double default_temp, edist_data *edist,
+int ndi_find_temp_bound_index(double default_temp, edist_data *edist,
 			  int ntemps, int *hi, int *lo, int *closest)
 {
 
@@ -234,8 +228,7 @@ ndi_find_temp_bound_index(double default_temp, edist_data *edist,
 
 /**********************************************************************/
 /**********************************************************************/
-int
-ndi_find_bounds_index(double *x, int numpts, double xin,
+int ndi_find_bounds_index(double *x, int numpts, double xin,
 		      int *lo, int *hi, int *closest)
      /* Assumes that x is in ASCENDING order */
 {
@@ -296,8 +289,8 @@ ndi_find_bounds_index(double *x, int numpts, double xin,
 
 /**********************************************************************/
 /**********************************************************************/
-static double
-ndi_find_closest_bound_index(double inval, double val1, double val2)
+static double ndi_find_closest_bound_index(double inval, double val1, 
+					   double val2)
 {
 
     /* default_temp is a global variable */

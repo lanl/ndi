@@ -19,8 +19,7 @@
 
 /**********************************************************************/
 
-int
-element_index(const char *el_symbol)
+int element_index(const char *el_symbol)
 
 /*  Purpose:  Calculate an index to an array given a lower case elemental
     symbol.

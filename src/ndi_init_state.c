@@ -17,8 +17,7 @@
 
 /**********************************************************************/
 
-int
-ndi_init_state_common(state_struct *state)
+int ndi_init_state_common(state_struct *state)
 {
 
     int ierr = 0;
@@ -39,8 +38,7 @@ ndi_init_state_common(state_struct *state)
 
 /**********************************************************************/
 
-int
-ndi_init_state_iso_state(state_struct *state)
+int ndi_init_state_iso_state(state_struct *state)
 {
 
     int ierr = 0;
@@ -73,8 +71,7 @@ ndi_init_state_iso_state(state_struct *state)
 
 /**********************************************************************/
 
-int
-ndi_init_state_tn(state_struct *state)
+int ndi_init_state_tn(state_struct *state)
 {
 
     int ierr = 0;
@@ -93,8 +90,7 @@ ndi_init_state_tn(state_struct *state)
 
 /**********************************************************************/
 
-int
-ndi_init_state_tnreac(state_struct *state)
+int ndi_init_state_tnreac(state_struct *state)
 {
 
     int ierr = 0;
@@ -110,8 +106,7 @@ ndi_init_state_tnreac(state_struct *state)
 
 /**********************************************************************/
 
-int
-ndi_init_state_chain(state_struct *state)
+int ndi_init_state_chain(state_struct *state)
 {
 
     int ierr = 0;

@@ -22,8 +22,7 @@
 /**********************************************************************/
 
 
-int
-NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
+int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 {
 
     int i;
@@ -98,8 +97,7 @@ GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 
 
 /*********************************************************************/
-int
-NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
+int NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
 {
     FLOAT_TYPE *temp_flt;
     int row;
@@ -234,8 +232,7 @@ GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 /*********************************************************************/
 /*********************************************************************/
 
-int
-COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
+int COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
 {
 
     int ierr = 0;
@@ -399,8 +396,7 @@ NORM_FLOAT_VEC(FLOAT_TYPE * vec_p, int num_elements,
 }
 
 /*********************************************************************/
-int
-GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
+int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 {
 
 #include "ndi_abundance.h"

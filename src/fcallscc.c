@@ -1,8 +1,7 @@
 void ndi_print_fmangle_body(void);
 
 
-void
-ndi_isitu()
+void ndi_isitu()
 {
 
     printf("#define LOWER_WITHOUT \n");
@@ -10,8 +9,7 @@ ndi_isitu()
 
 }
 
-void
-ndi_isitu_()
+void ndi_isitu_()
 {
 
     printf("#define LOWER_WITH \n\n\n");
@@ -19,8 +17,7 @@ ndi_isitu_()
 
 }
 
-void
-ndi_isitu__()
+void ndi_isitu__()
 {
 
     printf("#define LOWER_WITH2 \n\n\n");
@@ -28,15 +25,13 @@ ndi_isitu__()
 
 }
 
-void
-NDI_ISITU()
+void NDI_ISITU()
 {
     printf("#define UPPER_WITHOUT \n");
     ndi_print_fmangle_body();
 }
 
-void
-NDI_ISITU_()
+void NDI_ISITU_()
 {
 
     printf("#define UPPER_WITH \n");
@@ -45,8 +40,7 @@ NDI_ISITU_()
 }
 
 
-void
-ndi_print_fmangle_body()
+void ndi_print_fmangle_body()
 {
 
     printf("#ifdef UPPER_WITHOUT\n");

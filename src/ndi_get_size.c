@@ -21,8 +21,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr);
 
 /**********************************************************************/
 
-int
-ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
+int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 
 /* Purpose: Return the size of the library value indicated by in_key.
 
@@ -82,8 +81,7 @@ ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-get_mg_size(state_struct *state, int in_key, int *ierr)
+static int get_mg_size(state_struct *state, int in_key, int *ierr)
 {
 
 
@@ -350,8 +348,7 @@ get_mg_size(state_struct *state, int in_key, int *ierr)
 /**********************************************************************/
 
 
-static int
-get_tn_size(state_struct *state, int in_key, int *ierr)
+static int get_tn_size(state_struct *state, int in_key, int *ierr)
 {
 
 
@@ -508,8 +505,7 @@ get_tn_size(state_struct *state, int in_key, int *ierr)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-get_tnreac_size(state_struct *state, int in_key, int *ierr)
+static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
 {
 
 

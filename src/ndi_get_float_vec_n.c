@@ -52,9 +52,8 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 
 /**********************************************************************/
 
-int
-NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
-		      FLOAT_TYPE * return_vec, int return_size)
+int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
+			  FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -254,11 +253,10 @@ NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 
 /*********************************************************************/
 
-static int
-GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
-		 FLOAT_TYPE * return_vec,
-		 multi_stat * down_diag, multi_stat * full_mat,
-		 int vec_num, int return_size)
+static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
+			    FLOAT_TYPE * return_vec,
+			    multi_stat * down_diag, multi_stat * full_mat,
+			    int vec_num, int return_size)
 {
 
 /* Will not construct a diagonal from a full matrix.  Is this needed? */
@@ -403,11 +401,10 @@ GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 
 /*********************************************************************/
 
-static int
-GET_FULL_PN_MAT(state_struct *state, FILE *stream,
-		multi_stat full_mat, multi_stat down_mat,
-		int num_grps, int vec_num,
-		FLOAT_TYPE * return_mat, int return_size)
+static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
+			   multi_stat full_mat, multi_stat down_mat,
+			   int num_grps, int vec_num,
+			   FLOAT_TYPE * return_mat, int return_size)
 {
 
     /* There's no check on the matrix size here. */
@@ -529,10 +526,9 @@ GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 
 /*********************************************************************/
 
-static int
-NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
-	      FLOAT_TYPE * up_diag, int num_ud, int num_row,
-	      int num_col, FLOAT_TYPE * return_vec)
+static int NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
+			 FLOAT_TYPE * up_diag, int num_ud, int num_row,
+			 int num_col, FLOAT_TYPE * return_vec)
 {
 
     /* ASSUMPTION:  ud_diag matrix contains the diagonal!! 
@@ -576,9 +572,8 @@ NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
 
 /*********************************************************************/
 
-static int
-NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
-	      FLOAT_TYPE * return_vec, int return_size)
+static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
+			 FLOAT_TYPE * return_vec, int return_size)
 {
 
     int ierr = 0;
@@ -630,9 +625,8 @@ NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 
 /*********************************************************************/
 
-static int
-PN_FULL_TRANS_CORR(state_struct *state,
-		   FLOAT_TYPE * return_vec, int return_size)
+static int PN_FULL_TRANS_CORR(state_struct *state,
+			      FLOAT_TYPE * return_vec, int return_size)
 {
 
     int i;
@@ -681,9 +675,9 @@ PN_FULL_TRANS_CORR(state_struct *state,
 
 /*********************************************************************/
 
-static int
-PN_DOWN_FULL_TRANS_CORR(state_struct *state,
-			FLOAT_TYPE * return_vec, int return_size)
+static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
+				   FLOAT_TYPE * return_vec,
+				   int return_size)
 {
 
     int i;
@@ -743,10 +737,9 @@ PN_DOWN_FULL_TRANS_CORR(state_struct *state,
 
 /*********************************************************************/
 
-static int
-GET_PN_PROD_FULL(state_struct *state, FILE *stream,
-		 sec_part_mg *sec_part, int vec_num,
-		 FLOAT_TYPE * return_vec, int return_size)
+static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
+			    sec_part_mg *sec_part, int vec_num,
+			    FLOAT_TYPE * return_vec, int return_size)
 {
     int ierr = 0;
     FLOAT_TYPE *temp_vec = NULL;
@@ -834,8 +827,8 @@ GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 
 /*********************************************************************/
 
-static int
-GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
+static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
+			 int vec_num)
 {
     char transpose_state;
     char corr_state;
@@ -892,8 +885,8 @@ GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
 
 /*********************************************************************/
 
-static int
-GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
+static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
+			int vec_num)
 {
     char transpose_state = ' ';
     char corr_state = ' ';
@@ -958,9 +951,8 @@ GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
 
 /*********************************************************************/
 
-static int
-GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
-		 FLOAT_TYPE * return_vec, int vec_size)
+static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
+			    FLOAT_TYPE * return_vec, int vec_size)
 {
     int i;
     int j;
@@ -1075,8 +1067,7 @@ GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
   \return 2/sqrt(pi) int_0^x exp(-t^2) dt
 
  */
-static FLOAT_TYPE
-ndi_erf(FLOAT_TYPE x)
+static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
 {
     FLOAT_TYPE p = 0.47047;	/* ibid. p. 299, Eq. 7.1.25 */
     FLOAT_TYPE a[] = { 0.3480242, -0.0958798, 0.7478556 };
@@ -1102,8 +1093,8 @@ ndi_erf(FLOAT_TYPE x)
   "Distribution of Fission Neutron Numbers"
   Phys. Rev. 108, 738 (1957)
 */
-static int
-GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
+static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
+		      int vec_num)
 {
     FLOAT_TYPE *nu = NULL;
     int num_grps;
@@ -1158,8 +1149,7 @@ GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
   \pre 0 <= i
   \return n!
  */
-static long
-ndi_fact(long n)
+static long ndi_fact(long n)
 {
 
     long j;
@@ -1182,8 +1172,7 @@ ndi_fact(long n)
   \pre 0 <= m && m <= n
   \return i!
  */
-static long
-ndi_perm(long n, long m)
+static long ndi_perm(long n, long m)
 {
     long j;
     long k;
@@ -1210,8 +1199,7 @@ ndi_perm(long n, long m)
   "On the Probability of Initiating a Persistent Fission Chain"
   LA-2608 (1976)
 */
-static int
-GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
+static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
 {
 
     FLOAT_TYPE *nu = NULL;

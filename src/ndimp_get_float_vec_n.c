@@ -10,10 +10,9 @@ static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
 			   const int vec_size);
 
 /**********************************************************************/
-int
-NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
-		      const int in_key, const int vec_num,
-		      FLOAT_TYPE * ret_vec, const int vec_size)
+int NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
+			  const int in_key, const int vec_num,
+			  FLOAT_TYPE * ret_vec, const int vec_size)
 {
 
     int ierr = 0;
@@ -40,10 +39,9 @@ NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int
-GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
-		const int pn_order, FLOAT_TYPE * return_vec,
-		const int ret_size)
+static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
+			   const int pn_order, FLOAT_TYPE * return_vec,
+			   const int ret_size)
 {
 
     int ierr = 0;

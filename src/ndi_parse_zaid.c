@@ -104,8 +104,7 @@ ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, int *Z,
 }
 
 /**********************************************************************/
-int
-ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
+int ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
 {
 
     int ierr = 0;
@@ -122,8 +121,7 @@ ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
 
 /**********************************************************************/
 
-static int
-ndi_find_symbolic_state(char *in_str)
+static int ndi_find_symbolic_state(char *in_str)
 {
 
     /*  Find the state in the input string.  The state will be

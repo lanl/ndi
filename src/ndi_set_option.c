@@ -37,8 +37,9 @@ static void ndi_find_zaid_string(char *in_line, int in_size,
 				 char *seps);
 
 /**********************************************************************/
-int
-ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
+
+int ndi_c_set_option_h(state_struct *state, int in_key,
+		       const char *in_value)
 
 /*  Purpose: Set options/defaults.
 
@@ -198,8 +199,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 
-static int
-ndi_set_lib_type(state_struct *state, const char *value)
+static int ndi_set_lib_type(state_struct *state, const char *value)
 
 /* Valid input values:
    multigroup_neutron
@@ -259,8 +259,7 @@ ndi_set_lib_type(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_library(state_struct *state, const char *value)
+static int ndi_set_library(state_struct *state, const char *value)
 
 /* Valid input values:
    mendf5, mendf6, rmoxsct, default
@@ -302,8 +301,7 @@ ndi_set_library(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_mat_order(state_struct *state, const char *value)
+static int ndi_set_mat_order(state_struct *state, const char *value)
 
 /* Valid input values:
    default, transpose
@@ -337,8 +335,7 @@ ndi_set_mat_order(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_collapse(state_struct *state, const char *value)
+static int ndi_set_collapse(state_struct *state, const char *value)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -394,8 +391,8 @@ ndi_set_collapse(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_ebounds_curr_part(state_struct *state, const char *value)
+static int ndi_set_ebounds_curr_part(state_struct *state,
+				     const char *value)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -450,8 +447,7 @@ ndi_set_ebounds_curr_part(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_norm(state_struct *state, const char *value)
+static int ndi_set_norm(state_struct *state, const char *value)
 
 /* Flag to determine whether to normalize chis and edist values
 
@@ -484,8 +480,7 @@ ndi_set_norm(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_trans_corr_diag(state_struct *state, const char *value)
+static int ndi_set_trans_corr_diag(state_struct *state, const char *value)
 {
     int ierr = 0;
     int tmp_order;
@@ -526,8 +521,7 @@ ndi_set_trans_corr_diag(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_reac_id(state_struct *state, const char *value)
+static int ndi_set_reac_id(state_struct *state, const char *value)
 {
     int ierr = 0;
 
@@ -552,8 +546,7 @@ ndi_set_reac_id(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_e_avg(state_struct *state, const char *value)
+static int ndi_set_e_avg(state_struct *state, const char *value)
 {
     int ierr = 0;
 
@@ -576,8 +569,7 @@ ndi_set_e_avg(state_struct *state, const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_set_kerma_calc(state_struct *state, const char *value)
+static int ndi_set_kerma_calc(state_struct *state, const char *value)
 {
     int ierr = 0;
 
@@ -599,8 +591,7 @@ ndi_set_kerma_calc(state_struct *state, const char *value)
 
 /**********************************************************************/
 /**********************************************************************/
-static int
-get_order(const char *value)
+static int get_order(const char *value)
 {
 
     char *under_score = NULL;
@@ -617,8 +608,7 @@ get_order(const char *value)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
+static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
    /* Copies old_str to new_str making all characters lowercase 
       and stripping starting and ending whitespace.  The string
       cannot contain any "internal" whitespace.  The first whitespace
@@ -658,10 +648,9 @@ ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_lib_dir(state_struct *state, char pt_type, char l_type,
-	    const char *value_type, const char *in_value,
-	    int reaction_flag)
+static int ndi_lib_dir(state_struct *state, char pt_type, char l_type,
+		       const char *value_type, const char *in_value,
+		       int reaction_flag)
 
 /*  Purpose: 
     
@@ -808,9 +797,9 @@ ndi_lib_dir(state_struct *state, char pt_type, char l_type,
 
 /**********************************************************************/
 
-static void
-ndi_find_zaid_string(char *in_line, int in_size,
-		     char *zaid_string, int string_size, char *seps)
+static void ndi_find_zaid_string(char *in_line, int in_size,
+				 char *zaid_string, int string_size,
+				 char *seps)
 {
 
     /* This function assumes that the string is terminated by '\0'.

@@ -27,8 +27,8 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
 
 /**********************************************************************/
 
-int
-NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
+int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
+			FLOAT_TYPE * ret_val)
 
 
 /*********************************************************************
@@ -87,8 +87,8 @@ NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-GET_FLOAT_VAL_MG(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
+static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
+			    FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
@@ -159,8 +159,8 @@ GET_FLOAT_VAL_MG(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
 
 /**********************************************************************/
 /**********************************************************************/
-static int
-GET_FLOAT_VAL_TN(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
+static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
+			    FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
@@ -207,8 +207,8 @@ GET_FLOAT_VAL_TN(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-GET_FLOAT_VAL_DOS(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
+static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
+			     FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
@@ -292,8 +292,8 @@ GET_FLOAT_VAL_DOS(state_struct *state, int in_key, FLOAT_TYPE * ret_val)
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-CALC_EAVG_OUT(state_struct *state, FILE *lib_stream, FLOAT_TYPE * ret_val)
+static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
+			 FLOAT_TYPE * ret_val)
      /* Calculates the average outgoing energy of the "current" secondary 
         particle (given by global var. curr_part_index) by integrating
         over that particles energy distribution

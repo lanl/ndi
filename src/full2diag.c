@@ -1,7 +1,6 @@
 
-static int
-NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
-	      FLOAT_TYPE * return_vec, int return_size)
+static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
+			 FLOAT_TYPE * return_vec, int return_size)
 
 /*  Purpose:  Takes a square scattering matrix and forms a "downscatter
     diagonal".  It will take the upscatter and add this into the 

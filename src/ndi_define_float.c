@@ -2,8 +2,7 @@
 
 void print_var_type_header(void);
 
-int
-main()
+int main()
 {
     print_var_type_header();
     printf("#ifndef __NDI_VAR_TYPE_H\n");
@@ -183,8 +182,7 @@ main()
 
 }
 
-void
-print_var_type_header()
+void print_var_type_header()
 {
     printf("/*\n");
     printf(" * File: ndi_var_type.h\n");

@@ -551,8 +551,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 /**********************************************************************/
 
-static int
-within_epsilon(double a, double b)
+static int within_epsilon(double a, double b)
 {
     if (fabs(a - b) < DBL_EPSILON) {
 	return (-1);
@@ -570,8 +569,7 @@ within_epsilon(double a, double b)
 
 /**********************************************************************/
 
-static int
-greater_than_epsilon(double a, double b)
+static int greater_than_epsilon(double a, double b)
 {
     if (a > b)
 	return (-1);
