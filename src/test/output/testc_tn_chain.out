@@ -258,7 +258,7 @@ Num secondary particles = 0; err = -9
 
 
 Zaid p+t->n+he3.980ztn (error = 0).
-  Q-value=0.000000; err=-9
+  Q-value=-0.763770; err=0
   Num reactants=2; err=0
   Number of particle 1001 is 1.
   Number of particle 1003 is 1.
@@ -279,7 +279,7 @@ Particle 0 is a 1001.  (err=0)
 
 
 Zaid p+li7->n+be7.980ztn (error = 0).
-  Q-value=0.000000; err=-9
+  Q-value=-1.644180; err=0
   Num reactants=2; err=0
   Number of particle 1001 is 1.
   Number of particle 3007 is 1.

@@ -122,7 +122,7 @@ Num secondary particles = 0; err = -9
 
 
 Zaid p+t->n+he3.980ztn (error = 0).
-  Q-value=0.000000; err=-9
+  Q-value=-0.763770; err=0
 
 ***
 Num secondary particles = 1; err = 0
@@ -133,7 +133,7 @@ Particle 0 is a 1001.  (err=0)
 
 
 Zaid p+li7->n+be7.980ztn (error = 0).
-  Q-value=0.000000; err=-9
+  Q-value=-1.644180; err=0
 
 ***
 Num secondary particles = 0; err = -9
