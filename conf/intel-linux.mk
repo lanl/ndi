@@ -10,10 +10,11 @@
 CC		:= cc
 FC		:= lf95
 CFLAGS		:= -Wall
-FFLAGS		:= -O
 ifdef DEBUG
+FFLAGS		:= -g
 CFLAGS		+= -g
 else
+FFLAGS		:= -O
 CFLAGS		+= -O
 endif
 ASFLAGS		:= $(CFLAGS)
