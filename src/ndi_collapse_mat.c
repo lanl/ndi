@@ -153,7 +153,7 @@
 	 curr_new_index =  (k * new_grp_num_out) + l;
 	 if ( curr_new_index >= new_size ) {    
             /* Bounds check */
-	    ierr = -21;
+	    ierr = 7;
 	    return( ierr );
 	 }
 

@@ -463,10 +463,11 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
    int ierr = 0;
    int tmp_err = 0;
    int num_full_mat = 0;
+   int no_norm;
    int row;
    int coll_num_grps = 0;
    int mat_size = return_size;
-   FLOAT_TYPE *temp_mat = NULL;
+   FLOAT_TYPE *temp_mat = return_mat;
    FLOAT_TYPE *row_ptr = NULL;
 
    
@@ -481,6 +482,7 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
      return(ierr);
    }
 
+   no_norm = state->no_norm;
    num_full_mat =lib_num_grps * lib_num_grps;
 
    if ( state->collapse_flag ) {
@@ -490,14 +492,11 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
 	 /* Out of memory */
 	 return(-14);
       }
-   } else {
-      temp_mat = return_mat;
    }
 
    if ( mat_ptr ) { 
       /*  Full matrix is in library  */
-      ierr = NDI_READ_FLOAT_BLOCK(stream, mat_ptr, 
-				  num_full_mat,
+      ierr = NDI_READ_FLOAT_BLOCK(stream, mat_ptr, num_full_mat,
 				  temp_mat, mat_size );	
    } else {
       /* Matrix is constructed from vector */
@@ -514,8 +513,12 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
 	    /* Out of memory */
 	    ierr = -14;
 	 } 
+         if (tmp_err == 7) {
+             /* Data was truncated so forget normalization and transpose */
+             return(tmp_err);
+         }
 	 /* Warning: matrix has been constructed */
-	 if ( ierr >= 0 ) {
+	 if ( ierr == 0 ) {
 	   ierr = 10;
 	 }
       } else {
@@ -531,6 +534,10 @@ static int GET_CHI_MAT (  state_struct *state, FILE *stream, long mat_ptr, long 
        tmp_err = NDI_COLLAPSE_MAT( temp_mat, lib_num_grps, lib_num_grps, state->grp_num_new,
 				   state->grp_num_new, state->new_ebounds, state->new_ebounds, state->lib_weight, 
 				   return_mat, return_size );
+       if (tmp_err == 7) {
+           /* return_mat is not large enough data was truncated so forget normalization and transpose */
+           return(tmp_err);
+       }
        coll_num_grps = state->grp_num_new; 
        /* 	 tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_full_mat, return_mat ); */
        if ( tmp_err < 0 ) {

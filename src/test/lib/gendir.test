@@ -318,7 +318,7 @@ end
 
 multigroup_photon
   z=92000.620pm  d=11/7/2003  l=photmg
-    f=../../src/test/lib/mpmg  ft=asc  ln=20440  o=1570127
+    f=../../src/test/lib/mpmg  ft=asc  ln=20440  o=1570122
     ng=120  t=0.0000000E+00  s0=1.0000000E+10  aw=2.3802878E+02 end
 end
 

@@ -257,6 +257,9 @@ c     Return integer vector
             call ndi_get_size(int_vec(i), num_element, ierr)
             call ndi_get_int_vec(int_vec(i), return_int_vec,
      $           20, ierr)
+            if (num_element > 20) then
+               num_element = 20
+            endif
             if (num_element.gt. 0) then
                print 41, (return_int_vec(j), j=1,num_element)
  41            format(10(i6, 3x))
@@ -276,6 +279,9 @@ c     Return integer vector from matrix
      $           ierr)
             call ndi_get_int_vec_n(int_vec_n(i), vec_num, 
      $           return_int_vec, 20, ierr)
+            if (num_element > 20) then
+               num_element = 20
+            endif
             if ( num_element .gt. 0 ) then
                print 44, (return_int_vec(j), j=1,num_element)
  44            format(10(i6, 3x))
@@ -292,6 +298,9 @@ c     Return float vector
             call ndi_get_size(flt_vec(i), num_element, ierr)
             call ndi_get_float64_vec(flt_vec(i), return_flt_vec,
      $           FLOAT_VEC_SIZE, ierr)
+            if (num_element > FLOAT_VEC_SIZE) then
+               num_element = FLOAT_VEC_SIZE
+            endif
             if (num_element.gt. 0 ) then
                print 61, (return_flt_vec(j), j = 1, num_element)
  61            format(6(1pE12.5, 2x))
@@ -316,6 +325,9 @@ c     Return float vector from matrix
      $           ierr)
             call ndi_get_float64_vec_n(flt_vec_n(i), vec_num,
      $           return_flt_vec,  FLOAT_VEC_SIZE, ierr)
+            if (num_element > FLOAT_VEC_SIZE) then
+               num_element = FLOAT_VEC_SIZE
+            endif
             if (num_element. gt. 0 ) then
                print 72, (return_flt_vec(j), j = 1, num_element)
  72            format(6(1pE12.5, 2x))
@@ -334,6 +346,9 @@ c     Return float vector given string
      $           ierr)
             call ndi_get_float64_vec_x(flt_vec_x(i), vec_str,
      $           return_flt_vec,  FLOAT_VEC_SIZE, ierr)
+            if (num_element > FLOAT_VEC_SIZE) then
+               num_element = FLOAT_VEC_SIZE
+            endif
             if (num_element .gt. 0 ) then
                print 82, (return_flt_vec(j), j = 1, num_element)
  82            format(6(1pE12.5, 2x))
@@ -365,6 +380,9 @@ c     Float vector
             if (num_element .gt. 0 ) then
             call ndi_get_float64_vec(sec_part(i), return_flt_vec,
      $           FLOAT_VEC_SIZE, ierr)
+            if (num_element > FLOAT_VEC_SIZE) then
+               num_element = FLOAT_VEC_SIZE
+            endif
                print 95, (return_flt_vec(j), j = 1, num_element)
  95            format(6(1pE12.5, 2x))
             endif
@@ -379,6 +397,9 @@ c     Float vector from matrix
  97         format(a12, i2,": ")
             call ndi_get_size_n(sec_part(i), vec_num, num_element,
      $           ierr)
+            if (num_element > FLOAT_VEC_SIZE) then
+               num_element = FLOAT_VEC_SIZE
+            endif
             if ( num_element.gt. 0 ) then
             call ndi_get_float64_vec_n(sec_part(i), vec_num,
      $           return_flt_vec, FLOAT_VEC_SIZE, ierr)
