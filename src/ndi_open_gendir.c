@@ -17,7 +17,7 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int isblank(const char *str);
+static int local_isblank(const char *str);
 
 /**********************************************************************
 
@@ -45,7 +45,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 				   ""};
     int i;
 
-    if (in_path != NULL && !isblank(in_path)) {
+    if (in_path != NULL && !local_isblank(in_path)) {
 	/* in_path set */
 	strcpy(dir_file, in_path);
 	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
@@ -110,7 +110,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
     return (ierr);
 }
 
-static int isblank(const char *str)
+static int local_isblank(const char *str)
 {
 
     int i;
