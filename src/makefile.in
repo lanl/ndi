@@ -14,6 +14,7 @@ VPATH		= @srcdir@
 CONFIG		= @CONFIG@
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
+testlib		= @srcdir@/test/lib
 
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
@@ -74,7 +75,9 @@ SRC := \
 	ndi_misc_depl.c \
 	ndi_open_gendir.c \
 	ndi_open_lib_file.c \
+	ndi_parse_zaid.c \
 	ndi_read_dir_block.c \
+	ndi_read_int_block.c \
 	ndi_read_rx_prod.c \
 	ndi_read_string_block.c \
 	ndi_set0.c \
@@ -84,6 +87,7 @@ SRC := \
 	ndi_skip_rx_prod.c \
 	ndi_state.c \
 	ndi_std_zaid.c \
+	ndi_sza_symbol_translation.c \
 	ndi_zaid_dir.c
 
 SRC_FLOAT := \
@@ -100,25 +104,37 @@ SRC_FLOAT := \
 	ndid_zaid_float_vec.c
 
 SRC_TESTC := \
-        test/kerma_example.c \
-        test/5.c \
-        test/c.c \
-        test/collapse.c \
-        test/depl.c \
-        test/mgn_c.c \
-        test/ndid.c \
-        test/tn3.c \
-        test/tn4.c \
-        test/tn5.c \
-        test/tn_c.c \
-        test/tn_chain.c \
-        test/tn_new.c \
-        test/tnreac_c.c \
-        test/tn_simple.c
+	test/5.c \
+	test/abundance_test.c \
+	test/c.c \
+	test/chi.c \
+	test/depl.c \
+	test/depl2.c \
+	test/kerma_example.c \
+	test/mgn_c.c \
+	test/ndid.c \
+	test/ngk_test.c \
+	test/nonfissionables.c \
+	test/radchem.c \
+	test/symbol_translate.c \
+	test/tn3.c \
+	test/tn4.c \
+	test/tn5.c \
+	test/tn_c.c \
+	test/tn_chain.c \
+	test/tn_interp_params.c \
+	test/tn_new.c \
+	test/tn_simple.c \
+	test/tn_use.c \
+	test/tnreac_c.c \
+	test/za.c
 
 SRC_TESTF := \
-	test/ndi_testf2.F \
-	test/ndi_testf.F
+	test/ndi_testf.F\
+	test/ndi_testf2.F\
+	test/ndidf.F\
+	test/radchemf.F\
+	test/symbol_translatef.F
 
 ifneq (,$(findstring cray, $(CONFIG)))
 SRC += ndi_fortran_cray.c
@@ -137,6 +153,12 @@ OBJ_TESTC:=  test/all.o $(SRC_TESTC:%.c=%.o)
 TESTC	:=  testc_all $(SRC_TESTC:test/%.c=testc_%)
 TESTF	:=  $(SRC_TESTF:test/%.F=testf_%)
 
+# determine test output files
+
+TESTOUT	:=
+TESTOUT	+= $(SRC_TESTC:test/%.c=testc_%.out)
+TESTOUT	+= $(SRC_TESTF:test/%.F=testf_%.out)
+
 # determine dependency files
 
 DEPENDENCIES 	:= 
@@ -148,14 +170,25 @@ DEPENDENCIES	+= $(SRC_FLOAT:%.c=.dep/%_float64.d)
 
 all: $(TARGET)
 
-check: $(TARGET) $(TESTC) $(TESTF)
+check: $(TARGET) $(TESTOUT)
+	for i in $(TESTOUT) ; \
+	do  \
+	if ! cmp -s $$i $(srcdir)/test/output/$$i ; \
+	then \
+	echo *****TEST FAILED:  $$i ; \
+	else \
+	echo PASSED: $$i ; \
+	fi ; \
+	done
+
+check_all: $(TARGET) $(TESTC) $(TESTF)
 	echo "Insert commands to run the tests here"
 
 clean:
 	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
 
 distclean: clean
-	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE)
+	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE) $(TESTOUT)
 
 install: all
 	umask 002 ; \
@@ -218,6 +251,9 @@ testf_%: test/%.F
 
 test/%.o: test/%.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
+
+test%.out:  test%
+	NDI_GENDIR_PATH=$(testlib)/gendir.test $< > $@ 2>&1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
