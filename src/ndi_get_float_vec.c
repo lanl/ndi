@@ -1109,7 +1109,7 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
     ndi_float64 *tot_sig;
     ndi_float64 *vec;
 
-    ierr = ndi_get_int_val(NDI_NUM_GRPS, &num_grps);
+    ierr = ndi_c_get_int_val_h(state, NDI_NUM_GRPS, &num_grps);
     if (num_grps > 0) {
 	tot_sig =
 	    (ndi_float64 *) ndi_malloc(num_grps * sizeof(ndi_float64));
@@ -1118,7 +1118,7 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
 	ierr = 5;
 	return (ierr);
     }
-    ierr = ndi_get_float64_vec(NDI_SIG_TOT, tot_sig, num_grps);
+    ierr = ndi_c_get_float64_vec_h(state, NDI_SIG_TOT, tot_sig, num_grps);
     ierr = ndi_get_old_kerma64(state, vec, num_grps);
 
     for (i = 0; i < num_grps; i++) {
@@ -1193,9 +1193,9 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     tmp_vec = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     curr_xs = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
     eavg = (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
-    ndi_init_float64_vec(tmp_vec, num_elements);
-    ierr = ndi_get_float64_vec(NDI_E_AVG, eavg, num_elements);
-    ierr = ndi_get_float64_vec(NDI_FISS_Q, fissq, NUM_FISSION_Q);
+    (void) ndi_init_float64_vec(tmp_vec, num_elements);
+    ierr = ndi_c_get_float64_vec_h(state, NDI_E_AVG, eavg, num_elements);
+    ierr = ndi_c_get_float64_vec_h(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
 
     for (i = 0; i < num_reactions; i++) {
 	if ((mt[i] > 18) && (mt[i] < 22)) {
@@ -1203,12 +1203,12 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
 	    continue;
 	}
 	ierr =
-	    ndi_get_float64_vec_n(NDI_SIG_REAC, mt[i], curr_xs,
+	    ndi_c_get_float64_vec_n_h(state, NDI_SIG_REAC, mt[i], curr_xs,
 				  num_elements);
 	if (mt[i] == 18) {
 	    q = fissq[0] - fissq[5];	/* Q(prompt fiss) - Q(prompt n) */
 	} else {
-	    ierr = ndi_get_float64_val_n(NDI_REAC_Q, mt[i], &q);
+	    ierr = ndi_c_get_float64_val_n_h(state, NDI_REAC_Q, mt[i], &q);
 	}
 	for (j = 0; j < num_elements; j++) {
 	    tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
@@ -1219,7 +1219,7 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     /* Handle energy from scattering */
     mat_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, 0, &ierr);
     scat_mat = (ndi_float64 *) ndi_malloc(mat_size * sizeof(ndi_float64));
-    ierr = ndi_get_float64_vec_n(NDI_PN_FULL, 0, scat_mat, mat_size);
+    ierr = ndi_c_get_float64_vec_n_h(state, NDI_PN_FULL, 0, scat_mat, mat_size);
     for (i = 0; i < num_elements; i++) {	/* i = incident energy */
 	for (j = 0; j < num_elements; j++) {	/* j = outgoing energy */
 	    tmp_vec[i] -= scat_mat[j + (i * num_elements)] * eavg[j];
