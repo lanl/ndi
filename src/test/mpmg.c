@@ -158,10 +158,11 @@ int main ()
    ierr = NDI2_close(handle[1]);
    if (ierr)
      printf("  **Error %d in closing NDI 1.\n\n", ierr );
+/*
    ierr = NDI2_close(handle[2]);
    if (ierr)
      printf("  **Error %d in closing NDI 2.\n\n", ierr );
-
+*/
 
    return(ierr);
 }

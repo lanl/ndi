@@ -36,6 +36,7 @@ int test_collapse (void)
 
    ierr = NDI2_init(&handle);
    ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = NDI2_set_option( handle, NDI_LIBRARY, "mendf6" );
 
    printf("  NDI TEST SUITE -- test_collapse \n");
 

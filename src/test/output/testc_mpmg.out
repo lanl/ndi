@@ -1,0 +1,20 @@
+  Number of groups:  4
+  Pn order:  5
+  No. pnu:  10
+  No. reactions:  8
+  Last neutron group:  2
+  Last photon group:  4
+  Reaction MTs size:  8
+18   102   525   501   502   504   516   522   
+  Ebounds size:  6
+ 1.700000e+01    2.232000e+00    1.670000e-04    2.000000e+01    4.000000e+00    1.000000e-01   
+  Total cross-section size:  4
+ 7.546564e+00    8.501129e+00    1.901070e+01    7.217915e+01   
+  Scatter matrix size:  16
+
+  **Error 9 getting scattering matrix.
+ 4.636599e+00    1.713750e+00    0.000000e+00    1.668749e+01    0.000000e+00    7.031254e+00   
+ 0.000000e+00    1.299640e+01    0.000000e+00    0.000000e+00    3.429274e+00    2.959360e+01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    2.573087e+01   
+  **Error -2 in closing NDI 2.
+
