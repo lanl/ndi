@@ -36,12 +36,12 @@ case $GNU_OS_OUT in
         ;;
 esac
 
-INSTALL_DIR=$NDI_ROOT/v$ndi_version/$platform
-if [ -d $NDI_ROOT/v$ndi_version ]; then
+INSTALL_DIR=$NDI_ROOT/$ndi_version/$platform
+if [ -d $NDI_ROOT/$ndi_version ]; then
     echo Do not know how to negate!
 else
     umask 002
-    mkdir $NDI_ROOT/v$ndi_version
+    mkdir $NDI_ROOT/$ndi_version
 fi
 
 if [ -d $INSTALL_DIR ]; then
