@@ -19,7 +19,7 @@
 
 static int within_epsilon(double a, double b);
 static int greater_than_epsilon(double a, double b);
-
+static int is_default_str(const char *grp_struct);
 
 /**********************************************************************/
 
@@ -74,10 +74,10 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 ***********************************************************************/
 
-    /* double hansenroach[] = { 15, 3, 1.4, 0.9, 0.4, 0.1, 1.7E-2, 
+    double _16_hr[] = { 15, 3, 1.4, 0.9, 0.4, 0.1, 1.7E-2, 
        3E-3, 5.5E-4, 1.0E-4, 3.0E-5, 1.0E-5, 
        3.0E-6, 1.0E-6, 4.0E-7, 1.0E-7,1.4E-10 }; 
-     */
+
 
     /*  NGK KLUDGE!  */
     double _33_ngkludge[] =
@@ -376,6 +376,10 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 	new_grp_ptr = _16_LLNL;
 	*new_grp = 16;
 
+    } else if ((strncmp(grp_struc, "16_hr", sizeof(char) * 6) == 0)) {
+	new_grp_ptr = _16_hr;
+	*new_grp = 16;
+
     } else if ((strncmp(grp_struc, "14_group", sizeof(char) * 9) == 0) ||
 	       (strncmp(grp_struc, "14_lanl", sizeof(char) * 8) == 0)) {
 	new_grp_ptr = _14_group;
@@ -459,9 +463,18 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 	    return (-5);
 	}
 
-    } else if (strncmp(grp_struc, "default", sizeof(char) * 8) == 0) {
+    } else if (strncmp(grp_struc, "default", sizeof(char) * 8) == 0) { 
+        /* Use library's group structure */
+        *new_grp = 0;
+        return(ierr);
+
+    } else if (is_default_str(grp_struc)) {
 	/* Use library's group structure */
 	*new_grp = 0;
+        /* Check group number? */
+        if ((old_grp > 0) && (old_grp != is_default_str(grp_struc))) {
+            ierr = 77;
+        }
 	return (ierr);
 
     } else {
@@ -588,6 +601,38 @@ static int greater_than_epsilon(double a, double b)
     else
 	return (0);
 
+}
+
+/**********************************************************************/
+
+static int is_default_str(const char *grp_struct) {
+
+    int return_val = 0;
+    int char_count = 0;
+    int int_flag = 0;
+    char *int_p = NULL;
+    const char *curr_char = grp_struct;
+
+    while (( char_count < strlen(grp_struct)) &&
+           (*curr_char == ' ')) {
+        curr_char++;
+        char_count++;
+    }
+    while (( char_count < strlen(grp_struct)) &&
+           (isdigit(*curr_char))) {
+        if (! int_flag) {
+            int_p = curr_char;
+            int_flag = 1;
+        }
+        curr_char++;
+        char_count++;
+    }
+    if ( int_flag &&
+         (strncmp(curr_char, "_default", 9)) == 0) {
+        return_val = strtol(int_p, (char **)NULL, 10);
+    }
+    
+    return(return_val);
 }
 
 /**********************************************************************/
