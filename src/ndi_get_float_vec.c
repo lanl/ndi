@@ -58,6 +58,8 @@ static int NDI_GET_NU(state_struct *state, isotope_status * mg,
 		      int *return_size);
 static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
 			int return_size);
+static int MIDPT_ENERGY (state_struct *state, int num_grps, FLOAT_TYPE return_vec, 
+                          int vec_size)
 
 /**********************************************************************/
 
@@ -686,13 +688,11 @@ static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE * return_vec,
     int i,j;
     int num_grps;
     int ierr = 0;
-    int calc_flag = 0;
     int low_bound, up_bound;
     ndi_float64 *vel;
     double numer, denom;
     /* Assuming inc part = neutrons and that vel units are cm/shake */
     double v2_to_e_factor = (M_NEUT_KG) / 2 * 1e12 / (J_TO_MEV);
-    double legacy_v2_to_e_factor = 0.0052271; /* Converts to MeV; originally hardwired by Eldon Linnebur? */
 
 
     NDI_INIT_FLOAT_VEC(return_vec, return_size);
@@ -709,124 +709,22 @@ static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE * return_vec,
             num_grps = state->grp_num_new;
         }
         
-        if (state->e_avg_calc == SGNDF) {
-            if (ndi_use_sgndf_values(state, num_grps) != 0) {
-                /* Use hard-wired values */
-                ierr = COPY_SGNDF_E(num_grps, return_vec, return_size);
-                return (ierr);
-            } else {
-                calc_flag = -1;	/* Calculate from average velocity */
-            }
-        }
-        
-        if ((state->e_avg_calc == VEL_CALC) || (calc_flag != 0)) {
-            /* E(avg) = 1/2 m vel(avg)^2 */
-            if (fabs(v2_to_e_factor) < DBL_EPSILON) {
-                ierr = 5;
-                return (ierr);
-            }
-            
-            vel = (ndi_float64 *) ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
-            ierr = ndi_get_simple_float64_vec(state, state->lib_stream,
-                                              state->iso_stat.vel.file_ptr, -1,
-                                              state->iso_stat.num_grps, vel, state->iso_stat.num_grps);
-            for (i = 0; i < num_grps; i++) {
-                if (i < return_size) {
-                    numer = 0.0;
-                    denom = 0.0;
-                    if (state->collapse_flag) {             /* Collapse */
-                        low_bound = state->new_ebounds[i];
-                        up_bound = state->new_ebounds[i+1];
-                    } else {
-                        low_bound = i;
-                        up_bound = i + 1;
-                    }
-                    for (j = low_bound; j < up_bound; j++) {
-                        numer += vel[j] * vel[j] * state->lib_weight[j];
-                        denom += state->lib_weight[j];
-                    }
-                    if (denom > (FLOAT_EPSILON * numer)) {
-                        return_vec[i] = (FLOAT_TYPE)v2_to_e_factor * (numer / denom);
-                    } else {
-                        ierr = 5;
-                        break;
-                    }
-                } else {
-                    ierr = 7;
-                    break;
-                }
-            }
-            if (vel)
-                ndi_free((void **) &vel);
-            
-        } else if (state->e_avg_calc == LEGACY_VEL_CALC) {
-            vel = (ndi_float64 *)ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
-            ierr = ndi_get_simple_float64_vec( state, state->lib_stream, 
-                                               state->iso_stat.vel.file_ptr,
-                                               -1, state->iso_stat.num_grps,
-                                               vel, state->iso_stat.num_grps );
-            for (i = 0; i < num_grps; i++ ) {
-                if (i < return_size) {
-                    numer = 0.0;
-                    denom = 0.0;
-                    if (state->collapse_flag) {             /* Collapse */
-                        low_bound = state->new_ebounds[i];
-                        up_bound = state->new_ebounds[i+1];
-                    } else {
-                        low_bound = i;
-                        up_bound = i + 1;
-                    }
-                    for (j = low_bound; j < up_bound; j++) {
-                        numer += vel[j] * state->lib_weight[j];
-                        if (vel[j] > (DBL_EPSILON * state->lib_weight[j])) {
-                            denom += state->lib_weight[j] / vel[j];
-                        } else {
-                            ierr = 5;
-                            return(ierr);
-                        }
-                    }
-                    if (denom > (FLOAT_EPSILON * numer)) {
-                        return_vec[i] = (FLOAT_TYPE)legacy_v2_to_e_factor * (numer / denom);
-                    } else {
-                        ierr = 5;
-                        return(ierr);                
-                    }
-                } else {
-                    ierr = 7;
-                }
-            }
-            if (vel) ndi_free((void **)&vel);
-            
-        } else if (state->e_avg_calc == E_MEAN) {
-            /*   Arithmetic mean energy */
-            int j;
-            double wt_sum, e_sum;
-            
-            for ( i = 0; i < num_grps; i++ ) {
-                wt_sum = 0;
-                e_sum = 0;
-                if ( state->collapse_flag ) {
-                    for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
-                        e_sum += (ndi_float64) fabs( (double) 
-                                                     state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
-                                                     - state->lib_ebounds[j] * state->lib_ebounds[j] ) 
-                                                     * state->lib_weight[j];
-                        wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
-                    }
-                } else {
-                    e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
-                    wt_sum = 1;
-                }
-                return_vec[i] = (FLOAT_TYPE) e_sum /(2 *  wt_sum);
-            }
- 
-        } else {
-            ierr = -13;
-        }
+        switch (state->particle_type) {
 
-    } else {
-        ierr = -2;
-    }
+        case 0:
+            ierr = PHOTON_E_AVG(state, num_grps, return_vec, return_size);
+            break;
+
+        case 1:
+            ierr = NEUTRON_E_AVG(state, num_grps, return_vec, return_size);
+           break;
+
+        default:
+            /* Warning? */
+            ierr = MIDPT_ENERGY(state, num_grps, return_vec, return_size)
+            break;
+
+        }
         
     return(ierr);
 }
@@ -2215,6 +2113,181 @@ static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
 	}
     }
     return (ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+static int NEUTRON_E_AVG (state_struct *state, int num_grps, FLOAT_TYPE return_vec, 
+                          int vec_size) {
+
+    int ierr;
+    int calc_flag = 0;
+    double legacy_v2_to_e_factor = 0.0052271; /* Converts to MeV; originally hardwired by Eldon Linnebur? */
+
+
+    if (state->e_avg_calc == SGNDF) {
+        if (ndi_use_sgndf_values(state, num_grps) != 0) {
+            /* Use hard-wired values */
+            ierr = COPY_SGNDF_E(num_grps, return_vec, return_size);
+            return (ierr);
+        } else {
+            calc_flag = -1;	/* Calculate from average velocity */
+        }
+    }
+    
+    if ((state->e_avg_calc == VEL_CALC) || (calc_flag != 0)) {
+        /* E(avg) = 1/2 m vel(avg)^2 */
+        if (fabs(v2_to_e_factor) < DBL_EPSILON) {
+            ierr = 5;
+            return (ierr);
+        }
+        
+            vel = (ndi_float64 *) ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
+            ierr = ndi_get_simple_float64_vec(state, state->lib_stream,
+                                              state->iso_stat.vel.file_ptr, -1,
+                                              state->iso_stat.num_grps, vel, state->iso_stat.num_grps);
+            for (i = 0; i < num_grps; i++) {
+                if (i < return_size) {
+                    numer = 0.0;
+                    denom = 0.0;
+                    if (state->collapse_flag) {             /* Collapse */
+                        low_bound = state->new_ebounds[i];
+                        up_bound = state->new_ebounds[i+1];
+                    } else {
+                        low_bound = i;
+                        up_bound = i + 1;
+                    }
+                    for (j = low_bound; j < up_bound; j++) {
+                        numer += vel[j] * vel[j] * state->lib_weight[j];
+                        denom += state->lib_weight[j];
+                    }
+                    if (denom > (FLOAT_EPSILON * numer)) {
+                        return_vec[i] = (FLOAT_TYPE)v2_to_e_factor * (numer / denom);
+                    } else {
+                        ierr = 5;
+                        break;
+                    }
+                } else {
+                    ierr = 7;
+                    break;
+                }
+            }
+            if (vel)
+                ndi_free((void **) &vel);
+            
+        } else if (state->e_avg_calc == LEGACY_VEL_CALC) {
+            vel = (ndi_float64 *)ndi_malloc(state->iso_stat.num_grps * sizeof(ndi_float64));
+            ierr = ndi_get_simple_float64_vec( state, state->lib_stream, 
+                                               state->iso_stat.vel.file_ptr,
+                                               -1, state->iso_stat.num_grps,
+                                               vel, state->iso_stat.num_grps );
+            for (i = 0; i < num_grps; i++ ) {
+                if (i < return_size) {
+                    numer = 0.0;
+                    denom = 0.0;
+                    if (state->collapse_flag) {             /* Collapse */
+                        low_bound = state->new_ebounds[i];
+                        up_bound = state->new_ebounds[i+1];
+                    } else {
+                        low_bound = i;
+                        up_bound = i + 1;
+                    }
+                    for (j = low_bound; j < up_bound; j++) {
+                        numer += vel[j] * state->lib_weight[j];
+                        if (vel[j] > (DBL_EPSILON * state->lib_weight[j])) {
+                            denom += state->lib_weight[j] / vel[j];
+                        } else {
+                            ierr = 5;
+                            return(ierr);
+                        }
+                    }
+                    if (denom > (FLOAT_EPSILON * numer)) {
+                        return_vec[i] = (FLOAT_TYPE)legacy_v2_to_e_factor * (numer / denom);
+                    } else {
+                        ierr = 5;
+                        return(ierr);                
+                    }
+                } else {
+                    ierr = 7;
+                }
+            }
+            if (vel) ndi_free((void **)&vel);
+            
+        } else if (state->e_avg_calc == E_MEAN) {
+            /*   Use bin midpoint energy */
+
+            ierr = MIDPT_ENERGY(state, num_grps, return_vec, return_size);
+            int j;
+            double wt_sum, e_sum;
+            
+            for ( i = 0; i < num_grps; i++ ) {
+                wt_sum = 0;
+                e_sum = 0;
+                if ( state->collapse_flag ) {
+                    for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
+                        e_sum += (ndi_float64) fabs( (double) 
+                                                     state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
+                                                     - state->lib_ebounds[j] * state->lib_ebounds[j] ) 
+                                                     * state->lib_weight[j];
+                        wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
+                    }
+                } else {
+                    e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
+                    wt_sum = 1;
+                }
+                return_vec[i] = (FLOAT_TYPE) e_sum /(2 *  wt_sum);
+            }
+ 
+        } else {
+            ierr = -13;
+        }
+
+    } else {
+        ierr = -2;
+    }
+
+}
+
+/*********************************************************************/
+/*********************************************************************/
+static int PHOTON_E_AVG (state_struct *state, int num_grps, FLOAT_TYPE return_vec, 
+                         int vec_size) {
+
+    int ierr;
+    
+    ierr = MIDPT_ENERGY(state, num_grps, return_vec, return_size);
+    return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+static int MIDPT_ENERGY (state_struct *state, int num_grps, FLOAT_TYPE return_vec, 
+                         int vec_size) {
+    /*   Arithmetic mean energy */
+
+    int ierr = 0;
+    int i, j;
+    double wt_sum, e_sum;
+    
+    for ( i = 0; i < num_grps; i++ ) {
+        wt_sum = 0;
+        e_sum = 0;
+        if ( state->collapse_flag ) {
+            for ( j = state->new_ebounds[i]; j < state->new_ebounds[ i + 1 ] ; j++ ) {
+                e_sum += (ndi_float64) fabs( (double) 
+                                             state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
+                                             - state->lib_ebounds[j] * state->lib_ebounds[j] ) 
+                    * state->lib_weight[j];
+                wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
+            }
+        } else {
+            e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
+            wt_sum = 1;
+        }
+        return_vec[i] = (FLOAT_TYPE) e_sum /(2 *  wt_sum);
+    }
+
+    return(ierr);
 }
 
 /*********************************************************************/
