@@ -147,6 +147,9 @@ void F_NDI2_GET_STRING_VAL(int *handle, int *in_key, char *return_val,
                            int *ierr, int len);
 void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
                              char *return_val, int *ierr, int len);
+void F_NDI2_GET_STRING_VEC(int *handle, int *in_key, char *str_arr,
+			   int *arr_size, int *str_size, int *ierr,
+			   int flen2);
 
 /***************     Functions     ***************/
 
@@ -814,6 +817,44 @@ void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
     *ierr = NDI2_get_string_val_n(*handle, *in_key, *vec_num, c_str, temsize);
     (void) ndi_c2f_string(c_str, return_val, len);
     (void) ndi_free((void **) &c_str);
+}
+
+void F_NDI2_GET_STRING_VEC(int *handle, int *in_key, char *str_arr,
+                           int *arr_size, int *str_size, int *ierr,
+                           int flen)
+{
+    /* Is str_size needed?  */
+
+    char *curr_zaid;
+    char *c_zaid;
+    int c_arr_num;
+    int c_arr_size;
+    int count = 0;
+    char *fstr_p;
+
+    c_arr_size = NDI2_get_size(*handle, *in_key, ierr);
+
+    c_zaid = (char *) ndi_malloc(c_arr_size * sizeof(char));
+
+    *ierr = NDI2_get_string_vec(*handle, *in_key, c_zaid, c_arr_size);
+
+    fstr_p = str_arr;
+
+    curr_zaid = c_zaid;
+    c_arr_num = NDI2_get_size(*handle, NDI_AWR, ierr);
+
+    while (count < c_arr_num) {
+	if (curr_zaid != NULL) {
+	    /* ????? check we've not exceed the bounds on str_arr or c_zaid ????? */
+	    ndi_c2f_string(curr_zaid, fstr_p, *str_size);
+	    curr_zaid += strlen(curr_zaid) + 1;
+	    fstr_p += *str_size;
+	}
+	count++;
+    }
+
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
 }
 
 /***************     Internal functions     ***************/

@@ -1,0 +1,5 @@
+2004-08-24  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndidf_handle.F (main): Added Fortran test for NDI 2 handle
+	functions 
+

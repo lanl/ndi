@@ -205,6 +205,7 @@ SRC_TESTF := \
 	test/ndi_testf.F\
 	test/ndi_testf2.F\
 	test/ndidf.F\
+	test/ndidf_handle.F\
 	test/radchemf.F\
 	test/symbol_translatef.F \
 	test/transpose_scatf.F 

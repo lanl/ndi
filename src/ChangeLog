@@ -1,3 +1,7 @@
+2004-08-24  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_fortran.c (F_NDI2_GET_STRING_VAL): Added Fortran interface
+
 2004-07-09  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_user_functions_handles.c (NDI2_get_string_vec): added
