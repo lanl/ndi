@@ -33,6 +33,7 @@ c      print *, " "
      $     str_arr2, 500, 12, ierr )
       write(*,301) " String vec error is ", ierr
  301  format(a21, i6)
+      call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr );
       do i = 1, arr_size
          call ndi_set_isotope( str_arr2(i), ierr )
          write(*, 302) i, str_arr2(i), ierr
