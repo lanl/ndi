@@ -35,8 +35,6 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
     char *str_of_interest;
     struct ndi_bin_tree_node *root = NULL;
     struct ndi_bin_tree_node *curr_node;
-    char *path;
-
 
     strncpy(section, in_value, 50);
     sec_len = (int) strlen(section);

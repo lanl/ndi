@@ -85,8 +85,6 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
     FLOAT_TYPE curr_flt;
     struct ndi_bin_tree_node *root = NULL;
     struct ndi_bin_tree_node *curr_node;
-    char *path;
-
 
     strncpy(section, in_value, 50);
     sec_len = strlen(section);

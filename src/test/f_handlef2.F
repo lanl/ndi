@@ -154,7 +154,8 @@ c  "92234.50", "u-235" /
 c     Test error on initialization before close
       call ndi2_open_gendir(gendir_h, "", ierr) 
 
-      call ndi2_make_handle(gendir_h, "multigroup_neutron", handle, ierr)
+      call ndi2_make_handle(gendir_h, "multigroup_neutron", 
+     $     handle, ierr)
 
       num_grp_str = "2_group"
 
