@@ -172,7 +172,7 @@ $(VERSION): VERSION
 $(VAR_TYPE): ndi_define_float.c
 	@echo Making $(VAR_TYPE)
 	$(RM) ndi_define_float
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) -o ndi_define_float \
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -o ndi_define_float \
 	$(srcdir)/ndi_define_float.c
 	ndi_define_float > $@
 	$(RM) ndi_define_float
@@ -180,44 +180,44 @@ $(VAR_TYPE): ndi_define_float.c
 $(FMANGLE): fcallscc.c fcallscf.f
 	@echo Making $(FMANGLE)
 	$(RM) f_calls_c
-	$(CC) -c $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
-	$(FC) -c $(FFLAGS) -I $(srcdir) $(CPPFLAGS) $(srcdir)/fcallscf.f
-	$(FC) $(FFLAGS) -I $(srcdir) $(CPPFLAGS) -o f_calls_c fcallscf.o fcallscc.o
+	$(CC) -c $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
+	$(FC) -c $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscf.f
+	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) -o f_calls_c fcallscf.o fcallscc.o
 	f_calls_c > $@
 	$(RM) f_calls_c fcallscc.o fcallscf.o
 
 testc_all: $(TARGET) $(OBJ_TESTC)
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(LDFLAGS) $(OBJ_TESTC) -o $@ $(LDLIBS)
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(OBJ_TESTC) -o $@ $(LDLIBS)
 
 # pattern rules
 
 testc_%: $(TARGET)
 
 testc_%: test/%.c
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
 
 testf_%: $(TARGET)
 
 testf_%: test/%.F
-	$(FC) $(FFLAGS) -I $(srcdir) $(CPPFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
 
 test/%.o: test/%.c
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
 
 %.o: %.f
 	$(FC) $(FFLAGS) -c -o $@ $<
 
 %.o: %.F
-	$(FC) $(FFLAGS) -I $(srcdir) $(CPPFLAGS) -c -o $@ $<
+	$(FC) $(FFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
 
 %_float32.o: %.c
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) -c -o $@ $<
 
 %_float64.o: %.c
-	$(CC) $(CFLAGS) -I $(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) -c -o $@ $<
 
 
 # include dependency files, if we were not invoked as "make clean"
@@ -230,10 +230,10 @@ endif
 # rules for calculating dependency files
 
 .dep/%.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(CC) -M -I $(srcdir) $(CPPFLAGS) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
+	$(CC) -M -I$(srcdir) $(CPPFLAGS) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
 
 .dep/%_float32.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(CC) -M -I $(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
+	$(CC) -M -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
 
 .dep/%_float64.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
-	$(CC) -M -I $(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
+	$(CC) -M -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
