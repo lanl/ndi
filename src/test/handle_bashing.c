@@ -53,9 +53,9 @@ int main ()
     /* Get too many non-gendir handles */
     printf("\n\n*********** TEST 3 -- Too many non-gendir handles ***********\n\n");
     for (i = 0; i < MAX_HANDLES; i++) {
-        ierr = NDI2_make_handle(gendir[0], "multigroup_multi", &handle[i]);
+        ierr = NDI2_make_handle(gendir[0], "multigroup_neutron", &handle[i]);
         if (ierr)
-            printf("    **Error %d in making handle%d.\n", ierr, i );
+            printf("    **Error %d in getting handle%d.\n", ierr, i );
         ierr = NDI2_set_option(handle[i], NDI_COLLAPSE, "21_lanl");
         if (ierr)
             printf("    **Error %d in setting option for handle%d.\n", ierr, i );
@@ -73,7 +73,7 @@ int main ()
     for (i = 1; i < MAX_HANDLES; i++) {
         ierr = NDI2_make_handle(handle[i-1], "multigroup_multi", &handle[i]);
         if (ierr)
-            printf("    **Error %d in making handle%d.\n", ierr, i);
+            printf("    **Error %d in getting handle%d.\n", ierr, i);
 
         ierr = NDI2_check_option(handle[i], NDI_COLLAPSE, str_val, STRING_LEN);
         if (ierr)

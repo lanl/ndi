@@ -122,10 +122,13 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
         *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
     
     if(__ndi_add_child_handle(parent) != 0) /* add child handle */
-	return -2;
-    
+	return -1;
+
     child = handle_to_state_p(*handle1);	/* get child state */
-    return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
+    if (ndi_is_library_type(child, type))
+	return (0);
+    else
+	return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
 }
 
 int NDI2_set_isotope(int handle, const char *zaid)

@@ -170,3 +170,24 @@ char *ndi_get_section(state_struct *state)
 
     return (in_value[sec]);
 }
+
+int ndi_is_library_type(state_struct *state, const char *type)
+{
+
+    if (!state)
+	return (0);
+    if (strcmp(type, "multigroup_neutron") == 0)
+	return (state->library_type == 'm' && state->particle_type == 1);
+    else if (strcmp(type, "multigroup_photon") == 0)
+	return (state->library_type == 'm' && state->particle_type == 0);
+    else if (strcmp(type, "tn") == 0)
+	return (state->library_type == 's');
+    else if (strcmp(type, "tnreactions") == 0)
+	return (state->library_type == 'r');
+    else if (strcmp(type, "dosimetry_neutron") == 0)
+	return (state->library_type == 'd' && state->particle_type == 1);
+    else if (strcmp(type, "multigroup_multi") == 0)
+	return (state->library_type == 'p');
+    else 
+	return (0);
+}

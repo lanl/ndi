@@ -1,9 +1,5 @@
 			   -*- outline -*-
 
-* Decide library-type inheritance behavior
-** Fix gendir_handle test
-** Fix handle-bashing test
- 
 * Add F90 interface to ndi_get_string_vec
 
 * Code 2.0 equivalent to ndid_get_num if needed

@@ -65,43 +65,31 @@
 *********** TEST 4 -- Too many layers of handles ***********
 
   handle1 collapse = default
-    **Error -2 in setting library type for handle2.
+    **Error -2 in getting handle2.
     **Error -2 in checking option for handle2.
-    **Error -2 in getting handle3.
-    **Error -2 in setting library type for handle3.
+    **Error -1 in getting handle3.
     **Error -2 in checking option for handle3.
-    **Error -2 in getting handle4.
-    **Error -2 in setting library type for handle4.
+    **Error -1 in getting handle4.
     **Error -2 in checking option for handle4.
-    **Error -2 in getting handle5.
-    **Error -2 in setting library type for handle5.
+    **Error -1 in getting handle5.
     **Error -2 in checking option for handle5.
-    **Error -2 in getting handle6.
-    **Error -2 in setting library type for handle6.
+    **Error -1 in getting handle6.
     **Error -2 in checking option for handle6.
-    **Error -2 in getting handle7.
-    **Error -2 in setting library type for handle7.
+    **Error -1 in getting handle7.
     **Error -2 in checking option for handle7.
-    **Error -2 in getting handle8.
-    **Error -2 in setting library type for handle8.
+    **Error -1 in getting handle8.
     **Error -2 in checking option for handle8.
-    **Error -2 in getting handle9.
-    **Error -2 in setting library type for handle9.
+    **Error -1 in getting handle9.
     **Error -2 in checking option for handle9.
-    **Error -2 in getting handle10.
-    **Error -2 in setting library type for handle10.
+    **Error -1 in getting handle10.
     **Error -2 in checking option for handle10.
-    **Error -2 in getting handle11.
-    **Error -2 in setting library type for handle11.
+    **Error -1 in getting handle11.
     **Error -2 in checking option for handle11.
-    **Error -2 in getting handle12.
-    **Error -2 in setting library type for handle12.
+    **Error -1 in getting handle12.
     **Error -2 in checking option for handle12.
-    **Error -2 in getting handle13.
-    **Error -2 in setting library type for handle13.
+    **Error -1 in getting handle13.
     **Error -2 in checking option for handle13.
-    **Error -2 in getting handle14.
-    **Error -2 in setting library type for handle14.
+    **Error -1 in getting handle14.
     **Error -2 in checking option for handle14.
 
 

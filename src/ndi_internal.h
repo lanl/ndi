@@ -633,6 +633,7 @@ extern "C" {
     int __ndi_close_handle(int handle);
     int __ndi_add_child_handle(state_struct *parent);
     char *ndi_get_section(state_struct *state);
+    int ndi_is_library_type(state_struct *state, const char *type);
 
    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,
