@@ -21,43 +21,43 @@ int main ()
    ndi_float64 ret_flt64_val;
    ndi_float64 ret_flt64[MAX_ARRAY_SIZE];
 
-   ierr = NDI2_init(&handle);
+   ierr = ndi2_open(&handle, "");
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
-   ierr = NDI2_set_option(handle,  NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2" );
+   ierr = ndi2_set_option(handle,  NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle,  NDI_DEPLETION, "test2" );
 
       
    /* Set isotope, no collapsing */
-   ierr = NDI2_set_isotope(handle, "94242");
+   ierr = ndi2_set_isotope(handle, "94242");
    if (ierr) 
      printf("\n  **Error %d in setting isotope.\n", ierr);
 
-   ierr = NDI2_get_int_val(handle, NDI_NUM_TARGET, &ret_int );
-   ierr = NDI2_get_float64_val_n(handle, NDI_TOT_PROD_Q,  94240, &ret_flt64_val );
-   xs_size = NDI2_get_size_x(handle, NDI_TOT_PROD_XS, "94240", &ierr );
-   ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, "94240", ret_flt64, MAX_ARRAY_SIZE );  
+   ierr = ndi2_get_int_val(handle, NDI_NUM_TARGET, &ret_int );
+   ierr = ndi2_get_float64_val_n(handle, NDI_TOT_PROD_Q,  94240, &ret_flt64_val );
+   xs_size = ndi2_get_size_x(handle, NDI_TOT_PROD_XS, "94240", &ierr );
+   ierr = ndi2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, "94240", ret_flt64, MAX_ARRAY_SIZE );  
    
    printf( "Target=94242; product=94240:\n");
    print_all( ret_int, ret_flt64_val, ret_flt64, xs_size );
 
 
-   ierr = NDI2_set_isotope(handle,"Pu239");
+   ierr = ndi2_set_isotope(handle,"Pu239");
    if (ierr) 
      printf("\n  **Error %d in setting isotope.\n", ierr);
 
 
-   ierr = NDI2_set_option(handle, NDI_DEPLETION, "default" );
+   ierr = ndi2_set_option(handle, NDI_DEPLETION, "default" );
 
-   ierr = NDI2_get_int_val(handle, NDI_NUM_TARGET, &ret_int );
-   ierr = NDI2_get_float64_val_n(handle, NDI_TOT_PROD_Q,  94240, &ret_flt64_val );
-   xs_size = NDI2_get_size_x(handle, NDI_TOT_PROD_XS, "94240", &ierr );
-   ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, "94240", ret_flt64, MAX_ARRAY_SIZE );  
+   ierr = ndi2_get_int_val(handle, NDI_NUM_TARGET, &ret_int );
+   ierr = ndi2_get_float64_val_n(handle, NDI_TOT_PROD_Q,  94240, &ret_flt64_val );
+   xs_size = ndi2_get_size_x(handle, NDI_TOT_PROD_XS, "94240", &ierr );
+   ierr = ndi2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, "94240", ret_flt64, MAX_ARRAY_SIZE );  
    
    printf( "Target=Pu239; product=94240:\n");
    print_all( ret_int, ret_flt64_val, ret_flt64, xs_size );
 
-   ierr = NDI2_close(handle);
+   ierr = ndi2_close(handle);
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );
     

@@ -25,27 +25,27 @@ int main ()
    int handle = 0;
    char test_zaid[133] = "";
 
-   ierr = NDI2_init(&handle);
-   ierr = NDI2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_open(&handle, "");
+   ierr = ndi2_set_option( handle, NDI_LIB_TYPE, "multigroup_neutron" );
 
 
    printf("\n\n*********************************************************************\n");
    printf("           Library does not exist\n");
    printf("*********************************************************************\n");
-   ierr = NDI2_set_isotope(handle, "94239.001");
+   ierr = ndi2_set_isotope(handle, "94239.001");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "94239.001" );
-   ierr = NDI2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
+   ierr = ndi2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
    printf("\n\n*********************************************************************\n");
    printf("           Bad keyword in library and gendir\n");
    printf("*********************************************************************\n");
-   ierr = NDI2_set_isotope(handle, "94239.006");
+   ierr = ndi2_set_isotope(handle, "94239.006");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "94239.006" );
-   ierr = NDI2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
+   ierr = ndi2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
@@ -53,10 +53,10 @@ int main ()
    printf("\n\n*********************************************************************\n");
    printf("       Offset value is given incorrectly (before real zaid)\n");
    printf("*********************************************************************\n");
-   ierr = NDI2_set_isotope(handle, "92235.030");
+   ierr = ndi2_set_isotope(handle, "92235.030");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235.030" );
-   ierr = NDI2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
+   ierr = ndi2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
@@ -64,10 +64,10 @@ int main ()
    printf("\n\n*********************************************************************\n");
    printf("       Offset value is given incorrectly (after real zaid)\n");
    printf("*********************************************************************\n");
-   ierr = NDI2_set_isotope(handle, "92235.031");
+   ierr = ndi2_set_isotope(handle, "92235.031");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "92235.031" );
-   ierr = NDI2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
+   ierr = ndi2_get_string_val( handle, NDI_ZAID, test_zaid, 133 );
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
@@ -75,14 +75,14 @@ int main ()
    printf("\n\n*********************************************************************\n");
    printf("           Library does not exist (again)\n");
    printf("*********************************************************************\n");
-   ierr = NDI2_set_isotope("94239.002");
+   ierr = ndi2_set_isotope("94239.002");
    if (ierr) 
      printf("  **Error %d in setting isotope %s.\n\n", ierr, "94239.002" );
-   ierr = NDI2_get_string_val( NDI_ZAID, test_zaid, 133 );
+   ierr = ndi2_get_string_val( NDI_ZAID, test_zaid, 133 );
    printf( "ZAID=%s\n", test_zaid );
    ierr = check_vec_mgn_func();
 
-   ierr = NDI2_close();
+   ierr = ndi2_close();
    return(ierr);
 }
 
@@ -128,14 +128,14 @@ int check_ndi_int_vec_func_mgn()
    /* First retrieve number of reaction products */
    for (n = 0; n < num_keys; n++) {
       printf( "%s:  ", int_vec_str[n]);
-      num_elements = NDI2_get_size( inkey[n], &tmp_err );
+      num_elements = ndi2_get_size( inkey[n], &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
 	  num_elements = MAX_ARRAY_SIZE;
 	}
       }
-      tmp_err = NDI2_get_int_vec( inkey[n], ret_vec, MAX_ARRAY_SIZE );
+      tmp_err = ndi2_get_int_vec( inkey[n], ret_vec, MAX_ARRAY_SIZE );
       if (tmp_err) {
 	 printf("\n  **Error %d in %s -- returned value is:\n", tmp_err, 
 		int_vec_str[n] );
@@ -222,14 +222,14 @@ int check_ndi_float_vec_func_mgn()
 
    for ( n = 0; n < num_keys; n++ ) {
       printf( "%s: \n", flt_vec_str[n] );
-      num_elements = NDI2_get_size( inkey[n], &tmp_err );  
+      num_elements = ndi2_get_size( inkey[n], &tmp_err );  
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
 	  num_elements = MAX_ARRAY_SIZE;
 	}
       }
-      tmp_err = NDI2_get_float64_vec( inkey[n], ret_vec64, MAX_ARRAY_SIZE );
+      tmp_err = ndi2_get_float64_vec( inkey[n], ret_vec64, MAX_ARRAY_SIZE );
       if (tmp_err) {
 	 printf("  **Error %d in %s -- returned value is:\n", tmp_err, 
 		flt_vec_str[n] );
@@ -278,14 +278,14 @@ int check_ndi_int_vec_n_func_mgn()
       for ( n = 0; n < num_keys ; n += 2 ) {
 	 /* MT = 2 */
 	 printf( "%s (MT=2): \n", int_vec_n_str[n] );
-	 num_elements = NDI2_get_size_n( inkey[n], 2, &tmp_err );
+	 num_elements = ndi2_get_size_n( inkey[n], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   if ( num_elements > MAX_ARRAY_SIZE ) {
 	     num_elements = MAX_ARRAY_SIZE;
 	   }
 	 }
-	 tmp_err = NDI2_get_int_vec_n( inkey[n], 2, id, MAX_ARRAY_SIZE );
+	 tmp_err = ndi2_get_int_vec_n( inkey[n], 2, id, MAX_ARRAY_SIZE );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
 	    print_int_vec( id, num_elements ); 
@@ -293,14 +293,14 @@ int check_ndi_int_vec_n_func_mgn()
 	    print_int_vec( id, num_elements ); 
 	 }
 	 printf( "%s (MT=2): \n", int_vec_n_str[n+1] );
-	 num_elements = NDI2_get_size_n( inkey[n+1], 2, &tmp_err );
+	 num_elements = ndi2_get_size_n( inkey[n+1], 2, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   if ( num_elements > MAX_ARRAY_SIZE ) {
 	     num_elements = MAX_ARRAY_SIZE;
 	   }
 	 }
-	 tmp_err = NDI2_get_int_vec_n( inkey[n+1], 2, mult, MAX_ARRAY_SIZE );
+	 tmp_err = ndi2_get_int_vec_n( inkey[n+1], 2, mult, MAX_ARRAY_SIZE );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
 	    print_int_vec( mult, num_elements ); 
@@ -310,14 +310,14 @@ int check_ndi_int_vec_n_func_mgn()
 
 	 /* MT = 999 */
 	 printf( "%s (MT=999): \n", int_vec_n_str[n] );
-	 num_elements = NDI2_get_size_n( inkey[n], 999, &tmp_err );
+	 num_elements = ndi2_get_size_n( inkey[n], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   if ( num_elements > MAX_ARRAY_SIZE ) {
 	     num_elements = MAX_ARRAY_SIZE;
 	   }
 	 }
-	 tmp_err = NDI2_get_int_vec_n( inkey[n], 999, id, MAX_ARRAY_SIZE );
+	 tmp_err = ndi2_get_int_vec_n( inkey[n], 999, id, MAX_ARRAY_SIZE );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n]);
 	    print_int_vec( id, num_elements ); 
@@ -325,14 +325,14 @@ int check_ndi_int_vec_n_func_mgn()
 	    print_int_vec( id, num_elements ); 
 	 }
 	 printf( "%s (MT=999): \n", int_vec_n_str[n+1] );
-	 num_elements = NDI2_get_size_n( inkey[n+1], 999, &tmp_err );
+	 num_elements = ndi2_get_size_n( inkey[n+1], 999, &tmp_err );
 	 if ( num_elements <= 0 ) {
 	   num_elements = 30;
 	   if ( num_elements > MAX_ARRAY_SIZE ) {
 	     num_elements = MAX_ARRAY_SIZE;
 	   }
 	 }
-	 tmp_err = NDI2_get_int_vec_n( inkey[n+1], 999, mult, MAX_ARRAY_SIZE );
+	 tmp_err = ndi2_get_int_vec_n( inkey[n+1], 999, mult, MAX_ARRAY_SIZE );
 	 if (tmp_err) {
 	    printf("  **Error %d in %s--returned value is\n", tmp_err, int_vec_n_str[n+1]);
 	    print_int_vec( mult, num_elements ); 
@@ -388,14 +388,14 @@ int check_ndi_float_vec_n_func_mgn()
    for ( n = 0; n < (num_keys - 1); n++) {
       /* Pn order = 0 */
       printf("%s (0): \n", flt_vec_n_str[n] );
-      num_elements = NDI2_get_size_n( inkey[n], 0, &tmp_err );
+      num_elements = ndi2_get_size_n( inkey[n], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
 	  num_elements = MAX_ARRAY_SIZE;
 	}
       }
-      tmp_err = NDI2_get_float64_vec_n( inkey[n], 0, ret_flt64, MAX_ARRAY_SIZE );
+      tmp_err = ndi2_get_float64_vec_n( inkey[n], 0, ret_flt64, MAX_ARRAY_SIZE );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n]);
 	 print_float64_vec( ret_flt64, num_elements );
@@ -405,14 +405,14 @@ int check_ndi_float_vec_n_func_mgn()
  
       /* Pn order = 99 */
       printf("%s (99): \n", flt_vec_n_str[n] );
-      num_elements = NDI2_get_size_n( inkey[n], 99, &tmp_err );
+      num_elements = ndi2_get_size_n( inkey[n], 99, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
 	  num_elements = MAX_ARRAY_SIZE;
 	}
       }
-      tmp_err = NDI2_get_float64_vec_n( inkey[n], 99, ret_flt64, MAX_ARRAY_SIZE );
+      tmp_err = ndi2_get_float64_vec_n( inkey[n], 99, ret_flt64, MAX_ARRAY_SIZE );
       if (tmp_err) {
 	 printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[n] );
 	 print_float64_vec( ret_flt64, num_elements );
@@ -423,7 +423,7 @@ int check_ndi_float_vec_n_func_mgn()
    
    /* Handle data which requires an MT value as input */
    /* MT = 2 */
-   num_elements = NDI2_get_size_n( inkey[num_keys-1], 0, &tmp_err );
+   num_elements = ndi2_get_size_n( inkey[num_keys-1], 0, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
@@ -431,7 +431,7 @@ int check_ndi_float_vec_n_func_mgn()
 	}
       }
    printf("%s (MT=2): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = NDI2_get_float64_vec_n( inkey[num_keys-1], 2, ret_flt64, MAX_ARRAY_SIZE );
+   tmp_err = ndi2_get_float64_vec_n( inkey[num_keys-1], 2, ret_flt64, MAX_ARRAY_SIZE );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );
@@ -440,7 +440,7 @@ int check_ndi_float_vec_n_func_mgn()
    }
 
    /* MT = 999 */
-   num_elements = NDI2_get_size_n( inkey[num_keys-1], 999, &tmp_err );
+   num_elements = ndi2_get_size_n( inkey[num_keys-1], 999, &tmp_err );
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	if ( num_elements > MAX_ARRAY_SIZE ) {
@@ -448,7 +448,7 @@ int check_ndi_float_vec_n_func_mgn()
 	}
       }
    printf("%s (MT=999): \n", flt_vec_n_str[num_keys-1] );
-   tmp_err = NDI2_get_float64_vec_n( inkey[num_keys-1], 999, ret_flt64, MAX_ARRAY_SIZE );
+   tmp_err = ndi2_get_float64_vec_n( inkey[num_keys-1], 999, ret_flt64, MAX_ARRAY_SIZE );
    if (tmp_err) {
       printf("  **Error %d in %s--returned value is:\n", tmp_err, flt_vec_n_str[num_keys-1] );
       print_float64_vec( ret_flt64, num_elements );

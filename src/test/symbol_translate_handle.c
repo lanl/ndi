@@ -52,27 +52,27 @@ int main ()
     printf("    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID\n " );
     printf(" ********************************************************** \n\n" );
 
-    ierr = NDI2_init(&handle);
+    ierr = ndi2_open(&handle, "");
     if (ierr)
 	printf("  **Error %d in NDI init.\n\n", ierr );
 
     /*  For all ZAIDs */
     printf( "Interpret izaid before setting lib type.\n");
     for ( i = 0; i < num_izaid; i++ ) {
-	ierr = NDI2_get_string_val_n(handle, NDI_ZAID, izaid[i], zaid_str, ZAID_STR_SIZE );
+	ierr = ndi2_get_string_val_n(handle, NDI_ZAID, izaid[i], zaid_str, ZAID_STR_SIZE );
 	if ( ierr != 0 ) 
 	    printf("  ****ERROR = %d\n", ierr );
 	printf ( "  izaid = %d;  SZA = %s\n", izaid[i], zaid_str );
     }
 
-    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
     if (ierr)
 	printf("  **Error %d setting lib type.\n\n", ierr );
 
     /*  For all ZAIDs */
     printf( "\nInterpret izaid after setting lib type.\n");
     for ( i = 0; i < num_izaid; i++ ) {
-	ierr = NDI2_get_string_val_n(handle, NDI_ZAID, izaid[i], zaid_str, ZAID_STR_SIZE );
+	ierr = ndi2_get_string_val_n(handle, NDI_ZAID, izaid[i], zaid_str, ZAID_STR_SIZE );
 	if ( ierr != 0 ) 
 	    printf("  ****ERROR = %d\n", ierr );
 	printf ( "  izaid = %d;  SZA = %s\n", izaid[i], zaid_str );
@@ -82,18 +82,18 @@ int main ()
     printf( "\nCheck translation of symbols in set_isotope.\n");
     for ( i = 0; i < num_zaid; i++ ) {
 	printf("ISOTOPE=>%s<\n", zaid_list[i] );
-	ierr = NDI2_set_isotope(handle, zaid_list[i]);
+	ierr = ndi2_set_isotope(handle, zaid_list[i]);
 	if (ierr) {
 	    printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
 	} else {
-	    ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid_str, ZAID_STR_SIZE );
+	    ierr = ndi2_get_string_val(handle, NDI_ZAID, zaid_str, ZAID_STR_SIZE );
 	    if ( ierr != 0 ) 
 		printf("  ****ERROR = %d\n", ierr );
 	    printf( "  Zaid = >%s<\n", zaid_str );
 	}
     }
 
-    ierr = NDI2_close(handle);
+    ierr = ndi2_close(handle);
 
     return(ierr);
 }

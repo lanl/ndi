@@ -52,24 +52,24 @@ int test_depl(void)
    printf(" ********************************************************** \n" );
    printf("    TEST OF PRODUCTION/DEPLETION FUNCTIONALITY.\n");
    printf(" ********************************************************** \n\n" );
-   ierr = NDI2_init(&handle);
+   ierr = ndi2_open(&handle, "");
    if ( ierr != 0 ) {
       return(0);
    }
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
-   ierr = NDI2_set_option(handle, NDI_LIBRARY, "mendf6" );
+   ierr = ndi2_set_option(handle, NDI_LIBRARY, "mendf6" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
-   ierr = NDI2_set_option(handle, NDI_DEPLETION, "test2" );
+   ierr = ndi2_set_option(handle, NDI_DEPLETION, "test2" );
    if ( ierr != 0 ) printf("    Error setting depletion is %d.\n", ierr );
-   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "30_group" );
+   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "30_group" );
    if ( ierr != 0 ) printf("    Error setting collapse groups is %d.\n", ierr );
    printf("\n");
 
    /* Depletion ZAID */
-   str_size = NDI2_get_size(handle, NDI_DEPL_ZAID, &ierr );
+   str_size = ndi2_get_size(handle, NDI_DEPL_ZAID, &ierr );
    zaid = (char *)malloc(str_size * sizeof(char) );
-   ierr = NDI2_get_string_val(handle, NDI_DEPL_ZAID, zaid, str_size );
+   ierr = ndi2_get_string_val(handle, NDI_DEPL_ZAID, zaid, str_size );
    printf("Depl zaid:\n   %s\n", zaid);
    if ( ierr != 0 ) {
      printf("  Error getting depl zaid = %d.\n", ierr );
@@ -78,9 +78,9 @@ int test_depl(void)
      free(zaid);
 
    /* Depletion info */
-   str_size = NDI2_get_size(handle, NDI_DEPL_INFO, &ierr );
+   str_size = ndi2_get_size(handle, NDI_DEPL_INFO, &ierr );
    depl_info = (char *)malloc(str_size * sizeof(char) );
-   ierr = NDI2_get_string_val(handle, NDI_DEPL_INFO, depl_info, str_size );
+   ierr = ndi2_get_string_val(handle, NDI_DEPL_INFO, depl_info, str_size );
    printf("Depl info:\n   %s\n", depl_info );
    if ( ierr != 0 ) {
      printf("  Error getting depl info = %d.\n", ierr );
@@ -89,7 +89,7 @@ int test_depl(void)
      free(depl_info);
 
    /* Number of targets */
-   ierr = NDI2_get_int_val(handle, NDI_NUM_TARGET, &num_target );
+   ierr = ndi2_get_int_val(handle, NDI_NUM_TARGET, &num_target );
    printf("No. of targets:\n   %d\n", num_target );
    if ( ierr != 0 ) {
      printf("  Error getting number of targets = %d.\n", ierr );
@@ -98,22 +98,22 @@ int test_depl(void)
 
    /* Target zaids */
    for ( j = 0; j < num_target; j++ ) {
-     str_size = NDI2_get_size_n(handle, NDI_TARGET, j, &ierr );
+     str_size = ndi2_get_size_n(handle, NDI_TARGET, j, &ierr );
      curr_zaid = (char *)malloc( str_size * sizeof(char) );
-     ierr = NDI2_get_string_val_n(handle, NDI_TARGET, j, curr_zaid, str_size );
+     ierr = ndi2_get_string_val_n(handle, NDI_TARGET, j, curr_zaid, str_size );
      printf( "\n\n***********************\nCURRENT TARGET:  %s\n", curr_zaid );
      if ( ierr != 0 ) {
        printf("  Error getting current target = %d.\n", ierr );
      }     
-     ierr = NDI2_set_isotope(handle, curr_zaid );
+     ierr = ndi2_set_isotope(handle, curr_zaid );
      if ( ierr != 0 ) printf("    Error setting isotope %s is %d.\n", curr_zaid, ierr );
      if (curr_zaid )
        free(curr_zaid);
 
      /* Total depletion cross section for current target */
-     arr_size = NDI2_get_size(handle, NDI_TOT_DEPL_XS, &ierr );
+     arr_size = ndi2_get_size(handle, NDI_TOT_DEPL_XS, &ierr );
      sig_tot = (ndi_float64 *)malloc(arr_size * sizeof(ndi_float64) );
-     ierr = NDI2_get_float64_vec(handle, NDI_TOT_DEPL_XS, sig_tot, arr_size ); 
+     ierr = ndi2_get_float64_vec(handle, NDI_TOT_DEPL_XS, sig_tot, arr_size ); 
      printf("Total depl cross section:\n");
      print_float64_array( sig_tot, arr_size );
      if ( ierr != 0 ) {
@@ -124,10 +124,10 @@ int test_depl(void)
  
 
      /* Number of rprods for current target */
-     str_size = NDI2_get_size(handle, NDI_ZAID, &ierr );
+     str_size = ndi2_get_size(handle, NDI_ZAID, &ierr );
      mg_zaid = (char *)malloc(str_size * sizeof(char) );
-     ierr = NDI2_get_string_val(handle, NDI_ZAID, mg_zaid, str_size );
-     ierr = NDI2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
+     ierr = ndi2_get_string_val(handle, NDI_ZAID, mg_zaid, str_size );
+     ierr = ndi2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
      printf("   No. of rprods available for target %s:   %d\n", mg_zaid, num_rprods );
      if ( ierr != 0 ) {
        printf("  Error getting number of rprods = %d.\n", ierr );
@@ -136,9 +136,9 @@ int test_depl(void)
      /* Rprod zaid */
      printf("   Rprods available in current depletion set for target %s:\n", mg_zaid );
      for ( i = 0; i < num_rprods; i++ ) {
-       str_size = NDI2_get_size_n(handle, NDI_RPRODS_ID, i, &ierr );
+       str_size = ndi2_get_size_n(handle, NDI_RPRODS_ID, i, &ierr );
        rprod = (char *)malloc(str_size * sizeof(char) );
-       ierr = NDI2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod, str_size );
+       ierr = ndi2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod, str_size );
        printf( "     %s\n", rprod );
        if (rprod)
 	 free(rprod);
@@ -154,23 +154,23 @@ int test_depl(void)
      for ( i = 0; i < num_rprods; i++ ) {
 
        /* Production Q value */
-       ierr = NDI2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
+       ierr = ndi2_get_int_val_n(handle, NDI_RPRODS_ID, i, &irprod );
        printf("     %d:  ", irprod );
 
-       ierr = NDI2_get_float64_val_n(handle, NDI_TOT_PROD_Q, irprod, &prod_q );
+       ierr = ndi2_get_float64_val_n(handle, NDI_TOT_PROD_Q, irprod, &prod_q );
        printf("(Q = %e)\n", prod_q );
        if ( ierr != 0 ) {
 	 printf("  Error getting production Q value = %d.\n", ierr );
        }
 
        /* Production cross section (1) */
-       str_size = NDI2_get_size_n(handle, NDI_RPRODS_ID, i, &ierr );
+       str_size = ndi2_get_size_n(handle, NDI_RPRODS_ID, i, &ierr );
        rprod = (char *)malloc(str_size * sizeof(char) );
-       ierr = NDI2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod, str_size );
+       ierr = ndi2_get_string_val_n(handle, NDI_RPRODS_ID, i, rprod, str_size );
 
-       arr_size = NDI2_get_size_x(handle, NDI_TOT_PROD_XS, rprod, &ierr );
+       arr_size = ndi2_get_size_x(handle, NDI_TOT_PROD_XS, rprod, &ierr );
        sig_tot = (ndi_float64 *)malloc(arr_size * sizeof(ndi_float64) );
-       ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod, sig_tot, arr_size ); 
+       ierr = ndi2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod, sig_tot, arr_size ); 
        if (rprod)
 	 free(rprod);
        print_float64_array( sig_tot, arr_size );
@@ -182,9 +182,9 @@ int test_depl(void)
 
  
        /* Production cross section (2) */
-       arr_size = NDI2_get_size_n(handle, NDI_TOT_PROD_XS, irprod, &ierr );
+       arr_size = ndi2_get_size_n(handle, NDI_TOT_PROD_XS, irprod, &ierr );
        sig_tot = (ndi_float64 *)malloc(arr_size * sizeof(ndi_float64) );
-       ierr = NDI2_get_float64_vec_n(handle, NDI_TOT_PROD_XS, irprod, sig_tot, arr_size ); 
+       ierr = ndi2_get_float64_vec_n(handle, NDI_TOT_PROD_XS, irprod, sig_tot, arr_size ); 
        printf("\n");
        print_float64_array( sig_tot, arr_size );
        if ( ierr != 0 ) {
@@ -213,7 +213,7 @@ int test_depl(void)
 
      }
    }
-   ierr = NDI2_close(handle);
+   ierr = ndi2_close(handle);
    return(0);
 }
 

@@ -25,37 +25,37 @@ int main ()
    ndi_float64 *flt64_vec = NULL;
 
    /*  Initialize particle 0 */
-   ierr = NDI2_init(&handle[0]);
+   ierr = ndi2_open(&handle[0], "");
    if (ierr)
      printf("  **Error %d in NDI init 0.\n\n", ierr );
 
-   ierr = NDI2_set_option(handle[0], NDI_LIB_TYPE, "multigroup_neutron");
-   ierr = NDI2_set_option(handle[0], NDI_LIBRARY, "specmg");
-   ierr = NDI2_set_option(handle[0], NDI_COLLAPSE, "2_lanl");
+   ierr = ndi2_set_option(handle[0], NDI_LIB_TYPE, "multigroup_neutron");
+   ierr = ndi2_set_option(handle[0], NDI_LIBRARY, "specmg");
+   ierr = ndi2_set_option(handle[0], NDI_COLLAPSE, "2_lanl");
 
-   ierr = NDI2_set_isotope(handle[0], "U235");
+   ierr = ndi2_set_isotope(handle[0], "U235");
 
    /*  Initialize particle 1 */
-   ierr = NDI2_init(&handle[1]);
+   ierr = ndi2_open(&handle[1], "");
    if (ierr)
      printf("  **Error %d in NDI init 1.\n\n", ierr );
 
-   ierr = NDI2_set_option(handle[1], NDI_LIB_TYPE, "multigroup_photon");
-   ierr = NDI2_set_option(handle[1], NDI_LIBRARY, "photmg");
-   ierr = NDI2_set_float64_vec_option(handle[1], NDI_COLLAPSE, pbounds, pgrps + 1);
-   ierr = NDI2_set_isotope(handle[1], "92000");
+   ierr = ndi2_set_option(handle[1], NDI_LIB_TYPE, "multigroup_photon");
+   ierr = ndi2_set_option(handle[1], NDI_LIBRARY, "photmg");
+   ierr = ndi2_set_float64_vec_option(handle[1], NDI_COLLAPSE, pbounds, pgrps + 1);
+   ierr = ndi2_set_isotope(handle[1], "92000");
 
    /*  Initialize particle 2 */
 /*
-   ierr = NDI2_init(&handle[2]);
+   ierr = ndi2_open(&handle[2], "");
    if (ierr)
      printf("  **Error %d in NDI init 2.\n\n", ierr );
 
-   ierr = NDI2_set_option(handle[2], NDI_LIB_TYPE, "multigroup_neutron");
-   ierr = NDI2_set_option(handle[2], NDI_LIBRARY, "mendf5");
-   ierr = NDI2_set_option(handle[2], NDI_COLLAPSE, "2_lanl");
+   ierr = ndi2_set_option(handle[2], NDI_LIB_TYPE, "multigroup_neutron");
+   ierr = ndi2_set_option(handle[2], NDI_LIBRARY, "mendf5");
+   ierr = ndi2_set_option(handle[2], NDI_COLLAPSE, "2_lanl");
 
-   ierr = NDI2_set_isotope(handle[2], "U238");
+   ierr = ndi2_set_isotope(handle[2], "U238");
 */
 
    ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS, &return_int);
@@ -152,14 +152,14 @@ int main ()
    
 
    /* CLOSE */
-   ierr = NDI2_close(handle[0]);
+   ierr = ndi2_close(handle[0]);
    if (ierr)
      printf("  **Error %d in closing NDI 0.\n\n", ierr );
-   ierr = NDI2_close(handle[1]);
+   ierr = ndi2_close(handle[1]);
    if (ierr)
      printf("  **Error %d in closing NDI 1.\n\n", ierr );
 /*
-   ierr = NDI2_close(handle[2]);
+   ierr = ndi2_close(handle[2]);
    if (ierr)
      printf("  **Error %d in closing NDI 2.\n\n", ierr );
 */

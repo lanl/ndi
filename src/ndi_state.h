@@ -21,7 +21,6 @@ extern "C" {
  */
 
 #define TN_DATASET(i)       ((char *) ( (state->tn_list_reac) + (i) *  MAX_TN_REAC_LEN ))
-#define MAX_HANDLE_NUM  10
 
 /**********************************************************************/
 

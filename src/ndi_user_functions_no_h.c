@@ -13,7 +13,7 @@ int ndi_c_init(void)
     if (default_h) {
         /* ndi_close_h(&default_h); */
     }
-    return  ndi_c_init_h(&default_h);
+    return  ndi_c_init_h(&default_h, "");
 }
 
 /**********************************************************************/

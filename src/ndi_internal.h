@@ -20,8 +20,12 @@
 /* Defines
  */
 
+
+#define MAX_HANDLE_NUM         10
+
 #define M_NEUT_KG       1.67492716e-27
 #define J_TO_MEV        1.602177e-13
+
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
@@ -262,6 +266,7 @@ typedef struct _state_struct {
     short ndi_initialized;  /*  ndi_init called: 0=false, 1=true*/
     int handle;
     FILE *ndi_dir;              /*  Gendir (directory) file */
+    char *open_gendir_file;	/*  Current gendir file name */
     FILE *lib_stream;           /*  Current library file */
     char *ndi_gendir_path;      /*  Path for current (open) gendir file */
     char *open_lib_file;        /*  Path for current (open) library file */
@@ -325,6 +330,8 @@ typedef struct _state_struct {
     int chain_filled;                /* Number of depletion targets whose data has been read */
 
     depl_target_struct *depl_target; 
+
+    struct _state_struct *handle_map[MAX_HANDLE_NUM];
 } state_struct;
 
 /**********************************************************************/
@@ -338,7 +345,8 @@ extern "C" {
 #endif
 
      /* Handle function prototypes */
-    int ndi_c_init_h(state_struct **curr_state);
+    int ndi_c_init_h(state_struct **curr_state, const char *path);
+    int ndi_c_clone_h(state_struct **parent, state_struct **child);
     int ndi_c_close_h(state_struct **curr_state);
 int ndi_c_set_zaid_h ( state_struct *state, const char *in_zaid);
 int ndi_c_set_isotope_h ( state_struct *state, const char *in_zaid);
@@ -386,7 +394,7 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
 		    int reaction_flag );
    int ndi_close_lib_file(state_struct *state);
    FILE *ndi_open_lib_file(state_struct *state, const char *path);
-   int ndi_open_gendir(FILE **ndi_dir, state_struct *state );
+   int ndi_open_gendir(FILE **ndi_dir, char *path);
    int  ndi_init_iso_state(state_struct *state, FILE *stream,  char lib_type,  long int iso_start, 
 			   const char *zaid );
    int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size);

@@ -31,43 +31,43 @@ int main ()
    float64 avg_part_E;
    float64 local_E_dep = 0;
 
-   ierr = NDI2_init(&handle);
+   ierr = ndi2_open(&handle, "");
    if ( ierr != 0 ) {
       return(0);
    }
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
 
-   ierr = NDI2_set_option(handle, NDI_LIBRARY, "hale98" );
+   ierr = ndi2_set_option(handle, NDI_LIBRARY, "hale98" );
 
    /* Set energy bins--for energy distribution--to 30 groups */
-   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "30_group" );
+   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "30_group" );
    num_grps = 30;
 
 
    /* Set temperature (in MeV).
       Energy distribution data will be data for the closest temperature available */
       /*  Note weirdness of temperature being passed in as a string */
-      ierr = NDI2_set_option(handle, NDI_TEMP, "2.0e-4" );
+      ierr = ndi2_set_option(handle, NDI_TEMP, "2.0e-4" );
       if ( ierr != 0 ) printf("  Error setting temperature is %d.\n\n", ierr );
 
 
    /* Get info for reaction d+t->n+a */
-   ierr = NDI2_set_isotope(handle, "d+t->n+a" );
+   ierr = ndi2_set_isotope(handle, "d+t->n+a" );
    if ( ierr != 0 ) printf("  Error setting reaction d+t->n+a is %d.\n", ierr );
    
  
    /* Again the next pieces of data may not be very useful to user codes,
       but is available and demonstrated here.  */
-   ierr = NDI2_get_float64_val( handle, NDI_REAC_Q, &q_value );
+   ierr = ndi2_get_float64_val( handle, NDI_REAC_Q, &q_value );
    printf("  Q-value=%lf; err=%d\n", q_value, ierr );
 
    /* Reactant inventory update */
-   ierr = NDI2_get_int_val(handle, NDI_NUM_REACTANTS, &num_reactants );
+   ierr = ndi2_get_int_val(handle, NDI_NUM_REACTANTS, &num_reactants );
    printf("  Num reactants=%d; err=%d\n", num_reactants, ierr );
-   ierr = NDI2_get_int_vec(handle, NDI_REACTANTS_ID, reac_id, 10 );
+   ierr = ndi2_get_int_vec(handle, NDI_REACTANTS_ID, reac_id, 10 );
    if ( ierr != 0 ) printf("  Error getting id's is %d.\n", ierr );
-   ierr = NDI2_get_int_vec(handle, NDI_REACTANTS_MLT, reac_mlt, 10 );
+   ierr = ndi2_get_int_vec(handle, NDI_REACTANTS_MLT, reac_mlt, 10 );
    if ( ierr != 0 ) printf("  Error getting multiplicities is %d.\n", ierr );
    for ( j = 0; j < num_reactants; j++ ) {
      num_parts = reaction_rate * reac_mlt[j];
@@ -83,9 +83,9 @@ int main ()
 /*    ierr = ndi_get_int_val( NDI_NUM_SEC_PARTS, &num_sec_parts ); */
 /*    printf("Num secondary particles = %d; err = %d\n", num_sec_parts, ierr ); */
 
-   ierr = NDI2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
-   ierr = NDI2_get_int_vec(handle, NDI_RPRODS_ID, rprod_id, 20 );
-   ierr = NDI2_get_int_vec(handle, NDI_RPRODS_MLT, multiplicity_vec, 20 );
+   ierr = ndi2_get_int_val(handle, NDI_NUM_RPRODS, &num_rprods );
+   ierr = ndi2_get_int_vec(handle, NDI_RPRODS_ID, rprod_id, 20 );
+   ierr = ndi2_get_int_vec(handle, NDI_RPRODS_MLT, multiplicity_vec, 20 );
    if ( ierr != 0 ) {};
 
    for ( j = 0; j < num_rprods; j++ ) {
@@ -94,10 +94,10 @@ int main ()
      sprintf(part_type_str, "%d", part_type);
      part_multiplicity = multiplicity_vec[j];     
      printf("Particle %d is a %d.  (err=%d)\n", j, part_type, ierr );
-     NDI2_set_option( handle, NDI_CURR_PART, part_type_str );
+     ndi2_set_option( handle, NDI_CURR_PART, part_type_str );
      if ( particle_is_transportable(part_type) ) {
        /* Collect energy distribution for to send to transport package */
-       ierr = NDI2_get_float64_vec(handle, NDI_EDIST, edist, 200 );
+       ierr = ndi2_get_float64_vec(handle, NDI_EDIST, edist, 200 );
        if ( ierr != 0 ) {
 	 printf( "   edist err for particle %s = %d.\n", part_type_str, ierr );
 	 continue;
@@ -105,7 +105,7 @@ int main ()
        ierr = construct_source_for_transport( edist, reaction_rate, part_multiplicity, num_grps );
      } else {
        /* Deposit particle energy locally */
-       ierr = NDI2_get_float64_val(handle, NDI_EOUTBAR, &avg_part_E );
+       ierr = ndi2_get_float64_val(handle, NDI_EOUTBAR, &avg_part_E );
        if ( ierr != 0 ) printf( "   ebarout err for particle %d = %d.\n", part_type, ierr );
        num_parts = reaction_rate * part_multiplicity;
        local_E_dep += num_parts * avg_part_E;
@@ -115,7 +115,7 @@ int main ()
      }
    }
  
-   ierr = NDI2_close(handle);
+   ierr = ndi2_close(handle);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
    return(ierr);
 }

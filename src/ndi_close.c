@@ -28,6 +28,7 @@ int ndi_c_close_h(state_struct **curr_state)
 ***********************************************************************/
    
 {
+    int i;
    int ierr = 0;        /* Error flag: 0=no error,pos=warning, neg=error */
    int ret_code = 0;    /* Return code--returned error value */
    state_struct *state;
@@ -46,6 +47,10 @@ int ndi_c_close_h(state_struct **curr_state)
       return(-2);
    }
    
+   for(i = 0; i < MAX_HANDLE_NUM; i++)
+       if (state->handle_map[i] != NULL)
+	   ndi_c_close_h(&(state->handle_map[i])); /* err check? */
+
    /* Close directory file and library file */
    if ( state->ndi_gendir_path ) { ndi_free( (void**)&state->ndi_gendir_path); }
    if ( fclose(state->ndi_dir) != 0 ) {
@@ -53,6 +58,8 @@ int ndi_c_close_h(state_struct **curr_state)
    } else {
      state->ndi_dir = NULL;
    }
+   if (state->open_gendir_file) ndi_free((void**)&state->open_gendir_file);
+
    ierr = ndi_close_lib_file(state);
    if ( state->open_lib_file ) { ndi_free( (void**)&state->open_lib_file); }
    if ( ierr < 0 ) {

@@ -75,10 +75,14 @@ static struct ndi_bin_tree_node *BUILD_FLOAT_TREE( int in_key, const char *in_va
    FLOAT_TYPE curr_flt;
    struct ndi_bin_tree_node *root = NULL;
    struct ndi_bin_tree_node *curr_node;
+   char path[250];
 
 
    /* Open gendir */
-   ierr = ndi_open_gendir(&ndi_dir, NULL); 
+
+   strcpy(path, "");
+   ierr = ndi_open_gendir(&ndi_dir, path); 
+
    if ( ierr < 0 ) {
       return(NULL);
    }

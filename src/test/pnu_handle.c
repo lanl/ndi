@@ -47,30 +47,30 @@ int main ()
     ndi_float64 *sp = NULL;
 
     /*  Initialize */
-    ierr = NDI2_init(&handle);
+    ierr = ndi2_open(&handle, "");
     if (ierr)
 	printf("\n  **Error %d in NDI init.\n", ierr );
 
-    ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
+    ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "multigroup_neutron" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIB_TYPE\n", ierr);
-    ierr = NDI2_set_option(handle, NDI_LIBRARY, "chi_test_lib" );
+    ierr = ndi2_set_option(handle, NDI_LIBRARY, "chi_test_lib" );
     if (ierr)
 	printf( "\n  **Error %d NDI_LIBRARY\n", ierr);
 
     for ( i = 0; i < num_zaids; i++ ) 
     {
-	ierr = NDI2_set_isotope(handle, zaid_list[i]); /* Set isotope */
+	ierr = ndi2_set_isotope(handle, zaid_list[i]); /* Set isotope */
 	if (ierr) 
 	    printf("\n  **Error %d in setting isotope %s.\n", 
 		   ierr, zaid_list[i] );
 
-	str_size = NDI2_get_size (handle, NDI_INFO, &ierr );
+	str_size = ndi2_get_size (handle, NDI_INFO, &ierr );
 	if (ierr) 
 	    printf("\n  **Error %d info string size.\n", ierr );
 
 	info_str = (char *)malloc( str_size * sizeof(char) );
-	ierr = NDI2_get_string_val(handle, NDI_INFO, info_str, str_size );
+	ierr = ndi2_get_string_val(handle, NDI_INFO, info_str, str_size );
 	if (ierr)
 	    printf("  Error %d getting information for isotope %s.\n", 
 		   ierr, zaid_list[i] );
@@ -84,25 +84,25 @@ int main ()
      
 	if ( info_str ) free( info_str );
 
-	ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 25 );
+	ierr = ndi2_get_string_val(handle, NDI_ZAID, zaid, 25 );
 	printf("\nZaid = %s\n\n", zaid );
      
-	ierr = NDI2_get_int_val(handle, NDI_NUM_PNU_PR, &num_pnu);
+	ierr = ndi2_get_int_val(handle, NDI_NUM_PNU_PR, &num_pnu);
 	if (ierr)
 	    printf("\n  **Error %d getting NUM_PNU_PR.\n", ierr);
 
-	num_grps = NDI2_get_size(handle, NDI_NU_PR, &ierr);
+	num_grps = ndi2_get_size(handle, NDI_NU_PR, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_PR size.\n", ierr);
 
 	nu = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	    
-	num_grps = NDI2_get_size_n(handle, NDI_PNU_PR, 0, &ierr);
+	num_grps = ndi2_get_size_n(handle, NDI_PNU_PR, 0, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_PNU_PR size.\n", ierr);
 
 	p = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
-	ierr += NDI2_get_float64_vec(handle, NDI_NU_PR, nu, num_grps);
+	ierr += ndi2_get_float64_vec(handle, NDI_NU_PR, nu, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_PR.\n", ierr);
 
@@ -117,7 +117,7 @@ int main ()
 
 	for (j = 0; j < num_pnu; j++)
 	{
-	    ierr = NDI2_get_float64_vec_n(handle, NDI_PNU_PR, j, p, num_grps);
+	    ierr = ndi2_get_float64_vec_n(handle, NDI_PNU_PR, j, p, num_grps);
 	    if (ierr)
 		printf("\n  **Error %d NDI_PNU_PR.\n", ierr);
 	    for (k = 0; k < num_grps; k++)
@@ -130,18 +130,18 @@ int main ()
 	print_float64_vec(norm, num_grps);
 	print_float64_vec(mean, num_grps);
 
-	num_grps = NDI2_get_size_n(handle, NDI_SIG_PNU_PR, 0, &ierr);
+	num_grps = ndi2_get_size_n(handle, NDI_SIG_PNU_PR, 0, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
 
 	sf = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	sp = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
 	
-	ierr += NDI2_get_float64_vec(handle, NDI_NU_SIG_F_PR, sf, num_grps);
+	ierr += ndi2_get_float64_vec(handle, NDI_NU_SIG_F_PR, sf, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_NU_SIG_F_PR.\n", ierr);
 
-	ierr += NDI2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 0, sp, num_grps);
+	ierr += ndi2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 0, sp, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
 
@@ -149,11 +149,11 @@ int main ()
 	    sp[k] -= sf[k] / nu[k];
 	print_float64_vec(sp, num_grps);
 
-	num_grps = NDI2_get_size_n(handle, NDI_SIG_PNU_PR, 1, &ierr);
+	num_grps = ndi2_get_size_n(handle, NDI_SIG_PNU_PR, 1, &ierr);
 	if (ierr)
 	    printf("\n  **Error %d NDI_SIG_PNU_PR size.\n", ierr);
 
-	ierr += NDI2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 1, sp, num_grps);
+	ierr += ndi2_get_float64_vec_n(handle, NDI_SIG_PNU_PR, 1, sp, num_grps);
 	if (ierr)
 	    printf("\n  **Error %d NDI_SIG_PNU_PR.\n", ierr);
 
@@ -171,7 +171,7 @@ int main ()
 
    }  /* for i */
 
-    ierr = NDI2_close(handle);
+    ierr = ndi2_close(handle);
     if (ierr)
 	printf("  **Error %d in closing NDI.\n\n", ierr );
 

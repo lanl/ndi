@@ -1,3 +1,22 @@
+2004-02-05  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_user_functions_handles.c (ndi2_get_isotope): added get routine
+	(ndi2_get_zaid): added get routine
+
+	* ndi_init.c (ndi_c_clone_h): add first cut clone routine
+
+	* ndi_close.c (ndi_c_close_h): close non-null handle_array elements
+
+	* ndi_init.c (ndi_c_init_h): initialize handle_array to NULL
+
+2004-02-04  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_handle.c: add handle array to state structure
+
+	* ndi_user_functions_handles.c: changed NDI2_ to ndi2_ throughout
+	added path to ndi2_open throughout
+	made path active for ndi2_open call
+
 2003-09-30  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_get_float_vec_n.c (GET_SIG_PNU): fixed index error

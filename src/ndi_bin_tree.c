@@ -33,10 +33,14 @@ struct ndi_bin_tree_node *ndi_build_tree( int in_key, const char *in_value )
    char *str_of_interest;
    struct ndi_bin_tree_node *root = NULL;
    struct ndi_bin_tree_node *curr_node;
+   char path[250];
 
 
    /* Open gendir */
-   ierr = ndi_open_gendir(&ndi_dir, NULL); 
+
+   strcpy(path, "");
+   ierr = ndi_open_gendir(&ndi_dir, path); 
+
    if ( ierr < 0 ) {
       return(NULL);
    }

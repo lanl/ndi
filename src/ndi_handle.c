@@ -9,14 +9,15 @@ state_struct *handle_to_state_p(int handle) {
 
      state_struct *state_p = NULL;
 
-     if ( (handle < MAX_HANDLE_NUM) &&
-          (handle >= 0 ) )
-     {
+     if (0 <= handle  && handle < MAX_HANDLE_NUM) {
           state_p = handle_map[handle];
+     } else if (MAX_HANDLE_NUM <= handle && 
+		handle < (MAX_HANDLE_NUM * MAX_HANDLE_NUM)) {
+	 state_p = handle_map[handle / MAX_HANDLE_NUM - 1]->
+	     handle_map[handle % MAX_HANDLE_NUM];
      }
 
      return(state_p);
-
 }
 
 int set_handle(state_struct *state) {

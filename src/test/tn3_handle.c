@@ -35,7 +35,7 @@ int testtn3(void)
    float64 n_edist[200];
    float64 q;
 
-   ierr = NDI2_init(&handle);
+   ierr = ndi2_open(&handle, "");
    if ( ierr != 0 ) {
       return(0);
    }
@@ -47,19 +47,19 @@ int testtn3(void)
    /* TN REACTION DATA */
 
    /* Set NDI TN reaction set */
-   NDI2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
+   ndi2_set_option(handle, NDI_LIB_TYPE, "tnreactions" );
    if ( ierr != 0 ) printf("    Error setting lib_type is %d.\n", ierr );
-   ierr = NDI2_set_isotope(handle, "h_list.001ztr" );
+   ierr = ndi2_set_isotope(handle, "h_list.001ztr" );
    if ( ierr != 0 ) printf("    Error setting zaid is %d.\n", ierr );
 
    /* Getting the zaid would only by of much interest if the ZAID were
       defaulted by the NDI in some way.  In this case, it's just here
       to demonstrate how it works */
-   ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 24);    
+   ierr = ndi2_get_string_val(handle, NDI_ZAID, zaid, 24);    
    if ( ierr != 0 ) printf("    Error = %d getting zaid %s.\n", ierr, zaid );
 
    /* Comment from library regarding this TN reaction set */
-   ierr = NDI2_get_string_val(handle, NDI_INFO, tn_info, 120);
+   ierr = ndi2_get_string_val(handle, NDI_INFO, tn_info, 120);
    if ( ierr != 0 ) printf("%s    Info err = %d.\n", tn_info, ierr );
 
 
@@ -67,10 +67,10 @@ int testtn3(void)
    /*  Determine the number of reactions in this set then
        loop over each reaction */
    printf("    Error = %d getting zaid %s.\n", ierr, zaid );
-   ierr = NDI2_get_int_val(handle, NDI_NUM_REAC, &num_reac );
+   ierr = ndi2_get_int_val(handle, NDI_NUM_REAC, &num_reac );
    printf("Num reac = %d; err = %d\n", num_reac, ierr );
    for ( i = 0; i < num_reac; i++ ) {
-      ierr = NDI2_get_string_val_n(handle, NDI_LIST_REAC, i, zaidlist[i], 30 );
+      ierr = ndi2_get_string_val_n(handle, NDI_LIST_REAC, i, zaidlist[i], 30 );
       printf( "Reaction %d: %s\n", i, zaidlist[i] );
       if ( ierr != 0 ) printf( "    list reaction err = %d.\n", ierr );
  
@@ -80,23 +80,23 @@ int testtn3(void)
    /*  NEW TN DATA  */
    printf("\n*******************************\n     TN DATA\n*******************************\n\n");
 
-   ierr = NDI2_set_option(handle, NDI_LIB_TYPE, "tn" );
+   ierr = ndi2_set_option(handle, NDI_LIB_TYPE, "tn" );
    if ( ierr != 0 ) printf("  Error setting lib_type is %d.\n\n", ierr );
-   ierr = NDI2_set_option(handle, NDI_LIBRARY, "testlib_tn" );
+   ierr = ndi2_set_option(handle, NDI_LIBRARY, "testlib_tn" );
    if ( ierr != 0 ) printf("  Error setting library is %d.\n\n", ierr );
 
    /* Set energy bins--for energy distribution--to 30 groups */
-   ierr = NDI2_set_option(handle, NDI_COLLAPSE, "30_group" );
+   ierr = ndi2_set_option(handle, NDI_COLLAPSE, "30_group" );
 
 
    /* For each reaction in the reaction set that was collected above,
       get all available TN data */
    for ( i = 0; i < num_reac; i++ ) {
-      ierr = NDI2_set_isotope(handle, zaidlist[i] );
+      ierr = ndi2_set_isotope(handle, zaidlist[i] );
       if ( ierr != 0 ) printf("  Error setting isotope %s is %d.\n", zaidlist[i], ierr );
-      ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 24);
+      ierr = ndi2_get_string_val(handle, NDI_ZAID, zaid, 24);
       printf("Zaid %s (error = %d).\n", zaid, ierr );
-      ierr = NDI2_get_float64_val(handle, NDI_REAC_Q, &q_value );
+      ierr = ndi2_get_float64_val(handle, NDI_REAC_Q, &q_value );
       printf("  Q-value=%lf; err=%d\n", q_value, ierr );
      
      
@@ -105,18 +105,18 @@ int testtn3(void)
       printf("\n***\n");
 
       /* Set temperature (in MeV) */
-      ierr = NDI2_set_option(handle, NDI_TEMP, "1.0e-4" );
+      ierr = ndi2_set_option(handle, NDI_TEMP, "1.0e-4" );
       if ( ierr != 0 ) printf("  Error setting temperature is %d.\n\n", ierr );
 
-      ierr = NDI2_get_int_val(handle, NDI_NUM_SEC_PARTS, &num_sec_parts );
+      ierr = ndi2_get_int_val(handle, NDI_NUM_SEC_PARTS, &num_sec_parts );
       printf("Num secondary particles = %d; err = %d\n", num_sec_parts, ierr );
       for ( j = 0; j < num_sec_parts; j++ ) {
-	 ierr = NDI2_get_string_val_n(handle, NDI_SEC_PART_TYPES, j, part_type, 10 );
+	 ierr = ndi2_get_string_val_n(handle, NDI_SEC_PART_TYPES, j, part_type, 10 );
 	 printf("Particle %d is a %s.  (err=%d)\n", j, part_type, ierr );
-	 NDI2_set_option(handle, NDI_CURR_PART, part_type );
-	 ierr = NDI2_get_float64_val(handle, NDI_REAC_Q, &q );
+	 ndi2_set_option(handle, NDI_CURR_PART, part_type );
+	 ierr = ndi2_get_float64_val(handle, NDI_REAC_Q, &q );
 
- 	 ierr = NDI2_get_float64_vec(handle, NDI_EDIST, n_edist, 200 ); 
+ 	 ierr = ndi2_get_float64_vec(handle, NDI_EDIST, n_edist, 200 ); 
 /* 	 printf( "   edist err = %d.\n", ierr ); */
 /* 	 for ( k = 0; k <= num_grps; k++ ) { */
 /* 	   printf ("%11.6f   ", n_edist[k]); */
@@ -132,7 +132,7 @@ int testtn3(void)
    
    }
 
-   ierr = NDI2_close(handle);
+   ierr = ndi2_close(handle);
    if ( ierr != 0 ) printf("  Error closing NDI is %d.\n\n", ierr );
 
    return(0);
