@@ -24,10 +24,9 @@ extern "C" {
 
 /**********************************************************************/
 
-     extern state_struct *default_h;
+    extern state_struct *default_h;
 
 #ifdef	__cplusplus
 }
 #endif
-
-#endif	/* __NDI_STATE_H */
+#endif				/* __NDI_STATE_H */

@@ -20,8 +20,8 @@
 
 /**********************************************************************/
 
-int ndid_c_get_string_vec(int in_key, const char *in_value, char *ret_str_arr, 
-			  int arr_size)
+int ndid_c_get_string_vec(int in_key, const char *in_value,
+			  char *ret_str_arr, int arr_size)
 
 /*  Purpose: 
     
@@ -31,22 +31,21 @@ int ndid_c_get_string_vec(int in_key, const char *in_value, char *ret_str_arr,
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-
 {
 
-  int ierr = 0;
-  struct ndi_bin_tree_node *root = NULL;
-  
-  root = ndi_build_tree( in_key, in_value );
-  
-  /* Collect the strings into the return vec */
-  if (ierr >= 0 )  {
-    ierr = ndi_collect_keys( root, ret_str_arr, arr_size );
-  }
-  
-  ndi_close_tree( &root );
-  return(ierr);
-  
+    int ierr = 0;
+    struct ndi_bin_tree_node *root = NULL;
+
+    root = ndi_build_tree(in_key, in_value);
+
+    /* Collect the strings into the return vec */
+    if (ierr >= 0) {
+	ierr = ndi_collect_keys(root, ret_str_arr, arr_size);
+    }
+
+    ndi_close_tree(&root);
+    return (ierr);
+
 }
-	
+
 /***********************************************************************/

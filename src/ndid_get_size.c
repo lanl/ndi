@@ -21,34 +21,29 @@
 #include "ndi_bin_tree.h"
 
 
-/**********************************************************************/
+/*  Purpose: 
+    
+    Parameters: 
 
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+
+***********************************************************************/
 int ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
-
-/*  Purpose: 
-    
-    Parameters: 
-
-    Return values:  Returns negative value for error condition,
-    positive value for warning, and a '0' if everything's ok. 
-
-***********************************************************************/
 {
-  int ierr = 0;
-  struct ndi_bin_tree_node *root = NULL;
-  
-  /* Build a binary tree with ZAID as key */
-  root = ndi_build_tree( NDI_ZAID, in_value );
-  ierr = ndi_count_nodes( root, arr_num );
-  ndi_close_tree( &root );
-  return(ierr);
+    int ierr = 0;
+    struct ndi_bin_tree_node *root = NULL;
+
+    /* Build a binary tree with ZAID as key */
+    root = ndi_build_tree(NDI_ZAID, in_value);
+    ierr = ndi_count_nodes(root, arr_num);
+    ndi_close_tree(&root);
+    return (ierr);
 
 }
 
 /**********************************************************************/
 
-int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
-
 /*  Purpose: 
     
     Parameters: 
@@ -57,19 +52,19 @@ int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-
+int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
 {
-  int ierr = 0;
-  struct ndi_bin_tree_node *root = NULL;
-  
-  /* Build a binary tree with ZAID as key */
-  root = ndi_build_tree( NDI_ZAID, in_value );
-  ierr = ndi_count_size( root, arr_size );
-  ndi_close_tree( &root );
-  return(ierr);
+    int ierr = 0;
+    struct ndi_bin_tree_node *root = NULL;
+
+    /* Build a binary tree with ZAID as key */
+    root = ndi_build_tree(NDI_ZAID, in_value);
+    ierr = ndi_count_size(root, arr_size);
+    ndi_close_tree(&root);
+    return (ierr);
 
 }
-	    
+
 /**********************************************************************/
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/

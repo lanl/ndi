@@ -15,11 +15,12 @@
 
 #include "ndi_internal.h"
 
-static void ndi_process_extension ( char *in_str, char **ext_p );
+static void ndi_process_extension(char *in_str, char **ext_p);
 
 /**********************************************************************/
 
-int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size ) {
+int ndi_std_zaid(state_struct * state, char *in_zaid, int zaid_size)
+{
 
 /*  Purpose: To return a full or partial zaid (depending on the input
     zaid) in the standard format.
@@ -39,45 +40,46 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size ) {
 
 ***********************************************************************/
 
-  int ierr = 0;
-  int Z;
-  int A;
-  int S;
-  char *zaid_extension_p = NULL;
-  char real_zaid[MAX_IN_STR_LEN];
+    int ierr = 0;
+    int Z;
+    int A;
+    int S;
+    char *zaid_extension_p = NULL;
+    char real_zaid[MAX_IN_STR_LEN];
 
-  real_zaid[0] = '\0';
-  if (! state) {
-      return(-2);
-  }
-  ierr = ndi_parse_str_zaid(state,in_zaid, &Z, &A, &S);
+    real_zaid[0] = '\0';
+    if (!state) {
+	return (-2);
+    }
+    ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
 
-  /* Check errors */
-  if ( ( Z <= MAX_Z ) && ( Z > 0 ) ) {
-      sprintf( real_zaid, "%-d.", ( S*1000000 + Z*1000 + A) );
+    /* Check errors */
+    if ((Z <= MAX_Z) && (Z > 0)) {
+	sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000 + A));
 
-      (void)ndi_process_extension( in_zaid, &zaid_extension_p );
-      strcat( real_zaid, zaid_extension_p );
-      /* Check length */
-      strcpy( in_zaid, real_zaid );
-  } else {
-      ierr = -22;
-  }
+	(void) ndi_process_extension(in_zaid, &zaid_extension_p);
+	strcat(real_zaid, zaid_extension_p);
+	/* Check length */
+	strcpy(in_zaid, real_zaid);
+    } else {
+	ierr = -22;
+    }
 
-  return( ierr );
+    return (ierr);
 
 }
 
 /**********************************************************************/
-            /*   FUNCTIONS INTERNAL TO FILE  */
+	    /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
-static void ndi_process_extension ( char *in_str, char **ext_p ) {
-    
+static void ndi_process_extension(char *in_str, char **ext_p)
+{
+
     /* Set pointer ext_p to the beginning of the ZAID extension 
        (after the '.') or to the '\0' if there is no extension.
 
        Assuming in_str ends with string-terminating character '\0'.
-    */
+     */
 
     char *char_p = NULL;
     char *end_p = NULL;
@@ -85,9 +87,9 @@ static void ndi_process_extension ( char *in_str, char **ext_p ) {
     int i;
 
     /* Find last non-blank character and set ending pointer */
-    for ( i = (in_str_len - 1); i >= 0; i-- ) {
-	if ( ! isspace(in_str[i]) ) {
-	    end_p = &in_str[i+1];
+    for (i = (in_str_len - 1); i >= 0; i--) {
+	if (!isspace(in_str[i])) {
+	    end_p = &in_str[i + 1];
 	    break;
 	}
     }

@@ -20,13 +20,13 @@
 /**********************************************************************/
 
 #ifdef FLOAT32
-int ndi_collapse_float32( state_struct *state, const FLOAT_TYPE *old_vec, int old_grp_num, 
-			  int recip_flag,
-			  FLOAT_TYPE *return_vec, int return_size )
+int ndi_collapse_float32(state_struct * state, const FLOAT_TYPE * old_vec,
+			 int old_grp_num, int recip_flag,
+			 FLOAT_TYPE * return_vec, int return_size)
 #else
-int ndi_collapse_float64( state_struct *state, const FLOAT_TYPE *old_vec, int old_grp_num, 
-			  int recip_flag,
-			  FLOAT_TYPE *return_vec, int return_size )
+int ndi_collapse_float64(state_struct * state, const FLOAT_TYPE * old_vec,
+			 int old_grp_num, int recip_flag,
+			 FLOAT_TYPE * return_vec, int return_size)
 #endif
 /*********************************************************************
     
@@ -64,88 +64,87 @@ int ndi_collapse_float64( state_struct *state, const FLOAT_TYPE *old_vec, int ol
     it is at least of size old_grp_num.
 
 ***********************************************************************/
-
 {
-  int i, j;
-  FLOAT_TYPE wt_sum; /* Sum of weights */
-  int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-  int up_bound;
-  int low_bound;
-  
-   if (! state) {
-       return(-2);
-   }
+    int i, j;
+    FLOAT_TYPE wt_sum;		/* Sum of weights */
+    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
+    int up_bound;
+    int low_bound;
 
-  if ( state->grp_num_new <= 0 ) {
-     /* Number of groups not set  */
-     return(-21);
-  }
-
-  for ( i = 0; i < state->grp_num_new; i++ ) {
-   
-    /* Bounds check */
-    if ( i >= return_size ) {
-      ierr = 7;
-      break;
+    if (!state) {
+	return (-2);
     }
 
-    wt_sum = 0;
-    return_vec[i] = 0;
-    low_bound = state->new_ebounds[i];
-    up_bound = state->new_ebounds[i + 1];
-    if ( recip_flag == 2 ) {
-       if ( i == 0 ) { 
-	  low_bound = 0; 
-       } else if ( i == ( state->grp_num_new - 1) ) {
-	  up_bound = old_grp_num;
-       }
+    if (state->grp_num_new <= 0) {
+	/* Number of groups not set  */
+	return (-21);
     }
-    for ( j = low_bound; j < up_bound; j++ ) {
 
-       /*  Accumulate sum based on type of averaging requested */
-	switch (recip_flag) {
-	    
-	case 0:                     /* Use normal flux-weighted averaging */
-	   return_vec[i] += old_vec[j] * state->lib_weight[j];
-	   break;
-	case 1:                     /* Use reciprocal averaging */
-	    return_vec[i] += state->lib_weight[j] / old_vec[j];
- 	    break;
-	case 2:                     /* Simply sum */
-        case 3:
-	    return_vec[i] += old_vec[j];
+    for (i = 0; i < state->grp_num_new; i++) {
+
+	/* Bounds check */
+	if (i >= return_size) {
+	    ierr = 7;
 	    break;
 	}
-	
-	wt_sum += state->lib_weight[j];
+
+	wt_sum = 0;
+	return_vec[i] = 0;
+	low_bound = state->new_ebounds[i];
+	up_bound = state->new_ebounds[i + 1];
+	if (recip_flag == 2) {
+	    if (i == 0) {
+		low_bound = 0;
+	    } else if (i == (state->grp_num_new - 1)) {
+		up_bound = old_grp_num;
+	    }
+	}
+	for (j = low_bound; j < up_bound; j++) {
+
+	    /*  Accumulate sum based on type of averaging requested */
+	    switch (recip_flag) {
+
+	    case 0:		/* Use normal flux-weighted averaging */
+		return_vec[i] += old_vec[j] * state->lib_weight[j];
+		break;
+	    case 1:		/* Use reciprocal averaging */
+		return_vec[i] += state->lib_weight[j] / old_vec[j];
+		break;
+	    case 2:		/* Simply sum */
+	    case 3:
+		return_vec[i] += old_vec[j];
+		break;
+	    }
+
+	    wt_sum += state->lib_weight[j];
+	}
+
+	/* Divide by weighting factor */
+	switch (recip_flag) {
+
+	case 0:
+	    if (wt_sum > 0) {
+		return_vec[i] /= wt_sum;
+	    } else {
+		ierr = -12;
+	    }
+	    break;
+
+	case 1:
+	    if (return_vec[i] != 0) {
+		return_vec[i] = wt_sum / return_vec[i];
+	    } else {
+		return_vec[i] = 0;
+		ierr = 5;
+	    }
+	    break;
+
+	case 2:
+	case 3:
+	    break;
+	}
+
     }
 
-    /* Divide by weighting factor */
-    switch (recip_flag) {
-	
-    case 0:
-       if ( wt_sum > 0 ) {
-	  return_vec[i] /= wt_sum;
-       } else {
-	  ierr = -12;
-       }
-       break;
-	
-    case 1:
-       if ( return_vec[i] != 0 ) {
-	  return_vec[i] = wt_sum / return_vec[i];
-       } else {
-	  return_vec[i] = 0;
-	  ierr = 5;
-       }
-       break;
-	
-    case 2:
-    case 3:
-       break;
-    }
-    
-  }
-  
-  return(ierr);
+    return (ierr);
 }

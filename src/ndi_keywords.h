@@ -154,4 +154,4 @@
 
 #define NDI_GENDIR_PATH               124
 
-#endif	/* __NDI_KEYWORDS_H */
+#endif				/* __NDI_KEYWORDS_H */

@@ -19,10 +19,9 @@
 
 /**********************************************************************/
 
-  int num_of_abundance_values = 287;
+int num_of_abundance_values = 287;
 
-  int abundance_id[] = 
-  { 1001,
+int abundance_id[] = { 1001,
     1002,
     2003,
     2004,
@@ -309,10 +308,9 @@
     92234,
     92235,
     92238
-  };
+};
 
-  ndi_float64 abundance_value[] =
-  { 0.99985,
+ndi_float64 abundance_value[] = { 0.99985,
     0.00015,
     0.00000137,
     0.99999863,
@@ -599,6 +597,6 @@
     0.000055,
     0.0072,
     0.992745
-  };
+};
 
-#endif	/* __NDI_ABUNDANCE_H */
+#endif				/* __NDI_ABUNDANCE_H */

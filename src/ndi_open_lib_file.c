@@ -18,7 +18,7 @@
 
 /**********************************************************************/
 
-FILE *ndi_open_lib_file( state_struct *state, const char *path) 
+FILE *ndi_open_lib_file(state_struct * state, const char *path)
 
 /*  Purpose:  Open library file for read-only and set global 
     variable 'open_lib_file' to be the path of the current open
@@ -32,33 +32,34 @@ FILE *ndi_open_lib_file( state_struct *state, const char *path)
     parameter 'path'.
 
 ***********************************************************************/
-
 {
-  
-   FILE *temp_file_p = NULL;
 
-   if (! state) {
-       return(NULL);
-   }
+    FILE *temp_file_p = NULL;
 
-   temp_file_p = fopen( path, "rb" );
+    if (!state) {
+	return (NULL);
+    }
 
-   /*  Question: what to do if 'open_lib_file' can't be set???? */
+    temp_file_p = fopen(path, "rb");
 
-   /* Set global variable 'open_lib_file' to the pathname of the open file. */
-   if (state->open_lib_file) ndi_free((void**)&state->open_lib_file);
-   if (temp_file_p) {
-      if ((state->open_lib_file = (char *)ndi_malloc(strlen(path) + sizeof(char)))
-	  != NULL) {
-	 strcpy( state->open_lib_file, path);
-      }
-   } else {
-      state->open_lib_file = (char*)ndi_malloc(sizeof(char));
-      if (state->open_lib_file) state->open_lib_file[0] = '\0';
-   }
+    /*  Question: what to do if 'open_lib_file' can't be set???? */
 
-   return(temp_file_p);
+    /* Set global variable 'open_lib_file' to the pathname of the open file. */
+    if (state->open_lib_file)
+	ndi_free((void **) &state->open_lib_file);
+    if (temp_file_p) {
+	if ((state->open_lib_file =
+	     (char *) ndi_malloc(strlen(path) + sizeof(char)))
+	    != NULL) {
+	    strcpy(state->open_lib_file, path);
+	}
+    } else {
+	state->open_lib_file = (char *) ndi_malloc(sizeof(char));
+	if (state->open_lib_file)
+	    state->open_lib_file[0] = '\0';
+    }
+
+    return (temp_file_p);
 }
 
 /**********************************************************************/
-

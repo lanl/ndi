@@ -18,9 +18,10 @@
 
 /*********************************************************************/
 
-int ndi_nusigf_avail( state_struct *state, char nu_type ) {
+int ndi_nusigf_avail(state_struct * state, char nu_type)
+{
 
-   /*  Purpose:  Determines if the indicated nusigf value for the current
+    /*  Purpose:  Determines if the indicated nusigf value for the current
        particle is available in the library.  
 
        Parameterus:
@@ -28,68 +29,69 @@ int ndi_nusigf_avail( state_struct *state, char nu_type ) {
 
        Returns: 0 if nusigf is not available and -1 if nusigf is available.
 
-   *********************************************************************/
-   int return_val = 0;  /* Default is false */
+       ******************************************************************** */
+    int return_val = 0;		/* Default is false */
 
-   long int nusigf_ptr;
-   long int nusigf1_ptr;
-   long int nusigf2_ptr;
-   
-   if (! state) {
-       return(-2);
-   }
+    long int nusigf_ptr;
+    long int nusigf1_ptr;
+    long int nusigf2_ptr;
 
-   switch ( nu_type ) {
+    if (!state) {
+	return (-2);
+    }
 
-   case 'p':
-      nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      break;
+    switch (nu_type) {
 
-   case 'd':
-      nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      break;
+    case 'p':
+	nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	break;
 
-   case 't':
-      nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      break;
+    case 'd':
+	nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	break;
 
-   default:
-      return(return_val);
-      break;
+    case 't':
+	nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	break;
 
-   }  /* switch */
+    default:
+	return (return_val);
+	break;
 
-   if ( nusigf_ptr ) {
-      /* Nu_sigf is contained in library */
-      return_val = -1;  /* True--the nu is available */
-   } else if ( ndi_nu_avail(state, nu_type) && ndi_sigf_avail( state ) ) {
-      /* Nu_sigf can be calculated from nu and sigf */
-      return_val = -1; 
-   } else if ( nusigf1_ptr && nusigf2_ptr ) {
-     /* Nu_sigf can be calculated from other two nu_sigf's */
-     return_val = -1;
-   }
+    }				/* switch */
 
-   /* Must add cases where nu is available--this data may be added to
-      libraries some day.
-      */
+    if (nusigf_ptr) {
+	/* Nu_sigf is contained in library */
+	return_val = -1;	/* True--the nu is available */
+    } else if (ndi_nu_avail(state, nu_type) && ndi_sigf_avail(state)) {
+	/* Nu_sigf can be calculated from nu and sigf */
+	return_val = -1;
+    } else if (nusigf1_ptr && nusigf2_ptr) {
+	/* Nu_sigf can be calculated from other two nu_sigf's */
+	return_val = -1;
+    }
+
+    /* Must add cases where nu is available--this data may be added to
+       libraries some day.
+     */
 
 
-   return(return_val);
+    return (return_val);
 }
 
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_nu_avail( state_struct *state, char nu_type ) {
+int ndi_nu_avail(state_struct * state, char nu_type)
+{
 
-   /*  Purpose:  Determines if the indicated nu value 
+    /*  Purpose:  Determines if the indicated nu value 
        is available in the library.  
 
        Parameters:
@@ -98,78 +100,79 @@ int ndi_nu_avail( state_struct *state, char nu_type ) {
        Returns: 0 if nu is not available and -1 if nu is available.
 
 
-   *********************************************************************/
+       ******************************************************************** */
 
-   int return_val = 0;  /* Default is false */
+    int return_val = 0;		/* Default is false */
 
-   long int nu_ptr;
-   long int nu1_ptr;
-   long int nu2_ptr;
-   long int nusigf_ptr;
-   long int nusigf1_ptr;
-   long int nusigf2_ptr;
+    long int nu_ptr;
+    long int nu1_ptr;
+    long int nu2_ptr;
+    long int nusigf_ptr;
+    long int nusigf1_ptr;
+    long int nusigf2_ptr;
 
-        if (! state) {
-            return(-2);
-        }
+    if (!state) {
+	return (-2);
+    }
 
-   switch ( nu_type ) {
+    switch (nu_type) {
 
-   case 't':
-      nu_ptr = state->iso_stat.nu_tot.file_ptr;
-      nu1_ptr = state->iso_stat.nu_pr.file_ptr;
-      nu2_ptr = state->iso_stat.nu_del.file_ptr;
-      nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      break;
+    case 't':
+	nu_ptr = state->iso_stat.nu_tot.file_ptr;
+	nu1_ptr = state->iso_stat.nu_pr.file_ptr;
+	nu2_ptr = state->iso_stat.nu_del.file_ptr;
+	nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	break;
 
-   case 'p':
-      nu_ptr = state->iso_stat.nu_pr.file_ptr;
-      nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-      nu2_ptr = state->iso_stat.nu_del.file_ptr;
-      nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      break;
+    case 'p':
+	nu_ptr = state->iso_stat.nu_pr.file_ptr;
+	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+	nu2_ptr = state->iso_stat.nu_del.file_ptr;
+	nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	break;
 
-   case 'd':
-      nu_ptr = state->iso_stat.nu_del.file_ptr;
-      nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-      nu2_ptr = state->iso_stat.nu_pr.file_ptr;
-      nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-      break;
-      
-   default:
-      return (return_val);
-      break;
-   }  /* switch */
+    case 'd':
+	nu_ptr = state->iso_stat.nu_del.file_ptr;
+	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+	nu2_ptr = state->iso_stat.nu_pr.file_ptr;
+	nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+	nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+	break;
 
-   if ( nu_ptr ) {
-      /* Nu is contained in library */
-      return_val = -1; 
-   } else if ( nu1_ptr && nu2_ptr ) {
-      /* Calculate nu from other two nu's */
-      return_val = -1;
-   } else if ( nusigf_ptr && ndi_sigf_avail( state ) ) {
-     /* Calculate nu from nu_sigf and sigf */
-     return_val = -1;
-   } else if ( nusigf1_ptr && nusigf2_ptr && ndi_sigf_avail(state ) ) {
-     /* Calculate nu from other nu_sigf's and sigf */
-     return_val = -1;
-   }
+    default:
+	return (return_val);
+	break;
+    }				/* switch */
 
-   return(return_val);
+    if (nu_ptr) {
+	/* Nu is contained in library */
+	return_val = -1;
+    } else if (nu1_ptr && nu2_ptr) {
+	/* Calculate nu from other two nu's */
+	return_val = -1;
+    } else if (nusigf_ptr && ndi_sigf_avail(state)) {
+	/* Calculate nu from nu_sigf and sigf */
+	return_val = -1;
+    } else if (nusigf1_ptr && nusigf2_ptr && ndi_sigf_avail(state)) {
+	/* Calculate nu from other nu_sigf's and sigf */
+	return_val = -1;
+    }
+
+    return (return_val);
 }
 
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_sigf_avail( state_struct *state ) {
+int ndi_sigf_avail(state_struct * state)
+{
 
-   /*  Purpose:  Determines if the indicated fission cross-section is 
+    /*  Purpose:  Determines if the indicated fission cross-section is 
        available in the library.  Assumes that if MT = 18 (total fission) 
        is listed in the state->iso_stat.reac_mt list, that the cross-section is there.
 
@@ -178,25 +181,24 @@ int ndi_sigf_avail( state_struct *state ) {
 
        Returns: 0 if sigf is not available and -1 if sigf is available.
 
-   *********************************************************************/
+       ******************************************************************** */
 
-   int return_val = 0;  /* Default is false */
-   int reac_index = -1;
-   int mt = 18;  /*  Total fission cross-section  */
+    int return_val = 0;		/* Default is false */
+    int reac_index = -1;
+    int mt = 18;		/*  Total fission cross-section  */
 
-        if (! state) {
-                return(-2);
-        }
+    if (!state) {
+	return (-2);
+    }
 
-   (void)ndi_find_reac_index( state->iso_stat.reac_mt, &reac_index, 
-			      mt, state->iso_stat.num_reac  );
-   if ( reac_index >= 0 ) {
-      return_val = -1;    /* True--the nu is available */
-   }
+    (void) ndi_find_reac_index(state->iso_stat.reac_mt, &reac_index,
+			       mt, state->iso_stat.num_reac);
+    if (reac_index >= 0) {
+	return_val = -1;	/* True--the nu is available */
+    }
 
-   return(return_val);
+    return (return_val);
 }
 
 /*********************************************************************/
 /*********************************************************************/
-

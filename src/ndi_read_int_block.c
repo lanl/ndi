@@ -19,8 +19,8 @@
 
 /**********************************************************************/
 
-int  ndi_read_int_block(FILE *stream, const int num_ints,
-			long *return_vec, const int return_size ) 
+int ndi_read_int_block(FILE * stream, const int num_ints,
+		       long *return_vec, const int return_size)
 
 /*********************************************************************
     
@@ -38,46 +38,45 @@ int  ndi_read_int_block(FILE *stream, const int num_ints,
     values read in.
 
 ***********************************************************************/
-
 {
-   int int_count = 0;          /* Current number of ints processed */
-   int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   char in_line[MAX_IN_STR_LEN];        /* Current input line */
-   char *token;                  /* Current data item */
-   char seps[] = " ,\t\n";       /* Data delimiters in library file */
-   long *cur_int_ptr = return_vec;
-  
+    int int_count = 0;		/* Current number of ints processed */
+    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
+    char in_line[MAX_IN_STR_LEN];	/* Current input line */
+    char *token;		/* Current data item */
+    char seps[] = " ,\t\n";	/* Data delimiters in library file */
+    long *cur_int_ptr = return_vec;
 
-   /* current position in stream is assumed to be at the start of int block */
 
-   while (int_count < num_ints) {
+    /* current position in stream is assumed to be at the start of int block */
 
-     /* Check to see if we've reached the end of return_vec */
-     if ( int_count >= return_size ) {
-       ierr = 7;
-       break;
-     }
+    while (int_count < num_ints) {
 
-      if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	token  = strtok( in_line, seps );
-	while (token != NULL) {
-	  if (int_count < num_ints) {
-	    *cur_int_ptr = strtol( token, (char **)NULL, 10);
-	    token = strtok( NULL, seps );
-	    int_count++;
-	    cur_int_ptr++;
-	  } else {
-	    /* More data than expected */
-	    ierr = 6;
+	/* Check to see if we've reached the end of return_vec */
+	if (int_count >= return_size) {
+	    ierr = 7;
 	    break;
-	  }
 	}
-      } else {
-	/* Error reading file */
-	ierr = -11;
-	return(ierr);
-      }
-   }
 
-   return(ierr);
+	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+	    token = strtok(in_line, seps);
+	    while (token != NULL) {
+		if (int_count < num_ints) {
+		    *cur_int_ptr = strtol(token, (char **) NULL, 10);
+		    token = strtok(NULL, seps);
+		    int_count++;
+		    cur_int_ptr++;
+		} else {
+		    /* More data than expected */
+		    ierr = 6;
+		    break;
+		}
+	    }
+	} else {
+	    /* Error reading file */
+	    ierr = -11;
+	    return (ierr);
+	}
+    }
+
+    return (ierr);
 }

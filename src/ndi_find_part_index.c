@@ -17,48 +17,50 @@
 
 
 /**********************************************************************/
-int ndi_find_part_index( const char *ptype , const sec_part_distr *part, int num_parts )
+int ndi_find_part_index(const char *ptype, const sec_part_distr * part,
+			int num_parts)
 
 /*  This is only used for tndata */
-
 {
 
-   int i;
-   char curr_char;
-   sec_part_distr curr_part;
+    int i;
+    char curr_char;
+    sec_part_distr curr_part;
 
-   for ( i = 0; i < num_parts; i++ ) {
-     curr_part = part[i];
-     if (curr_part.part_type >= 0) {
-       curr_char = curr_part.part_type[0];
-       if ( *ptype == curr_char ) {
-	 /* check the first letter for n, p, a */
-	 if ( ptype == part[i].part_type ) {
-	   return(i);
-	 }
-       }
-     }
-   }
-   return(-1);
+    for (i = 0; i < num_parts; i++) {
+	curr_part = part[i];
+	if (curr_part.part_type >= 0) {
+	    curr_char = curr_part.part_type[0];
+	    if (*ptype == curr_char) {
+		/* check the first letter for n, p, a */
+		if (ptype == part[i].part_type) {
+		    return (i);
+		}
+	    }
+	}
+    }
+    return (-1);
 }
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_find_iso_index( const char *ptype , const char **string_array, int num_parts )
+int ndi_find_iso_index(const char *ptype, const char **string_array,
+		       int num_parts)
 
 /*  This is currently only used for depletion data */
-
 {
 
-   int i;
+    int i;
 
-   for ( i = 0; i < num_parts; i++ ) {
-      if ( strncmp( ptype,  string_array[i], (strlen(ptype)+1)*sizeof(char) ) == 0 ) {
-	 return(i);
-      }
-   }
+    for (i = 0; i < num_parts; i++) {
+	if (strncmp
+	    (ptype, string_array[i],
+	     (strlen(ptype) + 1) * sizeof(char)) == 0) {
+	    return (i);
+	}
+    }
 
-   return(-1);
+    return (-1);
 }
 
 /**********************************************************************/
