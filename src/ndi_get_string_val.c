@@ -92,7 +92,8 @@ static int get_string_mg( int in_key, char *ret_val, int str_size ) {
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
 
    /* Default return value is empty string */
-   *ret_val = '\0';
+   if ( (ret_val) && ( str_size > 0 ))
+       *ret_val = '\0';
 
 
    /*************************/
@@ -208,7 +209,8 @@ static int get_string_tn( int in_key, char *ret_val, int str_size ) {
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
 
    /* Default return value is empty string */
-   *ret_val = '\0';
+   if ( (ret_val) && ( str_size > 0 ))
+       *ret_val = '\0';
 
    /* Check that isotope is set */
    if (! tn_stat.set_flag) {
@@ -279,7 +281,8 @@ static int get_string_tnreac( int in_key, char *ret_val,
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
 
    /* Default return value is empty string */
-   *ret_val = '\0';
+   if ( (ret_val) && ( str_size > 0 ))
+       *ret_val = '\0';
 
    /* Check that isotope is set */
    if ( tnreac_stat.reac_num <= 0 ) {
