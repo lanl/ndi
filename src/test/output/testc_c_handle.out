@@ -3319,10 +3319,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -4423,10 +4422,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -4440,8 +4438,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -24252,10 +24249,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -25354,10 +25350,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -25371,8 +25366,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -32659,10 +32653,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -33753,10 +33746,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -34855,10 +34847,9 @@ STRING VALUES:
 ZAID:  92235.500nm
 Info:  zaid = 92235.500nm from mendf5                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -54035,10 +54026,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -55129,10 +55119,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -56233,10 +56222,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -56250,8 +56238,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -76038,10 +76025,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -96979,10 +96965,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -117904,10 +117889,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -119006,10 +118990,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -119023,8 +119006,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -138835,10 +138817,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -139929,10 +139910,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -141031,10 +141011,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -141048,8 +141027,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -160860,10 +160838,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -161962,10 +161939,9 @@ STRING VALUES:
 ZAID:  92235.600nm
 Info:  zaid = 92235.600nm from mendf6                                                 
 
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:
@@ -161979,8 +161955,7 @@ No. of reaction prod:
   **Error -31: in No. of reaction prod -- returned value is 0
 Pn order -- scattering:  5
 No. of secondary particles:  1
-Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+Pn order -- photon prod:  1
 
 
 FLOAT64 VALUES:
@@ -181791,10 +181766,9 @@ ZAID:
   **Error -7: in ZAID -- returned value is  ''
 Info:  
   **Error -7: in Info -- returned value is  ''
-Depletion ZAID:  
-  **Error -7: in Depletion ZAID -- returned value is  ''
-Depletion info:  
-  **Error -7: in Depletion info -- returned value is  ''
+Depletion ZAID:  test2
+Depletion info:  basic neutron depletion data for 7 target isotopes
+
 
 
 INTEGER VALUES:

@@ -348,6 +348,10 @@ static int GET_FLOAT_VEC_MG(  state_struct *state, int in_key, FLOAT_TYPE *retur
        break;
 
    case NDI_TOT_DEPL_XS:
+        if ( ! state->ndi_depl_set ) {
+           ierr = ndi_set_default_depl(state);
+       }
+      
      ierr = GET_DEPL_XS( state, &state->iso_stat, return_vec, return_size );
      break;
 

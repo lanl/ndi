@@ -125,6 +125,9 @@ int NDI_GET_FLOAT_VAL_N_H( state_struct *state, int in_key, int vec_num,
 */
 
    case NDI_TOT_PROD_Q:
+       if ( ! state->ndi_depl_set ) {
+           ierr = ndi_set_default_depl(state);
+       }
 
      /* Check if incoming rprod zaid is the default fission product */
      if ( vec_num == atoi(state->def_fiss_prod_id) ) {

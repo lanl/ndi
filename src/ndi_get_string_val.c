@@ -92,11 +92,12 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
    if ( (ret_val) && ( str_size > 0 ))
        *ret_val = '\0';
 
-     if ( (! state->iso_stat.set_flag) &&
-          (in_key != NDI_DEPL_INFO) &&
-          (in_key != NDI_DEPL_ZAID) ){
-       return(-7);
-     }
+   if ( (in_key != NDI_DEPL_INFO) &&
+        (in_key != NDI_DEPL_ZAID) ) {
+       if ( (! state->iso_stat.set_flag)) {
+           return(-7);
+       }
+   }
 
    /*************************/
    /*   Process input key   */
@@ -131,11 +132,10 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
      break;
 
    case NDI_DEPL_ZAID:                                  /* Depletion ZAID  */
-       /*
-     if ( ! state->ndi_depl_set ) {
-       ierr = ndi_set_default_depl(state);
-     }
-       */
+       if ( ! state->ndi_depl_set ) {
+           ierr = ndi_set_default_depl(state);
+       }
+
      if ( state->num_target <= 0 ) {
        return(-7);
      }
@@ -145,11 +145,10 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_DEPL_INFO:                                  /*  Depletion nformation  */
-       /*
-     if ( ! state->ndi_depl_set ) {
-       ierr = ndi_set_default_depl(state);
-     }
-       */
+       if ( ! state->ndi_depl_set ) {
+           ierr = ndi_set_default_depl(state);
+       }
+
      if ( state->num_target <= 0 ) {
        return(-7);
      }
