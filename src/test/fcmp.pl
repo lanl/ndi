@@ -29,7 +29,7 @@ open(FILE1, "tr -s ' \t' '\n\n' < $file1 |") or
     die "Cannot open file: $file1\n";
 
 open(FILE2, "tr -s ' \t' '\n\n' < $file2 |") or 
-    die "Cannot open file: $file2\n";
+    die "Cannot open file: $file2\n"; 
 
 while(chop($word1 = <FILE1>) && chop($word2 = <FILE2>)) {
     if ($word1 =~ /^$number$/o && $word2 =~ /^$number$/o){
