@@ -25,7 +25,6 @@ int ndi2_open(int *handle, const char *path)
     if (*handle < 0) {
 	ierr = -1;		/* handle array exhausted */
     }
-
     return (ierr);
 }
 
@@ -38,7 +37,6 @@ int ndi2_open(int *handle, const char *path)
 */
 int ndi2_get_handle(int handle0, int *handle1)
 {
-     
     int i;
     int h = -1;
     state_struct *parent;
