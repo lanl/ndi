@@ -31,7 +31,7 @@ int ndimp_set_zaid(state_struct *h, const char *zaid )
 
     /* Translate ZAID to standard form */
     strncpy(std_zaid, zaid, ZAID_SIZE);
-    tmp_err = ndi_std_zaid(statep, std_zaid, ZAID_SIZE);
+    tmp_err = ndi_std_zaid(h, std_zaid, ZAID_SIZE);
     if (tmp_err < 0) {
         return(tmp_err);
     }
