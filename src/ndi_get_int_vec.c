@@ -39,14 +39,17 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
 
-    ierr = ndi_init_int_vec(return_vec, vec_size);
+    ierr = ndi_init_int_vec(return_vec, vec_size); /* zero return vector */
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
 	return (-2);
     }
 
-    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+    if (is_gendir(state)) {
+	ierr = -2;		/* case not handled currently */
+    } else if ((state->library_type == 'm') || 
+	       (state->library_type == 'd')) {
 	ierr = get_int_vec_mg(state, in_key, return_vec, vec_size);
     } else if (state->library_type == 's') {
 	ierr = get_int_vec_tn(state, in_key, return_vec, vec_size);

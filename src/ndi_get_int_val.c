@@ -44,7 +44,10 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 	return (-2);
     }
 
-    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+    if (is_gendir(state)) {
+	ierr = -2;		/* case not currently handled */
+    } else if ((state->library_type == 'm') || 
+	       (state->library_type == 'd')) {
 	ierr = get_int_val_mg(state, in_key, ret_val);
     } else if (state->library_type == 's') {
 	ierr = get_int_val_tn(state, in_key, ret_val);
@@ -62,7 +65,6 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 
     return (ierr);
 }
-
 
 /**********************************************************************/
 /**********************************************************************/

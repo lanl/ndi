@@ -622,7 +622,7 @@ extern "C" {
     int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size);
 
      /*** Subroutines in file ndi_handle.c ***/
-    int is_gendir(int handle);
+    int is_gendir(state_struct *state);
     int is_mpmg(state_struct *state);
     state_struct *handle_to_state_p(int handle);
     int set_handle(state_struct *state);

@@ -81,7 +81,10 @@ int NDI_GET_FLOAT_VEC_H(state_struct *state, int in_key,
     }
 #endif
 
-    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+    if (is_gendir(state)) {
+	ierr = -2;		/* case not handled currently */
+    } else if ((state->library_type == 'm') || 
+	       (state->library_type == 'd')) {
 	ierr = GET_FLOAT_VEC_MG(state, in_key, return_vec, return_size);
     } else if (state->library_type == 's') {
 	ierr = GET_FLOAT_VEC_TN(state, in_key, return_vec, return_size);

@@ -10,9 +10,10 @@ static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL }; /* gendir array */
   \param handle
   \return 1 if gendir
 */
-int is_gendir(int handle)
+int is_gendir(state_struct *state)
 {
-    return 0 <= handle && handle < MAX_HANDLE_NUM;
+    return state && state->ndi_initialized && 
+	0 <= state->handle && state->handle < MAX_HANDLE_NUM;
 }
 
 int is_mpmg(state_struct *state)

@@ -40,24 +40,23 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
 **********************************************************************/
 {
     int size = 0;		/* Default return value is '0' */
+
     *ierr = 0;			/* Default error value */
-
-
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
 	*ierr = -2;
 	return (size);
     }
 
-    if (state->library_type == 'm') {
+    if (is_gendir(state)) {
+	*ierr = -2;
+    } else if (state->library_type == 'm') {
 	size = get_mg_size_x(state, in_key, in_str, ierr);
     } else if (state->library_type == ' ') {
 	*ierr = -16;
-	size = 0;
     } else {
 	/* Incompatible library type */
 	*ierr = -4;
-	size = 0;
     }
 
     if (size < 0) {

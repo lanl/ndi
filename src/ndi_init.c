@@ -152,7 +152,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     ierr = ndi_init_state_tnreac(state);
     ierr = ndi_init_state_chain(state);
 
-    if (is_gendir(parent->handle)) {
+    if (is_gendir(parent)) {
         state->particle_type = parent->particle_type;    /* lib_type option */
         state->library_type = parent->library_type;
         strncpy(state->library_vers, parent->library_vers, /* library option */

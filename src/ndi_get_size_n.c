@@ -44,9 +44,8 @@ int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
 **********************************************************************/
 {
     int size = 0;		/* Default return value is '0' */
+
     *ierr = 0;			/* Default error value */
-
-
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
 	*ierr = -2;
@@ -59,7 +58,10 @@ int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
 	    ndi_translate_sza_to_symbol(vec_num, tmp_str, MAX_IN_STR_LEN);
 	size = (int) strlen(tmp_str) + 1;
     } else {
-	if ((state->library_type == 'm') || (state->library_type == 'd')) {
+	if (is_gendir(state)) {
+	    *ierr = -2;		/* case not handled currently */
+	} else if ((state->library_type == 'm') || 
+		   (state->library_type == 'd')) {
 	    size = get_mg_size_n(state, in_key, vec_num, ierr);
 	} else if (state->library_type == 's') {
 	    size = get_tn_size(state, in_key, vec_num, ierr);

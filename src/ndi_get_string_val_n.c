@@ -57,7 +57,10 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
     if (in_key == NDI_ZAID) {
 	ierr = ndi_translate_sza_to_symbol(vec_num, ret_val, str_size);
     } else {
-	if ((state->library_type == 'm') || (state->library_type == 'd')) {
+	if (is_gendir(state)) {
+	    ierr = -2;		/* case not handled currently */
+	} else if ((state->library_type == 'm') || 
+		   (state->library_type == 'd')) {
 	    ierr = get_string_n_mg(state, in_key, ret_val, vec_num, str_size);
 	} else if (state->library_type == 's') {
 	    ierr = get_string_n_tn(state, in_key, ret_val, vec_num, str_size);

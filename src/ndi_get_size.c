@@ -41,7 +41,6 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	size = 0;
 	*ierr = -2;
 	return (size);
     }
@@ -52,7 +51,10 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
     } else if (in_key == NDI_GENDIR_PATH) {
 	size = (int) strlen(state->open_gendir_file) + 1;
     } else {
-	if ((state->library_type == 'm') || (state->library_type == 'd')) {
+	if (is_gendir(state)) {
+	    *ierr = -2;		/* case not currently handled */
+	} else if ((state->library_type == 'm') || 
+	    (state->library_type == 'd')) {
 	    size = get_mg_size(state, in_key, ierr);
 	} else if (state->library_type == 's') {
 	    size = get_tn_size(state, in_key, ierr);

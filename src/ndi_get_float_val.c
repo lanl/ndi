@@ -66,7 +66,9 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
     }
 #endif
 
-    if (state->library_type == 'm') {
+    if (is_gendir(state)) {
+	ierr = -2;		/* case not handled currently */
+    } else if (state->library_type == 'm') {
 	ierr = GET_FLOAT_VAL_MG(state, in_key, ret_val);
     } else if (state->library_type == 's') {
 	ierr = GET_FLOAT_VAL_TN(state, in_key, ret_val);

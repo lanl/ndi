@@ -49,7 +49,9 @@ int ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
 	return (-2);
     }
 
-    if (state->library_type == 'm') {
+    if (is_gendir(state)) {
+	ierr = -2;		/* case not handled currently */
+    } else if (state->library_type == 'm') {
 	ierr = get_int_vec_n_mg(state, in_key, vec_num, return_vec, vec_size);
     } else if (state->library_type == 'r') {
 	ierr = get_int_vec_n_tnreac(state, in_key, vec_num, return_vec,
@@ -81,7 +83,6 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
     if (!state) {
 	return (-2);
     }
-
 
     /*  Check if isotope is set  */
     if (!state->iso_stat.set_flag) {
