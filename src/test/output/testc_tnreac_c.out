@@ -244,14 +244,14 @@ FLOAT32 VECTORS (N):
 
 STRING VALUES:
 ZAID:  
-  **Error -7: in ZAID -- returned value is  ''
+  **Error -16: in ZAID -- returned value is  ''
 Info:  
-  **Error -7: in Info -- returned value is  ''
+  **Error -16: in Info -- returned value is  ''
 
 
 INTEGER VALUES:
 No. of reactions:  
-  **Error -7: in No. of reactions -- returned value is 0
+  **Error -16: in No. of reactions -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -261,28 +261,28 @@ FLOAT32 VALUES:
 
 STRING VALUES (N):
 Reaction (0):  
-  **Error -7 in Reaction -- returned value is ''.
+  **Error -16 in Reaction -- returned value is ''.
 Reaction (999):  
-  **Error -7 in Reaction -- returned value is ''.
+  **Error -16 in Reaction -- returned value is ''.
 
 
 INTEGER VALUES (N):
 No. of reaction products (i=2):  
-  **Error -7 in No. of reaction products -- returned value is 0.
+  **Error -16 in No. of reaction products -- returned value is 0.
 No. of reaction products (i=16):  
-  **Error -7 in No. of reaction products -- returned value is 0.
+  **Error -16 in No. of reaction products -- returned value is 0.
 No. of reaction products (i=9999):  
-  **Error -7 in No. of reaction products -- returned value is 0.
+  **Error -16 in No. of reaction products -- returned value is 0.
 No. of reactants (i=2):  
-  **Error -7 in No. of reactants -- returned value is 0.
+  **Error -16 in No. of reactants -- returned value is 0.
 No. of reactants (i=16):  
-  **Error -7 in No. of reactants -- returned value is 0.
+  **Error -16 in No. of reactants -- returned value is 0.
 No. of reactants (i=9999):  
-  **Error -7 in No. of reactants -- returned value is 0.
+  **Error -16 in No. of reactants -- returned value is 0.
 No. of reactants (0):  
-  **Error -7 in No. of reactants -- returned value is 0.
+  **Error -16 in No. of reactants -- returned value is 0.
 No. of reactants (999):  
-  **Error -7 in No. of reactants -- returned value is 0.
+  **Error -16 in No. of reactants -- returned value is 0.
 
 
 FLOAT64 VALUES (N):
@@ -302,49 +302,49 @@ FLOAT32 VECTORS:
 INTEGER VECTORS (N):
 Reaction product ID (i=2): 
 ***ERROR GETTING SIZE FOR Reaction product ID id.
-  **Error -7 in Reaction product ID--returned value is
+  **Error -16 in Reaction product ID--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reaction product multiplicity (i=2): 
 ***ERROR GETTING SIZE FOR Reaction product multiplicity.
-  **Error -7 in Reaction product multiplicity--returned value is
+  **Error -16 in Reaction product multiplicity--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reaction product ID (i=999): 
 ***ERROR GETTING SIZE FOR Reaction product ID id.
-  **Error -7 in Reaction product ID--returned value is
+  **Error -16 in Reaction product ID--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reaction product multiplicity (i=999): 
 ***ERROR GETTING SIZE FOR Reaction product multiplicity.
-  **Error -7 in Reaction product multiplicity--returned value is
+  **Error -16 in Reaction product multiplicity--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reactant ID (i=2): 
 ***ERROR GETTING SIZE FOR Reactant ID id.
-  **Error -7 in Reactant ID--returned value is
+  **Error -16 in Reactant ID--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reactant multiplicity (i=2): 
 ***ERROR GETTING SIZE FOR Reactant multiplicity.
-  **Error -7 in Reactant multiplicity--returned value is
+  **Error -16 in Reactant multiplicity--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reactant ID (i=999): 
 ***ERROR GETTING SIZE FOR Reactant ID id.
-  **Error -7 in Reactant ID--returned value is
+  **Error -16 in Reactant ID--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Reactant multiplicity (i=999): 
 ***ERROR GETTING SIZE FOR Reactant multiplicity.
-  **Error -7 in Reactant multiplicity--returned value is
+  **Error -16 in Reactant multiplicity--returned value is
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
@@ -2498,10 +2498,10 @@ No. reaction prod--few (C=10):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (C=10):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (C=10):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (C=10):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2542,7 +2542,7 @@ Reaction prod. multiplicity--few (C=10):
 
 Reaction cross section (C=10):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2553,7 +2553,7 @@ Reaction cross section (C=10):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (C=10):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2569,10 +2569,10 @@ No. reaction prod--few (C=999):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (C=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (C=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (C=999):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2613,7 +2613,7 @@ Reaction prod. multiplicity--few (C=999):
 
 Reaction cross section (C=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2624,7 +2624,7 @@ Reaction cross section (C=999):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (C=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2642,10 +2642,10 @@ No. reaction prod--few (C=10):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (C=10):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (C=10):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (C=10):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2686,7 +2686,7 @@ Reaction prod. multiplicity--few (C=10):
 
 Reaction cross section (C=10):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2697,7 +2697,7 @@ Reaction cross section (C=10):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (C=10):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2713,10 +2713,10 @@ No. reaction prod--few (C=999):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (C=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (C=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (C=999):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2757,7 +2757,7 @@ Reaction prod. multiplicity--few (C=999):
 
 Reaction cross section (C=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2768,7 +2768,7 @@ Reaction cross section (C=999):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (C=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2788,10 +2788,10 @@ No. reaction prod--few (MT=2):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (MT=2):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (MT=2):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2832,7 +2832,7 @@ Reaction prod. multiplicity--few (MT=2):
 
 Reaction cross section (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2843,7 +2843,7 @@ Reaction cross section (MT=2):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2859,10 +2859,10 @@ No. reaction prod--few (MT=999):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (MT=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (MT=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2903,7 +2903,7 @@ Reaction prod. multiplicity--few (MT=999):
 
 Reaction cross section (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2914,7 +2914,7 @@ Reaction cross section (MT=999):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -2932,10 +2932,10 @@ No. reaction prod--few (MT=2):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (MT=2):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (MT=2):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -2976,7 +2976,7 @@ Reaction prod. multiplicity--few (MT=2):
 
 Reaction cross section (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2987,7 +2987,7 @@ Reaction cross section (MT=2):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (MT=2):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -3003,10 +3003,10 @@ No. reaction prod--few (MT=999):
   **Error -4: in No. reaction prod--few -- returned value is 0
 
 Reaction Q (MT=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000000000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000000000000e+00
 
 Reaction Q (MT=999):  
-  **Error -16: in Reaction Q -- returned value is  0.000000e+00
+  **Error -4: in Reaction Q -- returned value is  0.000000e+00
 
 Reaction prod. ID--all (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction prod. ID--all.
@@ -3047,7 +3047,7 @@ Reaction prod. multiplicity--few (MT=999):
 
 Reaction cross section (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -3058,7 +3058,7 @@ Reaction cross section (MT=999):
  0.000000000000000e+00   0.000000000000000e+00  
 Reaction cross section (MT=999):  
 ***ERROR GETTING SIZE FOR Reaction cross section.
-  **Error -16: in Reaction Q -- returned value is
+  **Error -4: in Reaction Q -- returned value is
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -3080,26 +3080,26 @@ String value (NDI_COLLAPSE):
 Integer value (NDI_COLLAPSE):  
   **Error -4: in int_val (NDI_COLLAPSE) -- returned value is 0
 Float64 value (NDI_COLLAPSE):  
-  **Error -16: in float_val (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
+  **Error -4: in float_val (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
 Float32 value (NDI_COLLAPSE):  
-  **Error -16: in float32_val (NDI_COLLAPSE) -- returned value is  0.000000e+00
+  **Error -4: in float32_val (NDI_COLLAPSE) -- returned value is  0.000000e+00
 String value--0 (NDI_COLLAPSE):  
   **Error -4: in string_val_n (NDI_COLLAPSE) -- returned value is ''
 Integer value--0 (NDI_COLLAPSE):  
   **Error -4: in int_val_n (NDI_COLLAPSE) -- returned value is 0
 Float64 value--0 (NDI_COLLAPSE):  
-  **Error -16: in float64_val_n (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
+  **Error -4: in float64_val_n (NDI_COLLAPSE) -- returned value is  0.000000000000000e+00
 Float32 value--0 (NDI_COLLAPSE):  
-  **Error -16: in float32_val_n (NDI_COLLAPSE) -- returned value is  0.000000e+00
+  **Error -4: in float32_val_n (NDI_COLLAPSE) -- returned value is  0.000000e+00
 Integer vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Int vec).
 
-  **Error -16: in int_vec (NDI_COLLAPSE) -- returned value is 30
+  **Error -4: in int_vec (NDI_COLLAPSE) -- returned value is 30
 0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   0   0   
 0   0   0   0   0   0   0   0   0   
 Float64 vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (float64 vec).
 
-  **Error -16: in float64_vec (NDI_COLLAPSE) -- returned value is 30
+  **Error -4: in float64_vec (NDI_COLLAPSE) -- returned value is 30
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -3110,7 +3110,7 @@ Float64 vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (float64 vec)
  0.000000000000000e+00   0.000000000000000e+00  
 Float32 vector (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float32 vec).
 
-  **Error -16: in float32_vec (NDI_COLLAPSE) -- returned value is 30
+  **Error -4: in float32_vec (NDI_COLLAPSE) -- returned value is 30
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -3125,7 +3125,7 @@ Integer vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Int vec n
 0   0   0   0   0   0   0   0   0   
 Float64 vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float64 vec n).
 
-  **Error -16: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
+  **Error -4: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -3136,7 +3136,7 @@ Float64 vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float64 v
  0.000000000000000e+00   0.000000000000000e+00  
 Float32 vector--0 (NDI_COLLAPSE):  ***ERROR GETTING SIZE FOR Collapse (Float32 vec n).
 
-  **Error -16: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
+  **Error -4: in float_vec_n (NDI_COLLAPSE) -- returned value is 30
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
