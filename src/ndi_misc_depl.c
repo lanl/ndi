@@ -192,7 +192,7 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
    int num_rprods = *prod_index;
    int zaid_size = MAX_SZA_SIZE;
    char *token;
-   char tmp_zaid[MAX_SXA_SIZE];
+   char tmp_zaid[MAX_SZA_SIZE];
    char *curr_zaid = tmp_zaid;
 
    depl_rprod_struct *curr_prod = *rprod_p;
