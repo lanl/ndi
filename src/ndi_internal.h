@@ -207,6 +207,7 @@ typedef struct _tn_status {
   char date_source[MAX_IN_STR_LEN];
   char library_name[MAX_IN_STR_LEN];
   int_zaid_type *sec_part_types; 
+  int q_set;
   double q_value;
   double *e_bounds;
   stat_flag int_sigvbars;

@@ -217,6 +217,7 @@ static int set0_tn(void) {
 
    curr_part_index = -1;     /* Reset current part index */
    tn_stat.set_flag = 0;
+   tn_stat.q_set = 0;
    tn_stat.q_value = 0.0;
    (void)strncpy(tn_stat.zaid, "", sizeof(tn_stat.zaid) );
    (void)strncpy(tn_stat.info, "", sizeof(tn_stat.info) );

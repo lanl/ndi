@@ -168,12 +168,10 @@ static int GET_FLOAT_VAL_TN( int in_key, FLOAT_TYPE *ret_val ) {
 
    case NDI_REAC_Q:       
       /* Reaction Q-value */
-      if ( tn_stat.q_value >= 0 ) {
-	 *ret_val = (FLOAT_TYPE) tn_stat.q_value;
-      } else {
-	 ierr = -9;
-	 *ret_val = 0.0;
-      }
+       *ret_val = (FLOAT_TYPE) tn_stat.q_value;
+       if ( tn_stat.q_set == 0 ) {
+           ierr = -9;
+       }
       break;
 
    case NDI_EAVG_OUT:
