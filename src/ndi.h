@@ -88,6 +88,8 @@ extern "C" {
 			    int str_size);
     int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 			      char *ret_val, int str_size);
+    int NDI2_get_string_vec(int handle, int in_key, 
+			    char *ret_val, int str_size);
 
 /**********************************************************************/
     /* Backwards compatibility user functions */

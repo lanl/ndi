@@ -54,7 +54,7 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 	size = (int) strlen(state->open_gendir_file) + 1;
     } else {
 	if (is_gendir(state)) {
-	    *ierr = get_gendir_size(state, in_key, ierr);
+	    size = get_gendir_size(state, in_key, ierr);
 	} else if ((state->library_type == 'm') || 
 	    (state->library_type == 'd')) {
 	    size = get_mg_size(state, in_key, ierr);
@@ -89,7 +89,7 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 
 static int get_gendir_size(state_struct *state, int in_key, int *ierr)
 {
-    int return_value = 0;	/* default */
+    int return_value = 0;	/* default size */
     struct ndi_bin_tree_node *root = NULL;
     FILE *ndi_dir;
     char *path = NULL;
@@ -124,13 +124,13 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
     switch (in_key) {
 	/* String values--return size of string */
     case NDI_ZAID:		/*  ZAID  */
-	*ierr = ndi_count_nodes(root, &return_value);
+	*ierr = ndi_count_size(root, &return_value);
 	break;
     case NDI_TEMP:		/* Temperature */
     case NDI_SIG_0:		/* sig_0 */
     case NDI_AT_WGT:		/* atomic weight */
     case NDI_AWR:		/* atomic weight ratio */
-	*ierr = ndi_count_size(root, &return_value);
+	*ierr = ndi_count_nodes(root, &return_value);
 	break;
     default:      /**********  UNKNOWN KEYWORD  ***********/
 	*ierr = -4;

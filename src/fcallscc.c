@@ -107,6 +107,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X NDI2_GET_FLOAT64_VEC_X\n");
     printf("#define F_NDI2_GET_STRING_VAL NDI2_GET_STRING_VAL\n");
     printf("#define F_NDI2_GET_STRING_VAL_N NDI2_GET_STRING_VAL_N\n");
+    printf("#define F_NDI2_GET_STRING_VEC NDI2_GET_STRING_VEC\n");
     printf("#endif\n\n");
 
     printf("#ifdef UPPER_WITH\n");
@@ -174,6 +175,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X NDI2_GET_FLOAT64_VEC_X_\n");
     printf("#define F_NDI2_GET_STRING_VAL NDI2_GET_STRING_VAL_\n");
     printf("#define F_NDI2_GET_STRING_VAL_N NDI2_GET_STRING_VAL_N_\n");
+    printf("#define F_NDI2_GET_STRING_VEC NDI2_GET_STRING_VEC_\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITHOUT\n");
@@ -243,6 +245,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n\n");
+    printf("#define F_NDI2_GET_STRING_VEC ndi2_get_string_vec\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITH\n");
@@ -312,6 +315,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x_\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val_\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n_\n");
+    printf("#define F_NDI2_GET_STRING_VEC ndi2_get_string_vec_\n");
     printf("#endif\n\n");
 
     printf("#ifdef LOWER_WITH2\n");
@@ -381,6 +385,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_FLOAT64_VEC_X ndi2_get_float64_vec_x__\n");
     printf("#define F_NDI2_GET_STRING_VAL ndi2_get_string_val__\n");
     printf("#define F_NDI2_GET_STRING_VAL_N ndi2_get_string_val_n__\n");
+    printf("#define F_NDI2_GET_STRING_VEC ndi2_get_string_vec__\n");
     printf("#endif\n\n");
 
 }

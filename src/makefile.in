@@ -152,6 +152,7 @@ SRC_TESTC := \
 	test/mpmg_grps.c \
 	test/mpmg2.c \
 	test/ndid.c \
+	test/ndid_handle.c \
 	test/ngk_test.c \
 	test/ngk_test_handle.c \
 	test/nonfissionables.c \

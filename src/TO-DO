@@ -2,9 +2,9 @@
 
 * Add F90 interface to ndi_get_string_vec
 
-* Code 2.0 equivalent to ndid_get_num if needed
+* Test ndid F90 equivalents in 2.0
 
-* Test ndid equivalents in 2.0
+* Code 2.0 equivalent to ndid_get_num if needed
 
 * Implement "intermediate convenience functions"
 
