@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -43,6 +44,8 @@ static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num );
 static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num, 
 			     int n_type );
+static int GET_PNU(FLOAT_TYPE *return_vec, int vec_num);
+static int GET_SIG_PNU(FLOAT_TYPE *return_vec, int vec_num);
 
 /**********************************************************************/
 
@@ -140,6 +143,14 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
      ierr = GET_SIG_REAC( &iso_stat,  vec_num, return_vec, &num_elements );
      break;
 
+
+   case NDI_PNU:		/* fission neutron mult probabilities */
+       ierr = GET_PNU(return_vec, vec_num);
+       break;
+
+   case NDI_SIG_PNU:
+       ierr = GET_SIG_PNU(return_vec, vec_num);
+       break;
 
    case NDI_PN_PROD_FULL_CURR_PART:        /* Full production matrix for current particle */
 
@@ -935,4 +946,201 @@ static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num,
 }
 
 /*********************************************************************/
+
+/*!
+  \fn ndi_erf
+  \brief Error function
+
+  See M. Abamowitz and I. A. Stegun
+  'Handbook of Mathematical Functions'
+  Cover (1972), p. 297, Eq. 7.1.1
+  \param x
+  \return 2/sqrt(pi) int_0^x exp(-t^2) dt
+ */
+static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
+{
+    FLOAT_TYPE p = 0.47047;		/* ibid. p. 299, Eq. 7.1.25 */
+    FLOAT_TYPE a[] = {0.3480242, -0.0958798, 0.7478556};
+    FLOAT_TYPE t;
+
+    if (x < 0.0)
+	return -ndi_erf(-x);
+    else
+    {
+	t = 1.0/(1.0 + p * x);
+	return 1.0 - t*(a[0] + t*(a[1] + t*a[2]))*exp(-(x*x));
+    }
+}
+
+#define MAX_NU 10
+
+/*!
+  \fn GET_PNU
+  \param return_vec: array of probability per group
+  \param vec_num: number of fission neutrons
+
+  See:
+  J. Terrell
+  "Distribution of Fission Neutron Numbers"
+  Phys. Rev. 108, 738 (1957)
+*/
+static int GET_PNU(FLOAT_TYPE *return_vec, int vec_num)
+{
+    FLOAT_TYPE *nu = NULL;
+    int num_grps;
+    int ierr;
+
+    FLOAT_TYPE sigma;
+    FLOAT_TYPE b;
+    int g;
+
+    assert(0 <= vec_num && vec_num < MAX_NU);
+				/* get number of groups */
+    if (collapse_flag)
+	num_grps = grp_num_new;
+    else
+	num_grps = iso_stat.num_grps;
+
+				/* get nu */
+    nu = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!nu)
+	return(-14);		/* out of memory */
+
+    ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+
+    sigma = sqrt(2.0) * 1.08;	/* Terrell's fit value */
+
+    for(g = 0; g < num_grps; g++)
+    {
+	b = 0.5 * (1.0 - ndi_erf((nu[g] + 0.5)/sigma));
+	return_vec[g] = 0.5 * (1.0 + ndi_erf((vec_num - nu[g] + 0.5 + b)/
+					     sigma));
+	if (0 < vec_num)
+	    return_vec[g] -= 0.5 * (1.0 + ndi_erf((vec_num - nu[g] - 0.5 + b)/
+					      sigma));
+    }
+
+    if (nu) ndi_free((void **)&nu);
+    return(ierr);
+}
+	
 /*********************************************************************/
+
+/*!
+  \fn ndi_fact
+  \brief Factorial function
+  \param n
+  \pre 0 <= i
+  \return n!
+ */
+static long ndi_fact(long n)
+{
+    
+    long j;
+    long k;
+
+    assert(0 <= n);
+
+    j = 1;
+    if (n > 1)
+	for (k = 1; k <= n; k++)
+	    j *= k;
+
+    return j;
+}
+
+/*!
+  \fn ndi_perm
+  \brief Permutation function
+  \param n, m
+  \pre 0 <= m && m <= n
+  \return i!
+ */
+static long ndi_perm(long n, long m)
+{
+    long j;
+    long k;
+
+    assert(0 <= m && m <= n);
+    
+    j = 1;
+    if (m == 1)
+	j = n;
+    else
+	for (k = n-m+1; k <= n; k++)
+	    j *= k;
+    return j;
+}
+
+/*!
+  \fn GET_SIG_PNU
+  \param sig_pnu: array of transport fission cross section multiplicities
+  \param i: number of fission neutrons
+
+
+  See:
+  G. I. Bell and C. E. Lee
+  "On the Probability of Initiating a Persistent Fission Chain"
+  LA-2608 (1976)
+*/
+static int GET_SIG_PNU(FLOAT_TYPE *sig_pnu, int i)
+{
+
+    FLOAT_TYPE *nu = NULL;
+    FLOAT_TYPE *nu_sig_f = NULL;
+    FLOAT_TYPE *p = NULL;
+	
+    int num_grps;
+    int ierr;
+
+    long j;
+    long k;
+
+    assert(0 <= vec_num && vec_num < MAX_NU);
+				/* get number of groups */
+    if (collapse_flag)
+	num_grps = grp_num_new;
+    else
+	num_grps = iso_stat.num_grps;
+
+				/* get nu */
+    nu = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!nu)
+	return(-14);		/* out of memory */
+
+    ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+
+				/* get sig_f */
+    nu_sig_f = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!nu_sig_f)
+	return(-14);		/* out of memory */
+
+    ierr = NDI_GET_FLOAT_VEC(NDI_NU_SIG_F_PR, nu_sig_f, num_grps);
+
+    p = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!p)
+	return(-14);		/* out of memory */
+
+    ierr = NDI_INIT_FLOAT_VEC(sig_pnu, num_grps);
+
+    for (j = i; j < MAX_NU; j++)
+    {
+	GET_PNU(p, num_grps);	/* get probabilities */
+	for (k = 0; k < num_grps; k++) /* add to sum */
+	    sig_pnu[k] += ndi_perm(j, i) * p[k];
+    }
+
+    for (k = 0; k < num_grps; k++) /* normalize */
+	sig_pnu[k] *= nu_sig_f[k]/(ndi_fact(i) * nu[k]);
+
+
+    if (nu) ndi_free((void **)&nu);
+    if (nu_sig_f) ndi_free((void **)&nu_sig_f);
+    if (p) ndi_free((void **)&p);
+
+    return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+

@@ -15,6 +15,7 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 #include "ndi_state.h"
+#include "ndi_pnu.h"
 
 static int get_int_val_mg( int in_key, int *ret_val );
 static int get_int_val_tn( int in_key, int *ret_val );
@@ -153,6 +154,9 @@ static int get_int_val_mg( int in_key, int *ret_val ) {
       }
       break;
 
+   case NDI_NUM_PNU:
+       *ret_val = 5;	/* number of fission neutron probabilities */
+       break;
 
   case NDI_NUM_GRPS_CURR_PART:             /* Number of groups -- current particle */
     if ( iso_stat.sec_part &&
