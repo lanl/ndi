@@ -14,13 +14,13 @@ digraph ndi {
 	/* project */
 	ndi[label="NDI 2.0.2", shape="ellipse"];
 	
-	jomc -> ndi[label="HR MG Data;\nLLNL MG Data", color=yellow4];
-	ndi -> jomc[label="LLNL MG Support", color=yellow1];
-	ndi -> morgan[label="Hi Fi MG Support", color=red];
-	ndi -> caw[label="PD React. ID,\nTN Temp. Interp.", color=yellow1];
-	ndi -> rsb[label="SF Data", color=red];
-	ndi -> drnuke[label="Dis. Cos. SN Data", color=red];
-	ndi -> dahl[label="HR MG Data", color=red];
+	jomc -> ndi[label="14) HR MG Data;\n7) LLNL MG Data", color=yellow4];
+	ndi -> jomc[label="7) LLNL MG Support", color=yellow1];
+	ndi -> morgan[label="8) Hi Fi MG Support", color=red];
+	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow1];
+	ndi -> rsb[label="6) SF Data", color=red];
+	ndi -> drnuke[label="15) MG scatt. Data for MC Supp.", color=red];
+	ndi -> dahl[label="14) HR MG Data", color=red];
 	
 	{rank = max; jomc; morgan; dahl}
 	{rank = min; caw; drnuke; rsb}

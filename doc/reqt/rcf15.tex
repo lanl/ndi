@@ -6,22 +6,50 @@ Requirement Control Form
 Requirement Elicitation:
 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Short name: Equiprobable discrete cosine MG data & Control number: 15\\ \hline
+Short name: MG scattering distribution for Monte Carlo & Control number: 15\\ \hline
 Stakeholder: Steven Nolen & Request date: March 07, 2005\\
 \end{tabular}
 \begin{tabular}{|p{433pt}|} \hline
 Description: \\ 
-Provide equiprobable discrete cosine scattering matrix data. \\
-\hline
+Provide Multigroup Scattering Data Support for Monte Carlo through one
+of the following:
+\begin{enumerate}
+\item Addition of high order Legendre polynomial expansion scattering
+data that can be converted by the user to equiprobable discrete
+cosine scattering data.
+\item Addition of routines to convert Legendre polynomial expansion
+scattering data to equiprobable discrete cosine scattering data
+\item Addition of equiprobable discrete cosine scattering data to data
+files
+\end{enumerate}
+\\ \hline
 \end{tabular} 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Urgent: No & Comment: Available from ENDF with Bob's code \\ \hline
+Urgent: No & Comment: \\ \hline
 \end{tabular}
 
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
-Command:
+Data: 
+\begin{enumerate}
+\item High order Legendre polynomial expansion scattering data
+\item Possibly none
+\item Equiprobable discrete cosine expansion scattering data
+\end{enumerate} \\ \hline
+Command: 
+\begin{enumerate}
+\item None
+\item
+\begin{verbatim}
+/* get number of angles available */
+edc_num = NDI2_get_size_n(handle, NDI_EDC, ierr)
+/* get angle zero scattering matrix */
+ierr = NDI2_get_float_vec_n(handle, NDI_EDC, 0, result_vec, size)
+\end{verbatim} 
+\item See 2 
+\end{enumerate} \\ \hline
+
 \end{tabular}
 \vspace{24pt}
 
