@@ -33,7 +33,7 @@ static int set_pn_array (FILE *stream, multi_stat *sf, int pn_order,
 			 int num_elements );
 static int set_sig_reac (FILE *stream, multi_stat *sf, int num_reac,
 			 int in_grps, int **in_e_mt, 
-			 double **in_q_value );
+			 double **in_q_value, int *fission_flag );
 static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_part,
 			    int num_parts, int *parts_filled );
 static int fill_edist( FILE *stream, int ntemp, edist_data *dist );
@@ -317,69 +317,82 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if  (strncmp(in_keyword, "nu_tot", 7 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_tot, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* nubar prompt */
       else if  (strncmp(in_keyword, "nu_pr", 6 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_pr, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* nubar delayed */
       else if  (strncmp(in_keyword, "nu_del", 7 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_del, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* nubar total sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_tot", 13 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_tot, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* nubar prompt sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_pr", 12 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_pr, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* nubar delayed sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_del", 13 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_del, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* chi total vector */
       else if ( strncmp(in_keyword, "chi_vec_tot", 12) == 0 ) {
 	 ierr = set_simple_array (stream, &iso_stat.chi_vec_tot, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* chi prompt vector */
       else if  (strncmp(in_keyword, "chi_vec_pr", 11 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.chi_vec_pr, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* chi delayed vector */
       else if  (strncmp(in_keyword, "chi_vec_del", 12 ) == 0) {
 	 ierr = set_simple_array (stream, &iso_stat.chi_vec_del, 
 				  iso_stat.num_grps);
+	 iso_stat.fissionable = 1;
       }
       /* chi total matrix */
       else if ( strncmp(in_keyword, "chi_mat_tot", 12) == 0 ) {
 	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
 	 ierr = set_simple_array (stream, &iso_stat.chi_mat_tot, 
 				  num_elements);
+	 iso_stat.fissionable = 1;
       }
       /* chi prompt matrix */
       else if  (strncmp(in_keyword, "chi_mat_pr", 11 ) == 0) {
 	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
 	 ierr = set_simple_array (stream, &iso_stat.chi_mat_pr, 
 				  num_elements);
+	 iso_stat.fissionable = 1;
       }
       /* chi delayed matrix */
       else if  (strncmp(in_keyword, "chi_mat_del", 12 ) == 0) {
 	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
 	 ierr = set_simple_array (stream, &iso_stat.chi_mat_del, 
 				  num_elements);
+	 iso_stat.fissionable = 1;
       }
       /* fission q */
       else if ( strncmp(in_keyword, "fiss_q", 7 ) == 0 ) {
 	 ierr = set_simple_array (stream, &iso_stat.fiss_q, 
 				  NUM_FISSION_Q);
+	 iso_stat.fissionable = 1;
       }
       /* Normalization factors */
       else if ( strncmp(in_keyword, "norm", 5 ) == 0 ) {
@@ -417,7 +430,7 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if (strncmp(in_keyword, "sig_reac", 9) == 0 ) {
 	 ierr = set_sig_reac (stream, &iso_stat.sig_reac, iso_stat.num_reac,
 			      iso_stat.num_grps, &iso_stat.reac_mt, 
-			      &iso_stat.reac_q );
+			      &iso_stat.reac_q, &iso_stat.fissionable );
       }
 
       /* sigma edit reaction products -- all */
@@ -729,6 +742,10 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       /* sigma vbar interpolation data */
       else if (strncmp(in_keyword, "int_sigvbars", 13 ) == 0) {
 	 ierr = ndi_skip_rx_prod (stream, &tn_stat.int_sigvbars, NO_MT );
+      }
+      /* einbar interpolation data */
+      else if (strncmp(in_keyword, "int_einbars", 12 ) == 0) {
+	 ierr = ndi_skip_rx_prod (stream, &tn_stat.int_einbars, NO_MT );
       }
       /* average incident energy */
       else if ( strncmp(in_keyword, "einbars", 8 ) == 0 ) {
@@ -1306,13 +1323,13 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
 	   /* Read reaction product mt */
 	   target_p->rprod[i].num_reac = -1;
 	   ierr = ndi_read_rx_prod( stream, tmp_fptr, &(target_p->rprod[i].mt),
-				    "id", &(target_p->rprod[i].num_reac), NO_MT );
+				    ID_PARAM, &(target_p->rprod[i].num_reac), NO_MT );
 	   
 	   /* Read reaction product multiplicities */
 	   target_p->rprod[i].mult = (int *)ndi_malloc( target_p->rprod[i].num_reac 
 							* sizeof(int) );
 	   ierr = ndi_read_rx_prod( stream, tmp_fptr, &(target_p->rprod[i].mult),
-				    "mult", &(target_p->rprod[i].num_reac), NO_MT );
+				    MULT_PARAM, &(target_p->rprod[i].num_reac), NO_MT );
 	 }
        }
        
@@ -1397,13 +1414,13 @@ static int set_chain_array (FILE *stream, depl_target_struct *target,
 	   
 	       target_p->rprod[i].num_reac = -1;
 	       ierr = ndi_read_rx_prod( stream, tmp_fptr, &(target_p->rprod[i].mt),
-					"id", &(target_p->rprod[i].num_reac), NO_MT );
+					ID_PARAM, &(target_p->rprod[i].num_reac), NO_MT );
 	   
 	       /* Read reaction product multiplicities */
 	       target_p->rprod[i].mult = (int *)ndi_malloc( target_p->rprod[i].num_reac 
 							    * sizeof(int) );
 	       ierr = ndi_read_rx_prod( stream, tmp_fptr, &(target_p->rprod[i].mult),
-					"mult", &(target_p->rprod[i].num_reac), NO_MT );
+					MULT_PARAM, &(target_p->rprod[i].num_reac), NO_MT );
 
 	       /*  COMMENTED OUT
 	       fscanf( stream, "%d\n",  &(target_p->rprod[i].num_reac));
@@ -1496,7 +1513,7 @@ static int set_pn_array (FILE *stream, multi_stat *sf, int pn_order,
 
 static int set_sig_reac (FILE *stream, multi_stat *sf, int num_reac,
 			 int in_grps, int **in_e_mt, 
-			 double **in_q_value )
+			 double **in_q_value, int *fission_flag )
 	
 /* It is assumed that 'num_objs' has not been set */
 /* The number of  energy groups must be set */
@@ -1535,7 +1552,17 @@ static int set_sig_reac (FILE *stream, multi_stat *sf, int num_reac,
 		  if ( sf->stat ) ndi_free( (void**)&sf->stat );
 		  return (-11);
 	       }
-	       /*** check e_mt[n] == curr_e_mt  and store q_value??? */
+
+	       /* Check for fission reaction */
+	       /* ASSUMPTION: Checking only for MT=18 (total f) and MT=19 (direct f),
+		  since it is assumed that MT=19 will be present if any other partial 
+		  fission reactions are present (MT=20,21,38)
+	       */
+	       if ( (*e_mt == 18) || (*e_mt == 19) ) {
+		   *fission_flag = 1;
+	       }
+
+	       /*** check e_mt[n] == curr_e_mt  and store q_value */
 	       e_mt++;
 	       q_value++;
 	       sf->stat[n].file_ptr = ftell(stream);
