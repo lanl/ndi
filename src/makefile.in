@@ -141,7 +141,7 @@ DATA_TEST_SRC := \
 	test/tn_data.c \
 	test/dosn_data.c \
 	test/proddepl_data.c \
-	test/testreac_data.c \
+	test/tnreac_data.c \
 	test/radchem_data.c 
 
 ifneq (,$(findstring cray, $(CONFIG)))
