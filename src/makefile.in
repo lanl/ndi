@@ -139,7 +139,10 @@ SRC_TESTF := \
 DATA_TEST_SRC := \
 	test/mgn_data.c \
 	test/tn_data.c \
-	test/dosn_data.c
+	test/dosn_data.c \
+	test/proddepl_data.c \
+	test/testreac_data.c \
+	test/radchem_data.c 
 
 ifneq (,$(findstring cray, $(CONFIG)))
 SRC += ndi_fortran_cray.c
@@ -202,7 +205,8 @@ clean:
 	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
 
 distclean: clean
-	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE) $(TESTOUT)
+	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE) $(TESTOUT) \
+	$(DATA_TESTS) check_data.out 
 
 install: all
 	umask 002 ; \

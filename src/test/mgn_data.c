@@ -6,19 +6,19 @@
 
 typedef double float64;
 
-int tn_data(void);
+int mgn_data(void);
 
 #ifdef __STANDALONE
 int main ()
 {
   int ierr = 0;
 
-  ierr = tn_data();
+  ierr = mgn_data();
   return(ierr);
 }
 #endif  /* __STANDALONE */
 
-int tn_data(void)
+int mgn_data(void)
 {
    int ierr;
    int array_size;
@@ -76,7 +76,7 @@ int tn_data(void)
 	   printf("Bad zaid list.  Quitting.\n");
        }
    } else {
-       printf("********NO MG_NEUTRON DATA\n");
+       printf("\n          NO MG_NEUTRON DATA\n");
    }
 
    return(ierr);

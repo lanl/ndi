@@ -96,7 +96,7 @@ int tn_data(void)
 	   printf("Bad zaid list.  Quitting.\n");
        }
    } else {
-       printf("********NO TN DATA\n");
+       printf("\n          NO TN DATA\n");
    }
 
    return(ierr);
