@@ -1,3 +1,7 @@
+2005-01-18  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* VERSION: updated version to 2.0.1
+
 2004-12-20  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* makefile.in (test%.out): added ./
