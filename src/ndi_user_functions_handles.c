@@ -7,10 +7,20 @@
 #include "ndi_var_type.h"
 
 /*!
-  \brief create gendir handle
-  \param handle: level 0 handle
-  \param path: gendir path string; "" for default path
-  \return 0 if successful; negative if error
+  \brief Open gendir handle to index file indicated by \a path
+
+  \par Fortran example
+  \code
+  ! Create gendir handle to default index file
+  call ndi2_open_gendir(handle, "", ndi_err)
+  \endcode
+
+  \param handle: integer output gendir handle
+  \param path: string input containing the index file path; 
+  "" for default
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
 */
 int NDI2_open_gendir(int *handle, const char *path)
 {
@@ -29,11 +39,38 @@ int NDI2_open_gendir(int *handle, const char *path)
 }
 
 /*!
-  \brief set global option
-  \param handle: gendir handle
-  \param in_key: option key
-  \param value: option value
-  \return 0 if successful, negative if error
+  \brief Set the global string option indicated by \a in_key to 
+  \a value for \a handle
+
+  \par Fortran example
+  \code
+  ! Set default library type to "multigroup_neutron"
+  call ndi2_set_option_gendir(handle, NDI_LIB_TYPE_DEFAULT, "multigroup_neutron", ndi_err)
+  \endcode
+
+  \param handle: integer input gendir handle
+  \param in_key: integer input indicating the option set
+  \param value: string input containing the option value
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Valid input keys:
+  ======================
+
+  - gendir \a handle:
+      - \c NDI_CURR_PART_DEFAULT
+      - \c NDI_E_AVG_DEFAULT
+      - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
+      - \c NDI_FISS_PROD_DEFAULT
+      - \c NDI_KERMA_DEFAULT
+      - \c NDI_LIB_TYPE_DEFAULT
+      - \c NDI_LIBRARY_DEFAULT
+      - \c NDI_MAT_ORDER_DEFAULT
+      - \c NDI_NORM_DEFAULT
+      - \c NDI_REAC_ID_DEFAULT
+      - \c NDI_TEMP_DEFAULT
+      - \c NDI_TRANS_CORR_DEFAULT
+
 */
 int NDI2_set_option_gendir(int handle, int in_key, const char *value)
 {
@@ -55,12 +92,38 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
 }
 
 /*!
-  \brief check global options
-  \param handle: gendir handle
-  \param in_key: option key
-  \param out_value: option value
-  \param string_size: size of out_value
-  \return 0 if successful, negative if error
+  \brief Check the global string option indicated by \a in_key for \a handle
+
+  \par Fortran example
+  \code
+  ! Check default library
+  call ndi2_check_option_gendir(handle, NDI_LIBRARY_DEFAULT, out_value, ndi_err)
+  \endcode
+
+  \param handle: integer input gendir handle
+  \param in_key: integer input indicating the option checked
+  \param out_value: string output containing the option value
+  \param string_size: integer input indicating the allocated size of 
+  out_value (C only)
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Valid input keys:
+  ======================
+
+      - \c NDI_CURR_PART_DEFAULT
+      - \c NDI_E_AVG_DEFAULT
+      - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
+      - \c NDI_FISS_PROD_DEFAULT
+      - \c NDI_KERMA_DEFAULT
+      - \c NDI_LIB_TYPE_DEFAULT
+      - \c NDI_LIBRARY_DEFAULT
+      - \c NDI_MAT_ORDER_DEFAULT
+      - \c NDI_NORM_DEFAULT
+      - \c NDI_REAC_ID_DEFAULT
+      - \c NDI_TEMP_DEFAULT
+      - \c NDI_TRANS_CORR_DEFAULT
+
 */
 int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
                              int string_size)
@@ -88,9 +151,18 @@ int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 }
 
 /*!
-  \brief release gendir handle
-  \param handle: gendir handle
-  \return 0 if successful, negative if error
+  \brief Close gendir handle to index file
+
+  \par Fortran example
+  \code
+  ! Close gendir handle
+  call ndi2_close_gendir(handle, ndi_err)
+  \endcode
+
+  \param handle: integer input gendir handle
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
 */
 int NDI2_close_gendir(int handle)
 {
@@ -106,11 +178,30 @@ int NDI2_close_gendir(int handle)
 }
 
 /*!
-  \brief make child handle of type from parent handle
-  \param handle0: parent handle
-  \param type: library type
-  \param handle1: child handle
-  \return 0 if successful, negative if error
+  \brief Make child handle of \a type from parent \a handle0
+
+  \par Fortran example
+  \code
+  ! Make a multigroup neutron handle
+  call ndi2_make_handle(handle0, "multigroup_neutron", handle1, ndi_err)
+  \endcode
+
+  \param handle0: integer input parent handle
+  \param type: string input containing the library type
+  \param handle1: integer output child handle
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Valid input types:
+  ======================
+
+      - \c multigroup_neutron
+      - \c tn
+      - \c tnreactions
+      - \c multigroup_photon
+      - \c dosimetry_neutron
+      - \c multigroup_multi
+
 */
 int NDI2_make_handle(int handle0, const char *type, int *handle1)
 {
@@ -133,10 +224,19 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
 }
 
 /*!
-  \brief set zaid for multi-group transport data handle
-  \param handle: handle
-  \param zaid: Z, A id
-  \return 0 if successful, negative if error
+  \brief Set isotope for \a handle
+
+  \par Fortran example
+  \code
+  ! Set isotope U-235
+  call ndi2_set_isotope(handle, "92235", ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing Z, A id
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
 */
 int NDI2_set_isotope(int handle, const char *zaid)
 {
@@ -144,10 +244,18 @@ int NDI2_set_isotope(int handle, const char *zaid)
 }
 
 /*!
-  \brief set zaid for multi-group transport data handle
-  \param handle: handle
-  \param zaid: Z, A id
-  \return 0 if successful, negative if error
+  \brief Set zaid for \a handle
+
+  \par Fortran example
+  \code
+  ! Set zaid U-235
+  call ndi2_set_zaid(handle, "92235", ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing zaid
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
 */
 int NDI2_set_zaid(int handle, const char *zaid)
 {
@@ -165,10 +273,19 @@ int NDI2_set_zaid(int handle, const char *zaid)
 }
 
 /*!
-  \brief set zaid for handle
-  \param handle: handle
-  \param zaid: Z, A id
-  \return 0 if successful, negative if error
+  \brief Set zaid for \a handle
+
+  \par Fortran example
+  \code
+  ! Set reaction "d+t->n+a"
+  call ndi2_set_reaction(handle, "d+t->n+a", ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param reaction: string input containing reaction
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
 */
 int NDI2_set_reaction(int handle, const char *zaid)
 {
@@ -185,11 +302,158 @@ int NDI2_set_reaction(int handle, const char *zaid)
 }
 
 /*!
-  \brief get size for keyword data from handle
-  \param handle: handle
-  \param in_key: keyword
-  \param ierr: 0 if successful, negative if error
-  \return size
+  \brief Get the size indicated by \a in_key for \a handle
+
+  \par Fortran example
+  \code
+  ! Get size of sigma array
+  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key containing the size requested
+  \param size: integer output containing the size (Fortran only)
+  \param ierr: integer output error code
+  \return integer output containing the size (C only)
+
+
+  \par Valid input keys:
+  ======================
+
+  - All \a handles:
+      - \c NDI_VERSION
+      - \c NDI_GENDIR_PATH
+  - Gendir \a handle:
+      - \c NDI_ZAID 
+      - \c NDI_TEMP
+      - \c NDI_SIG_0
+      - \c NDI_AT_WGT
+      - \c NDI_AWR
+  - Multigroup tranport or dosimetry \a handles:
+      - \c NDI_ZAID
+      - \c NDI_INFO
+      - \c NDI_DATE_PROCESSED
+      - \c NDI_DATE_SOURCE
+      - \c NDI_LIBRARY_NAME
+      - \c NDI_DEPL_ZAID
+      - \c NDI_DEPL_INFO
+      - \c NDI_SEC_PART_TYPES
+      - \c NDI_SEC_PART_ZAIDS
+      - \c NDI_NUM_GRPS
+      - \c NDI_TEMP
+      - \c NDI_SIG_0
+      - \c NDI_UP_GRPS
+      - \c NDI_DOWN_GRPS
+      - \c NDI_AT_WGT
+      - \c NDI_AWR
+      - \c NDI_NUM_REAC
+      - \c NDI_NUM_RPRODS
+      - \c NDI_PN_ORDER
+      - \c NDI_NUM_SEC_PARTS
+      - \c NDI_NUM_GRPS_CURR_PART
+      - \c NDI_PN_ORDER_CURR_PART
+      - \c NDI_NUM_TARGET
+      - \c NDI_LAST_GRP
+      - \c NDI_FISSIONABLE
+      - \c NDI_ATOMIC_NUM
+      - \c NDI_MASS_NUM
+      - \c NDI_NUM_PNU_PR
+      - \c NDI_E_AVG
+      - \c NDI_ENERGY_N
+      - \c NDI_ENERGY_AVAIL
+      - \c NDI_WGTS
+      - \c NDI_VEL
+      - \c NDI_HEATING
+      - \c NDI_KERMA
+      - \c NDI_SIG_TOT
+      - \c NDI_NU_TOT
+      - \c NDI_NU_PR
+      - \c NDI_NU_DEL
+      - \c NDI_NU_SIG_F_TO
+      - \c NDI_NU_SIG_F_PR
+      - \c NDI_NU_SIG_F_DEL
+      - \c NDI_CHI_VEC_TOT
+      - \c NDI_CHI_VEC_PR
+      - \c NDI_CHI_VEC_DEL
+      - \c NDI_HEATING_CURR_PART
+      - \c NDI_KERMA_CURR_PART
+      - \c NDI_TOT_PROD_XS
+      - \c NDI_TOT_DEPL_XS
+      - \c NDI_E_BOUNDS
+      - \c NDI_NORM
+      - \c NDI_FISS_Q
+      - \c NDI_REAC_MT
+      - \c NDI_REAC_Q
+      - \c NDI_E_BOUNDS_CURR_PART
+      - \c NDI_RPROD_ALL
+      - \c NDI_RPROD_RMO
+      - \c NDI_RPROD_FEW
+      - \c NDI_CHI_MAT_TOT
+      - \c NDI_CHI_MAT_PR
+      - \c NDI_CHI_MAT_DEL
+  - Multiparticle multigroup transport \a handle:
+      - \c NDI_E_BOUNDS
+      - \c NDI_WGTS
+      - \c NDI_VEL
+      - \c NDI_E_AVG
+      - \c NDI_HEATING
+      - \c NDI_KERMA
+      - \c NDI_SIG_TOT
+      - \c NDI_NU_TOT
+      - \c NDI_NU_PR
+      - \c NDI_NU_DEL
+      - \c NDI_NU_SIG_F_TOT
+      - \c NDI_NU_SIG_F_PR
+      - \c NDI_NU_SIG_F_DEL
+      - \c NDI_CHI_VEC_TOT
+      - \c NDI_CHI_VEC_PR
+      - \c NDI_CHI_VEC_DEL
+      - \c NDI_REAC_MT
+      - \c NDI_ZAID
+      - \c  NDI_NUM_GRPS
+      - \c NDI_PN_ORDER
+      - \c NDI_NUM_PNU_PR
+      - \c NDI_NUM_REAC
+      - \c NDI_FISSIONABLE
+  - Thermonuclear burn \a handle:
+      - \c NDI_ZAID
+      - \c NDI_INFO
+      - \c NDI_DATE_PROCESSED
+      - \c NDI_DATE_SOURCE
+      - \c NDI_LIBRARY_NAME
+      - \c NDI_NUM_TEMPS
+      - \c NDI_NUM_SIGVBAR_INTERP
+      - \c NDI_NUM_EINBAR_INTERP
+      - \c NDI_NUM_SEC_PARTS
+      - \c NDI_NUM_REAC
+      - \c NDI_NUM_RPRODS
+      - \c NDI_NUM_REACTANTS
+      - \c NDI_REAC_Q
+      - \c NDI_NUM_GRPS
+      - \c NDI_EAVG_OUT
+      - \c NDI_EOUTBAR
+      - \c NDI_TEMPS
+      - \c NDI_SIGVBARS
+      - \c NDI_RPRODS_ID
+      - \c NDI_RPRODS_MLT
+      - \c NDI_REACTANTS_ID
+      - \c NDI_REACTANTS_MLT
+      - \c NDI_SIGVBAR_INTERP_REG
+      - \c NDI_SIGVBAR_INTERP_TYPE
+      - \c NDI_EINBAR_INTERP_REG
+      - \c NDI_EINBAR_INTERP_TYPE
+      - \c NDI_SEC_PART_TYPES
+      - \c NDI_EDIST
+      - \c NDI_EINBAR
+      - \c NDI_E_BOUNDS
+      - \c NDI_E_AVG
+  - Thermonuclear burn \a handle:
+      - \c NDI_ZAID
+      - \c NDI_INFO
+      - \c NDI_DATE_PROCESSED
+      - \c NDI_DATE_SOURCE
+      - \c NDI_LIBRARY_NAME
+      - \c NDI_NUM_REAC
 */
 int NDI2_get_size(int handle, int in_key, int *ierr)
 {
@@ -225,7 +489,7 @@ int NDI2_get_size_x(int handle, int in_key, const char *in_str,
 }
 
 /*!
-  \brief Set the string option indicated by \a value for \a handle
+  \brief Set the string option indicated by \a in_key to \a value for \a handle
 
   \par Fortran example
   \code
