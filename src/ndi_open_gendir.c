@@ -61,7 +61,7 @@ int ndi_open_gendir(FILE **dir_stream)
 	
 	/* Check for file /usr/local/codes/data/sn/gendir
 	   ---  the standard file on the X-div LAN ----    */
-	strcpy( dir_file, "/usr/local/codes/data/ndi/" NDI_VERSION_DATA "/gendir" ); 
+	strcpy( dir_file, "/usr/local/codes/data/nuclear/ndi/" NDI_VERSION_DATA "/gendir" ); 
 	if ( ( *dir_stream = fopen( dir_file, "rb" ) ) == NULL ) {
 	  
 	  /* Check for file /usr/projects/data/nuclear/ndi/gendir
