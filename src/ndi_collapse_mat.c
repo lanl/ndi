@@ -102,10 +102,6 @@
   for (k = 0; k < new_grp_num_in; k++) {
      for (l = 0; l < new_grp_num_out; l++ ) {
 
-        /* Outgoing groups must be "floored"--leftover "higher" and 
-	   "lower" groups must be put into first and last collaped
-	   groups.
-	*/
          if (new_ebounds_in) {
              low_bounds_in = new_ebounds_in[k];
              up_bounds_in = new_ebounds_in[k + 1];
@@ -113,14 +109,12 @@
              low_bounds_in = k; 
              up_bounds_in = k + 1; 
          }
-         if ( k == 0 ) {
-             low_bounds_in = 0;
-         } 
-         if ( ( k + 1 ) ==  new_grp_num_in  ) {
-             up_bounds_in = old_grp_num_in;
-         }
-         
-          if (new_ebounds_out) {
+
+        /* Outgoing groups must be "floored"--leftover "higher" and 
+	   "lower" groups must be put into first and last collaped
+	   groups.
+	*/
+         if (new_ebounds_out) {
              low_bounds_out = new_ebounds_out[l];
              up_bounds_out = new_ebounds_out[l + 1];
          } else {
