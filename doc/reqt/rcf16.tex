@@ -21,7 +21,18 @@ Urgent: Yes & Comment: \\ \hline
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
-Command:
+Query:
+\begin{verbatim}
+/* Get number of reaction types */
+num_rt = NDI2_get_size_x(handle, NDI_PROD_MT, "94240", &ierr);
+/* Get integer array of MTs */
+ierr = NDI2_get_int_vec_x(handle, NDI_PROD_MT, "94240", mt_vec, num_rt);
+/* Get integer array of multiplicities */
+ierr = NDI2_get_int_vec_x(handle, NDI_PROD_MULT, "94240", mult_vec, num_rt);
+\end{verbatim}
+\\ \hline
+Response: \texttt{NDI\_PROD\_MT}, \texttt{NDI\_PROD\_MULT} - integer
+arrays of size \texttt{num\_rt}. \\ \hline
 \end{tabular}
 \vspace{24pt}
 
