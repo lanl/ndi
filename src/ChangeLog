@@ -1,3 +1,8 @@
+2004-11-18  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): added 87_llnl
+	(ndi_set_e_grps): added 17_llnl, 66_llnl, 64_llnl
+
 2004-10-25  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_user_functions_handles.c: added basic Doxygen headers
