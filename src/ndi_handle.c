@@ -1,40 +1,59 @@
 #include <stdio.h>
+#include <assert.h>
 
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static state_struct *handle_map[MAX_HANDLE_NUM];
+static state_struct *handle_map[MAX_HANDLE_NUM]; /* level 0 handle array */
 
+/*!
+  \fn handle_to_state_p
+  \brief get state_struct represented by handle
+  \param handle: integer handle
+  \return state_struct if successful; NULL if error
+*/
 state_struct *handle_to_state_p(int handle)
 {
-
     state_struct *state_p = NULL;
+    int m1, m2, m3;
     int i, j, k;
 
-    if (0 <= handle && handle < MAX_HANDLE_NUM) {
-				/* gendir level */
-	 state_p = handle_map[handle];
-    } else if (MAX_HANDLE_NUM <= handle &&
-	       handle < (MAX_HANDLE_NUM*(MAX_HANDLE_NUM+1))) {
-				/* mg level */
-	 handle -= MAX_HANDLE_NUM;
-	 i = handle / MAX_HANDLE_NUM;
-	 j = handle % MAX_HANDLE_NUM;
-	 state_p = handle_map[i] -> handle_map[j];
-    } else if (MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1) <= handle &&
-	       handle < MAX_HANDLE_NUM*(1+MAX_HANDLE_NUM*
-					(1+MAX_HANDLE_NUM))) {
-				/* mpmg level */
-	 handle -= MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1);
-	 i = handle / (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
-	 handle -= i * (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
-	 j = handle / MAX_HANDLE_NUM;
-	 k = handle % MAX_HANDLE_NUM;
-	 state_p = handle_map[i] -> handle_map[j] -> handle_map[k];
-    }
+    m1 = MAX_HANDLE_NUM;
+    m2 = m1 * m1;
+    m3 = m1 * m2;
+
+    if (0 <= handle && handle < m1) { 
+				/* handle = k */
+	k = handle;
+	state_p = handle_map[k];
+
+    } else if (m1 <= handle && handle < m1 + m2) { 
+                                /* handle = (1+j)m1 + k */
+	 handle -= m1;		/* handle =    j*m1 + k */
+	 j = handle / m1;
+	 handle -= j * m1;	/* handle = k */
+	 k = handle;
+	 state_p = handle_map[j] -> handle_map[k];
+
+    } else if (m1 + m2 <= handle && handle < m1 + m2 + m3) {
+				/* handle = (1+i)m2 + (1+j)m1 + k */
+	 handle -= (m1 + m2);	/* handle =    i*m2 +    j*m1 + k */
+	 i = handle / m2;
+	 handle -= i * m2;	/* handle =              j*m1 + k */
+	 j = handle / m1;
+	 handle -= j * m1;	/* handle =                     k */
+	 k = handle;
+	state_p = handle_map[i] -> handle_map[j] -> handle_map[k];
+    }	
     return (state_p);
 }
 
+/*!
+  \fn set_handle
+  \brief set first free level 0 handle to state
+  \param state: state_struct
+  \return handle if successful, negative if error
+*/
 int set_handle(state_struct *state)
 {
 
@@ -54,36 +73,22 @@ int set_handle(state_struct *state)
     return (handle);
 }
 
+/*!
+  \fn __ndi_close_handle
+  \brief close the specified level 0 handle
+  \param handle
+  \return 0 if sucessful; negative if error
+*/
 int __ndi_close_handle(int handle)
 {
-    int i, j, k;
     int ret_val;
     state_struct *state_p;
 
+    assert(0 <= handle && handle < MAX_HANDLE_NUM);
+
     if ((state_p = handle_to_state_p(handle))) {
 	 ret_val = ndi_c_close_h(&state_p);
-	 if (0 <= handle && handle < MAX_HANDLE_NUM) {
-				/* gendir level */
-	      handle_map[handle] = NULL;
-	 } else if (MAX_HANDLE_NUM <= handle &&
-		    handle < (MAX_HANDLE_NUM*(MAX_HANDLE_NUM+1))) {
-				/* mg level */
-	      handle -= MAX_HANDLE_NUM;
-	      i = handle / MAX_HANDLE_NUM;
-	      j = handle % MAX_HANDLE_NUM;
-	      handle_map[i] -> handle_map[j] = NULL;
-	 } else if (MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1) <= handle &&
-		    handle < MAX_HANDLE_NUM*(1+MAX_HANDLE_NUM*
-					     (1+MAX_HANDLE_NUM))) {
-				/* mpmg level */
-	      handle -= MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1);
-	      i = handle / (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
-	      handle -= i * (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
-	      j = handle / MAX_HANDLE_NUM;
-	      k = handle % MAX_HANDLE_NUM;
-	      handle_map[i] -> handle_map[j] -> handle_map[k] = NULL;
-	 }
-	 state_p = NULL;
+	 handle_map[handle] = NULL;
 	 return (ret_val);
     } else {
 	 return (-2);

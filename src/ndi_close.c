@@ -46,7 +46,7 @@ int ndi_c_close_h(state_struct **curr_state)
 	return (-2);
     }
 
-    for (i = 0; i < MAX_HANDLE_NUM; i++)
+    for (i = 0; i < MAX_HANDLE_NUM; i++) /* close children */
 	if (state->handle_map[i] != NULL)
 	    ierr = ndi_c_close_h(&(state->handle_map[i]));
 
