@@ -1139,12 +1139,16 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     sigma = sqrt(2.0) * 1.08;	/* Terrell's fit value */
 
     for (g = 0; g < num_grps; g++) {
-	b = 0.5 * (1.0 - ndi_erf((nu[g] + 0.5) / sigma));
-	return_vec[g] = 0.5 * (1.0 + ndi_erf((vec_num - nu[g] + 0.5 + b) /
-					     sigma));
-	if (0 < vec_num)
-	    return_vec[g] -=
-		0.5 * (1.0 + ndi_erf((vec_num - nu[g] - 0.5 + b) / sigma));
+	if (nu[g] > 0.0) { /* fissionable */
+	    b = 0.5 * (1.0 - ndi_erf((nu[g] + 0.5) / sigma));
+	    return_vec[g] = 0.5 * (1.0 + ndi_erf((vec_num - nu[g] + 0.5 + b) /
+						 sigma));
+	    if (0 < vec_num)
+		return_vec[g] -=
+		    0.5 * (1.0 + ndi_erf((vec_num - nu[g] - 0.5 + b) / sigma));
+	} else {		/* non-fissionable */
+	    return_vec[g] = vec_num ? 0.0: 1.0;
+	}
     }
 
     if (nu)
@@ -1272,9 +1276,11 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     }
 
     for (k = 0; k < num_grps; k++)	/* normalize */
-        if (nu_sig_f[k] > FLOAT_EPSILON) {
+        if (nu[k] > 0.0) {
             sig_pnu[k] *= nu_sig_f[k] / (ndi_fact(i) * nu[k]);
-        }
+        } else {
+	    sig_pnu[k] *= nu_sig_f[k];
+	}
 
 
     if (nu)

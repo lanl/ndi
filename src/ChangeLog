@@ -1,3 +1,8 @@
+2004-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_get_float_vec_n.c (GET_PNU_PR): added test for non-fissionable
+	(GET_SIG_PNU_PR): corrected test for non-fissionable
+
 2004-05-07  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_get_string_val.c (get_string_mpmg): return particle 0 zaid

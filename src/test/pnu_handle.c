@@ -155,7 +155,9 @@ int main ()
 	for (k = 0; k < num_grps; k++)
             if (fabs(nu[k]) > DBL_EPSILON ) {
                 sp[k] -= sf[k] / nu[k];
-            } 
+            } else {
+		sp[k] -= sf[k];
+	    }
 	print_float64_vec(sp, num_grps);
 
 	num_grps = NDI2_get_size_n(handle, NDI_SIG_PNU_PR, 1, &ierr);
