@@ -7,5 +7,3 @@ BUILD_DIR=build-`gnu-os`
 DEBUG_DIR=debug-`gnu-os`
 [ -d $DEBUG_DIR ] || mkdir $DEBUG_DIR;
 (cd $DEBUG_DIR; ../configure; gmake DEBUG=1 )
-
-

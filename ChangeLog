@@ -1,0 +1,7 @@
+2004-10-05  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* installndi.sh: added forced fix to group ownership, directory
+	and file permissions 
+
+	* releasendi.sh: added ./ to local scripts
+

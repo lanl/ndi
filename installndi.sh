@@ -37,9 +37,7 @@ case $GNU_OS_OUT in
 esac
 
 INSTALL_DIR=$NDI_ROOT/$ndi_version/$platform
-if [ -d $NDI_ROOT/$ndi_version ]; then
-    echo Do not know how to negate!
-else
+if [ ! -d $NDI_ROOT/$ndi_version ]; then
     umask 002
     mkdir $NDI_ROOT/$ndi_version
     chgrp pdata $NDI_ROOT/$ndi_version
@@ -69,3 +67,8 @@ cd ../$DEBUG_DIR/src
                                           $INSTALL_DIR/lib/libndi_debug.a
 cd ../..
 
+# force group ownership, directory and file permissions
+
+chgrp -R $GROUP $NDI_ROOT/$ndi_version
+find $NDI_ROOT/$ndi_version -type d -exec chmod 775 {} \;
+find $NDI_ROOT/$ndi_version -type f -exec chmod 664 {} \;
