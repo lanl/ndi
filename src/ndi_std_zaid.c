@@ -14,13 +14,12 @@
 #include <ctype.h>
 
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 static void ndi_process_extension ( char *in_str, char **ext_p );
 
 /**********************************************************************/
 
-int ndi_std_zaid(char *in_zaid, int zaid_size ) {
+int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size ) {
 
 /*  Purpose: To return a full or partial zaid (depending on the input
     zaid) in the standard format.
@@ -48,7 +47,10 @@ int ndi_std_zaid(char *in_zaid, int zaid_size ) {
   char real_zaid[MAX_IN_STR_LEN];
 
   real_zaid[0] = '\0';
-  ierr = ndi_parse_str_zaid(in_zaid, &Z, &A, &S);
+  if (! state) {
+      return(-2);
+  }
+  ierr = ndi_parse_str_zaid(state,in_zaid, &Z, &A, &S);
 
   /* Check errors */
   if ( ( Z <= MAX_Z ) && ( Z > 0 ) ) {

@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+#include "ndi.h"
+#include "ndi_internal.h"
+#include "ndi_state.h"
+
+/**********************************************************************/
+int ndimp_get_int_val(const int *handle_arr, const int num_parts, 
+                       const int in_key, int *return_val) {
+
+     int i;
+     int tmp_err = 0;
+     int ierr = 0;
+     int temp_val = 0;
+      state_struct *statep;
+
+
+      *return_val = 0;
+     /* Check each particle is multigroup */
+     /* Check num_parts <= MAX_HANDLE_NUM */
+     switch (in_key) {
+
+     case NDI_NUM_GRPS:
+          /* Return sum */
+          for (i = 0; i < num_parts; i++) {
+               if ((statep = handle_to_state_p(handle_arr[i]))) {
+                    tmp_err = ndi_c_get_int_val_h(statep, in_key, &temp_val);
+                    *return_val += temp_val;
+               }
+          }
+          break;
+
+     case NDI_PN_ORDER:
+     case NDI_NUM_PNU:
+          /* Return maximum value */
+          /* Note: may have to also check production matrices for pn_order */
+          for (i = 0; i < num_parts; i++) {
+               if ((statep = handle_to_state_p(handle_arr[i]))) {
+                    tmp_err = ndi_c_get_int_val_h(statep, in_key, &temp_val);
+                    if (*return_val < temp_val) {
+                         *return_val = temp_val;
+                    }
+               }
+          }
+          break;
+
+     case NDI_NUM_REAC:
+          for (i = 0; i < num_parts; i++) {
+               if ((statep = handle_to_state_p(handle_arr[i]))) {
+                    *return_val = ndimp_get_size(handle_arr, num_parts, NDI_REAC_MT, 
+                                                 &tmp_err);
+               }
+          }
+          break;
+
+     default:
+          ierr = -4;
+          break;
+
+     }
+
+     return(ierr);
+}

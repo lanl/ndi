@@ -14,7 +14,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 
 static int ndi_init_dir_rec( dir_entry *dir_rec );

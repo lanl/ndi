@@ -20,11 +20,11 @@
 /**********************************************************************/
 
 #ifdef FLOAT32
-int ndi_collapse_float32( const FLOAT_TYPE *old_vec, int old_grp_num, 
+int ndi_collapse_float32( state_struct *state, const FLOAT_TYPE *old_vec, int old_grp_num, 
 			  int recip_flag,
 			  FLOAT_TYPE *return_vec, int return_size )
 #else
-int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num, 
+int ndi_collapse_float64( state_struct *state, const FLOAT_TYPE *old_vec, int old_grp_num, 
 			  int recip_flag,
 			  FLOAT_TYPE *return_vec, int return_size )
 #endif
@@ -72,12 +72,16 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
   int up_bound;
   int low_bound;
   
-  if ( grp_num_new <= 0 ) {
+   if (! state) {
+       return(-2);
+   }
+
+  if ( state->grp_num_new <= 0 ) {
      /* Number of groups not set  */
      return(-21);
   }
 
-  for ( i = 0; i < grp_num_new; i++ ) {
+  for ( i = 0; i < state->grp_num_new; i++ ) {
    
     /* Bounds check */
     if ( i >= return_size ) {
@@ -87,12 +91,12 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 
     wt_sum = 0;
     return_vec[i] = 0;
-    low_bound = new_ebounds[i];
-    up_bound = new_ebounds[i + 1];
+    low_bound = state->new_ebounds[i];
+    up_bound = state->new_ebounds[i + 1];
     if ( recip_flag == 2 ) {
        if ( i == 0 ) { 
 	  low_bound = 0; 
-       } else if ( i == ( grp_num_new - 1) ) {
+       } else if ( i == ( state->grp_num_new - 1) ) {
 	  up_bound = old_grp_num;
        }
     }
@@ -102,10 +106,10 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 	switch (recip_flag) {
 	    
 	case 0:                     /* Use normal flux-weighted averaging */
-	   return_vec[i] += old_vec[j] * lib_weight[j];
+	   return_vec[i] += old_vec[j] * state->lib_weight[j];
 	   break;
 	case 1:                     /* Use reciprocal averaging */
-	    return_vec[i] += lib_weight[j] / old_vec[j];
+	    return_vec[i] += state->lib_weight[j] / old_vec[j];
  	    break;
 	case 2:                     /* Simply sum */
         case 3:
@@ -113,7 +117,7 @@ int ndi_collapse_float64( const FLOAT_TYPE *old_vec, int old_grp_num,
 	    break;
 	}
 	
-	wt_sum += lib_weight[j];
+	wt_sum += state->lib_weight[j];
     }
 
     /* Divide by weighting factor */

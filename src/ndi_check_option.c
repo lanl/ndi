@@ -15,21 +15,18 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int ndi_get_lib_type( char *value, int string_size );
-static int ndi_get_library( char *value, int string_size );
-static int ndi_get_mat_order( char *value, int string_size );
-static int ndi_get_collapse( char *value, int string_size );
-static int ndi_get_trans_corr_diag( char *value, int string_size );
-static int ndi_get_norm( char *value, int string_size );
-static int ndi_get_reac_id( char *value, int string_size );
+static int ndi_get_lib_type( state_struct *state, char *value, int string_size );
+static int ndi_get_library( state_struct *state, char *value, int string_size );
+static int ndi_get_mat_order( state_struct *state, char *value, int string_size );
+static int ndi_get_collapse( state_struct *state, char *value, int string_size );
+static int ndi_get_trans_corr_diag( state_struct *state, char *value, int string_size );
+static int ndi_get_norm( state_struct *state, char *value, int string_size );
+static int ndi_get_reac_id( state_struct *state, char *value, int string_size );
 
 
 /**********************************************************************/
-
-int ndi_c_check_option ( int in_key, char *out_value, int string_size ) 
-
+int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int string_size )
 /*  Purpose: Check options/defaults.
 
     Parameters:
@@ -45,6 +42,10 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
 {
    int ierr = 0;       /* Error flag: 0=no error, pos=warning, neg=error */
    
+   if (! state) {
+       return(-2);
+   }
+    
    /*** Check that NDI is initialized ***/
    
    /*************************/
@@ -54,46 +55,46 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
       
    case NDI_LIB_TYPE:                    
       /*  Set library type  */
-      ierr = ndi_get_lib_type( out_value, string_size );
+      ierr = ndi_get_lib_type( state, out_value, string_size );
       break;
 
    case NDI_LIBRARY:                    
       /* Set source library */
-      ierr = ndi_get_library( out_value, string_size );
+      ierr = ndi_get_library( state, out_value, string_size );
       break;
 
    case NDI_MAT_ORDER:     
       /* Set flag to transpose order of returned matrix */
-      ierr = ndi_get_mat_order( out_value, string_size );
+      ierr = ndi_get_mat_order( state, out_value, string_size );
       break;
       
    case NDI_COLLAPSE:       
       /* Set no. of energy groups to collapse to */
-      ierr = ndi_get_collapse( out_value, string_size );
+      ierr = ndi_get_collapse( state, out_value, string_size );
       break;
 
    case NDI_TRANS_CORR:
       /* Use transport corrections */
-      ierr = ndi_get_trans_corr_diag( out_value, string_size );
+      ierr = ndi_get_trans_corr_diag( state, out_value, string_size );
       break;
 
    case NDI_NORM:
       /* Normalize chis and edists? */
-      ierr = ndi_get_norm( out_value, string_size );
+      ierr = ndi_get_norm( state, out_value, string_size );
       break;
 
    case NDI_REAC_ID:
       /* Specify reaction identifiers--MT or C values */
-      ierr = ndi_get_reac_id( out_value, string_size );
+      ierr = ndi_get_reac_id( state, out_value, string_size );
       break;
 
    case NDI_CHAIN:
      /* case NDI_DEPLETION:
 	case NDI_RADCHEM: */
       /*  Set chain data -- (depl for MG/radchem for dos) */
-     if ( library_type == 'm' )  {
-       if ( chain_stat.set_flag ) {
-	 strncpy( out_value, chain_stat.dataset, string_size );
+     if ( state->library_type == 'm' )  {
+       if ( state->chain_stat.set_flag ) {
+	 strncpy( out_value, state->chain_stat.dataset, string_size );
        } else {
 	 ierr = 9;
        }
@@ -105,12 +106,12 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
 
    case NDI_CURR_PART:
       /* Which particle is 'current'  */
-     if ( curr_part_index >= 0 ) {
-       if ( library_type == 's' ) {
-	 sprintf( out_value, "%-ld", tn_stat.sec_part[curr_part_index].part_type );
-/* 	 strncpy( out_value, tn_stat.sec_part[curr_part_index].part_type, string_size ); */
-       } else if ( library_type == 'm' ) {
-	 strncpy( out_value, iso_stat.sec_part[curr_part_index].part_type, string_size );
+     if ( state->curr_part_index >= 0 ) {
+       if ( state->library_type == 's' ) {
+	 sprintf( out_value, "%-ld", state->tn_stat.sec_part[state->curr_part_index].part_type );
+/* 	 strncpy( out_value, state->tn_stat.sec_part[state->curr_part_index].part_type, string_size ); */
+       } else if ( state->library_type == 'm' ) {
+	 strncpy( out_value, state->iso_stat.sec_part[state->curr_part_index].part_type, string_size );
        } else {
 	 /* Operation is valid only for tn data */
 	 ierr = -16;
@@ -122,14 +123,14 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
 
    case NDI_TEMP:                    
      /*  Default temperature  */
-     if ( sprintf( out_value, "%e", default_temp)  > string_size ) {
+     if ( sprintf( out_value, "%e", state->default_temp)  > string_size ) {
        /* ????*/
      }
      break;
 
    case NDI_FISS_PROD:
      /* Default fission product ZAID */
-     strncpy( out_value, def_fiss_prod_id, string_size );
+     strncpy( out_value, state->def_fiss_prod_id, string_size );
      break;
 
 
@@ -148,7 +149,7 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 
-static int ndi_get_lib_type ( char *value, int string_size )
+static int ndi_get_lib_type ( state_struct *state, char *value, int string_size )
    
 /* Valid library type values:
    multigroup_neutron, tn, multigroup_photon
@@ -161,12 +162,16 @@ static int ndi_get_lib_type ( char *value, int string_size )
    
 {
    int ierr = 0;
-   
-   if ( (particle_type == 'n') && (library_type == 'm') ) { 
+
+   if (! state) {
+       return(-2);
+   }
+
+   if ( (state->particle_type == 'n') && (state->library_type == 'm') ) { 
       strncpy( value, "multigroup_neutron", string_size );
-   } else if( (particle_type == '0') && (library_type == 's') ) {
+   } else if( (state->particle_type == '0') && (state->library_type == 's') ) {
       strncpy( value, "tn", string_size );
-   } else if ( (particle_type == 'p') && (library_type == 'm') ) {
+   } else if ( (state->particle_type == 'p') && (state->library_type == 'm') ) {
       strncpy( value, "multigroup_photon", string_size );
    } else {
       strncpy( value, "", string_size);
@@ -179,7 +184,7 @@ static int ndi_get_lib_type ( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_library( char *value, int string_size )
+static int ndi_get_library(  state_struct *state, char *value, int string_size )
 
 /* Valid library values:
    mendf5, mendf6, rmoxsct, default
@@ -192,8 +197,11 @@ static int ndi_get_library( char *value, int string_size )
 {
    int ierr = 0;
 
+   if (! state) {
+       return(-2);
+   }
 
-   strncpy( value, library_vers, string_size );
+   strncpy( value, state->library_vers, string_size );
 
    if ( strncmp( value, "", string_size ) == 0 ) {
       strncpy( value, "default", string_size );
@@ -205,7 +213,7 @@ static int ndi_get_library( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_mat_order ( char *value, int string_size ) 
+static int ndi_get_mat_order (  state_struct *state, char *value, int string_size ) 
 
 /* Valid mat_order values:
    default, transpose
@@ -218,9 +226,13 @@ static int ndi_get_mat_order ( char *value, int string_size )
 {
    int ierr = 0;
 
-   if (mat_order == 'd') {
+   if (! state) {
+       return(-2);
+   }
+
+   if (state->mat_order == 'd') {
       strncpy( value, "default", string_size );
-   } else if (mat_order == 't') {
+   } else if (state->mat_order == 't') {
       strncpy( value, "transpose", string_size );
    } else {
       strncpy( value, "", string_size);
@@ -233,7 +245,7 @@ static int ndi_get_mat_order ( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_collapse( char *value, int string_size ) 
+static int ndi_get_collapse(  state_struct *state, char *value, int string_size ) 
 
 /* Valid collapse values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -252,9 +264,12 @@ static int ndi_get_collapse( char *value, int string_size )
 {
    int ierr = 0;
 
-   
-   if ( *n_group != '\0' ) {
-     strncpy( value, n_group, string_size );
+    if (! state) {
+       return(-2);
+   }
+  
+   if ( *state->n_group != '\0' ) {
+     strncpy( value, (state->n_group), string_size );
    } else {
      strncpy( value, "default", string_size );
    }
@@ -264,7 +279,7 @@ static int ndi_get_collapse( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_trans_corr_diag( char *value, int string_size )
+static int ndi_get_trans_corr_diag(  state_struct *state, char *value, int string_size )
 
 /* Valid  values:
    none, diag_n, bhs_n 
@@ -281,15 +296,19 @@ static int ndi_get_trans_corr_diag( char *value, int string_size )
    char order_str[5];
    char temp_str[11] = "diag_";
 
-   if ( trans_corr == ' ' ) {
+   if (! state) {
+       return(-2);
+   }
+
+   if ( state->trans_corr == ' ' ) {
       strncpy( value, "none", string_size );
    } else {
-      if (trans_corr_order < 100000) {
-	 sprintf( order_str, "%d", trans_corr_order ); }
-      if ( trans_corr == 'd' ) {
+      if (state->trans_corr_order < 100000) {
+	 sprintf( order_str, "%d", state->trans_corr_order ); }
+      if ( state->trans_corr == 'd' ) {
 	 strncat( temp_str, order_str, 6 );
 	 strncpy( value, temp_str, string_size );
-      } else if ( trans_corr == 'b' ) {
+      } else if ( state->trans_corr == 'b' ) {
 	 strcpy( temp_str, "bhs_" );
 	 strncat( temp_str, order_str, 6);
 	 strncpy( value, temp_str, string_size );
@@ -306,7 +325,7 @@ static int ndi_get_trans_corr_diag( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_norm( char *value, int string_size )
+static int ndi_get_norm(  state_struct *state, char *value, int string_size )
 
 /* Valid  values:
    norm, no_norm
@@ -319,10 +338,13 @@ static int ndi_get_norm( char *value, int string_size )
 { 
   int ierr = 0;
   
-  
-  if (no_norm == 0) {
+  if (! state) {
+       return(-2);
+   }
+
+  if (state->no_norm == 0) {
     strncpy( value, "norm", string_size );
-  } else if (no_norm != 0) {
+  } else if (state->no_norm != 0) {
     strncpy( value, "no_norm", string_size );
   } else {
     strncpy( value, "", string_size);
@@ -335,7 +357,7 @@ static int ndi_get_norm( char *value, int string_size )
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_reac_id( char *value, int string_size )
+static int ndi_get_reac_id(  state_struct *state, char *value, int string_size )
 
 /* Valid  values:
    mt, c
@@ -348,9 +370,13 @@ static int ndi_get_reac_id( char *value, int string_size )
 { 
    int ierr = 0;
 
-   if ( reac_id == 'm' ) {
+   if (! state) {
+       return(-2);
+   }
+
+   if ( state->reac_id == 'm' ) {
       strncpy( value, "mt", string_size );
-   } else if ( reac_id == 'c' ) {
+   } else if ( state->reac_id == 'c' ) {
       strncpy( value, "c", string_size );
    } else {
       strncpy( value, "", string_size );

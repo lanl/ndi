@@ -16,41 +16,41 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
 static int NDI_DIAG2FULL(FLOAT_TYPE *low_diag, int num_ld, FLOAT_TYPE *up_diag, 
 		  int num_ud, int num_row, int num_col, 
 		  FLOAT_TYPE *return_vec);
-static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat, 
+static int GET_FULL_PN_MAT (state_struct *state, FILE *stream, multi_stat full_mat, 
 			    multi_stat down_mat, int num_grps, 
 			    int vec_num, FLOAT_TYPE *return_mat, 
 			    int return_size );
-static int NDI_COLLAPSE_PROD_MAT(FLOAT_TYPE *old_mat, 
+static int NDI_COLLAPSE_PROD_MAT(state_struct *state, FLOAT_TYPE *old_mat, 
 				 int old_in, int old_out,
 				 int new_in,
 				 FLOAT_TYPE *return_vec, int return_size );
 static int NDI_FULL2DIAG( FLOAT_TYPE *full_mat, int num_grps, FLOAT_TYPE *return_vec,
 			  int return_size );
-static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
+static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream, FLOAT_TYPE *return_vec,
 			    multi_stat *down_diag, multi_stat *full_mat,
 			    int vec_num, int vec_size );
-static int PN_DOWN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size );
-static int PN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size );
-static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
+static int PN_DOWN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
+static int PN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
+static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg sec_part,
 			     int vec_num,
 			     FLOAT_TYPE *return_vec, int return_size );
-static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num );
-static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num );
-static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num, 
+static int GET_DIAG_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num );
+static int GET_BHS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num );
+static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int vec_num, 
 			     int n_type );
-static int GET_PNU_PR(FLOAT_TYPE *return_vec, int vec_num);
-static int GET_SIG_PNU_PR(FLOAT_TYPE *return_vec, int vec_num);
+static int GET_PNU_PR(state_struct *state, FLOAT_TYPE *return_vec, int vec_num);
+static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE *return_vec, int vec_num);
 
 /**********************************************************************/
 
-int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num, 
-			FLOAT_TYPE *return_vec, int return_size) {
+int NDI_GET_FLOAT_VEC_N_H( state_struct *state, int in_key, int vec_num, 
+                           FLOAT_TYPE *return_vec, int return_size) 
+{
 
    int ierr = 0;
    int tmp_err = 0;
@@ -61,8 +61,12 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
    /* Initialize return vector with zeroes */
    NDI_INIT_FLOAT_VEC( return_vec, return_size );
 
+        if (! state) {
+            return(-2);
+        }
+
    /* Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if (!state->ndi_initialized) {
       return(-2); }
 
 #ifdef FLOAT32
@@ -72,21 +76,21 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
    }
 #endif
 
-   if ( library_type == ' ' ) {
+   if ( state->library_type == ' ' ) {
      /* Library type was not set--defaulting to multigroup n */
-     library_type = 'm';
-     if ( particle_type == ' ' ) {
-       particle_type = 'n';
+     state->library_type = 'm';
+     if ( state->particle_type == ' ' ) {
+       state->particle_type = 'n';
      }
      tmp_err = 8;
-   } else if ( ( library_type != 'm' )&&
-	       (library_type != 'd' ) ) {
+   } else if ( ( state->library_type != 'm' )&&
+	       (state->library_type != 'd' ) ) {
       /* Incompatible library */
       return(-16);
    }
 
    /* Check that isotope is set */
-   if (! iso_stat.set_flag) {
+   if (! state->iso_stat.set_flag) {
       return(-7);
    }
   
@@ -98,15 +102,15 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
 
    case NDI_PN_DOWN_FULL:      /* Pn scattering matrix -- downscatter diagonal */
 
-      num_elements = iso_stat.num_grps;
+      num_elements = state->iso_stat.num_grps;
 
-      ierr = GET_PN_DOWN_FULL(lib_stream, return_vec, &iso_stat.pn_down_full, 
-			      &iso_stat.pn_full, vec_num, return_size );
+      ierr = GET_PN_DOWN_FULL(state, state->lib_stream, return_vec, &state->iso_stat.pn_down_full, 
+			      &state->iso_stat.pn_full, vec_num, return_size );
 
       /* Apply transport correction, if necessary */
       /*** Test that scattering order is less than transport correction order ***/
-      if ( (ierr >= 0) && (trans_corr != ' ') ) { 
-	 ierr = PN_DOWN_FULL_TRANS_CORR( return_vec, return_size );
+      if ( (ierr >= 0) && (state->trans_corr != ' ') ) { 
+	 ierr = PN_DOWN_FULL_TRANS_CORR( state, return_vec, return_size );
       }
       /*  Transpose isn't applied to diagonal */
 
@@ -116,22 +120,22 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
       /*  Full scattering matrices are not currently supported in the library,
 	  so pn_full should not contain data  */
      
-      num_elements = iso_stat.num_grps;
-      ierr = GET_FULL_PN_MAT( lib_stream, iso_stat.pn_full, iso_stat.pn_down_full, 
+      num_elements = state->iso_stat.num_grps;
+      ierr = GET_FULL_PN_MAT( state, state->lib_stream, state->iso_stat.pn_full, state->iso_stat.pn_down_full, 
 			      num_elements, vec_num, return_vec, return_size );
 
       /* Apply transport correction, if necessary */
       /*** Test that scattering order is less than transport correction order ***/
-      if ( (ierr >= 0) && (trans_corr != ' ') ) { 
-	 ierr = PN_FULL_TRANS_CORR( return_vec, return_size );
+      if ( (ierr >= 0) && (state->trans_corr != ' ') ) { 
+	 ierr = PN_FULL_TRANS_CORR( state, return_vec, return_size );
       }
       /* Transpose result, if necessary */
-      if ( collapse_flag != 0 ) {
-	 num_elements =  grp_num_new;              
+      if ( state->collapse_flag != 0 ) {
+	 num_elements =  state->grp_num_new;              
       } else {
-	 num_elements = iso_stat.num_grps;
+	 num_elements = state->iso_stat.num_grps;
       }
-      if ( ( mat_order == 't' ) && ( ierr >= 0 ) ) {
+      if ( ( state->mat_order == 't' ) && ( ierr >= 0 ) ) {
 	 /***  CHECK THAT THE NUMBER OF ROWS AND COLUMNS INPUT ARE CORRECT!!!! */
 	 ierr = NDI_TRANSPOSE_FLOAT( return_vec, num_elements, 
 				     num_elements );
@@ -140,16 +144,16 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
      
    case NDI_SIG_REAC:                 /* Sigma edit cross sections */
      num_elements = return_size;
-     ierr = GET_SIG_REAC( &iso_stat,  vec_num, return_vec, &num_elements );
+     ierr = GET_SIG_REAC( state, &state->iso_stat,  vec_num, return_vec, &num_elements );
      break;
 
 
    case NDI_PNU_PR:		/* fission neutron mult probabilities */
-       ierr = GET_PNU_PR(return_vec, vec_num);
+       ierr = GET_PNU_PR(state, return_vec, vec_num);
        break;
 
    case NDI_SIG_PNU_PR:
-       ierr = GET_SIG_PNU_PR(return_vec, vec_num);
+       ierr = GET_SIG_PNU_PR(state, return_vec, vec_num);
        break;
 
    case NDI_PN_PROD_FULL_CURR_PART:        /* Full production matrix for current particle */
@@ -159,26 +163,26 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
      (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
 
 
-     if ( curr_part_index >= 0 ) {
-       if ( curr_part_index < iso_stat.num_sec_parts ) { 
-	 ierr = GET_PN_PROD_FULL( lib_stream, iso_stat.sec_part[curr_part_index], 
+     if ( state->curr_part_index >= 0 ) {
+       if ( state->curr_part_index < state->iso_stat.num_sec_parts ) { 
+	 ierr = GET_PN_PROD_FULL( state, state->lib_stream, state->iso_stat.sec_part[state->curr_part_index], 
 				  vec_num,
 				  return_vec, return_size );
 
 	 /* Transpose result, if necessary */
-	 if ( collapse_flag != 0 ) {
-	   num_elements =  grp_num_new;              
+	 if ( state->collapse_flag != 0 ) {
+	   num_elements =  state->grp_num_new;              
 	 } else {
-	   num_elements = iso_stat.num_grps;
+	   num_elements = state->iso_stat.num_grps;
 	 }
        
-	 if ( ( mat_order == 't' ) && ( ierr >= 0 ) ) {
+	 if ( ( state->mat_order == 't' ) && ( ierr >= 0 ) ) {
 	   /***  CHECK THAT THE NUMBER OF ROWS AND COLUMNS INPUT ARE CORRECT!!!! */
-	   ierr = NDI_TRANSPOSE_FLOAT( return_vec, iso_stat.sec_part[curr_part_index].num_grps, 
+	   ierr = NDI_TRANSPOSE_FLOAT( return_vec, state->iso_stat.sec_part[state->curr_part_index].num_grps, 
 				       num_elements );
 	 }
        } else {
-	 ierr = ndi_check_array_err(iso_stat.num_sec_parts);
+	 ierr = ndi_check_array_err(state->iso_stat.num_sec_parts);
        }
      } else {
        /* Error -- bad particle? */
@@ -189,16 +193,16 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
 
    case NDI_TRANSFER_MAT_TOT:                   /* Transfer matrix -- total */
    case NDI_TRANSFER_MAT_PR:                    /* Transfer matrix -- prompt */
-      ierr = GET_TRANSFER_MAT( return_vec, vec_num, in_key );
+      ierr = GET_TRANSFER_MAT( state, return_vec, vec_num, in_key );
 
       /* Transpose result, if necessary */
-      if ( collapse_flag != 0 ) {
-	 num_elements =  grp_num_new;              
+      if ( state->collapse_flag != 0 ) {
+	 num_elements =  state->grp_num_new;              
       } else {
-	 num_elements = iso_stat.num_grps;
+	 num_elements = state->iso_stat.num_grps;
       }
 
-      if ( ( mat_order == 't' ) && ( ierr >= 0 ) ) {
+      if ( ( state->mat_order == 't' ) && ( ierr >= 0 ) ) {
 	 /***  CHECK THAT THE NUMBER OF ROWS AND COLUMNS INPUT ARE CORRECT!!!! */
 	 ierr = NDI_TRANSPOSE_FLOAT( return_vec, num_elements, 
 				     num_elements );
@@ -207,18 +211,18 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
 
    case NDI_CORR_DIAG:        /* Diagonal transport correction  */
 
-      ierr = GET_DIAG_CORR ( return_vec, vec_num );
+      ierr = GET_DIAG_CORR ( state, return_vec, vec_num );
       break;
      
    case NDI_CORR_BHS:        /* Bell-Hansen-Sandmeier transport correction */
 
-      ierr = GET_BHS_CORR ( return_vec, vec_num );
+      ierr = GET_BHS_CORR ( state, return_vec, vec_num );
       break;
 
    case NDI_TOT_PROD_XS:       /* Total production x.s. for target given by 
 				  global var. 'zaid' and product given by vec_num */
      sprintf( in_str, "%d", vec_num );
-     ierr = GET_PROD_REAC( in_str, return_vec, return_size );     
+     ierr = GET_PROD_REAC( state, in_str, return_vec, return_size );     
      break;
 
 
@@ -236,7 +240,7 @@ int NDI_GET_FLOAT_VEC_N(int in_key, int vec_num,
 
 /*********************************************************************/
 
-static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
+static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream, FLOAT_TYPE *return_vec,
 			    multi_stat *down_diag, multi_stat *full_mat,
 			    int vec_num, int return_size ) {
 
@@ -244,9 +248,9 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 
    int ierr = 0;
    int full = 0;         /*  Is scattering info in full matrix form, 0=no,-1=yes */
-   int num_grps = iso_stat.num_grps;
-   int diag_size = ( num_grps * ( num_grps + 1) ) / 2;
-   int full_mat_size = num_grps * num_grps;
+   int num_grps;
+   int diag_size;
+   int full_mat_size;
    int curr_vec_size = return_size;
    FLOAT_TYPE *curr_vec = return_vec;
    FLOAT_TYPE *curr_mat = NULL;
@@ -254,6 +258,14 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
    FLOAT_TYPE *temp_mat = NULL;
 
    NDI_INIT_FLOAT_VEC( return_vec, return_size );
+
+   if (state) {
+       num_grps = state->iso_stat.num_grps;
+       diag_size = ( num_grps * ( num_grps + 1) ) / 2;
+       full_mat_size = num_grps * num_grps;
+   } else {
+       return(-2);
+   }
 
    if ( num_grps <= 0 ) {
      ierr = 9;
@@ -265,7 +277,7 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
      if (down_diag->num_objs > vec_num) {
        if (down_diag->stat[vec_num].file_ptr) {
 	 
-	 if ( collapse_flag ) {
+	 if ( state->collapse_flag ) {
 	   temp_vec = (FLOAT_TYPE *)ndi_malloc( diag_size * sizeof(FLOAT_TYPE) );
 	   curr_vec_size = diag_size;
 	   if (!temp_vec) return(-14);
@@ -274,7 +286,7 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 	 ierr = NDI_READ_FLOAT_BLOCK(stream, down_diag->stat[vec_num].file_ptr,
 				     diag_size,
 				     curr_vec, curr_vec_size );
-	 if ( collapse_flag ) {
+	 if ( state->collapse_flag ) {
 	   temp_mat = (FLOAT_TYPE *)ndi_malloc( full_mat_size * sizeof(FLOAT_TYPE) );
 	   if (!temp_mat) return(-14);
 	   ierr = NDI_DIAG2FULL( NULL, 0, curr_vec, diag_size, num_grps, num_grps, 
@@ -326,13 +338,13 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
    /* Collapse matrix */
    /* If the collapse flag is true, temp_mat will contain the full matrix at this
       point whether it was constructed from the diagonal or read from the file */
-   if ( ( ierr >= 0 ) && ( collapse_flag ) ) {
-     temp_vec = (FLOAT_TYPE *)ndi_malloc( grp_num_new * grp_num_new  * sizeof(FLOAT_TYPE) );
-     ierr = NDI_COLLAPSE_MAT( temp_mat, num_grps, num_grps, grp_num_new, grp_num_new,
-			      new_ebounds, new_ebounds, lib_weight, temp_vec,
-			      grp_num_new * grp_num_new );
+   if ( ( ierr >= 0 ) && ( state->collapse_flag ) ) {
+     temp_vec = (FLOAT_TYPE *)ndi_malloc( state->grp_num_new * state->grp_num_new  * sizeof(FLOAT_TYPE) );
+     ierr = NDI_COLLAPSE_MAT( temp_mat, num_grps, num_grps, state->grp_num_new, state->grp_num_new,
+			      state->new_ebounds, state->new_ebounds, state->lib_weight, temp_vec,
+			      state->grp_num_new * state->grp_num_new );
 /*      ierr = NDI_COLLAPSE_MAT( temp_mat, full_mat_size, temp_vec ); */
-     num_grps = grp_num_new;
+     num_grps = state->grp_num_new;
      curr_mat = temp_vec;
      if ( temp_mat ) ndi_free( (void**)&temp_mat );
    }
@@ -350,7 +362,7 @@ static int GET_PN_DOWN_FULL(FILE *stream, FLOAT_TYPE *return_vec,
 
 /*********************************************************************/
 
-static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat, 
+static int GET_FULL_PN_MAT (state_struct *state, FILE *stream, multi_stat full_mat, 
 			    multi_stat down_mat, int num_grps, 
 			    int vec_num, FLOAT_TYPE *return_mat, 
 			    int return_size ) {
@@ -367,12 +379,16 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
 
      NDI_INIT_FLOAT_VEC( return_mat, return_size );
 
+     if (! state) {
+         return(-2);
+     }
+
    if ( num_grps <= 0 ) {
      ierr = 9;
      return(ierr);
    }
 
-   if ( collapse_flag ) {
+   if ( state->collapse_flag ) {
       temp_mat = (FLOAT_TYPE *)ndi_malloc( num_full_mat * sizeof(FLOAT_TYPE) );
       temp_mat_size = num_full_mat;
       if ( !temp_mat ) {
@@ -438,13 +454,13 @@ static int GET_FULL_PN_MAT (FILE *stream, multi_stat full_mat,
     
  
    /*   COLLAPSING REQUIRED   */
-   if ( collapse_flag ) {
+   if ( state->collapse_flag ) {
       if ( ierr >= 0 ) {
-	 tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_grps, num_grps, grp_num_new,
-				     grp_num_new, new_ebounds, new_ebounds, lib_weight, 
+	 tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_grps, num_grps, state->grp_num_new,
+				     state->grp_num_new, state->new_ebounds, state->new_ebounds, state->lib_weight, 
 				     return_mat, return_size );
 /* 	 tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_full_mat, return_mat ); */
-	 num_grps = grp_num_new;
+	 num_grps = state->grp_num_new;
       }
       if (temp_mat) ndi_free((void**)&temp_mat);
       if ( tmp_err < 0 ) {
@@ -502,7 +518,7 @@ static int NDI_DIAG2FULL(FLOAT_TYPE *low_diag, int num_ld, FLOAT_TYPE *up_diag,
 
 /*********************************************************************/
 
-static int NDI_COLLAPSE_PROD_MAT( FLOAT_TYPE *old_mat,
+static int NDI_COLLAPSE_PROD_MAT( state_struct *state, FLOAT_TYPE *old_mat,
 				  int old_in, int old_out,
 				  int new_in,
 				  FLOAT_TYPE *return_vec, int return_size ) 
@@ -518,13 +534,19 @@ static int NDI_COLLAPSE_PROD_MAT( FLOAT_TYPE *old_mat,
 
    int i, k, l;
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   int *new_bound_in = new_ebounds;               /* New row boundaries */
+   int *new_bound_in;                 /* New row boundaries */
    int new_out = old_out;
    int ret_vec_index;
    FLOAT_TYPE in_sum = 0;                         /* Summing rows */
    FLOAT_TYPE wt_sum = 0;                         /* Sum of weights */
 
-   if ( grp_num_new <= 0 ) {
+   if (state) {
+       new_bound_in = state->new_ebounds;
+   } else {
+       return(-2);
+   }
+
+   if ( state->grp_num_new <= 0 ) {
       /* Number of groups not set  */
       return(-21);
    }
@@ -534,8 +556,8 @@ static int NDI_COLLAPSE_PROD_MAT( FLOAT_TYPE *old_mat,
 	 in_sum = 0;
 	 wt_sum = 0;
 	 for ( i = new_bound_in[k]; i < new_bound_in[k + 1] ; i++ ) {
-	    in_sum += old_mat[ ( i * old_out ) + l ] * lib_weight[i];
-	    wt_sum += lib_weight[i];
+	    in_sum += old_mat[ ( i * old_out ) + l ] * state->lib_weight[i];
+	    wt_sum += state->lib_weight[i];
 	 }
 	 if ( wt_sum > 0 ) {
 	   ret_vec_index = (k * new_out) + l; 
@@ -611,28 +633,34 @@ static int  NDI_FULL2DIAG( FLOAT_TYPE *full_mat, int num_grps,
 
 /*********************************************************************/
 
-static int PN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size ) {
+static int PN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
 
    int i;
-   int num_grps = iso_stat.num_grps;
+   int num_grps;
    int ierr = 0;
    FLOAT_TYPE *corr;
 
+
+   if (state) {
+       num_grps = state->iso_stat.num_grps;
+   } else {
+       return(-2);
+   }
 
    if ( num_grps <= 0 ) {
      ierr = 9;
      return(ierr);
    }
 
-   if (collapse_flag) num_grps = grp_num_new;
+   if (state->collapse_flag) num_grps = state->grp_num_new;
    corr = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
 
-   if ( trans_corr == 'd' ) {
-      ierr = NDI_GET_FLOAT_VEC_N( NDI_CORR_DIAG, trans_corr_order, corr,
-				  num_grps );
-   } else if ( trans_corr == 'b' ) {
-      ierr = NDI_GET_FLOAT_VEC_N( NDI_CORR_BHS, trans_corr_order, corr,
-				  num_grps);
+   if ( state->trans_corr == 'd' ) {
+      ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_CORR_DIAG, state->trans_corr_order, 
+                                    corr, num_grps );
+   } else if ( state->trans_corr == 'b' ) {
+      ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_CORR_BHS, state->trans_corr_order, 
+                                    corr, num_grps);
    } else {
       ierr = -13;
    }
@@ -649,29 +677,35 @@ static int PN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size ) {
 
 /*********************************************************************/
 
-static int PN_DOWN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size ) {
+static int PN_DOWN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
 
    int i;
-   int num_grps = iso_stat.num_grps;
+   int num_grps;
    int ierr = 0;
    FLOAT_TYPE *corr;
    int curr_index = 0;
 
+
+   if (state) {
+       num_grps = state->iso_stat.num_grps;
+   } else {
+       return(-2);
+   }
 
    if ( num_grps <= 0 ) {
      ierr = 9;
      return(ierr);
    }
 
-   if (collapse_flag) num_grps = grp_num_new;
+   if (state->collapse_flag) num_grps = state->grp_num_new;
    corr = (FLOAT_TYPE *)ndi_malloc( num_grps * sizeof(FLOAT_TYPE) );
 
-   if ( trans_corr == 'd' ) {
-      ierr = NDI_GET_FLOAT_VEC_N( NDI_CORR_DIAG, trans_corr_order, corr,
-				  num_grps);
-   } else if ( trans_corr == 'b' ) {
-      ierr = NDI_GET_FLOAT_VEC_N( NDI_CORR_BHS, trans_corr_order, corr, 
-				  num_grps);
+   if ( state->trans_corr == 'd' ) {
+      ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_CORR_DIAG, state->trans_corr_order, 
+                                    corr, num_grps);
+   } else if ( state->trans_corr == 'b' ) {
+        ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_CORR_BHS, state->trans_corr_order, 
+                                      corr, num_grps);
    } else {
       ierr = -13;
    }
@@ -698,20 +732,26 @@ static int PN_DOWN_FULL_TRANS_CORR( FLOAT_TYPE *return_vec, int return_size ) {
 
 /*********************************************************************/
 
-static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
+static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg sec_part,
 			     int vec_num,
 			     FLOAT_TYPE *return_vec, int return_size )
 {
    int ierr = 0;
    FLOAT_TYPE *temp_vec = NULL;
-   int matrix_num = sec_part.num_grps * iso_stat.num_grps;
+   int matrix_num;
+
+        if (state) {
+                matrix_num = sec_part.num_grps * state->iso_stat.num_grps;
+        } else {
+                return(-2);
+        }
 
 
    if (sec_part.pn_prod_full.num_objs > 0 ) {
       if (sec_part.pn_prod_full.num_objs > vec_num) {
 	 if (sec_part.pn_prod_full.stat[vec_num].file_ptr) {
 
-	    if ( collapse_flag ) {
+	    if ( state->collapse_flag ) {
 	       temp_vec = (FLOAT_TYPE *)ndi_malloc( matrix_num * sizeof(FLOAT_TYPE) );
 	       if ( temp_vec ) {
 		  ierr = NDI_READ_FLOAT_BLOCK(stream,
@@ -719,9 +759,9 @@ static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
 					      matrix_num,
 					      temp_vec, matrix_num );
 		  if ( ierr >= 0 ) {
-		     ierr = NDI_COLLAPSE_PROD_MAT( temp_vec, 
-						   iso_stat.num_grps, sec_part.num_grps,
-						   grp_num_new,
+		     ierr = NDI_COLLAPSE_PROD_MAT( state, temp_vec, 
+						   state->iso_stat.num_grps, sec_part.num_grps,
+						   state->grp_num_new,
 						   return_vec, return_size );
 		  }
 		  if ( temp_vec ) ndi_free( (void**)&temp_vec );
@@ -751,7 +791,7 @@ static int GET_PN_PROD_FULL( FILE *stream, sec_part_mg sec_part,
 
 /*********************************************************************/
 
-static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num )
+static int GET_DIAG_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num )
 
 {
    char transpose_state;
@@ -763,11 +803,14 @@ static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num )
    int array_size;
    FLOAT_TYPE *temp_vec = NULL;
    
-	
-   if (collapse_flag) {
-      num = grp_num_new;
+   if (! state) {
+       return(-2);
+   }
+
+   if (state->collapse_flag) {
+      num = state->grp_num_new;
    } else {
-      num = iso_stat.num_grps;
+      num = state->iso_stat.num_grps;
    }
    array_size = num * num;
    ierr = NDI_INIT_FLOAT_VEC( return_vec, num );
@@ -778,14 +821,15 @@ static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num )
    }
 
    /* Don't transpose matrix, but save user-defined transpose & trans. cor. state */
-   transpose_state = mat_order;
-   mat_order = 'd';
-   corr_state = trans_corr;
-   trans_corr = ' ';
+   transpose_state = state->mat_order;
+   state->mat_order = 'd';
+   corr_state = state->trans_corr;
+   state->trans_corr = ' ';
 
-   ierr = NDI_GET_FLOAT_VEC_N( NDI_PN_DOWN_FULL, vec_num + 1, temp_vec, array_size);
-   mat_order = transpose_state;
-   trans_corr = corr_state;
+   ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_PN_DOWN_FULL, vec_num + 1, 
+                                 temp_vec, array_size);
+   state->mat_order = transpose_state;
+   state->trans_corr = corr_state;
 	 
    /* Traverse the diagonal elements of the triangular 'matrix' using
       the recurrance relation:
@@ -804,7 +848,7 @@ static int GET_DIAG_CORR( FLOAT_TYPE *return_vec, int vec_num )
 
 /*********************************************************************/
 
-static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num )
+static int GET_BHS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num )
 
 {
    char transpose_state = ' ';
@@ -818,10 +862,14 @@ static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num )
    FLOAT_TYPE scat_sum = 0;
 
 
-   if (collapse_flag) {
-      num = grp_num_new;
+   if (!state) {
+       return(-2);
+   }
+
+   if (state->collapse_flag) {
+      num = state->grp_num_new;
    } else {
-      num = iso_stat.num_grps;
+      num = state->iso_stat.num_grps;
    }
 
    /*
@@ -838,14 +886,14 @@ static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num )
    }
 
    /*  Don't transpose matrix, but save user-defined transpose & trans. cor. state */
-   transpose_state = mat_order;
-   mat_order = 'd';
-   corr_state = trans_corr;
-   trans_corr = ' ';
+   transpose_state = state->mat_order;
+   state->mat_order = 'd';
+   corr_state = state->trans_corr;
+   state->trans_corr = ' ';
 
-   ierr = NDI_GET_FLOAT_VEC_N( NDI_PN_FULL, vec_num + 1, temp_vec, array_size );	 
-   mat_order = transpose_state;
-   trans_corr = corr_state;
+   ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_PN_FULL, vec_num + 1, temp_vec, array_size );	 
+   state->mat_order = transpose_state;
+   state->trans_corr = corr_state;
    
    
    for ( i = 0; i < num; i++ ) {
@@ -863,7 +911,7 @@ static int GET_BHS_CORR( FLOAT_TYPE *return_vec, int vec_num )
 
 /*********************************************************************/
 
-static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num, 
+static int GET_TRANSFER_MAT( state_struct *state, FLOAT_TYPE *return_vec, int vec_num, 
 			     int n_type )
 {
    int i;
@@ -880,6 +928,10 @@ static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num,
    int num_grps;
    
    /*** Check for non-fissionable isotopes ***/
+
+   if (!state) {
+       return(-2);
+   }
 
    switch ( n_type ) {
    
@@ -899,35 +951,35 @@ static int GET_TRANSFER_MAT( FLOAT_TYPE *return_vec, int vec_num,
    if ( ierr < 0 ) return ( ierr );
 
    /*  Don't transpose matrix, but save user-defined transpose & trans. cor. state */
-   transpose_state = mat_order;
-   mat_order = 'd';
+   transpose_state = state->mat_order;
+   state->mat_order = 'd';
 
    if (vec_num == 0 ) {
       /* Corrections are only applied to 0th order matrix */
-      array_size = ndi_c_get_size( chi_type, &ierr );
+      array_size = ndi_c_get_size_h( state, chi_type, &ierr );
       chi_mat = (FLOAT_TYPE *)ndi_malloc ( array_size * sizeof(FLOAT_TYPE) );
       /* Check for error */
-      ierr = NDI_GET_FLOAT_VEC( NDI_CHI_MAT_TOT, chi_mat, array_size );
+      ierr = NDI_GET_FLOAT_VEC_H( state, NDI_CHI_MAT_TOT, chi_mat, array_size );
 
-      array_size = ndi_c_get_size( nusigf_type, &ierr );
+      array_size = ndi_c_get_size_h( state, nusigf_type, &ierr );
       nusigf = (FLOAT_TYPE *)ndi_malloc ( array_size * sizeof(FLOAT_TYPE) );
       /* Check for error */
-      ierr = NDI_GET_FLOAT_VEC( NDI_NU_SIG_F_TOT, nusigf, array_size );
+      ierr = NDI_GET_FLOAT_VEC_H( state, NDI_NU_SIG_F_TOT, nusigf, array_size );
 
-      array_size = ndi_c_get_size_n( NDI_PN_FULL, vec_num, &ierr );
+      array_size = ndi_c_get_size_n_h( state, NDI_PN_FULL, vec_num, &ierr );
       scat_mat = (FLOAT_TYPE *)ndi_malloc( array_size * sizeof(FLOAT_TYPE) );
       /* Check for error */
       pn_ptr = scat_mat;
    }
 
-   array_size = ndi_c_get_size_n( NDI_PN_FULL, vec_num, &ierr );
-   ierr = NDI_GET_FLOAT_VEC_N( NDI_PN_FULL, vec_num, pn_ptr, array_size );	
-   mat_order = transpose_state;
+   array_size = ndi_c_get_size_n_h( state, NDI_PN_FULL, vec_num, &ierr );
+   ierr = NDI_GET_FLOAT_VEC_N_H( state, NDI_PN_FULL, vec_num, pn_ptr, array_size );	
+   state->mat_order = transpose_state;
 
-   if (collapse_flag) {
-      num_grps = grp_num_new;
+   if (state->collapse_flag) {
+      num_grps = state->grp_num_new;
    } else {
-      num_grps = iso_stat.num_grps;
+      num_grps = state->iso_stat.num_grps;
    }
 
    /*  Fill return_array */
@@ -986,7 +1038,7 @@ static FLOAT_TYPE ndi_erf(FLOAT_TYPE x)
   "Distribution of Fission Neutron Numbers"
   Phys. Rev. 108, 738 (1957)
 */
-static int GET_PNU_PR(FLOAT_TYPE *return_vec, int vec_num)
+static int GET_PNU_PR(state_struct *state, FLOAT_TYPE *return_vec, int vec_num)
 {
     FLOAT_TYPE *nu = NULL;
     int num_grps;
@@ -997,18 +1049,22 @@ static int GET_PNU_PR(FLOAT_TYPE *return_vec, int vec_num)
     int g;
 
     assert(0 <= vec_num && vec_num < MAX_NU);
+
+    if (!state) {
+        return(-2);
+    }
 				/* get number of groups */
-    if (collapse_flag)
-	num_grps = grp_num_new;
+    if (state->collapse_flag)
+	num_grps = state->grp_num_new;
     else
-	num_grps = iso_stat.num_grps;
+	num_grps = state->iso_stat.num_grps;
 
 				/* get nu */
     nu = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu)
 	return(-14);		/* out of memory */
 
-    ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_PR, nu, num_grps);
     if (ierr < 0)
 	return (ierr);
 
@@ -1087,7 +1143,7 @@ static long ndi_perm(long n, long m)
   "On the Probability of Initiating a Persistent Fission Chain"
   LA-2608 (1976)
 */
-static int GET_SIG_PNU_PR(FLOAT_TYPE *sig_pnu, int i)
+static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE *sig_pnu, int i)
 {
 
     FLOAT_TYPE *nu = NULL;
@@ -1101,18 +1157,22 @@ static int GET_SIG_PNU_PR(FLOAT_TYPE *sig_pnu, int i)
     long k;
 
     assert(0 <= i && i < MAX_NU);
+
+    if (!state) {
+        return(-2);
+    }
 				/* get number of groups */
-    if (collapse_flag)
-	num_grps = grp_num_new;
+    if (state->collapse_flag)
+	num_grps = state->grp_num_new;
     else
-	num_grps = iso_stat.num_grps;
+	num_grps = state->iso_stat.num_grps;
 
 				/* get nu */
     nu = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu)
 	return(-14);		/* out of memory */
 
-    ierr = NDI_GET_FLOAT_VEC(NDI_NU_PR, nu, num_grps);
+    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_PR, nu, num_grps);
     if (ierr < 0)
 	return (ierr);
 
@@ -1121,7 +1181,7 @@ static int GET_SIG_PNU_PR(FLOAT_TYPE *sig_pnu, int i)
     if (!nu_sig_f)
 	return(-14);		/* out of memory */
 
-    ierr = NDI_GET_FLOAT_VEC(NDI_NU_SIG_F_PR, nu_sig_f, num_grps);
+    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_SIG_F_PR, nu_sig_f, num_grps);
     if (ierr < 0)
 	return (ierr);
 
@@ -1135,7 +1195,7 @@ static int GET_SIG_PNU_PR(FLOAT_TYPE *sig_pnu, int i)
 
     for (j = i; j < MAX_NU; j++)
     {
-	GET_PNU_PR(p, j);		/* get probabilities */
+	GET_PNU_PR(state, p, j);	/* get probabilities */
 	for (k = 0; k < num_grps; k++) /* add to sum */
 	    sig_pnu[k] += ndi_perm(j, i) * p[k];
     }

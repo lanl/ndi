@@ -14,12 +14,11 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 
 /**********************************************************************/
 
-int ndi_close_lib_file(FILE *stream) 
+int ndi_close_lib_file(state_struct *state) 
 
 /*  Purpose:  Close library file 'stream' and re-initialize extern 
     variable open_lib_file.
@@ -40,10 +39,13 @@ int ndi_close_lib_file(FILE *stream)
 {
    int ret_code = 0;       /* Return code--returned error value */
 
-  
+   if (! state) {
+       return(-2);
+   }
+
    /* Close library file */
-   if (stream) {
-      if ( fclose(stream) != 0 ) ret_code = -3;
+   if (state->lib_stream) {
+      if ( fclose(state->lib_stream) != 0 ) ret_code = -3;
    } else {
       ret_code = 4;
    }
@@ -52,9 +54,9 @@ int ndi_close_lib_file(FILE *stream)
    if (ret_code >= 0) {
     
       /* Deinitialize state */
-      if ( open_lib_file ) ndi_free((void**)&open_lib_file);
-      open_lib_file = (char*)ndi_malloc(sizeof(char));
-      open_lib_file[0] = '\0';
+      if ( state->open_lib_file ) ndi_free((void**)&state->open_lib_file);
+      state->open_lib_file = (char*)ndi_malloc(sizeof(char));
+      state->open_lib_file[0] = '\0';
    }
   
    return (ret_code);

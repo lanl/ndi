@@ -66,6 +66,7 @@ SRC := \
 	ndi_get_size_x.c \
 	ndi_get_string_val.c \
 	ndi_get_string_val_n.c \
+	ndi_handle.c \
 	ndi_init.c \
 	ndi_init_iso_state.c \
 	ndi_init_state.c \
@@ -88,8 +89,14 @@ SRC := \
 	ndi_state.c \
 	ndi_std_zaid.c \
 	ndi_sza_symbol_translation.c \
+	ndi_user_functions_handles.c \
+	ndi_user_functions_no_h.c \
 	ndi_zaid_dir.c \
-	ndi_mpmg.c
+	ndimp_get_int_val.c \
+	ndimp_get_int_val_n.c \
+	ndimp_get_int_vec.c \
+	ndimp_get_size.c \
+	ndimp_get_string_val.c 
 
 SRC_FLOAT := \
 	ndi_collapse_float.c \
@@ -102,34 +109,59 @@ SRC_FLOAT := \
 	ndi_misc_float.c \
 	ndi_read_float_block.c \
 	ndi_skip_float_block.c \
-	ndid_zaid_float_vec.c
+	ndid_zaid_float_vec.c \
+	ndimp_get_float_vec.c 
 
 SRC_TESTC := \
 	test/5.c \
+	test/5_handle.c \
 	test/abundance_test.c \
-	test/c.c \
+	test/abundance_test_handle.c \
+	test/c_handle.c \
+	test/c_handle.c \
 	test/chi.c \
+	test/chi_handle.c \
 	test/depl.c \
+	test/depl_handle.c \
 	test/depl2.c \
+	test/depl2_handle.c \
 	test/kerma_example.c \
+	test/kerma_example_handle.c \
 	test/mgn_c.c \
+	test/mpmg.c \
 	test/ndid.c \
 	test/ngk_test.c \
+	test/ngk_test_handle.c \
 	test/nonfissionables.c \
+	test/nonfissionables_handle.c \
+	test/pnu.c \
+	test/pnu_handle.c \
 	test/radchem.c \
+	test/radchem_handle.c \
 	test/symbol_translate.c \
+	test/symbol_translate_handle.c \
 	test/tn3.c \
+	test/tn3_handle.c \
 	test/tn4.c \
+	test/tn4_handle.c \
 	test/tn5.c \
+	test/tn5_handle.c \
 	test/tn_c.c \
+	test/tn_c_handle.c \
 	test/tn_chain.c \
+	test/tn_chain_handle.c \
 	test/tn_interp_params.c \
+	test/tn_interp_params_handle.c \
 	test/tn_new.c \
+	test/tn_new_handle.c \
 	test/tn_simple.c \
+	test/tn_simple_handle.c \
 	test/tn_use.c \
+	test/tn_use_handle.c \
 	test/tnreac_c.c \
+	test/tnreac_c_handle.c \
 	test/za.c \
-	test/pnu.c
+	test/za_handle.c 
 
 SRC_TESTF := \
 	test/ndi_testf.F\

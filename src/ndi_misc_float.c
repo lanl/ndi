@@ -16,7 +16,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
 
@@ -27,15 +26,16 @@ int NDI_INIT_FLOAT_VEC( FLOAT_TYPE *vec, int num_elements ) {
 
    int i;
    int ierr = 0;
+   FLOAT_TYPE *curr_vec = vec;
 
    for( i = 0; i < num_elements; i++ ) {
-      *vec = 0.0;
-      vec++;
+      *curr_vec = 0.0;
+      curr_vec++;
    }
    return(ierr);
 }
 /*********************************************************************/
-int GET_SIMPLE_FLOAT_VEC( FILE *stream, long int f_ptr, 
+int GET_SIMPLE_FLOAT_VEC( state_struct *state, FILE *stream, long int f_ptr, 
 			  int collapse_type,
 			  int library_grp_num, 
 			  FLOAT_TYPE *return_vec, 
@@ -58,13 +58,14 @@ int GET_SIMPLE_FLOAT_VEC( FILE *stream, long int f_ptr,
    /*  collapse_type < 0 means this data should not be collapsed */
 
    int ierr = 0;
-   int num_elements = library_grp_num;
    FLOAT_TYPE *temp_vec = NULL;
 
+   if (! state) {
+       return(-2);
+   }
 
    if ( f_ptr > 0 ) {
-      if  ( ( collapse_type >= 0 ) && ( collapse_flag ) ) {
-	num_elements = grp_num_new;
+      if  ( ( collapse_type >= 0 ) && ( state->collapse_flag ) ) {
 	temp_vec = (FLOAT_TYPE *)ndi_malloc( library_grp_num  * sizeof(FLOAT_TYPE) );
 	if (!temp_vec) {
 	    /* Out of memory */
@@ -73,7 +74,7 @@ int GET_SIMPLE_FLOAT_VEC( FILE *stream, long int f_ptr,
 	ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, 
 				    library_grp_num,
 				    temp_vec, library_grp_num );
-	ierr = NDI_COLLAPSE_FLOAT( temp_vec, library_grp_num, 
+	ierr = NDI_COLLAPSE_FLOAT( state, temp_vec, library_grp_num, 
 				   collapse_type,
 				   return_vec, return_size );
 	if (temp_vec) ndi_free( (void**)&temp_vec );
@@ -158,7 +159,7 @@ int NDI_VEC2MAT(const FLOAT_TYPE *vec, int num_vec,
 /*********************************************************************/
 /*********************************************************************/
 
-int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
+int GET_SIG_REAC( state_struct *state, isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
 		  int *return_size )
 
 /*  Purpose:  Returns the cross-section for particle 'mg' for the 
@@ -185,8 +186,11 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
    int reac_index;
    int mt = 0;
     
- 
-   if ( reac_id == 'c' ) {
+   if (! state) {
+       return(-2);
+   }
+
+   if ( state->reac_id == 'c' ) {
       mt = ndi_c_c_to_mt( vec_num );
       if ( mt <= 0 ) {
 	 ierr = -6;
@@ -203,7 +207,7 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
       /* Reaction cross-section exists for this isotope--
 	 set temp_size and temp_vec */
 
-     ierr = GET_SIMPLE_FLOAT_VEC( lib_stream, mg->sig_reac.stat[reac_index].file_ptr, 
+     ierr = GET_SIMPLE_FLOAT_VEC( state, state->lib_stream, mg->sig_reac.stat[reac_index].file_ptr, 
 				  0, mg->num_grps, return_vec, *return_size );
 
    } else {   /* ierr >= 0 ... */
@@ -214,7 +218,7 @@ int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
 
    /* Check fission reactions for non-fissionable isotope */
    if ( ( mt == 18 ) || ( mt == 19 ) || ( mt == 20 ) || ( mt == 21 ) ||( mt == 38 ) ) {
-       (void) check_fissionable_err( &ierr, iso_stat.fissionable );
+       (void) check_fissionable_err( &ierr, mg->fissionable );
    }
    return(ierr);
 }
@@ -237,11 +241,11 @@ int COPY_MATRIX( FLOAT_TYPE *dest, FLOAT_TYPE *source, int num) {
 
 /*********************************************************************/
 	   
-int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2, 
-		    int num_elements, int collapse, FLOAT_TYPE *return_vec, 
-		    int return_size ) {
+int MULT_FLOAT_VEC( state_struct *state, const ndi_float64 *vec1, const ndi_float64 *vec2, 
+		    int num_elements, int collapse, FLOAT_TYPE *return_vec, int return_size )
 
 
+{
   /*  collapse < 0 means that this vector should not be collapsed */
 
   int ierr = 0;
@@ -252,7 +256,11 @@ int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
   FLOAT_TYPE *temp_vec = NULL;
   FLOAT_TYPE *result_p = return_vec;
   
-  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+  if (! state) {
+      return(-2);
+  }
+
+  if ( ( state->collapse_flag != 0 ) && ( collapse >= 0 ) ) {
     /* Check global collapse_flag to see if collapsing is set;
        also check local collapse to see what type of collapse (if any)
        */
@@ -273,8 +281,8 @@ int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
   
   /* collapse if necessary */
   
-  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
-    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, 
+  if ( ( state->collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    tmp_err = NDI_COLLAPSE_FLOAT( state, temp_vec, num_elements, 
 				  collapse,
 				  return_vec, return_size );
     if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
@@ -287,7 +295,7 @@ int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
 }
 
 /*********************************************************************/
-int DIVIDE_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2, 
+int DIVIDE_FLOAT_VEC( state_struct *state, const ndi_float64 *vec1, const ndi_float64 *vec2, 
 		      int num_elements, int collapse, FLOAT_TYPE *return_vec, 
 		      int return_size ) {
   
@@ -303,7 +311,11 @@ int DIVIDE_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
   FLOAT_TYPE *temp_vec = NULL;
   FLOAT_TYPE *result_p = return_vec;
   
-  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+  if (! state) {
+      return(-2);
+  }
+
+  if ( ( state->collapse_flag != 0 ) && ( collapse >= 0 ) ) {
     /* Check global collapse_flag to see if collapsing is set;
        also check local collapse to see what type of collapse (if any)
        */
@@ -328,8 +340,8 @@ int DIVIDE_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2,
 
   /* collapse if necessary */
 
-  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
-    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, 
+  if ( ( state->collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    tmp_err = NDI_COLLAPSE_FLOAT( state, temp_vec, num_elements, 
 				  collapse,
 				  return_vec, return_size );
     if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
@@ -416,7 +428,7 @@ int GET_ABUNDANCE( int izaid, FLOAT_TYPE *return_val ) {
 
 }
 /*********************************************************************/
-int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr, 
+int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr, 
 		   FLOAT_TYPE *return_vec, int return_size,
 		   int collapse_type, int lib_num_grp )
 
@@ -431,6 +443,10 @@ int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr,
   FLOAT_TYPE *chi_matrix = NULL;
   FLOAT_TYPE *weights = NULL;
   FLOAT_TYPE *temp_vec = NULL;
+
+        if (! state) {
+            return(-2);
+        }
 
   if ( f_ptr > 0 ) {
     /* Read chi matrix from file  */
@@ -448,11 +464,11 @@ int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr,
   
 
     /* Get wgts for averaging */
-    if ( iso_stat.wgts.file_ptr > 0 ) {
+    if ( state->iso_stat.wgts.file_ptr > 0 ) {
 
       weights = (FLOAT_TYPE *)ndi_malloc( lib_num_grp * sizeof(FLOAT_TYPE) );
       /* Check returned value */
-      ierr = NDI_READ_FLOAT_BLOCK( stream, iso_stat.wgts.file_ptr,
+      ierr = NDI_READ_FLOAT_BLOCK( stream, state->iso_stat.wgts.file_ptr,
 				   lib_num_grp,
 				   weights, lib_num_grp );
     }
@@ -471,8 +487,8 @@ int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr,
     /* Check this call */
     /* What about checking return_size ? */
 
-    if (collapse_flag) {
-      ierr = NDI_COLLAPSE_FLOAT( temp_vec, lib_num_grp, collapse_type,
+    if (state->collapse_flag) {
+      ierr = NDI_COLLAPSE_FLOAT( state, temp_vec, lib_num_grp, collapse_type,
 				 return_vec, return_size );
     } else {
       /* This is really ugly--do something better! */

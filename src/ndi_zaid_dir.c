@@ -15,7 +15,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 static void ndi_find_zaid_string( char *in_line, int in_size, 
 				  char *zaid_string, int string_size, 
@@ -28,7 +27,7 @@ static void ndi_find_first_string( char *in_line, int in_size,
 
 /**********************************************************************/
 
-int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid, 
+int ndi_zaid_dir(state_struct *state, char pt_type, char l_type, const char *in_zaid, 
 		 char *real_zaid, char *library, char *lib_path, 
 		 char *lib_file_type, long int *iso_start, double *at_wgt, 
 		 int reaction_flag )
@@ -73,6 +72,10 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
 
    /* Check if library type is set */
      
+   if (! state) {
+       return(-2);
+   }
+
    if ( ( pt_type == 'n' ) && ( l_type == 'm' ) ) {
      if ( reaction_flag == 0 ) {
        strcpy( section, "multigroup_neutron" );
@@ -100,31 +103,31 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
       return(-16);
    }
 
-   if ( ! ndi_dir ) {
+   if ( ! state->ndi_dir ) {
      /* Error opening file */
      return( -1 );
    }
 
-   (void)rewind(ndi_dir); 
+   (void)rewind(state->ndi_dir); 
    sec_len = strlen(section);
    
    while (done == 0) { 
       
       /* Find correct section of directory file */
-      if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
+      if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
 	 if (strncmp(in_line, section, sec_len) == 0) {
 	    
 	    while ( (done == 0) && ( ierr >= 0 ) ) {
 	       
 	       /* Find correct zaid within section */
-	       if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
+	       if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
 		  
 		  /* Check if current input line contains the desired zaid */
 		 if ( strstr( in_line, "z=" ) ) {
 		   (void) ndi_find_zaid_string( in_line, MAX_IN_STR_LEN, zaid_string, 
 						MAX_IN_STR_LEN, seps );
 		   if ( strncmp( zaid_string, in_zaid, strlen(in_zaid) ) == 0 ) {
-		     ierr = read_dir_block( in_line, ndi_dir, &dir_rec );
+		     ierr = read_dir_block( in_line, state->ndi_dir, &dir_rec );
 		     strcpy( tmp_zaid, dir_rec.zaid );
 		     strcpy( library, dir_rec.lib );
 		     strcpy( lib_path, dir_rec.path );
@@ -140,8 +143,8 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
 			 /* A library is implied in the ZAID */
 			 done = -1;
 		     } else {
-			 if ( strcmp(library_vers, "") != 0 ) {
-			     if ( strcmp( library_vers, library ) == 0 ) {
+			 if ( strcmp(state->library_vers, "") != 0 ) {
+			     if ( strcmp( state->library_vers, library ) == 0 ) {
 				 /* Current library matches user-specified default */
 				 done = -1;
 			     }

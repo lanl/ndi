@@ -15,12 +15,11 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int read_mg_data(FILE *stream, const char *zaid ); 
-static int read_tn_data(FILE *stream, const char *zaid );
-static int read_tn_reac_data(FILE *stream, const char *zaid );
-static int read_depl_data(FILE *stream, const char *zaid );
+static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ); 
+static int read_tn_data(state_struct *state, FILE *stream, const char *zaid );
+static int read_tn_reac_data(state_struct *state, FILE *stream, const char *zaid );
+static int read_depl_data(state_struct *state, FILE *stream, const char *zaid );
 static int set_simple_array (FILE *stream, stat_flag *sf, int data_num);
 static int read_simple_array (FILE *stream, stat_flag *sf, int data_num,
 			      ndi_float64 **global_p );
@@ -39,22 +38,22 @@ static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_par
 static int fill_edist( FILE *stream, int ntemp, edist_data *dist );
 static int ndi_read_interp_param( FILE *stream, int ninterp, 
 				  interp_params *param );
-static int ndi_create_tn_sec_part ( int num_parts, sec_part_distr **sec_part);
+static int ndi_create_tn_sec_part ( state_struct *state, int num_parts, sec_part_distr **sec_part);
 static int set_reaction_array (FILE *stream, char **str_p, stat_flag **reac_p,
 			       stat_flag **rprods_p, int data_num);
-static int set_depl_array (FILE *stream, depl_target_struct *target_p,
+static int set_depl_array (state_struct *state, FILE *stream, depl_target_struct *target_p,
 			       int data_num);
-static int ndi_create_mg_sec_part( int num_parts, sec_part_mg **sec_part );
+static int ndi_create_mg_sec_part( state_struct *state, int num_parts, sec_part_mg **sec_part );
 static int get_mg_part_type( const char *in_keyword, const char *prefix, 
 			     mg_sec_part_type *part_type );
-static int find_mg_sec_part_index( mg_sec_part_type part_type );
-static int set_chain_array (FILE *stream, depl_target_struct *target,
+static int find_mg_sec_part_index( state_struct *state, mg_sec_part_type part_type );
+static int set_chain_array (state_struct *state, FILE *stream, depl_target_struct *target,
 			       int data_num);
 static int skip_comment( FILE *stream );
 
 /**********************************************************************/
 
-int ndi_init_iso_state(FILE *stream, char lib_type, 
+int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type, 
 		       long int iso_start, const char *zaid) 
 
 /*  Purpose:  Scan isotope data in library file and set initial values 
@@ -85,6 +84,10 @@ int ndi_init_iso_state(FILE *stream, char lib_type,
    /* Find start of isotope data and check that it is the
       start of the correct data.                          */
    /*******************************************************/
+
+   if (! state) {
+       return(-2);
+   }
 
    if ( !stream ) {
      /* Error opening file */
@@ -122,13 +125,13 @@ int ndi_init_iso_state(FILE *stream, char lib_type,
 
    if ( ( lib_type == 'm' ) ||
 	( lib_type == 'd' ) ) {
-      ierr = read_mg_data( stream, zaid );
+      ierr = read_mg_data( state, stream, zaid );
    } else if ( lib_type == 's' ) {
-      ierr = read_tn_data( stream, zaid );
+      ierr = read_tn_data( state, stream, zaid );
    }else if ( lib_type == 'r' ) {                    /* TN reaction data */
-      ierr = read_tn_reac_data( stream, zaid );
+      ierr = read_tn_reac_data( state, stream, zaid );
    }else if ( lib_type == '0' ) {                    /* Depletion data */
-      ierr = read_depl_data( stream, zaid );
+      ierr = read_depl_data( state, stream, zaid );
    } else {
       /* Internal error--invalid lib_type input */
       ierr = -13;
@@ -143,7 +146,7 @@ int ndi_init_iso_state(FILE *stream, char lib_type,
 /*************************************************************************/
 /*************************************************************************/
 
-static int read_mg_data(FILE *stream, const char *zaid ) {
+static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ) {
 
    char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
@@ -151,10 +154,13 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
    mg_sec_part_type part_type;
    int part_index;
 
+        if (! state) {
+            return(-2);
+        }
 
    /***** ??? Should this be done at the end ?? ***/
-   strcpy(iso_stat.zaid, zaid); 
-   iso_stat.set_flag = 1;
+   strcpy(state->iso_stat.zaid, zaid); 
+   state->iso_stat.set_flag = 1;
    
    /*******************************************************/
    /*                  Read isotope data                  */
@@ -174,7 +180,7 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       
       /* Information */
       if (strncmp (in_keyword, "info", 5) == 0) {
-	 if (fgets(iso_stat.info, sizeof(iso_stat.info), stream) == NULL) {
+	 if (fgets(state->iso_stat.info, sizeof(state->iso_stat.info), stream) == NULL) {
 	    /* Error reading file */
 	    return(-11);
 	 }	 
@@ -189,22 +195,22 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       }
       /* date_processed */
       else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
-	ierr = read_next_string( stream, iso_stat.date_processed, 
-				 sizeof(iso_stat.date_processed));
+	ierr = read_next_string( stream, state->iso_stat.date_processed, 
+				 sizeof(state->iso_stat.date_processed));
       }
       /* date_source */
       else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
-	ierr = read_next_string( stream, iso_stat.date_source,
-				 sizeof(iso_stat.date_source));
+	ierr = read_next_string( stream, state->iso_stat.date_source,
+				 sizeof(state->iso_stat.date_source));
       }
       /* Library name*/
       else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
-	ierr = read_next_string( stream, iso_stat.library_name,
-				 sizeof(iso_stat.library_name) );
+	ierr = read_next_string( stream, state->iso_stat.library_name,
+				 sizeof(state->iso_stat.library_name) );
       }
       /* Number of groups */
       else if ( strncmp( in_keyword, "num_grps", 9 ) == 0 ) {
-	 if (fscanf( stream, "%d\n", &iso_stat.num_grps ) == EOF) {
+	 if (fscanf( stream, "%d\n", &state->iso_stat.num_grps ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -212,7 +218,7 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       }
       /* Last neutron group */
       else if ( strncmp( in_keyword, "last_n_grp", 11 ) == 0 ) {
-	 if (fscanf( stream, "%d\n", &iso_stat.last_grp ) == EOF) {
+	 if (fscanf( stream, "%d\n", &state->iso_stat.last_grp ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -220,56 +226,56 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       }
       /* Temperature */
       else if (strncmp (in_keyword, "temp", 5 ) == 0) {
-	 if ( fscanf(stream, "%le\n", &iso_stat.temp) == EOF ) {
+	 if ( fscanf(stream, "%le\n", &state->iso_stat.temp) == EOF ) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* sig_0 */
       else if ( strncmp( in_keyword, "sig_0", 6 ) == 0 ) {
-	 if (fscanf(stream, "%lf\n", &iso_stat.sig_0) == EOF) {
+	 if (fscanf(stream, "%lf\n", &state->iso_stat.sig_0) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       } 
       /* upscatter_groups */
       else if ( strncmp( in_keyword, "up_grps", 8 ) == 0 ) {
-	 if (fscanf(stream, "%d\n", &iso_stat.up_grps) == EOF) {
+	 if (fscanf(stream, "%d\n", &state->iso_stat.up_grps) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* downscatter_groups */
       else if ( strncmp( in_keyword, "down_grps", 10 ) == 0 ) {
-	 if ( fscanf(stream, "%d\n", &iso_stat.down_grps) == EOF ) {
+	 if ( fscanf(stream, "%d\n", &state->iso_stat.down_grps) == EOF ) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* atomic weight */
       else if ( strncmp(in_keyword, "at_wgt", 7) == 0 ) {
-	 if (fscanf(stream, "%lf\n", &iso_stat.at_wgt) == EOF) {
+	 if (fscanf(stream, "%lf\n", &state->iso_stat.at_wgt) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* atomic weight ratio */
       else if ( strncmp(in_keyword, "awr", 4) == 0 ) {
-	 if (fscanf(stream, "%lf\n", &iso_stat.awr) == EOF) {
+	 if (fscanf(stream, "%lf\n", &state->iso_stat.awr) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* number of reactions which have cross-section data */
       else if ( strncmp(in_keyword, "num_reac", 9) == 0 ) {
-	 if (fscanf(stream, "%d\n", &iso_stat.num_reac) == EOF) {
+	 if (fscanf(stream, "%d\n", &state->iso_stat.num_reac) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
       /* number of scattering matrices */
       else if ( strncmp(in_keyword, "pn_order", 9) == 0 ) {
-	 if (fscanf(stream, "%d\n", &iso_stat.pn_order) == EOF) {
+	 if (fscanf(stream, "%d\n", &state->iso_stat.pn_order) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
@@ -278,7 +284,7 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 
       /*
       else if ( strncmp(in_keyword, "num_sec_parts", 14) == 0 ) {
-	 if ( fscanf(stream, "%d\n", &iso_stat.num_sec_parts ) == EOF ) {
+	 if ( fscanf(stream, "%d\n", &state->iso_stat.num_sec_parts ) == EOF ) {
 	    * Error reading file *
 	    return(-11);
 	 }    
@@ -289,114 +295,114 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 
       /* energy boundaries */
       else if ( strncmp(in_keyword, "e_bounds", 9) == 0 ) {
-	 ierr = read_simple_array(stream, &iso_stat.e_bounds, 
-				  (iso_stat.num_grps + 1), &lib_ebounds);
+	 ierr = read_simple_array(stream, &state->iso_stat.e_bounds, 
+				  (state->iso_stat.num_grps + 1), &state->lib_ebounds);
       }
       /* wgts */
       else if (strncmp(in_keyword, "wgts", 5 ) == 0) {
-	 ierr = read_simple_array(stream, &iso_stat.wgts, 
-				  iso_stat.num_grps, &lib_weight);
+	 ierr = read_simple_array(stream, &state->iso_stat.wgts, 
+				  state->iso_stat.num_grps, &state->lib_weight);
       }
       /* vel */
       else if (strncmp(in_keyword, "vel", 4 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.vel, iso_stat.num_grps);
+	 ierr = set_simple_array (stream, &state->iso_stat.vel, state->iso_stat.num_grps);
       }
       /* heating */
       else if (strncmp(in_keyword, "heating", 8 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.heat, iso_stat.num_grps);
+	 ierr = set_simple_array (stream, &state->iso_stat.heat, state->iso_stat.num_grps);
       }
       /* kerma */
       else if (strncmp(in_keyword, "kerma", 6 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.kerma, iso_stat.num_grps);
+	 ierr = set_simple_array (stream, &state->iso_stat.kerma, state->iso_stat.num_grps);
       }
       /* sig_tot */
       else if (strncmp(in_keyword, "sig_tot", 8 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.sig_tot, iso_stat.num_grps);
+	 ierr = set_simple_array (stream, &state->iso_stat.sig_tot, state->iso_stat.num_grps);
       }
       /* nubar total */
       else if  (strncmp(in_keyword, "nu_tot", 7 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_tot, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_tot, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* nubar prompt */
       else if  (strncmp(in_keyword, "nu_pr", 6 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_pr, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_pr, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* nubar delayed */
       else if  (strncmp(in_keyword, "nu_del", 7 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_del, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_del, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* nubar total sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_tot", 13 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_tot, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_sig_f_tot, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* nubar prompt sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_pr", 12 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_pr, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_sig_f_pr, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* nubar delayed sigma fission */
       else if  (strncmp(in_keyword, "nu_sig_f_del", 13 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.nu_sig_f_del, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.nu_sig_f_del, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* chi total vector */
       else if ( strncmp(in_keyword, "chi_vec_tot", 12) == 0 ) {
-	 ierr = set_simple_array (stream, &iso_stat.chi_vec_tot, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_vec_tot, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* chi prompt vector */
       else if  (strncmp(in_keyword, "chi_vec_pr", 11 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.chi_vec_pr, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_vec_pr, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* chi delayed vector */
       else if  (strncmp(in_keyword, "chi_vec_del", 12 ) == 0) {
-	 ierr = set_simple_array (stream, &iso_stat.chi_vec_del, 
-				  iso_stat.num_grps);
-	 iso_stat.fissionable = 1;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_vec_del, 
+				  state->iso_stat.num_grps);
+	 state->iso_stat.fissionable = 1;
       }
       /* chi total matrix */
       else if ( strncmp(in_keyword, "chi_mat_tot", 12) == 0 ) {
-	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
-	 ierr = set_simple_array (stream, &iso_stat.chi_mat_tot, 
+	 num_elements = state->iso_stat.num_grps * state->iso_stat.num_grps;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_mat_tot, 
 				  num_elements);
-	 iso_stat.fissionable = 1;
+	 state->iso_stat.fissionable = 1;
       }
       /* chi prompt matrix */
       else if  (strncmp(in_keyword, "chi_mat_pr", 11 ) == 0) {
-	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
-	 ierr = set_simple_array (stream, &iso_stat.chi_mat_pr, 
+	 num_elements = state->iso_stat.num_grps * state->iso_stat.num_grps;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_mat_pr, 
 				  num_elements);
-	 iso_stat.fissionable = 1;
+	 state->iso_stat.fissionable = 1;
       }
       /* chi delayed matrix */
       else if  (strncmp(in_keyword, "chi_mat_del", 12 ) == 0) {
-	 num_elements = iso_stat.num_grps * iso_stat.num_grps;
-	 ierr = set_simple_array (stream, &iso_stat.chi_mat_del, 
+	 num_elements = state->iso_stat.num_grps * state->iso_stat.num_grps;
+	 ierr = set_simple_array (stream, &state->iso_stat.chi_mat_del, 
 				  num_elements);
-	 iso_stat.fissionable = 1;
+	 state->iso_stat.fissionable = 1;
       }
       /* fission q */
       else if ( strncmp(in_keyword, "fiss_q", 7 ) == 0 ) {
-	 ierr = set_simple_array (stream, &iso_stat.fiss_q, 
+	 ierr = set_simple_array (stream, &state->iso_stat.fiss_q, 
 				  NUM_FISSION_Q);
-	 iso_stat.fissionable = 1;
+	 state->iso_stat.fissionable = 1;
       }
       /* Normalization factors */
       else if ( strncmp(in_keyword, "norm", 5 ) == 0 ) {
-	 ierr = set_simple_array ( stream, &iso_stat.norm, 
+	 ierr = set_simple_array ( stream, &state->iso_stat.norm, 
 				   NUM_NORM );
       }      
 
@@ -405,61 +411,61 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 
       /* pn scattering -- full lower diagonal */
       else if (strncmp(in_keyword, "pn_down_full", 13 ) == 0) {
-	 iso_stat.pn_down_full.num_objs = iso_stat.pn_order;	 
+	 state->iso_stat.pn_down_full.num_objs = state->iso_stat.pn_order;	 
 	 /*** Check that num_grps == down_grps + 1 ???  ***/
-	 num_elements = ( ( iso_stat.num_grps ) * 
-			  ( iso_stat.num_grps + 1 ) ) / 2;
-	 ierr = set_pn_array( stream, &iso_stat.pn_down_full, 
-			      iso_stat.pn_down_full.num_objs,
-			      iso_stat.num_grps, iso_stat.num_grps, 
+	 num_elements = ( ( state->iso_stat.num_grps ) * 
+			  ( state->iso_stat.num_grps + 1 ) ) / 2;
+	 ierr = set_pn_array( stream, &state->iso_stat.pn_down_full, 
+			      state->iso_stat.pn_down_full.num_objs,
+			      state->iso_stat.num_grps, state->iso_stat.num_grps, 
 			      num_elements );
       }
  
       /* pn scattering -- full matrix */
       else if (strncmp(in_keyword, "pn_full", 8 ) == 0) {
-	 iso_stat.pn_full.num_objs = iso_stat.pn_order;	 
-	 num_elements =  iso_stat.num_grps * iso_stat.num_grps;
-	 ierr = set_pn_array( stream, &iso_stat.pn_full, 
-			      iso_stat.pn_full.num_objs,
-			      iso_stat.num_grps, iso_stat.num_grps, 
+	 state->iso_stat.pn_full.num_objs = state->iso_stat.pn_order;	 
+	 num_elements =  state->iso_stat.num_grps * state->iso_stat.num_grps;
+	 ierr = set_pn_array( stream, &state->iso_stat.pn_full, 
+			      state->iso_stat.pn_full.num_objs,
+			      state->iso_stat.num_grps, state->iso_stat.num_grps, 
 			      num_elements );
 /*	 printf("setting pnfull ierr=%d\n", ierr); */
       }
    
       /* sigma edit cross section */
       else if (strncmp(in_keyword, "sig_reac", 9) == 0 ) {
-	 ierr = set_sig_reac (stream, &iso_stat.sig_reac, iso_stat.num_reac,
-			      iso_stat.num_grps, &iso_stat.reac_mt, 
-			      &iso_stat.reac_q, &iso_stat.fissionable );
+	 ierr = set_sig_reac (stream, &state->iso_stat.sig_reac, state->iso_stat.num_reac,
+			      state->iso_stat.num_grps, &state->iso_stat.reac_mt, 
+			      &state->iso_stat.reac_q, &state->iso_stat.fissionable );
       }
 
       /* sigma edit reaction products -- all */
       else if (strncmp(in_keyword, "rprod_all", 24 ) == 0) {
-	 ierr = set_reaction_prod (stream, &iso_stat.rprod_all, 
-				   iso_stat.num_reac);
+	 ierr = set_reaction_prod (stream, &state->iso_stat.rprod_all, 
+				   state->iso_stat.num_reac);
       }
 
       /* sigma edit reaction products -- rmo */
       else if (strncmp(in_keyword, "rprod_rmo", 24 ) == 0) {
-	 ierr = set_reaction_prod (stream, &iso_stat.rprod_rmo, 
-				   iso_stat.num_reac);
+	 ierr = set_reaction_prod (stream, &state->iso_stat.rprod_rmo, 
+				   state->iso_stat.num_reac);
       }
 
       /* sigma edit reaction products -- few */
       else if (strncmp(in_keyword, "rprod_few", 24 ) == 0) {
-	 ierr = set_reaction_prod (stream, &iso_stat.rprod_few, 
-				   iso_stat.num_reac);
+	 ierr = set_reaction_prod (stream, &state->iso_stat.rprod_few, 
+				   state->iso_stat.num_reac);
       }
 
       /*********  SECONDARY PARTICLE DATA  *************/
 
       /* number of secondary particles */
       else if ( strncmp(in_keyword, "num_sec_parts", 14) == 0 ) {
-	 if ( fscanf(stream, "%d\n", &iso_stat.num_sec_parts ) == EOF ) {
+	 if ( fscanf(stream, "%d\n", &state->iso_stat.num_sec_parts ) == EOF ) {
 	    /* Error reading file */
 	    return(-11);
 	 } else {
-	   ierr = ndi_create_mg_sec_part( iso_stat.num_sec_parts, &iso_stat.sec_part );
+	   ierr = ndi_create_mg_sec_part( state, state->iso_stat.num_sec_parts, &state->iso_stat.sec_part );
 	 }
       }
 
@@ -470,18 +476,18 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 	int min_len;
 	int i;
 
-	temp_part_types = (char **)ndi_calloc( iso_stat.num_sec_parts, 
+	temp_part_types = (char **)ndi_calloc( state->iso_stat.num_sec_parts, 
 					       sizeof(char *) );
-	ierr = set_string_array (stream, temp_part_types, iso_stat.num_sec_parts);
-	for ( i = 0; i < iso_stat.num_sec_parts; i++ ) {
+	ierr = set_string_array (stream, temp_part_types, state->iso_stat.num_sec_parts);
+	for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
 	  /*  Check this out ! */
-	  if ( (strlen(iso_stat.sec_part[i].part_type) * sizeof(mg_sec_part_type) )
+	  if ( (strlen(state->iso_stat.sec_part[i].part_type) * sizeof(mg_sec_part_type) )
 		< sizeof(temp_part_types[i]) ) {
-	    min_len = sizeof(iso_stat.sec_part[i].part_type);
+	    min_len = sizeof(state->iso_stat.sec_part[i].part_type);
 	  } else {
 	    min_len = sizeof(temp_part_types[i]);
 	  }
-	  strncpy(iso_stat.sec_part[i].part_type, temp_part_types[i], min_len);
+	  strncpy(state->iso_stat.sec_part[i].part_type, temp_part_types[i], min_len);
 	  if ( temp_part_types[i] ) {
 	    ndi_free( (void**)&(temp_part_types[i]) );
 	  }
@@ -497,20 +503,20 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 	int min_len;
 	int i;
 
-	temp_part_zaids = (char **)ndi_calloc( iso_stat.num_sec_parts, 
+	temp_part_zaids = (char **)ndi_calloc( state->iso_stat.num_sec_parts, 
 					       sizeof(mg_sec_part_type *) );
-	ierr = set_string_array (stream, temp_part_zaids, iso_stat.num_sec_parts );
+	ierr = set_string_array (stream, temp_part_zaids, state->iso_stat.num_sec_parts );
 
-	for ( i = 0; i < iso_stat.num_sec_parts; i++ ) {
+	for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
 	  /* CHECK THAT ZAID MATCHES PART TYPE */
 
-	  if ( (strlen(iso_stat.sec_part[i].zaid) * sizeof(mg_zaid) )
+	  if ( (strlen(state->iso_stat.sec_part[i].zaid) * sizeof(mg_zaid) )
 	       < (strlen(temp_part_zaids[i]) + 1) ) {
-	    min_len = (int) strlen(iso_stat.sec_part[i].zaid);
+	    min_len = (int) strlen(state->iso_stat.sec_part[i].zaid);
 	  } else {
 	    min_len = (int) strlen(temp_part_zaids[i]) + 1;
 	  }
-	  strncpy(iso_stat.sec_part[i].zaid, temp_part_zaids[i], min_len);
+	  strncpy(state->iso_stat.sec_part[i].zaid, temp_part_zaids[i], min_len);
 	  if ( temp_part_zaids[i] ) {
 	    ndi_free( (void**)&(temp_part_zaids[i]) );
 	  }
@@ -529,9 +535,9 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 	  return(-11);
 	} else {
 	  ierr = get_mg_part_type( in_keyword, "num_grps_", &part_type );
-	  part_index = find_mg_sec_part_index(part_type);
-	  if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	    iso_stat.sec_part[part_index].num_grps = curr_int;
+	  part_index = find_mg_sec_part_index(state, part_type);
+	  if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	    state->iso_stat.sec_part[part_index].num_grps = curr_int;
 	  } else {
 	    /* Error -- bad part type? */
 	    ierr = -15;
@@ -548,9 +554,9 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 	    return(-11);
 	 }  else {
 	   ierr = get_mg_part_type( in_keyword, "pn_order_", &part_type );
-	   part_index = find_mg_sec_part_index(part_type);
-	   if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	     iso_stat.sec_part[part_index].pn_order = curr_int;
+	   part_index = find_mg_sec_part_index(state, part_type);
+	   if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	     state->iso_stat.sec_part[part_index].pn_order = curr_int;
 	   } else {
 	     /* Error -- bad part type? */
 	    ierr = -15;
@@ -562,10 +568,10 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if (strncmp(in_keyword, "heating_", 8 ) == 0) {
 
 	ierr = get_mg_part_type( in_keyword, "heating_", &part_type );
-	part_index = find_mg_sec_part_index(part_type);
-	if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	  ierr = set_simple_array (stream, &iso_stat.sec_part[part_index].heating, 
-				   iso_stat.num_grps);
+	part_index = find_mg_sec_part_index(state, part_type);
+	if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	  ierr = set_simple_array (stream, &state->iso_stat.sec_part[part_index].heating, 
+				   state->iso_stat.num_grps);
 	} else {
 	  /* Error -- bad particle? */
 	  ierr = -15;
@@ -576,10 +582,10 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if (strncmp(in_keyword, "kerma_", 6 ) == 0) {
 
 	ierr = get_mg_part_type( in_keyword, "kerma_", &part_type );
-	part_index = find_mg_sec_part_index(part_type);
-	if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	  ierr = set_simple_array (stream, &iso_stat.sec_part[part_index].kerma, 
-				   iso_stat.num_grps);
+	part_index = find_mg_sec_part_index(state, part_type);
+	if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	  ierr = set_simple_array (stream, &state->iso_stat.sec_part[part_index].kerma, 
+				   state->iso_stat.num_grps);
 	} else {
 	  /* Error -- bad particle? */
 	  ierr = -15;
@@ -590,10 +596,10 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if ( strncmp(in_keyword, "e_bounds_", 9) == 0 ) {
 
 	ierr = get_mg_part_type( in_keyword, "e_bounds_", &part_type );
-	part_index = find_mg_sec_part_index(part_type);
-	if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	  ierr = set_simple_array (stream, &iso_stat.sec_part[part_index].e_bounds, 
-				   ( iso_stat.sec_part[part_index].num_grps + 1 ) );
+	part_index = find_mg_sec_part_index(state, part_type);
+	if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	  ierr = set_simple_array (stream, &state->iso_stat.sec_part[part_index].e_bounds, 
+				   ( state->iso_stat.sec_part[part_index].num_grps + 1 ) );
 	} else {
 	  /* Error -- bad particle? */
 	  ierr = -999;
@@ -604,17 +610,17 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       else if (strncmp(in_keyword, "pn_prod_full_", 13 ) == 0) {
 
 	ierr = get_mg_part_type( in_keyword, "pn_prod_full_", &part_type );
-	part_index = find_mg_sec_part_index(part_type);
-	if ( ( part_index >= 0 ) && ( part_index < iso_stat.num_sec_parts ) ) {
-	  iso_stat.sec_part[part_index].pn_prod_full.num_objs = iso_stat.sec_part[part_index].pn_order;
-	  num_elements =  iso_stat.sec_part[part_index].num_grps * iso_stat.num_grps;
-	  ierr = set_pn_array( stream, &iso_stat.sec_part[part_index].pn_prod_full, 
-			       iso_stat.sec_part[part_index].pn_prod_full.num_objs,
-			       iso_stat.num_grps, iso_stat.sec_part[part_index].num_grps, 
+	part_index = find_mg_sec_part_index(state, part_type);
+	if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
+	  state->iso_stat.sec_part[part_index].pn_prod_full.num_objs = state->iso_stat.sec_part[part_index].pn_order;
+	  num_elements =  state->iso_stat.sec_part[part_index].num_grps * state->iso_stat.num_grps;
+	  ierr = set_pn_array( stream, &state->iso_stat.sec_part[part_index].pn_prod_full, 
+			       state->iso_stat.sec_part[part_index].pn_prod_full.num_objs,
+			       state->iso_stat.num_grps, state->iso_stat.sec_part[part_index].num_grps, 
 			       num_elements );
 
-	  assert( iso_stat.sec_part[part_index].pn_prod_full.num_objs <= 0 ||
-		  iso_stat.sec_part[part_index].pn_prod_full.stat != NULL );
+	  assert( state->iso_stat.sec_part[part_index].pn_prod_full.num_objs <= 0 ||
+		  state->iso_stat.sec_part[part_index].pn_prod_full.stat != NULL );
 
 	} else {
 	  /* Error -- bad particle? */
@@ -647,14 +653,18 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 
 /*************************************************************************/
 
-static int read_tn_data(FILE *stream, const char *zaid ) {
+static int read_tn_data(state_struct *state, FILE *stream, const char *zaid ) {
 
    char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
 
+   if (! state) {
+       return(-2);
+   }
+
    /***** ??? Should this be done at the end ?? ***/
-   strcpy(tn_stat.zaid, zaid); 
-   tn_stat.set_flag = 1;
+   strcpy(state->tn_stat.zaid, zaid); 
+   state->tn_stat.set_flag = 1;
    
    /*******************************************************/
    /*                     Read TN data                    */
@@ -674,29 +684,29 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       
       /* Information */
       if (strncmp (in_keyword, "info", 5) == 0) {
-	 if (fgets(tn_stat.info, sizeof(tn_stat.info), stream) == NULL) {
+	 if (fgets(state->tn_stat.info, sizeof(state->tn_stat.info), stream) == NULL) {
 	    /* Error reading file */
 	    return(-11);
 	 }	 
       }
       /* date_processed */
       else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
-	ierr = read_next_string( stream, tn_stat.date_processed,
-				 sizeof(tn_stat.date_processed) );
+	ierr = read_next_string( stream, state->tn_stat.date_processed,
+				 sizeof(state->tn_stat.date_processed) );
       }
       /* date_source */
       else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
-	ierr = read_next_string( stream, tn_stat.date_source,
-				 sizeof(tn_stat.date_source));
+	ierr = read_next_string( stream, state->tn_stat.date_source,
+				 sizeof(state->tn_stat.date_source));
       }
       /* Library name*/
       else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
-	ierr = read_next_string( stream, tn_stat.library_name,
-				 sizeof(tn_stat.library_name) );
+	ierr = read_next_string( stream, state->tn_stat.library_name,
+				 sizeof(state->tn_stat.library_name) );
       }
       /* Number of temps */
       else if ( strncmp( in_keyword, "num_temps", 9 ) == 0 ) {
-	 if (fscanf( stream, "%d\n", &tn_stat.num_temps ) == EOF) {
+	 if (fscanf( stream, "%d\n", &state->tn_stat.num_temps ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -704,7 +714,7 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       }
       /* Number of secondary particles for which there is energy distribution info */
       else if ( strncmp( in_keyword, "num_sec_parts", 14 ) == 0 ) {
-	 if (fscanf( stream, "%d\n", &tn_stat.num_sec_parts ) == EOF) {
+	 if (fscanf( stream, "%d\n", &state->tn_stat.num_sec_parts ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -713,17 +723,17 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       }
       /* Q-value */
       else if ( strncmp( in_keyword, "reac_q", 7 ) == 0 ) {
-	 if (fscanf( stream, "%lf\n", &tn_stat.q_value ) == EOF) {
+	 if (fscanf( stream, "%lf\n", &state->tn_stat.q_value ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
 	 } else {
-             tn_stat.q_set = 1;
+             state->tn_stat.q_set = 1;
          }
       }
       /* Number of interpolation regions */
 /*       else if ( strncmp( in_keyword, "num_int_sigvbars", 17 ) == 0 ) { */
-/* 	 if (fscanf( stream, "%d\n", &tn_stat.num_int_sigvbars ) == EOF) { */
+/* 	 if (fscanf( stream, "%d\n", &state->tn_stat.num_int_sigvbars ) == EOF) { */
       /* ???? Could this return 0???? */ 
       /* Error reading file */ 
 /* 	    return(-11); */
@@ -734,41 +744,41 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       
       /* temperatures */
       else if ( strncmp(in_keyword, "temps", 6) == 0 ) {
-	 ierr = set_simple_array(stream, &tn_stat.temps, tn_stat.num_temps);
+	 ierr = set_simple_array(stream, &state->tn_stat.temps, state->tn_stat.num_temps);
       }
       /* sigma vbar */
       else if (strncmp(in_keyword, "sigvbars", 9 ) == 0) {
-	 ierr = set_simple_array (stream, &tn_stat.sigvbars, tn_stat.num_temps);
+	 ierr = set_simple_array (stream, &state->tn_stat.sigvbars, state->tn_stat.num_temps);
       }
       /* sigma vbar interpolation data */
       else if (strncmp(in_keyword, "int_sigvbars", 13 ) == 0) {
-	 ierr = ndi_skip_rx_prod (stream, &tn_stat.int_sigvbars, NO_MT );
+	 ierr = ndi_skip_rx_prod (stream, &state->tn_stat.int_sigvbars, NO_MT );
       }
       /* einbar interpolation data */
       else if (strncmp(in_keyword, "int_einbars", 12 ) == 0) {
-	 ierr = ndi_skip_rx_prod (stream, &tn_stat.int_einbars, NO_MT );
+	 ierr = ndi_skip_rx_prod (stream, &state->tn_stat.int_einbars, NO_MT );
       }
       /* average incident energy */
       else if ( strncmp(in_keyword, "einbars", 8 ) == 0 ) {
-	 ierr = set_simple_array(stream, &tn_stat.einbars, tn_stat.num_temps);
+	 ierr = set_simple_array(stream, &state->tn_stat.einbars, state->tn_stat.num_temps);
       }
       /* reaction products */
       else if  (strncmp(in_keyword, "rprods", 7 ) == 0) {
-	 ierr = ndi_skip_rx_prod( stream, &tn_stat.rprods, NO_MT );
+	 ierr = ndi_skip_rx_prod( stream, &state->tn_stat.rprods, NO_MT );
       }
       /* reactants */
       else if  (strncmp(in_keyword, "reactants", 10 ) == 0) {
-	 ierr = ndi_skip_rx_prod( stream, &tn_stat.reactants, NO_MT );
+	 ierr = ndi_skip_rx_prod( stream, &state->tn_stat.reactants, NO_MT );
       }
 
       /* secondary particle types */
       else if (strncmp(in_keyword, "sec_part_types", 15 ) == 0) {
 	 /* Check for num_sec_parts > 0 */
-	if ( tn_stat.num_sec_parts > 0 ) {
-	  tn_stat.sec_part_types = (int_zaid_type*)ndi_malloc( tn_stat.num_sec_parts * 
+	if ( state->tn_stat.num_sec_parts > 0 ) {
+	  state->tn_stat.sec_part_types = (int_zaid_type*)ndi_malloc( state->tn_stat.num_sec_parts * 
 							       sizeof(int_zaid_type) );
-	  ierr = set_sec_part_types( stream, &(tn_stat.sec_part_types),
-				     tn_stat.num_sec_parts );
+	  ierr = set_sec_part_types( stream, &(state->tn_stat.sec_part_types),
+				     state->tn_stat.num_sec_parts );
 	} else {
 	  ierr =-18 ;
 	}
@@ -777,11 +787,11 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       /* Compound data */
       else if  (strncmp(in_keyword, "e_dist_", 7 ) == 0) {
 	/* Allocate sec_part array -- energy distr info */
-	if (!  tn_stat.sec_part ) {
-	  ierr = ndi_create_tn_sec_part( tn_stat.num_sec_parts, &tn_stat.sec_part );
+	if (!  state->tn_stat.sec_part ) {
+	  ierr = ndi_create_tn_sec_part( state, state->tn_stat.num_sec_parts, &state->tn_stat.sec_part );
 	}
-	ierr = ndi_setup_edist( in_keyword, stream, tn_stat.sec_part, tn_stat.num_sec_parts,
-				&sec_part_filled );
+	ierr = ndi_setup_edist( in_keyword, stream, state->tn_stat.sec_part, state->tn_stat.num_sec_parts,
+				&state->sec_part_filled );
       }
 
 
@@ -811,16 +821,20 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
 /**********************************************************************/
 /*************************************************************************/
 
-static int read_tn_reac_data(FILE *stream, const char *zaid ) {
+static int read_tn_reac_data(state_struct *state, FILE *stream, const char *zaid ) {
 
    char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
+
+   if (! state) {
+       return(-2);
+   }
 
 
    /* Initialize data--set all to zero or null-string */
 
    /***** ??? Should this be done at the end ?? ***/
-   strcpy( tnreac_stat.dataset, zaid ); 
+   strcpy( state->tnreac_stat.dataset, zaid ); 
    
    /*******************************************************/
    /*                     Read TN data                    */
@@ -840,29 +854,29 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
       
       /* Information */
       if (strncmp (in_keyword, "info", 5) == 0) {
-	 if (fgets(tnreac_stat.info, sizeof(tnreac_stat.info), stream) == NULL) {
+	 if (fgets(state->tnreac_stat.info, sizeof(state->tnreac_stat.info), stream) == NULL) {
 	    /* Error reading file */
 	    return(-11);
 	 }	 
       }
       /* date_processed */
       else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
-	ierr = read_next_string( stream, tnreac_stat.date_processed,
-				 sizeof(tnreac_stat.date_processed) );
+	ierr = read_next_string( stream, state->tnreac_stat.date_processed,
+				 sizeof(state->tnreac_stat.date_processed) );
       }
       /* date_source */
       else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
-	ierr = read_next_string( stream, tnreac_stat.date_source,
-				 sizeof(tnreac_stat.date_source) );
+	ierr = read_next_string( stream, state->tnreac_stat.date_source,
+				 sizeof(state->tnreac_stat.date_source) );
       }
       /* Library name*/
       else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
-	ierr = read_next_string( stream, tnreac_stat.library_name,
-				 sizeof(tnreac_stat.library_name) );
+	ierr = read_next_string( stream, state->tnreac_stat.library_name,
+				 sizeof(state->tnreac_stat.library_name) );
       }
       /* Number of reactions */
       else if ( strncmp( in_keyword, "num_reactions", 14 ) == 0 ) {
-	 if (fscanf( stream, "%d\n", &tnreac_stat.reac_num ) == EOF) {
+	 if (fscanf( stream, "%d\n", &state->tnreac_stat.reac_num ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -873,8 +887,8 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
       
       /* List of reactions */
       else if ( strncmp(in_keyword, "list_reactions", 15 ) == 0 ) {
-	 ierr = set_reaction_array ( stream, tnreac_stat.list_reac, &tnreac_stat.reactants, 
-				     &tnreac_stat.rprods, tnreac_stat.reac_num );
+	 ierr = set_reaction_array ( stream, state->tnreac_stat.list_reac, &state->tnreac_stat.reactants, 
+				     &state->tnreac_stat.rprods, state->tnreac_stat.reac_num );
       }
 
       /*********  COMMENTS  *************/
@@ -902,16 +916,19 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
 
 /**********************************************************************/
 
-static int read_depl_data(FILE *stream, const char *zaid ) {
+static int read_depl_data(state_struct *state, FILE *stream, const char *zaid ) {
 
    char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
 
 
    /* Initialize data--set all to zero or null-string */
+   if (!state) {
+       return(-2);
+   }
 
    /***** ??? Should this be done at the end ?? ***/
-   strcpy( depl_dataset, zaid ); 
+   strcpy( state->depl_dataset, zaid ); 
    
    /*******************************************************/
    /*              Read depletion data                    */
@@ -931,7 +948,7 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
       
       /* Information */
       if (strncmp (in_keyword, "info", 5) == 0) {
-	 if (fgets(depl_info, sizeof(depl_info), stream) == NULL) {
+	 if (fgets(state->depl_info, sizeof(state->depl_info), stream) == NULL) {
 	    /* Error reading file */
 	    return(-11);
 	 }	 
@@ -1000,12 +1017,12 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
       /* Number of depletion targets */
       else if ( strncmp( in_keyword, "num_targets", 12 ) == 0 ) {
 
-	if (fscanf( stream, "%d\n", &num_target ) == EOF) { 
+	if (fscanf( stream, "%d\n", &state->num_target ) == EOF) { 
 	  /* ???? Could this return 0???? */
 	  /* Error reading file */
 	  return(-11);
 	}  else {
-	  depl_target = ( depl_target_struct *)ndi_malloc( num_target * sizeof(depl_target_struct) );
+	  state->depl_target = ( depl_target_struct *)ndi_malloc( state->num_target * sizeof(depl_target_struct) );
 	}
       }
       
@@ -1013,14 +1030,14 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
       
       /* List of reactions */
       else if ( strncmp(in_keyword, "list_targets", 13 ) == 0 ) {
-	ierr = set_depl_array ( stream, depl_target, num_target );
+	ierr = set_depl_array ( state, stream, state->depl_target, state->num_target );
       }
 
       else if ( strncmp(in_keyword, "target", 7 ) == 0 ) {
 
 	/* Read target zaid */
 /* 	if ( chain_stat.target_filled < num_target ) { */
-	ierr = set_chain_array ( stream, depl_target, num_target );
+	ierr = set_chain_array ( state, stream, state->depl_target, state->num_target );
 	  /*	  chain_stat.target_filled++;  
 	}
 	*/  
@@ -1261,12 +1278,12 @@ static int set_reaction_prod (FILE *stream, multi_stat *sf, int data_num)
 
 
 /**********************************************************************/
-static int set_depl_array (FILE *stream, depl_target_struct *target,
+static int set_depl_array (state_struct *state, FILE *stream, depl_target_struct *target,
 			   int data_num) 
 
 {
    int ierr = 0;
-   int target_count = chain_filled;
+   int target_count;
    char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
@@ -1274,6 +1291,12 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
    depl_target_struct *target_p;
    long int tmp_fptr;
    
+   if (state) {
+       target_count  = state->chain_filled;
+   } else {
+       return(-2);
+   }
+
    if ( data_num < 0 ) {
      /* Library error:  incorrect data order. */
      ierr = -18;
@@ -1336,18 +1359,18 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
      
    }
 
-   chain_filled = target_count;
+   state->chain_filled = target_count;
    return(ierr);
 }
 
 /**********************************************************************/
 /**********************************************************************/
-static int set_chain_array (FILE *stream, depl_target_struct *target,
-			       int data_num) 
+static int set_chain_array (state_struct *state, FILE *stream, depl_target_struct *target,
+                            int data_num) 
 
 {
    int ierr = 0;
-   int target_count = chain_filled;
+   int target_count;
    char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
@@ -1356,6 +1379,11 @@ static int set_chain_array (FILE *stream, depl_target_struct *target,
    depl_target_struct *target_p;
    long int tmp_fptr;
    
+   if (state) {
+       target_count = state->chain_filled;;
+   } else {
+       return(-2);
+   }
 
    if ( data_num < 0 ) {
      /* Library error:  incorrect data order. */
@@ -1444,7 +1472,7 @@ static int set_chain_array (FILE *stream, depl_target_struct *target,
 	     
        	 }
    
-	 chain_filled++;
+	 state->chain_filled++;
 
        } else {
 	 /* num_products keyword not found */
@@ -1745,7 +1773,7 @@ static int ndi_read_interp_param( FILE *stream, int ninterp, interp_params *para
 
 
 /**********************************************************************/
-static int ndi_create_tn_sec_part ( int num_parts, sec_part_distr **sec_part)
+static int ndi_create_tn_sec_part ( state_struct *state, int num_parts, sec_part_distr **sec_part)
 {
 
   int i;
@@ -1766,7 +1794,7 @@ static int ndi_create_tn_sec_part ( int num_parts, sec_part_distr **sec_part)
 
 
 /**********************************************************************/
-static int ndi_create_mg_sec_part( int num_parts, sec_part_mg **sec_part )
+static int ndi_create_mg_sec_part( state_struct *state, int num_parts, sec_part_mg **sec_part )
 {
 
   int i;
@@ -1815,17 +1843,21 @@ static int get_mg_part_type( const char *in_keyword, const char *prefix,
   return(ierr);
 }
 /**********************************************************************/
-static int find_mg_sec_part_index( mg_sec_part_type part_type ) 
-     /* Returns the index within iso_stat.sec_parts of the particle of type
+static int find_mg_sec_part_index( state_struct *state, mg_sec_part_type part_type ) 
+     /* Returns the index within state->iso_stat.sec_parts of the particle of type
 	"part_type".
 	*/
 {
   int i;
   int return_val = -1;
 
-  for ( i = 0; i < iso_stat.num_sec_parts; i++ ) {
-/*     if ( strncmp(iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) + 1) ) == 0 ) {  */
-    if ( strncmp(iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) ) ) == 0 ) { 
+        if (! state) {
+            return(-2);
+        }
+
+  for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
+/*     if ( strncmp(state->iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) + 1) ) == 0 ) {  */
+    if ( strncmp(state->iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) ) ) == 0 ) { 
       return_val = i;
       break;
     }

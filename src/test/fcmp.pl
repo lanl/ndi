@@ -41,7 +41,7 @@ cmp(1)
 
 =cut
 
-use 5.6.0;			# required version
+#use 5.6.0;			# required version
 use Getopt::Std;		# option parser
 
 sub fcmp {			# approximately equal
@@ -64,7 +64,7 @@ sub fcmp {			# approximately equal
 
 
 #use vars qw($opt_s, $opt_r, $opt_a);	# declare options
-our ($opt_s, $opt_r, $opt_a);
+#our ($opt_s, $opt_r, $opt_a);
 
 $opt_s = 0; 
 $opt_r = 1.0e-5;

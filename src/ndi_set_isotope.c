@@ -14,12 +14,10 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
-
 
 /**********************************************************************/
 
-int	ndi_c_set_zaid(const char *in_zaid)
+int ndi_c_set_zaid_h ( state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.
@@ -51,34 +49,34 @@ int	ndi_c_set_zaid(const char *in_zaid)
    /*** Check that library type has been set ***/
 
    /*** Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if ((!state) || (!state->ndi_initialized)) {
       return(-2); }
 
-   if ( library_type == ' ' ) {
+   if ( state->library_type == ' ' ) {
      /* Library type was not set--defaulting to multigroup n */
-     library_type = 'm';
-     if ( particle_type == ' ' ) {
-       particle_type = 'n';
+     state->library_type = 'm';
+     if ( state->particle_type == ' ' ) {
+       state->particle_type = 'n';
      }
      tmp_err = 8;
    }
 
    /* Initialize (zero) isotope state */
-   ierr = ndi_set0(library_type); 
+   ierr = ndi_set0(state, state->library_type); 
 
    /*** check returned error value ***/
 
    /* Convert input zaid to standard zaid and read data from gendir */
    strcpy(tmp_zaid, in_zaid);
-   if ( (library_type == 'm' ) ||
-	(library_type == 'd') ) {
-      ierr = ndi_std_zaid(tmp_zaid, sizeof(tmp_zaid) );
+   if ( (state->library_type == 'm' ) ||
+	(state->library_type == 'd') ) {
+      ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid) );
 
       /* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/
       if ( ierr < 0 ) return(ierr);
    }
-   ierr = ndi_zaid_dir(particle_type, library_type, tmp_zaid, real_zaid,
+   ierr = ndi_zaid_dir(state, state->particle_type, state->library_type, tmp_zaid, real_zaid,
 		       library, lib_path, lib_file_type, &iso_start, 
 		       &at_wgt, 0 );
 
@@ -97,11 +95,11 @@ int	ndi_c_set_zaid(const char *in_zaid)
    }
 
    /* Open library file if needed */
-   if (strcmp(lib_path, open_lib_file) != 0) {
+   if (strcmp(lib_path, state->open_lib_file) != 0) {
       /* close current lib file and open new one */
-      if (lib_stream) ierr = ndi_close_lib_file(lib_stream);
+      if (state->lib_stream) ierr = ndi_close_lib_file(state);
       /*** check returned error value ***/
-      if ((lib_stream = ndi_open_lib_file(lib_path)) == NULL) {
+      if ((state->lib_stream = ndi_open_lib_file(state, lib_path)) == NULL) {
 	 /* Error opening library file */
 	 ierr = -1;
       }
@@ -110,15 +108,15 @@ int	ndi_c_set_zaid(const char *in_zaid)
    /*** check returned error value ****/
 
    /* Set new isotope state */
-   ierr = ndi_init_iso_state( lib_stream, library_type, iso_start, real_zaid ); 
+   ierr = ndi_init_iso_state( state, state->lib_stream, state->library_type, iso_start, real_zaid ); 
 
-   if ( ( library_type == 'm' ) ||
-	( library_type == 'd' ) ) {
+   if ( ( state->library_type == 'm' ) ||
+	( state->library_type == 'd' ) ) {
       /*** Check returned error value ***/
       /*  Set energy bounds for collapsing */
-      if ( strcmp( n_group, "default" ) != 0 ) {
-	 ierr = ndi_set_e_grps( &new_ebounds, n_group, &grp_num_new, 
-				iso_stat.num_grps, &collapse_flag );
+      if ( strcmp( state->n_group, "default" ) != 0 ) {
+	 ierr = ndi_set_e_grps( state, &state->new_ebounds, state->n_group, &state->grp_num_new, 
+				state->iso_stat.num_grps, &state->collapse_flag );
       }
    }
 
@@ -132,7 +130,7 @@ int	ndi_c_set_zaid(const char *in_zaid)
 
 /**********************************************************************/
 
-int	ndi_c_set_isotope (const char *in_zaid)
+int ndi_c_set_isotope_h ( state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.
@@ -153,14 +151,14 @@ int	ndi_c_set_isotope (const char *in_zaid)
 
    int ierr = 0;
 
-   ierr = ndi_c_set_zaid( in_zaid );
+   ierr = ndi_c_set_zaid_h( state, in_zaid );
 
    return(ierr);
 }
 
 /**********************************************************************/
 
-int	ndi_c_set_reaction(const char *in_zaid)
+int ndi_c_set_reaction_h( state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.
@@ -182,7 +180,7 @@ int	ndi_c_set_reaction(const char *in_zaid)
 
    int ierr = 0;
 
-   ierr = ndi_c_set_zaid( in_zaid );
+   ierr = ndi_c_set_zaid_h( state, in_zaid );
 
    return(ierr);
 }

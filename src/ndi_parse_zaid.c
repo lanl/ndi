@@ -16,14 +16,13 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int ndi_parse_symbolic_zaid( char *in_zaid, int *Z, int *A, int *S );
+static int ndi_parse_symbolic_zaid( state_struct *state, char *in_zaid, int *Z, int *A, int *S );
 static int ndi_find_symbolic_state( char *in_str );
 
 /**********************************************************************/
 
-int ndi_parse_str_zaid( char *zaid_str, int *Z, int *A, int *S ) {
+int ndi_parse_str_zaid( state_struct *state, char *zaid_str, int *Z, int *A, int *S ) {
 
     /* Parse a ZAID represented as a string.  This ZAID can be symbolic
        (e.g. U235, h-1, am240m2, u235.600nm) or numeric (92235, 1001,
@@ -34,11 +33,15 @@ int ndi_parse_str_zaid( char *zaid_str, int *Z, int *A, int *S ) {
   char *tmp_zaid = zaid_str;
   char seps[] = " ,\t\n";
   
+  if (! state) {
+      return(-2);
+  }
+
   tmp_zaid = strtok(zaid_str, seps);
 
   if ( isalpha( *tmp_zaid ) ) {
     /* First character is alphabetic, implying a symbolic zaid */
-    ierr = ndi_parse_symbolic_zaid( tmp_zaid, Z, A, S ); 
+    ierr = ndi_parse_symbolic_zaid( state, tmp_zaid, Z, A, S ); 
   } 
   else {
     /* Numeric (integer) zaid */
@@ -51,7 +54,7 @@ int ndi_parse_str_zaid( char *zaid_str, int *Z, int *A, int *S ) {
 }
 
 /**********************************************************************/
-int ndi_parse_symbolic_zaid( char *in_zaid, int *Z, int *A, int *S ) {
+int ndi_parse_symbolic_zaid( state_struct *state, char *in_zaid, int *Z, int *A, int *S ) {
   /* Parse a symbolic zaid, i.e. of the form U235 or Pu-239.  
      The zaid may have an ending extension, i.e. H1.600nm.
      This function should be case insensitive, e.g. H1 == h1.
@@ -63,6 +66,10 @@ int ndi_parse_symbolic_zaid( char *in_zaid, int *Z, int *A, int *S ) {
   char *curr_char = in_zaid;
   char element_symbol[2] = "  ";
 
+  if (! state) {
+      return(-2);
+  }
+
   /** Find Z **/
   element_symbol[0] = tolower(*curr_char);
   curr_char++;
@@ -72,7 +79,7 @@ int ndi_parse_symbolic_zaid( char *in_zaid, int *Z, int *A, int *S ) {
     curr_char++;
   }
 
-  *Z = ndi_elements[element_index(element_symbol)];
+  *Z = state->ndi_elements[element_index(element_symbol)];
 
   /** Find A **/
   if ( *curr_char == '-' ) {

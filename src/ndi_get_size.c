@@ -14,15 +14,14 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int get_mg_size( int in_key, int *ierr );
-static int get_tn_size( int in_key, int *ierr );
-static int get_tnreac_size( int in_key, int *ierr );
+static int get_mg_size( state_struct *state, int in_key, int *ierr );
+static int get_tn_size( state_struct *state, int in_key, int *ierr );
+static int get_tnreac_size( state_struct *state, int in_key, int *ierr );
 
 /**********************************************************************/
 
-int ndi_c_get_size(int in_key, int *ierr) 
+int ndi_c_get_size_h( state_struct *state, int in_key, int *ierr) 
 
 /* Purpose: Return the size of the library value indicated by in_key.
 
@@ -42,7 +41,7 @@ int ndi_c_get_size(int in_key, int *ierr)
    int size = 0;
 
    /* Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if ((!state) || (!state->ndi_initialized)) {
       size = 0;
       *ierr = -2;
       return(size); }
@@ -51,20 +50,20 @@ int ndi_c_get_size(int in_key, int *ierr)
    if ( in_key == NDI_VERSION ) {
       size = (int) strlen(NDI_VERSION_DATA) + 1;
    } else {
-      if ( ( library_type == 'm' ) ||
-	   ( library_type == 'd' )) {
-	 size = get_mg_size( in_key, ierr );
-      } else if (library_type == 's' ) {
-	 size = get_tn_size( in_key, ierr );
-      } else if (library_type == 'r' ) {
-	 size = get_tnreac_size( in_key, ierr );
-      } else if ( library_type == ' ' ) {
+      if ( ( state->library_type == 'm' ) ||
+	   ( state->library_type == 'd' )) {
+	 size = get_mg_size( state, in_key, ierr );
+      } else if (state->library_type == 's' ) {
+	 size = get_tn_size( state, in_key, ierr );
+      } else if (state->library_type == 'r' ) {
+	 size = get_tnreac_size( state, in_key, ierr );
+      } else if ( state->library_type == ' ' ) {
 	/* Library type was not set--defaulting to multigroup n */
-	library_type = 'm';
-	if ( particle_type == ' ' ) {
-	  particle_type = 'n';
+	state->library_type = 'm';
+	if ( state->particle_type == ' ' ) {
+	  state->particle_type = 'n';
 	}
-	size = get_mg_size( in_key, ierr );
+	size = get_mg_size( state, in_key, ierr );
 	if ( *ierr >= 0 ) {
 	  *ierr = 8;
 	}
@@ -88,17 +87,23 @@ int ndi_c_get_size(int in_key, int *ierr)
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_mg_size( int in_key, int *ierr ) {
+static int get_mg_size( state_struct *state, int in_key, int *ierr ) {
 
 
    int return_value = 0;              /* Default return value is '0' */
+
+        if (! state) {
+            *ierr = -2;
+            return(0);
+        }
+
    *ierr = 0;                          /* Default error value */
 
    /* Check that isotope is set */
    if ( ( in_key != NDI_DEPL_ZAID ) && ( in_key != NDI_DEPL_INFO ) 
 	&& ( in_key != NDI_NUM_TARGET ) ){     
      /* Special case for depletion -- isotope need not be set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        *ierr = -7;
        return(0);
      }
@@ -112,41 +117,41 @@ static int get_mg_size( int in_key, int *ierr ) {
  
       /* String values--return size of string */
    case NDI_ZAID:                               /*  ZAID  */
-      return_value = (int) strlen(iso_stat.zaid) + 1;
+      return_value = (int) strlen(state->iso_stat.zaid) + 1;
       break;
    case NDI_INFO:                               /* Information */
-      return_value = (int) strlen(iso_stat.info) + 1;
+      return_value = (int) strlen(state->iso_stat.info) + 1;
       break;
    case NDI_DATE_PROCESSED:                     /* Date library was processed */
-      return_value = (int) strlen(iso_stat.date_processed) + 1;
+      return_value = (int) strlen(state->iso_stat.date_processed) + 1;
       break;
    case NDI_DATE_SOURCE:                     /* Date of library source info */
-      return_value = (int) strlen(iso_stat.date_source) + 1;
+      return_value = (int) strlen(state->iso_stat.date_source) + 1;
       break;
    case NDI_LIBRARY_NAME:                    /* Name of current library */
-      return_value = (int) strlen(iso_stat.library_name) + 1;
+      return_value = (int) strlen(state->iso_stat.library_name) + 1;
       break;
    case NDI_DEPL_ZAID:                          /*  Depletion ZAID  */
-     if ( ! ndi_depl_set ) {
-       *ierr = ndi_set_default_depl();
+     if ( ! state->ndi_depl_set ) {
+       *ierr = ndi_set_default_depl(state);
      }
-     return_value = (int) strlen(depl_dataset) + 1;
+     return_value = (int) strlen(state->depl_dataset) + 1;
      break;
    case NDI_DEPL_INFO:                          /* Depletion info */
-     if ( ! ndi_depl_set ) {
-       *ierr = ndi_set_default_depl();
+     if ( ! state->ndi_depl_set ) {
+       *ierr = ndi_set_default_depl(state);
      }
-     return_value = (int) strlen(depl_info) + 1;
+     return_value = (int) strlen(state->depl_info) + 1;
      break;
 
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
-     if ( ( iso_stat.sec_part ) && 
-	  ( curr_part_index < iso_stat.num_sec_parts ) &&
-	  ( curr_part_index >= 0 ) ) {
-       return_value = (int) strlen(iso_stat.sec_part[curr_part_index].part_type) + 1;
+     if ( ( state->iso_stat.sec_part ) && 
+	  ( state->curr_part_index < state->iso_stat.num_sec_parts ) &&
+	  ( state->curr_part_index >= 0 ) ) {
+       return_value = (int) strlen(state->iso_stat.sec_part[state->curr_part_index].part_type) + 1;
      } else {
-       if ( iso_stat.num_sec_parts >= curr_part_index ) {
-	 /* Invalid curr_part_index*/
+       if ( state->iso_stat.num_sec_parts >= state->curr_part_index ) {
+	 /* Invalid state->curr_part_index*/
 	 *ierr = -5;
        } else {
 	 /* No secondary particle data for this particle */
@@ -155,12 +160,12 @@ static int get_mg_size( int in_key, int *ierr ) {
      } 
      break;
    case NDI_SEC_PART_ZAIDS:                /* Secondary particle ZAIDs  */
-     if ( ( iso_stat.sec_part ) && 
-	  ( curr_part_index < iso_stat.num_sec_parts ) &&
-	  ( curr_part_index >= 0 ) ) {
-       return_value = (int) strlen(iso_stat.sec_part[curr_part_index].zaid) + 1;
+     if ( ( state->iso_stat.sec_part ) && 
+	  ( state->curr_part_index < state->iso_stat.num_sec_parts ) &&
+	  ( state->curr_part_index >= 0 ) ) {
+       return_value = (int) strlen(state->iso_stat.sec_part[state->curr_part_index].zaid) + 1;
      } else {
-       if ( iso_stat.num_sec_parts >= curr_part_index ) {
+       if ( state->iso_stat.num_sec_parts >= state->curr_part_index ) {
 	 /* Invalid curr_part_index  */
 	 *ierr = -5;
        } else {
@@ -222,11 +227,11 @@ static int get_mg_size( int in_key, int *ierr ) {
    case NDI_TOT_PROD_XS:                    /* Total production cross section */
    case NDI_TOT_DEPL_XS:                    /* Total depletion cross section */
 
-     if ( collapse_flag != 0 ) {
-       return_value =  grp_num_new;
+     if ( state->collapse_flag != 0 ) {
+       return_value =  state->grp_num_new;
      } else {
-/*     if(iso_stat.wgts.length)  */
-       return_value = iso_stat.num_grps;
+/*     if(state->iso_stat.wgts.length)  */
+       return_value = state->iso_stat.num_grps;
      }
      break;
 
@@ -235,47 +240,47 @@ static int get_mg_size( int in_key, int *ierr ) {
 
    case NDI_E_BOUNDS:           
       /* energy boundaries */
-      if ( collapse_flag != 0 ) {
-	 return_value =  grp_num_new + 1;
+      if ( state->collapse_flag != 0 ) {
+	 return_value =  state->grp_num_new + 1;
       } else {
-/* 	 if(iso_stat.e_bounds.length)  */
-	    return_value = iso_stat.num_grps + 1;
+/* 	 if(state->iso_stat.e_bounds.length)  */
+	    return_value = state->iso_stat.num_grps + 1;
       }
       break;
 
    case NDI_NORM:                  
       /* normalization factor */
-/*       if(iso_stat.norm.length)  */
+/*       if(state->iso_stat.norm.length)  */
 	 return_value =  NUM_NORM;
       break;
 
    case NDI_FISS_Q:                  
       /* fission q */
-/*       if(iso_stat.fiss_q.length)  */
+/*       if(state->iso_stat.fiss_q.length)  */
 	 return_value =  NUM_FISSION_Q;
       break;
 
    case NDI_REAC_MT:    
      /* edit reaction mt */
-/*    if (iso_stat.reac_mt)  */
-     return_value = iso_stat.num_reac;
+/*    if (state->iso_stat.reac_mt)  */
+     return_value = state->iso_stat.num_reac;
      if ( return_value < 0 ) { return_value = 0; }
      break;
 
    case NDI_REAC_Q:
       /*edit reaction q */
-/*       if (iso_stat.reac_q)  */
-     return_value = iso_stat.num_reac;
+/*       if (state->iso_stat.reac_q)  */
+     return_value = state->iso_stat.num_reac;
      if ( return_value < 0 ) { return_value = 0; }
      break;
 
    case NDI_E_BOUNDS_CURR_PART:   
      /* Energy boundaries for current particle */
-/*   if(iso_stat.e_bounds_p.length)  */
-     if ( ( iso_stat.sec_part ) && 
-	  ( curr_part_index < iso_stat.num_sec_parts ) &&
-	  ( curr_part_index >= 0 ) ) {
-       return_value = ( (iso_stat.sec_part[curr_part_index].num_grps) + 1 ); 
+/*   if(state->iso_stat.e_bounds_p.length)  */
+     if ( ( state->iso_stat.sec_part ) && 
+	  ( state->curr_part_index < state->iso_stat.num_sec_parts ) &&
+	  ( state->curr_part_index >= 0 ) ) {
+       return_value = ( (state->iso_stat.sec_part[state->curr_part_index].num_grps) + 1 ); 
      } else {
        *ierr = 9;
      }
@@ -287,27 +292,27 @@ static int get_mg_size( int in_key, int *ierr ) {
       /****************************/
  
    case NDI_RPROD_ALL:          /* old reaction product format -- all */
-      return_value = iso_stat.rprod_all.num_objs; 
+      return_value = state->iso_stat.rprod_all.num_objs; 
       break; 
 
    case NDI_RPROD_RMO:          /* sigma edit reaction products -- rmo */
-      return_value = iso_stat.rprod_rmo.num_objs; 
+      return_value = state->iso_stat.rprod_rmo.num_objs; 
       break; 
 
    case NDI_RPROD_FEW:  
       /* sigma edit reaction products -- few */
-      return_value = iso_stat.rprod_few.num_objs; 
+      return_value = state->iso_stat.rprod_few.num_objs; 
       break; 
 
    case NDI_CHI_MAT_TOT:              /* chi total matrix */          
    case NDI_CHI_MAT_PR:               /* chi prompt matrix */     
    case NDI_CHI_MAT_DEL:              /* chi delayed matrix */          
 
-/*       if((iso_stat.chi_mat_tot.length) || (iso_stat.chi_vec_tot.length)){ */
-     if ( collapse_flag != 0 ) {
-       return_value =  grp_num_new * grp_num_new;
+/*       if((state->iso_stat.chi_mat_tot.length) || (state->iso_stat.chi_vec_tot.length)){ */
+     if ( state->collapse_flag != 0 ) {
+       return_value =  state->grp_num_new * state->grp_num_new;
      } else {
-       return_value =  iso_stat.num_grps * iso_stat.num_grps;
+       return_value =  state->iso_stat.num_grps * state->iso_stat.num_grps;
      }
 /*       } */
      break;
@@ -328,14 +333,20 @@ static int get_mg_size( int in_key, int *ierr ) {
 /**********************************************************************/
 
 
-static int get_tn_size( int in_key, int *ierr ) {
+static int get_tn_size( state_struct *state, int in_key, int *ierr ) {
 
 
    int return_value = 0;              /* Default return value is '0' */
-   *ierr = 0;                         /* Default error value */
+
+  *ierr = 0;                         /* Default error value */
+ 
+  if (! state) {
+      *ierr = -2;
+      return(0);
+  }
 
    /* Check that isotope is set */
-   if (! tn_stat.set_flag) {
+   if (! state->tn_stat.set_flag) {
      *ierr = -7;
       return(0);
    }
@@ -348,19 +359,19 @@ static int get_tn_size( int in_key, int *ierr ) {
  
       /* String values--return size of string */
    case NDI_ZAID:                               /*  ZAID  */
-      return_value = (int) strlen(tn_stat.zaid) + 1;
+      return_value = (int) strlen(state->tn_stat.zaid) + 1;
       break;
    case NDI_INFO:                               /* Information */
-      return_value = (int) strlen(tn_stat.info) + 1;
+      return_value = (int) strlen(state->tn_stat.info) + 1;
       break;
    case NDI_DATE_PROCESSED:                     /* Date library was processed */
-      return_value = (int) strlen(tn_stat.date_processed) + 1;
+      return_value = (int) strlen(state->tn_stat.date_processed) + 1;
       break;
    case NDI_DATE_SOURCE:                     /* Date of library source info */
-      return_value = (int) strlen(tn_stat.date_source) + 1;
+      return_value = (int) strlen(state->tn_stat.date_source) + 1;
       break;
    case NDI_LIBRARY_NAME:                    /* Name of current library */
-      return_value = (int) strlen(tn_stat.library_name) + 1;
+      return_value = (int) strlen(state->tn_stat.library_name) + 1;
       break;
       
       /* Single values--return "1" */
@@ -385,80 +396,80 @@ static int get_tn_size( int in_key, int *ierr ) {
       
    case NDI_TEMPS:                 
       /* temperatures */
-     return_value = tn_stat.num_temps;
+     return_value = state->tn_stat.num_temps;
      break;
 
    case NDI_SIGVBARS:                           
       /* sigma vbars */
-     return_value = tn_stat.num_temps;
+     return_value = state->tn_stat.num_temps;
      break;
       
    case NDI_RPRODS_ID:                    
       /* reaction product ids */
-      if ( tn_stat.rprods.length ) 
-	 return_value =  tn_stat.rprods.length;
+      if ( state->tn_stat.rprods.length ) 
+	 return_value =  state->tn_stat.rprods.length;
       break;
    
    case NDI_RPRODS_MLT:                  
       /* reaction product multiplicities */
-      if ( tn_stat.rprods.length ) 
-	 return_value =  tn_stat.rprods.length;
+      if ( state->tn_stat.rprods.length ) 
+	 return_value =  state->tn_stat.rprods.length;
       break;
 
    case NDI_REACTANTS_ID:   
      /* reactant ids */
-     if ( tn_stat.reactants.length ) 
-       return_value =  tn_stat.reactants.length;
+     if ( state->tn_stat.reactants.length ) 
+       return_value =  state->tn_stat.reactants.length;
      break;
 
    case NDI_REACTANTS_MLT:   
      /* reactant ids */
-     if ( tn_stat.reactants.length ) 
-       return_value =  tn_stat.reactants.length;
+     if ( state->tn_stat.reactants.length ) 
+       return_value =  state->tn_stat.reactants.length;
      break;
 
    case NDI_SIGVBAR_INTERP_REG:
-       if ( tn_stat.int_sigvbars.length )
-	   return_value = tn_stat.int_sigvbars.length;
+       if ( state->tn_stat.int_sigvbars.length )
+	   return_value = state->tn_stat.int_sigvbars.length;
        break;
 
    case NDI_SIGVBAR_INTERP_TYPE:
-       if ( tn_stat.int_sigvbars.length )
-	   return_value = tn_stat.int_sigvbars.length;
+       if ( state->tn_stat.int_sigvbars.length )
+	   return_value = state->tn_stat.int_sigvbars.length;
        break;
 
    case NDI_EINBAR_INTERP_REG:
-       if ( tn_stat.int_einbars.length )
-	   return_value = tn_stat.int_einbars.length;
+       if ( state->tn_stat.int_einbars.length )
+	   return_value = state->tn_stat.int_einbars.length;
        break;
 
    case NDI_EINBAR_INTERP_TYPE:
-       if ( tn_stat.int_einbars.length )
-	   return_value = tn_stat.int_einbars.length;
+       if ( state->tn_stat.int_einbars.length )
+	   return_value = state->tn_stat.int_einbars.length;
        break;
 
    case NDI_SEC_PART_TYPES:  
       /* Vector of secondary particle types */
-     if ( tn_stat.num_sec_parts >= 0 ) {
-       return_value = sec_part_filled;
+     if ( state->tn_stat.num_sec_parts >= 0 ) {
+       return_value = state->sec_part_filled;
      }
 
    case NDI_EDIST:   /* Curr. particle's energy distribution at current temp. */
       /* The number returned is the number of groups in the currently-set group stucture */
-     return_value = tn_num_grps;
+     return_value = state->tn_num_grps;
      break;
 
    case NDI_EINBAR:
       /* thermal-averaged total incoming energy for each temp. */
-     return_value = tn_stat.num_temps;
+     return_value = state->tn_stat.num_temps;
      break;
    
    case NDI_E_BOUNDS:                      /*  Multigroup energy boundaries for sec. part distr. */
-     return_value = tn_num_grps + 1;
+     return_value = state->tn_num_grps + 1;
      break;
 
    case NDI_E_AVG:              /* Mean of each multigroup bin used for sec. part edist */
-     return_value = tn_num_grps;
+     return_value = state->tn_num_grps;
      break;
 
       /***********  UNKNOWN KEYWORD  **************/
@@ -476,14 +487,19 @@ static int get_tn_size( int in_key, int *ierr ) {
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_tnreac_size( int in_key, int *ierr ) {
+static int get_tnreac_size( state_struct *state, int in_key, int *ierr ) {
 
 
    int return_value = 0;              /* Default return value is '0' */
+
    *ierr = 0;                         /* Default error value */
 
+   if (! state) {
+       *ierr = -2;
+       return(0);
+   }
    /* Check that isotope is set */
-   if ( tnreac_stat.reac_num > 0 ) {
+   if ( state->tnreac_stat.reac_num > 0 ) {
      *ierr = -7;
      return(0);
    }
@@ -496,19 +512,19 @@ static int get_tnreac_size( int in_key, int *ierr ) {
  
       /* String values--return size of string */
    case NDI_ZAID:                               /*  ZAID  */
-      return_value = (int) strlen(tnreac_stat.dataset) + 1;
+      return_value = (int) strlen(state->tnreac_stat.dataset) + 1;
       break;
    case NDI_INFO:                               /* Information */
-      return_value = (int) strlen(tnreac_stat.info) + 1;
+      return_value = (int) strlen(state->tnreac_stat.info) + 1;
       break;
    case NDI_DATE_PROCESSED:                     /* Date library was processed */
-      return_value = (int) strlen(tnreac_stat.date_processed) + 1;
+      return_value = (int) strlen(state->tnreac_stat.date_processed) + 1;
       break;
    case NDI_DATE_SOURCE:                     /* Date of library source info */
-      return_value = (int) strlen(tnreac_stat.date_source) + 1;
+      return_value = (int) strlen(state->tnreac_stat.date_source) + 1;
       break;
    case NDI_LIBRARY_NAME:                    /* Name of current library */
-      return_value = (int) strlen(tnreac_stat.library_name) + 1;
+      return_value = (int) strlen(state->tnreac_stat.library_name) + 1;
       break;
 
       /* Single values--return "1" */

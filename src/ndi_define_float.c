@@ -28,6 +28,12 @@ int main ()
    printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float32_vec\n");
    printf("#define NDI_GET_FLOAT_VEC_N ndi_c_get_float32_vec_n\n");
    printf("#define NDI_GET_FLOAT_VEC_X ndi_c_get_float32_vec_x\n");
+   printf("#define NDI_GET_FLOAT_VAL_H ndi_c_get_float32_val_h\n");
+   printf("#define NDI_GET_FLOAT_VAL_N_H ndi_c_get_float32_val_n_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_H ndi_c_get_float32_vec_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_N_H ndi_c_get_float32_vec_n_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_X_H ndi_c_get_float32_vec_x_h\n");
+   printf("#define NDIMP_GET_FLOAT_VEC ndimp_get_float32_vec\n");
    printf("#define GET_FLOAT_VAL_MG ndi_get_float32_val_mg\n");
    printf("#define GET_FLOAT_VAL_TN ndi_get_float32_val_tn\n");
    printf("#define GET_FLOAT_VAL_DOS ndi_get_float32_val_dos\n");
@@ -66,6 +72,8 @@ int main ()
    printf("#define BUILD_FLOAT_TREE ndi_build_tree_float32\n");
    printf("#define COLLECT_FLOAT_VAL ndi_collect_f32val\n");
    printf("#define CREATE_FLOAT_NODE ndi_create_f32node\n");
+   printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float32_vec\n");
+   printf("#define GET_COMB_FLOAT_VEC get_comb_float32_vec\n");
 
 
    printf("#else\n");
@@ -88,6 +96,12 @@ int main ()
    printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float64_vec\n");
    printf("#define NDI_GET_FLOAT_VEC_N ndi_c_get_float64_vec_n\n");
    printf("#define NDI_GET_FLOAT_VEC_X ndi_c_get_float64_vec_x\n");
+   printf("#define NDI_GET_FLOAT_VAL_H ndi_c_get_float64_val_h\n");
+   printf("#define NDI_GET_FLOAT_VAL_N_H ndi_c_get_float64_val_n_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_H ndi_c_get_float64_vec_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_N_H ndi_c_get_float64_vec_n_h\n");
+   printf("#define NDI_GET_FLOAT_VEC_X_H ndi_c_get_float64_vec_x_h\n");
+   printf("#define NDIMP_GET_FLOAT_VEC ndimp_get_float64_vec\n");
    printf("#define GET_FLOAT_VAL_MG ndi_get_float64_val_mg\n");
    printf("#define GET_FLOAT_VAL_TN ndi_get_float64_val_tn\n");
    printf("#define GET_FLOAT_VAL_DOS ndi_get_float64_val_dos\n");
@@ -126,6 +140,8 @@ int main ()
    printf("#define BUILD_FLOAT_TREE ndi_build_tree_float64\n");
    printf("#define COLLECT_FLOAT_VAL ndi_collect_f64val\n");
    printf("#define CREATE_FLOAT_NODE ndi_create_f64node\n");
+   printf("#define NDI2MP_GET_FLOAT_VEC ndi2_get_float64_vec\n");
+   printf("#define GET_COMB_FLOAT_VEC get_comb_float64_vec\n");
 
    printf("#endif\n\n\n");
 

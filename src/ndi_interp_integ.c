@@ -16,7 +16,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
 

@@ -16,7 +16,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 static double ndi_find_closest_bound_index( double inval, double val1, double val2 );
 
@@ -144,7 +143,7 @@ int ndi_find_iso_index( const char *ptype , const char **string_array, int num_p
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_find_temp_bound_index( edist_data *edist, int ntemps, 
+int ndi_find_temp_bound_index( double default_temp, edist_data *edist, int ntemps, 
 			       int *hi, int *lo, int *closest )
 {
 

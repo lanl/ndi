@@ -14,7 +14,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 static int within_epsilon( ndi_float64 a, ndi_float64 b);
 static int greater_than_epsilon(ndi_float64 a, ndi_float64 b);
@@ -22,8 +21,8 @@ static int greater_than_epsilon(ndi_float64 a, ndi_float64 b);
 
 /**********************************************************************/
 
-int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
-		    int old_grp, short *c_flag) {
+int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, 
+                    int *new_grp, int old_grp, short *c_flag) {
 
 /* Purpose:  Set an array to indicate which of the current library
    energy bounds will be used in the new (collapsed) group structure.
@@ -373,9 +372,12 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
      return(-5);
    }
    
+   if (! state) {
+       return(-2);
+   }
 
-   if ( ( library_type == 'm' ) ||
-	( library_type == 'd' ) ) {
+   if ( ( state->library_type == 'm' ) ||
+	( state->library_type == 'd' ) ) {
       /* Multigroup or dosimetry data*/
 
       *c_flag = -1;
@@ -393,7 +395,7 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 	 /* Incompatible group structure */
 	 *new_grp = 0;
 	 *c_flag = 0;
-	 strcpy( n_group, "default" );
+	 strcpy( state->n_group, "default" );
 	 return(-23);
       } 
       
@@ -401,12 +403,12 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 	 same as the library group structure      */
       else if ( old_grp == *new_grp ) {
 	 for ( i = 0; i <= old_grp; i++ ) {
-	    if ( lib_ebounds[i] == *new_grp_ptr ) {
+	    if ( state->lib_ebounds[i] == *new_grp_ptr ) {
 	       new_grp_ptr++;
 	    } else {
 	       *new_grp = 0;
 	       *c_flag = 0;
-	       strcpy( n_group, "default" );
+	       strcpy( state->n_group, "default" );
 	       return(-23);
 	    }
 	 }
@@ -417,7 +419,7 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
       ebounds = (int *)ndi_malloc( (*new_grp + 1) * sizeof(int) );
       
       for ( i = 0; i <= *new_grp; i++ ) {
-	 while ( greater_than_epsilon(lib_ebounds[lib_count], *new_grp_ptr) ) {
+	 while ( greater_than_epsilon(state->lib_ebounds[lib_count], *new_grp_ptr) ) {
 	    lib_count++;
 	    if ( lib_count > old_grp ) {
 	       /* New boundaries extend farther than old (library) ones */
@@ -425,31 +427,31 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 	       *new_grp = 0;
 	    }
 	 }
-	 if ( within_epsilon(lib_ebounds[lib_count], *new_grp_ptr ) != 0 ) {
+	 if ( within_epsilon(state->lib_ebounds[lib_count], *new_grp_ptr ) != 0 ) {
 	    ebounds[i] = lib_count;
 	 } else {
 	    /* Incompatible group structure */
 	    if (ebounds) ndi_free((void**)&ebounds);
 	    *new_grp = 0;
 	    *c_flag = 0;
-	    strcpy( n_group, "default" );
+	    strcpy( state->n_group, "default" );
 	    return(-23);
 	 }
 	 new_grp_ptr++;
       }
       
       *new_ebound_p = ebounds;
-   } else if ( library_type == 's' ) {
+   } else if ( state->library_type == 's' ) {
       /* TN data */
       /* Collapse_flag set to '0' above and grp_num_new set above */
       double *curr_e_ptr;
 
-      if (new_ebounds) ndi_free((void**)&new_ebounds);
-      if (tn_ebounds) ndi_free( (void **)&(tn_ebounds));
+      if (state->new_ebounds) ndi_free((void**)&state->new_ebounds);
+      if (state->tn_ebounds) ndi_free( (void **)&(state->tn_ebounds));
       if ( *new_grp > 0 ) {
-	 tn_num_grps = *new_grp;
-	 tn_ebounds = (double *)ndi_malloc( ( *new_grp + 1 ) * sizeof(double));
-	 curr_e_ptr = tn_ebounds;
+	 state->tn_num_grps = *new_grp;
+	 state->tn_ebounds = (double *)ndi_malloc( ( *new_grp + 1 ) * sizeof(double));
+	 curr_e_ptr = state->tn_ebounds;
 	 for ( i = 0; i <= *new_grp; i++ ) {
 	    *curr_e_ptr = *new_grp_ptr;
 	    curr_e_ptr++;
@@ -459,14 +461,14 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
 	 /* No default group structure */
 	*new_grp = 0;
 	*c_flag = 0;
-	strcpy( n_group, "default" );
+	strcpy( state->n_group, "default" );
 	ierr = - 5;
       }
    } else {
       /* Incompatible library type */
      *new_grp = 0;
      *c_flag = 0;
-     strcpy( n_group, "default" );
+     strcpy( state->n_group, "default" );
      ierr = -16;
    }
 

@@ -1,0 +1,21 @@
+
+
+  NDI TEST SUITE -- testtn_simple
+
+Zaid d+t->n+a.980ztn (error = 0).
+  Q-value=17.589420; err=0
+  Num reactants=2; err=0
+  Number of particle 1002 is 1.
+  Number of particle 1003 is 1.
+  There are 120 temp,sigvbar pairs.
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+   edist err = 0.
+   0.000000      1.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
+   0.000000   

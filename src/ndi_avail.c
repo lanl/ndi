@@ -12,14 +12,13 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
 
 
 /*********************************************************************/
 
-int ndi_nusigf_avail( char nu_type ) {
+int ndi_nusigf_avail( state_struct *state, char nu_type ) {
 
    /*  Purpose:  Determines if the indicated nusigf value for the current
        particle is available in the library.  
@@ -35,25 +34,29 @@ int ndi_nusigf_avail( char nu_type ) {
    long int nusigf_ptr;
    long int nusigf1_ptr;
    long int nusigf2_ptr;
+   
+   if (! state) {
+       return(-2);
+   }
 
    switch ( nu_type ) {
 
    case 'p':
-      nusigf_ptr = iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_del.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
       break;
 
    case 'd':
-      nusigf_ptr = iso_stat.nu_sig_f_del.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_pr.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
       break;
 
    case 't':
-      nusigf_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_del.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
       break;
 
    default:
@@ -65,7 +68,7 @@ int ndi_nusigf_avail( char nu_type ) {
    if ( nusigf_ptr ) {
       /* Nu_sigf is contained in library */
       return_val = -1;  /* True--the nu is available */
-   } else if ( ndi_nu_avail(nu_type) && ndi_sigf_avail( ) ) {
+   } else if ( ndi_nu_avail(state, nu_type) && ndi_sigf_avail( state ) ) {
       /* Nu_sigf can be calculated from nu and sigf */
       return_val = -1; 
    } else if ( nusigf1_ptr && nusigf2_ptr ) {
@@ -84,7 +87,7 @@ int ndi_nusigf_avail( char nu_type ) {
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_nu_avail( char nu_type ) {
+int ndi_nu_avail( state_struct *state, char nu_type ) {
 
    /*  Purpose:  Determines if the indicated nu value 
        is available in the library.  
@@ -106,33 +109,37 @@ int ndi_nu_avail( char nu_type ) {
    long int nusigf1_ptr;
    long int nusigf2_ptr;
 
+        if (! state) {
+            return(-2);
+        }
+
    switch ( nu_type ) {
 
    case 't':
-      nu_ptr = iso_stat.nu_tot.file_ptr;
-      nu1_ptr = iso_stat.nu_pr.file_ptr;
-      nu2_ptr = iso_stat.nu_del.file_ptr;
-      nusigf_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_del.file_ptr;
+      nu_ptr = state->iso_stat.nu_tot.file_ptr;
+      nu1_ptr = state->iso_stat.nu_pr.file_ptr;
+      nu2_ptr = state->iso_stat.nu_del.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
       break;
 
    case 'p':
-      nu_ptr = iso_stat.nu_pr.file_ptr;
-      nu1_ptr = iso_stat.nu_tot.file_ptr;
-      nu2_ptr = iso_stat.nu_del.file_ptr;
-      nusigf_ptr = iso_stat.nu_sig_f_pr.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_del.file_ptr;
+      nu_ptr = state->iso_stat.nu_pr.file_ptr;
+      nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+      nu2_ptr = state->iso_stat.nu_del.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
       break;
 
    case 'd':
-      nu_ptr = iso_stat.nu_del.file_ptr;
-      nu1_ptr = iso_stat.nu_tot.file_ptr;
-      nu2_ptr = iso_stat.nu_pr.file_ptr;
-      nusigf_ptr = iso_stat.nu_sig_f_del.file_ptr;
-      nusigf1_ptr = iso_stat.nu_sig_f_tot.file_ptr;
-      nusigf2_ptr = iso_stat.nu_sig_f_pr.file_ptr;
+      nu_ptr = state->iso_stat.nu_del.file_ptr;
+      nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+      nu2_ptr = state->iso_stat.nu_pr.file_ptr;
+      nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+      nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+      nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
       break;
       
    default:
@@ -146,10 +153,10 @@ int ndi_nu_avail( char nu_type ) {
    } else if ( nu1_ptr && nu2_ptr ) {
       /* Calculate nu from other two nu's */
       return_val = -1;
-   } else if ( nusigf_ptr && ndi_sigf_avail( ) ) {
+   } else if ( nusigf_ptr && ndi_sigf_avail( state ) ) {
      /* Calculate nu from nu_sigf and sigf */
      return_val = -1;
-   } else if ( nusigf1_ptr && nusigf2_ptr && ndi_sigf_avail( ) ) {
+   } else if ( nusigf1_ptr && nusigf2_ptr && ndi_sigf_avail(state ) ) {
      /* Calculate nu from other nu_sigf's and sigf */
      return_val = -1;
    }
@@ -160,11 +167,11 @@ int ndi_nu_avail( char nu_type ) {
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_sigf_avail( void ) {
+int ndi_sigf_avail( state_struct *state ) {
 
    /*  Purpose:  Determines if the indicated fission cross-section is 
        available in the library.  Assumes that if MT = 18 (total fission) 
-       is listed in the iso_stat.reac_mt list, that the cross-section is there.
+       is listed in the state->iso_stat.reac_mt list, that the cross-section is there.
 
        Parameters:
        None
@@ -177,8 +184,12 @@ int ndi_sigf_avail( void ) {
    int reac_index = -1;
    int mt = 18;  /*  Total fission cross-section  */
 
-   (void)ndi_find_reac_index( iso_stat.reac_mt, &reac_index, 
-			      mt, iso_stat.num_reac  );
+        if (! state) {
+                return(-2);
+        }
+
+   (void)ndi_find_reac_index( state->iso_stat.reac_mt, &reac_index, 
+			      mt, state->iso_stat.num_reac  );
    if ( reac_index >= 0 ) {
       return_val = -1;    /* True--the nu is available */
    }

@@ -12,7 +12,6 @@
 #include <ctype.h>
 
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_element_symbols.h"
 
 /**********************************************************************/

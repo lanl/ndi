@@ -15,14 +15,14 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
 
 /**********************************************************************/
 
-int NDI_GET_FLOAT_VEC_X(int in_key, const char *in_str, 
-			FLOAT_TYPE *return_vec, int vec_size) {
+int NDI_GET_FLOAT_VEC_X_H( state_struct *state, int in_key, const char *in_str, 
+                           FLOAT_TYPE *return_vec, int vec_size) 
+{
 
    int ierr = 0;
    int tmp_err = 0;
@@ -30,8 +30,12 @@ int NDI_GET_FLOAT_VEC_X(int in_key, const char *in_str,
     /* Initialize return_vec with zeroes */
    ierr = NDI_INIT_FLOAT_VEC( return_vec, vec_size );
 
+        if (! state) {
+            return(-2);
+        }
+
   /* Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if (!state->ndi_initialized) {
       return(-2); }
 
 #ifdef FLOAT32
@@ -41,21 +45,21 @@ int NDI_GET_FLOAT_VEC_X(int in_key, const char *in_str,
    }
 #endif
 
-   if ( library_type == ' ' ) {
+   if ( state->library_type == ' ' ) {
      /* Library type was not set--defaulting to multigroup n */
-     library_type = 'm';
-     if ( particle_type == ' ' ) {
-       particle_type = 'n';
+     state->library_type = 'm';
+     if ( state->particle_type == ' ' ) {
+       state->particle_type = 'n';
      }
      tmp_err = 8;
-   } else if ( ( library_type != 'm' ) &&
-	       ( library_type != 'd' ) ) {
+   } else if ( ( state->library_type != 'm' ) &&
+	       ( state->library_type != 'd' ) ) {
       /* Incompatible library */
       return(-16);
    }
 
    /* Check that isotope is set */
-   if (! iso_stat.set_flag) {
+   if (! state->iso_stat.set_flag) {
       return(-7);
    }
   
@@ -67,10 +71,10 @@ int NDI_GET_FLOAT_VEC_X(int in_key, const char *in_str,
 
    case NDI_TOT_PROD_XS:       /* Total production x.s. for target given by 
 				  global var. 'zaid' and product given by in_str */
-     if ( strcmp(in_str, def_fiss_prod_id ) == 0 ) {
-        ierr = GET_PROD_REAC( "99999", return_vec, vec_size ); 
+     if ( strcmp(in_str, state->def_fiss_prod_id ) == 0 ) {
+        ierr = GET_PROD_REAC( state, "99999", return_vec, vec_size ); 
      } else {
-       ierr = GET_PROD_REAC( in_str, return_vec, vec_size );     
+       ierr = GET_PROD_REAC( state, in_str, return_vec, vec_size );     
      }
      break;
 
@@ -93,7 +97,7 @@ int NDI_GET_FLOAT_VEC_X(int in_key, const char *in_str,
 /*********************************************************************/
 /*********************************************************************/
 
-int GET_PROD_REAC( const char *rprod_in, FLOAT_TYPE *return_vec, int vec_size )
+int GET_PROD_REAC( state_struct *state, const char *rprod_in, FLOAT_TYPE *return_vec, int vec_size )
 
 {
    int i, j;
@@ -104,38 +108,44 @@ int GET_PROD_REAC( const char *rprod_in, FLOAT_TYPE *return_vec, int vec_size )
    int curr_mt;
    int sig_reac_err = 0;
    FLOAT_TYPE *curr_xs = NULL;
-   depl_target_struct *curr_targ = depl_target;
+
+   depl_target_struct *curr_targ;
    depl_rprod_struct *curr_prod;
 
+        if (state) {
+            curr_targ = state->depl_target;
+        } else {
+            return(-2);
+        }
 
    /* CHECK ERRORS */
 
 
-   if ( ! ndi_depl_set ) {
-     ierr = ndi_set_default_depl(); 
+   if ( ! state->ndi_depl_set ) {
+     ierr = ndi_set_default_depl(state); 
    }
-   if ( num_target <= 0 ) {
+   if ( state->num_target <= 0 ) {
      return(-7);
    }
 
-   ierr = ndi_set_curr_target( &curr_targ, &curr_index );
+   ierr = ndi_set_curr_target( state, &curr_targ, &curr_index );
    if ( curr_index == -1 ) {
      return( ierr );
    }
    
    curr_prod = curr_targ->rprod;
    curr_index = curr_targ->num_rprods;
-   ierr = ndi_set_curr_rprod( &curr_prod, rprod_in, &curr_index );
+   ierr = ndi_set_curr_rprod( state, &curr_prod, rprod_in, &curr_index );
    if ( curr_index == -1 ) {
      return( ierr );
    }
 
 
    /* Determine no. of groups and create temporary x.s. array */
-   if ( collapse_flag ) {
-     num_grps = grp_num_new;
+   if ( state->collapse_flag ) {
+     num_grps = state->grp_num_new;
    } else {
-     num_grps = iso_stat.num_grps;
+     num_grps = state->iso_stat.num_grps;
    }
    if ( num_grps <= 0 ) {
      /* Bad energy group structure */
@@ -156,7 +166,7 @@ int GET_PROD_REAC( const char *rprod_in, FLOAT_TYPE *return_vec, int vec_size )
      curr_mt = curr_prod->mt[i];
      /* Must change get_sig_reac to not convert to c values */
      num_elements = num_grps;
-     sig_reac_err = GET_SIG_REAC( &iso_stat, curr_mt, curr_xs, &num_elements );
+     sig_reac_err = GET_SIG_REAC( state, &state->iso_stat, curr_mt, curr_xs, &num_elements );
      if ( sig_reac_err == 9 ) {
        ierr = 9;
      } else {

@@ -17,7 +17,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 
 /**********************************************************************/
@@ -52,10 +51,11 @@ int ndi_init_int_vec( int *vec, int num_elements ) {
 
    int i;
    int ierr = 0;
+   int *curr_vec = vec;
 
    for( i = 0; i < num_elements; i++ ) {
-      *vec = 0;
-      vec++;
+      *curr_vec = 0;
+      curr_vec++;
    }
    return(ierr);
 }
@@ -75,21 +75,27 @@ int ndi_free_ptr_array( int array_size, char **array ) {
 }
 
 /**********************************************************************/
- int ndi_get_rprod_int_n( int vec_num, int *rprod_id ) {
+ int ndi_get_rprod_int_n( state_struct *state, int vec_num, int *rprod_id ) {
 
   int ierr = 0;
   int curr_index;
-  depl_target_struct *curr_target = depl_target;
+  depl_target_struct *curr_target;
+
+  if (state) {
+      curr_target = state->depl_target;
+  } else {
+      return(-2);
+  }
 
   *rprod_id = 0;
-  ierr = ndi_set_curr_target( &curr_target, &curr_index );
+  ierr = ndi_set_curr_target( state, &curr_target, &curr_index );
   if ( ( ierr >= 0 ) && ( curr_target != NULL ) ) {
     /* check vec_num is less than num of rprods */
     if ( vec_num < curr_target->num_rprods ) {
 
       if ( curr_target->rprod[vec_num].izaid == 99999 ) {
 	/* Translate fission product identifier 99999 to default f.p. ZAID */
-	*rprod_id = atoi( def_fiss_prod_id );
+	*rprod_id = atoi( state->def_fiss_prod_id );
       } else {
 	*rprod_id = curr_target->rprod[vec_num].izaid;
       }
@@ -106,20 +112,26 @@ int ndi_free_ptr_array( int array_size, char **array ) {
 }
 
 /**********************************************************************/
- int ndi_get_rprod_vec_mg( int *rprod_vec, int vec_size ) {
+ int ndi_get_rprod_vec_mg( state_struct *state, int *rprod_vec, int vec_size ) {
 
   int ierr = 0;
   int curr_index;
   int i;
   int *rprod_p = rprod_vec;
-  depl_target_struct *curr_target = depl_target;
+  depl_target_struct *curr_target;
+
+  if (state) {
+      curr_target = state->depl_target;
+  } else {
+      return(-2);
+  }
 
   /* Initialize vector with zeroes */
   for ( i = 0; i < vec_size; i++ ) {
     rprod_vec[i] = 0;
   }
 
-  ierr = ndi_set_curr_target( &curr_target, &curr_index );
+  ierr = ndi_set_curr_target( state, &curr_target, &curr_index );
   if ( ( ierr >= 0 ) && ( curr_target != NULL ) ) {
     for ( i = 0; i < curr_target->num_rprods; i++ ) {
       if ( i >= vec_size ) {
@@ -128,7 +140,7 @@ int ndi_free_ptr_array( int array_size, char **array ) {
       } else {
 	if ( curr_target->rprod[i].izaid == 99999 ) {
 	  /* Translate fission product identifier 99999 to default f.p. ZAID */
-	  *rprod_p = atoi( def_fiss_prod_id );
+	  *rprod_p = atoi( state->def_fiss_prod_id );
       } else {
 	*rprod_p = curr_target->rprod[i].izaid;
       }
@@ -144,21 +156,26 @@ int ndi_free_ptr_array( int array_size, char **array ) {
 }
 
 /**********************************************************************/
- int ndi_get_rprod_id_n( int vec_num, char *rprod_id, int str_size ) {
+ int ndi_get_rprod_id_n( state_struct *state, int vec_num, char *rprod_id, int str_size ) {
 
   int ierr = 0;
   int curr_index;
-  depl_target_struct *curr_target = depl_target;
+  depl_target_struct *curr_target;
 
+  if (state) {
+      curr_target = state->depl_target;
+  } else {
+      return(-2);
+  }
 
-  ierr = ndi_set_curr_target( &curr_target, &curr_index );
+  ierr = ndi_set_curr_target( state, &curr_target, &curr_index );
   if ( ( ierr >= 0 ) && ( curr_target != NULL ) ) {
     /* check vec_num is less than num of rprods */
     if ( vec_num < curr_target->num_rprods ) {
 
       if ( curr_target->rprod[vec_num].izaid == 99999 ) {
 	/* Translate fission product identifier 99999 to default f.p. ZAID */
-	strncpy ( rprod_id, def_fiss_prod_id, str_size );
+	strncpy ( rprod_id, state->def_fiss_prod_id, str_size );
       } else {
 	if ( sprintf( rprod_id, "%d", curr_target->rprod[vec_num].izaid ) > str_size ) {
 	  /* Error */
@@ -269,7 +286,7 @@ int ndi_read_float_pair( FILE *stream, long int file_pos, int num_prs,
 }
 
 /*********************************************************************/
-int ndi_translate_fiss_prod ( int *zaid_list, int num_zaids )
+int ndi_translate_fiss_prod ( state_struct *state, int *zaid_list, int num_zaids )
      /* Takes an array of zaids (integers), and will translate 99999
 	(indicating a fission product) to the default fission product
 	ZAID.
@@ -280,9 +297,13 @@ int ndi_translate_fiss_prod ( int *zaid_list, int num_zaids )
   int i;
   int ierr = 0;
 
+  if (! state) {
+      return(-2);
+  }
+
   for ( i = 0; i < num_zaids; i++ ) {
     if ( *zaid_p == 99999 ) {
-      *zaid_p = atoi( def_fiss_prod_id );
+      *zaid_p = atoi( state->def_fiss_prod_id );
     }
     zaid_p++;
   }
@@ -405,28 +426,32 @@ void check_fissionable_err ( int *curr_err, int fission_flag ) {
     return;
 }
 /**********************************************************************/
-int ndi_get_nth_inc_part_type( int vec_num, char *ret_str, const int str_size )
+int ndi_get_nth_inc_part_type( state_struct *state, int vec_num, char *ret_str, const int str_size )
 {
 
     int ierr = 0;
     char tmp_str[MAX_IN_STR_LEN];
 
+    if (! state) {
+        return(-2);
+    }
+
     if ( str_size <= 0 ) {
 	return(7);
     }
 
-    if ( ! chain_stat.set_flag ) {
-	ierr = ndi_set_default_depl();
+    if ( ! state->chain_stat.set_flag ) {
+	ierr = ndi_set_default_depl(state);
     }
 
-    if ( chain_stat.num_inc_parts <= 0 ) {
+    if ( state->chain_stat.num_inc_parts <= 0 ) {
         strcpy(tmp_str, "1");  /* Default is neutron */
 	ierr = 9;
     } else {
-	if ( chain_stat.num_inc_parts > vec_num ) {
-	    sprintf( tmp_str, "%d", chain_stat.inc_part_types[vec_num] );
+	if ( state->chain_stat.num_inc_parts > vec_num ) {
+	    sprintf( tmp_str, "%d", state->chain_stat.inc_part_types[vec_num] );
 	} else {
-	    ierr = ndi_check_array_err(chain_stat.num_inc_parts);
+	    ierr = ndi_check_array_err(state->chain_stat.num_inc_parts);
 	} 
     }
      

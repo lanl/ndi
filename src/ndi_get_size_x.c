@@ -14,13 +14,12 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int get_mg_size_x( int in_key, const char *in_str, int *ierr );
+static int get_mg_size_x( state_struct *state, int in_key, const char *in_str, int *ierr );
 
 /**********************************************************************/
 
-int ndi_c_get_size_x(int in_key, const char *in_str, int *ierr)
+int ndi_c_get_size_x_h( state_struct *state, int in_key, const char *in_str, int *ierr)
 
 /* Purpose: Return the size of a "vector" in a multi-dimensional array.
    The vector is identified by in_str (a zero-based index).
@@ -44,12 +43,12 @@ int ndi_c_get_size_x(int in_key, const char *in_str, int *ierr)
 
 
    /* Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if ((!state) || (!state->ndi_initialized)) {
       *ierr = -2;
       return(size); }
    
-   if ( library_type == 'm' ) {
-      size = get_mg_size_x( in_key, in_str, ierr );
+   if ( state->library_type == 'm' ) {
+      size = get_mg_size_x( state, in_key, in_str, ierr );
    } else {
       /* Incompatible library type */
       *ierr = -16;
@@ -64,14 +63,19 @@ int ndi_c_get_size_x(int in_key, const char *in_str, int *ierr)
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_mg_size_x( int in_key, const char *in_str, int *ierr ) {
+static int get_mg_size_x( state_struct *state, int in_key, const char *in_str, int *ierr ) {
 
    int return_value = 0;              /* Default return value is '0' */
+
+        if (! state) {
+            *ierr = -2;
+            return(0);
+        }
 
    *ierr = 0;                          /* Default error value */
 
    /* Check that isotope is set */
-   if (! iso_stat.set_flag) {
+   if (! state->iso_stat.set_flag) {
      *ierr = -7;
      return(return_value);
    }
@@ -84,10 +88,10 @@ static int get_mg_size_x( int in_key, const char *in_str, int *ierr ) {
    case NDI_TOT_PROD_XS:                          /* Total production cross section */
      /* Check in_str is valid */
      /* instr */
-     if ( collapse_flag != 0 ) {
-       return_value = grp_num_new;
+     if ( state->collapse_flag != 0 ) {
+       return_value = state->grp_num_new;
      } else {
-       return_value = iso_stat.num_grps;
+       return_value = state->iso_stat.num_grps;
      }
      break;
      

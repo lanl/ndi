@@ -1021,7 +1021,7 @@ static int check_ndi_int_val_func_mgn(void)
       "No. of secondary particles",
       "Pn order -- photon prod" };
 
-   ierr = ndi_set_option( NDI_CURR_PART, "photon" );
+   ierr = ndi_set_option( NDI_CURR_PART, "0" );
    if ( ierr ) {
      printf("  ****Error %d setting current particle photon.\n", ierr );
    }
@@ -1394,7 +1394,7 @@ static int check_ndi_float_vec_func_mgn(void)
       "Reaction Q values",
       "Photon energy bounds" };
 
-   ierr = ndi_set_option( NDI_CURR_PART, "photon" );
+   ierr = ndi_set_option( NDI_CURR_PART, "0" );
    if ( ierr ) {
      printf("  ****Error %d setting current particle photon.\n", ierr );
    }
@@ -1589,7 +1589,7 @@ static int check_ndi_float_vec_n_func_mgn(void)
       "Reaction cross section"
    };
 
-   ierr = ndi_set_option( NDI_CURR_PART, "photon" );
+   ierr = ndi_set_option( NDI_CURR_PART, "0" );
    if ( ierr ) {
      printf("  ****Error %d setting current particle photon.\n", ierr );
    }

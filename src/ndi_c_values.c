@@ -15,7 +15,6 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 static int ndi_mt_to_label ( int mt, char *label );
 static int ndi_label_to_mt ( const char *in_value );

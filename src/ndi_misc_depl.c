@@ -15,17 +15,17 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
 #define MAX_SZA_SIZE  16
 
 /**********************************************************************/
 
-int ndi_depletion( const char *in_zaid )
+int ndi_depletion( state_struct *state, const char *in_zaid )
    /* The library type must already have been set to multigroup */
 
 { 
    int ierr = 0;
+   int tmp_err = 0;
    FILE *depl_file = NULL;
    char library[20]  = "";   /* Name of file (e.g. mendf5) */
    char lib_path[250] = ""; /* Path of library file */
@@ -35,38 +35,45 @@ int ndi_depletion( const char *in_zaid )
    char in_lib_type = ' ';
    double at_wgt = 0.0;
 
-   if ( library_type != 'm' ) {
+   if (! state) {
+       return(-2);
+   }
+
+   if ( state->library_type != 'm' ) {
       /* Incompatible library type */
       return( -16 );
    }
 
    /* Initialize depletion data */
-   ierr = ndi_init_state_chain();
+   ierr = ndi_init_state_chain(state);
    /* Read data from gendir */
-   ierr = ndi_zaid_dir(particle_type, library_type, in_zaid, tmp_zaid,
+   ierr = ndi_zaid_dir(state, state->particle_type, state->library_type, in_zaid, tmp_zaid,
 		       library, lib_path, lib_file_type, &iso_start, 
 		       &at_wgt, -1 );
 
    /* Check validity of data read from gendir */
 
    /* Set global variable to indicate the name of the new depl dataset */
-   strcpy( depl_dataset, tmp_zaid);
+   strcpy( state->depl_dataset, tmp_zaid);
 
    /* Open library file */
-   if (( depl_file = ndi_open_lib_file(lib_path)) == NULL) {
+   if (( depl_file = ndi_open_lib_file(state, lib_path)) == NULL) {
      /* Error opening library file */
      ierr = -1;
    }
 
    /* Set new depletion state from library */
    in_lib_type = '0';
-   ierr = ndi_init_iso_state( depl_file, in_lib_type, iso_start, tmp_zaid ); 
+   ierr = ndi_init_iso_state( state, depl_file, in_lib_type, iso_start, tmp_zaid ); 
 
    /* Close library */
-   if ( depl_file ) ierr = ndi_close_lib_file( depl_file );
+   if ( depl_file ) {
+       tmp_err = fclose(depl_file);
+       if (tmp_err != 0) ierr = -3;
+   }
 
    if ( ierr >= 0 ) {
-      ndi_depl_set = -1;
+      state->ndi_depl_set = -1;
    }
    return(ierr);
    
@@ -74,7 +81,7 @@ int ndi_depletion( const char *in_zaid )
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_default_depl( void ) {
+int ndi_set_default_depl( state_struct *state ) {
 
   int ierr = 0;
   char tmp_zaid[MAX_IN_STR_LEN] = "";   /* This 'zaid' will match any zaid in the gendir */
@@ -84,11 +91,14 @@ int ndi_set_default_depl( void ) {
   long int iso_start; /* Line number in file where isotope data begins */
   double at_wgt;
 
+  if (! state) {
+      return(-2);
+  }
 
-  ierr = ndi_zaid_dir(particle_type, library_type, tmp_zaid, depl_dataset,
+  ierr = ndi_zaid_dir(state, state->particle_type, state->library_type, tmp_zaid, state->depl_dataset,
 		      library, lib_path, lib_file_type, &iso_start, 
 		      &at_wgt, -1 );
-  ierr = ndi_depletion( depl_dataset );
+  ierr = ndi_depletion( state, state->depl_dataset );
   
   return( ierr );
 
@@ -97,7 +107,7 @@ int ndi_set_default_depl( void ) {
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_curr_target( depl_target_struct **targ_p, int *target_index ) 
+int ndi_set_curr_target( state_struct *state, depl_target_struct **targ_p, int *target_index ) 
 
      /* Set *targ_p to point at the target struct whose zaid is given by the global
 	var 'zaid'.  The param target_index will be the index of the desired target in
@@ -121,19 +131,23 @@ int ndi_set_curr_target( depl_target_struct **targ_p, int *target_index )
    depl_target_struct *curr_targ = *targ_p;
 
 
+   if (! state) {
+       return(-2);
+   }
+
    /* Initialize output variables */
    *targ_p = (depl_target_struct *)NULL;
    *target_index = -1;
 
   /* Check that depletion is set */
-  if ( ! ndi_depl_set ) {
+  if ( ! state->ndi_depl_set ) {
     /* Depletion option not set */
     ierr = -30;
     return( ierr );
   }
 
   /* Change target zaid to integer */
-  strcpy( tmp_zaid, iso_stat.zaid ); 
+  strcpy( tmp_zaid, state->iso_stat.zaid ); 
   token = strtok( tmp_zaid, "." );
   if ( token != NULL ) {
     itarget = (int) strtol( token, (char **)NULL, 10 );
@@ -146,7 +160,7 @@ int ndi_set_curr_target( depl_target_struct **targ_p, int *target_index )
   }
 
    /* Find target index in depl_target */
-   for ( i = 0; i < num_target; i++ ) {
+   for ( i = 0; i < state->num_target; i++ ) {
      if ( curr_targ->izaid == itarget ) {
        curr_index = i;
        break;
@@ -170,7 +184,7 @@ int ndi_set_curr_target( depl_target_struct **targ_p, int *target_index )
 /**********************************************************************/
 /**********************************************************************/
 
-int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod, 
+int ndi_set_curr_rprod( state_struct *state, depl_rprod_struct **rprod_p, const char *rprod, 
 			int *prod_index ) 
 
      /* Set *rprod_p to point at the rprod struct whose zaid is given by the input
@@ -197,12 +211,16 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
 
    depl_rprod_struct *curr_prod = *rprod_p;
 
+   if (! state) {
+       return(-2);
+   }
+
    /* Initialize output variables */
    *rprod_p = (depl_rprod_struct *)NULL;
    *prod_index = -1;
 
    /* Check that depletion is set */
-   if ( ! ndi_depl_set ) {
+   if ( ! state->ndi_depl_set ) {
      /* Depletion option not set */
      ierr = -30;
      return( ierr );
@@ -216,7 +234,7 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
            curr_zaid = &tmp_zaid[1];
            zaid_size -= 1;
        }
-       ierr = ndi_std_zaid( curr_zaid, zaid_size );
+       ierr = ndi_std_zaid( state, curr_zaid, zaid_size );
    }
 
    token = strtok( tmp_zaid, "." );
@@ -232,7 +250,7 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
        curr_index = i;
        break;
      } else if ( ( curr_prod->izaid == 99999 ) && 
-		 ( iprod == (int) strtol(def_fiss_prod_id, (char **)NULL, 10 ) ) ) {
+		 ( iprod == (int) strtol(state->def_fiss_prod_id, (char **)NULL, 10 ) ) ) {
        /* Special check for fission products 
 	  The curr_prod is still '99999', while iprod has been changed
 	  to the default fission product */
@@ -257,11 +275,12 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_radchem ( const char *in_zaid )
+int ndi_radchem ( state_struct *state, const char *in_zaid )
    /* The library type must already have been set to dosimetry*/
 
 { 
    int ierr = 0;
+   int tmp_err = 0;
    FILE *depl_file = NULL;
    char library[20]  = "";   /* Name of file (e.g. mendf5) */
    char lib_path[250] = ""; /* Path of library file */
@@ -271,38 +290,45 @@ int ndi_radchem ( const char *in_zaid )
    char in_lib_type = ' ';
    double at_wgt = 0.0;
 
-   if ( library_type != 'd' ) {
+   if (! state) {
+       return(-2);
+   }
+
+   if ( state->library_type != 'd' ) {
       /* Incompatible library type */
       return( -16 );
    }
 
    /* Initialize depletion data? */
-   ierr = ndi_set0('0');
+   ierr = ndi_set0(state, '0');
    /* Read data from gendir */
-   ierr = ndi_zaid_dir(particle_type, library_type, in_zaid, tmp_zaid,
+   ierr = ndi_zaid_dir(state, state->particle_type, state->library_type, in_zaid, tmp_zaid,
 		       library, lib_path, lib_file_type, &iso_start, 
 		       &at_wgt, -1 );
 
    /* Check validity of data read from gendir */
 
    /* Set global variable to indicate the name of the new depl dataset */
-   strcpy( depl_dataset, tmp_zaid);
+   strcpy( state->depl_dataset, tmp_zaid);
 
    /* Open library file */
-   if (( depl_file = ndi_open_lib_file(lib_path)) == NULL) {
+   if (( depl_file = ndi_open_lib_file(state, lib_path)) == NULL) {
      /* Error opening library file */
      ierr = -1;
    }
 
    /* Set new depletion state from library */
    in_lib_type = '0';
-   ierr = ndi_init_iso_state( depl_file, in_lib_type, iso_start, tmp_zaid ); 
+   ierr = ndi_init_iso_state( state, depl_file, in_lib_type, iso_start, tmp_zaid ); 
 
-   /* Close library */
-   if ( depl_file ) ierr = ndi_close_lib_file( depl_file );
+    /* Close library */
+   if ( depl_file ) {
+       tmp_err = fclose(depl_file);
+       if (tmp_err != 0) ierr = -3;
+   }
 
    if ( ierr >= 0 ) {
-      ndi_depl_set = -1;
+      state->ndi_depl_set = -1;
    }
    return(ierr);
    

@@ -15,16 +15,14 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 #include "ndi_var_type.h"
 
-static int GET_PROD_Q( const int rprod_in, FLOAT_TYPE *return_val );
+static int GET_PROD_Q( state_struct *state, const int rprod_in, FLOAT_TYPE *return_val );
 
 /**********************************************************************/
 
-
-int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num, 
-			FLOAT_TYPE *ret_val) 
+int NDI_GET_FLOAT_VAL_N_H( state_struct *state, int in_key, int vec_num, 
+                           FLOAT_TYPE *ret_val) 
 
 /**********************************************************************/
 
@@ -48,11 +46,15 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
    int mt = 0;
    int tmp_err = 0;
 
-
    *ret_val = 0.0;    /* Default return value is zero */
 
+        if (! state) {
+            return(-2);
+        }
+
+
    /* Check that ndi_init has been called. */
-   if (!ndi_initialized) {
+   if (!state->ndi_initialized) {
       return(-2); }
 
 #ifdef FLOAT32
@@ -63,21 +65,21 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
 #endif
 
 
-   if ( library_type == ' ' ) {
+   if ( state->library_type == ' ' ) {
      /* Library type was not set--defaulting to multigroup n */
-     library_type = 'm';
-     if ( particle_type == ' ' ) {
-       particle_type = 'n';
+     state->library_type = 'm';
+     if ( state->particle_type == ' ' ) {
+       state->particle_type = 'n';
      }
      tmp_err = 8;
-   } else if ( ( library_type != 'm' ) &&
-	       ( library_type != 'd' ) ) {
+   } else if ( ( state->library_type != 'm' ) &&
+	       ( state->library_type != 'd' ) ) {
       /* Incompatible library type */
       return(-16);
    }
 
    /* Check that isotope is set */
-   if (! iso_stat.set_flag) {
+   if (! state->iso_stat.set_flag) {
       return(-7);
    }
 
@@ -91,7 +93,7 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
    case NDI_REAC_Q:                      
       /* Reaction Q for reaction indexed by vec_num */
       /* Change this test */
-      if ( reac_id == 'c' ) {
+      if ( state->reac_id == 'c' ) {
 	 mt = ndi_c_c_to_mt( vec_num );
 	 if ( mt <= 0 ) {
 	    ierr = -6;
@@ -101,13 +103,13 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
 	 mt = vec_num;
       }
 
-      ierr = ndi_find_reac_index( iso_stat.reac_mt, &reac_index, 
-				  mt, iso_stat.num_reac );
-      if ( ( ierr >= 0 ) && ( iso_stat.reac_q ) ){
-	if ( reac_index < iso_stat.num_reac ) {
-	  *ret_val = (FLOAT_TYPE) iso_stat.reac_q[reac_index];
+      ierr = ndi_find_reac_index( state->iso_stat.reac_mt, &reac_index, 
+				  mt, state->iso_stat.num_reac );
+      if ( ( ierr >= 0 ) && ( state->iso_stat.reac_q ) ){
+	if ( reac_index < state->iso_stat.num_reac ) {
+	  *ret_val = (FLOAT_TYPE) state->iso_stat.reac_q[reac_index];
 	} else {
-	  ierr = ndi_check_array_err(iso_stat.num_reac);
+	  ierr = ndi_check_array_err(state->iso_stat.num_reac);
 	}
       } else {
 	 /* Data not in library. */
@@ -123,10 +125,10 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
    case NDI_TOT_PROD_Q:
 
      /* Check if incoming rprod zaid is the default fission product */
-     if ( vec_num == atoi(def_fiss_prod_id) ) {
-       ierr = GET_PROD_Q(99999, ret_val);
+     if ( vec_num == atoi(state->def_fiss_prod_id) ) {
+       ierr = GET_PROD_Q(state, 99999, ret_val);
      } else {
-       ierr = GET_PROD_Q(vec_num, ret_val);
+       ierr = GET_PROD_Q(state, vec_num, ret_val);
      }
 
      break;
@@ -150,7 +152,7 @@ int NDI_GET_FLOAT_VAL_N(int in_key, int vec_num,
 /*********************************************************************/
 /*********************************************************************/
 
-static int GET_PROD_Q( const int rprod_in, FLOAT_TYPE *return_val )
+static int GET_PROD_Q( state_struct *state, const int rprod_in, FLOAT_TYPE *return_val )
 
 {
    int i;
@@ -160,23 +162,29 @@ static int GET_PROD_Q( const int rprod_in, FLOAT_TYPE *return_val )
    int q_err = 0;
    int reac_index;
    FLOAT_TYPE max_q = 0.0;
-   depl_target_struct *curr_targ = depl_target;
+   depl_target_struct *curr_targ;
    depl_rprod_struct *curr_prod;
    mg_sec_part_type rprod_str;
+
+        if (state) {
+            curr_targ = state->depl_target;
+        } else {
+            return(-2);
+        }
    
 
    /* CHECK ERRORS */
 
    *return_val = 0.0;
 
-   if ( ! ndi_depl_set ) {
-     ierr = ndi_set_default_depl(); 
+   if ( ! state->ndi_depl_set ) {
+     ierr = ndi_set_default_depl(state); 
    }
-   if ( num_target <= 0 ) {
+   if ( state->num_target <= 0 ) {
      return(-7);
    }
 
-   ierr = ndi_set_curr_target( &curr_targ, &curr_index );
+   ierr = ndi_set_curr_target( state, &curr_targ, &curr_index );
    if ( curr_index == -1 ) {
      return( ierr );
    }
@@ -187,7 +195,7 @@ static int GET_PROD_Q( const int rprod_in, FLOAT_TYPE *return_val )
 
    
    sprintf( rprod_str, "%d", rprod_in );
-   ierr = ndi_set_curr_rprod( &curr_prod, rprod_str, &curr_index );
+   ierr = ndi_set_curr_rprod( state, &curr_prod, rprod_str, &curr_index );
    if ( curr_index == -1 ) {
      return( ierr );
    }
@@ -200,13 +208,13 @@ static int GET_PROD_Q( const int rprod_in, FLOAT_TYPE *return_val )
      curr_mt = curr_prod->mt[i];
      /* Must change get_sig_reac to not convert to c values */
 
-     q_err = ndi_find_reac_index( iso_stat.reac_mt, &reac_index,
-				  curr_mt, iso_stat.num_reac );
+     q_err = ndi_find_reac_index( state->iso_stat.reac_mt, &reac_index,
+				  curr_mt, state->iso_stat.num_reac );
      if ( q_err >= 0 ) {
-       if ( reac_index < iso_stat.num_reac ) {
+       if ( reac_index < state->iso_stat.num_reac ) {
 	 /*  What about negative Q values ? */
-	 if ( fabs(max_q) < fabs(iso_stat.reac_q[reac_index]) ) {
-	   max_q = iso_stat.reac_q[reac_index];
+	 if ( fabs(max_q) < fabs(state->iso_stat.reac_q[reac_index]) ) {
+	   max_q = state->iso_stat.reac_q[reac_index];
 	 }
        } else {
 	 /* Error -- subscript out of range */

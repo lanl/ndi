@@ -14,15 +14,15 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
-#include "ndi_state.h"
 
-static int get_string_mg( int in_key, char *ret_val, int str_size);
-static int get_string_tn( int in_key, char *ret_val, int str_size);
-static int get_string_tnreac( int in_key, char *ret_val, int str_size );
+int ndi_c_get_string_val_h( state_struct *state, int in_key, char *ret_val, int str_size );
+static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int str_size);
+static int get_string_tn(  state_struct *state, int in_key, char *ret_val, int str_size);
+static int get_string_tnreac(  state_struct *state, int in_key, char *ret_val, int str_size );
 
 /**********************************************************************/
 
-int ndi_c_get_string_val(int in_key, char *ret_val, int str_size ) 
+int ndi_c_get_string_val_h( state_struct *state, int in_key, char *ret_val, int str_size ) 
 
 /*  Purpose: Return a single string value.
     
@@ -50,28 +50,28 @@ int ndi_c_get_string_val(int in_key, char *ret_val, int str_size )
       strncpy( ret_val, NDI_VERSION_DATA, str_size );
    } else {
      /* check that ndi_init has been called. */
-     if (!ndi_initialized) {
+     if ((!state) || (!state->ndi_initialized)) {
        return(-2); }
 
-      if ( ( library_type == 'm' ) || 
-	   ( library_type == 'd' ) ) {
-	 ierr = get_string_mg( in_key, ret_val, str_size );
-      } else if ( library_type == 's' ) {
-	 ierr = get_string_tn( in_key, ret_val, str_size );
-      } else if ( library_type == 'r' ) {
-	 ierr = get_string_tnreac( in_key, ret_val, str_size );
+      if ( ( state->library_type == 'm' ) || 
+	   ( state->library_type == 'd' ) ) {
+	 ierr = get_string_mg( state, in_key, ret_val, str_size );
+      } else if ( state->library_type == 's' ) {
+	 ierr = get_string_tn( state, in_key, ret_val, str_size );
+      } else if ( state->library_type == 'r' ) {
+	 ierr = get_string_tnreac( state, in_key, ret_val, str_size );
 
 	 /*
-	   } else if ( library_type == '0' ) {
+	   } else if ( state->library_type == '0' ) {
 	   ierr = get_string_depl( in_key, ret_val, str_size );
 	   */
-      } else if ( library_type == ' ' ) {
+      } else if ( state->library_type == ' ' ) {
 	/* Library type was not set--defaulting to multigroup n */
-	library_type = 'm';
-	if ( particle_type == ' ' ) {
-	  particle_type = 'n';
+	state->library_type = 'm';
+	if ( state->particle_type == ' ' ) {
+	  state->particle_type = 'n';
 	}
-	ierr = get_string_mg( in_key, ret_val, str_size );
+	ierr = get_string_mg( state, in_key, ret_val, str_size );
 	if ( ierr >= 0 ) {
 	  ierr = 8;
 	}
@@ -87,9 +87,13 @@ int ndi_c_get_string_val(int in_key, char *ret_val, int str_size )
 
 /**********************************************************************/
 /**********************************************************************/
-static int get_string_mg( int in_key, char *ret_val, int str_size ) {
+static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int str_size ) {
 
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
+
+        if (! state) {
+            return(-2);
+        }
 
    /* Default return value is empty string */
    if ( (ret_val) && ( str_size > 0 ))
@@ -103,73 +107,73 @@ static int get_string_mg( int in_key, char *ret_val, int str_size ) {
 
    case NDI_ZAID:                                  /*  NDI_ZAID  */
      /* Check that isotope is set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, iso_stat.zaid, str_size );
+     strncpy( ret_val, state->iso_stat.zaid, str_size );
      break;
      
      /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_INFO:                                  /*  Information  */
      /* Check that isotope is set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, iso_stat.info, str_size );
+     strncpy( ret_val, state->iso_stat.info, str_size );
      break;
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
      /* Check that isotope is set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, iso_stat.date_processed, str_size );
+     strncpy( ret_val, state->iso_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
      /* Check that isotope is set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, iso_stat.date_source, str_size );
+     strncpy( ret_val, state->iso_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
      /* Check that isotope is set */
-     if (! iso_stat.set_flag) {
+     if (! state->iso_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, iso_stat.library_name, str_size );
+     strncpy( ret_val, state->iso_stat.library_name, str_size );
      break;
 
    case NDI_DEPL_ZAID:                                  /* Depletion ZAID  */
-     if ( ! ndi_depl_set ) {
-       ierr = ndi_set_default_depl();
+     if ( ! state->ndi_depl_set ) {
+       ierr = ndi_set_default_depl(state);
      }
-     if ( num_target <= 0 ) {
+     if ( state->num_target <= 0 ) {
        return(-7);
      }
-     strncpy( ret_val, depl_dataset, str_size );
+     strncpy( ret_val, state->depl_dataset, str_size );
      break;
 
       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_DEPL_INFO:                                  /*  Depletion nformation  */
-     if ( ! ndi_depl_set ) {
-       ierr = ndi_set_default_depl();
+     if ( ! state->ndi_depl_set ) {
+       ierr = ndi_set_default_depl(state);
      }
-     if ( num_target <= 0 ) {
+     if ( state->num_target <= 0 ) {
        return(-7);
      }
-     strncpy( ret_val, depl_info, str_size );
+     strncpy( ret_val, state->depl_info, str_size );
      break;
 
 
    case NDI_SEC_PART_TYPES:                /* Type of current particle */
      /* Check also curr_part_index < num_parts?  */
-     if ( curr_part_index >= 0 ) {
-       strncpy( ret_val, iso_stat.sec_part[curr_part_index].part_type, str_size );
+     if ( state->curr_part_index >= 0 ) {
+       strncpy( ret_val, state->iso_stat.sec_part[state->curr_part_index].part_type, str_size );
      } else {
        /* Error -- bad particle? */
        ierr = -999;
@@ -177,8 +181,8 @@ static int get_string_mg( int in_key, char *ret_val, int str_size ) {
      break;
 
    case NDI_SEC_PART_ZAIDS:                /* ZAID of current particle */
-     if ( curr_part_index >= 0 ) {
-     strncpy( ret_val, iso_stat.sec_part[curr_part_index].zaid, str_size );
+     if ( state->curr_part_index >= 0 ) {
+     strncpy( ret_val, state->iso_stat.sec_part[state->curr_part_index].zaid, str_size );
      } else {
        /* Error -- bad particle? */
        ierr = -999;
@@ -204,16 +208,20 @@ static int get_string_mg( int in_key, char *ret_val, int str_size ) {
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_string_tn( int in_key, char *ret_val, int str_size ) {
+static int get_string_tn(  state_struct *state, int in_key, char *ret_val, int str_size ) {
 
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
+
+   if (! state) {
+       return(-2);
+   }
 
    /* Default return value is empty string */
    if ( (ret_val) && ( str_size > 0 ))
        *ret_val = '\0';
 
    /* Check that isotope is set */
-   if (! tn_stat.set_flag) {
+   if (! state->tn_stat.set_flag) {
       return(-7);
    }
 
@@ -223,37 +231,37 @@ static int get_string_tn( int in_key, char *ret_val, int str_size ) {
    switch (in_key) {
 
    case NDI_ZAID:                                  /*  NDI_ZAID  */
-      strncpy( ret_val, tn_stat.zaid, str_size );
+      strncpy( ret_val, state->tn_stat.zaid, str_size );
       break;
 
       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_INFO:                                  /*  Information  */
-      strncpy( ret_val, tn_stat.info, str_size );
+      strncpy( ret_val, state->tn_stat.info, str_size );
       break;
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
      /* Check that isotope is set */
-     if (! tn_stat.set_flag) {
+     if (! state->tn_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tn_stat.date_processed, str_size );
+     strncpy( ret_val, state->tn_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
      /* Check that isotope is set */
-     if (! tn_stat.set_flag) {
+     if (! state->tn_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tn_stat.date_source, str_size );
+     strncpy( ret_val, state->tn_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
      /* Check that isotope is set */
-     if (! tn_stat.set_flag) {
+     if (! state->tn_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tn_stat.library_name, str_size );
+     strncpy( ret_val, state->tn_stat.library_name, str_size );
      break;
 
 /*  Note:  version request handled specially above */
@@ -275,17 +283,21 @@ static int get_string_tn( int in_key, char *ret_val, int str_size ) {
 /**********************************************************************/
 /**********************************************************************/
 
-static int get_string_tnreac( int in_key, char *ret_val, 
+static int get_string_tnreac(  state_struct *state, int in_key, char *ret_val, 
 			      int str_size ) {
 
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
+
+   if (! state) {
+        return(-2);
+   }
 
    /* Default return value is empty string */
    if ( (ret_val) && ( str_size > 0 ))
        *ret_val = '\0';
 
    /* Check that isotope is set */
-   if ( tnreac_stat.reac_num <= 0 ) {
+   if ( state->tnreac_stat.reac_num <= 0 ) {
       return(-7);
    }
 
@@ -295,14 +307,14 @@ static int get_string_tnreac( int in_key, char *ret_val,
    switch (in_key) {
 
    case NDI_ZAID:                                  /*  NDI_ZAID  */
-      strncpy( ret_val, tnreac_stat.dataset, str_size );
+      strncpy( ret_val, state->tnreac_stat.dataset, str_size );
       break;
 
       /***  Change these to use strncpy when bounds checking is implemented */
 
    case NDI_INFO:                                  /*  Information  */
-      if ( strncmp(tnreac_stat.info, "\0", 1) != 0 ) { 
-	 strncpy( ret_val, tnreac_stat.info, str_size );
+      if ( strncmp(state->tnreac_stat.info, "\0", 1) != 0 ) { 
+	 strncpy( ret_val, state->tnreac_stat.info, str_size );
       } else {
 	 strncpy( ret_val, "\0", 1);
 	 ierr = -9;
@@ -312,26 +324,26 @@ static int get_string_tnreac( int in_key, char *ret_val,
 
    case NDI_DATE_PROCESSED:                           /* Date library was processed */
      /* Check that isotope is set */
-     if (! tnreac_stat.set_flag) {
+     if (! state->tnreac_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tnreac_stat.date_processed, str_size );
+     strncpy( ret_val, state->tnreac_stat.date_processed, str_size );
      break;
 
    case NDI_DATE_SOURCE:                              /* Date of library source info */
      /* Check that isotope is set */
-     if (! tnreac_stat.set_flag) {
+     if (! state->tnreac_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tnreac_stat.date_source, str_size );
+     strncpy( ret_val, state->tnreac_stat.date_source, str_size );
      break;
 
    case NDI_LIBRARY_NAME:                    /* Name of current library */
      /* Check that isotope is set */
-     if (! tnreac_stat.set_flag) {
+     if (! state->tnreac_stat.set_flag) {
        return(-7);
      }
-     strncpy( ret_val, tnreac_stat.library_name, str_size );
+     strncpy( ret_val, state->tnreac_stat.library_name, str_size );
      break;
 
 /*  Note:  version request handled specially above */

@@ -1018,7 +1018,7 @@ int check_ndi_int_val_func_mgn(void)
       "No. of secondary particles",
       "Pn order -- photon prod" };
 
-   tmp_err = ndi_set_option( NDI_CURR_PART, "photon" );
+   tmp_err = ndi_set_option( NDI_CURR_PART, "0" );
 
    printf("\nINTEGER VALUES:\n");
    for ( n = 0; n < num_keys; n++ ) {
@@ -1389,7 +1389,7 @@ static int check_ndi_float_vec_func_mgn(void)
       "Photon energy bounds" };
 
 
-   tmp_err = ndi_set_option( NDI_CURR_PART, "photon" );
+   tmp_err = ndi_set_option( NDI_CURR_PART, "0" );
 
    printf("\nFLOAT64 VECTORS:\n");
 
@@ -1580,7 +1580,7 @@ static int check_ndi_float_vec_n_func_mgn(void)
    };
 
 
-   tmp_err = ndi_set_option( NDI_CURR_PART, "photon" );
+   tmp_err = ndi_set_option( NDI_CURR_PART, "0" );
    printf("\nFLOAT64 VECTORS (N):\n");
 
    /* Handle data which require a Pn order as input */

@@ -70,6 +70,8 @@ void ndi_print_fmangle_body() {
   printf("#define F_NDI_GENDIR             NDI_GENDIR\n");
   printf("#define F_NDID_ZAID_FLOAT64_VEC  NDID_ZAID_FLOAT64_VEC\n");
   printf("#define F_NDID_ZAID_FLOAT32_VEC  NDID_ZAID_FLOAT32_VEC\n");
+  printf("#define F_NDIMP_GET_FLOAT64_VEC  NDIMP_GET_FLOAT64_VEC\n");
+  printf("#define F_NDIMP_GET_FLOAT32_VEC  NDIMP_GET_FLOAT32_VEC\n");
   printf("#endif\n\n");
 
   printf("#ifdef UPPER_WITH\n");
@@ -107,6 +109,8 @@ void ndi_print_fmangle_body() {
   printf("#define F_NDID_ZAID_FLOAT32_VEC  NDID_ZAID_FLOAT32_VEC_\n");
   printf("#define F_NDID_ZAID_FLOAT64_VEC  NDID_ZAID_FLOAT64_VEC_\n");
   printf("#define F_NDID_ZAID_FLOAT32_VEC  NDID_ZAID_FLOAT32_VEC_\n");
+  printf("#define F_NDIMP_GET_FLOAT64_VEC  NDIMP_GET_FLOAT64_VEC_\n");
+  printf("#define F_NDIMP_GET_FLOAT32_VEC  NDIMP_GET_FLOAT32_VEC_\n");
 
   printf("#endif\n\n");
 
@@ -143,6 +147,8 @@ void ndi_print_fmangle_body() {
   printf("#define F_NDI_GENDIR             ndi_gendir\n");
   printf("#define F_NDID_ZAID_FLOAT64_VEC  ndid_zaid_float64_vec\n");
   printf("#define F_NDID_ZAID_FLOAT32_VEC  ndid_zaid_float32_vec\n");
+  printf("#define F_NDIMP_GET_FLOAT64_VEC  ndimp_get_float64_vec\n");
+  printf("#define F_NDIMP_GET_FLOAT32_VEC  ndimp_get_float32_vec\n");
   printf("#endif\n\n");
 
   printf("#ifdef LOWER_WITH\n");
@@ -178,6 +184,8 @@ void ndi_print_fmangle_body() {
   printf("#define F_NDI_GENDIR             ndi_gendir_\n");
   printf("#define F_NDID_ZAID_FLOAT64_VEC  ndid_zaid_float64_vec_\n");
   printf("#define F_NDID_ZAID_FLOAT32_VEC  ndid_zaid_float32_vec_\n");
+  printf("#define F_NDIMP_GET_FLOAT64_VEC  ndimp_get_float64_vec_\n");
+  printf("#define F_NDIMP_GET_FLOAT32_VEC  ndimp_get_float32_vec_\n");
   printf("#endif\n\n");
 
   printf("#ifdef LOWER_WITH2\n");
@@ -213,6 +221,8 @@ void ndi_print_fmangle_body() {
   printf("#define F_NDI_GENDIR             ndi_gendir__\n");
   printf("#define F_NDID_ZAID_FLOAT64_VEC  ndid_zaid_float64_vec__\n");
   printf("#define F_NDID_ZAID_FLOAT32_VEC  ndid_zaid_float32_vec__\n");
+  printf("#define F_NDIMP_GET_FLOAT64_VEC  ndimp_get_float64_vec__\n");
+  printf("#define F_NDIMP_GET_FLOAT32_VEC  ndimp_get_float32_vec__\n");
   printf("#endif\n\n");
 
 }
