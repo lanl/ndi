@@ -21,39 +21,39 @@
 static int NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
 			 FLOAT_TYPE * up_diag, int num_ud, int num_row,
 			 int num_col, FLOAT_TYPE * return_vec);
-static int GET_FULL_PN_MAT(state_struct * state, FILE * stream,
+static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 			   multi_stat full_mat, multi_stat down_mat,
 			   int num_grps, int vec_num,
 			   FLOAT_TYPE * return_mat, int return_size);
 static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 			 FLOAT_TYPE * return_vec, int return_size);
-static int GET_PN_DOWN_FULL(state_struct * state, FILE * stream,
+static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			    FLOAT_TYPE * return_vec,
 			    multi_stat * down_diag, multi_stat * full_mat,
 			    int vec_num, int vec_size);
-static int PN_DOWN_FULL_TRANS_CORR(state_struct * state,
+static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
 				   FLOAT_TYPE * return_vec,
 				   int return_size);
-static int PN_FULL_TRANS_CORR(state_struct * state,
+static int PN_FULL_TRANS_CORR(state_struct *state,
 			      FLOAT_TYPE * return_vec, int return_size);
-static int GET_PN_PROD_FULL(state_struct * state, FILE * stream,
-			    sec_part_mg * sec_part, int vec_num,
+static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
+			    sec_part_mg *sec_part, int vec_num,
 			    FLOAT_TYPE * return_vec, int return_size);
-static int GET_DIAG_CORR(state_struct * state, FLOAT_TYPE * return_vec,
+static int GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec,
 			 int vec_num);
-static int GET_BHS_CORR(state_struct * state, FLOAT_TYPE * return_vec,
+static int GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec,
 			int vec_num);
-static int GET_TRANSFER_MAT(state_struct * state, int n_type, int vec_num,
+static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 			    FLOAT_TYPE * return_vec, int vec_size);
-static int GET_PNU_PR(state_struct * state, FLOAT_TYPE * return_vec,
+static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 		      int vec_num);
-static int GET_SIG_PNU_PR(state_struct * state, FLOAT_TYPE * return_vec,
+static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 			  int vec_num);
 
 /**********************************************************************/
 
 int
-NDI_GET_FLOAT_VEC_N_H(state_struct * state, int in_key, int vec_num,
+NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 		      FLOAT_TYPE * return_vec, int return_size)
 {
 
@@ -255,7 +255,7 @@ NDI_GET_FLOAT_VEC_N_H(state_struct * state, int in_key, int vec_num,
 /*********************************************************************/
 
 static int
-GET_PN_DOWN_FULL(state_struct * state, FILE * stream,
+GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 		 FLOAT_TYPE * return_vec,
 		 multi_stat * down_diag, multi_stat * full_mat,
 		 int vec_num, int return_size)
@@ -404,7 +404,7 @@ GET_PN_DOWN_FULL(state_struct * state, FILE * stream,
 /*********************************************************************/
 
 static int
-GET_FULL_PN_MAT(state_struct * state, FILE * stream,
+GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 		multi_stat full_mat, multi_stat down_mat,
 		int num_grps, int vec_num,
 		FLOAT_TYPE * return_mat, int return_size)
@@ -631,7 +631,7 @@ NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 /*********************************************************************/
 
 static int
-PN_FULL_TRANS_CORR(state_struct * state,
+PN_FULL_TRANS_CORR(state_struct *state,
 		   FLOAT_TYPE * return_vec, int return_size)
 {
 
@@ -682,7 +682,7 @@ PN_FULL_TRANS_CORR(state_struct * state,
 /*********************************************************************/
 
 static int
-PN_DOWN_FULL_TRANS_CORR(state_struct * state,
+PN_DOWN_FULL_TRANS_CORR(state_struct *state,
 			FLOAT_TYPE * return_vec, int return_size)
 {
 
@@ -744,8 +744,8 @@ PN_DOWN_FULL_TRANS_CORR(state_struct * state,
 /*********************************************************************/
 
 static int
-GET_PN_PROD_FULL(state_struct * state, FILE * stream,
-		 sec_part_mg * sec_part, int vec_num,
+GET_PN_PROD_FULL(state_struct *state, FILE *stream,
+		 sec_part_mg *sec_part, int vec_num,
 		 FLOAT_TYPE * return_vec, int return_size)
 {
     int ierr = 0;
@@ -835,7 +835,7 @@ GET_PN_PROD_FULL(state_struct * state, FILE * stream,
 /*********************************************************************/
 
 static int
-GET_DIAG_CORR(state_struct * state, FLOAT_TYPE * return_vec, int vec_num)
+GET_DIAG_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
 {
     char transpose_state;
     char corr_state;
@@ -893,7 +893,7 @@ GET_DIAG_CORR(state_struct * state, FLOAT_TYPE * return_vec, int vec_num)
 /*********************************************************************/
 
 static int
-GET_BHS_CORR(state_struct * state, FLOAT_TYPE * return_vec, int vec_num)
+GET_BHS_CORR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
 {
     char transpose_state = ' ';
     char corr_state = ' ';
@@ -959,7 +959,7 @@ GET_BHS_CORR(state_struct * state, FLOAT_TYPE * return_vec, int vec_num)
 /*********************************************************************/
 
 static int
-GET_TRANSFER_MAT(state_struct * state, int n_type, int vec_num,
+GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 		 FLOAT_TYPE * return_vec, int vec_size)
 {
     int i;
@@ -1103,7 +1103,7 @@ ndi_erf(FLOAT_TYPE x)
   Phys. Rev. 108, 738 (1957)
 */
 static int
-GET_PNU_PR(state_struct * state, FLOAT_TYPE * return_vec, int vec_num)
+GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec, int vec_num)
 {
     FLOAT_TYPE *nu = NULL;
     int num_grps;
@@ -1211,7 +1211,7 @@ ndi_perm(long n, long m)
   LA-2608 (1976)
 */
 static int
-GET_SIG_PNU_PR(state_struct * state, FLOAT_TYPE * sig_pnu, int i)
+GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
 {
 
     FLOAT_TYPE *nu = NULL;

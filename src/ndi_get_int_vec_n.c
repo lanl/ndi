@@ -15,16 +15,16 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int get_int_vec_n_mg(state_struct * state, int in_key, int vec_num,
+static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 			    int *return_vec, int vec_size);
-static int get_int_vec_n_tnreac(state_struct * state, int in_key,
+static int get_int_vec_n_tnreac(state_struct *state, int in_key,
 				int vec_num, int *return_vec,
 				int vec_size);
 
 /**********************************************************************/
 
 int
-ndi_c_get_int_vec_n_h(state_struct * state, int in_key, int vec_num,
+ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
 		      int *return_vec, int vec_size)
 
 /*  Purpose: Return an integer array which is an element of
@@ -70,7 +70,7 @@ ndi_c_get_int_vec_n_h(state_struct * state, int in_key, int vec_num,
 /**********************************************************************/
 /**********************************************************************/
 static int
-get_int_vec_n_mg(state_struct * state, int in_key, int vec_num,
+get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 		 int *return_vec, int vec_size)
 {
 
@@ -376,7 +376,7 @@ get_int_vec_n_mg(state_struct * state, int in_key, int vec_num,
 /**********************************************************************/
 /**********************************************************************/
 static int
-get_int_vec_n_tnreac(state_struct * state, int in_key,
+get_int_vec_n_tnreac(state_struct *state, int in_key,
 		     int vec_num, int *return_vec, int vec_size)
 {
 

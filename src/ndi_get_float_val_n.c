@@ -17,13 +17,13 @@
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
 
-static int GET_PROD_Q(state_struct * state, const int rprod_in,
+static int GET_PROD_Q(state_struct *state, const int rprod_in,
 		      FLOAT_TYPE * return_val);
 
 /**********************************************************************/
 
 int
-NDI_GET_FLOAT_VAL_N_H(state_struct * state, int in_key, int vec_num,
+NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 		      FLOAT_TYPE * ret_val)
 
 /**********************************************************************/
@@ -158,7 +158,7 @@ NDI_GET_FLOAT_VAL_N_H(state_struct * state, int in_key, int vec_num,
 /*********************************************************************/
 
 static int
-GET_PROD_Q(state_struct * state, const int rprod_in,
+GET_PROD_Q(state_struct *state, const int rprod_in,
 	   FLOAT_TYPE * return_val)
 {
     int i;

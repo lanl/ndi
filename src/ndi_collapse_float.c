@@ -21,12 +21,12 @@
 
 #ifdef FLOAT32
 int
-ndi_collapse_float32(state_struct * state, const FLOAT_TYPE * old_vec,
+ndi_collapse_float32(state_struct *state, const FLOAT_TYPE * old_vec,
 		     int old_grp_num, int recip_flag,
 		     FLOAT_TYPE * return_vec, int return_size)
 #else
 int
-ndi_collapse_float64(state_struct * state, const FLOAT_TYPE * old_vec,
+ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 		     int old_grp_num, int recip_flag,
 		     FLOAT_TYPE * return_vec, int return_size)
 #endif

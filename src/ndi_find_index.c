@@ -22,7 +22,7 @@ static double ndi_find_closest_bound_index(double inval, double val1,
 
 /**********************************************************************/
 int
-ndi_find_rprod_index(FILE * stream, multi_stat * rprod, int *ret_index,
+ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 		     int mt)
 {
     int ierr = 0;
@@ -83,7 +83,7 @@ ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 /**********************************************************************/
 /**********************************************************************/
 int
-ndi_find_tn_part_index(const long ptype, const sec_part_distr * part,
+ndi_find_tn_part_index(const long ptype, const sec_part_distr *part,
 		       int num_parts)
 
 /*  This is only used for tndata */
@@ -103,7 +103,7 @@ ndi_find_tn_part_index(const long ptype, const sec_part_distr * part,
 /**********************************************************************/
 /**********************************************************************/
 int
-ndi_find_mg_part_index(const int ptype, const sec_part_mg * part,
+ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
 		       int num_parts)
 
 /*  This is only used for multigroup secondary particles */
@@ -147,7 +147,7 @@ ndi_find_iso_index(const char *ptype, const char **string_array,
 /**********************************************************************/
 /**********************************************************************/
 int
-ndi_find_temp_bound_index(double default_temp, edist_data * edist,
+ndi_find_temp_bound_index(double default_temp, edist_data *edist,
 			  int ntemps, int *hi, int *lo, int *closest)
 {
 

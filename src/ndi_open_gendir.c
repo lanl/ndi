@@ -31,9 +31,8 @@
 
 **********************************************************************/
 int
-ndi_open_gendir(FILE ** dir_stream, char *path)
+ndi_open_gendir(FILE **dir_stream, char *path)
 {
-
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
 
@@ -96,10 +95,8 @@ ndi_open_gendir(FILE ** dir_stream, char *path)
 	    }
 	}
     }
-
     strcpy(path, dir_file);
     return (ierr);
-
 }
 
 /**********************************************************************/

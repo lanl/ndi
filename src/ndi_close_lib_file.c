@@ -33,7 +33,7 @@
 
 ***********************************************************************/
 int
-ndi_close_lib_file(state_struct * state)
+ndi_close_lib_file(state_struct *state)
 {
     int ret_code = 0;		/* Return code--returned error value */
 
@@ -55,7 +55,7 @@ ndi_close_lib_file(state_struct * state)
 	/* Deinitialize state */
 	if (state->open_lib_file)
 	    ndi_free((void **) &state->open_lib_file);
-	state->open_lib_file[0] = '\0';
+	state->open_lib_file = NULL;
     }
 
     return (ret_code);

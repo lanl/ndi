@@ -21,12 +21,12 @@
 
 #ifdef FLOAT32
 int
-ndi_read_float32_block(FILE * stream, long file_pos,
+ndi_read_float32_block(FILE *stream, long file_pos,
 		       const int num_floats,
 		       FLOAT_TYPE * return_vec, const int return_size)
 #else
 int
-ndi_read_float64_block(FILE * stream, long file_pos,
+ndi_read_float64_block(FILE *stream, long file_pos,
 		       const int num_floats,
 		       FLOAT_TYPE * return_vec, const int return_size)
 #endif

@@ -19,7 +19,7 @@
 /**********************************************************************/
 
 FILE *
-ndi_open_lib_file(state_struct * state, const char *path)
+ndi_open_lib_file(state_struct *state, const char *path)
 
 /*  Purpose:  Open library file for read-only and set global 
     variable 'open_lib_file' to be the path of the current open

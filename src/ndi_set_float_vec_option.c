@@ -16,16 +16,16 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int ndi_set_collapse(state_struct * state,
+static int ndi_set_collapse(state_struct *state,
 			    const ndi_float64 * ebound_array,
 			    const int new_num_grps);
-static int ndi_set_ebounds_curr_part(state_struct * state,
+static int ndi_set_ebounds_curr_part(state_struct *state,
 				     const ndi_float64 * ebound_array,
 				     const int new_num_grps);
 
 /**********************************************************************/
 int
-ndi_c_set_float64_vec_option_h(state_struct * state, const int in_key,
+ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 			       const ndi_float64 * option_array,
 			       const int array_size)
 
@@ -82,7 +82,7 @@ ndi_c_set_float64_vec_option_h(state_struct * state, const int in_key,
 /**********************************************************************/
 
 static int
-ndi_set_collapse(state_struct * state,
+ndi_set_collapse(state_struct *state,
 		 const ndi_float64 * ebound_array, const int new_num_grps)
 
 /* Valid input values:
@@ -173,7 +173,7 @@ ndi_set_collapse(state_struct * state,
 /**********************************************************************/
 
 static int
-ndi_set_ebounds_curr_part(state_struct * state,
+ndi_set_ebounds_curr_part(state_struct *state,
 			  const ndi_float64 * ebound_array,
 			  const int new_num_grps)
 

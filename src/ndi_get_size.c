@@ -15,14 +15,14 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int get_mg_size(state_struct * state, int in_key, int *ierr);
-static int get_tn_size(state_struct * state, int in_key, int *ierr);
-static int get_tnreac_size(state_struct * state, int in_key, int *ierr);
+static int get_mg_size(state_struct *state, int in_key, int *ierr);
+static int get_tn_size(state_struct *state, int in_key, int *ierr);
+static int get_tnreac_size(state_struct *state, int in_key, int *ierr);
 
 /**********************************************************************/
 
 int
-ndi_c_get_size_h(state_struct * state, int in_key, int *ierr)
+ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 
 /* Purpose: Return the size of the library value indicated by in_key.
 
@@ -51,7 +51,7 @@ ndi_c_get_size_h(state_struct * state, int in_key, int *ierr)
     if (in_key == NDI_VERSION) {
 	size = (int) strlen(NDI_VERSION_DATA) + 1;
     } else if (in_key == NDI_GENDIR_PATH) {
-	size = (int) strlen(state->ndi_gendir_path) + 1;
+	size = (int) strlen(state->open_gendir_file) + 1;
     } else {
 	if ((state->library_type == 'm') || (state->library_type == 'd')) {
 	    size = get_mg_size(state, in_key, ierr);
@@ -83,7 +83,7 @@ ndi_c_get_size_h(state_struct * state, int in_key, int *ierr)
 /**********************************************************************/
 
 static int
-get_mg_size(state_struct * state, int in_key, int *ierr)
+get_mg_size(state_struct *state, int in_key, int *ierr)
 {
 
 
@@ -351,7 +351,7 @@ get_mg_size(state_struct * state, int in_key, int *ierr)
 
 
 static int
-get_tn_size(state_struct * state, int in_key, int *ierr)
+get_tn_size(state_struct *state, int in_key, int *ierr)
 {
 
 
@@ -509,7 +509,7 @@ get_tn_size(state_struct * state, int in_key, int *ierr)
 /**********************************************************************/
 
 static int
-get_tnreac_size(state_struct * state, int in_key, int *ierr)
+get_tnreac_size(state_struct *state, int in_key, int *ierr)
 {
 
 

@@ -267,10 +267,9 @@ typedef struct _state_struct {
     short ndi_initialized;	/*  ndi_init called: 0=false, 1=true */
     int handle;
     FILE *ndi_dir;		/*  Gendir (directory) file */
-    char *open_gendir_file;	/*  Current gendir file name */
+    char open_gendir_file[MAX_IN_PATH_LEN]; /*  Current gendir file name */
     FILE *lib_stream;		/*  Current library file */
-    char ndi_gendir_path[MAX_IN_PATH_LEN]; /* Path for open gendir file */
-    char *open_lib_file; /* Path for open library file */
+    char *open_lib_file;	/* Path for open library file */
     short *ndi_elements;	/*  Lookup table for element symbols */
     char *library_vers;		/*  Default library type (mendf5,mendf6,rmoxsct,"") */
     int particle_type;		/*  Incident particle type: 1-neutron, 0-photon, -1-tn */
@@ -361,12 +360,11 @@ extern "C" {
 			   const char *in_value);
     int ndi_c_set_float64_vec_option_h(state_struct *state,
 				       const int in_key,
-				       const ndi_float64 *option_array,
+				       const ndi_float64 * option_array,
 				       const int array_size);
     int ndi_c_check_option_h(state_struct *state, int in_key,
 			     char *out_value, int string_size);
-    int ndi_c_get_int_val_h(state_struct *state, int in_key,
-			    int *ret_val);
+    int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val);
     int ndi_c_get_int_val_n_h(state_struct *state, int in_key,
 			      int vec_num, int *ret_val);
     int ndi_c_get_int_vec_h(state_struct *state, int in_key,
@@ -374,29 +372,29 @@ extern "C" {
     int ndi_c_get_int_vec_n_h(state_struct *state, int in_key,
 			      int vec_num, int *return_vec, int vec_size);
     int ndi_c_get_float32_val_h(state_struct *state, int in_key,
-				ndi_float32 *ret_val);
+				ndi_float32 * ret_val);
     int ndi_c_get_float32_val_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float32 *ret_val);
+				  int vec_num, ndi_float32 * ret_val);
     int ndi_c_get_float32_vec_h(state_struct *state, int in_key,
-				ndi_float32 *return_vec, int return_size);
+				ndi_float32 * return_vec, int return_size);
     int ndi_c_get_float32_vec_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float32 *return_vec,
+				  int vec_num, ndi_float32 * return_vec,
 				  int return_size);
     int ndi_c_get_float32_vec_x_h(state_struct *state, int in_key,
 				  const char *in_str,
-				  ndi_float32 *return_vec, int vec_size);
+				  ndi_float32 * return_vec, int vec_size);
     int ndi_c_get_float64_val_h(state_struct *state, int in_key,
-				ndi_float64 *ret_val);
+				ndi_float64 * ret_val);
     int ndi_c_get_float64_val_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float64 *ret_val);
+				  int vec_num, ndi_float64 * ret_val);
     int ndi_c_get_float64_vec_h(state_struct *state, int in_key,
-				ndi_float64 *return_vec, int return_size);
+				ndi_float64 * return_vec, int return_size);
     int ndi_c_get_float64_vec_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float64 *return_vec,
+				  int vec_num, ndi_float64 * return_vec,
 				  int return_size);
     int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key,
 				  const char *in_str,
-				  ndi_float64 *return_vec, int vec_size);
+				  ndi_float64 * return_vec, int vec_size);
     int ndi_c_get_string_val_h();
     int ndi_c_get_string_val_n_h();
 
@@ -426,42 +424,41 @@ extern "C" {
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);
 */
-    int ndi_get_old_kerma64(state_struct *state, ndi_float64 *return_vec,
+    int ndi_get_old_kerma64(state_struct *state, ndi_float64 * return_vec,
 			    int return_size);
-    int ndi_get_old_kerma32(state_struct *state, ndi_float32 *return_vec,
+    int ndi_get_old_kerma32(state_struct *state, ndi_float32 * return_vec,
 			    int return_size);
     int ndi_collapse_float32(state_struct *state,
-			     const ndi_float32 *old_vec, int old_grp_num,
-			     int recip_flag, ndi_float32 *return_vec,
+			     const ndi_float32 * old_vec, int old_grp_num,
+			     int recip_flag, ndi_float32 * return_vec,
 			     int return_size);
     int ndi_collapse_float64(state_struct *state,
-			     const ndi_float64 *old_vec, int old_grp_num,
-			     int recip_flag, ndi_float64 *return_vec,
+			     const ndi_float64 * old_vec, int old_grp_num,
+			     int recip_flag, ndi_float64 * return_vec,
 			     int return_size);
-    int ndi_collapse_mat32(const FLOAT_TYPE *old_mat, int old_grp_num_in,
+    int ndi_collapse_mat32(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 			   int old_grp_num_out, int new_grp_num_in,
 			   int new_grp_num_out, const int *new_ebounds_in,
 			   const int *new_ebounds_out,
-			   const ndi_float64 *local_weight,
-			   FLOAT_TYPE *new_mat, int new_size);
+			   const ndi_float64 * local_weight,
+			   FLOAT_TYPE * new_mat, int new_size);
 
-    int ndi_collapse_mat64(const FLOAT_TYPE *old_mat, int old_grp_num_in,
+    int ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 			   int old_grp_num_out, int new_grp_num_in,
 			   int new_grp_num_out, const int *new_ebounds_in,
 			   const int *new_ebounds_out,
-			   const ndi_float64 *local_weight,
-			   FLOAT_TYPE *new_mat, int new_size);
+			   const ndi_float64 * local_weight,
+			   FLOAT_TYPE * new_mat, int new_size);
     int skip_float_block(FILE *stream, int *bsize, const int num_floats);
     int ndi_read_float32_block(FILE *stream, long file_pos,
 			       const int num_floats,
-			       ndi_float32 *return_vec,
+			       ndi_float32 * return_vec,
 			       const int return_size);
     int ndi_read_float64_block(FILE *stream, long file_pos,
 			       const int num_floats,
-			       ndi_float64 *return_vec,
+			       ndi_float64 * return_vec,
 			       const int return_size);
-    int ndi_skip_rx_prod(FILE *stream, stat_flag *rx_prod,
-			 short mt_flag);
+    int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag);
     int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 			 const int data_type, int *num_prod,
 			 short mt_flag);
@@ -476,9 +473,9 @@ extern "C" {
     void ndi_free(void **p);
     int ndi_set_tn_dataset(const char *dataset);
     int ndi_get_prod_reac32(state_struct *state, const char *rprod,
-			    ndi_float32 *return_vec, int vec_size);
+			    ndi_float32 * return_vec, int vec_size);
     int ndi_get_prod_reac64(state_struct *state, const char *rprod,
-			    ndi_float64 *return_vec, int vec_size);
+			    ndi_float64 * return_vec, int vec_size);
 
 
    /***  Subroutines in file ndi_init_state.c ***/
@@ -525,73 +522,73 @@ extern "C" {
 			   int *prod_index);
 
     /***  Subroutines in file ndi_misc_float.c ***/
-    int ndi_init_float32_vec(ndi_float32 *vec, int num_elements);
-    int ndi_init_float64_vec(ndi_float64 *vec, int num_elements);
+    int ndi_init_float32_vec(ndi_float32 * vec, int num_elements);
+    int ndi_init_float64_vec(ndi_float64 * vec, int num_elements);
     int ndi_get_simple_float32_vec(state_struct *state, FILE *stream,
 				   long int f_ptr, int collapse_type,
 				   int library_grp_num,
-				   ndi_float32 *return_vec,
+				   ndi_float32 * return_vec,
 				   int return_size);
     int ndi_get_simple_float64_vec(state_struct *state, FILE *stream,
 				   long int f_ptr, int collapse_type,
 				   int library_grp_num,
-				   ndi_float64 *return_vec,
+				   ndi_float64 * return_vec,
 				   int return_size);
-    int ndi_transpose_float32(ndi_float32 *in_mat, int row_num,
+    int ndi_transpose_float32(ndi_float32 * in_mat, int row_num,
 			      int col_num);
-    int ndi_transpose_float64(ndi_float64 *in_mat, int row_num,
+    int ndi_transpose_float64(ndi_float64 * in_mat, int row_num,
 			      int col_num);
-    int ndi_vec2mat32(const ndi_float32 *vec, int num_vec,
-		      ndi_float32 *return_mat, int num_mat, int mat_size);
-    int ndi_vec2mat64(const ndi_float64 *vec, int num_vec,
-		      ndi_float64 *return_mat, int num_mat, int mat_size);
-    int ndi_get_sig_reac32(state_struct *state, isotope_status *mg,
-			   int mt, ndi_float32 *return_vec,
+    int ndi_vec2mat32(const ndi_float32 * vec, int num_vec,
+		      ndi_float32 * return_mat, int num_mat, int mat_size);
+    int ndi_vec2mat64(const ndi_float64 * vec, int num_vec,
+		      ndi_float64 * return_mat, int num_mat, int mat_size);
+    int ndi_get_sig_reac32(state_struct *state, isotope_status * mg,
+			   int mt, ndi_float32 * return_vec,
 			   int *return_size);
-    int ndi_get_sig_reac64(state_struct *state, isotope_status *mg,
-			   int mt, ndi_float64 *return_vec,
+    int ndi_get_sig_reac64(state_struct *state, isotope_status * mg,
+			   int mt, ndi_float64 * return_vec,
 			   int *return_size);
-    int ndi_copy_matrix32(ndi_float32 *dest, FLOAT_TYPE *source,
+    int ndi_copy_matrix32(ndi_float32 * dest, FLOAT_TYPE * source,
 			  int num);
-    int ndi_copy_matrix64(ndi_float64 *dest, FLOAT_TYPE *source,
+    int ndi_copy_matrix64(ndi_float64 * dest, FLOAT_TYPE * source,
 			  int num);
     int ndi_mult_float32_vec(state_struct *state,
-			     const ndi_float64 *vec1,
-			     const ndi_float64 *vec2, int num_elements,
-			     int collapse_flag, ndi_float32 *return_vec,
+			     const ndi_float64 * vec1,
+			     const ndi_float64 * vec2, int num_elements,
+			     int collapse_flag, ndi_float32 * return_vec,
 			     int vec_size);
     int ndi_mult_float64_vec(state_struct *state,
-			     const ndi_float64 *vec1,
-			     const ndi_float64 *vec2, int num_elements,
-			     int collapse_flag, ndi_float64 *return_vec,
+			     const ndi_float64 * vec1,
+			     const ndi_float64 * vec2, int num_elements,
+			     int collapse_flag, ndi_float64 * return_vec,
 			     int vec_size);
     int ndi_divide_float32_vec(state_struct *state,
-			       const ndi_float64 *vec1,
-			       const ndi_float64 *vec2, int num_elements,
-			       int collapse, ndi_float32 *return_vec,
+			       const ndi_float64 * vec1,
+			       const ndi_float64 * vec2, int num_elements,
+			       int collapse, ndi_float32 * return_vec,
 			       int return_size);
     int ndi_divide_float64_vec(state_struct *state,
-			       const ndi_float64 *vec1,
-			       const ndi_float64 *vec2, int num_elements,
-			       int collapse, ndi_float64 *return_vec,
+			       const ndi_float64 * vec1,
+			       const ndi_float64 * vec2, int num_elements,
+			       int collapse, ndi_float64 * return_vec,
 			       int return_size);
-    int ndi_norm_float32_vec(ndi_float32 *vec_p, int num_elements,
+    int ndi_norm_float32_vec(ndi_float32 * vec_p, int num_elements,
 			     const ndi_float32 norm_val);
-    int ndi_norm_float64_vec(ndi_float64 *vec_p, int num_elements,
+    int ndi_norm_float64_vec(ndi_float64 * vec_p, int num_elements,
 			     const ndi_float64 norm_val);
-    int ndi_get_abundance32(int izaid, ndi_float32 *return_val);
-    int ndi_get_abundance64(int izaid, ndi_float64 *return_val);
+    int ndi_get_abundance32(int izaid, ndi_float32 * return_val);
+    int ndi_get_abundance64(int izaid, ndi_float64 * return_val);
     int ndi_chi_mat_to_vec32(state_struct *state, FILE *stream,
-			     long int f_ptr, ndi_float32 *return_vec,
+			     long int f_ptr, ndi_float32 * return_vec,
 			     int return_size, int collapse_type,
 			     int num_grp);
     int ndi_chi_mat_to_vec64(state_struct *state, FILE *stream,
-			     long int f_ptr, ndi_float64 *return_vec,
+			     long int f_ptr, ndi_float64 * return_vec,
 			     int return_size, int collapse_type,
 			     int num_grp);
 
    /*** Subroutines in file ndi_find_index.c ***/
-    int ndi_find_rprod_index(FILE *stream, multi_stat *rprod,
+    int ndi_find_rprod_index(FILE *stream, multi_stat * rprod,
 			     int *ret_index, int mt);
     int ndi_find_reac_index(int *mt_array, int *ret_index, int mt,
 			    int num);

@@ -15,13 +15,13 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int get_mg_size_x(state_struct * state, int in_key,
+static int get_mg_size_x(state_struct *state, int in_key,
 			 const char *in_str, int *ierr);
 
 /**********************************************************************/
 
 int
-ndi_c_get_size_x_h(state_struct * state, int in_key,
+ndi_c_get_size_x_h(state_struct *state, int in_key,
 		   const char *in_str, int *ierr)
 
 /* Purpose: Return the size of a "vector" in a multi-dimensional array.
@@ -72,7 +72,7 @@ ndi_c_get_size_x_h(state_struct * state, int in_key,
 /**********************************************************************/
 
 static int
-get_mg_size_x(state_struct * state, int in_key,
+get_mg_size_x(state_struct *state, int in_key,
 	      const char *in_str, int *ierr)
 {
 

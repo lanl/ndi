@@ -26,7 +26,7 @@ static double erfn(double sign, double x);
 /*********************************************************************/
 int
 ndi_integrate_bins(double *distr_x, double *distr_y,
-		   interp_params * interp, double *bin_bound,
+		   interp_params *interp, double *bin_bound,
 		   int num_bins, double *return_vec, int return_size)
 
      /*  The x, y points are assumed to be monotonically increasing in 
@@ -183,8 +183,7 @@ ndi_integrate_bins(double *distr_x, double *distr_y,
 /*********************************************************************/
 /*******************************************************************/
 int
-find_average_E(double *x, double *y, interp_params * iparm,
-	       double *ret_val)
+find_average_E(double *x, double *y, interp_params *iparm, double *ret_val)
 {
 
 

@@ -18,7 +18,7 @@
 /**********************************************************************/
 
 int
-ndi_c_set_zaid_h(state_struct * state, const char *in_zaid)
+ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.
@@ -137,7 +137,7 @@ ndi_c_set_zaid_h(state_struct * state, const char *in_zaid)
 /**********************************************************************/
 
 int
-ndi_c_set_isotope_h(state_struct * state, const char *in_zaid)
+ndi_c_set_isotope_h(state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.
@@ -166,7 +166,7 @@ ndi_c_set_isotope_h(state_struct * state, const char *in_zaid)
 /**********************************************************************/
 
 int
-ndi_c_set_reaction_h(state_struct * state, const char *in_zaid)
+ndi_c_set_reaction_h(state_struct *state, const char *in_zaid)
 
 /*  Purpose: Set the isotope which all future processing will work on.
     This will also open the library file and read in isotope info.

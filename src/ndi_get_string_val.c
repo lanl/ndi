@@ -15,19 +15,19 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-int ndi_c_get_string_val_h(state_struct * state, int in_key, char *ret_val,
+int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
 			   int str_size);
-static int get_string_mg(state_struct * state, int in_key, char *ret_val,
+static int get_string_mg(state_struct *state, int in_key, char *ret_val,
 			 int str_size);
-static int get_string_tn(state_struct * state, int in_key, char *ret_val,
+static int get_string_tn(state_struct *state, int in_key, char *ret_val,
 			 int str_size);
-static int get_string_tnreac(state_struct * state, int in_key,
+static int get_string_tnreac(state_struct *state, int in_key,
 			     char *ret_val, int str_size);
 
 /**********************************************************************/
 
 int
-ndi_c_get_string_val_h(state_struct * state, int in_key, char *ret_val,
+ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
 		       int str_size)
 
 /*  Purpose: Return a single string value.
@@ -59,7 +59,7 @@ ndi_c_get_string_val_h(state_struct * state, int in_key, char *ret_val,
     } else if (!state->ndi_initialized) {
 	return (-2);
     } else if (in_key == NDI_GENDIR_PATH) {
-	strncpy(ret_val, state->ndi_gendir_path, str_size);
+	strncpy(ret_val, state->open_gendir_file, str_size);
     }
 
 
@@ -88,8 +88,7 @@ ndi_c_get_string_val_h(state_struct * state, int in_key, char *ret_val,
 /**********************************************************************/
 /**********************************************************************/
 static int
-get_string_mg(state_struct * state, int in_key, char *ret_val,
-	      int str_size)
+get_string_mg(state_struct *state, int in_key, char *ret_val, int str_size)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -211,8 +210,7 @@ get_string_mg(state_struct * state, int in_key, char *ret_val,
 /**********************************************************************/
 
 static int
-get_string_tn(state_struct * state, int in_key, char *ret_val,
-	      int str_size)
+get_string_tn(state_struct *state, int in_key, char *ret_val, int str_size)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -271,7 +269,7 @@ get_string_tn(state_struct * state, int in_key, char *ret_val,
 /**********************************************************************/
 
 static int
-get_string_tnreac(state_struct * state, int in_key,
+get_string_tnreac(state_struct *state, int in_key,
 		  char *ret_val, int str_size)
 {
 

@@ -39,7 +39,7 @@ NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 
 /*********************************************************************/
 int
-GET_SIMPLE_FLOAT_VEC(state_struct * state, FILE * stream,
+GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 		     long int f_ptr, int collapse_type,
 		     int library_grp_num, FLOAT_TYPE * return_vec,
 		     int return_size)
@@ -168,7 +168,7 @@ NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
 /*********************************************************************/
 
 int
-GET_SIG_REAC(state_struct * state, isotope_status * mg, int vec_num,
+GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 	     FLOAT_TYPE * return_vec, int *return_size)
 
 /*  Purpose:  Returns the cross-section for particle 'mg' for the 
@@ -252,7 +252,7 @@ COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
 /*********************************************************************/
 
 int
-MULT_FLOAT_VEC(state_struct * state, const ndi_float64 * vec1,
+MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 	       const ndi_float64 * vec2, int num_elements,
 	       int collapse, FLOAT_TYPE * return_vec, int return_size)
 {
@@ -308,7 +308,7 @@ MULT_FLOAT_VEC(state_struct * state, const ndi_float64 * vec1,
 
 /*********************************************************************/
 int
-DIVIDE_FLOAT_VEC(state_struct * state, const ndi_float64 * vec1,
+DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 		 const ndi_float64 * vec2, int num_elements,
 		 int collapse, FLOAT_TYPE * return_vec, int return_size)
 {
@@ -451,7 +451,7 @@ GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 
 /*********************************************************************/
 int
-CHI_MAT_TO_VEC(state_struct * state, FILE * stream, long int f_ptr,
+CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
 	       FLOAT_TYPE * return_vec, int return_size,
 	       int collapse_type, int lib_num_grp)
 

@@ -18,7 +18,7 @@
 
 /**********************************************************************/
 int
-ndi_find_part_index(const char *ptype, const sec_part_distr * part,
+ndi_find_part_index(const char *ptype, const sec_part_distr *part,
 		    int num_parts)
 
 /*  This is only used for tndata */

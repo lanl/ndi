@@ -84,7 +84,7 @@ ndi_free_ptr_array(int array_size, char **array)
 
 /**********************************************************************/
 int
-ndi_get_rprod_int_n(state_struct * state, int vec_num, int *rprod_id)
+ndi_get_rprod_int_n(state_struct *state, int vec_num, int *rprod_id)
 {
 
     int ierr = 0;
@@ -123,7 +123,7 @@ ndi_get_rprod_int_n(state_struct * state, int vec_num, int *rprod_id)
 
 /**********************************************************************/
 int
-ndi_get_rprod_vec_mg(state_struct * state, int *rprod_vec, int vec_size)
+ndi_get_rprod_vec_mg(state_struct *state, int *rprod_vec, int vec_size)
 {
 
     int ierr = 0;
@@ -169,7 +169,7 @@ ndi_get_rprod_vec_mg(state_struct * state, int *rprod_vec, int vec_size)
 
 /**********************************************************************/
 int
-ndi_get_rprod_id_n(state_struct * state, int vec_num, char *rprod_id,
+ndi_get_rprod_id_n(state_struct *state, int vec_num, char *rprod_id,
 		   int str_size)
 {
 
@@ -234,7 +234,7 @@ ndi_check_array_err(int num)
 
 /**********************************************************************/
 int
-ndi_read_float_pair(FILE * stream, long int file_pos, int num_prs,
+ndi_read_float_pair(FILE *stream, long int file_pos, int num_prs,
 		    double *flt_vecx, double *flt_vecy, int return_size)
 
 /*
@@ -303,8 +303,7 @@ ndi_read_float_pair(FILE * stream, long int file_pos, int num_prs,
 
 /*********************************************************************/
 int
-ndi_translate_fiss_prod(state_struct * state, int *zaid_list,
-			int num_zaids)
+ndi_translate_fiss_prod(state_struct *state, int *zaid_list, int num_zaids)
      /* Takes an array of zaids (integers), and will translate 99999
         (indicating a fission product) to the default fission product
         ZAID.
@@ -451,7 +450,7 @@ check_fissionable_err(int *curr_err, int fission_flag)
 
 /**********************************************************************/
 int
-ndi_get_nth_inc_part_type(state_struct * state, int vec_num,
+ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
 			  char *ret_str, const int str_size)
 {
 
@@ -496,7 +495,7 @@ ndi_get_nth_inc_part_type(state_struct * state, int vec_num,
 
 /**********************************************************************/
 int
-ndi_use_sgndf_values(state_struct * state, int num_grps)
+ndi_use_sgndf_values(state_struct *state, int num_grps)
 {
 
     /* Test to see if the current energy group structure is one for

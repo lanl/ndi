@@ -28,7 +28,7 @@ static void ndi_find_first_string( char *in_line, int in_size,
 /**********************************************************************/
 
 int
-ndi_zaid_dir(state_struct * state, int pt_type, char l_type,
+ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	     const char *in_zaid, char *real_zaid, char *library,
 	     char *lib_path, char *lib_file_type, long int *iso_start,
 	     double *at_wgt, int reaction_flag)

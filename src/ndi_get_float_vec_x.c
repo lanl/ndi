@@ -21,7 +21,7 @@
 /**********************************************************************/
 
 int
-NDI_GET_FLOAT_VEC_X_H(state_struct * state, int in_key,
+NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 		      const char *in_str, FLOAT_TYPE * return_vec,
 		      int vec_size)
 {
@@ -96,7 +96,7 @@ NDI_GET_FLOAT_VEC_X_H(state_struct * state, int in_key,
 /*********************************************************************/
 
 int
-GET_PROD_REAC(state_struct * state, const char *rprod_in,
+GET_PROD_REAC(state_struct *state, const char *rprod_in,
 	      FLOAT_TYPE * return_vec, int vec_size)
 {
     int i, j;

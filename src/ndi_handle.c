@@ -23,7 +23,7 @@ handle_to_state_p(int handle)
 }
 
 int
-set_handle(state_struct * state)
+set_handle(state_struct *state)
 {
 
     int i;

@@ -17,14 +17,14 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int ndi_parse_symbolic_zaid(state_struct * state, char *in_zaid,
+static int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
 				   int *Z, int *A, int *S);
 static int ndi_find_symbolic_state(char *in_str);
 
 /**********************************************************************/
 
 int
-ndi_parse_str_zaid(state_struct * state, char *zaid_str, int *Z,
+ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
 		   int *A, int *S)
 {
 
@@ -58,7 +58,7 @@ ndi_parse_str_zaid(state_struct * state, char *zaid_str, int *Z,
 
 /**********************************************************************/
 int
-ndi_parse_symbolic_zaid(state_struct * state, char *in_zaid, int *Z,
+ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, int *Z,
 			int *A, int *S)
 {
     /* Parse a symbolic zaid, i.e. of the form U235 or Pu-239.  

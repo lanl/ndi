@@ -15,15 +15,15 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int get_int_val_mg(state_struct * state, int in_key, int *ret_val);
-static int get_int_val_tn(state_struct * state, int in_key, int *ret_val);
-static int get_int_val_tnreac(state_struct * state, int in_key,
+static int get_int_val_mg(state_struct *state, int in_key, int *ret_val);
+static int get_int_val_tn(state_struct *state, int in_key, int *ret_val);
+static int get_int_val_tnreac(state_struct *state, int in_key,
 			      int *ret_val);
-static int ndi_get_num_rprods(state_struct * state, int *num_rprods);
+static int ndi_get_num_rprods(state_struct *state, int *num_rprods);
 
 /**********************************************************************/
 int
-ndi_c_get_int_val_h(state_struct * state, int in_key, int *ret_val)
+ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 
 
 /*  Purpose:  Return a single integer value specified by 'in_key'.
@@ -66,7 +66,7 @@ ndi_c_get_int_val_h(state_struct * state, int in_key, int *ret_val)
 /**********************************************************************/
 /**********************************************************************/
 static int
-get_int_val_mg(state_struct * state, int in_key, int *ret_val)
+get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -260,7 +260,7 @@ get_int_val_mg(state_struct * state, int in_key, int *ret_val)
 /**********************************************************************/
 /**********************************************************************/
 static int
-get_int_val_tn(state_struct * state, int in_key, int *ret_val)
+get_int_val_tn(state_struct *state, int in_key, int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -361,7 +361,7 @@ get_int_val_tn(state_struct * state, int in_key, int *ret_val)
 
 /**********************************************************************/
 static int
-get_int_val_tnreac(state_struct * state, int in_key, int *ret_val)
+get_int_val_tnreac(state_struct *state, int in_key, int *ret_val)
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -407,7 +407,7 @@ get_int_val_tnreac(state_struct * state, int in_key, int *ret_val)
 /**********************************************************************/
 
 static int
-ndi_get_num_rprods(state_struct * state, int *num_rprods)
+ndi_get_num_rprods(state_struct *state, int *num_rprods)
 {
 
     int ierr = 0;

@@ -20,7 +20,7 @@ static void ndi_process_extension(char *in_str, char **ext_p);
 /**********************************************************************/
 
 int
-ndi_std_zaid(state_struct * state, char *in_zaid, int zaid_size)
+ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 {
 
 /*  Purpose: To return a full or partial zaid (depending on the input

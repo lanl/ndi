@@ -16,28 +16,27 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int ndi_get_lib_type(state_struct * state, char *value,
+static int ndi_get_lib_type(state_struct *state, char *value,
 			    int string_size);
-static int ndi_get_library(state_struct * state, char *value,
+static int ndi_get_library(state_struct *state, char *value,
 			   int string_size);
-static int ndi_get_mat_order(state_struct * state, char *value,
+static int ndi_get_mat_order(state_struct *state, char *value,
 			     int string_size);
-static int ndi_get_collapse(state_struct * state, char *value,
+static int ndi_get_collapse(state_struct *state, char *value,
 			    int string_size);
-static int ndi_get_trans_corr_diag(state_struct * state, char *value,
+static int ndi_get_trans_corr_diag(state_struct *state, char *value,
 				   int string_size);
-static int ndi_get_norm(state_struct * state, char *value,
-			int string_size);
-static int ndi_get_reac_id(state_struct * state, char *value,
+static int ndi_get_norm(state_struct *state, char *value, int string_size);
+static int ndi_get_reac_id(state_struct *state, char *value,
 			   int string_size);
-static int ndi_get_e_avg(state_struct * state, char *value,
+static int ndi_get_e_avg(state_struct *state, char *value,
 			 int string_size);
-static int ndi_get_kerma_calc(state_struct * state, char *value,
+static int ndi_get_kerma_calc(state_struct *state, char *value,
 			      int string_size);
 
 /**********************************************************************/
 int
-ndi_c_check_option_h(state_struct * state, int in_key, char *out_value,
+ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 		     int string_size)
 /*  Purpose: Check options/defaults.
 
@@ -196,7 +195,7 @@ ndi_c_check_option_h(state_struct * state, int in_key, char *out_value,
 /**********************************************************************/
 
 static int
-ndi_get_lib_type(state_struct * state, char *value, int string_size)
+ndi_get_lib_type(state_struct *state, char *value, int string_size)
 
 /* Valid library type values:
    multigroup_neutron, tn, multigroup_photon
@@ -232,7 +231,7 @@ ndi_get_lib_type(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_library(state_struct * state, char *value, int string_size)
+ndi_get_library(state_struct *state, char *value, int string_size)
 
 /* Valid library values:
    mendf5, mendf6, rmoxsct, default
@@ -261,7 +260,7 @@ ndi_get_library(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_mat_order(state_struct * state, char *value, int string_size)
+ndi_get_mat_order(state_struct *state, char *value, int string_size)
 
 /* Valid mat_order values:
    default, transpose
@@ -293,7 +292,7 @@ ndi_get_mat_order(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_collapse(state_struct * state, char *value, int string_size)
+ndi_get_collapse(state_struct *state, char *value, int string_size)
 
 /* Valid collapse values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -327,7 +326,7 @@ ndi_get_collapse(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_trans_corr_diag(state_struct * state, char *value, int string_size)
+ndi_get_trans_corr_diag(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
    none, diag_n, bhs_n 
@@ -374,7 +373,7 @@ ndi_get_trans_corr_diag(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_norm(state_struct * state, char *value, int string_size)
+ndi_get_norm(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
    norm, no_norm
@@ -407,7 +406,7 @@ ndi_get_norm(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_reac_id(state_struct * state, char *value, int string_size)
+ndi_get_reac_id(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
    mt, c
@@ -440,7 +439,7 @@ ndi_get_reac_id(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_e_avg(state_struct * state, char *value, int string_size)
+ndi_get_e_avg(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
   "from_vel", "from_e"
@@ -471,7 +470,7 @@ ndi_get_e_avg(state_struct * state, char *value, int string_size)
 /**********************************************************************/
 
 static int
-ndi_get_kerma_calc(state_struct * state, char *value, int string_size)
+ndi_get_kerma_calc(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
   "use_calc", "no_calc"

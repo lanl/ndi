@@ -18,7 +18,7 @@
 
 /**********************************************************************/
 int
-ndi_find_rprod_index(FILE * stream, multi_stat * rprod, int *ret_index,
+ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 		     int mt)
 {
     int ierr = 0;

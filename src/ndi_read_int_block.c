@@ -20,7 +20,7 @@
 /**********************************************************************/
 
 int
-ndi_read_int_block(FILE * stream, const int num_ints,
+ndi_read_int_block(FILE *stream, const int num_ints,
 		   long *return_vec, const int return_size)
 
 /*********************************************************************
