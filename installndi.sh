@@ -66,6 +66,6 @@ gmake prefix=$INSTALL_DIR install
 cd ../$DEBUG_DIR/src
 cp libndi.a $INSTALL_DIR/lib/libndi_debug.a
 chmod 664 $INSTALL_DIR/lib/libndi_debug.a
-chgrp $GROUP
+chgrp $GROUP $INSTALL_DIR/lib/libndi_debug.a
 cd ../..
 
