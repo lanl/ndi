@@ -11,3 +11,6 @@
 * Handle problems with null string as path for ndi2_open_gendir
 
 * Change chain multiplicities from integer to float
+  Requires change to functions ndi_read_rx_prod and ndi_skip_rx_prod
+  Also requires change to structure depl_rprod_struct
+  Consider format change; consider major function rewrite (odiferous functions)
