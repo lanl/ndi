@@ -31,85 +31,69 @@ extern "C" {
 /**********************************************************************/
     /* NDI 2.0 user functions with handles */
 
-    int ndi2_open(int *handle, const char *path);
+    /* Gendir functions */
+    int ndi2_open_gendir(int *handle, const char *path);
+    int ndi2_set_option_gendir(int handle, int in_key, const char *value);
+    int ndi2_get_handle_gendir(int handle0, int *handle1);
+    int ndi2_close_gendir(int handle);
+
+    int ndi2_open(int *handle, const char *path); /* obsolete */
+    int ndi2_close(int handle);	/* obsolete */
+
+    /* data handle functions */
+    int ndi2_set_lib_type(int handle, const char *type);
     int ndi2_set_isotope(int handle, const char *zaid);
     int ndi2_set_zaid(int handle, const char *zaid);
+    int ndi2_set_reaction(int handle, const char *zaid);
+    int ndi2_set_option(int handle, int in_key, const char *value);
+    int ndi2_check_option(int handle, int in_key, char *out_value,
+			  int string_size);
+
     int ndi2_get_handle(int handle0, int *handle1);
-    int ndi2_get_mpmg_handle(int handle1, int *handle2);
-    int ndi2_set_reaction(const int handle, const char *zaid);
-    int ndi2_get_size(const int handle, int in_key, int *ierr);
-    int ndi2_get_size_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_size(int handle, int in_key, int *ierr);
+    int ndi2_get_size_n(int handle, int in_key, int vec_num,
 			int *ierr);
-    int ndi2_get_size_x(const int handle, int in_key, const char *in_str,
+    int ndi2_get_size_x(int handle, int in_key, const char *in_str,
 			int *ierr);
-    int ndi2_set_option(const int handle, int in_key, const char *value);
     int ndi2_set_float64_vec_option(const int handle, int in_key,
 				    const ndi_float64 * option_array,
 				    const int array_size);
-    int ndi2_check_option(const int handle, int in_key, char *out_value,
-			  int string_size);
-    int ndi2_get_int_val(const int handle, int in_key, int *ret_val);
-    int ndi2_get_int_val_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_int_val(int handle, int in_key, int *ret_val);
+    int ndi2_get_int_val_n(int handle, int in_key, int vec_num,
 			   int *ret_val);
-    int ndi2_get_int_vec(const int handle, int in_key, int *return_vec,
+    int ndi2_get_int_vec(int handle, int in_key, int *return_vec,
 			 int vec_size);
-    int ndi2_get_int_vec_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_int_vec_n(int handle, int in_key, int vec_num,
 			   int *return_vec, int vec_size);
-    int ndi2_get_float32_val(const int handle, int in_key,
+    int ndi2_get_float32_val(int handle, int in_key,
 			     ndi_float32 * ret_val);
-    int ndi2_get_float32_val_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_float32_val_n(int handle, int in_key, int vec_num,
 			       ndi_float32 * ret_val);
-    int ndi2_get_float32_vec(const int handle, int in_key,
+    int ndi2_get_float32_vec(int handle, int in_key,
 			     ndi_float32 * return_vec, int vec_size);
-    int ndi2_get_float32_vec_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_float32_vec_n(int handle, int in_key, int vec_num,
 			       ndi_float32 * return_vec, int vec_size);
-    int ndi2_get_float32_vec_x(const int handle, int in_key,
+    int ndi2_get_float32_vec_x(int handle, int in_key,
 			       const char *in_str,
 			       ndi_float32 * return_vec, int vec_size);
-    int ndi2_get_float64_val(const int handle, int in_key,
+    int ndi2_get_float64_val(int handle, int in_key,
 			     ndi_float64 * ret_val);
-    int ndi2_get_float64_val_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_float64_val_n(int handle, int in_key, int vec_num,
 			       ndi_float64 * ret_val);
-    int ndi2_get_float64_vec(const int handle, int in_key,
+    int ndi2_get_float64_vec(int handle, int in_key,
 			     ndi_float64 * return_vec, int vec_size);
-    int ndi2_get_float64_vec_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_float64_vec_n(int handle, int in_key, int vec_num,
 			       ndi_float64 * return_vec, int vec_size);
-    int ndi2_get_float64_vec_x(const int handle, int in_key,
+    int ndi2_get_float64_vec_x(int handle, int in_key,
 			       const char *in_str,
 			       ndi_float64 * return_vec, int vec_size);
-    int ndi2_get_string_val(const int handle, int in_key, char *ret_val,
+    int ndi2_get_string_val(int handle, int in_key, char *ret_val,
 			    int str_size);
-    int ndi2_get_string_val_n(const int handle, int in_key, int vec_num,
+    int ndi2_get_string_val_n(int handle, int in_key, int vec_num,
 			      char *ret_val, int str_size);
-    int ndi2_close(const int handle);
 
-    int ndimp_get_float32_vec(const int *handle_arr, const int num_parts,
-			      const int in_key, ndi_float32 * ret_vec,
-			      const int vec_size);
-    int ndimp_get_float64_vec(const int *handle_arr, const int num_parts,
-			      const int in_key, ndi_float64 * ret_vec,
-			      const int vec_size);
-    int ndimp_get_float32_vec_n(const int *handle_arr, const int num_parts,
-				const int in_key, const int vec_num,
-				ndi_float32 * ret_vec, const int vec_size);
-    int ndimp_get_float64_vec_n(const int *handle_arr, const int num_parts,
-				const int in_key, const int vec_num,
-				ndi_float64 * ret_vec, const int vec_size);
-    int ndimp_get_int_val(const int *handle_arr, const int num_parts,
-			  const int in_key, int *return_val);
-    int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
-			    const int in_key, const int vec_num,
-			    int *ret_val);
-    int ndimp_get_int_vec(const int *handle_arr, const int num_parts,
-			  const int in_key, int *ret_vec,
-			  const int vec_size);
-    int ndimp_get_size(const int *handle_arr, const int num_parts,
-		       int in_key, int *ierr);
-    int ndimp_get_size_n(const int *handle_arr, const int num_parts,
-			 int in_key, int vec_num, int *ierr);
-    int ndimp_get_string_val(const int *handle_arr, const int num_parts,
-			     const int in_key, char *ret_val,
-			     const int str_size);
+    int ndi2_get_handle_mpmg(int handle1, int *handle2);
+
 
 /**********************************************************************/
     /* Backwards compatibility user functions */

@@ -82,6 +82,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *path)
 
     for (i = 0; i < MAX_HANDLE_NUM; i++)
 	state->handle_map[i] = NULL;	/* handle pointers */
+    state->handle_free = 0;
 
     *curr_state = state;
     return (ierr);
@@ -142,6 +143,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 
     for (i = 0; i < MAX_HANDLE_NUM; i++)
 	state->handle_map[i] = NULL;	/* initialize handle pointers */
+    state->handle_free = 0;
 
     *child = state;
     return (ierr);

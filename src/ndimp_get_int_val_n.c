@@ -4,13 +4,15 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
+static int get_comb_reac_mt_n(state_struct *handle[], 
+			      const int num_parts,
 			      const int vec_num, int *return_val);
-static int get_last_group_n(const int *handle_arr, const int num_parts,
+static int get_last_group_n(state_struct *handle[], 
+			    const int num_parts,
 			    const int vec_num, int *return_val);
 
 /**********************************************************************/
-int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
+int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
 			const int in_key, const int vec_num, int *ret_val)
 {
 
@@ -24,11 +26,11 @@ int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
     switch (in_key) {
 
     case NDI_REAC_MT:
-	ierr = get_comb_reac_mt_n(handle_arr, num_parts, vec_num, ret_val);
+	ierr = get_comb_reac_mt_n(handle, num_parts, vec_num, ret_val);
 	break;
 
     case NDI_LAST_GRP:
-	ierr = get_last_group_n(handle_arr, num_parts, vec_num, ret_val);
+	ierr = get_last_group_n(handle, num_parts, vec_num, ret_val);
 	break;
 
     default:
@@ -40,7 +42,8 @@ int ndimp_get_int_val_n(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
+static int get_comb_reac_mt_n(state_struct *handle[], 
+			      const int num_parts,
 			      const int vec_num, int *return_val)
 {
 
@@ -50,9 +53,9 @@ static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
 
     *return_val = 0;
 
-    vec_size = ndimp_get_size(handle_arr, num_parts, NDI_REAC_MT, &ierr);
+    vec_size = ndimp_get_size(handle, num_parts, NDI_REAC_MT, &ierr);
     mt_arr = (int *) ndi_malloc(vec_size * sizeof(int));
-    ierr = ndimp_get_int_vec(handle_arr, num_parts, NDI_REAC_MT,
+    ierr = ndimp_get_int_vec(handle, num_parts, NDI_REAC_MT,
 			     mt_arr, vec_size);
 
     if (vec_num < vec_size) {
@@ -66,7 +69,8 @@ static int get_comb_reac_mt_n(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int get_last_group_n(const int *handle_arr, const int num_parts,
+static int get_last_group_n(state_struct *handle[], 
+			    const int num_parts,
 			    const int vec_num, int *return_val)
 {
 
@@ -86,7 +90,7 @@ static int get_last_group_n(const int *handle_arr, const int num_parts,
     }
 
     for (i = 0; i <= end_index; i++) {
-	if ((statep = handle_to_state_p(handle_arr[i]))) {
+	if ((statep = (handle[i]))) {
 	    ierr = ndi_c_get_int_val_h(statep, NDI_NUM_GRPS, &temp_val);
 	    if (temp_val >= 0) {
 		sum += temp_val;

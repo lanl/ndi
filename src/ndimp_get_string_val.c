@@ -7,7 +7,7 @@
 
 /**********************************************************************/
 int
-ndimp_get_string_val(const int *handle_arr, const int num_parts,
+ndimp_get_string_val(state_struct *handle[], const int num_parts,
 		     const int in_key, char *ret_val, const int str_size)
 {
 

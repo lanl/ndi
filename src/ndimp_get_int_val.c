@@ -6,7 +6,7 @@
 
 /**********************************************************************/
 int
-ndimp_get_int_val(const int *handle_arr, const int num_parts,
+ndimp_get_int_val(state_struct *handle[], const int num_parts,
 		  const int in_key, int *return_val)
 {
 
@@ -25,7 +25,7 @@ ndimp_get_int_val(const int *handle_arr, const int num_parts,
     case NDI_NUM_GRPS:
 	/* Return sum */
 	for (i = 0; i < num_parts; i++) {
-	    if ((statep = handle_to_state_p(handle_arr[i]))) {
+	    if ((statep = (handle[i]))) {
 		tmp_err = ndi_c_get_int_val_h(statep, in_key, &temp_val);
 		*return_val += temp_val;
 	    }
@@ -37,7 +37,7 @@ ndimp_get_int_val(const int *handle_arr, const int num_parts,
 	/* Return maximum value */
 	/* Note: may have to also check production matrices for pn_order */
 	for (i = 0; i < num_parts; i++) {
-	    if ((statep = handle_to_state_p(handle_arr[i]))) {
+	    if ((statep = (handle[i]))) {
 		tmp_err = ndi_c_get_int_val_h(statep, in_key, &temp_val);
 		if (*return_val < temp_val) {
 		    *return_val = temp_val;
@@ -48,9 +48,9 @@ ndimp_get_int_val(const int *handle_arr, const int num_parts,
 
     case NDI_NUM_REAC:
 	for (i = 0; i < num_parts; i++) {
-	    if ((statep = handle_to_state_p(handle_arr[i]))) {
+	    if ((statep = (handle[i]))) {
 		*return_val =
-		    ndimp_get_size(handle_arr, num_parts, NDI_REAC_MT,
+		    ndimp_get_size(handle, num_parts, NDI_REAC_MT,
 				   &tmp_err);
 	    }
 	}

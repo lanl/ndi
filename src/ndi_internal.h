@@ -332,6 +332,8 @@ typedef struct _state_struct {
     depl_target_struct *depl_target;
 
     struct _state_struct *handle_map[MAX_HANDLE_NUM];
+    int handle_free;
+
 } state_struct;
 
 /**********************************************************************/
@@ -618,6 +620,8 @@ extern "C" {
     int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size);
 
      /*** Subroutines in file ndi_handle.c ***/
+    int is_gendir(int handle);
+    int is_mpmg(state_struct *state);
     state_struct *handle_to_state_p(int handle);
     int set_handle(state_struct *state);
     int __ndi_close_handle(int handle);
@@ -683,6 +687,40 @@ extern "C" {
     double discrete_integrate_x(double xstart, double xend, double *x,
 				double *y);
 
+    /* multi-particle multi-group functions */
+    int ndimp_get_float32_vec(state_struct *handle[], 
+			      const int num_parts,
+			      const int in_key, ndi_float32 * ret_vec,
+			      const int vec_size);
+    int ndimp_get_float64_vec(state_struct *handle[], 
+			      const int num_parts,
+			      const int in_key, ndi_float64 * ret_vec,
+			      const int vec_size);
+    int ndimp_get_float32_vec_n(state_struct *handle[], 
+				const int num_parts,
+				const int in_key, const int vec_num,
+				ndi_float32 * ret_vec, const int vec_size);
+    int ndimp_get_float64_vec_n(state_struct *handle[], 
+				const int num_parts,
+				const int in_key, const int vec_num,
+				ndi_float64 * ret_vec, const int vec_size);
+    int ndimp_get_int_val(state_struct *handle[], const int num_parts,
+			  const int in_key, int *return_val);
+    int ndimp_get_int_val_n(state_struct *handle[], 
+			    const int num_parts,
+			    const int in_key, const int vec_num,
+			    int *ret_val);
+    int ndimp_get_int_vec(state_struct *handle[], const int num_parts,
+			  const int in_key, int *ret_vec,
+			  const int vec_size);
+    int ndimp_get_size(state_struct *handle[], const int num_parts,
+		       int in_key, int *ierr);
+    int ndimp_get_size_n(state_struct *handle[], const int num_parts,
+			 int in_key, int vec_num, int *ierr);
+    int ndimp_get_string_val(state_struct *handle[], 
+			     const int num_parts,
+			     const int in_key, char *ret_val,
+			     const int str_size);
 
   /**********************************************************************/
 

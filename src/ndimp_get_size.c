@@ -4,15 +4,15 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int get_num_unique_reac(const int *handle_arr, const int num_parts,
-			       int *ierr);
-static int get_sum_of_particle_sizes(const int *handle_arr,
+static int get_num_unique_reac(state_struct *handle[], 
+			       const int num_parts, int *ierr);
+static int get_sum_of_particle_sizes(state_struct *handle[],
 				     const int num_parts, const int in_key,
 				     int *ierr);
 
 /**********************************************************************/
 
-int ndimp_get_size(const int *handle_arr, const int num_parts,
+int ndimp_get_size(state_struct *handle[], const int num_parts,
 		   int in_key, int *ierr)
 {
 
@@ -40,11 +40,11 @@ int ndimp_get_size(const int *handle_arr, const int num_parts,
     case NDI_CHI_VEC_DEL:
 	/* Sum of individual particle sizes */
 	return_val =
-	    get_sum_of_particle_sizes(handle_arr, num_parts, in_key, ierr);
+	    get_sum_of_particle_sizes(handle, num_parts, in_key, ierr);
 	break;
 
     case NDI_REAC_MT:
-	return_val = get_num_unique_reac(handle_arr, num_parts, ierr);
+	return_val = get_num_unique_reac(handle, num_parts, ierr);
 	break;
 
     default:
@@ -58,7 +58,7 @@ int ndimp_get_size(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int get_sum_of_particle_sizes(const int *handle_arr,
+static int get_sum_of_particle_sizes(state_struct *handle[],
 				     const int num_parts, const int in_key,
 				     int *ierr)
 {
@@ -70,7 +70,7 @@ static int get_sum_of_particle_sizes(const int *handle_arr,
     state_struct *statep;
 
     for (i = 0; i < num_parts; i++) {
-	if ((statep = handle_to_state_p(handle_arr[i]))) {
+	if ((statep = handle[i])) {
 	    tmp_val = ndi_c_get_size_h(statep, in_key, &tmp_err);
 	    if (tmp_val >= 0) {
 		sum += tmp_val;
@@ -81,8 +81,8 @@ static int get_sum_of_particle_sizes(const int *handle_arr,
 }
 
 /**********************************************************************/
-static int get_num_unique_reac(const int *handle_arr, const int num_parts,
-			       int *ierr)
+static int get_num_unique_reac(state_struct *handle[], 
+			       const int num_parts, int *ierr)
 {
 
     int i;
@@ -94,7 +94,7 @@ static int get_num_unique_reac(const int *handle_arr, const int num_parts,
     state_struct *statep;
 
     for (i = 0; i < num_parts; i++) {
-	if ((statep = handle_to_state_p(handle_arr[i]))) {
+	if ((statep = handle[i])) {
 	    tmp_err = ndi_c_get_int_val_h(statep, NDI_NUM_REAC, &tmp_val);
 	    if (tmp_val >= 0) {
 		max_size += tmp_val;
@@ -104,7 +104,7 @@ static int get_num_unique_reac(const int *handle_arr, const int num_parts,
 
     unique_mts = (int *) ndi_calloc(max_size, sizeof(int));
 
-    *ierr = ndimp_get_int_vec(handle_arr, num_parts, NDI_REAC_MT,
+    *ierr = ndimp_get_int_vec(handle, num_parts, NDI_REAC_MT,
 			      unique_mts, max_size);
     for (i = 0; i < max_size; i++) {
 	if (unique_mts[i] > 0) {

@@ -3,7 +3,22 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static state_struct *handle_map[MAX_HANDLE_NUM]; /* level 0 handle array */
+static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL }; /* gendir array */
+/*!
+  \fn is_gendir
+  \brief determine if handle is gendir
+  \param handle
+  \return 1 if gendir
+*/
+int is_gendir(handle)
+{
+    return 0 <= handle && handle < MAX_HANDLE_NUM;
+}
+
+int is_mpmg(state_struct *state)
+{
+    return state && state->ndi_initialized && state->library_type == 'p';
+}
 
 /*!
   \fn handle_to_state_p

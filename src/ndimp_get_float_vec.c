@@ -5,12 +5,13 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
-static int GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
+static int GET_COMB_FLOAT_VEC(state_struct *handle[], 
+			      const int num_parts,
 			      const int in_key, FLOAT_TYPE * return_vec,
 			      const int vec_size);
 
 /**********************************************************************/
-int NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
+int NDIMP_GET_FLOAT_VEC(state_struct *handle[], const int num_parts,
 			const int in_key, FLOAT_TYPE * ret_vec,
 			const int vec_size)
 {
@@ -41,7 +42,7 @@ int NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
     case NDI_CHI_VEC_DEL:
 
 	ierr =
-	    GET_COMB_FLOAT_VEC(handle_arr, num_parts, in_key, ret_vec,
+	    GET_COMB_FLOAT_VEC(handle, num_parts, in_key, ret_vec,
 			       vec_size);
 	break;
 
@@ -54,7 +55,8 @@ int NDIMP_GET_FLOAT_VEC(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
+static int GET_COMB_FLOAT_VEC(state_struct *handle[], 
+			      const int num_parts,
 			      const int in_key, FLOAT_TYPE * return_vec,
 			      const int vec_size)
 {
@@ -72,7 +74,7 @@ static int GET_COMB_FLOAT_VEC(const int *handle_arr, const int num_parts,
 	    ierr = 7;
 	    break;
 	}
-	if ((statep = handle_to_state_p(handle_arr[i]))) {
+	if ((statep = (handle[i]))) {
 	    last_size = ndi_c_get_size_h(statep, in_key, &tmp_err);
 	    tmp_err =
 		NDI_GET_FLOAT_VEC_H(statep, in_key, curr_p, curr_size);

@@ -144,7 +144,6 @@ SRC_TESTC := \
 	test/kerma_example_handle.c \
 	test/library_check.c \
 	test/mg_sec_part.c \
-	test/mpmg.c \
 	test/ndid.c \
 	test/ngk_test.c \
 	test/ngk_test_handle.c \

@@ -5,12 +5,12 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
-static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
+static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 			   const int in_key, FLOAT_TYPE * return_vec,
 			   const int vec_size);
 
 /**********************************************************************/
-int NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
+int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 			  const int in_key, const int vec_num,
 			  FLOAT_TYPE * ret_vec, const int vec_size)
 {
@@ -26,7 +26,7 @@ int NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
 
     case NDI_PN_FULL:
 	ierr =
-	    GET_MP_SCAT_MAT(handle_arr, num_parts, vec_num, ret_vec,
+	    GET_MP_SCAT_MAT(handle, num_parts, vec_num, ret_vec,
 			    vec_size);
 	break;
 
@@ -39,7 +39,7 @@ int NDIMP_GET_FLOAT_VEC_N(const int *handle_arr, const int num_parts,
 }
 
 /**********************************************************************/
-static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
+static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 			   const int pn_order, FLOAT_TYPE * return_vec,
 			   const int ret_size)
 {
@@ -68,11 +68,11 @@ static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
 
 
     tmp_err =
-	ndimp_get_int_val(handle_arr, num_parts, NDI_NUM_GRPS,
+	ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS,
 			  &tot_num_grps);
 
     for (in = 0; in < num_parts; in++) {
-	if (!(in_part = handle_to_state_p(handle_arr[in]))) {
+	if (!(in_part = (handle[in]))) {
 	    return (-99);
 	}
 	tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps_in);
@@ -88,7 +88,7 @@ static int GET_MP_SCAT_MAT(const int *handle_arr, const int num_parts,
 	    reset_curr_part_flag = 0;
 	}
 	for (out = 0; out < num_parts; out++) {
-	    if (!(out_part = handle_to_state_p(handle_arr[out]))) {
+	    if (!(out_part = (handle[out]))) {
 		return (-99);
 	    }
 	    /* Check that each particle is multigroup */
