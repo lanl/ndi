@@ -68,7 +68,7 @@ int main ()
         printf("\n  **Error %d getting pn order.\n", ierr );
    printf("  Pn order:  %d\n", return_int);
 
-   ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_PNU, &return_int);
+   ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_PNU_PR, &return_int);
    if (ierr) 
         printf("\n  **Error %d getting num pnu.\n", ierr );
    printf("  No. pnu:  %d\n", return_int);
