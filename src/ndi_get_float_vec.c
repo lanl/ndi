@@ -871,7 +871,8 @@ static int NDI_CALC_E_AVAIL(state_struct *state, FLOAT_TYPE * return_vec,
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_E_AVG, eavg, num_grps);
 
     for (i = 0; i < num_reac; i++) {
-	if ((MT[i] > 18) && (MT[i] < 22)) {
+	if ( (MT[i] == 38) ||
+             ((MT[i] > 18) && (MT[i] < 22))) {
 	    continue;
 	}
 	ierr =
