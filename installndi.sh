@@ -29,6 +29,10 @@ case $GNU_OS_OUT in
         platform=sun
         NDI_ROOT=/usr/local/codes/data/nuclear/ndi
         ;;
+    *ibm__aix) 
+        platform=ppc_aix
+        NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
+        ;;
 esac
 
 INSTALL_DIR=$NDI_ROOT/v$ndi_version/$platform
@@ -40,7 +44,7 @@ else
 fi
 
 if [ -d $INSTALL_DIR ]; then
-    echo -n "Directory $INSTALL_DIR already exists.  Overwrite?"
+    echo -n "Directory $INSTALL_DIR already exists.  Overwrite?  "
     read ANSWER 
     case $ANSWER in
         n*|N*)
@@ -60,5 +64,6 @@ cd $BUILD_DIR
 gmake prefix=$INSTALL_DIR install
 cd ../$DEBUG_DIR/src
 cp libndi.a $INSTALL_DIR/lib/libndi_debug.a
+chmod 664 $INSTALL_DIR/lib/libndi_debug.a
 cd ../..
 
