@@ -29,7 +29,7 @@ INSTALL		= @INSTALL@
 AWK		= @AWK@
 MD5SUM		= @MD5SUM@
 
-VERSION 	:= version.h
+VERSION 	:= ndi_version.h
 FMANGLE 	:= fmangle.h
 VAR_TYPE	:= ndi_var_type.h
 GROUP		:= pdata
@@ -223,7 +223,7 @@ libndi.a: $(VERSION) $(FMANGLE) $(VAR_TYPE) $(OBJ)
 	$(RANLIB) $@
 
 $(VERSION): VERSION
-	echo '#define NDI_VERSION "'`cat $(srcdir)/VERSION`'"' > $@
+	echo '#define NDI_VERSION_DATA "'`cat $(srcdir)/VERSION`'"' > $@
 
 $(VAR_TYPE): ndi_define_float.c
 	@echo Making $(VAR_TYPE)

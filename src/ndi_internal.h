@@ -12,6 +12,7 @@
 #define __NDI_INTERNAL_H
 
 #include "ndi_var_type.h"
+#include "ndi_version.h"
 
 /**********************************************************************/
 
@@ -19,7 +20,6 @@
 /* Defines
  */
 
-#define NDI_VERSION_DATA        "beta1.2.8"
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
