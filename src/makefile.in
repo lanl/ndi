@@ -84,6 +84,7 @@ SRC := \
 	ndi_set0.c \
 	ndi_set_e_grps.c \
 	ndi_set_isotope.c \
+	ndi_set_float_vec_option.c \
 	ndi_set_option.c \
 	ndi_skip_rx_prod.c \
 	ndi_state.c \
@@ -96,6 +97,7 @@ SRC := \
 	ndimp_get_int_val_n.c \
 	ndimp_get_int_vec.c \
 	ndimp_get_size.c \
+	ndimp_get_size_n.c \
 	ndimp_get_string_val.c 
 
 SRC_FLOAT := \
@@ -110,7 +112,8 @@ SRC_FLOAT := \
 	ndi_read_float_block.c \
 	ndi_skip_float_block.c \
 	ndid_zaid_float_vec.c \
-	ndimp_get_float_vec.c 
+	ndimp_get_float_vec.c \
+	ndimp_get_float_vec_n.c 
 
 SRC_TESTC := \
 	test/5.c \
@@ -125,8 +128,10 @@ SRC_TESTC := \
 	test/depl_handle.c \
 	test/depl2.c \
 	test/depl2_handle.c \
+	test/ebounds.c \
 	test/kerma_example.c \
 	test/kerma_example_handle.c \
+	test/mg_sec_part.c \
 	test/mgn_c.c \
 	test/mpmg.c \
 	test/ndid.c \

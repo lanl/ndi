@@ -66,18 +66,11 @@ int ndi_c_get_string_val_h( state_struct *state, int in_key, char *ret_val, int 
 	   ierr = get_string_depl( in_key, ret_val, str_size );
 	   */
       } else if ( state->library_type == ' ' ) {
-	/* Library type was not set--defaulting to multigroup n */
-	state->library_type = 'm';
-	if ( state->particle_type == ' ' ) {
-	  state->particle_type = 'n';
-	}
-	ierr = get_string_mg( state, in_key, ret_val, str_size );
-	if ( ierr >= 0 ) {
-	  ierr = 8;
-	}
+	/* Library type was not set */
+          ierr = -16;
       } else {
-	 /* Incompatible library type */ 
-	 ierr = -16;
+	 /* Incompatible library type -- bad input key */ 
+	 ierr = -4;
       }
    }
 
@@ -173,7 +166,9 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
    case NDI_SEC_PART_TYPES:                /* Type of current particle */
      /* Check also curr_part_index < num_parts?  */
      if ( state->curr_part_index >= 0 ) {
-       strncpy( ret_val, state->iso_stat.sec_part[state->curr_part_index].part_type, str_size );
+         if ( sprintf ( ret_val, "%d", state->iso_stat.sec_part[state->curr_part_index].part_type) > str_size ) {
+             /** ??? **/
+         }
      } else {
        /* Error -- bad particle? */
        ierr = -999;

@@ -27,7 +27,7 @@ static void ndi_find_first_string( char *in_line, int in_size,
 
 /**********************************************************************/
 
-int ndi_zaid_dir(state_struct *state, char pt_type, char l_type, const char *in_zaid, 
+int ndi_zaid_dir(state_struct *state, int pt_type, char l_type, const char *in_zaid, 
 		 char *real_zaid, char *library, char *lib_path, 
 		 char *lib_file_type, long int *iso_start, double *at_wgt, 
 		 int reaction_flag )
@@ -35,7 +35,7 @@ int ndi_zaid_dir(state_struct *state, char pt_type, char l_type, const char *in_
 /*  Purpose: 
     
     Parameters: 
-    pt_type -- in: incident particle type (e.g. 'n' neutron)
+    pt_type -- in: incident particle type (e.g. 1 = neutron)
     l_type -- in: library type (e.g. 'm' multigroup)
     in_zaid -- in: zaid we're searching for on gendir
     real_zaid -- out: full zaid found on gendir
@@ -76,28 +76,24 @@ int ndi_zaid_dir(state_struct *state, char pt_type, char l_type, const char *in_
        return(-2);
    }
 
-   if ( ( pt_type == 'n' ) && ( l_type == 'm' ) ) {
+   if ( ( pt_type == 1 ) && ( l_type == 'm' ) ) {
      if ( reaction_flag == 0 ) {
        strcpy( section, "multigroup_neutron" );
      } else {
        strcpy( section, "neutron_depletion" );
      }
-   }else if ( ( pt_type == 'n' ) && ( l_type == 'd' ) ) {
+   }else if ( ( pt_type == 1 ) && ( l_type == 'd' ) ) {
      if ( reaction_flag == 0 ) {
        strcpy( section, "dosimetry_neutron" );
      } else {
        strcpy( section, "radchem_chain" );
      }
-   } else if ( (pt_type == 'p') && ( l_type == 'm' ) ) {
+   } else if ( (pt_type == 0) && ( l_type == 'm' ) ) {
       strcpy( section, "multigroup_photon" );
-   } else if ( (pt_type == '0') && ( l_type == 's' ) ) {
+   } else if ( (pt_type == -1) && ( l_type == 's' ) ) {
       strcpy( section, "tndata" );
-   } else if ( ( pt_type == '0' ) && ( l_type == 'r' ) ) {
+   } else if ( ( pt_type == -1 ) && ( l_type == 'r' ) ) {
       strcpy( section, "tn_reactions" );
-      /*
-   } else if ( ( pt_type == 'n' ) && ( l_type == '0' ) ) {
-      strcpy( section, "neutron_depletion" );
-      */
    } else {
       /* Error: library type not set */
       return(-16);

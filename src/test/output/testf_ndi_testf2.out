@@ -49447,7 +49447,7 @@ Edits       :      9
 SecPart     :      1
 NumTarget   :      7
 NumRProds   :      0
-PhGrps      :      0
+PhGrps      :     12
 PhScatMat   :      1
 
 NumProdAll   2:      2
@@ -50674,7 +50674,7 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
-           0
+          12
 PnOrder     : 
            1
 Ebounds     : 

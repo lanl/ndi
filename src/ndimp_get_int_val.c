@@ -31,7 +31,7 @@ int ndimp_get_int_val(const int *handle_arr, const int num_parts,
           break;
 
      case NDI_PN_ORDER:
-     case NDI_NUM_PNU:
+     case NDI_NUM_PNU_PR:
           /* Return maximum value */
           /* Note: may have to also check production matrices for pn_order */
           for (i = 0; i < num_parts; i++) {

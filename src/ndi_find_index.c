@@ -100,7 +100,7 @@ int ndi_find_tn_part_index( const long ptype , const sec_part_distr *part, int n
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_find_mg_part_index( const char *ptype , const sec_part_mg *part, int num_parts )
+int ndi_find_mg_part_index( const int ptype , const sec_part_mg *part, int num_parts )
 
 /*  This is only used for multigroup secondary particles */
 
@@ -110,13 +110,10 @@ int ndi_find_mg_part_index( const char *ptype , const sec_part_mg *part, int num
    sec_part_mg curr_part;
 
    for ( i = 0; i < num_parts; i++ ) {
-     if (curr_part.part_type) {
        curr_part = part[i];
-/*        if ( strcmp( curr_part.part_type, ptype ) == 0 ) { */
-       if ( strncmp( curr_part.part_type, ptype, 1 ) == 0 ) {
+       if ( curr_part.part_type == ptype ) {
 	 return(i);
        }
-     }
    }
 
    return(-1);

@@ -28,6 +28,8 @@ int ndi_init_state_common( state_struct *state ) {
    state->curr_part_index = -1;
    strcpy( (state->n_group), "default" );
    state->grp_num_new = 0;
+  if ( state->collapse_ebounds ) ndi_free((void**)&(state->collapse_ebounds));
+  state->collapse_ebounds = NULL;
 
   return( ierr );
 }
@@ -71,10 +73,8 @@ int ndi_init_state_tn( state_struct *state ) {
   }
 
   ierr = ndi_set0(state, 's');
-  state->tn_num_grps = 0;
+  state->grp_num_new = 0;
   state->sec_part_filled = 0;
-  if ( state->tn_ebounds ) ndi_free((void**)&(state->tn_ebounds));
-  state->tn_ebounds = NULL;
   state->default_temp = 0.0;
 
   return( ierr) ;

@@ -23,7 +23,10 @@ static int read_depl_data(state_struct *state, FILE *stream, const char *zaid );
 static int set_simple_array (FILE *stream, stat_flag *sf, int data_num);
 static int read_simple_array (FILE *stream, stat_flag *sf, int data_num,
 			      ndi_float64 **global_p );
+static int read_double_array (FILE *stream, int data_num, 
+                              double **double_p );
 static int read_next_string (FILE *stream, char *str_array, int str_size );
+static int set_int_array (FILE *stream, long *int_p, int data_num);
 static int set_string_array (FILE *stream, char **str_p, int data_num);
 static int set_sec_part_types (FILE *stream, int_zaid_type **int_p, int data_num);
 static int set_reaction_prod (FILE *stream, multi_stat *sf, int data_num);
@@ -44,12 +47,13 @@ static int set_reaction_array (FILE *stream, char **str_p, stat_flag **reac_p,
 static int set_depl_array (state_struct *state, FILE *stream, depl_target_struct *target_p,
 			       int data_num);
 static int ndi_create_mg_sec_part( state_struct *state, int num_parts, sec_part_mg **sec_part );
-static int get_mg_part_type( const char *in_keyword, const char *prefix, 
-			     mg_sec_part_type *part_type );
-static int find_mg_sec_part_index( state_struct *state, mg_sec_part_type part_type );
+static int get_mg_part_type( const char *in_keyword, const char *prefix, int *part_type );
+static int find_mg_sec_part_index( state_struct *state, int part_type );
 static int set_chain_array (state_struct *state, FILE *stream, depl_target_struct *target,
 			       int data_num);
 static int skip_comment( FILE *stream );
+int  ndi_read_double_block(FILE *stream, long file_pos, const int num_floats,
+                           double *return_vec, const int return_size );
 
 /**********************************************************************/
 
@@ -151,8 +155,8 @@ static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ) {
    char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
    int num_elements;
-   mg_sec_part_type part_type;
    int part_index;
+   int part_type;
 
         if (! state) {
             return(-2);
@@ -472,28 +476,16 @@ static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ) {
 
       /* secondary particle types */
       else if (strncmp(in_keyword, "sec_part_types", 15 ) == 0) {
-	char **temp_part_types = NULL;
-	int min_len;
+	long *temp_part_types = NULL;
 	int i;
 
-	temp_part_types = (char **)ndi_calloc( state->iso_stat.num_sec_parts, 
-					       sizeof(char *) );
-	ierr = set_string_array (stream, temp_part_types, state->iso_stat.num_sec_parts);
+	temp_part_types = (long *)ndi_calloc( state->iso_stat.num_sec_parts, sizeof(long) );
+	ierr = set_int_array(stream, temp_part_types, state->iso_stat.num_sec_parts);
 	for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
-	  /*  Check this out ! */
-	  if ( (strlen(state->iso_stat.sec_part[i].part_type) * sizeof(mg_sec_part_type) )
-		< sizeof(temp_part_types[i]) ) {
-	    min_len = sizeof(state->iso_stat.sec_part[i].part_type);
-	  } else {
-	    min_len = sizeof(temp_part_types[i]);
-	  }
-	  strncpy(state->iso_stat.sec_part[i].part_type, temp_part_types[i], min_len);
-	  if ( temp_part_types[i] ) {
-	    ndi_free( (void**)&(temp_part_types[i]) );
-	  }
+            state->iso_stat.sec_part[i].part_type = (int)temp_part_types[i];
 	}
 	if ( temp_part_types ) {
-	  ndi_free( (void**)&temp_part_types);
+            ndi_free( (void**)&temp_part_types);
 	}
       }
 
@@ -504,7 +496,7 @@ static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ) {
 	int i;
 
 	temp_part_zaids = (char **)ndi_calloc( state->iso_stat.num_sec_parts, 
-					       sizeof(mg_sec_part_type *) );
+					       sizeof(mg_zaid *) );
 	ierr = set_string_array (stream, temp_part_zaids, state->iso_stat.num_sec_parts );
 
 	for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
@@ -598,9 +590,9 @@ static int read_mg_data(state_struct *state, FILE *stream, const char *zaid ) {
 	ierr = get_mg_part_type( in_keyword, "e_bounds_", &part_type );
 	part_index = find_mg_sec_part_index(state, part_type);
 	if ( ( part_index >= 0 ) && ( part_index < state->iso_stat.num_sec_parts ) ) {
-	  ierr = set_simple_array (stream, &state->iso_stat.sec_part[part_index].e_bounds, 
-				   ( state->iso_stat.sec_part[part_index].num_grps + 1 ) );
-	} else {
+            ierr = read_double_array(stream, ( state->iso_stat.sec_part[part_index].num_grps + 1 ),
+                                     &state->iso_stat.sec_part[part_index].e_bounds );
+        } else {
 	  /* Error -- bad particle? */
 	  ierr = -999;
 	}
@@ -1127,6 +1119,39 @@ static int read_simple_array (FILE *stream, stat_flag *sf,
 }
 
 /**********************************************************************/
+/**********************************************************************/
+
+static int read_double_array (FILE *stream, int data_num, double **double_p ) {
+
+
+   int ierr = 0;
+   long int file_ptr = 0;
+   
+   /* Initialize */
+   if (*double_p) ndi_free((void**)double_p);
+   
+   /* Error checks and read data */
+   if ( data_num < 0 ) {
+      /* Library error:  incorrect data order. */
+      ierr = -18;
+   } else if ( data_num == 0 ) {
+      /* No energy groups ! */
+      ierr = 5;
+   } else {
+       file_ptr = ftell(stream);
+       *double_p = (double *)ndi_malloc( data_num * sizeof(double) );
+       if (*double_p) {
+           ierr = ndi_read_double_block(stream, file_ptr, 
+                                        data_num, *double_p, data_num );
+       } else {
+           /* Out of memory */
+           ierr = -14;
+       }
+   }
+   return(ierr);
+}
+
+/**********************************************************************/
 static int read_next_string (FILE *stream, char *str_array, int str_size )
 
      /* Reads into str_array the next non-blank line.  Str_array
@@ -1148,6 +1173,24 @@ static int read_next_string (FILE *stream, char *str_array, int str_size )
      }	
    }
 
+   return(ierr);
+}
+
+/**********************************************************************/
+static int set_int_array (FILE *stream, long *int_p, int data_num) 
+
+{
+   int ierr = 0;
+   
+   if ( data_num < 0 ) {
+      /* Library error:  incorrect data order. */
+      ierr = -18;
+   } else if ( data_num == 0 ) {
+      /* No data! */
+      ierr = 5;
+   } else {
+       ierr = ndi_read_int_block( stream, data_num, int_p, data_num );
+   }
    return(ierr);
 }
 
@@ -1812,7 +1855,7 @@ static int ndi_create_mg_sec_part( state_struct *state, int num_parts, sec_part_
 
 /**********************************************************************/
 static int get_mg_part_type( const char *in_keyword, const char *prefix, 
-			     mg_sec_part_type *part_type)
+			      int *part_type)
      /* 
 	Strip prefix from the front of in_keyword and return part_type.
 	Returns error value 
@@ -1822,19 +1865,9 @@ static int get_mg_part_type( const char *in_keyword, const char *prefix,
   int ierr = 0;
   char *part_type_start = NULL;
 
-  strncpy( *part_type, "", 1);
-
   if ( strstr( in_keyword, prefix ) ) {
     part_type_start = (char *)&(in_keyword[strlen(prefix)]);
-    strcpy( *part_type, part_type_start );
-/*     printf( ">>>>>>PART TYPE: %s\n", part_type ); */
-
-    /*Check that part_type is an integer */
-    /*
-       part_num = atoi(*part_type);
-       sprintf( *part_type, "%d", part_num);
-       */
-
+    *part_type = atoi(part_type_start);
 
   } else {
     /* Internal NDI error */
@@ -1843,7 +1876,7 @@ static int get_mg_part_type( const char *in_keyword, const char *prefix,
   return(ierr);
 }
 /**********************************************************************/
-static int find_mg_sec_part_index( state_struct *state, mg_sec_part_type part_type ) 
+static int find_mg_sec_part_index( state_struct *state, int part_type ) 
      /* Returns the index within state->iso_stat.sec_parts of the particle of type
 	"part_type".
 	*/
@@ -1857,7 +1890,7 @@ static int find_mg_sec_part_index( state_struct *state, mg_sec_part_type part_ty
 
   for ( i = 0; i < state->iso_stat.num_sec_parts; i++ ) {
 /*     if ( strncmp(state->iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) + 1) ) == 0 ) {  */
-    if ( strncmp(state->iso_stat.sec_part[i].part_type, part_type, (strlen(part_type) ) ) == 0 ) { 
+    if ( state->iso_stat.sec_part[i].part_type ==  part_type )  { 
       return_val = i;
       break;
     }
@@ -1889,3 +1922,51 @@ static int skip_comment( FILE *stream )
 }
 
 /**********************************************************************/
+int  ndi_read_double_block(FILE *stream, long file_pos, const int num_floats,
+			    double *return_vec, const int return_size )
+    
+{
+   int float_count = 0;          /* Current number of floats processed */
+   int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
+   char *token;                  /* Current data item */
+   char seps[] = " ,\t\n";       /* Data delimiters in library file */
+   double *cur_flt_ptr = return_vec;
+  
+   /* Add return_size */
+
+   /* Go to start of data, read line and count floats */
+   /*  Check for data not available */
+   fseek( stream, file_pos, SEEK_SET );
+   while (float_count < num_floats) {
+
+     /* Check to see if we've reached the end of return_vec */
+     if ( float_count >= return_size ) {
+       ierr = 7;
+       break;
+     }
+
+      if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+	 token  = strtok( in_line, seps );
+	 while (token != NULL) {
+	    if (float_count < num_floats) {
+	       *cur_flt_ptr = (double) strtod( token, NULL);
+	       token = strtok( NULL, seps );
+	       float_count++;
+	       cur_flt_ptr++;
+	    } else {
+	       /* More data than expected */
+	       ierr = 6;
+	       break;
+	    }
+	 }
+      } else {
+	 /* Error reading file */
+	 ierr = -11;
+	 return(ierr);
+      }
+   }
+
+   return(ierr);
+}
+/*********************************************************************/

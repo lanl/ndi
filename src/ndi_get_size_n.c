@@ -61,16 +61,6 @@ int ndi_c_get_size_n_h( state_struct *state, int in_key, int vec_num, int *ierr)
 	   size = get_tn_size( state, in_key, vec_num, ierr );
        } else if (state->library_type == 'r' ) {
 	   size = get_tnreac_size( state, in_key, vec_num, ierr );
-       } else if ( state->library_type == ' ' ) {
-	   /* Library type was not set--defaulting to multigroup n */
-	   state->library_type = 'm';
-	   if ( state->particle_type == ' ' ) {
-	       state->particle_type = 'n';
-	   }
-	   size = get_mg_size_n( state, in_key, vec_num, ierr );
-	   if ( *ierr >= 0 ) {
-	       *ierr = 8;
-	   }
        } else {
 	   *ierr = -16;
 	   size = 0;
@@ -93,6 +83,8 @@ static int get_mg_size_n( state_struct *state, int in_key, int vec_num, int *ier
 
    int return_value = 0;              /* Default return value is '0' */
    int rprod_index;
+   int grps_inc_part;
+   int grps_curr_part;
    char tmp_str[MAX_IN_STR_LEN];
 
         if (! state) {
@@ -132,7 +124,8 @@ static int get_mg_size_n( state_struct *state, int in_key, int vec_num, int *ier
      /****    String values ****/
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
      if ( ( state->iso_stat.sec_part ) && ( vec_num < state->iso_stat.num_sec_parts ) ) {
-       return_value = (int) strlen(state->iso_stat.sec_part[vec_num].part_type) + 1;
+         sprintf(tmp_str, "%d", state->iso_stat.sec_part[vec_num].part_type);
+         return_value = (int) strlen(tmp_str) + 1;
      } else {
        if ( state->iso_stat.num_sec_parts <= vec_num ) {
 	 /* Invalid vec_num */
@@ -290,10 +283,16 @@ static int get_mg_size_n( state_struct *state, int in_key, int vec_num, int *ier
        /* Current particle has secondary particle info */
        
        if ( state->collapse_flag != 0 ) {
-	 return_value = state->iso_stat.sec_part[state->curr_part_index].num_grps * state->grp_num_new;
+           grps_inc_part = state->grp_num_new;
        } else {
-	 return_value = state->iso_stat.sec_part[state->curr_part_index].num_grps * state->iso_stat.num_grps;
+           grps_inc_part = state->iso_stat.num_grps;
        }
+       if ( state->iso_stat.sec_part[state->curr_part_index].collapse_flag != 0 ) {
+           grps_curr_part = state->iso_stat.sec_part[state->curr_part_index].grp_num_new;
+       } else {
+           grps_curr_part = state->iso_stat.sec_part[state->curr_part_index].num_grps;
+       }
+       return_value = grps_inc_part * grps_curr_part;
      } else {
        if ( state->iso_stat.num_sec_parts >= vec_num ) {
 	 /* Invalid vec_num */

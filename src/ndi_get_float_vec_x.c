@@ -46,16 +46,12 @@ int NDI_GET_FLOAT_VEC_X_H( state_struct *state, int in_key, const char *in_str,
 #endif
 
    if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     tmp_err = 8;
+     /* Library type was not set */
+       return(-16);
    } else if ( ( state->library_type != 'm' ) &&
 	       ( state->library_type != 'd' ) ) {
-      /* Incompatible library */
-      return(-16);
+      /* Incompatible library -- bad input key */
+      return(-4);
    }
 
    /* Check that isotope is set */

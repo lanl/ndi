@@ -69,18 +69,11 @@ int NDI_GET_FLOAT_VAL_H( state_struct *state, int in_key, FLOAT_TYPE *ret_val)
    } else if ( state->library_type == 'd' ) {
       ierr = GET_FLOAT_VAL_DOS( state, in_key, ret_val );
    } else if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     ierr = GET_FLOAT_VAL_MG( state, in_key, ret_val );
-     if ( ierr >= 0 ) {
-       ierr = 8;
-     }
+     /* Library type was not set */
+       ierr = -16;
    } else {
-      /* Incompatible library type */
-      ierr = -16;
+      /* Incompatible library type -- bad input key */
+      ierr = -4;
    }
 
    return(ierr);

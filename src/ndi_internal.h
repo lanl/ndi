@@ -60,7 +60,6 @@
  * Data types
  */
 
-typedef char mg_sec_part_type[8];
 typedef long int_zaid_type;
 
 typedef char mg_zaid[64];
@@ -93,11 +92,16 @@ typedef struct _multi_status {
 } multi_stat;
 
 typedef struct _sec_part_mg {
-  mg_sec_part_type part_type;
+  int part_type;
   mg_zaid zaid;
   int num_grps;
   int pn_order;
-  stat_flag e_bounds;
+    short collapse_flag; 
+    int grp_num_new;
+    char n_group[MAX_NGROUP_STR_LEN];
+    int *new_ebounds;
+    double *collapse_ebounds;
+    double *e_bounds;
   stat_flag heating;
   stat_flag kerma;
   multi_stat pn_prod_full;
@@ -257,8 +261,8 @@ typedef struct _state_struct {
     char *open_lib_file;        /*  Path for current (open) library file */
     short *ndi_elements;        /*  Lookup table for element symbols */
     char *library_vers;         /*  Default library type (mendf5,mendf6,rmoxsct,"") */
-    char particle_type;   /*  Incident particle type: n-neutron, p-photon,0-tn */
-    char library_type;    /*  m-multigroup */
+    int particle_type;          /*  Incident particle type: 1-neutron, 0-photon, -1-tn */
+    char library_type;          /*  m-multigroup */
     char mat_order;             /*  Transpose return matrices? 
 			              d=no(default), t=yes(transpose) */
     char reac_id;               /*  Reaction identifier: m=MT (default), c=c-value */
@@ -269,6 +273,7 @@ typedef struct _state_struct {
     int curr_part_index;        /*  index of current particle */
     char n_group[MAX_NGROUP_STR_LEN];  /*  Type of group structure to collapse to */
     int grp_num_new;            /*  Number of groups to collapse to */
+    double *collapse_ebounds;   /* User-set boundaries--used with TN or user-defined for MG */
 
     /* Multigroup data */
     isotope_status iso_stat;    /*  Struct containing isotope state */
@@ -287,7 +292,6 @@ typedef struct _state_struct {
     tn_status tn_stat;
     int tn_num_grps;
     int sec_part_filled;             /*  Number of secondary particles which have edist data */
-    double *tn_ebounds;
     double default_temp;
 
     /* TN reaction data */
@@ -334,6 +338,9 @@ int ndi_c_get_size_h( state_struct *state, int in_key, int *ierr);
 int ndi_c_get_size_n_h( state_struct *state, int in_key, int vec_num, int *ierr);
 int ndi_c_get_size_x_h( state_struct *state, int in_key, const char *in_str, int *ierr);
 int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value);
+int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key, 
+                                   const ndi_float64 *option_array, 
+                                   const int array_size);
 int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, 
                            int string_size );
 int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val);
@@ -364,7 +371,7 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
   /*    int ndi_set0_tn_sec_part ( sec_part_distr *part ); */
   int ndi_set0_mg_sec_part( sec_part_mg *part );
   int ndi_set0_tn_sec_part ( sec_part_distr *part, int reset_flag ); 
-   int ndi_zaid_dir( state_struct *state, char pt_type,  char l_type,  const char *in_zaid, 
+   int ndi_zaid_dir( state_struct *state, int pt_type,  char l_type,  const char *in_zaid, 
 		    char *real_zaid, char *library, char *lib_path, 
 		    char *lib_file_type, long int *iso_start, double *at_wgt, 
 		    int reaction_flag );
@@ -376,8 +383,12 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
    int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size);
    int ndi_fill_elements ( state_struct *state );
    int element_index( const char *el_symbol );
+   int ndi_set_e_grps( const int old_grp, double *old_grp_bounds, int *new_grp, double **new_grp_bounds,  
+                       const char *grp_struc, char library_type,int **new_ebound_index, short *c_flag);
+/*
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);
+*/
    int ndi_collapse_float32( state_struct *state, const ndi_float32 *old_vec, int old_grp_num, 
 			     int recip_flag,
 			     ndi_float32 *return_vec, int return_size );
@@ -499,7 +510,7 @@ int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key, const char *in_st
    int ndi_find_rprod_index(FILE *stream, multi_stat *rprod, int *ret_index, int mt );
    int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num );
    int ndi_find_tn_part_index( const long ptype , const sec_part_distr *part, int num_parts );
-   int ndi_find_mg_part_index( const char *ptype , const sec_part_mg *part, int num_parts );
+   int ndi_find_mg_part_index( const int ptype , const sec_part_mg *part, int num_parts );
    int ndi_find_iso_index( const char *ptype , const char **string_array, int num_parts );
    int ndi_find_temp_bound_index( double default_temp, edist_data *edist, int num_temps, int *hi, int *lo, int *closest );
 

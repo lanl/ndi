@@ -150,5 +150,6 @@
 #define NDI_NUM_PNU_PR                121
 #define NDI_PNU_PR                    122
 #define NDI_SIG_PNU_PR                123
+#define NDI_PARTICLE_TYPE             124
 
 #endif	/* __NDI_KEYWORDS_H */

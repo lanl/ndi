@@ -57,16 +57,6 @@ int ndi_c_get_size_h( state_struct *state, int in_key, int *ierr)
 	 size = get_tn_size( state, in_key, ierr );
       } else if (state->library_type == 'r' ) {
 	 size = get_tnreac_size( state, in_key, ierr );
-      } else if ( state->library_type == ' ' ) {
-	/* Library type was not set--defaulting to multigroup n */
-	state->library_type = 'm';
-	if ( state->particle_type == ' ' ) {
-	  state->particle_type = 'n';
-	}
-	size = get_mg_size( state, in_key, ierr );
-	if ( *ierr >= 0 ) {
-	  *ierr = 8;
-	}
       } else {
 	 *ierr = -16;
 	 size = 0;
@@ -91,6 +81,7 @@ static int get_mg_size( state_struct *state, int in_key, int *ierr ) {
 
 
    int return_value = 0;              /* Default return value is '0' */
+   char tmp_str[MAX_IN_STR_LEN];
 
         if (! state) {
             *ierr = -2;
@@ -148,7 +139,8 @@ static int get_mg_size( state_struct *state, int in_key, int *ierr ) {
      if ( ( state->iso_stat.sec_part ) && 
 	  ( state->curr_part_index < state->iso_stat.num_sec_parts ) &&
 	  ( state->curr_part_index >= 0 ) ) {
-       return_value = (int) strlen(state->iso_stat.sec_part[state->curr_part_index].part_type) + 1;
+         sprintf(tmp_str, "%d", state->iso_stat.sec_part[state->curr_part_index].part_type);
+       return_value = (int) strlen(tmp_str) + 1;
      } else {
        if ( state->iso_stat.num_sec_parts >= state->curr_part_index ) {
 	 /* Invalid state->curr_part_index*/
@@ -280,7 +272,11 @@ static int get_mg_size( state_struct *state, int in_key, int *ierr ) {
      if ( ( state->iso_stat.sec_part ) && 
 	  ( state->curr_part_index < state->iso_stat.num_sec_parts ) &&
 	  ( state->curr_part_index >= 0 ) ) {
-       return_value = ( (state->iso_stat.sec_part[state->curr_part_index].num_grps) + 1 ); 
+         if (state->iso_stat.sec_part[state->curr_part_index].collapse_flag == 0 ) {
+             return_value = state->iso_stat.sec_part[state->curr_part_index].num_grps + 1;
+         } else {
+             return_value = state->iso_stat.sec_part[state->curr_part_index].grp_num_new + 1;
+         }
      } else {
        *ierr = 9;
      }
@@ -456,7 +452,7 @@ static int get_tn_size( state_struct *state, int in_key, int *ierr ) {
 
    case NDI_EDIST:   /* Curr. particle's energy distribution at current temp. */
       /* The number returned is the number of groups in the currently-set group stucture */
-     return_value = state->tn_num_grps;
+     return_value = state->grp_num_new;
      break;
 
    case NDI_EINBAR:
@@ -465,11 +461,11 @@ static int get_tn_size( state_struct *state, int in_key, int *ierr ) {
      break;
    
    case NDI_E_BOUNDS:                      /*  Multigroup energy boundaries for sec. part distr. */
-     return_value = state->tn_num_grps + 1;
+     return_value = state->grp_num_new + 1;
      break;
 
    case NDI_E_AVG:              /* Mean of each multigroup bin used for sec. part edist */
-     return_value = state->tn_num_grps;
+     return_value = state->grp_num_new;
      break;
 
       /***********  UNKNOWN KEYWORD  **************/

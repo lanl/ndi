@@ -81,6 +81,8 @@
   int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
   int curr_new_index; /* Pointer into new (collapsed) vector */
   int curr_old_index; /* Pointer into old (uncollapsed) vector */
+  int low_bounds_in = 0;
+  int up_bounds_in = 0;
   int low_bounds_out = 0; /* Smallest old index contained in current new group */
   int up_bounds_out = 0;  /* Largest old index contained in current new group */
   FLOAT_TYPE in_sum = 0;                         /* Summing rows */
@@ -98,27 +100,33 @@
   }
 
   for (k = 0; k < new_grp_num_in; k++) {
-    /* What on earth is this mess? */
-     if ( ( k + 1 ) > new_grp_num_in ) {       
-        /* Bounds check */
-	ierr = -21;
-	return( ierr );
-     }
-
      for (l = 0; l < new_grp_num_out; l++ ) {
-       /* What on earth is this mess? */
-       if ( ( l + 1 ) > new_grp_num_out ) {     
-          /* Bounds check */
-	  ierr = -21;
-	  return( ierr );
-       }
 
         /* Outgoing groups must be "floored"--leftover "higher" and 
 	   "lower" groups must be put into first and last collaped
 	   groups.
 	*/
-        low_bounds_out = new_ebounds_out[l];
-	up_bounds_out = new_ebounds_out[l + 1];
+         if (new_ebounds_in) {
+             low_bounds_in = new_ebounds_in[k];
+             up_bounds_in = new_ebounds_in[k + 1];
+         } else {
+             low_bounds_in = k; 
+             up_bounds_in = k + 1; 
+         }
+         if ( k == 0 ) {
+             low_bounds_in = 0;
+         } 
+         if ( ( k + 1 ) ==  new_grp_num_in  ) {
+             up_bounds_in = old_grp_num_in;
+         }
+         
+          if (new_ebounds_out) {
+             low_bounds_out = new_ebounds_out[l];
+             up_bounds_out = new_ebounds_out[l + 1];
+         } else {
+              low_bounds_out = l; 
+              up_bounds_out = l + 1;
+         }
         if ( l == 0 ) {
 	   low_bounds_out = 0;
 	} 
@@ -128,7 +136,7 @@
 
       in_sum = 0;
       wt_sum = 0;
-      for ( i = new_ebounds_in[k]; i < new_ebounds_in[k + 1] ; i++ ) {
+      for ( i = low_bounds_in; i < up_bounds_in; i++ ) {
 	out_sum = 0;
 	for ( j = low_bounds_out; j < up_bounds_out; j++) {
 	   curr_old_index =  ( i * old_grp_num_out ) + j;

@@ -53,13 +53,9 @@ int ndi_c_set_zaid_h ( state_struct *state, const char *in_zaid)
       return(-2); }
 
    if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     tmp_err = 8;
-   }
+     /* Library type was not set */
+       return(-16);
+  }
 
    /* Initialize (zero) isotope state */
    ierr = ndi_set0(state, state->library_type); 
@@ -115,8 +111,9 @@ int ndi_c_set_zaid_h ( state_struct *state, const char *in_zaid)
       /*** Check returned error value ***/
       /*  Set energy bounds for collapsing */
       if ( strcmp( state->n_group, "default" ) != 0 ) {
-	 ierr = ndi_set_e_grps( state, &state->new_ebounds, state->n_group, &state->grp_num_new, 
-				state->iso_stat.num_grps, &state->collapse_flag );
+          tmp_err = ndi_set_e_grps( state->iso_stat.num_grps, state->lib_ebounds, &state->grp_num_new,
+                                    &state->collapse_ebounds, state->n_group, state->library_type, 
+                                    &state->new_ebounds, &state->collapse_flag);
       }
    }
 

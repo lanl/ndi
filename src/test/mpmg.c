@@ -15,11 +15,13 @@ int main ()
 {
    int ierr;
    int handle[3];
-   int num_parts = 3;
+   int num_parts = 2;
    int return_int = 0;
    int int_vec_size = 0;
    int *int_vec = NULL;
    int flt_vec_size;
+   int pgrps = 2;
+   ndi_float64 pbounds[] = { 20.0, 4.0, 0.1 };
    ndi_float64 *flt64_vec = NULL;
 
    /*  Initialize particle 0 */
@@ -29,7 +31,7 @@ int main ()
 
    ierr = NDI2_set_option(handle[0], NDI_LIB_TYPE, "multigroup_neutron");
    ierr = NDI2_set_option(handle[0], NDI_LIBRARY, "specmg");
-   ierr = NDI2_set_option(handle[0], NDI_COLLAPSE, "16_lanl");
+   ierr = NDI2_set_option(handle[0], NDI_COLLAPSE, "2_lanl");
 
    ierr = NDI2_set_isotope(handle[0], "U235");
 
@@ -40,10 +42,11 @@ int main ()
 
    ierr = NDI2_set_option(handle[1], NDI_LIB_TYPE, "multigroup_photon");
    ierr = NDI2_set_option(handle[1], NDI_LIBRARY, "photmg");
-
+   ierr = NDI2_set_float64_vec_option(handle[1], NDI_COLLAPSE, pbounds, pgrps + 1);
    ierr = NDI2_set_isotope(handle[1], "92000");
 
    /*  Initialize particle 2 */
+/*
    ierr = NDI2_init(&handle[2]);
    if (ierr)
      printf("  **Error %d in NDI init 2.\n\n", ierr );
@@ -53,6 +56,7 @@ int main ()
    ierr = NDI2_set_option(handle[2], NDI_COLLAPSE, "2_lanl");
 
    ierr = NDI2_set_isotope(handle[2], "U238");
+*/
 
    ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS, &return_int);
    if (ierr) 
@@ -131,6 +135,23 @@ int main ()
         free(flt64_vec);
    }
 
+   /* SCATTERING MATRIX */
+    flt_vec_size = ndimp_get_size_n(handle, num_parts, NDI_PN_FULL, 0, &ierr);
+   if (ierr) 
+        printf("\n  **Error %d getting size of scattering matrix.\n", ierr );
+   printf("  Scatter matrix size:  %d\n", flt_vec_size);
+   
+   flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
+   ierr = ndimp_get_float64_vec_n(handle, num_parts, NDI_PN_FULL, 0, flt64_vec, flt_vec_size);
+   if (ierr) 
+        printf("\n  **Error %d getting scattering matrix.\n", ierr );
+   print_float64_vec(flt64_vec, flt_vec_size);
+   if (flt64_vec) {
+        free(flt64_vec);
+   }
+   
+
+   /* CLOSE */
    ierr = NDI2_close(handle[0]);
    if (ierr)
      printf("  **Error %d in closing NDI 0.\n\n", ierr );
@@ -140,6 +161,7 @@ int main ()
    ierr = NDI2_close(handle[2]);
    if (ierr)
      printf("  **Error %d in closing NDI 2.\n\n", ierr );
+
 
    return(ierr);
 }

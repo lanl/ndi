@@ -25,10 +25,6 @@ static int GET_FULL_PN_MAT (state_struct *state, FILE *stream, multi_stat full_m
 			    multi_stat down_mat, int num_grps, 
 			    int vec_num, FLOAT_TYPE *return_mat, 
 			    int return_size );
-static int NDI_COLLAPSE_PROD_MAT(state_struct *state, FLOAT_TYPE *old_mat, 
-				 int old_in, int old_out,
-				 int new_in,
-				 FLOAT_TYPE *return_vec, int return_size );
 static int NDI_FULL2DIAG( FLOAT_TYPE *full_mat, int num_grps, FLOAT_TYPE *return_vec,
 			  int return_size );
 static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream, FLOAT_TYPE *return_vec,
@@ -36,7 +32,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream, FLOAT_TYPE *retur
 			    int vec_num, int vec_size );
 static int PN_DOWN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
 static int PN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
-static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg sec_part,
+static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg *sec_part,
 			     int vec_num,
 			     FLOAT_TYPE *return_vec, int return_size );
 static int GET_DIAG_CORR( state_struct *state, FLOAT_TYPE *return_vec, int vec_num );
@@ -77,16 +73,12 @@ int NDI_GET_FLOAT_VEC_N_H( state_struct *state, int in_key, int vec_num,
 #endif
 
    if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     tmp_err = 8;
+     /* Library type was not set */
+       return(-16);
    } else if ( ( state->library_type != 'm' )&&
 	       (state->library_type != 'd' ) ) {
-      /* Incompatible library */
-      return(-16);
+      /* Incompatible library -- Bad input key */
+      return(-4);
    }
 
    /* Check that isotope is set */
@@ -158,16 +150,13 @@ int NDI_GET_FLOAT_VEC_N_H( state_struct *state, int in_key, int vec_num,
 
    case NDI_PN_PROD_FULL_CURR_PART:        /* Full production matrix for current particle */
 
-      /*** ADD PHOTON COLLAPSING!!?!  change input to transpose ***/
-     /* Initialize to zeroes? */
-     (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
+       (void) NDI_INIT_FLOAT_VEC( return_vec, return_size );
 
 
      if ( state->curr_part_index >= 0 ) {
        if ( state->curr_part_index < state->iso_stat.num_sec_parts ) { 
-	 ierr = GET_PN_PROD_FULL( state, state->lib_stream, state->iso_stat.sec_part[state->curr_part_index], 
-				  vec_num,
-				  return_vec, return_size );
+	 ierr = GET_PN_PROD_FULL( state, state->lib_stream, &state->iso_stat.sec_part[state->curr_part_index], 
+				  vec_num, return_vec, return_size );
 
 	 /* Transpose result, if necessary */
 	 if ( state->collapse_flag != 0 ) {
@@ -518,67 +507,6 @@ static int NDI_DIAG2FULL(FLOAT_TYPE *low_diag, int num_ld, FLOAT_TYPE *up_diag,
 
 /*********************************************************************/
 
-static int NDI_COLLAPSE_PROD_MAT( state_struct *state, FLOAT_TYPE *old_mat,
-				  int old_in, int old_out,
-				  int new_in,
-				  FLOAT_TYPE *return_vec, int return_size ) 
-
-     /*  NOTE:  Currently there is no way to specify collapsing
-	 the secondary particle energy structure.  That'll have 
-	 to wait for coupled functionality to be implemented.
-	 So,   new_out = old_out
-
-     */
-
-{
-
-   int i, k, l;
-   int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   int *new_bound_in;                 /* New row boundaries */
-   int new_out = old_out;
-   int ret_vec_index;
-   FLOAT_TYPE in_sum = 0;                         /* Summing rows */
-   FLOAT_TYPE wt_sum = 0;                         /* Sum of weights */
-
-   if (state) {
-       new_bound_in = state->new_ebounds;
-   } else {
-       return(-2);
-   }
-
-   if ( state->grp_num_new <= 0 ) {
-      /* Number of groups not set  */
-      return(-21);
-   }
-
-   for (k = 0; k < new_in; k++) {
-      for (l = 0; l < new_out; l++ ) {
-	 in_sum = 0;
-	 wt_sum = 0;
-	 for ( i = new_bound_in[k]; i < new_bound_in[k + 1] ; i++ ) {
-	    in_sum += old_mat[ ( i * old_out ) + l ] * state->lib_weight[i];
-	    wt_sum += state->lib_weight[i];
-	 }
-	 if ( wt_sum > 0 ) {
-	   ret_vec_index = (k * new_out) + l; 
-	   if ( ret_vec_index >= return_size ) {
-	     if ( ierr >= 0 ) ierr = 7;
-	     return(ierr);
-	   }
-	   return_vec[ ret_vec_index ] = in_sum / wt_sum;
-	 } else {
-	    /* Error: unexpected library data--weight sum should not be 0 */
-	    ierr = -12;
-	 }
-      }     /* for k */
-    
-   }       /* for l */
-   return(ierr);
-}
-
-
-/*********************************************************************/
-
 static int  NDI_FULL2DIAG( FLOAT_TYPE *full_mat, int num_grps,
 			   FLOAT_TYPE *return_vec, int return_size )
 
@@ -732,37 +660,56 @@ static int PN_DOWN_FULL_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec,
 
 /*********************************************************************/
 
-static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg sec_part,
-			     int vec_num,
-			     FLOAT_TYPE *return_vec, int return_size )
+static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg *sec_part,
+			     int vec_num, FLOAT_TYPE *return_vec, int return_size )
 {
    int ierr = 0;
    FLOAT_TYPE *temp_vec = NULL;
-   int matrix_num;
+   int full_mat_size;
+   int new_grp_num_in;
+   int new_grp_num_out;
+   int *new_ebounds_in;
+   int *new_ebounds_out;
+
 
         if (state) {
-                matrix_num = sec_part.num_grps * state->iso_stat.num_grps;
+                full_mat_size = sec_part->num_grps * state->iso_stat.num_grps;
         } else {
                 return(-2);
         }
 
 
-   if (sec_part.pn_prod_full.num_objs > 0 ) {
-      if (sec_part.pn_prod_full.num_objs > vec_num) {
-	 if (sec_part.pn_prod_full.stat[vec_num].file_ptr) {
+   if (sec_part->pn_prod_full.num_objs > 0 ) {
+      if (sec_part->pn_prod_full.num_objs > vec_num) {
+	 if (sec_part->pn_prod_full.stat[vec_num].file_ptr) {
 
-	    if ( state->collapse_flag ) {
-	       temp_vec = (FLOAT_TYPE *)ndi_malloc( matrix_num * sizeof(FLOAT_TYPE) );
-	       if ( temp_vec ) {
-		  ierr = NDI_READ_FLOAT_BLOCK(stream,
-					      sec_part.pn_prod_full.stat[vec_num].file_ptr,
-					      matrix_num,
-					      temp_vec, matrix_num );
-		  if ( ierr >= 0 ) {
-		     ierr = NDI_COLLAPSE_PROD_MAT( state, temp_vec, 
-						   state->iso_stat.num_grps, sec_part.num_grps,
-						   state->grp_num_new,
-						   return_vec, return_size );
+	    if ( ( state->collapse_flag ) ||
+                 (sec_part->collapse_flag) ){
+                temp_vec = (FLOAT_TYPE *)ndi_malloc( full_mat_size * sizeof(FLOAT_TYPE) );
+                if ( temp_vec ) {
+                    ierr = NDI_READ_FLOAT_BLOCK(stream,
+                                                sec_part->pn_prod_full.stat[vec_num].file_ptr,
+                                                full_mat_size, temp_vec, full_mat_size );
+                    if ( ierr >= 0 ) {
+                        if (state->collapse_flag) {
+                            new_grp_num_in = state->grp_num_new;
+                            new_ebounds_in = state->new_ebounds;
+                        } else {
+                            new_grp_num_in = state->iso_stat.num_grps;
+                            new_ebounds_in = NULL;
+                        }
+                        if (sec_part->collapse_flag) {
+                            new_grp_num_out = sec_part->grp_num_new;
+                            new_ebounds_out = sec_part->new_ebounds;
+                        } else {
+                            new_grp_num_out = sec_part->num_grps;
+                            new_ebounds_out = NULL;
+                        }
+                        ierr = NDI_COLLAPSE_MAT(temp_vec, state->iso_stat.num_grps,
+                                                sec_part->num_grps, new_grp_num_in, 
+                                                new_grp_num_out, new_ebounds_in,
+                                                new_ebounds_out, state->lib_weight, 
+                                                return_vec, return_size);
 		  }
 		  if ( temp_vec ) ndi_free( (void**)&temp_vec );
 	       } else {
@@ -771,16 +718,15 @@ static int GET_PN_PROD_FULL( state_struct *state, FILE *stream, sec_part_mg sec_
 	       }
 	    } else {
 	       ierr = NDI_READ_FLOAT_BLOCK(stream,
-					   sec_part.pn_prod_full.stat[vec_num].file_ptr,
-					   matrix_num,
-					   return_vec, return_size );
+					   sec_part->pn_prod_full.stat[vec_num].file_ptr,
+					   full_mat_size, return_vec, return_size );
 	    }
 	 } else {
 	    /* Error reading file pointer */
 	    ierr = -19;
 	 }
       } else {
- 	 ierr = ndi_check_array_err(sec_part.pn_prod_full.num_objs);
+ 	 ierr = ndi_check_array_err(sec_part->pn_prod_full.num_objs);
       }
    } else {
       /* Error: no data for this isotope */

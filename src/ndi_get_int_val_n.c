@@ -57,19 +57,12 @@ int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num, int *ret
       ierr = get_int_val_n_tn( state, in_key, vec_num, ret_val );
    } else if (state->library_type == 'r' ) {
       ierr = get_int_val_n_tnreac( state, in_key, vec_num, ret_val );
-      } else if ( state->library_type == ' ' ) {
-	/* Library type was not set--defaulting to multigroup n */
-	state->library_type = 'm';
-	if ( state->particle_type == ' ' ) {
-	  state->particle_type = 'n';
-	}
-      ierr = get_int_val_n_mg( state, in_key, vec_num, ret_val );
-      if ( ierr >= 0 ) {
-	ierr = 8;
-      }
+   } else if ( state->library_type == ' ' ) {
+	/* Library type was not set */
+          ierr = -16;
    } else {
-      /* Incompatible library type */
-      ierr = -16;
+      /* Incompatible library type -- bad input key */
+      ierr = -4;
    }
    return(ierr);
 

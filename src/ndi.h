@@ -39,6 +39,8 @@ int NDI2_get_size(const int handle, int in_key, int *ierr );
 int NDI2_get_size_n(const int handle, int in_key, int vec_num, int *ierr );
 int NDI2_get_size_x(const int handle, int in_key, const char *in_str, int *ierr);
 int NDI2_set_option (const int handle,  int in_key, const char *value );
+int NDI2_set_float64_vec_option (const int handle,  int in_key, 
+                                 const ndi_float64 *option_array, const int array_size );
 int NDI2_check_option (const int handle,  int in_key, char *out_value, int string_size ) ;
 int NDI2_get_int_val(const int handle, int in_key, int *ret_val );
 int NDI2_get_int_val_n(const int handle, int in_key, int vec_num, int *ret_val );
@@ -68,6 +70,12 @@ int ndimp_get_float32_vec(const int *handle_arr, const int num_parts,
                          const int in_key,ndi_float32 *ret_vec, const int vec_size);
 int ndimp_get_float64_vec(const int *handle_arr, const int num_parts, 
                          const int in_key, ndi_float64 *ret_vec, const int vec_size);
+int ndimp_get_float32_vec_n(const int *handle_arr, const int num_parts, 
+                            const int in_key, const int vec_num, 
+                            ndi_float32 *ret_vec, const int vec_size);
+int ndimp_get_float64_vec_n(const int *handle_arr, const int num_parts, 
+                            const int in_key, const int vec_num, 
+                            ndi_float64 *ret_vec, const int vec_size);
 int ndimp_get_int_val(const int *handle_arr, const int num_parts, 
                        const int in_key, int *return_val);
 int ndimp_get_int_val_n(const int *handle_arr, const int num_parts, 
@@ -76,6 +84,8 @@ int ndimp_get_int_vec(const int *handle_arr, const int num_parts,
                        const int in_key, int *ret_vec, const int vec_size);
 int ndimp_get_size(const int *handle_arr, const int num_parts, 
                    int in_key, int *ierr);
+int ndimp_get_size_n(const int *handle_arr, const int num_parts, 
+                     int in_key, int vec_num, int *ierr);
 int ndimp_get_string_val(const int *handle_arr, const int num_parts, 
                           const int in_key, char *ret_val, const int str_size);
 

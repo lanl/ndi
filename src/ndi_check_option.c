@@ -111,7 +111,10 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
 	 sprintf( out_value, "%-ld", state->tn_stat.sec_part[state->curr_part_index].part_type );
 /* 	 strncpy( out_value, state->tn_stat.sec_part[state->curr_part_index].part_type, string_size ); */
        } else if ( state->library_type == 'm' ) {
-	 strncpy( out_value, state->iso_stat.sec_part[state->curr_part_index].part_type, string_size );
+	 if (sprintf ( out_value, "%d", state->iso_stat.sec_part[state->curr_part_index].part_type )
+             > string_size ) {
+             /*  ??? */
+         }
        } else {
 	 /* Operation is valid only for tn data */
 	 ierr = -16;
@@ -120,6 +123,10 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
        ierr = 9;
      }
      break;
+
+   case NDI_E_BOUNDS_CURR_PART:
+       
+       break;
 
    case NDI_TEMP:                    
      /*  Default temperature  */
@@ -133,6 +140,11 @@ int ndi_c_check_option_h ( state_struct *state, int in_key, char *out_value, int
      strncpy( out_value, state->def_fiss_prod_id, string_size );
      break;
 
+   case NDI_PARTICLE_TYPE:
+       if ( sprintf( out_value, "%d", state->particle_type ) > string_size ) {
+           /*  ??  */
+       }
+       break;
 
       /**********  UNKNOWN KEYWORD  ***********/
 
@@ -155,7 +167,7 @@ static int ndi_get_lib_type ( state_struct *state, char *value, int string_size 
    multigroup_neutron, tn, multigroup_photon
    
    Global variables used (and valid values):
-   particle_type -- n, p, 0(tn)
+   particle_type -- 1-neutorn, 0-photon, -1(tn)
    library_type -- m, s(tn)
    
 -------------------------------------------------------------------------*/
@@ -167,11 +179,11 @@ static int ndi_get_lib_type ( state_struct *state, char *value, int string_size 
        return(-2);
    }
 
-   if ( (state->particle_type == 'n') && (state->library_type == 'm') ) { 
+   if ( (state->particle_type == 1) && (state->library_type == 'm') ) { 
       strncpy( value, "multigroup_neutron", string_size );
-   } else if( (state->particle_type == '0') && (state->library_type == 's') ) {
+   } else if( (state->particle_type == -1) && (state->library_type == 's') ) {
       strncpy( value, "tn", string_size );
-   } else if ( (state->particle_type == 'p') && (state->library_type == 'm') ) {
+   } else if ( (state->particle_type == 0) && (state->library_type == 'm') ) {
       strncpy( value, "multigroup_photon", string_size );
    } else {
       strncpy( value, "", string_size);

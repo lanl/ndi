@@ -20,6 +20,7 @@ static int ndi_set_lib_type( state_struct *state, const char *value );
 static int ndi_set_library( state_struct *state, const char *value );
 static int ndi_set_mat_order( state_struct *state, const char *value );
 static int ndi_set_collapse( state_struct *state, const char *value );
+static int ndi_set_ebounds_curr_part( state_struct *state, const char *value );
 static int ndi_set_norm ( state_struct *state, const char *value );
 static int ndi_set_trans_corr_diag( state_struct *state, const char *value );
 static int ndi_set_reac_id( state_struct *state, const char *value );
@@ -82,6 +83,11 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
       ierr = ndi_set_collapse( state, value );
       break;
 
+   case NDI_E_BOUNDS_CURR_PART:
+       /* Set energy group structure for current particle */
+       ierr = ndi_set_ebounds_curr_part( state, value );
+       break;
+
    case NDI_TRANS_CORR:
       /* Use transport corrections */
       ierr = ndi_set_trans_corr_diag( state, value );
@@ -115,7 +121,7 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 					 state->tn_stat.sec_part, 
 					 state->sec_part_filled );
       } else if ( state->library_type == 'm' ) {
-	pindex = ndi_find_mg_part_index( value, state->iso_stat.sec_part, state->iso_stat.num_sec_parts );
+	pindex = ndi_find_mg_part_index( atoi(value), state->iso_stat.sec_part, state->iso_stat.num_sec_parts );
 	
       } else {
 	 /* Operation is valid only for tn data */
@@ -129,27 +135,6 @@ int ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
       }
 
       break;
-
-/*    case NDI_CURR_ISO: */
-      /* specify which zaid (isotope) is current */
-    /*
-      if  ( library_type == '0' ) {
-	 int pindex;
-	 pindex = ndi_find_iso_index( value, depl_targets, num_target );
-	 if ( pindex >= 0 ) {
-	    curr_reac_index = pindex;
-	 } else {
-	    *//* Invalid zaid was input -- not found *//*
-	    ierr = -5;
-	 }
-	 
-      } else {
-	 *//* Operation is valid only for depletion data *//*
-	 ierr = -16;
-      }
-
-      break;
-     */
 
    case NDI_TEMP:                    
       /*  Set default temperature  */
@@ -189,7 +174,7 @@ static int ndi_set_lib_type ( state_struct *state, const char *value )
    multigroup_neutron
 
    Global variables changed (and valid values):
-   particle_type -- n
+   particle_type -- 1-neutron, 0-photon, -1-tn
    library_type -- m
 
 -------------------------------------------------------------------------*/
@@ -204,27 +189,21 @@ static int ndi_set_lib_type ( state_struct *state, const char *value )
    if ( strncmp( value, "multigroup_neutron", (19 * sizeof(char) )) == 0 ) {
       /**** make section a global variable = multigroup_neutron? ****/
       
-      state->particle_type = 'n';
+      state->particle_type = 1;
       state->library_type = 'm';
    } else if ( strncmp( value, "tn", ( 3 * sizeof(char) ) ) == 0 ) {
-      state->particle_type = '0';
+      state->particle_type = -1;
       state->library_type = 's';
    } else if ( strncmp( value, "tnreactions", ( 12 * sizeof(char) ) ) == 0 ) {
-      state->particle_type = '0';
+      state->particle_type = -1;
       state->library_type = 'r';
    } else if ( strncmp( value, "multigroup_photon", ( 18 * sizeof(char) ) ) == 0 ) {
-      state->particle_type = 'p';
+      state->particle_type = 0;
       state->library_type = 'm';
 
    } else if ( strncmp( value, "dosimetry_neutron", ( 18 * sizeof(char) ) ) == 0 ) {
-      state->particle_type = 'n';
+      state->particle_type = 1;
       state->library_type = 'd';
-
-      /*
-   } else if ( strncmp( value, "neutron_depl", ( 13 * sizeof(char) ) ) == 0 ) {
-      particle_type = 'n';
-      library_type = '0';
-      */
 
    } else {
       /* "Error:  invalid NDI input argument. */
@@ -362,15 +341,72 @@ static int ndi_set_collapse( state_struct *state, const char *value )
 	( state->library_type == 'd' ) ) {
       /* Multigroup or dosimetry */
       num_grps = state->iso_stat.num_grps;
+      ierr = ndi_set_e_grps( state->iso_stat.num_grps, state->lib_ebounds, &state->grp_num_new, 
+                             &state->collapse_ebounds, value, state->library_type, &state->new_ebounds, 
+                             &state->collapse_flag);
+
+   } else if ( state->library_type == 's' ) {
+      /* TN */
+       if (state->new_ebounds) ndi_free((void**)&state->new_ebounds);
+       ierr = ndi_set_e_grps( 0, NULL, &state->grp_num_new, &state->collapse_ebounds,
+                              value, state->library_type, NULL, &state->collapse_flag);
+   } else {
+       return(-23);
    }
 
-   ierr = ndi_set_e_grps( state, &state->new_ebounds, value, &state->grp_num_new, num_grps,
-			  &state->collapse_flag );
-
-   if ( state->library_type == 's' ) {
-      /* Multigroup */
-      state->tn_num_grps = state->grp_num_new;
+   if ( ierr >= 0 ) {
+       strcpy( state->n_group, value );
+   } else {
+       strcpy( state->n_group, "default" );
    }
+   return(ierr);
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_set_ebounds_curr_part( state_struct *state, const char *value ) 
+
+/* Valid input values:
+   30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
+   9_group, 8_group, 7_group, 6_group, 5_group, 4_group, 3_group, 
+   2_group, 1_group, 16_LLNL, default
+
+   Global variables changed (and valid values):
+   grp_num_new -- integer giving number of groups; 0 for default or error
+   new_ebounds -- array of indices of lib_ebounds array with new energy 
+                  boundaries (i.e. new boundaries subset of library bounds).
+   collapse_flag -- 0 = no collapsing required, -1 = collapsing required
+   n_group -- (same as valid input values)
+
+-------------------------------------------------------------------------*/
+   
+{
+   int ierr = 0;
+   sec_part_mg *part;
+
+   if (! state) {
+       return(-2);
+   }
+
+   if ( ( state->library_type == 'm' ) ||
+	( state->library_type == 'd' ) ) {
+      /* Multigroup or dosimetry */
+       if ( state->iso_stat.sec_part &&
+            ( state->curr_part_index >= 0 ) &&
+            ( state->curr_part_index < state->iso_stat.num_sec_parts)) {
+           part = &state->iso_stat.sec_part[state->curr_part_index];
+           ierr = ndi_set_e_grps( part->num_grps, part->e_bounds, &part->grp_num_new, 
+                                  &part->collapse_ebounds, value, state->library_type, &part->new_ebounds, 
+                                  &part->collapse_flag);
+       } else {
+           ierr = -999;
+       }
+   } else {
+       /* Bad input for current library type */
+       return(-4);
+   }
+
 
    if ( ierr >= 0 ) {
       strcpy( state->n_group, value );

@@ -70,6 +70,14 @@ int NDI2_set_option (const int handle,  int in_key, const char *value ) {
      return (ndi_c_set_option_h(state_p, in_key, value));
 }
 
+int NDI2_set_float64_vec_option (const int handle,  int in_key, 
+                                 const ndi_float64 *option_array, const int array_size ) {
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    return (ndi_c_set_float64_vec_option_h(state_p, in_key, option_array, array_size));
+}
+
 int NDI2_check_option (const int handle,  int in_key, char *out_value, int string_size ) {
      state_struct *state_p;
 

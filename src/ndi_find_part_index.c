@@ -29,11 +29,11 @@ int ndi_find_part_index( const char *ptype , const sec_part_distr *part, int num
 
    for ( i = 0; i < num_parts; i++ ) {
      curr_part = part[i];
-     if (curr_part.part_type) {
+     if (curr_part.part_type >= 0) {
        curr_char = curr_part.part_type[0];
        if ( *ptype == curr_char ) {
 	 /* check the first letter for n, p, a */
-	 if ( strcmp( ptype, part[i].part_type ) == 0 ) {
+	 if ( ptype == part[i].part_type ) {
 	   return(i);
 	 }
        }

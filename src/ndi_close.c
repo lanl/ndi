@@ -63,7 +63,7 @@ int ndi_c_close_h(state_struct **curr_state)
    /* Initialize extern variables */
    if (state->ndi_elements) ndi_free((void**)&state->ndi_elements);
    if (state->library_vers) ndi_free((void**)&state->library_vers);
-   state->particle_type = ' ';
+   state->particle_type = -1;
    state->library_type = ' '; 
    state->mat_order = 'd';     /* No transpose */
    state->reac_id = 'm';       /* Use MT numbers to identify reactions */

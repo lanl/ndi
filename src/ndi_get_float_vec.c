@@ -21,6 +21,7 @@ static int GET_FLOAT_VEC_MG(  state_struct *state, int in_key, FLOAT_TYPE *retur
 static int GET_FLOAT_VEC_TN(  state_struct *state, int in_key, FLOAT_TYPE *return_vec, int return_size );
 static int GET_CHI_MAT( state_struct *state, FILE *stream, long mat_ptr, long vec_ptr, 
 			FLOAT_TYPE *return_mat, int num_grps, int return_size);
+static int GET_E_BOUNDS_CURR_PART( state_struct *state, FLOAT_TYPE *return_vec, int return_size);
 static int SIG_TOT_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
 static int NDI_CALC_E_AVG( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
 static int NDI_CALC_E_N( state_struct *state, FLOAT_TYPE *return_vec, int return_size );
@@ -66,18 +67,11 @@ int NDI_GET_FLOAT_VEC_H( state_struct *state, int in_key, FLOAT_TYPE *return_vec
    } else if ( state->library_type == 's' ) {
       ierr = GET_FLOAT_VEC_TN( state, in_key, return_vec, return_size );
    } else if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     ierr = GET_FLOAT_VEC_MG( state, in_key, return_vec, return_size );
-     if ( ierr >= 0 ) {
-       ierr = 8;
-     }
+     /* Library type was not set */
+       ierr = -16;
    } else {
-      /* Incompatible library type */
-      ierr = -16;
+      /* Incompatible library type  -- bad input key */
+      ierr = -4;
    }
 
    return(ierr);
@@ -350,24 +344,8 @@ static int GET_FLOAT_VEC_MG(  state_struct *state, int in_key, FLOAT_TYPE *retur
 
    case NDI_E_BOUNDS_CURR_PART:               /* secondary particle energy boundaries */
      /*  Check bounds */
-     
-     if ( state->curr_part_index >= 0 ) {
-       num_elements = state->iso_stat.sec_part[state->curr_part_index].num_grps + 1;
-
-       if (state->iso_stat.sec_part[state->curr_part_index].e_bounds.file_ptr) {
-	 ierr = NDI_READ_FLOAT_BLOCK( state->lib_stream, 
-				      state->iso_stat.sec_part[state->curr_part_index].e_bounds.file_ptr,
-				      num_elements,
-				      return_vec, return_size );
-       } else {
-	 /* Error: data not available */
-	 ierr = -9;
-       }
-     } else {
-       /* Error -- bad particle? */
-       ierr = -999;
-     }
-     break;
+       ierr = GET_E_BOUNDS_CURR_PART(state, return_vec, return_size);
+       break;
 
    case NDI_TOT_DEPL_XS:
      ierr = GET_DEPL_XS( state, &state->iso_stat, return_vec, return_size );
@@ -436,12 +414,12 @@ static int GET_FLOAT_VEC_TN(  state_struct *state, int in_key, FLOAT_TYPE *retur
 
    case NDI_E_BOUNDS:                      /*  Multigroup energy boundaries for sec. part distr. */
 
-     for ( i = 0; i < ( state->tn_num_grps + 1 ); i++ ) {
+     for ( i = 0; i < ( state->grp_num_new + 1 ); i++ ) {
        if ( i >= return_size ) {
 	 ierr = 7;
 	 break;
        } else {
-	 *curr_p = (FLOAT_TYPE)state->tn_ebounds[i];
+	 *curr_p = (FLOAT_TYPE)state->collapse_ebounds[i];
 	 curr_p++;
        }
      }
@@ -449,9 +427,9 @@ static int GET_FLOAT_VEC_TN(  state_struct *state, int in_key, FLOAT_TYPE *retur
 
    case NDI_E_AVG:
      /* For TN this is just the mean of the two energy boundaries -- no flux to weight with */
-     for ( i = 0; i < state->tn_num_grps; i++ ) {
+     for ( i = 0; i < state->grp_num_new; i++ ) {
        if ( i < return_size ) {
-	 return_vec[i] = (FLOAT_TYPE)( (state->tn_ebounds[i] + state->tn_ebounds[i+1]) / 2.0 );
+	 return_vec[i] = (FLOAT_TYPE)( (state->collapse_ebounds[i] + state->collapse_ebounds[i+1]) / 2.0 );
        } else {
 	 ierr = 7;
 	 break;
@@ -862,7 +840,44 @@ static int NDI_GET_KERMA (  state_struct *state, stat_flag  *kerma, stat_flag *h
 
 /*********************************************************************/
 /*********************************************************************/
+static int GET_E_BOUNDS_CURR_PART( state_struct *state, FLOAT_TYPE *return_vec, int return_size) {
 
+    int i;
+    int ierr = 0;
+    sec_part_mg *part;
+
+     if ( ( state->curr_part_index >= 0 ) &&
+          ( state->iso_stat.num_sec_parts > state->curr_part_index ) ) {
+         part = &state->iso_stat.sec_part[state->curr_part_index];
+         if ( part->collapse_flag ) {
+             /* User-specified collapse-group structure */
+             for( i = 0; i <= part->grp_num_new; i++ ) {
+                 if ( i < return_size) {
+                     return_vec[i] = (FLOAT_TYPE) part->collapse_ebounds[i];
+                 } else {
+                     return(7);
+                 }
+             }
+         } else {
+             /* Library ebounds */
+             for( i = 0; i <= part->num_grps; i++ ) {
+                 if ( i < return_size) {
+                     return_vec[i] = (FLOAT_TYPE) part->e_bounds[i];
+                 } else {
+                     return(7);
+                 }
+             }
+         }
+     } else {
+         /* Error -- bad particle? */
+         ierr = -999;
+     }
+
+     return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
 static int SIG_TOT_TRANS_CORR( state_struct *state, FLOAT_TYPE *return_vec, int return_size ) {
 
    int i;
@@ -1220,7 +1235,7 @@ static int GET_EDIST_VEC( state_struct *state, FILE *lib_stream,  FLOAT_TYPE *re
    }
 
    /* Check that collapse flag is set */
-   if ( state->tn_num_grps <= 0 ) {
+   if ( state->grp_num_new <= 0 ) {
       return(-21);
    }
 
@@ -1257,10 +1272,10 @@ static int GET_EDIST_VEC( state_struct *state, FILE *lib_stream,  FLOAT_TYPE *re
    /********************************************************************/
 
    /* Integrate into bins  -- Note: function returns only array of double */
-   edist_array = (double *) ndi_malloc( state->tn_num_grps * sizeof(double) );
+   edist_array = (double *) ndi_malloc( state->grp_num_new * sizeof(double) );
    ierr = ndi_integrate_bins( distr_E, distr_prob, &curr_interp,
-			      state->tn_ebounds, state->tn_num_grps ,
-			      edist_array, state->tn_num_grps );
+			      state->collapse_ebounds, state->grp_num_new ,
+			      edist_array, state->grp_num_new );
    if (distr_E) ndi_free( (void **) &distr_E);
    if (distr_prob) ndi_free( (void **) &distr_prob);
    
@@ -1272,8 +1287,8 @@ static int GET_EDIST_VEC( state_struct *state, FILE *lib_stream,  FLOAT_TYPE *re
 
    /* Transfer integrals to return_vec */
    /* Copy here */
-   if ( state->tn_num_grps <= return_size ) {
-     for ( i = 0; i < state->tn_num_grps; i++ ) {
+   if ( state->grp_num_new <= return_size ) {
+     for ( i = 0; i < state->grp_num_new; i++ ) {
        return_vec[i] = (FLOAT_TYPE)edist_array[i];
      }
    } else {
@@ -1284,8 +1299,8 @@ static int GET_EDIST_VEC( state_struct *state, FILE *lib_stream,  FLOAT_TYPE *re
    /**************************** NORMALIZE  ****************************/
    /********************************************************************/
    /* !!ADD!!!!! Special normalize for discrete energies */
-   if ( state->tn_num_grps <= return_size ) {
-     ierr = NORM_FLOAT_VEC( return_vec, state->tn_num_grps, 1.0 );
+   if ( state->grp_num_new <= return_size ) {
+     ierr = NORM_FLOAT_VEC( return_vec, state->grp_num_new, 1.0 );
    } else {
      /* Error */
    }

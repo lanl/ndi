@@ -57,18 +57,11 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 	*/
 
    } else if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     ierr = get_int_val_mg( state, in_key, ret_val );
-     if ( ierr >= 0 ) {
-       ierr = 8;
-     }
-   } else {
-     /* Incompatible library type */
-     ierr = -16;
+     /* Library type was not set */
+       ierr = -16;
+  } else {
+     /* Incompatible library type -- bad input key */
+     ierr = -4;
    }
 
    return(ierr);
@@ -162,13 +155,13 @@ static int get_int_val_mg( state_struct *state, int in_key, int *ret_val ) {
 
   case NDI_NUM_GRPS_CURR_PART:             /* Number of groups -- current particle */
     if ( state->iso_stat.sec_part &&
-         /* && ( state->curr_part_index < state->sec_part_filled)) */
-	 ( state->curr_part_index >= 0 ) ){ 
-      if ( state->iso_stat.sec_part[state->curr_part_index].num_grps >= 0 ) {
-	*ret_val = state->iso_stat.sec_part[state->curr_part_index].num_grps;
-      } else {
-	ierr = -9;    
-      } 
+         ( state->curr_part_index < state->iso_stat.num_sec_parts) &&
+	 ( state->curr_part_index >= 0 )) { 
+        if ( state->iso_stat.sec_part[state->curr_part_index].collapse_flag == 0 ) {
+            *ret_val = state->iso_stat.sec_part[state->curr_part_index].num_grps;
+        } else {
+            *ret_val = state->iso_stat.sec_part[state->curr_part_index].grp_num_new;
+        }
     } else {
       /* Error -- bad particle? */
       ierr = -999;
@@ -341,7 +334,7 @@ static int get_int_val_tn( state_struct *state, int in_key, int *ret_val ) {
       break;
 
    case NDI_NUM_GRPS:    /* Number of energy grps used in edist of sec. parts */
-     *ret_val = state->tn_num_grps;
+     *ret_val = state->grp_num_new;
       if ( *ret_val < 0 ) {
 	*ret_val = 0;
 	ierr = -9;

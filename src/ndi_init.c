@@ -57,35 +57,6 @@ int ndi_c_init_h(state_struct **curr_state)
 
    /* Initialize variables */
    state->handle =-1;
-/*
-   state->ndi_elements = NULL;
-   state->new_ebounds = NULL;
-   state->lib_weight = NULL;
-   state->lib_ebounds = NULL;
-   state->tn_ebounds = NULL;
-
-   state->iso_stat.set_flag = 0;
-   state->iso_stat.num_sec_parts = 0;
-   state->iso_stat.sec_part = NULL;
-   state->iso_stat.pn_down_full.stat = NULL;
-   state->iso_stat.pn_full.stat = NULL;
-   state->iso_stat.sig_reac.stat = NULL;
-   state->iso_stat.rprod_all.stat = NULL;
-   state->iso_stat.rprod_rmo.stat = NULL;
-   state->iso_stat.rprod_few.stat = NULL;
-   state->iso_stat.reac_mt = NULL;
-   state->iso_stat.reac_q = NULL;
-
-   state->tn_stat.set_flag = 0;
-   state->tn_stat.num_sec_parts = 0;
-   state->tnreac_stat.set_flag = 0;
-   state->tnreac_stat.reactants = NULL;
-   state->tnreac_stat.rprods = NULL;
-   state->chain_stat.set_flag = 0;
-   state->ndi_depl_set = 0;
-
-   state->lib_stream = NULL;
-*/
    state->open_lib_file = (char*)ndi_malloc(sizeof(char));
    state->open_lib_file[0] = '\0';
    ndi_fill_elements(state);
@@ -93,7 +64,7 @@ int ndi_c_init_h(state_struct **curr_state)
    /*  Set default values */
    state->library_vers = (char *)ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
    strncpy( state->library_vers, "", sizeof(state->library_vers) );
-   state->particle_type = ' ';
+   state->particle_type = -1;
    state->library_type = ' ';
    state->mat_order = 'd';     /* No transpose */
    state->reac_id = 'm';       /* Use MT numbers to identify reactions */

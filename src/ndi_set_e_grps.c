@@ -11,32 +11,40 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
+#include <float.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int within_epsilon( ndi_float64 a, ndi_float64 b);
-static int greater_than_epsilon(ndi_float64 a, ndi_float64 b);
+static int within_epsilon( double a, double b);
+static int greater_than_epsilon(double a, double b);
 
 
 /**********************************************************************/
 
-int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, 
-                    int *new_grp, int old_grp, short *c_flag) {
+int ndi_set_e_grps( const int old_grp, double *old_grp_bounds,
+                    int *new_grp, double **new_grp_bounds,  
+                    const char *grp_struc, char library_type,
+                    int **new_ebound_index, short *c_flag) {
 
 /* Purpose:  Set an array to indicate which of the current library
    energy bounds will be used in the new (collapsed) group structure.
    
    Parameters:
-   new_ebound_p -- out: array of indices indicating which of the library
+   old_grp -- in: number of groups in the old (library) group structure.
+   old_grp_bounds -- in:array giving energy boundaries of uncollapsed (library)
+                     groups.
+   new_grp -- in/out: number of groups in the new (collapsed) group structure.
+              For standard group structures, this will be set on exit; for
+              user-defined group structures, this will be input.
+   new_grp_ebounds -- in:This will be ignored for standard group structures (i.e.
+              where grp_struc is not "user").  Otherwise, this contains the
+              energy boundaries of the user-defined group structure.
+   grp_struc -- in: string indicating new group structure.
+   new_ebound_index -- out: array of indices indicating which of the library
                    energy boundaries are to be used in the new (collapsed)
 		   energy group structure. (New boundaries subset of old ones.)
-   grp_struc -- in: string indicating new group structure; valid entries are:
-                 ( 30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 
-		 10_group, 9_group, 8_group, 7_group, 6_group, 5_group, 
-		 4_group, 3_group, 2_group, 1_group, default )
-   new_grp -- out: number of groups in the new (collapsed) group structure.
-   old_grp -- in: number of groups in the old (library) group structure.
    c_flag -- out: 0 = no collapsing required, -1 = collapsing required
 
    Assumptions:
@@ -52,7 +60,7 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
 
    Also, if new_grp == old_grp the "collapsed" group structure may be the
    same as the old.  So the c_flag is set to zero, new_grp is set to the
-   number of groups, but new_ebound_p is left NULL.
+   number of groups, but new_ebound_index is left NULL.
 
    Global Variables:
    lib_ebounds -- must be previously set to boundaries in library,
@@ -64,13 +72,13 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
 
 ***********************************************************************/
   
-   /* ndi_float64 hansenroach[] = { 15, 3, 1.4, 0.9, 0.4, 0.1, 1.7E-2, 
+   /* double hansenroach[] = { 15, 3, 1.4, 0.9, 0.4, 0.1, 1.7E-2, 
 	                            3E-3, 5.5E-4, 1.0E-4, 3.0E-5, 1.0E-5, 
                                     3.0E-6, 1.0E-6, 4.0E-7, 1.0E-7,1.4E-10 }; 
    */
    
   /*  NGK KLUDGE!  */
-  ndi_float64 _33_ngkludge[] = 
+  double _33_ngkludge[] = 
   {  17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
      2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303, 
      0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
@@ -78,7 +86,7 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
      3.0, 2.0, 1.0, 0.5, 0.1, 0.01 };
   
   
-  ndi_float64 _130_lanl[] = 
+  double _130_lanl[] = 
     { 2.0000000E+01, 1.8900000E+01, 1.7900000E+01, 1.7000000E+01, 1.5000000E+01,
       1.3500000E+01, 1.2000000E+01, 1.0000000E+01, 7.7900000E+00, 6.0700000E+00,
       4.7240000E+00, 3.6800000E+00, 2.8650000E+00, 2.2320000E+00, 1.7380000E+00,
@@ -107,7 +115,7 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
       1.2400000E-08, 6.3250000E-09, 2.2770000E-09, 7.6020000E-10, 1.3900000E-10,
       1.0000000E-11 };
 
-  ndi_float64 _120_lanl[] =
+  double _120_lanl[] =
     { 5.0000000E+01, 3.0000000E+01, 2.0000000E+01, 1.7000000E+01, 1.4000000E+01,
       1.2000000E+01, 1.0829105E+01, 1.0829095E+01, 1.0000000E+01, 9.0000000E+00,
       8.9984050E+00, 8.9983950E+00, 8.8884050E+00, 8.8883950E+00, 8.0000000E+00,
@@ -134,7 +142,7 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
       6.0000000E-02, 4.5000000E-02, 3.0000000E-02, 2.0000000E-02, 1.0000000E-02,
       1.0000000E-03 };
 
-  ndi_float64 _105_awe[] = 
+  double _105_awe[] = 
   { 2.000E+01,1.950E+01,1.900E+01,1.850E+01,1.800E+01,1.750E+01,
     1.700E+01,1.650E+01,1.600E+01,1.575E+01,1.550E+01,1.525E+01,
     1.500E+01,1.480E+01,1.460E+01,1.440E+01,1.420E+01,1.405E+01,
@@ -154,7 +162,7 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
     1.500E-05,9.100E-06,5.500E-06,3.300E-06,2.000E-06,1.170E-06,
     6.840E-07,4.000E-07,2.300E-07,1.000E-09 };
 
-  ndi_float64 _32_awe[] = 
+  double _32_awe[] = 
   { 1.460E+01,1.350E+01,1.250E+01,1.100E+01,9.500E+00,
     8.000E+00,6.500E+00,5.000E+00,3.400E+00,2.400E+00,
     1.600E+00,1.100E+00,7.800E-01,5.500E-01,3.700E-01,
@@ -163,85 +171,87 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
     2.600E-04,1.100E-04,4.200E-05,1.500E-05,5.500E-06,
     2.000E-06,4.000E-07,1.000E-09 };
 
-   ndi_float64 _30_group[] = { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+   double _30_group[] = { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
 			       2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       1.235e-3, 4.54e-4, 1.67e-4, 6.14e-5, 2.26E-5, 
 			       8.32E-6, 3.06E-6, 1.13E-6, 4.14E-7, 1.52E-7, 
 			       1.39E-10 };
 
-   ndi_float64 _21_group[] = { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+   double _21_group[] = { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
 			       2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       1.235e-3, 1.67e-4 };
 
-   ndi_float64 _16_group[] = { 17.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68, 
+   double _16_group[] = { 17.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68, 
 			       2.865, 1.353, 0.5, 0.303, 0.184, 6.76e-2, 
 			       2.48e-2, 9.12e-3, 3.35e-3, 1.67e-4 };
 
-   ndi_float64 _16_LLNL[] = { 17.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+   double _16_LLNL[] = { 17.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
 			      2.865, 1.353, 0.5, 0.184, 6.76e-2, 2.48e-2,
 			      9.12e-3, 3.35e-3, 4.54e-4, 1.67e-4 };
 
-   ndi_float64 _16_awe[] = { 1.460E+01,1.350E+01,1.250E+01,1.150E+01,9.500E+00,
+   double _16_awe[] = { 1.460E+01,1.350E+01,1.250E+01,1.150E+01,9.500E+00,
 			      8.000E+00,6.500E+00,4.500E+00,2.400E+00,1.100E+00,
 			      6.550E-01,2.900E-01,1.800E-01,1.020E-01,2.200E-02,
 			      1.000E-02,1.000E-09 };
   
-   ndi_float64 _14_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
+   double _14_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       4.54e-4, 1.67e-4, 1.39e-10 };
 
-   ndi_float64 _13_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
+   double _13_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       4.54e-4, 1.67e-4 };
 
-   ndi_float64 _12_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
+   double _12_group[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       4.54e-4 };
 
-   ndi_float64 _12_group2[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
+   double _12_group2[] = { 17.0, 13.5, 10.0, 6.07, 2.865, 1.353, 0.5, 
 			       0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
 			       1.67e-4 };
 
-   ndi_float64 _10_group[] = { 17.0, 13.5, 10.0, 7.79, 3.68, 2.232, 0.5, 
+   double _10_group[] = { 17.0, 13.5, 10.0, 7.79, 3.68, 2.232, 0.5, 
 			       0.184, 2.48e-2, 3.35e-3, 1.67e-4 };
 
-   ndi_float64 _9_group[] = { 17.0, 13.5, 10.0, 3.68, 2.232, 0.5, 0.184, 
+   double _9_group[] = { 17.0, 13.5, 10.0, 3.68, 2.232, 0.5, 0.184, 
 			      2.48e-2, 3.35e-3, 1.67e-4 };
 
-   ndi_float64 _8_group[] = { 17.0, 13.5, 10.0, 2.232, 0.5, 0.184, 2.48e-2, 
+   double _8_group[] = { 17.0, 13.5, 10.0, 2.232, 0.5, 0.184, 2.48e-2, 
 			      3.35e-3, 1.67e-4 };
 
-   ndi_float64 _7_group[] = { 17.0, 13.5, 10.0, 3.68, 2.232, 0.5, 2.48e-2, 
+   double _7_group[] = { 17.0, 13.5, 10.0, 3.68, 2.232, 0.5, 2.48e-2, 
 			      1.67e-4 };
    
-   ndi_float64 _6_group[] = { 17.0, 10.0, 3.68, 2.232, 0.5, 2.48e-2, 1.67e-4 };
+   double _6_group[] = { 17.0, 10.0, 3.68, 2.232, 0.5, 2.48e-2, 1.67e-4 };
    
-   ndi_float64 _5_group[] = { 17.0, 10.0, 3.68, 0.5, 2.48e-2, 1.67e-4 };
+   double _5_group[] = { 17.0, 10.0, 3.68, 0.5, 2.48e-2, 1.67e-4 };
    
-   ndi_float64 _4_group[] = { 17.0, 7.79, 2.232, 0.184, 1.67e-4 };
+   double _4_group[] = { 17.0, 7.79, 2.232, 0.184, 1.67e-4 };
    
-   ndi_float64 _3_group[] = { 17.0, 7.79, 0.184, 1.67e-4 };
+   double _3_group[] = { 17.0, 7.79, 0.184, 1.67e-4 };
    
-   ndi_float64 _2_group[] = { 17.0, 2.232, 1.67e-4 }; 
-/*    ndi_float64 _2_group[] = { 17.0, 3.68, 1.235e-3 }; */
+   double _2_group[] = { 17.0, 2.232, 1.67e-4 }; 
+/*    double _2_group[] = { 17.0, 3.68, 1.235e-3 }; */
    
-   ndi_float64 _1_group[] = { 17.0, 1.67e-4 };
+   double _1_group[] = { 17.0, 1.67e-4 };
    
    int ierr = 0;
    int lib_count = 0;
    int i = 0;
-   ndi_float64 *new_grp_ptr;
+   double *new_grp_ptr;
    int *ebounds;
 
 
- 
    /*  Free previous energy boundary array */
-   if (*new_ebound_p) ndi_free((void**)new_ebound_p);
+   if (new_ebound_index) {
+       if (*new_ebound_index) {
+           ndi_free((void**)new_ebound_index);
+       }
+       *new_ebound_index = NULL;
+   }
 
-   /* Set default value */
-   *new_ebound_p = NULL;
    *c_flag = 0;
    
    /**********************/
@@ -360,6 +370,15 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
 	      ( strncmp( grp_struc, "1_lanl", sizeof(char) * 7 ) == 0 ) ){
      new_grp_ptr = _1_group;
      *new_grp = 1;
+
+   } else if ( strncmp( grp_struc, "user", sizeof(char) * 5 ) == 0 ) {  
+       if (*new_grp > 0) {
+           new_grp_ptr = *new_grp_bounds;
+           /* check new_grp_bounds != NULL */
+           /* check for monotonically decreasing */
+       } else {
+           return(-5);
+       }
      
    } else if ( strncmp( grp_struc, "default", sizeof(char) * 8 ) == 0 ) {     
      /* Use library's group structure */
@@ -371,105 +390,96 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
      *new_grp = 0;
      return(-5);
    }
-   
-   if (! state) {
-       return(-2);
-   }
 
-   if ( ( state->library_type == 'm' ) ||
-	( state->library_type == 'd' ) ) {
+   if ( ( library_type == 'm' ) ||
+	( library_type == 'd' ) ) {
       /* Multigroup or dosimetry data*/
 
-      *c_flag = -1;
-      
       /* Test special cases for minimal processing */
+      
+      *c_flag = -1;
       
       /* TN data or isotope not set for multigroup */
       if ( old_grp <= 0 ) {
 	 /* Isotope not set, just return */
 	 return(ierr);
       }
-      
+
       /* old_grp must be at least as large as new_grp */
       if ( old_grp < *new_grp ) {
 	 /* Incompatible group structure */
-	 *new_grp = 0;
-	 *c_flag = 0;
-	 strcpy( state->n_group, "default" );
-	 return(-23);
+          *c_flag = 0;
+          return(-23);
       } 
-      
-      /* Test if collapsed group structure is the
-	 same as the library group structure      */
-      else if ( old_grp == *new_grp ) {
-	 for ( i = 0; i <= old_grp; i++ ) {
-	    if ( state->lib_ebounds[i] == *new_grp_ptr ) {
-	       new_grp_ptr++;
-	    } else {
-	       *new_grp = 0;
-	       *c_flag = 0;
-	       strcpy( state->n_group, "default" );
-	       return(-23);
-	    }
-	 }
-	 *c_flag = 0;
-	 return(ierr);
-      }
       
       ebounds = (int *)ndi_malloc( (*new_grp + 1) * sizeof(int) );
       
       for ( i = 0; i <= *new_grp; i++ ) {
-	 while ( greater_than_epsilon(state->lib_ebounds[lib_count], *new_grp_ptr) ) {
+	 while ( greater_than_epsilon(old_grp_bounds[lib_count], *new_grp_ptr) ) {
 	    lib_count++;
 	    if ( lib_count > old_grp ) {
 	       /* New boundaries extend farther than old (library) ones */
 	       if (ebounds) ndi_free((void**)&ebounds);
 	       *new_grp = 0;
+               break;
 	    }
 	 }
-	 if ( within_epsilon(state->lib_ebounds[lib_count], *new_grp_ptr ) != 0 ) {
+         if (lib_count > old_grp ) {
+             break;
+         }
+	 if ( within_epsilon(old_grp_bounds[lib_count], *new_grp_ptr ) != 0 ) {
 	    ebounds[i] = lib_count;
 	 } else {
 	    /* Incompatible group structure */
 	    if (ebounds) ndi_free((void**)&ebounds);
+/*
 	    *new_grp = 0;
-	    *c_flag = 0;
+            *c_flag = 0;
 	    strcpy( state->n_group, "default" );
+*/
 	    return(-23);
 	 }
 	 new_grp_ptr++;
       }
       
-      *new_ebound_p = ebounds;
-   } else if ( state->library_type == 's' ) {
+      *new_ebound_index = ebounds;
+
+   } else if ( library_type == 's' ) {
       /* TN data */
       /* Collapse_flag set to '0' above and grp_num_new set above */
       double *curr_e_ptr;
 
-      if (state->new_ebounds) ndi_free((void**)&state->new_ebounds);
-      if (state->tn_ebounds) ndi_free( (void **)&(state->tn_ebounds));
-      if ( *new_grp > 0 ) {
-	 state->tn_num_grps = *new_grp;
-	 state->tn_ebounds = (double *)ndi_malloc( ( *new_grp + 1 ) * sizeof(double));
-	 curr_e_ptr = state->tn_ebounds;
-	 for ( i = 0; i <= *new_grp; i++ ) {
-	    *curr_e_ptr = *new_grp_ptr;
-	    curr_e_ptr++;
-	    new_grp_ptr++;
-	 }
+/*       if (state->new_ebounds) ndi_free((void**)&state->new_ebounds); */
+      if (new_grp_bounds) {
+          if (*new_grp_bounds) ndi_free( (void **)&(*new_grp_bounds));
+          if ( *new_grp > 0 ) {
+              *new_grp_bounds = (double *)ndi_calloc( ( *new_grp + 1 ), sizeof(double));
+              curr_e_ptr = *new_grp_bounds;
+              for ( i = 0; i <= *new_grp; i++ ) {
+                  *curr_e_ptr = *new_grp_ptr;
+                  curr_e_ptr++;
+                  new_grp_ptr++;
+              }
+          } else {
+              /* No default group structure */
+/*
+ *new_grp = 0;
+ *c_flag = 0;
+ strcpy( state->n_group, "default" );
+*/
+              ierr = - 5;
+          }
       } else {
-	 /* No default group structure */
-	*new_grp = 0;
-	*c_flag = 0;
-	strcpy( state->n_group, "default" );
-	ierr = - 5;
+          /* Incompatible library type */
+/*
+ *new_grp = 0;
+ *c_flag = 0;
+ strcpy( state->n_group, "default" );
+*/
+          ierr = -16;
       }
    } else {
-      /* Incompatible library type */
-     *new_grp = 0;
-     *c_flag = 0;
-     strcpy( state->n_group, "default" );
-     ierr = -16;
+       ierr = -13;
    }
 
    return(ierr);
@@ -478,18 +488,25 @@ int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_str
 
 /**********************************************************************/
 
-static int within_epsilon(ndi_float64 a, ndi_float64 b) 
+static int within_epsilon(double a, double b) 
 {
+    if ( fabs(a - b) < DBL_EPSILON ) {
+        return(-1);
+    } else {
+        return(0);
+    }
+/*
    if ( a == b ) 
       return(-1);
    else
       return(0);
+*/
     
 }
 
 /**********************************************************************/
 
-static int greater_than_epsilon(ndi_float64 a, ndi_float64 b) 
+static int greater_than_epsilon(double a, double b) 
 {
    if ( a > b ) 
       return(-1);

@@ -66,16 +66,12 @@ int NDI_GET_FLOAT_VAL_N_H( state_struct *state, int in_key, int vec_num,
 
 
    if ( state->library_type == ' ' ) {
-     /* Library type was not set--defaulting to multigroup n */
-     state->library_type = 'm';
-     if ( state->particle_type == ' ' ) {
-       state->particle_type = 'n';
-     }
-     tmp_err = 8;
+     /* Library type was not set */
+       return (-16);
    } else if ( ( state->library_type != 'm' ) &&
 	       ( state->library_type != 'd' ) ) {
-      /* Incompatible library type */
-      return(-16);
+      /* Incompatible library type -- bad input key */
+      return(-4);
    }
 
    /* Check that isotope is set */
@@ -164,7 +160,7 @@ static int GET_PROD_Q( state_struct *state, const int rprod_in, FLOAT_TYPE *retu
    FLOAT_TYPE max_q = 0.0;
    depl_target_struct *curr_targ;
    depl_rprod_struct *curr_prod;
-   mg_sec_part_type rprod_str;
+   mg_zaid rprod_str;
 
         if (state) {
             curr_targ = state->depl_target;

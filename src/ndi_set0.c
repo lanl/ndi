@@ -195,16 +195,20 @@ int ndi_set0_mg_sec_part( sec_part_mg *part )
   int ierr = 0;
 
   if (part) {
-    strcpy( part->part_type, "" );
+    part->part_type = -1;
     strcpy( part->zaid, "" );
+    strcpy( (part->n_group), "default" );
     part->num_grps = -1;
     part->pn_order = -1;
-    part->e_bounds.length = 0;
-    part->e_bounds.file_ptr = 0;
+    part->collapse_flag = 0;
+    part->grp_num_new = 0;
     part->heating.length = 0;
     part->heating.file_ptr = 0;
     part->kerma.length = 0;
     part->kerma.file_ptr = 0;
+    if (part->e_bounds) ndi_free((void **) &part->e_bounds);
+    if (part->new_ebounds) ndi_free((void **) &part->new_ebounds);
+    if (part->collapse_ebounds) ndi_free((void **) &part->collapse_ebounds);
     if ( part->pn_prod_full.num_objs > 0 ) {
       if ( part->pn_prod_full.stat ) {
 	ndi_free((void**)&part->pn_prod_full.stat);

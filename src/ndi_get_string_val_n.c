@@ -65,18 +65,11 @@ int ndi_c_get_string_val_n_h ( state_struct *state, int in_key, int vec_num,
      } else if ( state->library_type == 'r' ) {
 	 ierr = get_string_n_tnreac( state, in_key, ret_val, vec_num, str_size );
      } else if ( state->library_type == ' ' ) {
-	 /* Library type was not set--defaulting to multigroup n */
-	 state->library_type = 'm';
-	 if ( state->particle_type == ' ' ) {
-	     state->particle_type = 'n';
-	 }
-	 ierr = get_string_n_mg( state, in_key, ret_val, vec_num, str_size );
-	 if ( ierr >= 0 ) {
-	     ierr = 8;
-	 }
+	 /* Library type was not set */
+         ierr = -16;
      } else {
-	 /* Incompatible library type */
-	 ierr = -16;
+	 /* Incompatible library type -- bad input key */
+	 ierr = -4;
      }   
    }
 
@@ -120,8 +113,8 @@ static int get_string_n_mg( state_struct *state, int in_key, char *ret_val,
 
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
       if ( ( state->iso_stat.num_sec_parts > vec_num ) && ( state->iso_stat.sec_part ) &&
-	   ( strcmp(state->iso_stat.sec_part[vec_num].part_type, "") != 0 ) ) {
-	 strncpy( ret_val, state->iso_stat.sec_part[vec_num].part_type, str_size );
+	   ( state->iso_stat.sec_part[vec_num].part_type >= 0 ) ) {
+          if (sprintf(ret_val, "%d", state->iso_stat.sec_part[vec_num].part_type) > str_size );
       } else {
 	if ( state->iso_stat.num_sec_parts > vec_num ) {
 	  ierr = ndi_check_array_err(state->iso_stat.num_sec_parts);
