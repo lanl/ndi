@@ -28,3 +28,5 @@ distclean:
 	(cd src; $(MAKE) distclean)
 	$(RM) Makefile config.log config.status
 
+check_data:
+	(cd src; $(MAKE) check_data)

@@ -136,6 +136,10 @@ SRC_TESTF := \
 	test/radchemf.F\
 	test/symbol_translatef.F
 
+DATA_TEST_SRC := \
+	test/tn_data.c \
+	test/mgn_data.c
+
 ifneq (,$(findstring cray, $(CONFIG)))
 SRC += ndi_fortran_cray.c
 else
@@ -152,6 +156,7 @@ OBJ	+= $(SRC_FLOAT:%.c=%_float64.o)
 OBJ_TESTC:=  test/all.o $(SRC_TESTC:%.c=%.o)
 TESTC	:=  testc_all $(SRC_TESTC:test/%.c=testc_%)
 TESTF	:=  $(SRC_TESTF:test/%.F=testf_%)
+DATA_TESTS	:= $(DATA_TEST_SRC:test/%.c=testc_%)
 
 # determine test output files
 
@@ -183,6 +188,14 @@ check: $(TARGET) $(TESTOUT)
 
 check_all: $(TARGET) $(TESTC) $(TESTF)
 	echo "Insert commands to run the tests here"
+
+check_data: $(TARGET) $(DATA_TESTS)
+	@ $(RM) $@.out
+	@ for i in $(DATA_TESTS); \
+	do \
+	$$i >> $@.out; \
+	rm $$i; \
+	done
 
 clean:
 	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
