@@ -1,0 +1,13 @@
+			   -*- outline -*-
+
+* Hook up NDI 2.0 ndid functionality
+
+* Add chi matrices to mpmg
+
+* Add NDI_E_AVG (average bin energy) to mpmg
+
+* Implement "intermediate convenience functions"
+
+* Handle problems with null string as path for ndi2_open_gendir
+
+* Change chain multiplicities from integer to float
