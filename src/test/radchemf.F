@@ -4,10 +4,10 @@
       program main
 
       
-      character*13 zaid, tmp_zaid, num_grp_str
-      integer return_int, vec_num, return_int_vec(20)
+      character*13 tmp_zaid, num_grp_str
+c      integer return_int, vec_num, return_int_vec(20)
       integer num_target, i, tmp_izaid
-      real*8 return_flt, return_flt_vec(900), awr(500)
+c      real*8 return_flt, return_flt_vec(900), awr(500)
 
 
 c     Test error on initialization before close

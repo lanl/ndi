@@ -10,7 +10,7 @@
       
       character*ZAID_SIZE zaid, tmp_zaid
       character*132 info
-      character*30 vers
+c      character*30 vers
       character*12 vec_str
       integer int_val_num
       integer int_val_n_num
@@ -45,11 +45,10 @@
       character*12 flt_vec_x_str(1)
       character*12 sec_part_str(6)
       character*12 zaid_list(8)
-      character*ZAID_SIZE str_arr(STR_SIZE)
       character*8   num_grp_str
       integer return_int, vec_num, return_int_vec(20)
-      integer num_element, zd_cnt, arr_size
-      real*8 return_flt, return_flt_vec(FLOAT_VEC_SIZE), awr(AWR_SIZE)
+      integer num_element, zd_cnt
+      real*8 return_flt, return_flt_vec(FLOAT_VEC_SIZE)
 
 
       int_val_num = 10

@@ -239,7 +239,7 @@ c     Get another data handle after setting transpose
      $     'transpose', ierr)
       call check_err(ierr, "setting default mat order transpose")
       call ndi2_get_handle_gendir(gendir2, mpmg_handle2, ierr)
-      call check_err(ierr, "getting mpmg_handle2");
+      call check_err(ierr, "getting mpmg_handle2")
       call ndi2_set_lib_type(mpmg_handle2, "multigroup_multi",
      $     ierr)
       call check_err(ierr, "setting multigroup_multi")
@@ -286,11 +286,11 @@ c     Get data
       character*(*) msg
 
       if (ierr .lt. 0) then
-         write(*,*) "NDI ERROR ", ierr,
-     $        ":  ", msg
+         write(*, 20) ierr, msg
+ 20      format("NDI ERROR ", i4, ":  ", a50)
       else if (ierr .gt. 0) then
-         write(*,*) "NDI WARNING ", ierr,
-     $        ":  ", msg
+         write(*, 30) ierr, msg
+ 30      format("NDI WARNING ", i4, ":  ", a50)
       endif
 
       return
