@@ -17,6 +17,8 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
+#define MAX_SZA_SIZE  16
+
 /**********************************************************************/
 
 int ndi_depletion( const char *in_zaid )
@@ -188,8 +190,10 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
    int curr_index = -1;
    int iprod;
    int num_rprods = *prod_index;
+   int zaid_size = MAX_SZA_SIZE;
    char *token;
-   char tmp_zaid[15];
+   char tmp_zaid[MAX_SXA_SIZE];
+   char *curr_zaid = tmp_zaid;
 
    depl_rprod_struct *curr_prod = *rprod_p;
 
@@ -206,9 +210,12 @@ int ndi_set_curr_rprod( depl_rprod_struct **rprod_p, const char *rprod,
 
    /* Change input rprod to integer */
    strcpy( tmp_zaid, rprod );
-   if ( strcmp( tmp_zaid, "-999") != 0 ) {
-     ierr = ndi_std_zaid( tmp_zaid, sizeof(tmp_zaid) );
-   }  
+   if ( tmp_zaid[0] == '-' ) {
+       curr_zaid = &tmp_zaid[1];
+       zaid_size -= 1;
+   }
+   ierr = ndi_std_zaid( curr_zaid, zaid_size );
+
    token = strtok( tmp_zaid, "." );
    if ( token != NULL ) {
      iprod = (int) strtol( token, (char **)NULL, 10 );
