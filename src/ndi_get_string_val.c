@@ -359,7 +359,7 @@ static int get_string_mpmg(state_struct *state, int in_key,
 
     case NDI_ZAID:		/*  NDI_ZAID  */
 	/* Check that isotope is set */
-	strncpy(ret_val, state->iso_stat.zaid, str_size);
+	strncpy(ret_val, state->handle_map[0]->iso_stat.zaid, str_size);
 	break;
 
       /**************  UNKNOWN KEYWORD  *****************/

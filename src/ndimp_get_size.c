@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -49,7 +50,7 @@ int ndimp_get_size(state_struct *handle[], const int num_parts,
 
     /* All single values */
     case NDI_ZAID:		/*  ZAID  */
-	return_val = 24;
+	return_val = strlen(handle[0]->iso_stat.zaid) + 1;
 	break;
     case  NDI_NUM_GRPS:
     case NDI_PN_ORDER:

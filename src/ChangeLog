@@ -1,3 +1,11 @@
+2004-05-07  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_get_string_val.c (get_string_mpmg): return particle 0 zaid
+	for NDI_ZAID keyword
+
+	* ndimp_get_size.c (ndimp_get_size): return length of particle 0
+	zaid for NDI_ZAID keyword
+
 2004-05-06  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndimp_get_size.c (ndimp_get_size): added NDI_ZAID to list of

@@ -61,6 +61,7 @@ c     test getting zaid back
             write(*, 43) ierr
  43         format("  **Error ", i3, "getting zaid")
          endif
+
 c     start accessing data 
          call ndi2_get_int_val(mpmg, NDI_NUM_GRPS, return_int,
      $        ierr)

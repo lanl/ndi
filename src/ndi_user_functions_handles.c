@@ -132,7 +132,6 @@ int NDI2_set_zaid(int handle, const char *zaid)
     if (is_gendir(handle)) {
         return -2;
     } else if (is_mpmg(state_p)) {
-	strcpy(state_p->iso_stat.zaid, zaid); /* absorb in following call? */
         return (ndimp_set_zaid(state_p->handle_map,
                                state_p->handle_free,
                                zaid ));

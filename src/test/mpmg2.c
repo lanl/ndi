@@ -56,7 +56,7 @@ int main ()
        ierr = NDI2_get_string_val(mpmg, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting mpmg zaid is %d\n", ierr);
-       if (strcmp(part_zaid, "92235") != 0)
+       if (strncmp(part_zaid, "92235", 5) != 0)
 	   printf(" ***Error matching mpmg zaid\n");
 
        /* start accessing data */
