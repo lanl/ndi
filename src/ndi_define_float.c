@@ -111,7 +111,11 @@ int main()
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf32\n");
     printf("#define NDI_GET_NU ndi_get_nu32\n");
     printf("#define COPY_SGNDF_E ndi_copy_sgndf32\n");
-
+    printf("#define NEUTRON_E_AVG ndi_neutron_e_avg32\n");
+    printf("#define PHOTON_E_AVG ndi_photon_e_avg32\n");
+    printf("#define MIDPT_ENERGY ndi_midpt_energy32\n");
+    printf("#define VELOCITY_CALC ndi_velocity_calc32\n");
+    printf("#define LEGACY_E_CALC ndi_legacy_e_calc32\n");
 
     printf("#else\n");
     printf("#define FLOAT_TYPE ndi_float64\n");
@@ -196,6 +200,11 @@ int main()
     printf("#define NDI_GET_NUSIGF ndi_get_nusigf64\n");
     printf("#define NDI_GET_NU ndi_get_nu64\n");
     printf("#define COPY_SGNDF_E ndi_copy_sgndf64\n");
+    printf("#define NEUTRON_E_AVG ndi_neutron_e_avg64\n");
+    printf("#define PHOTON_E_AVG ndi_photon_e_avg64\n");
+    printf("#define MIDPT_ENERGY ndi_midpt_energy64\n");
+    printf("#define VELOCITY_CALC ndi_velocity_calc64\n");
+    printf("#define LEGACY_E_CALC ndi_legacy_e_calc64\n");
 
     printf("#endif\n\n\n");
 
