@@ -48,6 +48,9 @@ int ndimp_get_size(state_struct *handle[], const int num_parts,
 	break;
 
     /* All single values */
+    case NDI_ZAID:		/*  ZAID  */
+	return_val = 24;
+	break;
     case  NDI_NUM_GRPS:
     case NDI_PN_ORDER:
     case NDI_NUM_PNU_PR:

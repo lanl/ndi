@@ -50,6 +50,17 @@ c     setup particles
          call ndi2_set_option(mpmg, NDI_LIBRARY, library(i), ierr)
          call ndi2_set_zaid(mpmg, "92235", ierr)
 
+c     test getting zaid back
+         call ndi2_get_size(mpmg, NDI_ZAID, int_vec_size, ierr)
+         if (ierr .ne. 0) then
+            write(*, 42) ierr
+ 42         format("  **Error ", i3, "getting zaid size")
+         endif
+         call ndi2_get_string_val(mpmg, NDI_ZAID, part_zaid, ierr)
+         if (ierr .ne. 0) then
+            write(*, 43) ierr
+ 43         format("  **Error ", i3, "getting zaid")
+         endif
 c     start accessing data 
          call ndi2_get_int_val(mpmg, NDI_NUM_GRPS, return_int,
      $        ierr)

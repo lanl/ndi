@@ -1,5 +1,8 @@
 2004-05-06  Mark G. Gray  <mgg@lambda.lanl.gov>
 
+	* ndimp_get_size.c (ndimp_get_size): added NDI_ZAID to list of
+	active options in get_size
+
 	* ndi_get_string_val.c (get_string_mpmg): added mpmg to list of
 	particle types
 

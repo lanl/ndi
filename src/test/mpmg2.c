@@ -50,6 +50,9 @@ int main ()
        ierr = NDI2_set_zaid(mpmg, "92235");
 
        /* test getting zaid back */
+       int_vec_size = NDI2_get_size(mpmg, NDI_ZAID, &ierr); 
+       if (ierr) 
+           printf("\n  **Error %d getting size of ZAID.\n", ierr );
        ierr = NDI2_get_string_val(mpmg, NDI_ZAID, part_zaid, ZAID_SIZE);
        if  (ierr != 0)
            printf(" ***Error getting mpmg zaid is %d\n", ierr);
