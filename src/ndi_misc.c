@@ -530,6 +530,8 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
 	    }
 	    bound_p++;
 	}
+    } else {
+        ret_val = 0;
     }
 
     return (ret_val);
