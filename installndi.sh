@@ -1,7 +1,7 @@
 #!/bin/sh
 
 GROUP=pdata
-GNU_OS_OUT=`gnu-os`
+GNU_OS_OUT=`./gnu-os`
 BUILD_DIR=build-$GNU_OS_OUT
 DEBUG_DIR=debug-$GNU_OS_OUT
 
