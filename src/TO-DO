@@ -14,3 +14,7 @@
   Consider format change; consider major function rewrite (odiferous functions)
 
 * Factor get_float_vec and get_float_vec_n into raw data layer + transpose layer
+
+* Fix build system so that "." need not be in the PATH.
+
+* Fix build system so that it works for people who aren't jomc (directory owner?).
