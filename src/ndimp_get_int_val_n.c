@@ -6,7 +6,6 @@
 
 static int get_comb_reac_mt_n(state_struct *h, int vec_num, int *return_val);
 static int get_last_group_n(state_struct *h, int vec_num, int *return_val);
-static int get_particle_index(state_struct *h, int part_type, int *return_val);
 
 /**********************************************************************/
 int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num, int *ret_val)

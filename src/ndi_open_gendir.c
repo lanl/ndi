@@ -17,7 +17,7 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int isblank(char *str);
+static int isblank(const char *str);
 
 /**********************************************************************
 
@@ -41,7 +41,8 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 				   "/usr/projects/data/nuclear/ndi/"
 				   NDI_VERSION_DATA "/share/gendir",
 				   "/usr/gapps/lanl-data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir"};
+				   NDI_VERSION_DATA "/share/gendir",
+				   ""};
     int i;
 
     if (in_path != NULL && !isblank(in_path)) {
@@ -49,7 +50,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 	strcpy(dir_file, in_path);
 	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
 	    /* in_path file unreadable */
-	    ierr = 1;
+	    ierr = 11;
 	    strcpy(dir_file, "gendir");
 	    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
 		/* gendir unreadable */
@@ -57,7 +58,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 		    strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
 		    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
 			/* NDI_GENDIR_PATH file unreadable */
-			ierr = 3;
+			ierr = 11;
 		    }
 		}
 	    }		
@@ -70,7 +71,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 		strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
 		if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
 		    /* NDI_GENDIR_PATH file unreadable */
-		    ierr = 2;
+		    ierr = 12;
 	        }
 	    }		
 	}
@@ -78,7 +79,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 
     if (*dir_stream == NULL) {
 	/* Check for the default file */
-	for (i = 0; i < 3; i++) {
+	for (i = 0; strcmp(default_file[i], ""); i++) {
 	    strcpy(dir_file, default_file[i]);
 	    if ((*dir_stream = fopen(dir_file, "rb")) != NULL)
 		break;
@@ -109,7 +110,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
     return (ierr);
 }
 
-int isblank(char *str)
+int isblank(const char *str)
 {
 
     int i;

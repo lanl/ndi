@@ -34,6 +34,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */
+    int jerr;
     char *path = NULL;
     FILE *tmp_gendirp;
     state_struct *state;
@@ -77,11 +78,16 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
     state->curr_reac_index = -1;	/* OBSOLETE? */
     strncpy(state->nuc_data_type, "", sizeof(state->nuc_data_type));  /* OBSOLETE */
 
-    ierr = ndi_init_state_common(state);
-    ierr = ndi_init_state_iso_state(state);
-    ierr = ndi_init_state_tn(state);
-    ierr = ndi_init_state_tnreac(state);
-    ierr = ndi_init_state_chain(state);
+    jerr = ndi_init_state_common(state); 
+    NDI_CURR_ERR(jerr, ierr);
+    jerr = ndi_init_state_iso_state(state);
+    NDI_CURR_ERR(jerr, ierr);
+    jerr = ndi_init_state_tn(state);
+    NDI_CURR_ERR(jerr, ierr);
+    jerr = ndi_init_state_tnreac(state);
+    NDI_CURR_ERR(jerr, ierr);
+    jerr = ndi_init_state_chain(state);
+    NDI_CURR_ERR(jerr, ierr);
 
     for (i = 0; i < MAX_HANDLE_NUM; i++)
 	state->handle_map[i] = NULL;	/* handle pointers */

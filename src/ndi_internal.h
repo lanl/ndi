@@ -53,13 +53,9 @@
  *    Macros
  */
 
-/*define NDI_CURR_ERR(new_err, curr_err) (  if ( (new_err) < 0 ) {
-      (curr_err) = (new_err);
-  } elseif ( ( (curr_err) >= 0 ) && ( (b=new_err) != 0 ) {
-      (curr_err) = (new_err);
-  }
-)
-*/
+#define NDI_CURR_ERR(new_err, curr_err) (curr_err) = \
+(((new_err) < 0) || (((curr_err) >= 0) && ((new_err) != 0))) ? \
+(new_err) : (curr_err)
 
 /**********************************************************************/
 

@@ -33,13 +33,13 @@ int test_ndid(void)
 
   ierr = NDI2_open_gendir(&gendir, "");
   if ( ierr != 0 ) {
-    return(1);
+    return(ierr);
   }
 
   ierr = NDI2_set_option_gendir(gendir, NDI_LIB_TYPE_DEFAULT,
 				"multigroup_neutron");
   if (ierr != 0) {
-      return(1);
+      return(ierr);
   }
 
   printf("\n  NDI TEST SUITE -- test_ndid \n\n");
@@ -54,7 +54,7 @@ int test_ndid(void)
   awr = (float64 *)malloc( arr_num * sizeof(float64) );
   ierr = NDI2_get_string_vec(gendir, NDI_ZAID, str_arr, arr_size);
   if (ierr != 0) {
-      return(1);
+      return(ierr);
   }
 
   print_list( str_arr, arr_num );

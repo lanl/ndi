@@ -1,3 +1,12 @@
+2004-10-18  Mark G. Gray  <mgg@l82.lanl.gov>
+
+	* ndi_internal.h (NDI_CURR_ERR): uncomment and use macro
+
+	* ndi_init.c (ndi_c_init_h): test serial ierr values to determine
+	which one to return
+
+	* ndi_set0.c (set0_mg): removed warning 2 from set routines
+
 2004-10-15  Mark G. Gray  <mgg@l81.lanl.gov>
 
 	* ndi_open_gendir.c (ndi_open_gendir): Cleaned up search path
