@@ -30,30 +30,34 @@
     file.  State variables are set: ndi_initialized,library_vers, 
     mat_order,...
 ***********************************************************************/
-int ndi_c_init_h(state_struct **curr_state, const char *path)
+int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */
+    char *path = NULL;
+    FILE *tmp_gendirp;
     state_struct *state;
 
     if (!curr_state) {
 	return (-2);
     }
-
     *curr_state = NULL;
-    state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
-    state->ndi_initialized = -1;
 
     /* Open directory file and initialize state variables */
-
-    strcpy(state->open_gendir_file, path);
-    ierr = ndi_open_gendir(&(state->ndi_dir), state->open_gendir_file);
+    ierr = ndi_open_gendir(&tmp_gendirp, gendir_path, &path);
 
     if (ierr < 0) {
 	/* Fatal error opening gendir */
-	state->ndi_initialized = 0;
-	return (ierr);
+        if (path) 
+            ndi_free((void **) &path);
+        return (ierr);
     }
+    state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
+    state->ndi_initialized = -1;
+    strcpy(state->open_gendir_file, path);
+    state->ndi_dir = tmp_gendirp;
+    if (path)
+        ndi_free((void **) &path);
 
     /* Initialize variables */
     state->handle = -1;
@@ -84,6 +88,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *path)
     state->handle_free = 0;
 
     *curr_state = state;
+
     return (ierr);
 
 }
@@ -98,6 +103,8 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 {
     int i;
     int ierr = 0;		/* 0=no error,pos=warning, neg=error */
+    char *path = NULL;
+    FILE *tmp_gendirp;
     state_struct *state;
 
     if (!child) {
@@ -105,17 +112,21 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     }
 
     *child = NULL;
+
+    ierr = ndi_open_gendir(&tmp_gendirp, parent->open_gendir_file, &path);
+
+    if (ierr < 0) {
+	/* Fatal error opening gendir */
+        if (path)
+            ndi_free((void **) &path);
+	return (ierr);
+    }
     /* allocate state, declare uninitialized */
     state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
     state->ndi_initialized = -1;
-
     strcpy(state->open_gendir_file, parent->open_gendir_file);
-    ierr = ndi_open_gendir(&(state->ndi_dir), state->open_gendir_file);
-    if (ierr < 0) {
-	/* Fatal error opening gendir */
-	state->ndi_initialized = 0;
-	return (ierr);
-    }
+    state->ndi_dir = tmp_gendirp;
+
 
     /* Initialize variables */
     state->handle = -1;
@@ -127,7 +138,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 	(char *) ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
     strcpy(state->library_vers, parent->library_vers);
     state->particle_type = parent->particle_type;
-    state->library_type = parent->library_type;
+    state->library_type = ' ';
     state->mat_order = parent->mat_order;
     state->reac_id = parent->reac_id;
     state->curr_reac_index = parent->curr_reac_index;

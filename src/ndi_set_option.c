@@ -28,7 +28,6 @@ static int ndi_set_e_avg(state_struct *state, const char *value);
 static int ndi_set_kerma_calc(state_struct *state, const char *value);
 
 static int get_order(const char *value);
-static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
 static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 		       const char *value_type, const char *in_value,
 		       int reaction_flag);
@@ -614,46 +613,6 @@ static int get_order(const char *value)
     }
     return (return_value);
 }
-
-/**********************************************************************/
-/**********************************************************************/
-
-static int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
-   /* Copies old_str to new_str making all characters lowercase 
-      and stripping starting and ending whitespace.  The string
-      cannot contain any "internal" whitespace.  The first whitespace
-      found after characters will cause an end of string to be inserted.
-
-    */
-{
-    int old_len = (int) strlen(old_str);
-    int oldindx;
-    int newindx = 0;
-    int ierr = 0;
-
-    for (oldindx = 0; oldindx <= old_len; oldindx++) {
-	if (isspace(old_str[oldindx])) {
-	    if (newindx > 0) {
-		new_str[newindx] = '\0';
-		break;
-	    }
-	} else {
-	    new_str[newindx] = tolower(old_str[oldindx]);
-	    newindx++;
-	    if (newindx >= new_len) {
-		new_str[newindx - 1] = '\0';
-		ierr = 7;
-		break;
-	    }
-	}
-    }
-
-    /* Handle 'empty' strings */
-    if (newindx == 0)
-	new_str[0] = '\0';
-    return (ierr);
-}
-
 
 /**********************************************************************/
 /**********************************************************************/

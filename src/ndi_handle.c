@@ -107,3 +107,23 @@ int __ndi_close_handle(int handle)
 	 return (-2);
     }
 }
+
+int __ndi_add_child_handle(state_struct *parent)
+{
+    int h;
+    state_struct *child = NULL;
+
+    h = parent->handle_free;	/* get next child handle */
+    if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
+	ndi_c_clone_h(parent, &child);
+	parent->handle_map[h] = child;
+	parent->handle_free++;
+	if (child) {
+	    child->handle = h;
+	}
+    } else {
+	return -1;		/* handle array exhausted */
+    }
+    
+    return 0;
+}

@@ -47,8 +47,9 @@ int ndi_c_close_h(state_struct **curr_state)
     }
 
     for (i = 0; i < MAX_HANDLE_NUM; i++) /* close children */
-	if (state->handle_map[i] != NULL)
+	if (state->handle_map[i] != NULL) 
 	    ierr = ndi_c_close_h(&(state->handle_map[i]));
+    state->handle_free = 0;
 
     /* Close directory file and library file */
     if (state->ndi_dir) {

@@ -175,7 +175,12 @@ int ndi2_set_option(int handle, int in_key, const char *value)
     /* if (is_gendir(handle)) return -2; */
   
     state_p = handle_to_state_p(handle);
-    return (ndi_c_set_option_h(state_p, in_key, value));
+
+    if (is_mpmg(state_p)) {
+	return (ndimp_set_option(state_p, in_key, value));
+    } else {
+        return (ndi_c_set_option_h(state_p, in_key, value));
+    }
 }
 
 int ndi2_set_float64_vec_option(int handle, int in_key,
@@ -426,26 +431,14 @@ int ndi2_get_handle_mpmg(int handle0, int *handle1)
 */
 int ndi2_get_handle(int handle0, int *handle1)
 {
-    int h;
     state_struct *parent;
-    state_struct *child = NULL;
 
     parent = handle_to_state_p(handle0);	/* get parent state */
-    h = parent->handle_free;	/* get next child handle */
+    *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
 
-    if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
-	ndi_c_clone_h(parent, &child);
-	parent->handle_map[h] = child;
-	parent->handle_free++;
-	if (child) {
-	    child->handle = h;
-	}
-    } else {
-	return -1;		/* handle array exhausted */
-    }
- 
-    *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + h;
-    return 0;
+    return(__ndi_add_child_handle(parent));
+    
+
 }
 
 /* obsolete: replace with above */

@@ -411,7 +411,7 @@ extern "C" {
 		     int reaction_flag);
     int ndi_close_lib_file(state_struct *state);
     FILE *ndi_open_lib_file(state_struct *state, const char *path);
-    int ndi_open_gendir(FILE **ndi_dir, char *path);
+    int ndi_open_gendir(FILE **ndi_dir, const char *gendir_path, char **path);
     int ndi_init_iso_state(state_struct *state, FILE *stream,
 			   char lib_type, long int iso_start,
 			   const char *zaid);
@@ -523,6 +523,7 @@ extern "C" {
     int ndi_set_curr_rprod(state_struct *state,
 			   depl_rprod_struct **rprod_p, const char *rprod,
 			   int *prod_index);
+    int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
 
     /***  Subroutines in file ndi_misc_float.c ***/
     int ndi_init_float32_vec(ndi_float32 * vec, int num_elements);
@@ -625,6 +626,7 @@ extern "C" {
     state_struct *handle_to_state_p(int handle);
     int set_handle(state_struct *state);
     int __ndi_close_handle(int handle);
+    int __ndi_add_child_handle(state_struct *parent);
 
    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,
@@ -688,6 +690,8 @@ extern "C" {
 				double *y);
 
     /* multi-particle multi-group functions */
+    int ndimp_set_option(state_struct *mpmg_handle, 
+                         int in_key, const char *value );
     int ndimp_get_float32_vec(state_struct *handle[], 
 			      const int num_parts,
 			      const int in_key, ndi_float32 * ret_vec,

@@ -30,14 +30,15 @@
   value for warning, and zero if everything is ok.
 
 **********************************************************************/
-int ndi_open_gendir(FILE **dir_stream, char *path)
+int ndi_open_gendir(FILE **dir_stream, const char *in_path, 
+                    char **open_path)
 {
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
 
-    if (path != NULL && strcmp(path, "")) {
+    if (in_path != NULL && strcmp(in_path, "")) {
 	/* Look first for the user specified gendir, if any */
-	strcpy(dir_file, path);
+	strcpy(dir_file, in_path);
     } else {
 	/*  Look next for a local gendir, if any */
 	strcpy(dir_file, "gendir");
@@ -94,7 +95,20 @@ int ndi_open_gendir(FILE **dir_stream, char *path)
 	    }
 	}
     }
-    strcpy(path, dir_file);
+
+    if (open_path) {
+        *open_path = NULL;
+        if ((*open_path = (char *)ndi_malloc((strlen(dir_file) + 1) * sizeof(char)))) {
+            strncpy(*open_path, dir_file, strlen(dir_file) + 1);
+        } else {
+            ierr = -14;
+        }
+    } else {
+        /*  ???  */
+        if (ierr >= 0)
+            ierr = 7;
+    }
+
     return (ierr);
 }
 

@@ -93,6 +93,7 @@ SRC := \
 	ndi_user_functions_handles.c \
 	ndi_user_functions_no_h.c \
 	ndi_zaid_dir.c \
+	ndimp_set_option.c \
 	ndimp_get_int_val.c \
 	ndimp_get_int_val_n.c \
 	ndimp_get_int_vec.c \
