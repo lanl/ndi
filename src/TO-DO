@@ -14,3 +14,5 @@
 * Fix build system so that "." need not be in the PATH.
 
 * Fix build system so that it works for people who aren't jomc (directory owner?).
+
+* Add ability to calculate missing chi matrix from other chi matrices if enought data is available.
