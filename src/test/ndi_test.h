@@ -1,0 +1,16 @@
+int test_collapse (void);
+int testc (void);
+int test_depl(void);
+int test_mgn_c (void);
+int test_ndid(void);
+int test_tn_c(void);
+int test_tnreac_c(void);
+int testtn2(void);
+int testtn3(void);
+int testtn4(void);
+int testtn5(void);
+int testtn_new(void);
+int tn_chain(void);
+int tn_simple(void);
+int kerma_example(void);
+int test5(void);

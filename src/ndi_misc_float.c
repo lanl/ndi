@@ -1,0 +1,504 @@
+
+/*
+ * File:	ndi_misc_depl.c
+ * Description:	Miscellaneous functions dealing with depletion (no floats)
+ * Time-stamp:	<2000-02-08 15:43:38 jomc>
+ *
+ */
+
+/**********************************************************************/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "ndi.h"
+#include "ndi_internal.h"
+#include "ndi_state.h"
+#include "ndi_var_type.h"
+
+
+/**********************************************************************/
+
+
+int NDI_INIT_FLOAT_VEC( FLOAT_TYPE *vec, int num_elements ) {
+
+   int i;
+   int ierr = 0;
+
+   for( i = 0; i < num_elements; i++ ) {
+      *vec = 0.0;
+      vec++;
+   }
+   return(ierr);
+}
+/*********************************************************************/
+int GET_SIMPLE_FLOAT_VEC(FILE *stream, long int f_ptr, 
+			 FLOAT_TYPE *return_vec, 
+			 int collapse_type, int num)
+{
+  /* Add return_size */
+
+   /*  collapse_type < 0 means this data should not be collapsed */
+
+   int ierr = 0;
+   FLOAT_TYPE *temp_vec = NULL;
+
+   if ( f_ptr > 0 ) {
+      if  ( ( collapse_type >= 0 ) && ( collapse_flag ) ) {
+	 temp_vec = (FLOAT_TYPE *)ndi_malloc( num * sizeof(FLOAT_TYPE) );
+	 if (!temp_vec) {
+	    /* Out of memory */
+	    return(-14);
+	 }
+	 ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, temp_vec, num );
+	 ierr = NDI_COLLAPSE_FLOAT( temp_vec, num, return_vec, collapse_type );
+	 if (temp_vec) ndi_free( (void**)&temp_vec );
+      } else {
+	 ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr, return_vec, num );
+      }
+   } else {
+      /* Error: data not available */
+      ierr = -9;
+   }
+   
+   return(ierr);
+}
+
+
+/*********************************************************************/
+int NDI_TRANSPOSE_FLOAT( FLOAT_TYPE *in_mat, int row_num, 
+			 int col_num ) 
+
+{
+   FLOAT_TYPE *temp_flt;
+   int row;
+   int col;
+   int ierr = 0;
+   int new_indx = 0;
+   
+   temp_flt = (FLOAT_TYPE*)ndi_malloc( (row_num * col_num) * sizeof(FLOAT_TYPE) );
+   if ( temp_flt ) {
+      for( col = 0; col < col_num; col++ ) {
+	 for( row = 0; row < row_num; row++ ) {
+	    temp_flt[new_indx] = in_mat[(row * col_num) + col];
+	    new_indx++;
+	 }
+      }
+
+      ierr = COPY_MATRIX( in_mat, temp_flt, (row_num * col_num) );
+      ndi_free((void**)&temp_flt);
+   } else {
+      /*Out of memory */
+      ierr = -14;
+   }
+
+   return(ierr);
+}
+
+/*********************************************************************/
+
+int NDI_VEC2MAT(const FLOAT_TYPE *vec, int num_vec, 
+		FLOAT_TYPE *return_mat, int num_mat) {
+
+   int ierr = 0;
+   int i = 0;
+   int j = 0;
+   int mat_cnt = 0;
+   int rows = num_vec;
+   int cols;
+
+   if ( rows != 0 ) {
+      cols = num_mat / rows;
+   } else {
+      return(ierr);
+   }
+  
+   for ( j = 0; j < cols; j++ ) {
+      for ( i = 0; i < num_vec; i++ ) {
+	 return_mat[mat_cnt] = vec[i];
+	 mat_cnt++;
+      }
+   }
+   return(ierr);
+  
+}
+
+/*********************************************************************/
+/*********************************************************************/
+
+int GET_SIG_REAC( isotope_status *mg, int vec_num, FLOAT_TYPE *return_vec,
+		  int *return_size )
+
+/*  Purpose:  Returns the cross-section for particle 'mg' for the 
+    reaction indicated by the mt corresponding to 'vec_num'.
+    
+    Parameters:
+    mg -- in:pointer to multigroup status structure.
+    return_vec -- out:array to fill with average energy; if no data
+        available, will fill return_vec with the number of zeroes
+	corresponding to the number of groups.
+    return_size -- in/out:on input shows the size of the array vec;
+        on output shows the size remaining in array ( i.e. original 
+        return_size minus the number of elements filled ).  May return
+	a negative value if return_size was not large enough.
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+
+***********************************************************************/
+
+
+{
+   int ierr = 0;
+   int reac_index;
+   int mt = 0;
+   int num_grps;
+   int temp_size = mg->num_grps;
+   FLOAT_TYPE *temp_vec = NULL;
+   
+   
+ 
+   if ( reac_id == 'c' ) {
+      mt = ndi_c_c_to_mt( vec_num );
+      if ( mt <= 0 ) {
+	 ierr = -6;
+	 return(-24);    /* Invalid MT or reaction identifier */
+      }
+   } else {
+      mt = vec_num;
+   }
+
+  if (collapse_flag) {
+      num_grps = grp_num_new;
+   } else {
+      num_grps = mg->num_grps;
+   }
+   
+   ierr = ndi_find_reac_index( mg->reac_mt, &reac_index, 
+			       mt, mg->num_reac );
+   
+   if ( ( ierr >= 0 ) && (mg->sig_reac.stat[reac_index].file_ptr) ) {
+      /* Reaction cross-section exists for this isotope--
+	 set temp_size and temp_vec */
+
+      if ( collapse_flag ) {
+	 temp_size = mg->num_grps;
+	 temp_vec = (FLOAT_TYPE *)ndi_malloc( temp_size * sizeof(FLOAT_TYPE) );
+	 if (!temp_vec) {
+	    /* Out of memory */
+	    return(-14);
+	 }
+      } else {
+	 temp_size = num_grps;
+	 temp_vec = return_vec;
+	 /* Bounds check */
+	 if ( temp_size > *return_size ) {
+	    ierr = 7;
+	    temp_size = *return_size;
+	 }
+      }
+
+      ierr = NDI_READ_FLOAT_BLOCK(lib_stream, 
+				  mg->sig_reac.stat[reac_index].file_ptr, 
+				  temp_vec, temp_size );
+
+      /* Collapse vector if necessary */
+      if ( collapse_flag ) {
+	 ierr = NDI_COLLAPSE_FLOAT( temp_vec, temp_size, return_vec, 0 );
+	 if (temp_vec ) ndi_free( (void**)&temp_vec );
+      }
+
+   } else {   /* ierr >= 0 ... */
+      /* Error: no data for this isotope */
+      if ( num_grps <= *return_size ) {
+	 ierr =  NDI_INIT_FLOAT_VEC( return_vec, num_grps );
+      } else {
+	 ierr =  NDI_INIT_FLOAT_VEC( return_vec, *return_size );
+      }
+      ierr = 9;
+   }
+
+   *return_size -= num_grps;
+   return(ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+
+int COPY_MATRIX( FLOAT_TYPE *dest, FLOAT_TYPE *source, int num) {
+
+   int ierr = 0;
+   int i;
+
+   /*** Check size of matrices ***/
+   for (i = 0; i < num; i++ ) {
+      dest[i] = source[i];
+   }
+
+   return(ierr);
+}
+
+/*********************************************************************/
+	   
+int MULT_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2, 
+		    int num_elements, int collapse, FLOAT_TYPE *return_vec, 
+		    int return_size ) {
+
+
+  /*  collapse < 0 means that this vector should not be collapsed */
+
+  int ierr = 0;
+  int tmp_err = 0;
+  int i;
+  int max_result = num_elements;
+  int result_size = return_size;
+  FLOAT_TYPE *temp_vec = NULL;
+  FLOAT_TYPE *result_p = return_vec;
+  
+  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    /* Check global collapse_flag to see if collapsing is set;
+       also check local collapse to see what type of collapse (if any)
+       */
+    temp_vec = (FLOAT_TYPE *)ndi_malloc( num_elements * sizeof(FLOAT_TYPE) );
+    /* Check for null */
+    result_p = temp_vec;
+    result_size = num_elements;
+  }
+  if ( max_result > result_size ) {
+    ierr = 7;
+    max_result = result_size;
+  }
+  /* check max_result */
+  for ( i = 0; i < max_result; i++ ) {
+    *result_p = vec1[i] * vec2[i];
+    result_p++;
+  }
+  
+  /* collapse if necessary */
+  
+  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, return_vec, collapse );
+    if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
+      ierr = tmp_err;
+    }
+  }
+  if ( temp_vec ) { ndi_free( (void **)&temp_vec ); }
+  
+  return(ierr);
+}
+
+/*********************************************************************/
+int DIVIDE_FLOAT_VEC( const ndi_float64 *vec1, const ndi_float64 *vec2, 
+		      int num_elements, int collapse, FLOAT_TYPE *return_vec, 
+		      int return_size ) {
+  
+  
+  /*  collapse < 0 means that this vector should not be collapsed
+      Note:  when the divisor is 0--no error is generated, the result is set to 0*/
+  
+  int ierr = 0;
+  int tmp_err = 0;
+  int i;
+  int max_result = num_elements;
+  int result_size = return_size;
+  FLOAT_TYPE *temp_vec = NULL;
+  FLOAT_TYPE *result_p = return_vec;
+  
+  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    /* Check global collapse_flag to see if collapsing is set;
+       also check local collapse to see what type of collapse (if any)
+       */
+    temp_vec = (FLOAT_TYPE *)ndi_malloc( num_elements * sizeof(FLOAT_TYPE) );
+    /* Check for null */
+    result_p = temp_vec;
+    result_size = num_elements;
+  }
+  if ( max_result > result_size ) {
+    ierr = 7;
+    max_result = result_size;
+  }
+  /* check max_result */
+  for ( i = 0; i < max_result; i++ ) {
+    if ( vec2[i] != 0 ) {
+      *result_p = vec1[i] / vec2[i];
+    } else {
+      *result_p = 0.0;
+    }
+    result_p++;
+  }
+
+  /* collapse if necessary */
+
+  if ( ( collapse_flag != 0 ) && ( collapse >= 0 ) ) {
+    tmp_err = NDI_COLLAPSE_FLOAT( temp_vec, num_elements, return_vec, collapse );
+    if ( ( ierr == 0 ) || ( tmp_err < 0 ) ) {
+      ierr = tmp_err;
+    }
+  }
+  if ( temp_vec ) { ndi_free( (void **)&temp_vec ); }
+
+  return(ierr);
+}
+
+/*********************************************************************/
+int NORM_FLOAT_VEC ( FLOAT_TYPE *vec_p, int num_elements, 
+		     const FLOAT_TYPE norm_val ) {
+
+  /* Assumes that the numbers will be non-negative */
+
+  int ierr = 0;
+  int i;
+  FLOAT_TYPE *temp_p = vec_p;
+  FLOAT_TYPE vec_sum = 0.0;
+  
+  /* find current normalization */
+  for ( i = 0; i < num_elements; i++ ) {
+    vec_sum += *temp_p;
+    temp_p++;
+  }
+  if ( ( vec_sum != norm_val ) && ( vec_sum != 0.0 ) ) {
+    temp_p = vec_p;
+    for ( i = 0; i < num_elements; i++ ) {
+      *temp_p /= vec_sum;
+      temp_p++;
+    }
+  }
+  return (ierr);
+
+}
+/*********************************************************************/
+int GET_ABUNDANCE( int izaid, FLOAT_TYPE *return_val ) {
+
+  char zaid_char[16];
+  int i;
+  int ierr = 0;
+  int a;
+  int element_in;
+  int element_curr;
+  int num_of_abundance_vals = 4;
+  int element_found_flag = 0;    /* If isotope of same element as izaid 
+                                    is found, then = 1, else = 0 */
+
+  int abundance_id[] = 
+  { 39089, 69169, 77191, 77193  };
+
+  ndi_float64 abundance_value[] =
+  { 1.0, 1.0, 0.373, 0.627  };
+
+  *return_val = 0.0;
+
+  /* Get element of input isotope */
+  sprintf( zaid_char, "%d", izaid );
+  ierr = ndi_parse_mg_zaid( zaid_char, &element_in, &a );
+
+  for ( i = 0; i < num_of_abundance_vals; i++ ) {
+    /* Check element of current isotope */
+    sprintf( zaid_char, "%d", abundance_id[i] );
+    ierr = ndi_parse_mg_zaid( zaid_char, &element_curr, &a );
+    if ( element_curr == element_in ) {
+      element_found_flag = -1;
+    }
+    
+    /* Simple-minded look-up */
+    if (abundance_id[i] == izaid) {
+      *return_val = (FLOAT_TYPE)abundance_value[i];
+      return(ierr);
+    }
+  }
+
+  /*  Check to see if this isotope has zero abundance (i.e. another
+      isotope of this element is given) or no data (i.e. no other 
+      element of this isotope is given 
+  */
+
+  if ( element_found_flag == 0 ) {
+    /* No data is given--set warning */
+    ierr = 9;
+  }
+
+  return (ierr);
+
+}
+/*********************************************************************/
+int CHI_MAT_TO_VEC(FILE *stream, long int f_ptr, 
+		   FLOAT_TYPE *return_vec, int return_size,
+		   int collapse_type, int num_grp )
+{
+
+  int ierr = 0;
+  int in;          /* Number of incoming energy groups */
+  int out;         /* Number of outgoing energy groups */
+  FLOAT_TYPE *chi_matrix = NULL;
+  FLOAT_TYPE *weights = NULL;
+  FLOAT_TYPE *temp_vec = NULL;
+
+  if ( f_ptr > 0 ) {
+    /* Read chi matrix from file  */
+    chi_matrix = (FLOAT_TYPE *)ndi_malloc( num_grp * num_grp * sizeof(FLOAT_TYPE) );
+    if (!chi_matrix) {
+      /* Out of memory */
+      return(-14);
+    }
+    /* Do not want the matrix collapsed so use read_float_block instead of
+       get_simple_float_vec */
+    ierr = NDI_READ_FLOAT_BLOCK( stream, f_ptr, chi_matrix, num_grp * num_grp );
+  
+
+    /* Get wgts for averaging */
+    if ( iso_stat.wgts.file_ptr > 0 ) {
+
+      weights = (FLOAT_TYPE *)ndi_malloc( num_grp * sizeof(FLOAT_TYPE) );
+      /* Check returned value */
+      ierr = NDI_READ_FLOAT_BLOCK( stream, iso_stat.wgts.file_ptr, weights, num_grp );
+    }
+
+    /* Flux-average matrix to form vector */
+    temp_vec = (FLOAT_TYPE *)ndi_malloc( num_grp * sizeof(FLOAT_TYPE) );
+    /* Check returned value */
+    for ( out = 0; out < num_grp; out++ ) {
+      temp_vec[out] = 0.0;
+      for ( in = 0; in < num_grp; in++ ) {
+	temp_vec[out] +=  weights[in] * chi_matrix[in * num_grp + out];
+      }
+    }
+
+    /* Collapse vector, if necessary */
+    /* Check this call */
+    /* What about checking return_size ? */
+
+    if (collapse_flag) {
+      ierr = NDI_COLLAPSE_FLOAT( temp_vec, num_grp, return_vec, collapse_type );
+    } else {
+      /* This is really ugly--do something better! */
+      for ( out = 0; out < num_grp; out++ ) {
+	if ( out < return_size ) {
+	  return_vec[out] = temp_vec[out];
+	} else {
+	  ierr = 7;
+	  break;
+	}
+      }
+    }
+
+    if (chi_matrix) {
+      ndi_free( (void **)&chi_matrix);
+    }
+    if (weights) {
+      ndi_free( (void **) &weights );
+    }
+    if (temp_vec) {
+      ndi_free( (void **) &temp_vec );
+    }
+    
+    /* Chi is not normalized here */
+  }
+
+  return(ierr);
+
+}
+  
+
+/*********************************************************************/
+/*********************************************************************/

@@ -1,0 +1,191 @@
+
+/*
+ * File:	ndi_set_isotope.c
+ * Description:	User function--set isotope for processing.
+ * Time-stamp:	<2000-02-03 14:49:27 jomc>
+ *
+ */
+
+/**********************************************************************/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "ndi.h"
+#include "ndi_internal.h"
+#include "ndi_state.h"
+
+
+/**********************************************************************/
+
+int	ndi_c_set_zaid(const char *in_zaid)
+
+/*  Purpose: Set the isotope which all future processing will work on.
+    This will also open the library file and read in isotope info.
+
+    Parameters: 
+    in_zaid -- input specification of isotope to process. This can be
+               as little as an element specification (e.g. U or 92).
+
+    Assumptions:  Isotope state will be initialized when function is
+    entered.
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+    May change the value of extern variable lib_stream.
+
+***********************************************************************/
+
+{
+   int ierr = 0;       /* Error flag: 0=no error,pos=warning, neg=error */
+   int tmp_err = 0;
+   char library[20];   /* Name of file (e.g. mendf5) */
+   char lib_path[250]; /* Path of library file */
+   char lib_file_type[] = "   ";  /* Currently only 'asc' is valid ascii */
+   long int iso_start; /* Line number in file where isotope data begins */
+   char tmp_zaid[132];
+   double at_wgt;
+   char real_zaid[132];
+
+   /*** Check that library type has been set ***/
+
+   /*** Check that ndi_init has been called. */
+   if (!ndi_initialized) {
+      return(-2); }
+
+   if ( library_type == ' ' ) {
+     /* Library type was not set--defaulting to multigroup n */
+     library_type = 'm';
+     if ( particle_type == ' ' ) {
+       particle_type = 'n';
+     }
+     tmp_err = 8;
+   }
+
+   /* Initialize (zero) isotope state */
+   ierr = ndi_set0(library_type); 
+
+   /*** check returned error value ***/
+
+   /* Convert input zaid to standard zaid and read data from gendir */
+   strcpy(tmp_zaid, in_zaid);
+   if ( (library_type == 'm' ) ||
+	(library_type == 'd') ) {
+      ierr = ndi_std_zaid(tmp_zaid);
+
+      /* printf("tmp_zaid = %s \n", tmp_zaid ); */
+      /*** Check returned error value  ***/
+      if ( ierr < 0 ) return(ierr);
+   }
+   ierr = ndi_zaid_dir(particle_type, library_type, tmp_zaid, real_zaid,
+		       library, lib_path, lib_file_type, &iso_start, 
+		       &at_wgt, 0 );
+
+   if ( ierr < 0 ) {
+      return(ierr);
+   }
+   
+   /*** Check returned error value ***/
+   
+   /* Check validity of data read from gendir */
+   if ( strcmp(lib_file_type, "asc") != 0 ) {
+      /* Only ASCII library files are currently handled. */
+      if ( ierr >= 0 ) {
+	 ierr = 15; }
+      return(ierr);
+   }
+
+   /* Open library file if needed */
+   if (strcmp(lib_path, open_lib_file) != 0) {
+      /* close current lib file and open new one */
+      if (lib_stream) ierr = ndi_close_lib_file(lib_stream);
+      /*** check returned error value ***/
+      if ((lib_stream = ndi_open_lib_file(lib_path)) == NULL) {
+	 /* Error opening library file */
+	 ierr = -1;
+      }
+   }
+
+   /*** check returned error value ****/
+
+   /* Set new isotope state */
+   ierr = ndi_init_iso_state( lib_stream, library_type, iso_start, real_zaid ); 
+
+   if ( ( library_type == 'm' ) ||
+	( library_type == 'd' ) ) {
+      /*** Check returned error value ***/
+      /*  Set energy bounds for collapsing */
+      if ( strcmp( n_group, "default" ) != 0 ) {
+	 ierr = ndi_set_e_grps( &new_ebounds, n_group, &grp_num_new, 
+				iso_stat.num_grps, &collapse_flag );
+      }
+   }
+
+   if ( ( tmp_err != 0 ) && ( ierr >= 0 ) ) {
+     ierr = tmp_err;
+   }
+
+   return(ierr);
+  
+}
+
+/**********************************************************************/
+
+int	ndi_c_set_isotope (const char *in_zaid)
+
+/*  Purpose: Set the isotope which all future processing will work on.
+    This will also open the library file and read in isotope info.
+
+    Parameters: 
+    in_zaid -- input specification of isotope to process. This can be
+               as little as an element specification (e.g. U or 92).
+
+    Assumptions:  Isotope state will be initialized when function is
+    entered.
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+    May change the value of extern variable lib_stream.
+
+***********************************************************************/
+{
+
+   int ierr = 0;
+
+   ierr = ndi_c_set_zaid( in_zaid );
+
+   return(ierr);
+}
+
+/**********************************************************************/
+
+int	ndi_c_set_reaction(const char *in_zaid)
+
+/*  Purpose: Set the isotope which all future processing will work on.
+    This will also open the library file and read in isotope info.
+
+    Parameters: 
+    in_zaid -- input specification of isotope to process. This can be
+               as little as an element specification (e.g. U or 92).
+
+    Assumptions:  Isotope state will be initialized when function is
+    entered.
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+    May change the value of extern variable lib_stream.
+
+***********************************************************************/
+
+{
+
+   int ierr = 0;
+
+   ierr = ndi_c_set_zaid( in_zaid );
+
+   return(ierr);
+}
+
+
+/**********************************************************************/

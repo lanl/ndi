@@ -1,0 +1,49 @@
+This directory contains the source code for NDI, a nuclear data
+interface.
+
+
+BUILDING NDI
+
+To build NDI you must specify a configuration.  Available
+configuration files are in directory conf/.
+
+For example
+    make CONFIG=intel-linux
+will build optimized and debug versions of the library placing the
+output (and associated build tree) in
+    build-intel-linux/
+and
+    debug-intel-linux/
+
+
+Other targets:
+
+make distclean                        - removes all build trees
+
+make CONFIG=intel-linux build         - builds the optimized tree only
+
+make CONFIG=intel-linux debug         - builds the debug tree only
+
+make CONFIG=intel-linux clean         - removes intermediate files
+
+make CONFIG=intel-linux clean-build   - removes intermediate files
+                                        from the optimized tree
+
+make CONFIG=intel-linux clean-debug   - removes intermediate files
+                                        from the debug tree
+
+make CONFIG=intel-linux check         - builds (and runs) tests
+
+make CONFIG=intel-linux check-build   - builds (and runs) tests
+                                        in the optimized tree
+
+make CONFIG=intel-linux check-debug   - builds (and runs) tests
+                                        in the debug tree
+
+
+make CONFIG=intel-linux prefix=... install
+                                      - installs the opimized library
+        
+
+make CONFIG=intel-linux prefix=... install-debug
+                                      - installs the debug library
