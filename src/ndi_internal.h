@@ -479,6 +479,10 @@ extern "C" {
 			    ndi_float32 * return_vec, int vec_size);
     int ndi_get_prod_reac64(state_struct *state, const char *rprod,
 			    ndi_float64 * return_vec, int vec_size);
+    int ndi_get_reac_mlt32(state_struct *state, const char *rprod,
+			    ndi_float32 * return_vec, int vec_size);
+    int ndi_get_reac_mlt64(state_struct *state, const char *rprod,
+			    ndi_float64 * return_vec, int vec_size);
 
 
    /***  Subroutines in file ndi_init_state.c ***/

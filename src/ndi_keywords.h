@@ -154,6 +154,7 @@
 
 #define NDI_GENDIR_PATH               124
 #define NDI_PARTICLE_N                125
+#define NDI_REAC_MLT                  126
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

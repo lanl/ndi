@@ -88,6 +88,7 @@ int main()
     printf("#define GET_SIG_REAC ndi_get_sig_reac32\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs32\n");
     printf("#define GET_PROD_REAC ndi_get_prod_reac32\n");
+    printf("#define GET_REAC_MLT ndi_get_reac_mlt32\n");
     printf("#define GET_PROD_Q ndi_get_prod_q32\n");
     printf("#define GET_PN_PROD_FULL ndi_get_pn_prod_full32\n");
     printf("#define GET_DIAG_CORR ndi_get_diag_corr32\n");
@@ -175,6 +176,7 @@ int main()
     printf("#define GET_SIG_REAC ndi_get_sig_reac64\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs64\n");
     printf("#define GET_PROD_REAC ndi_get_prod_reac64\n");
+    printf("#define GET_REAC_MLT ndi_get_reac_mlt64\n");
     printf("#define GET_PROD_Q ndi_get_prod_q64\n");
     printf("#define GET_PN_PROD_FULL_P ndi_get_pn_prod_full64\n");
     printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat64\n");
