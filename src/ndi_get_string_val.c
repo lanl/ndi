@@ -46,7 +46,7 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
     if ((ret_val) && (str_size > 0)) {
 	*ret_val = '\0';
     } else {
-	ierr = 7;
+	return (7);
     }
 
     /* Check that ndi_init has been called. */

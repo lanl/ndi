@@ -196,22 +196,12 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 	if (!state->ndi_depl_set) {
 	    *ierr = ndi_set_default_depl(state);
 	}
-	if (state->num_target > vec_num) {
+	{
 	    char temp_id[MAX_IN_STR_LEN];
 	    *ierr =
 		ndi_get_rprod_id_n(state, vec_num, temp_id,
 				   MAX_IN_STR_LEN);
-	    if (strcmp(temp_id, "99999") == 0) {
-		/* Translate fission product identifier 99999 to default f.p. ZAID */
-		strcpy(temp_id, state->def_fiss_prod_id);
-	    }
 	    return_value = (int) strlen(temp_id) + 1;
-	} else {
-	    if ((state->num_target <= 0)) {
-		*ierr = 9;
-	    } else {
-		*ierr = -5;
-	    }
 	}
 	break;
 

@@ -1,3 +1,18 @@
+2004-12-03  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_fortran.c	(F_NDI_GET_STRING_VAL): fixed zero size test
+	(F_NDI_GET_STRING_VAL_N): fixed zero size test
+	(F_NDI2_GET_STRING_VAL_N): fixed zero size test
+	(F_NDI2_GET_STRING_VAL): fixed zero size test
+
+	* ndi_get_string_val.c (ndi_c_get_string_val_h): immediate return
+	of error value 
+
+	* ndi_get_string_val_n.c (ndi_c_get_string_val_n_h): immediate
+	return of error value
+
+	* ndi_get_size_n.c (get_mg_size_n): removed redundant test
+
 2004-11-18  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_set_e_grps.c (ndi_set_e_grps): added 87_llnl

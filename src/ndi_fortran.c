@@ -499,7 +499,7 @@ void F_NDI_GET_STRING_VAL(int *in_key, char *return_val,
     int temsize;
 
     temsize = ndi_c_get_size(*in_key, &tmp_err);
-    if (temsize < 0) {
+    if (temsize <= 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, char_len);
 	return;
@@ -519,7 +519,7 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
     int temsize;
 
     temsize = ndi_c_get_size_n(*in_key, *vec_num, &tmp_err);
-    if (temsize < 0) {
+    if (temsize <= 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, char_len);
 	return;
@@ -787,7 +787,7 @@ void F_NDI2_GET_STRING_VAL(int *handle, int *in_key, char *return_val,
     int temsize;
 
     temsize = NDI2_get_size(*handle, *in_key, &tmp_err);
-    if (temsize < 0) {
+    if (temsize <= 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, len);
 	return;
@@ -807,7 +807,7 @@ void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
     int temsize;
 
     temsize = NDI2_get_size_n(*handle, *in_key, *vec_num, &tmp_err);
-    if (temsize < 0) {
+    if (temsize <= 0) {
 	*ierr = tmp_err;
 	(void) ndi_c2f_string("", return_val, len);
 	return;
