@@ -21,8 +21,6 @@ int main ()
    int int_vec_size = 0;
    int *int_vec = NULL;
    int flt_vec_size;
-   int pgrps = 2;
-   ndi_float64 pbounds[] = { 20.0, 4.0, 0.1 };
    ndi_float64 *flt64_vec = NULL;
 
    /* Inintialize gendir */

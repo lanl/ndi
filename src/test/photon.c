@@ -5,7 +5,6 @@
 
 int test_photon (void);
 static int check_all_ndi_get_mgp_functions(void);
-static int check_ndi_get_mgp_functions_mt( int reac_id, char *reac_type );
 static int ndi_unknown_keyword_mgp(void);
 static int check_ndi_string_val_func_mgp(void);
 static int check_ndi_int_val_func_mgp(void);
@@ -322,102 +321,6 @@ static int check_all_ndi_get_mgp_functions(void)
 
 /****************************************************************
 ****************************************************************/
-
-static int check_ndi_get_mgp_functions_mt( int reac_id, char *reac_type )
-{
-   int tmp_err = 0;
-   int n = 0;
-   int num_elements;
-   int flt_val_num_keys = 1;
-   int flt_vec_num_keys = 1;
-   ndi_float64 flt64_val = 0.0;
-   ndi_float32 flt32_val= 0.0;
-   ndi_float64 *flt64_vec;
-   ndi_float32 *flt32_vec;
-
-   int flt_val_inkey[] = {
-     NDI_REAC_Q };
-
-   char *flt_val_str[] = {
-      "Reaction Q" };
-
-   int flt_vec_inkey[] = {
-      NDI_SIG_REAC
-   };
-
-   char *flt_vec_str[] = {
-     "Reaction cross section"
-   };
-   
-   /* Float 64 values */
-   for ( n = 0; n < flt_val_num_keys; n++ ) {
-     printf( "%s (%s=%d):  ", flt_val_str[n], reac_type, reac_id );
-     tmp_err = ndi_get_float64_val_n( flt_val_inkey[n], reac_id, &flt64_val );
-     if (tmp_err) 
-       printf("\n  **Error %d: in %s -- returned value is %22.15e\n", tmp_err, 
-	      flt_val_str[n], flt64_val);
-     else
-       printf( "%22.15e\n", flt64_val );
-   }
-   printf("\n");
-
-   /* Float 32 values */
-   for ( n = 0; n < flt_val_num_keys; n++ ) {
-     printf( "%s (%s=%d):  ", flt_val_str[n], reac_type, reac_id );
-     tmp_err = ndi_get_float32_val_n( flt_val_inkey[n], reac_id, &flt32_val );
-     if (tmp_err) 
-       printf("\n  **Error %d: in %s -- returned value is %13.6e\n", tmp_err, 
-	      flt_val_str[n], flt32_val);
-     else
-       printf( "%13.6e\n", flt32_val );
-   }
-   printf("\n");
-
-   /* Float 64 vectors */
-   for ( n = 0; n < flt_vec_num_keys; n++ ) {
-     printf( "%s (%s=%d):  \n", flt_vec_str[n], reac_type, reac_id );
-     num_elements = ndi_get_size_n( flt_vec_inkey[n], reac_id, &tmp_err );
-     if ( num_elements <= 0 ) {
-       num_elements = 30;
-       printf("***ERROR %d GETTING SIZE FOR %s.\n", tmp_err, flt_vec_str[n] );
-     }
-     flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-     tmp_err = ndi_get_float64_vec_n( flt_vec_inkey[n], reac_id, flt64_vec, num_elements );
-     if (tmp_err) {
-       printf("  **Error %d: in %s -- returned value is\n", tmp_err, 
-	      flt_val_str[n]);
-       print_float64_vec( flt64_vec, num_elements );
-     }  else {
-       print_float64_vec( flt64_vec, num_elements );
-     }
-     if (flt64_vec)
-       free(flt64_vec);
-   }
-
-   /* Float 32 vectors */
-   for ( n = 0; n < flt_vec_num_keys; n++ ) {
-     printf( "%s (%s=%d):  \n", flt_vec_str[n], reac_type, reac_id );
-     num_elements = ndi_get_size_n( flt_vec_inkey[n], reac_id, &tmp_err );
-     if ( num_elements <= 0 ) {
-       num_elements = 30;
-       printf("***ERROR %d GETTING SIZE FOR %s.\n", tmp_err, flt_vec_str[n] );
-     }
-     flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-     tmp_err = ndi_get_float32_vec_n( flt_vec_inkey[n], reac_id, flt32_vec, num_elements );
-     if (tmp_err) {
-       printf("  **Error %d: in %s -- returned value is\n", tmp_err, 
-	      flt_val_str[n]);
-       print_float32_vec( flt32_vec, num_elements );
-     }  else {
-       print_float32_vec( flt32_vec, num_elements );
-     }
-     if (flt32_vec)
-       free(flt32_vec);
-   }
-
-   printf("\n");
-   return(tmp_err);
-}
 
 /****************************************************************
 ****************************************************************/
