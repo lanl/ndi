@@ -55,6 +55,6 @@ int main ()
      }
      printf("        %11.8f\n\n", abund_sum );
 
-     ierr = ndi2_close_gendir(handle);
+     ierr = ndi2_close_gendir(gendir_h);
      return(ierr);
 }
