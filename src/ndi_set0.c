@@ -108,6 +108,8 @@ static int set0_mg(state_struct *state)
 		       sizeof(state->iso_stat.date_source));
 	(void) strncpy(state->iso_stat.library_name, "",
 		       sizeof(state->iso_stat.library_name));
+
+        state->curr_part_index = -1; /* Reset current part index */
 	state->iso_stat.set_flag = 0;
 	state->iso_stat.fissionable = 0;
 	state->iso_stat.num_grps = -1;
