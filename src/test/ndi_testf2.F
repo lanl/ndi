@@ -163,13 +163,15 @@ c     Test error on initialization before close
 c      call ndi_set_option( NDI_COLLAPSE, num_grp_str, ierr) 
 
       call ndid_get_size( NDI_ZAID, "multigroup_neutron", arr_size, ierr )
-      print *, "String array size is", arr_size
+      write(*, 299)  arr_size
+ 299  format("String array size is", i6)
 c      call ndid_zaid_float64_vec( NDI_AWR, "multigroup_neutron", str_arr, STR_SIZE, 
 c     $ ZAID_SIZE, awr, AWR_SIZE, ierr )
 c     print *, " ZAID float error is ", ierr
       call ndid_get_string_vec( NDI_ZAID, "multigroup_neutron",
      $     str_arr, STR_SIZE, ZAID_SIZE, ierr )
-      print *, " String vec error is ", ierr
+      write(*, 298) ierr
+ 298  format(" String vec error is ", i6)
 
       do 100, zd_cnt = 1, arr_size
          
@@ -245,21 +247,6 @@ c     Return float element from vector
  52         format(a12, i3, ':', 1pE12.5)
  53      continue
          write(*,2) 
-         
-         
-c     Return integer vector
-
-         do 30 i = 1, int_val_n_num
-            write(*, 32) int_val_n_str(i)
- 32         format(a12, ": ")
-            call ndi_get_size(int_vec(i), num_element, ierr)
-            call ndi_get_int_vec(int_vec(i), return_int_vec, 20, ierr)
-            if ( num_element .gt. 0 ) then
-               print 31, (return_int_vec(j), j=1,num_element)
- 31            format(10(i3, 2x))
-            endif
- 30      continue
-         write(*,2)
          
          
          
@@ -365,7 +352,8 @@ c     Integer values
  92         format(a12, ": ")
             call ndi_get_size(sec_part(i), num_element, ierr)
             call ndi_get_int_val(sec_part(i), return_int, ierr)
-            print *, return_int
+            write(*, 297) return_int
+ 297        format(i12)
  90      continue
 
 c     Float vector
@@ -406,25 +394,30 @@ c     Float vector from matrix
  100  continue
 
 
-      print *, " "
-      print *, " "
+      write(*, 296)
+ 296  format(/,/)
       call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr)
       if (ierr . ne . 0 ) then
-         print *, "  **Error ", ierr, " setting lib type."
+         write(*, 295) ierr
+ 295     format("  **Error ", i6, " setting lib type.")
       endif
 
       call ndi_set_isotope( "94239.99", ierr)
       if (ierr . ne . 0 ) then
-         print *, "  **Error ", ierr, " setting 94239.99."
+         write(*, 294) ierr
+ 294     format("  **Error ", i6, " setting 94239.99.")
       else 
-         print *, "  **Isotope set successfully."
+         write(*, 293) 
+ 293     format("  **Isotope set successfully.")
       endif
 
       call ndi_set_isotope( "92235.99", ierr)
       if (ierr . ne . 0 ) then
-         print *, "  **Error ", ierr, " setting 92235.."
+         write(*, 292) ierr
+ 292     format("  **Error ", i6, " setting 92235.")
       else 
-         print *, "  **Isotope set successfully."
+         write(*, 291)
+ 291     format("  **Isotope set successfully.")
       endif
 
       call ndi_close(ierr)

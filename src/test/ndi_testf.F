@@ -238,22 +238,6 @@ c     Return float element from vector
          write(*,2) 
          
          
-c     Return integer vector
-
-         do 30 i = 1, int_val_n_num
-            write(*, 32) int_val_n_str(i)
- 32         format(a12, ': ')
-            call ndi_get_size(int_vec(i), num_element, ierr)
-            call ndi_get_int_vec(int_vec(i), return_int_vec, 20, ierr)
-            if ( num_element .gt. 0 ) then
-               print 31, (return_int_vec(j), j=1,num_element)
- 31            format(10(i3, 2x))
-            endif
- 30      continue
-         write(*,2)
-         
-         
-         
 c     Return integer vector 
          do 40 i = 1, int_vec_num
             write(*, 42) int_vec_str(i)
@@ -356,7 +340,8 @@ c     Integer values
  92         format(a12, ": ")
             call ndi_get_size(sec_part(i), num_element, ierr)
             call ndi_get_int_val(sec_part(i), return_int, ierr)
-            print *, return_int
+            write(*, 299) return_int
+ 299        format(i12)
  90      continue
 
 c     Float vector
