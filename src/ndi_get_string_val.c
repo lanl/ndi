@@ -92,7 +92,9 @@ static int get_string_mg(  state_struct *state, int in_key, char *ret_val, int s
    if ( (ret_val) && ( str_size > 0 ))
        *ret_val = '\0';
 
-     if (! state->iso_stat.set_flag) {
+     if ( (! state->iso_stat.set_flag) &&
+          (in_key != NDI_DEPL_INFO) &&
+          (in_key != NDI_DEPL_ZAID) ){
        return(-7);
      }
 

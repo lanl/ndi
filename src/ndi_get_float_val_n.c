@@ -48,32 +48,36 @@ int NDI_GET_FLOAT_VAL_N_H( state_struct *state, int in_key, int vec_num,
 
    *ret_val = 0.0;    /* Default return value is zero */
 
-        if (! state) {
-            return(-2);
-        }
+   if (! state) {
+       return(-2);
+   }
 
-
+   /* Special case--library type need not be set if asking for version. */
+   if ( in_key == NDI_ABUNDANCE ) {
+       ierr = GET_ABUNDANCE( vec_num, ret_val );
+       return(ierr);
+   } 
    /* Check that ndi_init has been called. */
    if (!state->ndi_initialized) {
-      return(-2); }
-
+       return(-2); }
+   
 #ifdef FLOAT32
    if (  sizeof(float) == 8 ) {
-      /*  32-bit operation not implemented on 64-bit platform */
-      return(-10);      
+       /*  32-bit operation not implemented on 64-bit platform */
+       return(-10);      
    }
 #endif
-
-
+   
+   
    if ( state->library_type == ' ' ) {
-     /* Library type was not set */
+       /* Library type was not set */
        return (-16);
    } else if ( ( state->library_type != 'm' ) &&
-	       ( state->library_type != 'd' ) ) {
-      /* Incompatible library type -- bad input key */
-      return(-4);
+               ( state->library_type != 'd' ) ) {
+       /* Incompatible library type -- bad input key */
+       return(-4);
    }
-
+       
    /* Check that isotope is set */
    if (! state->iso_stat.set_flag) {
       return(-7);
@@ -114,9 +118,11 @@ int NDI_GET_FLOAT_VAL_N_H( state_struct *state, int in_key, int vec_num,
       }
       break;
 
+/*
    case NDI_ABUNDANCE:
      ierr = GET_ABUNDANCE( vec_num, ret_val );
      break;
+*/
 
    case NDI_TOT_PROD_Q:
 
