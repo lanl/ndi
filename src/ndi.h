@@ -32,10 +32,10 @@ extern "C" {
     /* NDI 2.0 user functions with handles */
 
     int ndi2_open(int *handle, const char *path);
-    int ndi2_set_isotope(const int handle, const char *zaid);
-    int ndi2_set_zaid(const int handle, const char *zaid);
-    int ndi2_get_isotope(const int handle, const char *zaid, int *handle2);
-    int ndi2_get_zaid(const int handle, const char *zaid, int *handle2);
+    int ndi2_set_isotope(int handle, const char *zaid);
+    int ndi2_set_zaid(int handle, const char *zaid);
+    int ndi2_get_handle(int handle0, int *handle1);
+    int ndi2_get_mpmg_handle(int handle1, int *handle2);
     int ndi2_set_reaction(const int handle, const char *zaid);
     int ndi2_get_size(const int handle, int in_key, int *ierr);
     int ndi2_get_size_n(const int handle, int in_key, int vec_num,

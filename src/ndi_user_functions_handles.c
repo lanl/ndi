@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -22,7 +23,72 @@ int ndi2_open(int *handle, const char *path)
     return (ierr);
 }
 
-int ndi2_set_isotope(const int handle, const char *zaid)
+int ndi2_get_handle(int handle0, int *handle1)
+{
+     
+    int i;
+    int h = -1;
+    state_struct *parent;
+    state_struct *child = NULL;
+
+    if (handle0 < 0 || MAX_HANDLE_NUM <= handle0)
+	 return -2;		/* invalid handle range for this call */
+
+    parent = handle_to_state_p(handle0);	/* get parent state */
+    assert(parent->handle == handle0);
+    for (i = 0; i < MAX_HANDLE_NUM; i++) {
+	 if (!parent->handle_map[i]) {	/* use first empty element */
+	      h = i;
+	      ndi_c_clone_h(parent, &child);
+	      if (child) {
+		   child->handle = h;	/* assign child local handle */
+		   parent->handle_map[i] = child;
+	      }
+	      break;
+	 }
+    }
+    if (h == -1)
+	 return -1;		/* handle array exhausted */
+
+    *handle1 = (parent->handle + 1) * MAX_HANDLE_NUM + child->handle;
+    return (0);
+}
+
+int ndi2_get_mpmg_handle(int handle1, int *handle2)
+{
+     int pi, pj;
+     int i;
+     int pk = -1;
+     state_struct *parent;
+     state_struct *child;
+    
+     if (handle1 < MAX_HANDLE_NUM || 
+	 MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1) <= handle1)
+	  return -2;		/* invalid handle range for this call */
+
+     parent = handle_to_state_p(handle1);	/* get parent state */
+     handle1 -= MAX_HANDLE_NUM;
+     pi = handle1 / MAX_HANDLE_NUM;
+     pj = handle1 % MAX_HANDLE_NUM;
+     assert (parent->handle == pj);
+     for (i = 0; i < MAX_HANDLE_NUM; i++) {
+	  if (!parent->handle_map[i]) {	/* use first empty element */
+	       pk = i;
+	       ndi_c_clone_h(parent, &child);
+	       if (child) {
+		    child->handle = pk;	/* assign child local handle */
+		    parent->handle_map[i] = child;
+	       }
+	       break;
+	  }
+     }
+     if (pk == -1)
+	  return -1;		/* handle array exhausted */
+     *handle2 = ((pi + 1) * MAX_HANDLE_NUM + (pj +1)) * MAX_HANDLE_NUM + pk;
+     return (0);
+}
+
+int ndi2_set_isotope(int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -31,40 +97,12 @@ int ndi2_set_isotope(const int handle, const char *zaid)
 }
 
 
-int ndi2_set_zaid(const int handle, const char *zaid)
+int ndi2_set_zaid(int handle, const char *zaid)
 {
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_set_zaid_h(state_p, zaid));
-}
-
-int ndi2_get_isotope(const int handle, const char *zaid, int *handle2)
-{
-    int i;
-    int h;
-    state_struct *parent;
-    state_struct *child;
-
-    parent = handle_to_state_p(handle);	/* get parent state */
-    for (i = 0; i < MAX_HANDLE_NUM; i++) {
-	if (!parent->handle_map[i]) {	/* use first empty element */
-	    h = i;
-	    ndi_c_clone_h(parent, &child);
-	    if (child) {
-		child->handle = h;	/* assign child local handle */
-		parent->handle_map[i] = child;
-	    }
-	    break;
-	}
-    }
-    *handle2 = (parent->handle + 1) * MAX_HANDLE_NUM + child->handle;
-    return (ndi_c_set_zaid_h(child, zaid));
-}
-
-int ndi2_get_zaid(const int handle, const char *zaid, int *handle2)
-{
-    return (ndi2_get_isotope(handle, zaid, handle2));
 }
 
 int ndi2_set_reaction(const int handle, const char *zaid)
