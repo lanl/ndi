@@ -1,7 +1,7 @@
  lib_type=  0
   library=  0
- String array size is 97
-  String vec error is  0
+String array size is    97
+ String vec error is      0
 *****SETTING ISOTOPE 1001.500nm   
     1:  >1001.500nm   <   err =     0
 ZAID: 1001.500nm    err=   0
@@ -30,14 +30,6 @@ At wgt      :  1.00782E+00
 AWR         :  9.99167E-01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    1
-NumProdRMO  : 
-  2    1
-NumProdFew  : 
-  0    0
-MT          : 
 
 Rx--all     : 
      2        1
@@ -1187,9 +1179,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -1233,14 +1225,6 @@ At wgt      :  1.00780E+00
 AWR         :  9.99142E-01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    1
-NumProdRMO  : 
-  2    1
-NumProdFew  : 
-  0    0
-MT          : 
 
 Rx--all     : 
      2        1
@@ -2390,9 +2374,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -2436,11 +2420,6 @@ At wgt      :  1.00780E+00
 AWR         :  9.99142E-01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
 
 Rx--all     : 
 Rx--rmo     : 
@@ -3812,9 +3791,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -3860,14 +3839,6 @@ At wgt      :  1.00782E+00
 AWR         :  9.99167E-01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    1
-NumProdRMO  : 
-  2    1
-NumProdFew  : 
-  0    0
-MT          : 
 
 Rx--all     : 
      2        1
@@ -5017,9 +4988,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -5063,14 +5034,6 @@ At wgt      :  2.01410E+00
 AWR         :  1.99680E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    1
-NumProdRMO  : 
-  2    2    1
-NumProdFew  : 
-  0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        1
@@ -6220,9 +6183,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -6266,14 +6229,6 @@ At wgt      :  2.01410E+00
 AWR         :  1.99680E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    1
-NumProdRMO  : 
-  2    2    1
-NumProdFew  : 
-  0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        1
@@ -7423,9 +7378,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -7469,11 +7424,6 @@ At wgt      :  2.01410E+00
 AWR         :  1.99680E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
 
 Rx--all     : 
 Rx--rmo     : 
@@ -8845,9 +8795,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -8893,14 +8843,6 @@ At wgt      :  2.01410E+00
 AWR         :  1.99680E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    1
-NumProdRMO  : 
-  2    2    1
-NumProdFew  : 
-  0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        1
@@ -10050,9 +9992,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -10096,14 +10038,6 @@ At wgt      :  3.01605E+00
 AWR         :  2.99014E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2
-NumProdRMO  : 
-  2    2
-NumProdFew  : 
-  0    2
-MT          : 
 
 Rx--all     : 
      2        2
@@ -11253,9 +11187,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -11299,14 +11233,6 @@ At wgt      :  3.01600E+00
 AWR         :  2.99009E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2
-NumProdRMO  : 
-  2    2
-NumProdFew  : 
-  0    2
-MT          : 
 
 Rx--all     : 
      2        2
@@ -12456,9 +12382,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -12502,14 +12428,6 @@ At wgt      :  3.01605E+00
 AWR         :  2.99014E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2
-NumProdRMO  : 
-  2    2
-NumProdFew  : 
-  0    2
-MT          : 
 
 Rx--all     : 
      2        2
@@ -13659,9 +13577,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -13705,14 +13623,6 @@ At wgt      :  6.01512E+00
 AWR         :  5.96345E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    3    3    1    2    2
-NumProdRMO  : 
-  2    2    3    3    1    2    2
-NumProdFew  : 
-  0    0    3    3    0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        3        3        1        2        2
@@ -14863,9 +14773,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -14909,14 +14819,6 @@ At wgt      :  6.01510E+00
 AWR         :  5.96343E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    3    3    1    2    2
-NumProdRMO  : 
-  2    2    3    3    1    2    2
-NumProdFew  : 
-  0    0    3    3    0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        3        3        1        2        2
@@ -16067,9 +15969,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -16113,14 +16015,6 @@ At wgt      :  6.01512E+00
 AWR         :  5.96345E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    3    3    1    2    2
-NumProdRMO  : 
-  2    2    3    3    1    2    2
-NumProdFew  : 
-  0    0    3    3    0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        3        3        1        2        2
@@ -17271,9 +17165,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -17317,14 +17211,6 @@ At wgt      :  7.01600E+00
 AWR         :  6.95573E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    3    1    2
-NumProdRMO  : 
-  2    2    2    3    1    2
-NumProdFew  : 
-  0    0    2    3    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        3        1        2
@@ -18474,9 +18360,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -18520,14 +18406,6 @@ At wgt      :  7.01600E+00
 AWR         :  6.95573E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    3    1    2
-NumProdRMO  : 
-  2    2    2    3    1    2
-NumProdFew  : 
-  0    0    2    3    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        3        1        2
@@ -19677,9 +19555,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -19723,14 +19601,6 @@ At wgt      :  7.01600E+00
 AWR         :  6.95573E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    3    1    2    2
-NumProdRMO  : 
-  2    2    2    3    1    2    2
-NumProdFew  : 
-  0    0    2    3    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        3        1        2        2
@@ -20881,9 +20751,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -20927,14 +20797,6 @@ At wgt      :  1.00129E+01
 AWR         :  9.92688E+00
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    3    2    1    2    2
-NumProdRMO  : 
-  2    2    3    2    0    2    0
-NumProdFew  : 
-  0    0    3    2    0    2    0
-MT          : 
 
 Rx--all     : 
      2        2        3        2        1        2        2
@@ -22085,9 +21947,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -22131,14 +21993,6 @@ At wgt      :  1.59949E+01
 AWR         :  1.58575E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    1    2    2
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -23288,9 +23142,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -23334,14 +23188,6 @@ At wgt      :  1.59905E+01
 AWR         :  1.58531E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    1    2    2
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -24491,9 +24337,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -24537,14 +24383,6 @@ At wgt      :  1.59949E+01
 AWR         :  1.58575E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    1    2    2
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -25694,9 +25532,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -25740,14 +25578,6 @@ At wgt      :  1.89984E+01
 AWR         :  1.88352E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -26895,9 +26725,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -26941,14 +26771,6 @@ At wgt      :  1.89982E+01
 AWR         :  1.88350E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -28096,9 +27918,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -28142,14 +27964,6 @@ At wgt      :  3.20636E+01
 AWR         :  3.17882E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -29298,9 +29112,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -29344,14 +29158,6 @@ At wgt      :  5.19959E+01
 AWR         :  5.15493E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -30499,9 +30305,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -30545,14 +30351,6 @@ At wgt      :  5.19957E+01
 AWR         :  5.15490E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -31700,9 +31498,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -31746,14 +31544,6 @@ At wgt      :  5.58462E+01
 AWR         :  5.53665E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    1    0    2
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -32903,9 +32693,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -32949,14 +32739,6 @@ At wgt      :  5.58281E+01
 AWR         :  5.53485E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    1    0    2
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -34106,9 +33888,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -34152,14 +33934,6 @@ At wgt      :  5.58462E+01
 AWR         :  5.53665E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2
-NumProdRMO  : 
-  2    2    2    1    2
-NumProdFew  : 
-  0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2
@@ -35309,9 +35083,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -35355,14 +35129,6 @@ At wgt      :  5.39394E+01
 AWR         :  5.34760E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -36510,9 +36276,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -36556,14 +36322,6 @@ At wgt      :  5.59345E+01
 AWR         :  5.54540E+01
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        1        2        2
@@ -37711,9 +37469,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -37757,14 +37515,6 @@ At wgt      :  1.16545E+02
 AWR         :  1.15544E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1
-NumProdRMO  : 
-  0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1
@@ -38912,9 +38662,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -38958,14 +38708,6 @@ At wgt      :  1.18543E+02
 AWR         :  1.17525E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1
-NumProdRMO  : 
-  0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1
@@ -40113,9 +39855,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -40159,14 +39901,6 @@ At wgt      :  1.17000E+02
 AWR         :  1.15995E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1
-NumProdRMO  : 
-  0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1
@@ -41314,9 +41048,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -41360,14 +41094,6 @@ At wgt      :  2.30000E+02
 AWR         :  2.28024E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2
-NumProdRMO  : 
-  2    2
-NumProdFew  : 
-  0    0
-MT          : 
 
 Rx--all     : 
      2        2
@@ -42517,9 +42243,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -42563,14 +42289,6 @@ At wgt      :  2.30000E+02
 AWR         :  2.28024E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2
-NumProdRMO  : 
-  2    2    2
-NumProdFew  : 
-  0    0    2
-MT          : 
 
 Rx--all     : 
      2        2        2
@@ -43720,9 +43438,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -43766,14 +43484,6 @@ At wgt      :  1.28905E+02
 AWR         :  1.27798E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    1
-NumProdRMO  : 
-  0    0    0
-NumProdFew  : 
-  0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        1
@@ -44921,9 +44631,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -44967,14 +44677,6 @@ At wgt      :  2.33040E+02
 AWR         :  2.31038E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -46125,9 +45827,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -46171,14 +45873,6 @@ At wgt      :  2.33045E+02
 AWR         :  2.31043E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -47329,9 +47023,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -47375,14 +47069,6 @@ At wgt      :  2.33040E+02
 AWR         :  2.31038E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -48533,9 +48219,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -48579,14 +48265,6 @@ At wgt      :  2.35044E+02
 AWR         :  2.33025E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -49737,9 +49415,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -49783,14 +49461,6 @@ At wgt      :  2.35044E+02
 AWR         :  2.33025E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -51004,9 +50674,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 1
+           1
 Ebounds     : 
  2.00000E+01   9.00000E+00   8.00000E+00   7.00000E+00   6.00000E+00   5.00000E+00
  4.00000E+00   3.00000E+00   2.00000E+00   1.00000E+00   5.00000E-01   1.00000E-01
@@ -51113,11 +50783,6 @@ At wgt      :  2.35044E+02
 AWR         :  2.33025E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
 
 Rx--all     : 
 Rx--rmo     : 
@@ -52490,9 +52155,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -52538,14 +52203,6 @@ At wgt      :  2.35044E+02
 AWR         :  2.33025E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -53696,9 +53353,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -53743,11 +53400,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -53863,9 +53515,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -53902,11 +53554,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54022,9 +53669,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54061,11 +53708,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54181,9 +53823,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54220,11 +53862,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54340,9 +53977,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54379,11 +54016,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54499,9 +54131,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54538,11 +54170,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54658,9 +54285,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54697,11 +54324,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54817,9 +54439,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -54856,11 +54478,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -54976,9 +54593,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55015,11 +54632,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55135,9 +54747,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55174,11 +54786,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55294,9 +54901,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55333,11 +54940,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55453,9 +55055,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55492,11 +55094,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55612,9 +55209,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55651,11 +55248,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55771,9 +55363,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55810,11 +55402,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -55930,9 +55517,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -55969,11 +55556,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56089,9 +55671,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56128,11 +55710,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56248,9 +55825,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56287,11 +55864,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56407,9 +55979,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56446,11 +56018,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56566,9 +56133,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56605,11 +56172,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56725,9 +56287,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56764,11 +56326,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -56884,9 +56441,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -56923,11 +56480,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57043,9 +56595,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57082,11 +56634,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57202,9 +56749,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57241,11 +56788,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57361,9 +56903,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57400,11 +56942,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57520,9 +57057,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57559,11 +57096,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57679,9 +57211,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57718,11 +57250,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57838,9 +57365,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -57877,11 +57404,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -57997,9 +57519,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58036,11 +57558,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58156,9 +57673,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58195,11 +57712,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58315,9 +57827,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58354,11 +57866,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58474,9 +57981,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58513,11 +58020,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58633,9 +58135,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58672,11 +58174,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58792,9 +58289,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58831,11 +58328,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -58951,9 +58443,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -58990,11 +58482,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -59110,9 +58597,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -59149,11 +58636,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -59269,9 +58751,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -59308,11 +58790,6 @@ AWR         :  2.34018E+02
 
 ReacQ         2: 0.00000E+00
 
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
-
 Rx--all     : 
 Rx--rmo     : 
 Rx--few     : 
@@ -59428,9 +58905,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -59466,14 +58943,6 @@ At wgt      :  2.38051E+02
 AWR         :  2.36006E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -60624,9 +60093,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -60670,11 +60139,6 @@ At wgt      :  2.38051E+02
 AWR         :  2.36006E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
 
 Rx--all     : 
 Rx--rmo     : 
@@ -62047,9 +61511,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -62095,14 +61559,6 @@ At wgt      :  2.38051E+02
 AWR         :  2.36006E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -63253,9 +62709,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -63299,14 +62755,6 @@ At wgt      :  2.38050E+02
 AWR         :  2.36005E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2
@@ -64457,9 +63905,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -64503,14 +63951,6 @@ At wgt      :  2.38050E+02
 AWR         :  2.36005E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -65661,9 +65101,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -65707,14 +65147,6 @@ At wgt      :  2.39052E+02
 AWR         :  2.36999E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -66865,9 +66297,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -66911,14 +66343,6 @@ At wgt      :  2.39055E+02
 AWR         :  2.37002E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -68069,9 +67493,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -68115,11 +67539,6 @@ At wgt      :  2.39055E+02
 AWR         :  2.37002E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-NumProdRMO  : 
-NumProdFew  : 
-MT          : 
 
 Rx--all     : 
 Rx--rmo     : 
@@ -69492,9 +68911,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -69540,14 +68959,6 @@ At wgt      :  2.39052E+02
 AWR         :  2.36999E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    0    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -70698,9 +70109,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -70744,14 +70155,6 @@ At wgt      :  2.40054E+02
 AWR         :  2.37992E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -71902,9 +71305,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -71948,14 +71351,6 @@ At wgt      :  2.40054E+02
 AWR         :  2.37992E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -73106,9 +72501,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -73152,14 +72547,6 @@ At wgt      :  2.40054E+02
 AWR         :  2.37992E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -74310,9 +73697,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -74356,14 +73743,6 @@ At wgt      :  2.41057E+02
 AWR         :  2.38986E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -75514,9 +74893,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -75560,14 +74939,6 @@ At wgt      :  2.41049E+02
 AWR         :  2.38978E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -76718,9 +76089,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -76764,14 +76135,6 @@ At wgt      :  2.41057E+02
 AWR         :  2.38986E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2    2    2
-NumProdRMO  : 
-  2    2    2    2    1    2    2    2    2
-NumProdFew  : 
-  0    0    2    2    1    2    2    2    2
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2        2        2
@@ -77922,9 +77285,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -77968,14 +77331,6 @@ At wgt      :  2.42059E+02
 AWR         :  2.39979E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -79124,9 +78479,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -79170,14 +78525,6 @@ At wgt      :  2.42058E+02
 AWR         :  2.39979E+02
 
 ReacQ         2: 0.00000E+00
-
-NumProdAll  : 
-  2    2    2    2    1    2    2
-NumProdRMO  : 
-  0    0    0    0    0    0    0
-NumProdFew  : 
-  0    0    0    0    0    0    0
-MT          : 
 
 Rx--all     : 
      2        2        2        2        1        2        2
@@ -80326,9 +79673,9 @@ TotProdXS   (92235       ) :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 NumGrps     : 
- 0
+           0
 PnOrder     : 
- 0
+           0
 Ebounds     : 
 PartHeat    : 
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
@@ -80344,7 +79691,8 @@ PartKerma   :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 ProdFull     2: 
 
-  
-  
-   **Isotope set successfully.
-   **Isotope set successfully.
+
+
+
+  **Isotope set successfully.
+  **Isotope set successfully.
