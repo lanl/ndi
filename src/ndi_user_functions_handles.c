@@ -7,11 +7,16 @@
 #include "ndi_var_type.h"
 
 /*!
-  \brief Open gendir handle to index file indicated by \a path
+  \brief Open handle to NDI index (gendir) file indicated by \a path.
+
+  This function opens the indicated NDI index file, initializes 
+  NDI variables and default values, and returns a handle to the file.  
+  It should be the first NDI function called; at least one gendir handle 
+  is needed to access NDI index data and to make handles to NDI physical data.
 
   \par Fortran example
   \code
-  ! Create gendir handle to default index file
+  ! Create handle to index file at default path
   call ndi2_open_gendir(handle, "", ndi_err)
   \endcode
 
@@ -40,7 +45,7 @@ int NDI2_open_gendir(int *handle, const char *path)
 
 /*!
   \brief Set the global string option indicated by \a in_key to 
-  \a value for \a handle
+  \a value for \a handle.
 
   \par Fortran example
   \code
@@ -92,7 +97,11 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
 }
 
 /*!
-  \brief Check the global string option indicated by \a in_key for \a handle
+  \brief Retrieves the global string option indicated by \a in_key for 
+  \a handle.
+
+  This function lets users check on the state of NDI previously set by 
+  default or by \a ndi2_set_option_gendir calls.
 
   \par Fortran example
   \code
@@ -151,7 +160,11 @@ int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 }
 
 /*!
-  \brief Close gendir handle to index file
+  \brief Close handle to NDI index (gendir) file.
+
+  This function deallocates the memory associates with a gendir handle and its 
+  children.  It should be called once for each gendir handle opened after
+  it and its children are no longer needed.
 
   \par Fortran example
   \code
@@ -178,11 +191,14 @@ int NDI2_close_gendir(int handle)
 }
 
 /*!
-  \brief Make child handle of \a type from parent \a handle0
+  \brief Make child \a handle1 of \a type from parent \a handle0.
+
+  This function makes a handle of specificed type capable of accessing 
+  the physical data indexed by its parent gendir.
 
   \par Fortran example
   \code
-  ! Make a multigroup neutron handle
+  ! Make a multigroup neutron data handle
   call ndi2_make_handle(handle0, "multigroup_neutron", handle1, ndi_err)
   \endcode
 
@@ -224,7 +240,14 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
 }
 
 /*!
-  \brief Set isotope for \a handle
+  \brief Set isotope for \a handle.
+
+  This function associates a handle with an entry in the NDI index file.  
+  The file associated with the first matching isotope entry in the index file 
+  is opened, and the physical data associated with that entry initializes the 
+  handle data.  Subsequent call to the \a NDI2_get family of functions with 
+  this handle will return the requested physical data associated with this 
+  isotope.
 
   \par Fortran example
   \code
@@ -244,7 +267,14 @@ int NDI2_set_isotope(int handle, const char *zaid)
 }
 
 /*!
-  \brief Set zaid for \a handle
+  \brief Set zaid for \a handle.
+
+  This function associates a handle with an entry in the NDI index file.  
+  The file associated with the first matching zaid entry in the index file 
+  is opened, and the physical data associated with that entry initializes the 
+  handle data.  Subsequent call to the \a NDI2_get family of functions with 
+  this handle will return the requested physical data associated with this 
+  zaid.
 
   \par Fortran example
   \code
@@ -273,7 +303,14 @@ int NDI2_set_zaid(int handle, const char *zaid)
 }
 
 /*!
-  \brief Set zaid for \a handle
+  \brief Set reaction for \a handle.
+
+  This function associates a handle with an entry in the NDI index file.  
+  The file associated with the first matching reaction entry in the index file 
+  is opened, and the physical data associated with that entry initializes the 
+  handle data.  Subsequent call to the \a NDI2_get family of functions with 
+  this handle will return the requested physical data associated with this 
+  reaction.
 
   \par Fortran example
   \code
@@ -302,7 +339,14 @@ int NDI2_set_reaction(int handle, const char *zaid)
 }
 
 /*!
-  \brief Get the size indicated by \a in_key for \a handle
+  \brief Get the size indicated by \a in_key from \a handle.
+
+  This function returns the number of array elements for an array specified 
+  by \a in_key, or the number of characters for a string specified by 
+  \a in_key.  Note that in C the number of characters in a string includes the 
+  terminating '\0' character.  The size of a string returned by the C function
+  \a NDI2_get_size is one greater than returned by the Fortran subroutine 
+  \a ndi2_get_size.
 
   \par Fortran example
   \code
@@ -464,12 +508,22 @@ int NDI2_get_size(int handle, int in_key, int *ierr)
 }
 
 /*!
-  \brief get size for n-th keyword data from handle
-  \param handle: handle
-  \param in_key: keyword
-  \param vec_num: index
-  \param ierr: 0 if successful, negative if error
-  \return size
+  \brief Get the size indicated by \a in_key and \a vec_num from \a handle.
+
+  This function returns the number of array elements for an array specified 
+  by \a in_key and \a vec_num, or the number of characters for a string 
+  specified by \a in_key and \a vec_num.  Note that in C the number of 
+  characters in a string includes the terminating '\0' character.  The size 
+  of a string returned by the C function \a NDI2_get_size_n is one greater 
+  than returned by the Fortran subroutine \a ndi2_get_size_n.
+
+  \param handle: integer input state handle
+  \param in_key: integer input key containing the size requested
+  \param vec_num: integer input index
+  \param size: integer output containing the size (Fortran only)
+  \param ierr: integer output error code
+  \return integer output containing the size (C only)
+
 */
 int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 {
@@ -479,6 +533,25 @@ int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
     return (ndi_c_get_size_n_h(state_p, in_key, vec_num, ierr));
 }
 
+
+/*!
+  \brief Get the size indicated by \a in_key and \a in_str from \a handle.
+
+  This function returns the number of array elements for an array specified 
+  by \a in_key and \a in_str, or the number of characters for a string 
+  specified by \a in_key and \a in_str.  Note that in C the number of 
+  characters in a string includes the terminating '\0' character.  The size 
+  of a string returned by the C function \a NDI2_get_size_x is one greater 
+  than returned by the Fortran subroutine \a ndi2_get_size_x.
+
+  \param handle: integer input state handle
+  \param in_key: integer input key containing the size requested
+  \param in_str: string input index
+  \param size: integer output containing the size (Fortran only)
+  \param ierr: integer output error code
+  \return integer output containing the size (C only)
+
+*/
 int NDI2_get_size_x(int handle, int in_key, const char *in_str,
                     int *ierr)
 {
@@ -489,7 +562,7 @@ int NDI2_get_size_x(int handle, int in_key, const char *in_str,
 }
 
 /*!
-  \brief Set the string option indicated by \a in_key to \a value for \a handle
+  \brief Set the option indicated by \a in_key to \a value for \a handle.
 
   \par Fortran example
   \code
@@ -540,12 +613,21 @@ int NDI2_set_option(int handle, int in_key, const char *value)
 }
 
 /*!
-  \brief set float64 vector option for handle
-  \param handle: handle
-  \param in_key: option key
-  \param option_array: option values
-  \param array_size: size of option array
-  \return 0 if successful, negative if error
+  \brief Set the option indicated by \a in_key to \a option_array for 
+  \a handle.
+
+  \par Fortran example
+  \code
+  ! 
+  call ndi2_set_float64_vec_option(handle, in_key, array, size, ndi_err)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key indicating the option set
+  \param option_array: float64 input array containing option values
+  \param array_size: integer input size of option array
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
 
   \par Valid input keys:
   ======================
@@ -571,12 +653,15 @@ int NDI2_set_float64_vec_option(int handle, int in_key,
 }
 
 /*!
-  \brief get string option value for handle
-  \param handle: handle
-  \param in_key: option key
-  \param out_value: option value
-  \param string_size: maximum size of option string
-  \return 0 if successful, negative if error
+  \brief Retrieve the option indicated by \a in_key in \a out_value for 
+  \a handle.
+
+  \param handle: integer input state handle
+  \param in_key: integer input key indicating the option requested
+  \param out_value: string output containing the option value
+  \param string_size: integer input maximum size of option string
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
 */
 int NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
 {
@@ -689,7 +774,8 @@ int NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
 }
 
 /*!
-  \brief Get the integer array indicated by \a in_key from \a handle.
+  \brief Get the integer array \a return_vec indicated by \a in_key from 
+  \a handle.
 
   \par Fortran example:
   \code
@@ -737,13 +823,24 @@ int NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
 }
 
 /*!
-  \brief get n-th integer vector of values from handle
-  \param handle: handle
-  \param in_key: option key
-  \param vec_num: index of vector
-  \param return_vec: vector of values
-  \param vec_size: maximum size of integer vector
+  \brief Get integer array of \a return_vec values indicated by \a in_key 
+  and \a vec_num from \a handle.
+  
+  This function returns the integer array data specified by \a in_key and 
+  \a vec_num.
+
+  \par Fortran example
+  \code
+  ! Get list of integer reaction product identifiers for first TN reaction
+  call ndi2_get_int_vec_n(handle, NDI_RPROD_ID, 0, ret_vec, ierr, size)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key containing the option sought
+  \param vec_num: integer input index of vector
+  \param return_vec: integer output vector of values
   \param ndi_err: integer output error code (Fortran only)
+  \param vec_size: integer input maximum size of integer vector
   \return integer output error code (C only) 
 */
 int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
@@ -796,7 +893,7 @@ int NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
 }
 
 /*!
-  \brief Get the 32-bit floating-point value indicated by \a in_key 
+  \brief Get the 32-bit floating-point \a ret_val indicated by \a in_key 
   and \a vec_num from \a handle.
 
   \par Fortran example:
@@ -1186,13 +1283,16 @@ int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 }
 
 /*!
-  \brief get named float vector values from handle
-  \param handle: handle
-  \param in_key: option key
-  \param in_str: name
-  \param return_vec: float vector
-  \param vec_size: maximum size of float vector
-  \return 0 if successful, negative if error
+  \brief Get the 64-bit floating-point \a return_vec indicated by \a in_key
+  and \a in_str from \a handle.
+
+  \param handle: integer input handle
+  \param in_key: integer input key indicating data sought
+  \param in_str: string input name of element sought
+  \param return_vec: float64 array output containing the values returned by NDI
+  \param vec_size: maximum size of float64 array
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only) 
 */
 int NDI2_get_float64_vec_x(int handle, int in_key,
 		       const char *in_str, ndi_float64 * return_vec,
@@ -1317,12 +1417,16 @@ int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 }
 
 /*!
-  \brief get string vector of values from handle
-  \param handle: handle
-  \param in_key: option key
-  \param ret_val: vector of strings
+  \brief Get the string array \a ret_val indicated by \a in_key from \a handle.
+
+  \param handle: integer input handle
+  \param in_key: integer input key indicating the data sought
+  \param ret_val: string output array, allocated by the user, 
+  containing the values returned by NDI.
+    \param vec_size: integer input indicating the allocated size of return_vec.
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only) 
   \param string_size: maximum size of strings
-  \return 0 if successful, negative if error
 */
 int NDI2_get_string_vec(int handle, int in_key, char *ret_val,
                         int str_size)
