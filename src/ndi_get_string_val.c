@@ -118,6 +118,30 @@ static int get_string_mg( int in_key, char *ret_val, int str_size ) {
      strncpy( ret_val, iso_stat.info, str_size );
      break;
 
+   case NDI_DATE_PROCESSED:                           /* Date library was processed */
+     /* Check that isotope is set */
+     if (! iso_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, iso_stat.date_processed, str_size );
+     break;
+
+   case NDI_DATE_SOURCE:                              /* Date of library source info */
+     /* Check that isotope is set */
+     if (! iso_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, iso_stat.date_source, str_size );
+     break;
+
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+     /* Check that isotope is set */
+     if (! iso_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, iso_stat.library_name, str_size );
+     break;
+
    case NDI_DEPL_ZAID:                                  /* Depletion ZAID  */
      if ( ! ndi_depl_set ) {
        ierr = ndi_set_default_depl();
@@ -206,6 +230,30 @@ static int get_string_tn( int in_key, char *ret_val, int str_size ) {
       strncpy( ret_val, tn_stat.info, str_size );
       break;
 
+   case NDI_DATE_PROCESSED:                           /* Date library was processed */
+     /* Check that isotope is set */
+     if (! tn_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tn_stat.date_processed, str_size );
+     break;
+
+   case NDI_DATE_SOURCE:                              /* Date of library source info */
+     /* Check that isotope is set */
+     if (! tn_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tn_stat.date_source, str_size );
+     break;
+
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+     /* Check that isotope is set */
+     if (! tn_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tn_stat.library_name, str_size );
+     break;
+
 /*  Note:  version request handled specially above */
 /*   case NDI_VERSION:    */                       /* Interface version data */
 /*      strncpy( ret_val, NDI_VERSION_DATA, str_size );
@@ -257,6 +305,31 @@ static int get_string_tnreac( int in_key, char *ret_val,
 	 ierr = -9;
       }
       break;
+
+
+   case NDI_DATE_PROCESSED:                           /* Date library was processed */
+     /* Check that isotope is set */
+     if (! tnreac_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tnreac_stat.date_processed, str_size );
+     break;
+
+   case NDI_DATE_SOURCE:                              /* Date of library source info */
+     /* Check that isotope is set */
+     if (! tnreac_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tnreac_stat.date_source, str_size );
+     break;
+
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+     /* Check that isotope is set */
+     if (! tnreac_stat.set_flag) {
+       return(-7);
+     }
+     strncpy( ret_val, tnreac_stat.library_name, str_size );
+     break;
 
 /*  Note:  version request handled specially above */
 /*   case NDI_VERSION:    */                       /* Interface version data */

@@ -67,17 +67,17 @@ chain_status chain_stat;
 
 /* TN reaction data */
 char tn_dataset[60];             /* Name of current set of TN reaction data */
-char tn_reac_info [132 + 1];     /* Information about current TN reaction dataset */
+char tn_reac_info [MAX_IN_STR_LEN]; /* Information about current TN reaction dataset */
 int tn_reac_num;                 /* Number of reactions in TN reaction dataset */
 int sec_part_filled;             /* Number of secondary particles which have edist data */
-char *tn_list_reac[ MAX_TN_REAC ];   /* List of current set of TN reaction zaids */
+char *tn_list_reac[ MAX_TN_REAC ];  /* List of current set of TN reaction zaids */
 stat_flag *tn_reactants;
 stat_flag *tn_rprods;
 
 /* Depletion data */
 int ndi_depl_set;                /* Is depletion set? True = -1; False= 0 */
 char depl_dataset[60];           /* Name of current set of depletion data */
-char depl_info [132 + 1];        /* Information about current depletion dataset */
+char depl_info [MAX_IN_STR_LEN];        /* Information about current depletion dataset */
 int num_target;                  /* Number of targets in depletion dataset */
 int chain_filled;                /* Number of depletion targets whose data has been read */
 

@@ -94,6 +94,9 @@ static int set0_mg(void) {
 
    (void)strncpy(iso_stat.zaid, "", sizeof(iso_stat.zaid) );
    (void)strncpy(iso_stat.info, "", sizeof(iso_stat.info) );
+   (void)strncpy(iso_stat.date_processed, "", sizeof(iso_stat.date_processed) );
+   (void)strncpy(iso_stat.date_source, "", sizeof(iso_stat.date_source) );
+   (void)strncpy(iso_stat.library_name, "", sizeof(iso_stat.library_name) );
    iso_stat.set_flag = 0;
    iso_stat.num_grps = -1;
    iso_stat.temp = -1.0;
@@ -102,6 +105,7 @@ static int set0_mg(void) {
    iso_stat.awr = -1.0;
    iso_stat.up_grps = -1;
    iso_stat.down_grps = -1;
+   iso_stat.last_grp = -1;
    iso_stat.pn_order = -1;
    iso_stat.e_bounds.length = 0;
    iso_stat.e_bounds.file_ptr = 0;
@@ -215,6 +219,9 @@ static int set0_tn(void) {
    tn_stat.q_value = 0.0;
    (void)strncpy(tn_stat.zaid, "", sizeof(tn_stat.zaid) );
    (void)strncpy(tn_stat.info, "", sizeof(tn_stat.info) );
+   (void)strncpy(tn_stat.date_processed, "", sizeof(tn_stat.date_processed) );
+   (void)strncpy(tn_stat.date_source, "", sizeof(tn_stat.date_source) );
+   (void)strncpy(tn_stat.library_name, "", sizeof(tn_stat.library_name) );
    tn_stat.num_temps = -1;
    tn_stat.int_sigvbars.length = 0;
    tn_stat.int_sigvbars.file_ptr = 0;
@@ -234,14 +241,9 @@ static int set0_tn(void) {
      for (i = 0; i < tn_stat.num_sec_parts; i++ ) {
 
        if ( ( i < sec_part_filled ) && ( sec_part_filled > 0 ) ) {
-/* 	 ndi_set0_tn_sec_part( &(tn_stat.sec_part[i]) ); */
  	 ndi_set0_tn_sec_part( &(tn_stat.sec_part[i]), 1 ); 
        }
 
-       /*  Hopefully this will become obsolete */
-       if ( tn_stat.sec_part_types ) {
-	 if ( tn_stat.sec_part_types[i] ) ndi_free((void**)&(tn_stat.sec_part_types[i]));
-       }
      }
      if (tn_stat.sec_part) ndi_free( (void**)&(tn_stat.sec_part)); 
      if (tn_stat.sec_part_types) ndi_free( (void**)&tn_stat.sec_part_types);
@@ -269,6 +271,9 @@ static int set0_tnreac(void) {
    tnreac_stat.set_flag = 0;
    (void)strncpy(tnreac_stat.dataset, "", sizeof(tnreac_stat.dataset) );
    (void)strncpy(tnreac_stat.info, "", sizeof(tnreac_stat.info) );
+   (void)strncpy(tnreac_stat.date_processed, "", sizeof(tnreac_stat.date_processed) );
+   (void)strncpy(tnreac_stat.date_source, "", sizeof(tnreac_stat.date_source) );
+   (void)strncpy(tnreac_stat.library_name, "", sizeof(tnreac_stat.library_name) );
 
    for (i = 0; i < tnreac_stat.reac_num; i++ ) {
       tnreac_stat.reactants[i].length = 0;
@@ -324,6 +329,7 @@ static int set0_depl(void) {
    curr_part_index = -1;     /* Reset current part index */
    (void)strncpy(depl_dataset, "", sizeof(depl_dataset) );
    (void)strncpy(depl_info, "", sizeof(depl_info) );
+
    ndi_depl_set = 0;
    num_target = 0;
    chain_filled = 0;
@@ -350,7 +356,7 @@ int ndi_set0_tn_sec_part ( sec_part_distr *part, int reset_flag )
   /* reset_flag indicates whether this particle has just been
      created and therefore has no array allocated, or whether it
      has been filled already needs to have arrays freed.
-     reset_flag:  0=initial, 1=reset
+     reset_flag:  0=initial, 1=reset  (Yuck!)
      */
 
   int j;
@@ -368,7 +374,7 @@ int ndi_set0_tn_sec_part ( sec_part_distr *part, int reset_flag )
   }
   part->edist = NULL;
   ierr = set0_interp_param( &(part->temp_interp), reset_flag );
-  part->part_type[0] = '\0';
+  part->part_type = -1;
 
   return(ierr);
 }

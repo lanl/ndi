@@ -70,6 +70,14 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
                                     3.0E-6, 1.0E-6, 4.0E-7, 1.0E-7,1.4E-10 }; 
    */
    
+  /*  NGK KLUDGE!  */
+  ndi_float64 _33_ngkludge[] = 
+  {  17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
+     2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303, 
+     0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3, 
+     1.235e-3, 1.67e-4, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 
+     3.0, 2.0, 1.0, 0.5, 0.1, 0.01 };
+  
   
   ndi_float64 _130_lanl[] = 
     { 2.0000000E+01, 1.8900000E+01, 1.7900000E+01, 1.7000000E+01, 1.5000000E+01,
@@ -253,6 +261,10 @@ int ndi_set_e_grps( int **new_ebound_p, const char *grp_struc, int *new_grp,
    } else if( strncmp( grp_struc, "105_awe", sizeof(char) * 8 ) == 0) {
      new_grp_ptr = _105_awe;
      *new_grp = 105;
+
+   } else if( strncmp( grp_struc, "33_ngkludge", sizeof(char) * 6 ) == 0) {
+     new_grp_ptr = _33_ngkludge;
+     *new_grp = 33;
 
    } else if( strncmp( grp_struc, "32_awe", sizeof(char) * 6 ) == 0) {
      new_grp_ptr = _32_awe;

@@ -133,6 +133,14 @@ static int get_int_val_mg( int in_key, int *ret_val ) {
       }
       break;
 
+   case NDI_LAST_GRP :               /* KLUDGE: Last neutron group  */
+      if ( iso_stat.last_grp >= 0 ) {
+	 *ret_val = iso_stat.last_grp;
+      } else {
+	 ierr = -9;
+      }
+      break;
+
    case NDI_NUM_REAC:                     /* Number of edits  */
       if ( iso_stat.num_reac >= 0 ) {
 	 *ret_val = iso_stat.num_reac;

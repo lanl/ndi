@@ -50,7 +50,7 @@ int  ndi_read_float64_block(FILE *stream, long file_pos,
 {
    int float_count = 0;          /* Current number of floats processed */
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    FLOAT_TYPE *cur_flt_ptr = return_vec;

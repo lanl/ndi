@@ -71,6 +71,7 @@ SRC := \
 	ndi_open_gendir.c \
 	ndi_open_lib_file.c \
 	ndi_read_dir_block.c \
+	ndi_read_int_block.c \
 	ndi_read_rx_prod.c \
 	ndi_read_string_block.c \
 	ndi_set0.c \

@@ -242,6 +242,25 @@ static int get_int_vec_tn( int in_key, int *return_vec, int return_size ) {
       }
       break;
 
+   case NDI_SEC_PART_TYPES:  
+      /* Vector of secondary particle types */
+     if ( ( sec_part_filled > 0 ) &&
+	  tn_stat.sec_part ) {
+       int i;
+
+       for ( i = 0; i < sec_part_filled; i++ ) {
+	 if ( i < return_size ) {
+	   return_vec[i] = tn_stat.sec_part[i].part_type;
+	 } else {
+	   ierr = 7;
+	   break;
+	 }
+       }
+     } else {
+       ierr = ndi_check_array_err( tn_stat.num_sec_parts );
+     }
+     break;
+
       /**********  UNKNOWN KEYWORD  ***********/
       
    default:

@@ -34,8 +34,9 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
     mt_flag -- in:0=MT given in library(tn data), -1=mt given(multigroup). 
 
     Assumptions:
-    Input lines have maximum 132-characters. Reaction id and multiplicity
-    come in pairs--id listed first.  File pointer points to first ID.
+    Input lines have maximum MAX_IN_STR_LEN characters. Reaction id and 
+    multiplicity come in pairs--id listed first.  File pointer points to 
+    first ID.
 
     Return values:  Returns negative value for error condition,
     positive value for warning, and a '0' if everything's ok. 
@@ -45,7 +46,7 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 ***********************************************************************/
 
 {
-   char in_line[132 + 1];    /* Line of input data (132-char maximum) */
+   char in_line[MAX_IN_STR_LEN];    /* Line of input data (132-char maximum) */
    char *tok_str;            /*  String being parsed (input line) */
    char *token;              /*  Current value from string being parsed */
    char seps[] = " ,\t\n";   /* Data delimiters--space, comma,tab, newline */
@@ -93,6 +94,7 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
    if (fgets(in_line, sizeof(in_line), stream) == NULL) {
       /* Error reading file */
       ierr = -11;
+      return(ierr);
    }
    tok_str = in_line;
 
@@ -128,6 +130,7 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 	 } else {
 	    /* Error: unexpected data (end) */
 	    ierr = -12;
+	    return(ierr);
 	 }      
       }    /*  if ((token=... */
     
@@ -142,6 +145,7 @@ int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
       } else {
 	 /* Error: multiplicity not found. */
 	 ierr = -12;
+	 break;
       }      /*  if ((token=... */
    }     /*  while  */
 

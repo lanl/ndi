@@ -136,5 +136,9 @@
 #define NDI_INC_PART_TYPES            111
 
 #define NDI_ABUNDANCE                 112
+#define NDI_DATE_PROCESSED            113
+#define NDI_DATE_SOURCE               114
+#define NDI_LIBRARY_NAME              115
+#define NDI_LAST_GRP                  116
 
 #endif	/* __NDI_KEYWORDS_H */

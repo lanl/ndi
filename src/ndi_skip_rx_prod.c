@@ -36,7 +36,7 @@ int ndi_skip_rx_prod( FILE *stream, stat_flag *rx_prod, short mt_flag )
 ***********************************************************************/
 
 {
-   char in_line[132 + 1];         /* Current input line */
+   char in_line[MAX_IN_STR_LEN];         /* Current input line */
    char *tok_str = NULL;          /* Input string being parsed */
    char *token;                   /* Current data item */
    char seps[] = " ,\t\n";        /* Data delimiters in library file */

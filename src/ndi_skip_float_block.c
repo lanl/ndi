@@ -36,7 +36,7 @@ int  skip_float_block(FILE *stream, int *bsize, const int num_floats)
 ***********************************************************************/
 
 {
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN]; /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */

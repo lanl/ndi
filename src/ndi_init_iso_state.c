@@ -24,7 +24,9 @@ static int read_depl_data(FILE *stream, const char *zaid );
 static int set_simple_array (FILE *stream, stat_flag *sf, int data_num);
 static int read_simple_array (FILE *stream, stat_flag *sf, int data_num,
 			      ndi_float64 **global_p );
+static int read_next_string (FILE *stream, char *str_array, int str_size );
 static int set_string_array (FILE *stream, char **str_p, int data_num);
+static int set_sec_part_types (FILE *stream, int_zaid_type **int_p, int data_num);
 static int set_reaction_prod (FILE *stream, multi_stat *sf, int data_num);
 static int set_pn_array (FILE *stream, multi_stat *sf, int pn_order,
 			 int in_grps, int out_grps, 
@@ -34,9 +36,7 @@ static int set_sig_reac (FILE *stream, multi_stat *sf, int num_reac,
 			 double **in_q_value );
 static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_part,
 			    int num_parts, int *parts_filled );
-/* static sec_part_distr find_next_sec_part( char *keyword, int *ierr ); */
 static int fill_edist( FILE *stream, int ntemp, edist_data *dist );
-/* static int fill_edist( FILE *stream, int ntemp, edist_data *dist, sec_part_distr *sec_part ); */
 static int ndi_read_interp_param( FILE *stream, int ninterp, 
 				  interp_params *param );
 static int ndi_create_tn_sec_part ( int num_parts, sec_part_distr **sec_part);
@@ -50,6 +50,7 @@ static int get_mg_part_type( const char *in_keyword, const char *prefix,
 static int find_mg_sec_part_index( mg_sec_part_type part_type );
 static int set_chain_array (FILE *stream, depl_target_struct *target,
 			       int data_num);
+static int skip_comment( FILE *stream );
 
 /**********************************************************************/
 
@@ -74,8 +75,8 @@ int ndi_init_iso_state(FILE *stream, char lib_type,
 ***********************************************************************/
 
 {
-   char in_keyword[132 + 1];
-   char izaid[132 + 1];
+   char in_keyword[MAX_IN_STR_LEN];
+   char izaid[MAX_IN_STR_LEN];
    int ierr = 0;
    int n;
   
@@ -144,7 +145,7 @@ int ndi_init_iso_state(FILE *stream, char lib_type,
 
 static int read_mg_data(FILE *stream, const char *zaid ) {
 
-   char in_keyword[132 + 1];
+   char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
    int num_elements;
    mg_sec_part_type part_type;
@@ -180,23 +181,38 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
       }
       /* Data type */
       else if ( strncmp( in_keyword, "data_type", 10 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
 	 }    
       }
+      /* date_processed */
+      else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
+	ierr = read_next_string( stream, iso_stat.date_processed, 
+				 sizeof(iso_stat.date_processed));
+      }
+      /* date_source */
+      else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
+	ierr = read_next_string( stream, iso_stat.date_source,
+				 sizeof(iso_stat.date_source));
+      }
       /* Library name*/
       else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
-	char junk[132 + 1];
-	 if (fscanf( stream, "%s\n", junk ) == EOF) {
-	    /* Error reading file */
-	    return(-11);
-	 }    
+	ierr = read_next_string( stream, iso_stat.library_name,
+				 sizeof(iso_stat.library_name) );
       }
       /* Number of groups */
       else if ( strncmp( in_keyword, "num_grps", 9 ) == 0 ) {
 	 if (fscanf( stream, "%d\n", &iso_stat.num_grps ) == EOF) {
+	    /* ???? Could this return 0???? */
+	    /* Error reading file */
+	    return(-11);
+	 }    
+      }
+      /* Last neutron group */
+      else if ( strncmp( in_keyword, "last_n_grp", 11 ) == 0 ) {
+	 if (fscanf( stream, "%d\n", &iso_stat.last_grp ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
 	    return(-11);
@@ -593,6 +609,14 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 	}
       }
 
+      /*********  COMMENTS  *************/
+
+      /* comment */
+      else if (strncmp(in_keyword, "comment", 8) == 0) {
+	ierr = skip_comment( stream );
+	return(ierr);
+      } 
+
       /*********  END  *************/
 
       /* end */
@@ -613,7 +637,7 @@ static int read_mg_data(FILE *stream, const char *zaid ) {
 
 static int read_tn_data(FILE *stream, const char *zaid ) {
 
-   char in_keyword[132 + 1];
+   char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
 
    /***** ??? Should this be done at the end ?? ***/
@@ -643,9 +667,23 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
 	    return(-11);
 	 }	 
       }
+      /* date_processed */
+      else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
+	ierr = read_next_string( stream, tn_stat.date_processed,
+				 sizeof(tn_stat.date_processed) );
+      }
+      /* date_source */
+      else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
+	ierr = read_next_string( stream, tn_stat.date_source,
+				 sizeof(tn_stat.date_source));
+      }
+      /* Library name*/
+      else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
+	ierr = read_next_string( stream, tn_stat.library_name,
+				 sizeof(tn_stat.library_name) );
+      }
       /* Number of temps */
-      /****CHANGE ***/
-      else if ( strncmp( in_keyword, "num_sigvbars", 13 ) == 0 ) {
+      else if ( strncmp( in_keyword, "num_temps", 9 ) == 0 ) {
 	 if (fscanf( stream, "%d\n", &tn_stat.num_temps ) == EOF) {
 	    /* ???? Could this return 0???? */
 	    /* Error reading file */
@@ -708,10 +746,14 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
       /* secondary particle types */
       else if (strncmp(in_keyword, "sec_part_types", 15 ) == 0) {
 	 /* Check for num_sec_parts > 0 */
-	 tn_stat.sec_part_types = (char **)ndi_malloc( tn_stat.num_sec_parts * 
-						       sizeof(char *) );
-	 ierr = set_string_array (stream, tn_stat.sec_part_types, 
-				  tn_stat.num_sec_parts);
+	if ( tn_stat.num_sec_parts > 0 ) {
+	  tn_stat.sec_part_types = (int_zaid_type*)ndi_malloc( tn_stat.num_sec_parts * 
+							       sizeof(int_zaid_type) );
+	  ierr = set_sec_part_types( stream, &(tn_stat.sec_part_types),
+				     tn_stat.num_sec_parts );
+	} else {
+	  ierr =-18 ;
+	}
       }
 
       /* Compound data */
@@ -724,6 +766,14 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
 				&sec_part_filled );
       }
 
+
+      /*********  COMMENTS  *************/
+
+      /* comment */
+      else if (strncmp(in_keyword, "comment", 8) == 0) {
+	ierr = skip_comment( stream );
+	return(ierr);
+      } 
 
       /*********  END  *************/
       
@@ -746,7 +796,7 @@ static int read_tn_data(FILE *stream, const char *zaid ) {
 
 static int read_tn_reac_data(FILE *stream, const char *zaid ) {
 
-   char in_keyword[132 + 1];
+   char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
 
 
@@ -778,6 +828,21 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
 	    return(-11);
 	 }	 
       }
+      /* date_processed */
+      else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
+	ierr = read_next_string( stream, tnreac_stat.date_processed,
+				 sizeof(tnreac_stat.date_processed) );
+      }
+      /* date_source */
+      else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
+	ierr = read_next_string( stream, tnreac_stat.date_source,
+				 sizeof(tnreac_stat.date_source) );
+      }
+      /* Library name*/
+      else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
+	ierr = read_next_string( stream, tnreac_stat.library_name,
+				 sizeof(tnreac_stat.library_name) );
+      }
       /* Number of reactions */
       else if ( strncmp( in_keyword, "num_reactions", 14 ) == 0 ) {
 	 if (fscanf( stream, "%d\n", &tnreac_stat.reac_num ) == EOF) {
@@ -794,6 +859,14 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
 	 ierr = set_reaction_array ( stream, tnreac_stat.list_reac, &tnreac_stat.reactants, 
 				     &tnreac_stat.rprods, tnreac_stat.reac_num );
       }
+
+      /*********  COMMENTS  *************/
+
+      /* comment */
+      else if (strncmp(in_keyword, "comment", 8) == 0) {
+	ierr = skip_comment( stream );
+	return(ierr);
+      } 
 
       /*********  END  *************/
       
@@ -815,7 +888,7 @@ static int read_tn_reac_data(FILE *stream, const char *zaid ) {
 
 static int read_depl_data(FILE *stream, const char *zaid ) {
 
-   char in_keyword[132 + 1];
+   char in_keyword[MAX_IN_STR_LEN];
    int ierr = 0;
 
 
@@ -847,9 +920,25 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 	    return(-11);
 	 }	 
       }
+      /* date_processed */
+      else if ( strncmp( in_keyword, "date_processed", 15 ) == 0 ) {
+	char junk[MAX_IN_STR_LEN];
+	 if (fscanf( stream, "%s\n", junk ) == EOF) {
+	    /* Error reading file */
+	    return(-11);
+	 }    
+      }
+      /* date_source */
+      else if ( strncmp( in_keyword, "date_source", 12 ) == 0 ) {
+	char junk[MAX_IN_STR_LEN];
+	 if (fscanf( stream, "%s\n", junk ) == EOF) {
+	    /* Error reading file */
+	    return(-11);
+	 }    
+      }
       /* Library name*/
       else if ( strncmp( in_keyword, "library_name", 13 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
@@ -858,7 +947,7 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 
       /* Unique targets*/
       else if ( strncmp( in_keyword, "num_unique_targets", 19 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
@@ -867,7 +956,7 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 
       /* Number of incident particles*/
       else if ( strncmp( in_keyword, "num_inc_parts", 14 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
@@ -876,7 +965,7 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 
       /* Incident particles*/
       else if ( strncmp( in_keyword, "list_inc_parts", 14 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
@@ -885,7 +974,7 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 
       /* Current incident particle*/
       else if ( strncmp( in_keyword, "inc_part", 9 ) == 0 ) {
-	char junk[132 + 1];
+	char junk[MAX_IN_STR_LEN];
 	 if (fscanf( stream, "%s\n", junk ) == EOF) {
 	    /* Error reading file */
 	    return(-11);
@@ -921,6 +1010,14 @@ static int read_depl_data(FILE *stream, const char *zaid ) {
 	*/  
 
       }
+
+      /*********  COMMENTS  *************/
+
+      /* comment */
+      else if (strncmp(in_keyword, "comment", 8) == 0) {
+	ierr = skip_comment( stream );
+	return(ierr);
+      } 
 
       /*********  END  *************/
       
@@ -998,6 +1095,31 @@ static int read_simple_array (FILE *stream, stat_flag *sf,
 }
 
 /**********************************************************************/
+static int read_next_string (FILE *stream, char *str_array, int str_size )
+
+     /* Reads into str_array the next non-blank line.  Str_array
+	is assumed to be a character array, rather than dynamically
+	allocated.????
+     */
+
+{
+   int ierr = 0;
+
+   *str_array = '\0';
+
+   while ( ndi_empty_string( str_array ) &&
+	   ! feof( stream ) ) {
+     if (fgets(str_array, str_size-1, stream) == NULL) {
+       /* Error reading file */
+       ierr = -11;
+       break;
+     }	
+   }
+
+   return(ierr);
+}
+
+/**********************************************************************/
 static int set_string_array (FILE *stream, char **str_p, int data_num) 
 
 {
@@ -1017,13 +1139,33 @@ static int set_string_array (FILE *stream, char **str_p, int data_num)
 
 /**********************************************************************/
 /**********************************************************************/
+static int set_sec_part_types (FILE *stream, int_zaid_type **int_p, int data_num) 
+
+{
+   int ierr = 0;
+   
+   if ( data_num < 0 ) {
+      /* Library error:  incorrect data order. */
+      ierr = -18;
+   } else if ( data_num == 0 ) {
+      /* No data! */
+      ierr = 5;
+   } else {
+     *int_p = (int_zaid_type *)ndi_malloc( data_num * sizeof(int_zaid_type) );
+     ierr = ndi_read_int_block( stream, data_num, *int_p, data_num );
+   }
+   return(ierr);
+}
+
+/**********************************************************************/
+/**********************************************************************/
 static int set_reaction_array (FILE *stream, char **str_p, stat_flag **reac_p,
 			       stat_flag **rprods_p, int data_num) 
 
 {
    int ierr = 0;
    int reac_count = 0;
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    stat_flag *reactants;
@@ -1043,7 +1185,12 @@ static int set_reaction_array (FILE *stream, char **str_p, stat_flag **reac_p,
       while ( reac_count < data_num ) {
 	 if (fgets(in_line, sizeof(in_line), stream) != NULL) {
 	    token  = strtok( in_line, seps );
+	    if ( ( strlen(token) == 0 ) ||
+		 ( strncmp( token, "reaction", strlen(token) ) == 0 ) ) {
+	      continue;
+	    }
 	    if (reac_count < data_num) {
+	      
 	       str_p[reac_count] = (char *)ndi_malloc( (strlen(token) + 1) *
 						       sizeof(char) );
 	       strcpy( str_p[reac_count], token );
@@ -1058,6 +1205,7 @@ static int set_reaction_array (FILE *stream, char **str_p, stat_flag **reac_p,
 	 } else {
 	    /* Error reading file */
 	    ierr = -11;
+	    break;
 	 }
       }
       *reac_p = reactants;
@@ -1104,7 +1252,7 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
 {
    int ierr = 0;
    int target_count = chain_filled;
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    int i;
@@ -1127,6 +1275,7 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
        if ( fscanf( stream, "%s\n", in_line ) == EOF ) {
 	 /* Error reading file */
 	 ierr = -11;    
+	 break;
        } else {
 	 token  = strtok( in_line, seps );
 	 target_p->izaid = (int) strtol( token, (char **)NULL, 10 );
@@ -1135,7 +1284,8 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
        /* Read number of products for the current target */
        if ( fscanf( stream,  "%s\n", in_line ) == EOF ) {
 	 /* Error reading file */
-	 ierr = -11;    
+	 ierr = -11;
+	 break;
        } else {
 	 token  = strtok( in_line, seps );
 	 target_p->num_rprods = (int) strtol(token, (char **)NULL, 10);
@@ -1146,7 +1296,8 @@ static int set_depl_array (FILE *stream, depl_target_struct *target,
 	 /* Read product zaid */
 	 if ( fscanf( stream,  "%s\n", in_line ) == EOF ) {
 	   /* Error reading file */
-	   ierr = -11;    
+	   ierr = -11;
+	   break;
 	 } else {
 	   token  = strtok( in_line, seps );
 	   target_p->rprod[i].izaid = (int)strtol( token, (char **)NULL, 10 );
@@ -1182,7 +1333,7 @@ static int set_chain_array (FILE *stream, depl_target_struct *target,
 {
    int ierr = 0;
    int target_count = chain_filled;
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    char junk[20];
@@ -1409,7 +1560,7 @@ static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_par
    int tmp_err = 0;
    int ntemp, ninterp;
    int num_particles_read = *parts_filled;
-   char *particle_str = NULL;
+   char *particle_str = &(keyword[7]); /* The particle id starts at char 7 */
    sec_part_distr *part;
    	
    /* Find next part to fill */
@@ -1422,30 +1573,7 @@ static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_par
    }
 
    /* Fill particle type */
-   particle_str = &(keyword[7]);
-
-   /*  Modify to use integer string in edist, e.g. e_dist_1 instead of e_dist_n */
-   if ( strcmp( particle_str, "n" ) == 0 ) {
-     strcpy( part->part_type, "neutron");
-   } else if ( strcmp( particle_str, "a" ) == 0 ) {
-     strcpy( part->part_type, "alpha");
-   } else if ( strcmp( particle_str, "p" ) == 0 ) {
-     strcpy( part->part_type, "proton");
-   } else if ( strcmp( particle_str, "he3" ) == 0 ) {
-     strcpy( part->part_type, "he3");
-   } else if ( strcmp( particle_str, "t" ) == 0 ) {
-     strcpy( part->part_type, "triton");
-   } else if ( strcmp( particle_str, "be7" ) == 0 ) {
-     strcpy( part->part_type, "be7");
-   } else if ( strcmp( particle_str, "li7" ) == 0 ) {
-     strcpy( part->part_type, "li7");
-   }else {
-     /* unknown particle type */
-     if (part) {
-       strcpy( part->part_type, particle_str);
-     }
-     ierr = 15;
-   }
+   part->part_type = strtol(particle_str, (char **)NULL, 10 );
 
    /* Fill temperature interpolation parameters */
    if (fscanf(stream, "%d  %d\n", &ntemp, &ninterp) != EOF) {
@@ -1491,49 +1619,6 @@ static int ndi_setup_edist( char *keyword, FILE *stream, sec_part_distr *sec_par
 }
 
 /**********************************************************************/
-/*
-static sec_part_distr find_next_sec_part( char *keyword, int *ierr )
-{
-
-  int i;
-  char *particle_str = &keyword[7];  * The particle starts at char 7 of keyword *
-  sec_part_distr part;
-
-  *ierr = 0;
-  
-  for ( i = 0; i < tn_stat.num_sec_parts; i++ ) {
-    if ( !(tn_stat.sec_part[i].part_type) ) {
-      part = tn_stat.sec_part[i];
-      break;
-    }
-  }
-
-  * Fill particle type *
-  if ( strcmp( particle_str, "n" ) == 0 ) {
-    strcpy( part.part_type, "neutron");
-  } else if ( strcmp( particle_str, "a" ) == 0 ) {
-    strcpy( part.part_type, "alpha");
-  } else if ( strcmp( particle_str, "p" ) == 0 ) {
-    strcpy( part.part_type, "proton");
-  } else if ( strcmp( particle_str, "he3" ) == 0 ) {
-    strcpy( part.part_type, "he3");
-  } else if ( strcmp( particle_str, "t" ) == 0 ) {
-    strcpy( part.part_type, "triton");
-  } else if ( strcmp( particle_str, "be7" ) == 0 ) {
-    strcpy( part.part_type, "be7");
-  } else if ( strcmp( particle_str, "li7" ) == 0 ) {
-    strcpy( part.part_type, "li7");
-  }else {
-    * unknown particle type *
-    strcpy( part.part_type, particle_str);
-    *ierr = 15;
-  }
-
-  return(part);
-}
-*/
-
-/**********************************************************************/
 static int fill_edist( FILE *stream, int ntemp, edist_data *dist ) 
 {
   int ierr = 0;
@@ -1556,10 +1641,12 @@ static int fill_edist( FILE *stream, int ntemp, edist_data *dist )
       } else {
 	/* Error reading file */
 	ierr = -11;
+	break;
       }
     } else  {
       /* Error reading file */
       ierr = -11;
+      break;
     }
   }
    
@@ -1576,7 +1663,7 @@ static int ndi_read_interp_param( FILE *stream, int ninterp, interp_params *para
 {    
    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
    int param_count = 0;          /* Current number of inter parameter pairs processed */
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];        /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    int *curr_nbt;
@@ -1645,7 +1732,6 @@ static int ndi_create_tn_sec_part ( int num_parts, sec_part_distr **sec_part)
 
   part = (sec_part_distr *)ndi_malloc( num_parts * sizeof( sec_part_distr ) );
   for (i = 0; i < num_parts; i++ ) {
-/*     ndi_set0_tn_sec_part( &(part[i]) ); */
     ndi_set0_tn_sec_part( &(part[i]), 0 ); 
   }
   
@@ -1721,4 +1807,26 @@ static int find_mg_sec_part_index( mg_sec_part_type part_type )
   }
   return(return_val);
 }
+/**********************************************************************/
+static int skip_comment( FILE *stream )
+
+{
+  char seps[] = " ,\t\n"; 
+  int ierr = 0;
+  char comment[MAX_IN_STR_LEN];
+
+  ierr = -11;  /* Default error -- error reading file */
+
+  while ( fgets(comment, sizeof(comment), stream) != NULL ) {
+
+    if ( strncmp (strtok( comment, seps ), "end_comment", 12) == 0) {
+      /* Check that there is nothing following?? */
+      ierr = 0;  /* No error */
+      break;
+    }
+  }
+
+  return( ierr );
+}
+
 /**********************************************************************/

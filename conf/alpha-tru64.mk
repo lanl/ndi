@@ -19,7 +19,7 @@ endif
 ASFLAGS		:= $(CFLAGS)
 CPPFLAGS	:= -I.
 LDFLAGS		:= -L.
-LDLIBS		:= -lndi
+LDLIBS		:= -lndi -lm
 
 # defines
 CPPFLAGS	+= -DTRU64

@@ -25,7 +25,7 @@ struct ndi_bin_tree_node *ndi_build_tree( int in_key, const char *in_value )
    /* Gendir section (e.g. neutron_multigroup) */
    char section[50];
    size_t sec_len;   /* Length of 'section' string */
-   char in_line[132 + 1];  /* Current input line */
+   char in_line[MAX_IN_STR_LEN];  /* Current input line */
    int ierr = 0;     /* Error flag: 0=no error,pos=warning, neg=error */
    int done = 0;     /* Flag indicating when processing of zaid is done */
    FILE *ndi_dir;

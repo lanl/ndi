@@ -36,7 +36,7 @@ int  ndi_read_string_block(FILE *stream, const int num_strings,
 ***********************************************************************/
 
 {
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN]; /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
@@ -63,6 +63,7 @@ int  ndi_read_string_block(FILE *stream, const int num_strings,
       } else {
 	 /* Error reading file */
 	 ierr = -11;
+	 break;
       }
    }
    return(ierr);

@@ -62,12 +62,12 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
 
    char section[30]; /* Gendir section (e.g. neutron_multigroup) */
    size_t sec_len;   /* Length of 'section' string */
-   char in_line[132 + 1];  /* Current input line */
-   char zaid_string[132 + 1];  /* First string on current line */
+   char in_line[MAX_IN_STR_LEN];  /* Current input line */
+   char zaid_string[MAX_IN_STR_LEN];  /* First string on current line */
    char seps[] = " ,\t\n";
    int ierr = 0;     /* Error flag: 0=no error,pos=warning, neg=error */
    int done = 0;     /* Flag indicating when processing of zaid is done */
-   char tmp_zaid[132];
+   char tmp_zaid[MAX_IN_STR_LEN];
    dir_entry dir_rec;
 
 
@@ -121,7 +121,8 @@ int ndi_zaid_dir(char pt_type, char l_type, const char *in_zaid,
 		  
 		  /* Check if current input line contains the desired zaid */
 		 if ( strstr( in_line, "z=" ) ) {
-		   (void) ndi_find_zaid_string( in_line, 132, zaid_string, 132, seps );
+		   (void) ndi_find_zaid_string( in_line, MAX_IN_STR_LEN, zaid_string, 
+						MAX_IN_STR_LEN, seps );
 		   if ( strncmp( zaid_string, in_zaid, strlen(in_zaid) ) == 0 ) {
 		     ierr = read_dir_block( in_line, ndi_dir, &dir_rec );
 		     strcpy( tmp_zaid, dir_rec.zaid );

@@ -112,8 +112,10 @@ int ndi_c_set_option ( int in_key, const char *in_value )
    case NDI_CURR_PART:
       /* Specify which particle is 'current'  */
       if ( library_type == 's' ) {
-	 pindex = ndi_find_tn_part_index( value, tn_stat.sec_part, 
-				       sec_part_filled );
+	
+	pindex = ndi_find_tn_part_index( strtol( value, (char **)NULL, 10 ), 
+					 tn_stat.sec_part, 
+					 sec_part_filled );
       } else if ( library_type == 'm' ) {
 	pindex = ndi_find_mg_part_index( value, iso_stat.sec_part, iso_stat.num_sec_parts );
 	

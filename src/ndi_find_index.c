@@ -82,28 +82,20 @@ int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num )
 
 /**********************************************************************/
 /**********************************************************************/
-int ndi_find_tn_part_index( const char *ptype , const sec_part_distr *part, int num_parts )
+int ndi_find_tn_part_index( const long ptype , const sec_part_distr *part, int num_parts )
 
 /*  This is only used for tndata */
 
 {
 
    int i;
-   char curr_char;
-   sec_part_distr curr_part;
 
    for ( i = 0; i < num_parts; i++ ) {
-     curr_part = part[i];
-     if (curr_part.part_type) {
-       curr_char = curr_part.part_type[0];
-       if ( *ptype == curr_char ) {
-	 /* check the first letter for n, p, a */
-	 if ( strcmp( ptype, part[i].part_type ) == 0 ) {
-	   return(i);
-	 }
-       }
+     if ( ptype == part[i].part_type ) {
+       return(i);
      }
    }
+
    return(-1);
 }
 

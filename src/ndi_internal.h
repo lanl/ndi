@@ -19,7 +19,7 @@
 /* Defines
  */
 
-#define NDI_VERSION_DATA        "beta1.2.5"
+#define NDI_VERSION_DATA        "beta1.2.7"
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
@@ -31,6 +31,7 @@
 #define READ_MT                -1
 #define NO_MT                   0
 
+#define MAX_IN_STR_LEN        133
 #define MAX_LIB_VERS_LEN       26
 #define MAX_NGROUP_STR_LEN     20
 
@@ -55,17 +56,18 @@
  */
 
 typedef char mg_sec_part_type[6];
+typedef long int_zaid_type;
 
 typedef char mg_zaid[64];
 typedef char tn_zaid[64];
 
 typedef struct _dir_entry {
-   char zaid[132];
-   char date[132];
-   char lib[132];
-   char path[132];
+   char zaid[MAX_IN_STR_LEN];
+   char date[MAX_IN_STR_LEN];
+   char lib[MAX_IN_STR_LEN];
+   char path[MAX_IN_STR_LEN];
    char lib_type[4];
-   char egrp[132];
+   char egrp[MAX_IN_STR_LEN];
    long int line_num;
    long int offset;
    int  num_grps;
@@ -120,7 +122,7 @@ typedef struct _edist_data {
 } edist_data;
 
 typedef struct _sec_part_distr {
-  char part_type[9];
+  int_zaid_type part_type;
   interp_params temp_interp;
   edist_data *edist;
 } sec_part_distr;
@@ -141,10 +143,14 @@ typedef struct _depl_target_struct {
 typedef struct _multigroup_status {
   int set_flag;
   mg_zaid zaid;
-  char info[132 + 1];
+  char info[MAX_IN_STR_LEN];
+  char date_processed[MAX_IN_STR_LEN];
+  char date_source[MAX_IN_STR_LEN];
+  char library_name[MAX_IN_STR_LEN];
   int num_grps;
   int up_grps;
   int down_grps;
+  int last_grp;
   int num_sec_parts;
   int num_reac;
   int pn_order;
@@ -190,8 +196,11 @@ typedef struct _tn_status {
   int num_grps;
   int num_edist;   /* All sec. parts. may not have E. distr. data */
   tn_zaid zaid;
-  char info[132+1];
-  char **sec_part_types;   /*  GET RID OF THIS ?  */
+  char info[MAX_IN_STR_LEN];
+  char date_processed[MAX_IN_STR_LEN];
+  char date_source[MAX_IN_STR_LEN];
+  char library_name[MAX_IN_STR_LEN];
+  int_zaid_type *sec_part_types; 
   double q_value;
   double *e_bounds;
   stat_flag int_sigvbars;
@@ -207,7 +216,10 @@ typedef struct _tnreac_status {
   int set_flag;
   int reac_num;                 /*  Number of reactions in TN reaction dataset */
   char dataset[60];             /*  Name of current set of TN reaction data */
-  char info [132 + 1];     /*  Information about current TN reaction dataset */
+  char info [MAX_IN_STR_LEN];     /*  Information about current TN reaction dataset */
+  char date_processed[MAX_IN_STR_LEN];
+  char date_source[MAX_IN_STR_LEN];
+  char library_name[MAX_IN_STR_LEN];
   char *list_reac[ MAX_TN_REAC ];   /*  List of current set of TN reaction zaids */
   stat_flag *reactants;
   stat_flag *rprods;
@@ -222,7 +234,10 @@ typedef struct _chain_status {
   int *inc_part_types;             /* Incident particles types */
   int target_filled;               /* Number of targets for which data has been stored */
   char dataset[60];                /*  Name of current set of chain data */
-  char info [132 + 1];        /*  Information about current chain dataset */
+  char info [MAX_IN_STR_LEN];        /*  Information about current chain dataset */
+  char date_processed[MAX_IN_STR_LEN];
+  char date_source[MAX_IN_STR_LEN];
+  char library_name[MAX_IN_STR_LEN];
   depl_target_struct *target; 
 } chain_status;
 
@@ -285,6 +300,8 @@ extern "C" {
 			const char *data_type, int *num_prod,  short mt_flag);
    int ndi_read_string_block(FILE *stream, const int num_strings, char **p  );
    int read_dir_block( char *in_line, FILE *dir_stream, dir_entry *dir_rec );
+   int  ndi_read_int_block(FILE *stream, const int num_ints,
+	 		   long *return_vec, const int return_size );  
    void *ndi_malloc(size_t size);
    void *ndi_calloc(size_t nmemb, size_t size);
    void ndi_free(void **p);
@@ -312,9 +329,10 @@ extern "C" {
    int ndi_check_array_err(int num);
    int ndi_read_float_pair( FILE *stream, long int file_pos, int num_prs,
 			    double *flt_vecx, double *flt_vecy, int return_size );
-   int ndi_translate_fiss_prod ( int *zaid_list, int num_zaids );
+  int ndi_translate_fiss_prod ( int *zaid_list, int num_zaids );
   int ndi_parse_mg_zaid ( char *zaid, int *z, int *a );
   int double_compare( const double a, const double b );
+  int ndi_empty_string( char *in_str );
 
   /***  Subroutines in file ndi_misc_depl.c ***/
    int ndi_depletion( const char *in_zaid );
@@ -371,7 +389,7 @@ extern "C" {
    /***  Subroutines in file ndi_find_index.c ***/
    int ndi_find_rprod_index(FILE *stream, multi_stat *rprod, int *ret_index, int mt );
    int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num );
-   int ndi_find_tn_part_index( const char *ptype , const sec_part_distr *part, int num_parts );
+   int ndi_find_tn_part_index( const long ptype , const sec_part_distr *part, int num_parts );
    int ndi_find_mg_part_index( const char *ptype , const sec_part_mg *part, int num_parts );
    int ndi_find_iso_index( const char *ptype , const char **string_array, int num_parts );
    int ndi_find_temp_bound_index( edist_data *edist, int num_temps, int *hi, int *lo, int *closest );

@@ -226,10 +226,14 @@ static int get_string_n_tn( int in_key, char *ret_val,
       /* Check vec_num is within bounds */
       if ( ( tn_stat.num_sec_parts > vec_num ) && 
 	   ( sec_part_filled > vec_num ) &&
-	   ( tn_stat.sec_part_types ) ) {
-	 strncpy( ret_val, tn_stat.sec_part_types[vec_num], str_size );
+	   ( tn_stat.sec_part ) ) {
+	if ( tn_stat.sec_part[vec_num].part_type >= 0 ) {
+	  sprintf( ret_val, "%-ld", tn_stat.sec_part[vec_num].part_type );
+	} else {
+	  ierr = 5;
+	}
       } else {
-	if ( tn_stat.sec_part_types ) {
+	if ( tn_stat.sec_part) {
 	  ierr = ndi_check_array_err(sec_part_filled);
 	} else {
 	  ierr = -9;

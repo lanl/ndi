@@ -107,7 +107,8 @@ int ndi_c_check_option ( int in_key, char *out_value, int string_size )
       /* Which particle is 'current'  */
      if ( curr_part_index >= 0 ) {
        if ( library_type == 's' ) {
-	 strncpy( out_value, tn_stat.sec_part[curr_part_index].part_type, string_size );
+	 sprintf( out_value, "%-ld", tn_stat.sec_part[curr_part_index].part_type );
+/* 	 strncpy( out_value, tn_stat.sec_part[curr_part_index].part_type, string_size ); */
        } else if ( library_type == 'm' ) {
 	 strncpy( out_value, iso_stat.sec_part[curr_part_index].part_type, string_size );
        } else {

@@ -224,7 +224,7 @@ int ndi_read_float_pair( FILE *stream, long int file_pos, int num_prs,
 
    int pair_count = 0;
    int ierr = 0;      /* Error flag: 0=no error,pos=warning, neg=error */
-   char in_line[132 + 1];        /* Current input line */
+   char in_line[MAX_IN_STR_LEN];     /* Current input line */
    char *token;                  /* Current data item */
    char seps[] = " ,\t\n";       /* Data delimiters in library file */
    double *cur_fltx_ptr = flt_vecx;
@@ -356,4 +356,30 @@ int double_compare( const double a, const double b )
      }
   
 }
+/**********************************************************************/
+int ndi_empty_string( char *in_str )
+
+     /* Empty string returns true (-1) if the input character array
+	contains only whitespace before the newline.  It will return 
+	false (0) if a non-whitespace character exists before the newline.
+     */
+
+{
+
+  char *curr_char = in_str;
+  int str_size = strlen(in_str);
+
+  while ( ( *curr_char != '\0') && 
+	  ( str_size > 0 ) )
+  {
+    if ( ! isspace(*curr_char) ) {
+      return( 0 );
+    }
+    curr_char++;
+    str_size--;
+  }
+
+  return(-1);
+}
+
 /**********************************************************************/

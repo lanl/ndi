@@ -44,9 +44,9 @@ int	ndi_c_set_zaid(const char *in_zaid)
    char lib_path[250]; /* Path of library file */
    char lib_file_type[] = "   ";  /* Currently only 'asc' is valid ascii */
    long int iso_start; /* Line number in file where isotope data begins */
-   char tmp_zaid[132];
+   char tmp_zaid[MAX_IN_STR_LEN];
    double at_wgt;
-   char real_zaid[132];
+   char real_zaid[MAX_IN_STR_LEN];
 
    /*** Check that library type has been set ***/
 

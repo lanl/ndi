@@ -117,6 +117,15 @@ static int get_mg_size( int in_key, int *ierr ) {
    case NDI_INFO:                               /* Information */
       return_value = (int) strlen(iso_stat.info) + 1;
       break;
+   case NDI_DATE_PROCESSED:                     /* Date library was processed */
+      return_value = (int) strlen(iso_stat.date_processed) + 1;
+      break;
+   case NDI_DATE_SOURCE:                     /* Date of library source info */
+      return_value = (int) strlen(iso_stat.date_source) + 1;
+      break;
+   case NDI_LIBRARY_NAME:                    /* Name of current library */
+      return_value = (int) strlen(iso_stat.library_name) + 1;
+      break;
    case NDI_DEPL_ZAID:                          /*  Depletion ZAID  */
      if ( ! ndi_depl_set ) {
        *ierr = ndi_set_default_depl();
@@ -400,6 +409,12 @@ static int get_tn_size( int in_key, int *ierr ) {
      if ( tn_stat.reactants.length ) 
        return_value =  tn_stat.reactants.length;
      break;
+
+   case NDI_SEC_PART_TYPES:  
+      /* Vector of secondary particle types */
+     if ( tn_stat.num_sec_parts >= 0 ) {
+       return_value = sec_part_filled;
+     }
 
    case NDI_EDIST:   /* Curr. particle's energy distribution at current temp. */
       /* The number returned is the number of groups in the currently-set group stucture */

@@ -75,7 +75,7 @@ int ndi_depletion( const char *in_zaid )
 int ndi_set_default_depl( void ) {
 
   int ierr = 0;
-  char tmp_zaid[132] = "";   /* This 'zaid' will match any zaid in the gendir */
+  char tmp_zaid[MAX_IN_STR_LEN] = "";   /* This 'zaid' will match any zaid in the gendir */
   char library[20];   /* Name of file (e.g. mendf5) */
   char lib_path[250]; /* Path of library file */
   char lib_file_type[] = "   ";  /* Currently only 'asc' is valid ascii */

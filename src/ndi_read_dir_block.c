@@ -50,7 +50,7 @@ int read_dir_block( char *in_line, FILE *dir_stream, dir_entry *dir_rec )
 
    char seps[] = " ,\t\n=";
    char *token;
-   char in_str[132 + 1];
+   char in_str[MAX_IN_STR_LEN];
    int done = 0;
 
    ierr = ndi_init_dir_rec(dir_rec);

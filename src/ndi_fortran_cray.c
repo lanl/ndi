@@ -326,9 +326,9 @@ void F_NDI_SET_OPTION(int *in_key, _fcd in_value, int *ierr ) {
 
 void F_NDI_CHECK_OPTION( int *in_key, _fcd out_value, int *ierr ) {
 
-   char c_str[132];
+   char c_str[MAX_IN_STR_LEN];
 
-   *ierr = ndi_c_check_option( *in_key, c_str, 132 );
+   *ierr = ndi_c_check_option( *in_key, c_str, MAX_IN_STR_LEN );
    (void)ndi_c2f_string( c_str, out_value );
 
 }

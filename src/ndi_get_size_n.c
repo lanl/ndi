@@ -151,7 +151,7 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
      }
 
      if ( ( depl_target) && ( num_target > vec_num ) ) {
-       char temp_id[132];
+       char temp_id[MAX_IN_STR_LEN];
        if ( depl_target[vec_num].izaid != 99999 ) {
 	 sprintf( temp_id, "%d", depl_target[vec_num].izaid ); 
        } else {
@@ -174,8 +174,8 @@ static int get_mg_size_n( int in_key, int vec_num, int *ierr ) {
        *ierr = ndi_set_default_depl();
      }
      if ( num_target > vec_num ) {
-       char temp_id[132];
-       *ierr = ndi_get_rprod_id_n( vec_num, temp_id, 132 );
+       char temp_id[MAX_IN_STR_LEN];
+       *ierr = ndi_get_rprod_id_n( vec_num, temp_id, MAX_IN_STR_LEN );
        if ( strcmp(temp_id, "99999" ) == 0 ) {
 	 /* Translate fission product identifier 99999 to default f.p. ZAID */
 	 strcpy( temp_id, def_fiss_prod_id );
@@ -326,10 +326,16 @@ static int get_tn_size( int in_key, int vec_num, int *ierr ) {
 
      /**** String values ****/
    case NDI_SEC_PART_TYPES:                /* Secondary particle types  */
-       if ( ( tn_stat.num_sec_parts > vec_num ) && ( tn_stat.sec_part_types ) ) {
-	  return_value = (int) strlen(tn_stat.sec_part_types[vec_num]) + 1;
+     /* This gives the size of the string returned if the nth part type is asked for */
+       if ( ( tn_stat.num_sec_parts > vec_num ) && 
+	    ( sec_part_filled > vec_num ) &&
+	    ( tn_stat.sec_part ) ) {
+	 if ( tn_stat.sec_part[vec_num].part_type >= 0 ) {
+	   char junk[MAX_IN_STR_LEN];
+	   return_value = sprintf( junk, "%-ld", tn_stat.sec_part[vec_num].part_type) + 1;
+	 }
        } else {
-	 if ( ( tn_stat.num_sec_parts <= 0 ) || !( tn_stat.sec_part_types ) ) {
+	 if ( ( tn_stat.num_sec_parts <= 0 ) || !( tn_stat.sec_part ) ) {
 	   *ierr = 9;
 	 } else {
 	   *ierr = -5;
