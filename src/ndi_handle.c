@@ -25,7 +25,7 @@ state_struct *handle_to_state_p(int handle)
 	       handle < MAX_HANDLE_NUM*(1+MAX_HANDLE_NUM*
 					(1+MAX_HANDLE_NUM))) {
 				/* mpmg level */
-	 handle -= MAX_HANDLE * (MAX_HANDLE_NUM+1);
+	 handle -= MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1);
 	 i = handle / (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
 	 handle -= i * (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
 	 j = handle / MAX_HANDLE_NUM;
@@ -56,7 +56,7 @@ int set_handle(state_struct *state)
 
 int __ndi_close_handle(int handle)
 {
-
+    int i, j, k;
     int ret_val;
     state_struct *state_p;
 
@@ -76,7 +76,7 @@ int __ndi_close_handle(int handle)
 		    handle < MAX_HANDLE_NUM*(1+MAX_HANDLE_NUM*
 					     (1+MAX_HANDLE_NUM))) {
 				/* mpmg level */
-	      handle -= MAX_HANDLE * (MAX_HANDLE_NUM+1);
+	      handle -= MAX_HANDLE_NUM * (MAX_HANDLE_NUM+1);
 	      i = handle / (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
 	      handle -= i * (MAX_HANDLE_NUM * MAX_HANDLE_NUM);
 	      j = handle / MAX_HANDLE_NUM;
