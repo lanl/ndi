@@ -1,33 +1,46 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/ndi_init.c)
 AC_CONFIG_AUX_DIR(conf)
-
 AC_CANONICAL_HOST
 
-case "${host}" in   
-rs6000-ibm-aix*)
-	CONFIG=aix
-	;;
-sparc-sun-solaris2.*)
-        CONFIG=sun
-	;;
-i?86-pc-linux*)
-        CONFIG=intel-linux
-	;;
-ymp-cray-unicos*)
-	CONFIG=cray
-	;;
-mips-sgi-irix*)
-	CONFIG=sgi-64
-	;;
-alphaev67-dec*)
-        CONFIG=alpha-tru64
-	;;
-*)
-	AC_MSG_ERROR([Cannot guess CONFIG])
-	;;
-esac
+AC_ARG_WITH(config,
+   [  --with-config=CONFIG      set CONFIG.mk])
 
+AC_MSG_CHECKING([makefile configuration include])
+if test "${with_config:=no}" = "no" || test "${with_config:=yes}" = yes
+then
+	case "${host}" in   
+	rs6000-ibm-aix*)
+		CONFIG=aix
+			;;
+	sparc-sun-solaris2.*)
+		CONFIG=sun
+		;;
+	i?86-pc-linux*)
+		CONFIG=intel-linux
+		;;
+	ymp-cray-unicos*)
+		CONFIG=cray
+		;;
+	mips-sgi-irix*)
+		CONFIG=sgi-64
+		;;
+	alphaev67-dec*)
+		CONFIG=alpha-tru64
+		;;
+	*)
+		AC_MSG_ERROR([Cannot guess CONFIG])
+		;;
+	esac
+else
+	if test -f ${srcdir}/conf/${with_config}.mk
+	then
+		CONFIG=${with_config}
+	else
+		AC_MSG_ERROR([Cannot find ${with_config}.mk])
+	fi
+fi
+AC_MSG_RESULT([${CONFIG}.mk])
 AC_SUBST([CONFIG])
 
 dnl Checks for programs.
