@@ -11,13 +11,16 @@ static int GET_COMB_FLOAT_VEC(state_struct *handle[],
 			      const int vec_size);
 
 /**********************************************************************/
-int NDIMP_GET_FLOAT_VEC(state_struct *handle[], const int num_parts,
-			const int in_key, const char mat_order,
+int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
                         FLOAT_TYPE * ret_vec,
-			const int vec_size)
+			int vec_size)
 {
-
     int ierr = 0;
+    state_struct **handle;
+    int num_parts;
+
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     (void) NDI_INIT_FLOAT_VEC(ret_vec, vec_size);
 

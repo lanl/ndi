@@ -6,25 +6,33 @@
 #include "ndi_state.h"
 
 /**********************************************************************/
-int
-ndimp_get_string_val(state_struct *handle[], const int num_parts,
-		     const int in_key, char *ret_val, const int str_size)
+int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val, 
+			 int str_size)
 {
 
     int ierr = 0;
 
+    if (!h) 
+	return -2;
 
-    if ((ret_val) && (str_size > 0)) {
+    if ((ret_val) && (str_size > 0))
 	*ret_val = '\0';
-    } else {
-	ierr = 7;
-	return (ierr);
-    }
 
-    if (in_key == NDI_VERSION) {
-	strncpy(ret_val, NDI_VERSION_DATA, str_size);
-    } else {
+   /*************************/
+    /*   Process input key   */
+   /*************************/
+    switch (in_key) {
+
+    case NDI_ZAID:		/*  NDI_ZAID  */
+	/* Check that isotope is set */
+	strncpy(ret_val, h->handle_map[0]->iso_stat.zaid, str_size);
+	break;
+
+      /**************  UNKNOWN KEYWORD  *****************/
+
+    default:
 	ierr = -4;
+	break;
     }
 
     return (ierr);

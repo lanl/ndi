@@ -6,8 +6,7 @@
 /**********************************************************************/
 
 int
-ndimp_get_size_n(state_struct *handle[], const int num_parts,
-		 int in_key, int vec_num, int *ierr)
+ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr)
 {
 
     int return_val = 0;
@@ -20,7 +19,7 @@ ndimp_get_size_n(state_struct *handle[], const int num_parts,
 
     case NDI_PN_FULL:
 	/*  */
-	ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS, &tmp_int);
+	ndimp_get_int_val(h, NDI_NUM_GRPS, &tmp_int);
 	return_val = tmp_int * tmp_int;
 	break;
 
@@ -29,7 +28,7 @@ ndimp_get_size_n(state_struct *handle[], const int num_parts,
     case NDI_SIG_PNU_PR:
     case NDI_CORR_DIAG:
     case NDI_CORR_BHS:
-        *ierr = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS, &return_val);
+        *ierr = ndimp_get_int_val(h, NDI_NUM_GRPS, &return_val);
         break;
 
     default:

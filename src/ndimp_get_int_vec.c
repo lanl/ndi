@@ -9,11 +9,15 @@ static int get_comb_reac_mt(state_struct *handle[],
 			    int *return_vec, const int vec_size);
 
 /**********************************************************************/
-int ndimp_get_int_vec(state_struct *handle[], const int num_parts,
-		      const int in_key, int *ret_vec, const int vec_size)
+int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec, int vec_size)
 {
 
     int ierr = 0;
+    state_struct **handle;
+    int num_parts;
+
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     ierr = ndi_init_int_vec(ret_vec, vec_size);
 

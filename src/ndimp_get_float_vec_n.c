@@ -5,23 +5,23 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
-static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
-			   const int in_key, FLOAT_TYPE * return_vec,
-			   const int vec_size);
-static int GET_COMB_FLOAT_VEC_N(state_struct *handle[], 
-                                const int num_parts,
-                                const int in_key, const int vec_num,
+static int GET_MP_SCAT_MAT(state_struct *h,
+			   int in_key, FLOAT_TYPE * return_vec,
+			   int vec_size);
+static int GET_COMB_FLOAT_VEC_N(state_struct *h,
+                                int in_key, int vec_num,
                                 FLOAT_TYPE * return_vec,
-                                const int vec_size);
+                                int vec_size);
 
 /**********************************************************************/
-int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
-			  const int in_key, const int vec_num,
-                          const char mat_order,
-			  FLOAT_TYPE * ret_vec, const int vec_size)
+int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
+			  FLOAT_TYPE * ret_vec, int vec_size)
 {
 
     int ierr = 0;
+    char mat_order;
+
+    mat_order = h->mat_order;
 
     (void) NDI_INIT_FLOAT_VEC(ret_vec, vec_size);
 
@@ -32,11 +32,11 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 
     case NDI_PN_FULL:
 	ierr =
-	    GET_MP_SCAT_MAT(handle, num_parts, vec_num, ret_vec,
+	    GET_MP_SCAT_MAT(h, vec_num, ret_vec,
 			    vec_size);
         if ((mat_order == 't') && (ierr >= 0)) {
             int num_grps, tmp_err;
-            tmp_err = ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS,
+            tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS,
                                         &num_grps);
             if ( (tmp_err != 0) &&
                  ((ierr >= 0) || (tmp_err < 0 )))
@@ -51,7 +51,7 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
     case NDI_CORR_DIAG:
     case NDI_CORR_BHS:
         ierr = 
-            GET_COMB_FLOAT_VEC_N(handle, num_parts, in_key,
+            GET_COMB_FLOAT_VEC_N(h, in_key,
                                  vec_num, ret_vec, vec_size);
         break;
         
@@ -64,9 +64,9 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *handle[], const int num_parts,
 }
 
 /**********************************************************************/
-static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
-			   const int pn_order, FLOAT_TYPE * return_vec,
-			   const int ret_size)
+static int GET_MP_SCAT_MAT(state_struct *h,
+			   int pn_order, FLOAT_TYPE * return_vec,
+			   int ret_size)
 {
 
     int ierr = 0;
@@ -91,10 +91,14 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
     FLOAT_TYPE *temp_mat;
     state_struct *in_part;
     state_struct *out_part;
+    state_struct **handle;
+    int num_parts;
 
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     tmp_err =
-	ndimp_get_int_val(handle, num_parts, NDI_NUM_GRPS,
+	ndimp_get_int_val(h, NDI_NUM_GRPS,
 			  &tot_num_grps);
 
     for (in = 0; in < num_parts; in++) {
@@ -226,14 +230,12 @@ static int GET_MP_SCAT_MAT(state_struct *handle[], const int num_parts,
 }
 
 /**********************************************************************/
-static int GET_COMB_FLOAT_VEC_N(state_struct *handle[], 
-                                const int num_parts,
-                                const int in_key, const int vec_num,
+static int GET_COMB_FLOAT_VEC_N(state_struct *h,
+                                int in_key, int vec_num,
                                 FLOAT_TYPE * return_vec,
-                                const int vec_size)
+                                int vec_size)
 
 {
-
     int ierr = 0;
     int i;
     int tmp_err = 0;
@@ -241,6 +243,11 @@ static int GET_COMB_FLOAT_VEC_N(state_struct *handle[],
     int last_size = 0;
     FLOAT_TYPE *curr_p = return_vec;
     state_struct *statep;
+    state_struct **handle;
+    int num_parts;
+
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     for (i = 0; i < num_parts; i++) {
 	if (curr_size <= 0) {

@@ -4,22 +4,20 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int get_comb_reac_mt_n(state_struct *handle[], 
-			      const int num_parts,
-			      const int vec_num, int *return_val);
-static int get_last_group_n(state_struct *handle[], 
-			    const int num_parts,
-			    const int vec_num, int *return_val);
-static int get_particle_index(state_struct *handle[], const int num_parts,
-                              const int part_type, int *return_val);
+static int get_comb_reac_mt_n(state_struct *h, int vec_num, int *return_val);
+static int get_last_group_n(state_struct *h, int vec_num, int *return_val);
+static int get_particle_index(state_struct *h, int part_type, int *return_val);
 
 /**********************************************************************/
-int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
-			const int in_key, const int vec_num, int *ret_val)
+int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num, int *ret_val)
 {
 
     int ierr = 0;
+    state_struct **handle;
+    int num_parts;
 
+    handle = h->handle_map;
+    num_parts = h->handle_free;
     *ret_val = 0;
 
     /* Check each particle is multigroup */
@@ -28,11 +26,11 @@ int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
     switch (in_key) {
 
     case NDI_REAC_MT:
-	ierr = get_comb_reac_mt_n(handle, num_parts, vec_num, ret_val);
+	ierr = get_comb_reac_mt_n(h, vec_num, ret_val);
 	break;
 
     case NDI_LAST_GRP:
-	ierr = get_last_group_n(handle, num_parts, vec_num, ret_val);
+	ierr = get_last_group_n(h, vec_num, ret_val);
 	break;
 
     case NDI_PARTICLE_N:
@@ -45,7 +43,7 @@ int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
         break;
 
     case NDI_PARTICLE_OF_TYPE:
-        ierr = get_particle_index(handle, num_parts, vec_num, ret_val);
+        ierr = get_particle_index(h, vec_num, ret_val);
         break;
 
     default:
@@ -57,20 +55,19 @@ int ndimp_get_int_val_n(state_struct *handle[], const int num_parts,
 }
 
 /**********************************************************************/
-static int get_comb_reac_mt_n(state_struct *handle[], 
-			      const int num_parts,
+static int get_comb_reac_mt_n(state_struct *h,
 			      const int vec_num, int *return_val)
 {
 
     int ierr = 0;
     int vec_size = 0;
     int *mt_arr;
-
+    
     *return_val = 0;
 
-    vec_size = ndimp_get_size(handle, num_parts, NDI_REAC_MT, &ierr);
+    vec_size = ndimp_get_size(h, NDI_REAC_MT, &ierr);
     mt_arr = (int *) ndi_malloc(vec_size * sizeof(int));
-    ierr = ndimp_get_int_vec(handle, num_parts, NDI_REAC_MT,
+    ierr = ndimp_get_int_vec(h, NDI_REAC_MT,
 			     mt_arr, vec_size);
 
     if (vec_num < vec_size) {
@@ -84,8 +81,7 @@ static int get_comb_reac_mt_n(state_struct *handle[],
 }
 
 /**********************************************************************/
-static int get_last_group_n(state_struct *handle[], 
-			    const int num_parts,
+static int get_last_group_n(state_struct *h,
 			    const int vec_num, int *return_val)
 {
 
@@ -95,6 +91,11 @@ static int get_last_group_n(state_struct *handle[],
     int i;
     int end_index = vec_num;
     state_struct *statep;
+    state_struct **handle;
+    int num_parts;
+
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     *return_val = 0;
 
@@ -119,12 +120,16 @@ static int get_last_group_n(state_struct *handle[],
 }
 
 /**********************************************************************/
-static int get_particle_index(state_struct *handle[], const int num_parts,
+static int get_particle_index(state_struct *h,
                               const int part_type, int *return_val) 
 {
     int ierr = 0;
     int i;
+    state_struct **handle;
+    int num_parts;
     
+    handle = h->handle_map;
+    num_parts = h->handle_free;
     *return_val = -1;
     
     for (i = 0; i < num_parts; i++) {

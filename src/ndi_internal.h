@@ -693,45 +693,28 @@ extern "C" {
     /* multi-particle multi-group functions */
     int ndimp_set_option(state_struct *mpmg_handle, 
                          int in_key, const char *value );
-    int ndimp_set_zaid(state_struct *handle[], const int num_parts,
-                       const char *zaid );
-    int ndimp_get_float32_vec(state_struct *handle[], 
-			      const int num_parts,
-			      const int in_key, const char mat_order,
+    int ndimp_set_zaid(state_struct *h, const char *zaid );
+    int ndimp_get_float32_vec(state_struct *h,
+			      int in_key,
                               ndi_float32 * ret_vec,
-			      const int vec_size);
-    int ndimp_get_float64_vec(state_struct *handle[], 
-			      const int num_parts,
-			      const int in_key, const char mat_order,
+			      int vec_size);
+    int ndimp_get_float64_vec(state_struct *h, 
+			      int in_key,
                               ndi_float64 * ret_vec,
-			      const int vec_size);
-    int ndimp_get_float32_vec_n(state_struct *handle[], 
-				const int num_parts,
-				const int in_key, const int vec_num,
-                                const char mat_order,
-				ndi_float32 * ret_vec, const int vec_size);
-    int ndimp_get_float64_vec_n(state_struct *handle[], 
-				const int num_parts,
-				const int in_key, const int vec_num,
-                                const char mat_order,
-				ndi_float64 * ret_vec, const int vec_size);
-    int ndimp_get_int_val(state_struct *handle[], const int num_parts,
-			  const int in_key, int *return_val);
-    int ndimp_get_int_val_n(state_struct *handle[], 
-			    const int num_parts,
-			    const int in_key, const int vec_num,
+			      int vec_size);
+    int ndimp_get_float32_vec_n(state_struct *h, int in_key, int vec_num,
+				ndi_float32 * ret_vec, int vec_size);
+    int ndimp_get_float64_vec_n(state_struct *h, int in_key, int vec_num,
+				ndi_float64 * ret_vec, int vec_size);
+    int ndimp_get_int_val(state_struct *h, int in_key, int *return_val);
+    int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
 			    int *ret_val);
-    int ndimp_get_int_vec(state_struct *handle[], const int num_parts,
-			  const int in_key, int *ret_vec,
-			  const int vec_size);
-    int ndimp_get_size(state_struct *handle[], const int num_parts,
-		       int in_key, int *ierr);
-    int ndimp_get_size_n(state_struct *handle[], const int num_parts,
-			 int in_key, int vec_num, int *ierr);
-    int ndimp_get_string_val(state_struct *handle[], 
-			     const int num_parts,
-			     const int in_key, char *ret_val,
-			     const int str_size);
+    int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec, 
+			  int vec_size);
+    int ndimp_get_size(state_struct *h, int in_key, int *ierr);
+    int ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr);
+    int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val,
+			     int str_size);
 
   /**********************************************************************/
 

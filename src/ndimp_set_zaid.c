@@ -8,8 +8,7 @@
 
 /**********************************************************************/
 
-int ndimp_set_zaid(state_struct *handle[], const int num_parts,
-                   const char *zaid )
+int ndimp_set_zaid(state_struct *h, const char *zaid )
 {
 
     int ierr = 0;
@@ -19,6 +18,11 @@ int ndimp_set_zaid(state_struct *handle[], const int num_parts,
     char *dot_p = NULL;
     char *tmp_zaid = NULL;
     state_struct *statep;
+    state_struct **handle;
+    int num_parts;
+
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     /* Check each particle is multigroup */
     /* Check num_parts <= MAX_HANDLE_NUM */

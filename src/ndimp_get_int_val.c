@@ -5,9 +5,7 @@
 #include "ndi_state.h"
 
 /**********************************************************************/
-int
-ndimp_get_int_val(state_struct *handle[], const int num_parts,
-		  const int in_key, int *return_val)
+int ndimp_get_int_val(state_struct *h, int in_key, int *return_val)
 {
 
     int i;
@@ -15,7 +13,11 @@ ndimp_get_int_val(state_struct *handle[], const int num_parts,
     int ierr = 0;
     int temp_val = 0;
     state_struct *statep;
+    state_struct **handle;
+    int num_parts;
 
+    handle = h->handle_map;
+    num_parts = h->handle_free;
 
     *return_val = 0;
     /* Check each particle is multigroup */
@@ -50,8 +52,7 @@ ndimp_get_int_val(state_struct *handle[], const int num_parts,
 	for (i = 0; i < num_parts; i++) {
 	    if ((statep = (handle[i]))) {
 		*return_val =
-		    ndimp_get_size(handle, num_parts, NDI_REAC_MT,
-				   &tmp_err);
+		    ndimp_get_size(h, NDI_REAC_MT, &tmp_err);
 	    }
 	}
 	break;

@@ -16,3 +16,7 @@
   Consider format change; consider major function rewrite (odiferous functions)
 
 * Factor get_float_vec and get_float_vec_n into raw data layer + transpose layer
+
+* User Baker: PNU doesn't work with isotopes specified using, e.g. 'u235'
+
+* User Baker: mpmg cores if neutron group = 4 while photon group = 12
