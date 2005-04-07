@@ -16,9 +16,9 @@ digraph ndi {
 	jomc -> ndi[label="14) HR MG Data,\n7) LLNL MG Data", color=yellow4];
 	ndi -> jomc[label="7) LLNL MG Support", color=yellow1];
 	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow1];
-	ndi -> dahl[label="14) HR MG Data", color=red];
+	ndi -> dahl[label="14) HR MG Data", color=green];
 	ndi -> barcher[label="18) Red Storm Support", color=red];
-	ndi -> morgan[label="17) Real Multiplicities", color=green];
+	ndi -> morgan[label="17) Real Multiplicities", color=yellow4];
 
 	{rank = max; jomc; morgan}
 	{rank = min; caw; dahl; barcher}
