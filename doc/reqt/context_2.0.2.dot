@@ -1,12 +1,12 @@
 digraph ndi {
 	orientation=landscape;
-	label="green=past work\nyellow=present work(04/05/05)\nred=future work";
+	label="green=past work\nyellow=present work(05/02/05)\nred=future work";
 	node[shape="box"];
 
 	/* stakeholders */
 	caw[label="Chuck Wingate"];
 	dahl[label="Jon Dahl"];
-	barcher[label="Bill Archer"];
+	aldrich[label="Chuck Aldrich"];
 	jomc[label="Joann Campbell"];
 	morgan[label="Morgan White"];
 
@@ -14,12 +14,12 @@ digraph ndi {
 	ndi[label="NDI 2.0.2", shape="ellipse"];
 	
 	jomc -> ndi[label="14) HR MG Data,\n7) LLNL MG Data", color=yellow4];
-	ndi -> jomc[label="7) LLNL MG Support", color=yellow1];
-	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow1];
-	ndi -> dahl[label="14) HR MG Data", color=green];
-	ndi -> barcher[label="18) Red Storm Support", color=red];
-	ndi -> morgan[label="17) Real Multiplicities", color=yellow4];
+	ndi -> jomc[label="7) LLNL MG Support", color=green];
+	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow3];
+	ndi -> dahl[label="14) HR MG Data", color=yellow4];
+	ndi -> aldrich[label="19) React ID Labels", color=yellow1];
+	ndi -> morgan[label="17) Real Multiplicities", color=green];
 
 	{rank = max; jomc; morgan}
-	{rank = min; caw; dahl; barcher}
+	{rank = min; caw; dahl; aldrich}
 }

@@ -1,0 +1,45 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Reaction ID Labels & Control number: 19\\ \hline
+Stakeholder: Chuck Aldrich & Request date: April 06, 2005\\ \hline
+\multicolumn{2}{|l|}{Description: Add Reaction ID label strings } \\ \hline
+Urgent: Yes & Comment: Promised to Bob Webster\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+\begin{verbatim}
+/* Get reaction label string size */
+str_size = NDI2_get_size_n(handle, NDI_REAC_LABEL, ID, &ierr);
+ierr = NDI2_get_string_val_n(handle, NDI_REAC_ID, ID, id_label, num_rt);
+l\end{verbatim}
+\\ \hline
+Response: \texttt{NDI\_REAC\_LABEL} - string of length
+\texttt{str\_size}. \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2005/04/28 & Gave proposed label list to rcl for approval
+\\ \hline
+\end{tabular}
+\vspace{24pt}
