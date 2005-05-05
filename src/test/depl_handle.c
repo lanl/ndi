@@ -8,6 +8,7 @@ typedef double float64;
 
 int test_depl(void);
 static void print_float64_array( float64 *array, int num );
+static void print_int_array( int *array, int num );
 
 
 #ifdef __STANDALONE 
@@ -23,7 +24,7 @@ int main ()
 int test_depl(void)
 {
    
-   int i, j;
+   int i, j, k;
    int ierr;
    int str_size;
    int arr_size;
@@ -38,6 +39,8 @@ int test_depl(void)
    int num_rprods;
    char *rprod;
    float64 *sig_tot;
+   int *mt_arr;
+   char *mt_label;
    float64 prod_q;
 
    printf("  NDI TEST SUITE -- test_depl \n");
@@ -171,15 +174,48 @@ int test_depl(void)
 
        arr_size = NDI2_get_size_x(handle, NDI_TOT_PROD_XS, rprod, &ierr );
        sig_tot = (ndi_float64 *)malloc(arr_size * sizeof(ndi_float64) );
-       ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod, sig_tot, arr_size ); 
-       if (rprod)
-	 free(rprod);
+       ierr = NDI2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, rprod, sig_tot, 
+                                     arr_size ); 
        print_float64_array( sig_tot, arr_size );
        if ( ierr != 0 ) {
 	 printf("  Error getting production cross section = %d.\n", ierr );
        }
-       if (sig_tot)
-	 free(sig_tot);
+       if (sig_tot) free(sig_tot);
+
+       /* Test for Requirement 16: Reaction MTs */
+       arr_size = NDI2_get_size_x(handle, NDI_REAC_MT, rprod, &ierr);
+       mt_arr = (int *)malloc(arr_size * sizeof(int));
+       ierr = NDI2_get_int_vec_x(handle, NDI_REAC_MT, rprod, mt_arr, arr_size);
+       printf("Reaction MTs:\n");
+       print_int_array(mt_arr, arr_size);
+       if ( ierr != 0 ) {
+	 printf("  Error getting reaction MTs = %d.\n", ierr );
+       }
+       /* Test for Requirement 19: Reaction labels */
+       for (k=0; k < arr_size; k++) {
+            str_size = NDI2_get_size_n(handle, NDI_REAC_LABEL, mt_arr[k], 
+                                       &ierr);
+            mt_label = (char *)malloc(str_size * sizeof(char));
+            ierr = NDI2_get_string_val_n(handle, NDI_REAC_LABEL, mt_arr[k],
+                                         mt_label, str_size);
+            printf("MT:%d = %s\n", mt_arr[k], mt_label);
+            if (mt_label) free(mt_label);
+       }
+       if (mt_arr) free(mt_arr);
+
+       /* Test for Requirement 16: Reaction Product Multiplicities */
+       arr_size = NDI2_get_size_x(handle, NDI_RPROD_MLT, rprod, &ierr);
+       sig_tot = (ndi_float64 *)malloc(arr_size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(handle, NDI_RPROD_MLT, rprod, sig_tot, 
+                                     arr_size);
+       printf("Reaction product multiplicities:\n");
+       print_float64_array(sig_tot, arr_size);
+       if ( ierr != 0 ) {
+	 printf("  Error getting product multiplicities = %d.\n", ierr );
+       }
+       if (sig_tot) free(sig_tot);
+
+       if (rprod) free(rprod);
 
  
        /* Production cross section (2) */
@@ -227,6 +263,22 @@ static void print_float64_array( float64 *array, int num ) {
   for (i = 0; i < num; i++ ) {
     printf("    %11.5e", array[i] );
     if ( ( (i+1) % 7 ) == 0 ) {
+      printf("\n");
+    }
+  }
+  printf("\n");
+
+  return;
+
+}
+/********************************************************************************/
+static void print_int_array( int *array, int num ) {
+
+  int i;
+
+  for (i = 0; i < num; i++ ) {
+    printf("    %10d", array[i] );
+    if ( ( (i+1) % 5 ) == 0 ) {
       printf("\n");
     }
   }
