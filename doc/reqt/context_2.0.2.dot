@@ -15,9 +15,9 @@ digraph ndi {
 	
 	jomc -> ndi[label="14) HR MG Data,\n7) LLNL MG Data", color=yellow4];
 	ndi -> jomc[label="7) LLNL MG Support", color=green];
-	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow3];
+	ndi -> caw[label="16) PD React. ID,\n12) TN Temp. Interp.", color=yellow4];
 	ndi -> dahl[label="14) HR MG Data", color=yellow4];
-	ndi -> aldrich[label="19) React ID Labels", color=yellow1];
+	ndi -> aldrich[label="19) React ID Labels", color=green];
 	ndi -> morgan[label="17) Real Multiplicities", color=green];
 
 	{rank = max; jomc; morgan}
