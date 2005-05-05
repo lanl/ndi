@@ -212,10 +212,15 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 	return_value = (int) strlen(tmp_str) + 1;
 	break;
 
+    case NDI_REAC_LABEL:
+         *ierr = ndi_c_get_string_val_n_h(state, NDI_REAC_LABEL, vec_num, 
+                                      tmp_str, MAX_IN_STR_LEN);
+         return_value = (int)strlen(tmp_str) + 1;
+         break;
+
      /**** Simple array values ****/
 
-
-	/* Size of the vector is the number of groups */
+         /* Size of the vector is the number of groups */
     case NDI_TOT_PROD_XS:	/* Total production cross section */
     case NDI_SIG_REAC:		/* reaction cross section */
     case NDI_CORR_DIAG:	/* Diagonal transport correction  */

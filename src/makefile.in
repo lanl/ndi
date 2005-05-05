@@ -61,6 +61,7 @@ SRC := \
 	ndi_get_int_val_n.c \
 	ndi_get_int_vec.c \
 	ndi_get_int_vec_n.c \
+	ndi_get_int_vec_x.c \
 	ndi_get_size.c \
 	ndi_get_size_n.c \
 	ndi_get_size_x.c \

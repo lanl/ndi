@@ -62,6 +62,8 @@ extern "C" {
 			 int vec_size);
     int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
 			   int *return_vec, int vec_size);
+    int NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
+			   int *return_vec, int vec_size);
     int NDI2_get_float32_val(int handle, int in_key,
 			     ndi_float32 * ret_val);
     int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
@@ -119,6 +121,8 @@ extern "C" {
     int ndi_c_get_int_vec(int in_key, int *return_vec, int vec_size);
     int ndi_c_get_int_vec_n(int in_key, int vec_num, int *return_vec,
 			    int vec_size);
+    int ndi_c_get_int_vec_x(int in_key, const char *in_str, int *return_vec,
+			    int vec_size);
     int ndi_c_get_float32_val(int in_key, ndi_float32 * ret_val);
     int ndi_c_get_float32_val_n(int in_key, int vec_num,
 				ndi_float32 * ret_val);
@@ -170,6 +174,7 @@ extern "C" {
 #define ndi_get_int_val_n(x, y, z) ndi_c_get_int_val_n(x, y, z)
 #define ndi_get_int_vec(x, y, z) ndi_c_get_int_vec(x, y, z)
 #define ndi_get_int_vec_n(w, x, y, z) ndi_c_get_int_vec_n(w, x, y, z)
+#define ndi_get_int_vec_x(w, x, y, z) ndi_c_get_int_vec_x(w, x, y, z)
 #define ndi_get_float32_val(x, y) ndi_c_get_float32_val(x, y)
 #define ndi_get_float32_val_n(x, y, z) ndi_c_get_float32_val_n(x, y, z)
 #define ndi_get_float32_vec(x, y, z) ndi_c_get_float32_vec(x, y, z)

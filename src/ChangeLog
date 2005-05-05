@@ -1,3 +1,13 @@
+2005-05-05  Mark G. Gray  <mgg@l84.lanl.gov>
+
+	* ndi_fortran.c (F_NDI_GET_INT_VEC_X): added fortran interface
+
+	* ndi_user_functions_no_h.c (ndi_c_get_int_vec_x): added new get
+	family function
+
+	* ndi_user_functions_handles.c (NDI2_get_int_vec_x): added
+	new get family function
+
 2005-01-18  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* VERSION: updated version to 2.0.1

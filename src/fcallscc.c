@@ -63,6 +63,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_GET_INT_VAL_N      NDI_GET_INT_VAL_N\n");
     printf("#define F_NDI_GET_INT_VEC        NDI_GET_INT_VEC\n");
     printf("#define F_NDI_GET_INT_VEC_N      NDI_GET_INT_VEC_N\n");
+    printf("#define F_NDI_GET_INT_VEC_X      NDI_GET_INT_VEC_X\n");
     printf("#define F_NDI_GET_FLOAT64_VAL    NDI_GET_FLOAT64_VAL\n");
     printf("#define F_NDI_GET_FLOAT64_VAL_N  NDI_GET_FLOAT64_VAL_N\n");
     printf("#define F_NDI_GET_FLOAT64_VEC    NDI_GET_FLOAT64_VEC\n");
@@ -95,6 +96,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_INT_VAL_N NDI2_GET_INT_VAL_N\n");
     printf("#define F_NDI2_GET_INT_VEC NDI2_GET_INT_VEC\n");
     printf("#define F_NDI2_GET_INT_VEC_N NDI2_GET_INT_VEC_N\n");
+    printf("#define F_NDI2_GET_INT_VEC_X NDI2_GET_INT_VEC_X\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL NDI2_GET_FLOAT32_VAL\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL_N NDI2_GET_FLOAT32_VAL_N\n");
     printf("#define F_NDI2_GET_FLOAT32_VEC NDI2_GET_FLOAT32_VEC\n");
@@ -128,6 +130,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_GET_INT_VAL_N      NDI_GET_INT_VAL_N_\n");
     printf("#define F_NDI_GET_INT_VEC        NDI_GET_INT_VEC_\n");
     printf("#define F_NDI_GET_INT_VEC_N      NDI_GET_INT_VEC_N_\n");
+    printf("#define F_NDI_GET_INT_VEC_X      NDI_GET_INT_VEC_X_\n");
     printf("#define F_NDI_GET_FLOAT64_VAL    NDI_GET_FLOAT64_VAL_\n");
     printf("#define F_NDI_GET_FLOAT64_VAL_N  NDI_GET_FLOAT64_VAL_N_\n");
     printf("#define F_NDI_GET_FLOAT64_VEC    NDI_GET_FLOAT64_VEC_\n");
@@ -163,6 +166,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_INT_VAL_N NDI2_GET_INT_VAL_N_\n");
     printf("#define F_NDI2_GET_INT_VEC NDI2_GET_INT_VEC_\n");
     printf("#define F_NDI2_GET_INT_VEC_N NDI2_GET_INT_VEC_N_\n");
+    printf("#define F_NDI2_GET_INT_VEC_X NDI2_GET_INT_VEC_X_\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL NDI2_GET_FLOAT32_VAL_\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL_N NDI2_GET_FLOAT32_VAL_N_\n");
     printf("#define F_NDI2_GET_FLOAT32_VEC NDI2_GET_FLOAT32_VEC_\n");
@@ -196,6 +200,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_GET_INT_VAL_N      ndi_get_int_val_n\n");
     printf("#define F_NDI_GET_INT_VEC        ndi_get_int_vec\n");
     printf("#define F_NDI_GET_INT_VEC_N      ndi_get_int_vec_n\n");
+    printf("#define F_NDI_GET_INT_VEC_X      ndi_get_int_vec_x\n");
     printf("#define F_NDI_GET_FLOAT64_VAL    ndi_get_float64_val\n");
     printf("#define F_NDI_GET_FLOAT64_VAL_N  ndi_get_float64_val_n\n");
     printf("#define F_NDI_GET_FLOAT64_VEC    ndi_get_float64_vec\n");
@@ -233,6 +238,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_INT_VAL_N ndi2_get_int_val_n\n");
     printf("#define F_NDI2_GET_INT_VEC ndi2_get_int_vec\n");
     printf("#define F_NDI2_GET_INT_VEC_N ndi2_get_int_vec_n\n");
+    printf("#define F_NDI2_GET_INT_VEC_X ndi2_get_int_vec_x\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL ndi2_get_float32_val\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL_N ndi2_get_float32_val_n\n");
     printf("#define F_NDI2_GET_FLOAT32_VEC ndi2_get_float32_vec\n");
@@ -266,6 +272,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_GET_INT_VAL_N      ndi_get_int_val_n_\n");
     printf("#define F_NDI_GET_INT_VEC        ndi_get_int_vec_\n");
     printf("#define F_NDI_GET_INT_VEC_N      ndi_get_int_vec_n_\n");
+    printf("#define F_NDI_GET_INT_VEC_X      ndi_get_int_vec_x_\n");
     printf("#define F_NDI_GET_FLOAT64_VAL    ndi_get_float64_val_\n");
     printf("#define F_NDI_GET_FLOAT64_VAL_N  ndi_get_float64_val_n_\n");
     printf("#define F_NDI_GET_FLOAT64_VEC    ndi_get_float64_vec_\n");
@@ -303,6 +310,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_INT_VAL_N ndi2_get_int_val_n_\n");
     printf("#define F_NDI2_GET_INT_VEC ndi2_get_int_vec_\n");
     printf("#define F_NDI2_GET_INT_VEC_N ndi2_get_int_vec_n_\n");
+    printf("#define F_NDI2_GET_INT_VEC_X ndi2_get_int_vec_x_\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL ndi2_get_float32_val_\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL_N ndi2_get_float32_val_n_\n");
     printf("#define F_NDI2_GET_FLOAT32_VEC ndi2_get_float32_vec_\n");
@@ -336,6 +344,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_GET_INT_VAL_N      ndi_get_int_val_n__\n");
     printf("#define F_NDI_GET_INT_VEC        ndi_get_int_vec__\n");
     printf("#define F_NDI_GET_INT_VEC_N      ndi_get_int_vec_n__\n");
+    printf("#define F_NDI_GET_INT_VEC_X      ndi_get_int_vec_x__\n");
     printf("#define F_NDI_GET_FLOAT64_VAL    ndi_get_float64_val__\n");
     printf("#define F_NDI_GET_FLOAT64_VAL_N  ndi_get_float64_val_n__\n");
     printf("#define F_NDI_GET_FLOAT64_VEC    ndi_get_float64_vec__\n");
@@ -373,6 +382,7 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_GET_INT_VAL_N ndi2_get_int_val_n__\n");
     printf("#define F_NDI2_GET_INT_VEC ndi2_get_int_vec__\n");
     printf("#define F_NDI2_GET_INT_VEC_N ndi2_get_int_vec_n__\n");
+    printf("#define F_NDI2_GET_INT_VEC_X ndi2_get_int_vec_x__\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL ndi2_get_float32_val__\n");
     printf("#define F_NDI2_GET_FLOAT32_VAL_N ndi2_get_float32_val_n__\n");
     printf("#define F_NDI2_GET_FLOAT32_VEC ndi2_get_float32_vec__\n");

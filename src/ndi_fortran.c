@@ -56,6 +56,8 @@ void F_NDI_GET_INT_VEC(int *in_key, int *return_val, int *vec_size,
 		       int *ierr);
 void F_NDI_GET_INT_VEC_N(int *in_key, int *vec_num, int *return_val,
 			 int *vec_size, int *ierr);
+void F_NDI_GET_INT_VEC_X(int *in_key, char *in_str, int *return_val,
+			 int *vec_size, int *ierr, int in_str_len);
 void F_NDI_GET_FLOAT32_VAL(int *in_key, ndi_float32 * return_val,
 			   int *ierr);
 void F_NDI_GET_FLOAT64_VAL(int *in_key, ndi_float64 * return_val,
@@ -119,6 +121,8 @@ void F_NDI2_GET_INT_VEC(int *handle, int *in_key, int *return_vec,
                         int *vec_size, int *ierr);
 void F_NDI2_GET_INT_VEC_N(int *handle, int *in_key, int *vec_num,
                           int *return_vec, int *vec_size, int *ierr);
+void F_NDI2_GET_INT_VEC_X(int *handle, int *in_key, char *in_str,
+                          int *return_vec, int *vec_size, int *ierr, int len);
 void F_NDI2_GET_FLOAT32_VAL(int *handle, int *in_key,
                             ndi_float32 *return_val, int *ierr);
 void F_NDI2_GET_FLOAT32_VAL_N(int *handle, int *in_key, int *vec_num,
@@ -410,6 +414,19 @@ void F_NDI_GET_INT_VEC_N(int *in_key, int *vec_num, int *return_val,
 }
 
 
+void F_NDI_GET_INT_VEC_X(int *in_key, char *in_str,
+                             int *return_vec, int *vec_size,
+                             int *ierr, int in_str_len)
+{
+    char *c_str;
+
+    c_str = (char *) ndi_malloc((in_str_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(in_str, &c_str, in_str_len, in_str_len + 1);
+    *ierr = ndi_c_get_int_vec_x(*in_key, c_str, return_vec, *vec_size);
+    if (c_str)
+	ndi_free((void **) &c_str);
+}
+
 void F_NDI_GET_FLOAT64_VAL(int *in_key, ndi_float64 * return_val, int *ierr)
 {
     *ierr = ndi_c_get_float64_val(*in_key, return_val);
@@ -693,6 +710,21 @@ void F_NDI2_GET_INT_VEC_N(int *handle, int *in_key, int *vec_num,
 {
     *ierr = NDI2_get_int_vec_n(*handle, *in_key, *vec_num, return_vec,
                                *vec_size);
+}
+
+void F_NDI2_GET_INT_VEC_X(int *handle, int *in_key,
+                             char *in_str,
+                             int *return_vec, int *vec_size,
+                             int *ierr, int len)
+{
+    char *c_str;
+
+    c_str = (char *) ndi_malloc((len + 1) * sizeof(char));
+    (void) ndi_f2c_string(in_str, &c_str, len, len + 1);
+    *ierr = NDI2_get_int_vec_x(*handle, *in_key, c_str, return_vec,
+                                   *vec_size);
+    if (c_str)
+        ndi_free((void **) &c_str);
 }
 
 void F_NDI2_GET_FLOAT32_VAL(int *handle, int *in_key,

@@ -23,6 +23,8 @@ static int get_string_n_tn(state_struct *state, int in_key, char *ret_val,
 			   int vec_num, int str_size);
 static int get_string_n_tnreac(state_struct *state, int in_key,
 			       char *ret_val, int vec_num, int str_size);
+static int ndi_mt_to_label(state_struct *state, int mt, char *label, 
+			   int label_size);
 
 /**********************************************************************/
 
@@ -185,6 +187,10 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	    ndi_get_nth_inc_part_type(state, vec_num, ret_val, str_size);
 	break;
 
+    case NDI_REAC_LABEL:	/* Reaction label by MT */
+	ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
+	break;
+
      /**************  UNKNOWN KEYWORD  *****************/
 
     default:
@@ -310,6 +316,179 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
 
     default:
 	ierr = -4;
+	break;
+    }
+
+    return (ierr);
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_mt_to_label(state_struct *state, int mt, char *label, 
+			   int label_size)
+{
+
+/*  Sources:  MT-values: ENDF Format Manual, NNDC, Brookhaven, Appendix B
+	      What to do when ENDF LR flags should be used?  as in c=20,21
+
+    Parameters:  
+    mt -- in:integer corresponding to an ENDF MT number (reaction type)..
+
+    Returned value:  A pointer to a string containing a reaction label.
+
+***********************************************************************/
+
+    int ierr = 0;
+
+    switch (mt) {
+
+    case 1:			/* (n, total) */
+	if (label_size < 10) ierr = 6; 
+	strncpy(label, "(n,total)", label_size);
+	break;
+    case 2:			/* elastic */
+	if (label_size <  8) ierr = 6; 
+	strncpy(label, "elastic", label_size);
+	break;
+    case 4:			/* (n,n') - inelastic */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "inelastic", label_size);
+	break;
+    case 16:			/* (n,2n) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,2n)", label_size);
+	break;
+    case 17:			/* (n,3n) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,3n)", label_size);
+	break;
+    case 18:			/* (n,fission) - total fission */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,Xf)", label_size);
+	break;
+    case 22:			/* (n,n'a) */
+	if (label_size <  12) ierr = 6;
+	strncpy(label, "(n,n'alpha)", label_size);
+	break;
+    case 23:			/* (n,n'3a) */
+	if (label_size <  13) ierr = 6;
+	strncpy(label, "(n,n'3alpha)", label_size);
+	break;
+    case 28:			/* (n,n'p) */
+	if (label_size <  8) ierr = 6;
+	strncpy(label, "(n,n'p)", label_size);
+	break;
+    case 30:			/* (n,2n2a) */
+	if (label_size <  13) ierr = 6;
+	strncpy(label, "(n,2n2alpha)", label_size);
+	break;
+    case 32:			/* (n,n'd) */
+	if (label_size <  8) ierr = 6;
+	strncpy(label, "(n,n'd)", label_size);
+	break;
+    case 33:			/* (n,n't) */
+	if (label_size <  8) ierr = 6;
+	strncpy(label, "(n,n't)", label_size);
+	break;
+    case 34:			/* (n,n'3^He) */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "(n,n'He3)", label_size);
+	break;
+    case 35:			/* (n,n'd2a) */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "(n,n'd2a)", label_size);
+	break;
+    case 36:			/* (n,n't2a) */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "(n,n't2a)", label_size);
+	break;
+    case 37:			/* (n,4n) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,4n)", label_size);
+	break;
+    case 41:			/* (n,2np) */
+	if (label_size <  8) ierr = 6;
+	strncpy(label, "(n,2np)", label_size);
+	break;
+    case 102:			/* (n,g) */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "(n,gamma)", label_size);
+	break;
+    case 103:			/* (n,p) */
+	if (label_size <  6) ierr = 6;
+	strncpy(label, "(n,p)", label_size);
+	break;
+    case 104:			/* (n,d) */
+	if (label_size <  6) ierr = 6;
+	strncpy(label, "(n,d)", label_size);
+	break;
+    case 105:			/* (n,t) */
+	if (label_size <  6) ierr = 6;
+	strncpy(label, "(n,t)", label_size);
+	break;
+    case 106:			/* (n,3^He) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,He3)", label_size);
+	break;
+    case 107:			/* (n,a) */
+	if (label_size <  10) ierr = 6;
+	strncpy(label, "(n,alpha)", label_size);
+	break;
+    case 109:			/* (n,3a) */
+	if (label_size <  11) ierr = 6;
+	strncpy(label, "(n,3alpha)", label_size);
+	break;
+    case 113:			/* (n,t2a) */
+	if (label_size <  12) ierr = 6;
+	strncpy(label, "(n,t2alpha)", label_size);
+	break;
+    case 201:			/* (n,Xn) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,Xn)", label_size);
+	break;
+    case 202:			/* (n,Xg) */
+	if (label_size <  11) ierr = 6;
+	strncpy(label, "(n,Xgamma)", label_size);
+	break;
+    case 203:			/* (n,Xp) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,Xp)", label_size);
+	break;
+    case 204:			/* (n,Xd) */
+	if (label_size <  7) ierr = 6;
+	strncpy(label, "(n,Xd)", label_size);
+	break;
+    case 206:			/* (n,X3^He) */
+	if (label_size <  9) ierr = 6;
+	strncpy(label, "(n,XHe3)", label_size);
+	break;
+    case 207:			/* (n,Xa) */
+	if (label_size <  11) ierr = 6;
+	strncpy(label, "(n,Xalpha)", label_size);
+	break;
+    case 501:			/* Total photon interaction */
+	if (label_size <  13) ierr = 6;
+	strncpy(label, "Total photon", label_size);
+	break;
+    case 502:			/* Coherent scattering */
+	if (label_size <  9) ierr = 6;
+	strncpy(label, "Coherent", label_size);
+	break;
+    case 504:			/* Incoherent scattering */
+	if (label_size <  11) ierr = 6;
+	strncpy(label, "Incoherent", label_size);
+	break;
+    case 522:			/* Photoelectric */
+	if (label_size <  14) ierr = 6;
+	strncpy(label, "Photoelectric", label_size);
+	break;
+    case 516:			/* Pair production */
+	if (label_size <  16) ierr = 6;
+	strncpy(label, "Pair production", label_size);
+	break;
+    default:
+	*label = '\0';
 	break;
     }
 

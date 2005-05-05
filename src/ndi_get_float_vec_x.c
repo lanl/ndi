@@ -76,11 +76,11 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_REAC_MLT:		/* Reaction multiplicity */
+    case NDI_RPROD_MLT:		/* Reaction multiplicity */
 	if (strcmp(in_str, state->def_fiss_prod_id) == 0) {
-	    ierr = GET_REAC_MLT(state, "99999", return_vec, vec_size);
+	    ierr = GET_RPROD_MLT(state, "99999", return_vec, vec_size);
 	} else {
-	    ierr = GET_REAC_MLT(state, in_str, return_vec, vec_size);
+	    ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
 	}
 	break;
 
@@ -204,7 +204,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
 /*********************************************************************/
 /*********************************************************************/
 
-int GET_REAC_MLT(state_struct *state, const char *rprod_in,
+int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
 		 FLOAT_TYPE *return_vec, int vec_size)
 {
     int i;

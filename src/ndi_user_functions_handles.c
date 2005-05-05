@@ -854,6 +854,38 @@ int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
 }
 
 /*!
+  \brief Get integer array of \a return_vec values indicated by \a in_key 
+  and \a in_str from \a handle.
+  
+  This function returns the integer array data specified by \a in_key and 
+  \a in_str.
+
+  \par Fortran example
+  \code
+  ! Get list of integer reaction MTs for PD reactions
+  ! from handle zaid target to "92235" product
+  call ndi2_get_int_vec_x(handle, NDI_REAC_MT, "92235", ret_vec, ierr, size)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key containing the option sought
+  \param in_str: string input name of element sought
+  \param return_vec: integer output vector of values
+  \param ndi_err: integer output error code (Fortran only)
+  \param vec_size: integer input maximum size of integer vector
+  \return integer output error code (C only) 
+*/
+int NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
+		   int *return_vec, int vec_size)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    return (ndi_c_get_int_vec_x_h(state_p, in_key, in_str, 
+                                      return_vec, vec_size));
+}
+
+/*!
   \brief Get the 32-bit floating-point value indicated by \a in_key 
   from \a handle.
   

@@ -369,6 +369,9 @@ extern "C" {
 			    int *return_vec, int vec_size);
     int ndi_c_get_int_vec_n_h(state_struct *state, int in_key,
 			      int vec_num, int *return_vec, int vec_size);
+    int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
+                              const char *in_str, int *return_vec, 
+                              int vec_size);
     int ndi_c_get_float32_val_h(state_struct *state, int in_key,
 				ndi_float32 * ret_val);
     int ndi_c_get_float32_val_n_h(state_struct *state, int in_key,
@@ -479,9 +482,9 @@ extern "C" {
 			    ndi_float32 * return_vec, int vec_size);
     int ndi_get_prod_reac64(state_struct *state, const char *rprod,
 			    ndi_float64 * return_vec, int vec_size);
-    int ndi_get_reac_mlt32(state_struct *state, const char *rprod,
+    int ndi_get_rprod_mlt32(state_struct *state, const char *rprod,
 			    ndi_float32 * return_vec, int vec_size);
-    int ndi_get_reac_mlt64(state_struct *state, const char *rprod,
+    int ndi_get_rprod_mlt64(state_struct *state, const char *rprod,
 			    ndi_float64 * return_vec, int vec_size);
 
 
