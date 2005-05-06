@@ -533,6 +533,47 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 	return_value = state->grp_num_new;
 	break;
 
+    case NDI_EDIST_INTERP_REG:
+    case NDI_EDIST_INTERP_TYPE:
+         /* Vector of interpolation type for current particle's temperature
+            interpolation regions */
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   return_value = part->temp_interp.nint;
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
+    case NDI_EDIST_TEMPS:
+         /* Vector of interpolation type for current particle's interpolation 
+            temperatures */
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   return_value = part->temp_interp.npts;
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
     case NDI_EINBAR:
 	/* thermal-averaged total incoming energy for each temp. */
 	return_value = state->tn_stat.num_temps;

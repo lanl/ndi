@@ -1,3 +1,16 @@
+2005-05-06  Mark G. Gray  <gray@azathoth.lanl.gov>
+
+        * ndi_get_int_vec.c (get_int_vec_tn): added NDI_EDIST_INTERP_REG,
+        NDI_EDIST_INTERP_TYPE 
+
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_TN): added NDI_EDIST_TEMPS
+
+        * ndi_get_size.c (get_tn_size): added NDI_EDIST_TEMPS,
+        NDI_EDIST_INTERP_REG, NDI_EDIST_INTERP_TYPE
+
+        * ndi_keywords.h (NDI_EDIST_INTERP_TYPE): added NDI_EDIST_TEMPS,
+        NDI_EDIST_INTERP_REG, NDI_EDIST_INTERP_TYPE
+
 2005-05-05  Mark G. Gray  <mgg@l84.lanl.gov>
 
 	* ndi_fortran.c (F_NDI_GET_INT_VEC_X): added fortran interface

@@ -346,6 +346,52 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	}
 	break;
 
+    case NDI_EDIST_INTERP_REG:
+         /* Vector of interpolation type for current particle's temperature
+            interpolation regions */
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int i;
+
+                   for (i = 0; i < part->temp_interp.nint; i++)
+                        return_vec[i] = part->temp_interp.nbt[i];
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
+    case NDI_EDIST_INTERP_TYPE:
+         /* Vector of endpoints for current particle's temperature 
+            interpolation regions*/
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int i;
+
+                   for (i = 0; i < part->temp_interp.nint; i++)
+                        return_vec[i] = part->temp_interp.int_type[i];
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
       /**********  UNKNOWN KEYWORD  ***********/
 
     default:

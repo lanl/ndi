@@ -554,6 +554,29 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 			  return_size);
 	break;
 
+    case NDI_EDIST_TEMPS:
+         /* Vector of interpolation type for current particle's interpolation 
+            temperatures */
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int i;
+
+                   for (i = 0; i < part->temp_interp.npts; i++)
+                        return_vec[i] = part->edist[i].temp;
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
     case NDI_E_BOUNDS:		/*  Multigroup energy boundaries for sec. part distr. */
 
 	for (i = 0; i < (state->grp_num_new + 1); i++) {

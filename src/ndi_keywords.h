@@ -156,6 +156,10 @@
 #define NDI_PARTICLE_N                125
 #define NDI_RPROD_MLT                 126
 #define NDI_REAC_LABEL                127
+#define NDI_EDIST_TEMPS               128
+#define NDI_EDIST_INTERP_REG          129
+#define NDI_EDIST_INTERP_TYPE         130
+
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046
