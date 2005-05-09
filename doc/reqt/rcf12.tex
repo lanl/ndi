@@ -22,9 +22,22 @@ interpolation of data with friendly user.\\ \hline
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
-Querry: Get \texttt{NUM\_INTERP\_TEMP}, \texttt{INTERP\_TEMP},
-\texttt{NUM\_INTERP\_REGION}, \texttt{INTERP\_REGION},
-\texttt{NUM\_INTERP\_TYPE}, \texttt{INTERP\_TYPE}  \\ \hline
+Querry: 
+\begin{verbatim}
+/* Get number of edist interpolation temperatures */
+num_it = NDI2_get_size(handle, NDI_EDIST_TEMPS, &ierr);
+/* Get array of edist interpolation temperatures */
+ierr = NDI2_get_float64_vec(handle, NDI_EDIST_TEMPS, temp_vec, num_it);
+/* Get number of edist interpolating region boundaries */
+num_ir = NDI2_get_size(handle, NDI_EDIST_INTERP_REG, &ierr);
+/* Get numbber of edist interpolating types (same as above) */
+num_ir = NDI2_get_size(handle, NDI_EDIST_INTERP_TYPE, &ierr);
+/* Get array of edist interpolation region boundaries */
+ierr = NDI2_get_int_vec(handle, NDI_EDIST_INTERP_REG, bound_vec, num_ir);
+/* Get array of edist interpolation region types */
+ierr = NDI2_get_int_vec(handle, NDI_EDIST_INTERP_TYPE, type_vec, num_ir);
+\end{verbatim}
+\\ \hline
 \end{tabular}
 \vspace{24pt}
 
@@ -41,6 +54,7 @@ Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
 Date & Description \\ \hline
-2005/04/28 & Discussion with jomc on desired features\\ \hline
+2005/04/28 & mgg discussion with jomc on desired features\\ \hline
+2005/05/06 & mgg code requirements\\ \hline
 \end{tabular}
 \vspace{24pt}

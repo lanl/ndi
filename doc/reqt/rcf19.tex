@@ -15,11 +15,12 @@ Urgent: Yes & Comment: Promised to Bob Webster\\ \hline
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
+Query:
 \begin{verbatim}
 /* Get reaction label string size */
 str_size = NDI2_get_size_n(handle, NDI_REAC_LABEL, mt, &ierr);
 ierr = NDI2_get_string_val_n(handle, NDI_REAC_LABEL, mt, id_label, num_rt);
-l\end{verbatim}
+\end{verbatim}
 \\ \hline
 Response: \texttt{NDI\_REAC\_LABEL} - string of length
 \texttt{str\_size}. \\ \hline
