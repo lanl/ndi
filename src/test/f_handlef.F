@@ -127,9 +127,9 @@ c      character*30 vers
 
 
       flt_vec_x_num = 1
-      data flt_vec_x / NDI_TOT_PROD_XS/
+      data flt_vec_x / NDI_TOT_PROD_XS /
 
-      data flt_vec_x_str /'TotProdXS'/
+      data flt_vec_x_str /'TotProdXS' /
 
 
       sec_part_int_val = 2

@@ -39,6 +39,7 @@ int testtn_new(void)
    char zaid[24];
    float64 temp[200], sigvbar[200], n_edist[200], eavg[200];
    int num_grps;
+   int num_it;
 
    ierr = NDI2_open_gendir(&gendir_h, "");
    if ( ierr != 0 ) {
@@ -196,6 +197,53 @@ int testtn_new(void)
 	   }
 	 }
 	 printf("\n");
+         /* Test for Requirement 12 */
+         num_it = NDI2_get_size(handle, NDI_EDIST_TEMPS, &ierr);
+         if (ierr != 0) {
+              printf("  Error getting size of temp is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("There are %d temp, edist pairs.\n", num_it);
+         ierr = NDI2_get_float64_vec(handle, NDI_EDIST_TEMPS, temp, 200);
+         if (ierr != 0) {
+              printf("  Error getting array of temps is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("edist_temps err = %d\n", ierr);
+         for (k = 0; k < num_it; k++) {
+              printf("%11.6f   ", temp[k]);
+              if (((k+1)%6) == 0) printf("\n");
+         }
+         printf("\n");
+         num_it = NDI2_get_size(handle, NDI_EDIST_INTERP_TYPE, &ierr);
+         if (ierr != 0) {
+              printf("  Error getting size of interp_type is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("There are %d edist interpolation types.\n", num_it);
+         ierr = NDI2_get_int_vec(handle, NDI_EDIST_INTERP_TYPE, id, 50);
+         if (ierr != 0) {
+              printf("  Error getting array of interp_type is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("edist_interp_type err = %d.\n", ierr);
+         for (k = 0; k < num_it; k++) printf("%6d   ", id[k]);
+         printf("\n");
+         num_it = NDI2_get_size(handle, NDI_EDIST_INTERP_REG, &ierr);
+         if (ierr != 0) {
+              printf("  Error getting size of interp_reg is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("There are %d edist interpolation regions.\n", num_it);
+         ierr = NDI2_get_int_vec(handle, NDI_EDIST_INTERP_REG, id, 50);
+         if (ierr != 0) {
+              printf("  Error getting array of interp_reg is %d.\n\n", ierr);
+              return (ierr);
+         }
+         printf("edist_interp_reg err = %d.\n", ierr);
+         for (k = 0; k < num_it; k++) printf("%6d   ", id[k]);
+         printf("\n");
+
       }
       
       printf("\n*****************************\n\n\n");

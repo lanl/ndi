@@ -1,3 +1,11 @@
+2005-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* tn_new_handle.c (testtn_new): added tests for Requirement 12
+
+2005-05-10  Mark G. Gray  <mgg@l78.lanl.gov>
+
+	* symbol_translatef.F (main): added test for NDI_REAC_LABEL
+
 2004-10-05  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* fcmp.pl (fcmp): expanded number regexp

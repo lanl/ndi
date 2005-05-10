@@ -107,6 +107,15 @@ Particle 0 is a 1.  (err=0)
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 1 temp, edist pairs.
+edist_temps err = 0
+   0.000000   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     0   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     1   
 
 *****************************
 
@@ -127,6 +136,15 @@ Particle 0 is a 1.  (err=0)
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 1 temp, edist pairs.
+edist_temps err = 0
+   0.000000   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     0   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     1   
 
 *****************************
 
@@ -147,6 +165,15 @@ Particle 0 is a 1001.  (err=0)
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 3 temp, edist pairs.
+edist_temps err = 0
+   0.000100      0.010000      1.000000   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     5   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     3   
 
 *****************************
 
@@ -167,6 +194,15 @@ Particle 0 is a 1.  (err=0)
    0.000010      0.000001      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 1 temp, edist pairs.
+edist_temps err = 0
+   0.000100   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     0   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     1   
 
 *****************************
 
@@ -188,6 +224,15 @@ Particle 0 is a 1001.  (err=0)
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 3 temp, edist pairs.
+edist_temps err = 0
+   0.000100      0.017113      1.000000   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     5   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     3   
 
 *****************************
 
@@ -274,6 +319,15 @@ Particle 0 is a 1001.  (err=0)
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   
    0.000000   
+There are 3 temp, edist pairs.
+edist_temps err = 0
+   0.000100      0.010000      1.000000   
+There are 1 edist interpolation types.
+edist_interp_type err = 0.
+     5   
+There are 1 edist interpolation regions.
+edist_interp_reg err = 0.
+     3   
 
 *****************************
 
