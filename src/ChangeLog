@@ -1,3 +1,8 @@
+2005-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
+
+	* ndi_get_string_val_n.c (get_string_n_mp): added NDI_REAC_LABEL
+	to multigroup_multi handle type
+
 2005-05-06  Mark G. Gray  <gray@azathoth.lanl.gov>
 
         * ndi_get_int_vec.c (get_int_vec_tn): added NDI_EDIST_INTERP_REG,

@@ -92,7 +92,7 @@ c     For all ZAIDs
  200   continue
         
 c     For all ZAIDs
-       write(*,*)
+       write(*,8)
  8     format(/, "Check translation of symbols in set_isotope.")
 
       do 300, i = 1, num_zaid
@@ -111,6 +111,23 @@ c     For all ZAIDs
  11         format( "  Zaid = >", a13,  "<")
          endif
  300   continue
+
+c     Test Requirement 19
+       write(*, 12)
+ 12    format(/, "Check translation of MT to Label.")
+       call ndi_set_isotope("92235", ierr)
+       do 400 i = 1, 522
+          call ndi_get_string_val_n(NDI_REAC_LABEL, i, zaid_str, ierr)
+          if (ierr .eq. -24) then
+c     skip invalid MTs
+             continue
+          else if (ierr .lt. 0) then
+             write(*, 4) ierr
+          else 
+             write(*, 13) i, zaid_str
+ 13          format("  MT=", i4, ": ", a16)
+          endif
+ 400   continue
 
       call ndi_close(ierr)
 

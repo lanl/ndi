@@ -19,6 +19,8 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
 			     char *ret_val, int str_size);
 static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 			   int vec_num, int str_size);
+static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
+                           int vec_num, int str_size);
 static int get_string_n_tn(state_struct *state, int in_key, char *ret_val,
 			   int vec_num, int str_size);
 static int get_string_n_tnreac(state_struct *state, int in_key,
@@ -70,7 +72,7 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
 	    ierr =get_string_n_tnreac(state, in_key, ret_val, vec_num,
 				    str_size);
 	} else if (state->library_type == 'p') {
-	    ierr = -4;
+	    ierr = get_string_n_mp(state, in_key, ret_val, vec_num, str_size);
 	} else if (state->library_type == ' ') {
 	    /* Library type was not set */
 	    ierr = -16;
@@ -186,6 +188,49 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	ierr =
 	    ndi_get_nth_inc_part_type(state, vec_num, ret_val, str_size);
 	break;
+
+    case NDI_REAC_LABEL:	/* Reaction label by MT */
+	ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
+	break;
+
+     /**************  UNKNOWN KEYWORD  *****************/
+
+    default:
+	ierr = -4;
+	break;
+    }
+
+    return (ierr);
+}
+
+/**********************************************************************/
+/**********************************************************************/
+static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
+			   int vec_num, int str_size)
+{
+
+    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
+
+    if (!state) {
+	return (-2);
+    }
+
+    /* Default return value is empty string */
+    *ret_val = '\0';
+
+    /* Check that isotope is set */
+    if ((in_key != NDI_TARGET) && (in_key != NDI_ZAID)) {
+	/* Special case for targets -- isotope need not be set */
+	if (!state->iso_stat.set_flag) {
+	    return (-7);
+	}
+    }
+
+
+   /*************************/
+    /*   Process input key   */
+   /*************************/
+    switch (in_key) {
 
     case NDI_REAC_LABEL:	/* Reaction label by MT */
 	ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
@@ -488,6 +533,7 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	strncpy(label, "Pair production", label_size);
 	break;
     default:
+         ierr = -24;
 	*label = '\0';
 	break;
     }
