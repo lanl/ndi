@@ -597,6 +597,9 @@ then
 	mips-sgi-irix*)
 		CONFIG=sgi-64
 		;;
+	powerpc-apple-darwin*)
+		CONFIG=powerpc-darwin
+		;;
 	alpha*-dec*)
 		CONFIG=alpha-tru64
 		;;
