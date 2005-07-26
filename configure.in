@@ -19,6 +19,9 @@ then
 	i?86-pc-linux*)
 		CONFIG=intel-linux
 		;;
+	x86_64-*-linux*)
+		CONFIG=x86_64-linux
+		;;
 	ymp-cray-unicos*)
 		CONFIG=cray
 		;;
