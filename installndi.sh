@@ -18,6 +18,10 @@ case $GNU_OS_OUT in
         platform=intel-linux
         NDI_ROOT=/usr/projects/data/nuclear/ndi
         ;;
+    x86_64-*-linux*) 
+        platform=x86_64-linux
+        NDI_ROOT=/usr/projects/data/nuclear/ndi
+        ;;
     alpha*osf*) 
         platform=alpha-tru64
         NDI_ROOT=/usr/projects/data/nuclear/ndi

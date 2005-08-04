@@ -7,7 +7,7 @@
 # CONFIG = intel-linux
 
 # Standard macros
-CC		:= cc
+CC		:= gcc
 FC		:= pgf95
 CFLAGS		:= -Wall
 ifdef DEBUG
