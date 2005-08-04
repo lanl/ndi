@@ -8,7 +8,7 @@
 
 # Standard macros
 CC		:= cc
-FC		:= g77
+FC		:= pgf95
 CFLAGS		:= -Wall
 ifdef DEBUG
 FFLAGS		:= -g

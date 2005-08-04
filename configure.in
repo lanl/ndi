@@ -16,7 +16,7 @@ then
 	sparc-sun-solaris2.*)
 		CONFIG=sun
 		;;
-	i?86-pc-linux*)
+	i?86-*-linux*)
 		CONFIG=intel-linux
 		;;
 	x86_64-*-linux*)
