@@ -438,7 +438,8 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 }
 
 /*********************************************************************/
-int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
+int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, 
+                   long int chi_mat_ptr, FLOAT_TYPE *nu_sig_f,
                    FLOAT_TYPE * return_vec, int return_size,
                    int collapse_type, int lib_num_grp)
 
@@ -451,12 +452,14 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
     FLOAT_TYPE *chi_matrix = NULL;
     FLOAT_TYPE *weights = NULL;
     FLOAT_TYPE *temp_vec = NULL;
+    FLOAT_TYPE norm;
 
     if (!state) {
 	return (-2);
     }
 
-    if (f_ptr > 0) {
+    if (chi_mat_ptr > 0) {
+
 	/* Read chi matrix from file  */
 	chi_matrix = (FLOAT_TYPE *) ndi_malloc(lib_num_grp * lib_num_grp
 					       * sizeof(FLOAT_TYPE));
@@ -466,10 +469,9 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
 	}
 	/* Do not want the matrix collapsed so use read_float_block instead of
 	   get_simple_float_vec ( or use collapse_flag == -1) */
-	ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr,
+	ierr = NDI_READ_FLOAT_BLOCK(stream, chi_mat_ptr,
 				    lib_num_grp * lib_num_grp,
 				    chi_matrix, lib_num_grp * lib_num_grp);
-
 
 	/* Get wgts for averaging */
 	if (state->iso_stat.wgts.file_ptr > 0) {
@@ -487,13 +489,22 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
 	temp_vec =
 	    (FLOAT_TYPE *) ndi_malloc(lib_num_grp * sizeof(FLOAT_TYPE));
 	/* Check returned value */
+        norm = 0.0;
 	for (out = 0; out < lib_num_grp; out++) {
 	    temp_vec[out] = 0.0;
 	    for (in = 0; in < lib_num_grp; in++) {
-		temp_vec[out] +=
-		    weights[in] * chi_matrix[in * lib_num_grp + out];
+		temp_vec[out] += nu_sig_f[in] * weights[in] * 
+                     chi_matrix[in * lib_num_grp + out];
 	    }
+            norm += temp_vec[out];
 	}
+
+        /* normalize */
+        if (norm != 0.0) {
+             for (out = 0; out < lib_num_grp; out++) {
+                  temp_vec[out] /= norm;
+             }
+        }
 
 	/* Collapse vector, if necessary */
 	/* Check this call */
@@ -525,7 +536,6 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, long int f_ptr,
 	    ndi_free((void **) &temp_vec);
 	}
 
-	/* Chi is not normalized here */
     }
 
     return (ierr);

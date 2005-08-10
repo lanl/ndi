@@ -591,11 +591,13 @@ extern "C" {
     int ndi_get_abundance32(int izaid, ndi_float32 * return_val);
     int ndi_get_abundance64(int izaid, ndi_float64 * return_val);
     int ndi_chi_mat_to_vec32(state_struct *state, FILE *stream,
-			     long int f_ptr, ndi_float32 * return_vec,
+			     long int chi_mat_ptr, ndi_float32 *nu_sig_f,
+                             ndi_float32 * return_vec,
 			     int return_size, int collapse_type,
 			     int num_grp);
     int ndi_chi_mat_to_vec64(state_struct *state, FILE *stream,
-			     long int f_ptr, ndi_float64 * return_vec,
+			     long int chi_mat_ptr, ndi_float64 *nu_sig_f,
+                             ndi_float64 * return_vec,
 			     int return_size, int collapse_type,
 			     int num_grp);
 

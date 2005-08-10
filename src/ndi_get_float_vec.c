@@ -1386,6 +1386,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
 
     int ierr = 0;
     int n;
+    int collapse_flag;
     int num_grps;
     char chi_type1;
     char chi_type2;
@@ -1395,6 +1396,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
     long int chi_mat_ptr;
     FLOAT_TYPE *chi1_vec = NULL;
     FLOAT_TYPE *chi2_vec = NULL;
+    FLOAT_TYPE *nu_sig_f = NULL;
     FLOAT_TYPE chi_wgt1 = 0.0;
     FLOAT_TYPE chi_wgt2 = 0.0;
     FLOAT_TYPE chi_value = 0.0;
@@ -1454,11 +1456,28 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
 				    2, mg->num_grps,
 				    return_vec, *return_size);
 
-    } else if (chi_mat_ptr) {
+    } else if (chi_mat_ptr && ndi_nusigf_avail(state, chi_type)) {
 	/* (2)  Form chi vector by flux-averaging chi matrix */
+
+         nu_sig_f = (FLOAT_TYPE *) ndi_malloc(mg->num_grps *
+                                              sizeof(FLOAT_TYPE));
+         if (!nu_sig_f) {
+              return (-14);
+         }
+
+         collapse_flag = state->collapse_flag; /* remember collapse state */
+         state->collapse_flag = 0; /* turn collapse off */
+         n = mg->num_grps;
+         ierr = NDI_GET_NUSIGF(state, chi_type, nu_sig_f, &n);
+         state->collapse_flag = collapse_flag; /* restore collapse state */
+
 	ierr =
-	    CHI_MAT_TO_VEC(state, state->lib_stream, chi_mat_ptr,
+	    CHI_MAT_TO_VEC(state, state->lib_stream, chi_mat_ptr, nu_sig_f,
 			   return_vec, *return_size, 2, mg->num_grps);
+
+	if (nu_sig_f) {
+	    ndi_free((void **) &nu_sig_f);
+	}
 
 	/* Enough info available to calculate chi from other chi vectors */
     } else if (chi1_ptr && chi2_ptr && ndi_nusigf_avail(state, chi_type1)
@@ -1507,7 +1526,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
 	/* Warning: No chi values in library */
 	/* Array is zeroed below */
 	(void) NDI_INIT_FLOAT_VEC(return_vec, *return_size);
-	ierr = 9;
+	ierr = -9;
     }
 
     /* Normalize chi to one */
