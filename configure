@@ -1352,7 +1352,7 @@ echo $ECHO_N "checking makefile configuration include... $ECHO_C" >&6
 if test "${with_config:=no}" = "no" || test "${with_config:=yes}" = yes
 then
 	case "${host}" in
-	rs6000-ibm-aix*)
+	*-ibm-aix*)
 		CONFIG=aix
 			;;
 	sparc-sun-solaris2.*)
