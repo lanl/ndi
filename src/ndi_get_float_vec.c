@@ -1513,7 +1513,12 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
 	    } else {
 		ierr = 7;
 	    }
-	}
+        }
+
+        for (n = 0; n < ((num_grps < *return_size)? num_grps: *return_size);
+             n++) { /* nomalize */
+             return_vec[n] /= norm_sum;
+        } 
 
 	if (chi1_vec)
 	    ndi_free((void **) &chi1_vec);

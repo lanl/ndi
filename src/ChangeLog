@@ -1,3 +1,13 @@
+2005-09-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): changed strncmp to strcmp
+	with literal string as first argument
+
+2005-09-06  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_get_float_vec.c (NDI_GET_CHI_VEC): always normalize
+	calculated chi vector
+
 2005-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* ndi_get_string_val_n.c (get_string_n_mp): added NDI_REAC_LABEL
