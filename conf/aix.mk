@@ -10,6 +10,7 @@
 CC		:= cc
 FC		:= xlf
 CFLAGS		:= -qcheck=all -qarch=auto
+CFLAGS		+= -qspill=10000 -qmaxmem=15000
 #CFLAGS		+= -q32
 #CFLAGS		+= -qwarn64
 #CFLAGS		+= -qinfo
