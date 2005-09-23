@@ -17,8 +17,7 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int within_epsilon(double a, double b);
-static int greater_than_epsilon(double a, double b);
+static int doublecmp(double a, double b);
 static int is_default_str(const char *grp_struct);
 
 /**********************************************************************/
@@ -3203,8 +3202,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         ebounds = (int *) ndi_malloc((*new_grp + 1) * sizeof(int));
 
         for (i = 0; i <= *new_grp; i++) {
-            while ( greater_than_epsilon
-                    (old_grp_bounds[lib_count], *new_grp_ptr)) {
+            while (doublecmp(old_grp_bounds[lib_count], *new_grp_ptr) == 1) {
                 lib_count++;
                 if (lib_count > old_grp) {
                     /* New boundaries extend farther than old (library) ones */
@@ -3217,7 +3215,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
             if (lib_count > old_grp) {
                 break;
             }
-            if (within_epsilon(old_grp_bounds[lib_count], *new_grp_ptr) != 0) {
+            if (doublecmp(old_grp_bounds[lib_count], *new_grp_ptr) == 0) {
                 ebounds[i] = lib_count;
             } else {
                 /* Incompatible group structure */
@@ -3272,32 +3270,23 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 /**********************************************************************/
 
-static int within_epsilon(double a, double b)
+/* See Knuth V2 pg. 234 */
+static int doublecmp(double a, double b)
 {
-    if (fabs(a - b) < (DBL_EPSILON + FLT_EPSILON *
-                       (fabs(a) > fabs(b) ? fabs(a) : fabs(b)))) {
-        return (-1);
-    } else {
-        return (0);
-    }
-/*
-   if ( a == b ) 
-      return(-1);
-   else
-      return(0);
-*/
+     double diff;
+     double delta;
 
-}
+     diff = a - b;
+     delta = (DBL_EPSILON + FLT_EPSILON * 
+              (fabs(a) > fabs(b) ? fabs(a): fabs(b)));
 
-/**********************************************************************/
-
-static int greater_than_epsilon(double a, double b)
-{
-    if (a > b) {
-        return (-1);
-    } else {
-        return (0);
-    }
+     if (diff > delta) {         /* a > b */
+          return +1;
+     } else if (diff < -delta) { /* a < b */
+          return -1;
+     } else {                   /* a ~ b */
+          return 0;
+     }
 }
 
 /**********************************************************************/

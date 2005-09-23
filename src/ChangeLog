@@ -1,3 +1,8 @@
+2005-09-22  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_set_e_grps.c (doublecmp): replace within_epsilon and
+	greater_than_epsilon with doublecmp
+
 2005-09-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* ndi_set_e_grps.c (ndi_set_e_grps): changed strncmp to strcmp
