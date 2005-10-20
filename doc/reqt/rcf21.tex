@@ -1,0 +1,41 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: NDI error strings & Control number: 21\\ \hline
+Stakeholder: Joann Campbell & Request date: June 10, 2005\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Provide NDI error strings as listed on the web pages for error numbers. \\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: Inconsistent error numbering scheme\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query: 
+\begin{verbatim}
+/* Get size of error string */
+str_size = NDI2_get_size_n(handle, NDI_ERROR, err_no, &ierr);
+/* Get error string */
+ierr = NDI2_get_string_val_n(handle, NDI_ERROR, err_no, err_string, str_size);
+\end{verbatim}
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? No \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}

@@ -1,0 +1,35 @@
+digraph ndi {
+	orientation=landscape;
+	label="green=unimportant\nyellow=important\nred=urgent";
+	node[shape="box"];
+
+	/* stakeholders */
+	caw[label="Chuck Wingate"];
+	rsb[label="Randy Baker"];
+	drnuke[label="Steve Nolen"];
+	jomc[label="Joann Campbell"];
+	barcher[label="Bill Archer"];
+	morgan[label="Morgan White"];
+	frankles[label="Stephanie Frankle"];
+	cms[label="Charlie Snell"];
+
+	/* project */
+	ndi[label="NDI", shape="ellipse"];
+
+	morgan -> ndi[label="25) 618 radchem", color=yellow1];
+	frankles -> ndi[label"24) A=11 TN data", color=yellow1];
+	
+	ndi -> rsb[label="06) SF Data", color=green];
+	ndi -> caw[label="11) PD chain handle", color=yellow1];
+	ndi -> drnuke[label="15) MG scatt. MC", color=yellow1];
+	ndi -> barcher[label="18) Red Storm Support", color=red];
+	ndi -> rsb[label="20) ZA Photonics", color=yellow1];
+	ndi -> jomc[label="21) NDI error string", color=yellow1];
+	ndi -> barcher[label="22) MG temp. dep.", color=yellow1];
+	ndi -> cms[label="23) CP transport", color=yellow1];
+
+	/*
+	{rank = max; morgan; frankles} 
+	{rank = min; caw; drnuke; rsb; barcher; jomc}
+	*/
+}
