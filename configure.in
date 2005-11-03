@@ -50,6 +50,9 @@ dnl Checks for programs.
 
 AC_PROG_CC
 AC_PROG_CPP
+case "$CPP" in
+     gcc*)  CPP="$CPP -traditional-cpp";;
+esac
 AC_PROG_RANLIB
 AC_PROG_INSTALL
 AC_PROG_AWK
