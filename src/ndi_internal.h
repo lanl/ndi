@@ -146,7 +146,7 @@ typedef struct _depl_rprod_struct {
     int izaid;
     int num_reac;
     int *mt;
-    int *mult;
+    double *mult;
 } depl_rprod_struct;
 
 typedef struct _depl_target_struct {
@@ -466,8 +466,9 @@ extern "C" {
 			       const int return_size);
     int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag);
     int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
-			 const int data_type, int *num_prod,
-			 short mt_flag);
+			 const int data_type, int *num_prod, short mt_flag);
+    int ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
+			 const int data_type, int *num_prod, short mt_flag);
     int ndi_read_string_block(FILE *stream, const int num_strings,
 			      char **p);
     int read_dir_block(char *in_line, FILE *dir_stream,

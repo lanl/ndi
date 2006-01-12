@@ -1,3 +1,14 @@
+2006-01-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_init_iso_state.c (set_depl_array): used new call
+
+	* ndi_read_rx_prod.c: cloned ndi_read_rx_prod for double multiplicities
+
+	* ndi_internal.h: changed int to double for depl_rprod_struct.mult
+
+	* ndi_get_float_vec_x.c (GET_RPROD_MLT): remove type cast from
+	mult; going double everywhere
+
 2005-09-22  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* ndi_set_e_grps.c (doublecmp): replace within_epsilon and

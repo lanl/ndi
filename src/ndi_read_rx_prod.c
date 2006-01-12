@@ -164,3 +164,105 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 
     return (ierr);
 }
+
+/*********************************************************************/
+
+int
+ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
+		  const int data_type, int *num_prod, short mt_flag)
+
+/*********************************************************************
+    Purpose: Read a block of data which consists of an integer specifying
+    the number of pairs to follow (num), optionally an integer (representing
+    an MT number), and then 'num' pairs of integers,doubles.  If the option 
+    MT is present, it must be on the line immediately following 'num'.
+      e.g.
+         ( with MT -- usually representing old-style reaction products)
+      rprod_all
+	 2
+	 2
+	 1    1.0    1001    1.0
+
+	 ( without MT -- representing new-style rprods/reactants or interp 
+           params )
+      rprods
+	 2
+	 1  1.0  2004  1.0
+    
+    Parameters: 
+    stream -- in:library file pointer.
+    file_pos -- in:absolute offset of data in file (for use with fseek).
+    vec -- out:returned array of doubles (length of num_prod).
+    num_prod -- in/out:number of reactions products.
+    mt_flag -- in:0=no MT number , -1=MT number present(multigroup). 
+
+    Assumptions:
+    Input lines have maximum MAX_IN_STR_LEN characters. Reaction id and 
+    multiplicity come in pairs--id listed first.  File pointer points to 
+    first ID.
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+
+    Add: if num_prod >= 0 then check this value against the num_prod_in.
+
+***********************************************************************/
+{
+    char in_line[MAX_IN_STR_LEN]; /* Line of input data (132-char maximum) */
+    char *tok_str;             /*  String being parsed (input line) */
+    char *token;         /*  Current value from string being parsed */
+    char seps[] = " ,\t\n"; /* Data delimiters--space, comma,tab, newline */
+
+    int count = 0;		/* Count of integer values found from input */
+    int curr_mt;		/* MT of current reaction */
+    int num_prod_in;		/* Number of products for current reaction */
+    double *curr_ptr = *vec;
+
+
+   /**********************************************/
+    /*    Read reaction data from library file    */
+   /**********************************************/
+    fseek(stream, file_pos, SEEK_SET);
+
+    /* Check input parameters */
+    if (data_type != MULT_PARAM) return (-13);
+
+    /* Read optional MT ID */
+    if (mt_flag) {
+	if (fscanf(stream, "%d\n", &curr_mt) == EOF) return (-11);
+    }
+
+    /* Read number of reaction products */
+    if (fscanf(stream, "%d\n", &num_prod_in) == EOF) return (-11);
+
+    /* if num_prod_in <= 0, there's no data */
+    if (num_prod_in < 0) return(9); /* Warn: bad data on file */
+    if (num_prod_in == 0) return(0);
+
+    /* allocate return vector */
+    *num_prod = num_prod_in;
+    *vec = (double *) ndi_malloc(num_prod_in * sizeof(double));
+    curr_ptr = *vec;
+
+    do {
+
+         /* read line */
+         if (fgets(in_line, sizeof(in_line), stream) == NULL) return (-11);
+         tok_str = in_line;
+
+         /* parse line */
+         for(token = strtok(tok_str, seps); token != NULL; 
+             token = strtok(NULL, seps)) { /* first of pair */
+
+              if ((token = strtok(NULL, seps)) != NULL) { /* second of pair */
+                   *curr_ptr++ = (FLOAT_TYPE) strtod(token, NULL);
+                   if (++count == num_prod_in) break;
+              } else {
+                   return(-12);/* Error: multiplicity not found. */
+              }		
+         }
+
+    } while (count < num_prod_in);
+
+    return (0);
+}

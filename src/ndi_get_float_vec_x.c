@@ -246,7 +246,7 @@ int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
     }
 
     for (i = 0; i < curr_prod->num_reac; i++) {
-	return_vec[i] = (FLOAT_TYPE)curr_prod->mult[i];
+	return_vec[i] = curr_prod->mult[i];
     }
 
     return (ierr);
