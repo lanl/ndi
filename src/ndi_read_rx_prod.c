@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_read_rx_prod.c
- * Description:	Internal function--read reaction product data.
  * $Id$
+ * Description:	Internal function--read reaction product data.
  *
  */
 
