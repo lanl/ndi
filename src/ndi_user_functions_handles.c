@@ -6,10 +6,17 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
-/*!
-  \brief Open handle to NDI index (gendir) file indicated by \a path.
+/*! \defgroup open_gendir Gendir Handle Open and Close
+ *  These functions open and close gendir handles.  The first call made 
+ *  to NDI should be \a NDI2_open_gendir; the last call made 
+ *  to NDI should be \a NDI2_close_gendir.
+ * @{
+ */
 
-  This function opens the indicated NDI index file, initializes 
+/*!
+  \brief Open handle to NDI gendir index file indicated by \a path.
+
+  This function opens the indicated NDI gendir index file, initializes 
   NDI variables and default values, and returns a handle to the file.  
   It should be the first NDI function called; at least one gendir handle 
   is needed to access NDI index data and to make handles to NDI physical data.
@@ -22,12 +29,13 @@
 
   \param handle: integer output gendir handle
   \param path: string input containing the index file path; 
-  "" for default
+  "" for release default path
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
 */
-int NDI2_open_gendir(int *handle, const char *path)
+int 
+NDI2_open_gendir(int *handle, const char *path)
 {
 
     int ierr = 0;
@@ -44,8 +52,55 @@ int NDI2_open_gendir(int *handle, const char *path)
 }
 
 /*!
+  \brief Close handle to NDI gendir index file.
+
+  This function deallocates the memory associated with a gendir handle and its 
+  children and closes the associated NDI gendir file pointer.  It should be 
+  called once for each gendir handle opened after it and its children are no 
+  longer needed.
+
+  \par Fortran example
+  \code
+  ! Close gendir handle
+  call ndi2_close_gendir(handle, ndi_err)
+  \endcode
+
+  \param handle: integer input gendir handle
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+*/
+int 
+NDI2_close_gendir(int handle)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+
+    if (is_gendir(state_p)) {
+        return (__ndi_close_handle(handle));
+    } else {
+	return -2;
+    }
+}
+
+/*! @} end of open_gendir */
+
+/*! \defgroup gendir_set Gendir Handle Set and Check
+ *  These functions set and check the gendir handle state, 
+ *  which affects subsequent 
+ *  requests for gendir data including the creation state of data handles.
+ *  They require a valid gendir handle from \a NDI2_open_gendir, and are 
+ *  usually called immediately after the gendir handle is opened.
+ *  @{
+ */
+
+/*!
   \brief Set the global string option indicated by \a in_key to 
-  \a value for \a handle.
+  \a value for gendir \a handle.
+
+  This function sets the state of the gendir handle that affects
+  subsequent NDI calls.
 
   \par Fortran example
   \code
@@ -62,7 +117,7 @@ int NDI2_open_gendir(int *handle, const char *path)
   \par Valid input keys:
   ======================
 
-  - gendir \a handle:
+      - \c NDI_COLLAPSE_DEFAULT
       - \c NDI_CURR_PART_DEFAULT
       - \c NDI_E_AVG_DEFAULT
       - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
@@ -77,7 +132,8 @@ int NDI2_open_gendir(int *handle, const char *path)
       - \c NDI_TRANS_CORR_DEFAULT
 
 */
-int NDI2_set_option_gendir(int handle, int in_key, const char *value)
+int 
+NDI2_set_option_gendir(int handle, int in_key, const char *value)
 {
     int new_inkey;
     state_struct *state_p;
@@ -98,10 +154,10 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
 
 /*!
   \brief Retrieves the global string option indicated by \a in_key for 
-  \a handle.
+  gendir \a handle.
 
-  This function lets users check on the state of NDI previously set by 
-  default or by \a ndi2_set_option_gendir calls.
+  This function checks the state of the gendir handle 
+  previously set by default or by \a NDI2_set_option_gendir calls.
 
   \par Fortran example
   \code
@@ -120,6 +176,7 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
   \par Valid input keys:
   ======================
 
+      - \c NDI_COLLAPSE_DEFAULT
       - \c NDI_CURR_PART_DEFAULT
       - \c NDI_E_AVG_DEFAULT
       - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
@@ -134,7 +191,8 @@ int NDI2_set_option_gendir(int handle, int in_key, const char *value)
       - \c NDI_TRANS_CORR_DEFAULT
 
 */
-int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
+int 
+NDI2_check_option_gendir(int handle, int in_key, char *out_value,
                              int string_size)
 {
     int new_inkey;
@@ -159,36 +217,13 @@ int NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 
 }
 
-/*!
-  \brief Close handle to NDI index (gendir) file.
+/*! @} end of gendir_set */
 
-  This function deallocates the memory associates with a gendir handle and its 
-  children.  It should be called once for each gendir handle opened after
-  it and its children are no longer needed.
-
-  \par Fortran example
-  \code
-  ! Close gendir handle
-  call ndi2_close_gendir(handle, ndi_err)
-  \endcode
-
-  \param handle: integer input gendir handle
-  \param ndi_err: integer output error code (Fortran only)
-  \return integer output error code (C only)
-
-*/
-int NDI2_close_gendir(int handle)
-{
-    state_struct *state_p;
-
-    state_p = handle_to_state_p(handle);
-
-    if (is_gendir(state_p)) {
-        return (__ndi_close_handle(handle));
-    } else {
-	return -2;
-    }
-}
+/*! \defgroup make_handle Data Handle Make
+ *  This function makes data handles.  It requires a valid gendir handle
+ *  from a call to \a NDI2_open_gendir.
+ *  @{
+ */
 
 /*!
   \brief Make child \a handle1 of \a type from parent \a handle0.
@@ -212,14 +247,15 @@ int NDI2_close_gendir(int handle)
   ======================
 
       - \c multigroup_neutron
+      - \c multigroup_photon
+      - \c multigroup_multi
       - \c tn
       - \c tnreactions
-      - \c multigroup_photon
       - \c dosimetry_neutron
-      - \c multigroup_multi
 
 */
-int NDI2_make_handle(int handle0, const char *type, int *handle1)
+int 
+NDI2_make_handle(int handle0, const char *type, int *handle1)
 {
     state_struct *parent;
     state_struct *child;
@@ -238,6 +274,16 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
     else
 	return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
 }
+
+/*! @} end of make_handle */
+
+/*! \defgroup set_handle Data Handle Set and Check
+ *  These functions set and check data handle state, which affects 
+ *  subsequent requests for handle data.  These routines require a valid data
+ *  handle from \a NDI2_make_handle, and are usually called immediately 
+ *  after the data handle is made.
+ *  @{
+ */
 
 /*!
   \brief Set isotope for \a handle.
@@ -261,7 +307,8 @@ int NDI2_make_handle(int handle0, const char *type, int *handle1)
   \return integer output error code (C only)
 
 */
-int NDI2_set_isotope(int handle, const char *zaid)
+int 
+NDI2_set_isotope(int handle, const char *zaid)
 {
     return NDI2_set_zaid(handle, zaid);
 }
@@ -287,7 +334,8 @@ int NDI2_set_isotope(int handle, const char *zaid)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 */
-int NDI2_set_zaid(int handle, const char *zaid)
+int 
+NDI2_set_zaid(int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -324,7 +372,8 @@ int NDI2_set_zaid(int handle, const char *zaid)
   \return integer output error code (C only)
 
 */
-int NDI2_set_reaction(int handle, const char *zaid)
+int 
+NDI2_set_reaction(int handle, const char *zaid)
 {
     state_struct *state_p;
 
@@ -339,6 +388,143 @@ int NDI2_set_reaction(int handle, const char *zaid)
 }
 
 /*!
+  \brief Set the option indicated by \a in_key to \a value for \a handle.
+
+  This function sets the state of the data handle that affects 
+  subsequent NDI calls.
+
+  \par Fortran example
+  \code
+  ! Set default library to "mendf6"
+  call ndi2_set_option(handle, NDI_LIBRARY, "mendf6", ndi_err)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key indicating the option set
+  \param value: string input containing the option value
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Valid input keys:
+  ======================
+
+  - All \a handles:
+      - \c NDI_LIB_TYPE
+      - \c NDI_LIBRARY
+      - \c NDI_MAT_ORDER
+      - \c NDI_COLLAPSE
+      - \c NDI_E_BOUNDS_CURR_PART
+      - \c NDI_TRANS_CORR
+      - \c NDI_NORM
+      - \c NDI_REAC_ID
+      - \c NDI_E_AVG
+      - \c NDI_KERMA
+      - \c NDI_DEPLETION
+      - \c NDI_CHAIN
+      - \c NDI_CURR_PART
+      - \c NDI_TEMP
+      - \c NDI_FISS_PROD
+
+*/
+int 
+NDI2_set_option(int handle, int in_key, const char *value)
+{
+    state_struct *state_p;
+
+    /* if (is_gendir(handle)) return -2; */
+  
+    state_p = handle_to_state_p(handle);
+
+    if (is_mpmg(state_p) && in_key == NDI_LIBRARY) {
+	return (ndimp_set_option(state_p, in_key, value));
+    } else {
+        return (ndi_c_set_option_h(state_p, in_key, value));
+    }
+}
+
+/*!
+  \brief Set the option indicated by \a in_key to \a option_array for 
+  \a handle.
+
+  This function sets the state of the data handle that affects 
+  subsequent NDI calls.
+
+  \par Fortran example
+  \code
+  ! 
+  call ndi2_set_float64_vec_option(handle, in_key, array, size, ndi_err)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key indicating the option set
+  \param option_array: float64 input array containing option values
+  \param array_size: integer input size of option array
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Valid input keys:
+  ======================
+
+  - All \a handles:
+      - \c NDI_COLLAPSE
+      - \c NDI_E_BOUNDS_CURR_PART
+*/
+int 
+NDI2_set_float64_vec_option(int handle, int in_key,
+			    const ndi_float64 * option_array,
+			    int array_size)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    if (is_gendir(state_p)) {
+        /* Case not handled currently */
+        return -2;
+    } else {
+        return (ndi_c_set_float64_vec_option_h(state_p, in_key, option_array, 
+                                               array_size));
+    }
+}
+
+/*!
+  \brief Retrieve the option indicated by \a in_key in \a out_value for 
+  \a handle.
+
+  This function checks the state of the data handle 
+  previously set by default or by \a NDI2_set_option_gendir or 
+  \a NDI2_set_float64_vec_option calls.
+
+  \par Fortran example
+  \code
+  ! Get size of sigma total array
+  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  \endcode
+
+  \param handle: integer input state handle
+  \param in_key: integer input key indicating the option requested
+  \param out_value: string output containing the option value
+  \param string_size: integer input maximum size of option string
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+*/
+int 
+NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
+}
+
+/*! @} end of handle_set */
+
+/*! \defgroup handle_get Gendir and Data Handle Get
+ *  These functions get gendir and data handle data.  They require a valid 
+ *  data handle \a NDI2_make_handle.
+ *  @{
+ */
+
+/*!
   \brief Get the size indicated by \a in_key from \a handle.
 
   This function returns the number of array elements for an array specified 
@@ -350,7 +536,7 @@ int NDI2_set_reaction(int handle, const char *zaid)
 
   \par Fortran example
   \code
-  ! Get size of sigma array
+  ! Get size of sigma total array
   call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
   \endcode
 
@@ -413,7 +599,7 @@ int NDI2_set_reaction(int handle, const char *zaid)
       - \c NDI_NU_TOT
       - \c NDI_NU_PR
       - \c NDI_NU_DEL
-      - \c NDI_NU_SIG_F_TO
+      - \c NDI_NU_SIG_F_TOT
       - \c NDI_NU_SIG_F_PR
       - \c NDI_NU_SIG_F_DEL
       - \c NDI_CHI_VEC_TOT
@@ -488,10 +674,13 @@ int NDI2_set_reaction(int handle, const char *zaid)
       - \c NDI_EINBAR_INTERP_TYPE
       - \c NDI_SEC_PART_TYPES
       - \c NDI_EDIST
+      - \c NDI_EDIST_INTERP_REG
+      - \c NDI_EDIST_INTERP_TYPE
+      - \c NDI_EDIST_INTERP_REG
       - \c NDI_EINBAR
       - \c NDI_E_BOUNDS
       - \c NDI_E_AVG
-  - Thermonuclear burn \a handle:
+  - Thermonuclear reaction \a handle:
       - \c NDI_ZAID
       - \c NDI_INFO
       - \c NDI_DATE_PROCESSED
@@ -499,7 +688,8 @@ int NDI2_set_reaction(int handle, const char *zaid)
       - \c NDI_LIBRARY_NAME
       - \c NDI_NUM_REAC
 */
-int NDI2_get_size(int handle, int in_key, int *ierr)
+int 
+NDI2_get_size(int handle, int in_key, int *ierr)
 {
     state_struct *state_p;
 
@@ -517,6 +707,12 @@ int NDI2_get_size(int handle, int in_key, int *ierr)
   of a string returned by the C function \a NDI2_get_size_n is one greater 
   than returned by the Fortran subroutine \a ndi2_get_size_n.
 
+  \par Fortran example
+  \code
+  ! Get size of sigma array
+  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  \endcode
+
   \param handle: integer input state handle
   \param in_key: integer input key containing the size requested
   \param vec_num: integer input index
@@ -525,7 +721,8 @@ int NDI2_get_size(int handle, int in_key, int *ierr)
   \return integer output containing the size (C only)
 
 */
-int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
+int 
+NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 {
     state_struct *state_p;
 
@@ -544,6 +741,12 @@ int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   of a string returned by the C function \a NDI2_get_size_x is one greater 
   than returned by the Fortran subroutine \a ndi2_get_size_x.
 
+  \par Fortran example
+  \code
+  ! Get size of sigma array
+  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  \endcode
+
   \param handle: integer input state handle
   \param in_key: integer input key containing the size requested
   \param in_str: string input index
@@ -551,124 +754,73 @@ int NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   \param ierr: integer output error code
   \return integer output containing the size (C only)
 
+
+  \par Valid input keys:
+  ======================
+
+  - All \a handles:
+      - \c NDI_ZAID
+  - Multigroup tranport or dosimetry \a handles:
+      - \c NDI_RPROD_ALL
+      - \c NDI_RPROD_RMO
+      - \c NDI_RPROD_FEW
+      - \c NDI_REAC_MT
+      - \c NDI_REAC_Q
+      - \c NDI_ABUNDANCE
+      - \c NDI_TOT_PROD_Q
+      - \c NDI_SEC_PART_TYPES
+      - \c NDI_SEC_PART_ZAIDS
+      - \c NDI_TARGET
+      - \c NDI_RPRODS_ID
+      - \c NDI_INC_PART_TYPES
+      - \c NDI_REAC_LABEL
+      - \c NDI_TOT_PROD_XS
+      - \c NDI_SIG_REAC
+      - \c NDI_CORR_DIAG
+      - \c NDI_CORR_BHS
+      - \c NDI_PNU_PR
+      - \c NDI_SIG_PNU_PR
+      - \c NDI_RPROD_ID_ALL
+      - \c NDI_RPROD_MLT_ALL
+      - \c NDI_RPROD_ID_RMO
+      - \c NDI_RPROD_MLT_RMO
+      - \c NDI_RPROD_ID_FEW
+      - \c NDI_RPROD_MLT_FEW
+      - \c NDI_PN_DOWN_FULL
+      - \c NDI_PN_FULL
+      - \c NDI_TRANSFER_MAT_TOT
+      - \c NDI_TRANSFER_MAT_PR
+      - \c NDI_PN_PROD_FULL_CURR_PART
+  - Multiparticle multigroup transport \a handle:
+      - \c NDI_PN_FULL
+      - \c NDI_SIG_REAC
+      - \c NDI_PNU_PR
+      - \c NDI_SIG_PNU_PR
+      - \c NDI_CORR_DIAG
+      - \c NDI_CORR_BHS
+  - Thermonuclear burn \a handle:
+      - \c NDI_RPRODS_MLT
+      - \c NDI_REACTANTS_MLT
+      - \c NDI_RPRODS_ID
+      - \c NDI_REACTANTS_ID
+      - \c NDI_SEC_PART_TYPES
+  - Thermonuclear reaction \a handle:
+      - \c NDI_NUM_RPRODS
+      - \c NDI_NUM_REACTANTS
+      - \c NDI_RPRODS_ID
+      - \c NDI_RPRODS_MLT
+      - \c NDI_REACTANTS_ID
+      - \c NDI_REACTANTS_MLT
+      - \c NDI_LIST_REAC
 */
-int NDI2_get_size_x(int handle, int in_key, const char *in_str,
+int 
+NDI2_get_size_x(int handle, int in_key, const char *in_str,
                     int *ierr)
 {
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_get_size_x_h(state_p, in_key, in_str, ierr));
-}
-
-/*!
-  \brief Set the option indicated by \a in_key to \a value for \a handle.
-
-  \par Fortran example
-  \code
-  ! Set default library to "mendf6"
-  call ndi2_set_option(handle, NDI_LIBRARY, "mendf6", ndi_err)
-  \endcode
-
-  \param handle: integer input state handle
-  \param in_key: integer input key indicating the option set
-  \param value: string input containing the option value
-  \param ndi_err: integer output error code (Fortran only)
-  \return integer output error code (C only)
-
-  \par Valid input keys:
-  ======================
-
-  - All \a handles:
-      - \c NDI_LIB_TYPE
-      - \c NDI_LIBRARY
-      - \c NDI_MAT_ORDER
-      - \c NDI_COLLAPSE
-      - \c NDI_E_BOUNDS_CURR_PART
-      - \c NDI_TRANS_CORR
-      - \c NDI_NORM
-      - \c NDI_REAC_ID
-      - \c NDI_E_AVG
-      - \c NDI_KERMA
-      - \c NDI_DEPLETION
-      - \c NDI_CHAIN
-      - \c NDI_CURR_PART
-      - \c NDI_TEMP
-      - \c NDI_FISS_PROD
-
-*/
-int NDI2_set_option(int handle, int in_key, const char *value)
-{
-    state_struct *state_p;
-
-    /* if (is_gendir(handle)) return -2; */
-  
-    state_p = handle_to_state_p(handle);
-
-    if (is_mpmg(state_p) && in_key == NDI_LIBRARY) {
-	return (ndimp_set_option(state_p, in_key, value));
-    } else {
-        return (ndi_c_set_option_h(state_p, in_key, value));
-    }
-}
-
-/*!
-  \brief Set the option indicated by \a in_key to \a option_array for 
-  \a handle.
-
-  \par Fortran example
-  \code
-  ! 
-  call ndi2_set_float64_vec_option(handle, in_key, array, size, ndi_err)
-  \endcode
-
-  \param handle: integer input state handle
-  \param in_key: integer input key indicating the option set
-  \param option_array: float64 input array containing option values
-  \param array_size: integer input size of option array
-  \param ndi_err: integer output error code (Fortran only)
-  \return integer output error code (C only)
-
-  \par Valid input keys:
-  ======================
-
-  - All \a handles:
-      - \c NDI_COLLAPSE
-      - \c NDI_E_BOUNDS_CURR_PART
-*/
-int NDI2_set_float64_vec_option(int handle, int in_key,
-			    const ndi_float64 * option_array,
-			    int array_size)
-{
-    state_struct *state_p;
-
-    state_p = handle_to_state_p(handle);
-    if (is_gendir(state_p)) {
-        /* Case not handled currently */
-        return -2;
-    } else {
-        return (ndi_c_set_float64_vec_option_h(state_p, in_key, option_array, 
-                                               array_size));
-    }
-}
-
-/*!
-  \brief Retrieve the option indicated by \a in_key in \a out_value for 
-  \a handle.
-
-  \param handle: integer input state handle
-  \param in_key: integer input key indicating the option requested
-  \param out_value: string output containing the option value
-  \param string_size: integer input maximum size of option string
-  \param ndi_err: integer output error code (Fortran only)
-  \return integer output error code (C only)
-*/
-int NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
-{
-    state_struct *state_p;
-
-    state_p = handle_to_state_p(handle);
-    return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
 }
 
 /*!
@@ -719,7 +871,8 @@ int NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_NUM_REAC
 
 */
-int NDI2_get_int_val(int handle, int in_key, int *ret_val)
+int 
+NDI2_get_int_val(int handle, int in_key, int *ret_val)
 {
     state_struct *state_p;
 
@@ -765,7 +918,8 @@ int NDI2_get_int_val(int handle, int in_key, int *ret_val)
       - \c NDI_NUM_REACTANTS
 
 */
-int NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
+int 
+NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
 {
     state_struct *state_p;
 
@@ -814,7 +968,8 @@ int NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
       - \c NDI_SEC_PART_TYPES
 
 */
-int NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
+int 
+NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
 {
     state_struct *state_p;
 
@@ -843,7 +998,8 @@ int NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
   \param vec_size: integer input maximum size of integer vector
   \return integer output error code (C only) 
 */
-int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
 		   int *return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -875,7 +1031,8 @@ int NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
   \param vec_size: integer input maximum size of integer vector
   \return integer output error code (C only) 
 */
-int NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
+int 
+NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
 		   int *return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -916,7 +1073,8 @@ int NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
 
 
 */
-int NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
+int 
+NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
 {
     state_struct *state_p;
 
@@ -951,7 +1109,8 @@ int NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
       - \c NDI_TOT_PROD_Q
 
 */
-int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
 		       ndi_float32 *ret_val)
 {
     state_struct *state_p;
@@ -1030,7 +1189,8 @@ int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
       - \c NDI_E_AVG
 
 */
-int NDI2_get_float32_vec(int handle, int in_key,
+int 
+NDI2_get_float32_vec(int handle, int in_key,
 		     ndi_float32 * return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -1058,7 +1218,8 @@ int NDI2_get_float32_vec(int handle, int in_key,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 */
-int NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
 		       ndi_float32 * return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -1105,7 +1266,8 @@ int NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
       - \c NDI_TOT_PROD_XS
 
 */
-int NDI2_get_float32_vec_x(int handle, int in_key,
+int 
+NDI2_get_float32_vec_x(int handle, int in_key,
 		       const char *in_str, ndi_float32 * return_vec,
 		       int vec_size)
 {
@@ -1152,7 +1314,8 @@ int NDI2_get_float32_vec_x(int handle, int in_key,
       - \c NDI_EOUTBAR
 
 */
-int NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
+int 
+NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
 {
     state_struct *state_p;
 
@@ -1187,7 +1350,8 @@ int NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
       - \c NDI_TOT_PROD_Q
 
 */
-int NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
                            ndi_float64 *ret_val)
 {
     state_struct *state_p;
@@ -1265,7 +1429,8 @@ int NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
       - \c NDI_E_BOUNDS
       - \c NDI_E_AVG
 */
-int NDI2_get_float64_vec(int handle, int in_key,
+int 
+NDI2_get_float64_vec(int handle, int in_key,
 		     ndi_float64 * return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -1293,7 +1458,8 @@ int NDI2_get_float64_vec(int handle, int in_key,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 */
-int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 		       ndi_float64 * return_vec, int vec_size)
 {
     state_struct *state_p;
@@ -1326,7 +1492,8 @@ int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 */
-int NDI2_get_float64_vec_x(int handle, int in_key,
+int 
+NDI2_get_float64_vec_x(int handle, int in_key,
 		       const char *in_str, ndi_float64 * return_vec,
 		       int vec_size)
 {
@@ -1391,7 +1558,8 @@ int NDI2_get_float64_vec_x(int handle, int in_key,
       - \c NDI_LIBRARY_NAME
   
 */
-int NDI2_get_string_val(int handle, int in_key, char *ret_val,
+int 
+NDI2_get_string_val(int handle, int in_key, char *ret_val,
                         int str_size)
 {
     state_struct *state_p;
@@ -1438,7 +1606,8 @@ int NDI2_get_string_val(int handle, int in_key, char *ret_val,
       - \c NDI_LIST_REAC
 
 */
-int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
+int 
+NDI2_get_string_val_n(int handle, int in_key, int vec_num,
                           char *ret_val, int str_size)
 {
     state_struct *state_p;
@@ -1455,12 +1624,12 @@ int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
   \param in_key: integer input key indicating the data sought
   \param ret_val: string output array, allocated by the user, 
   containing the values returned by NDI.
-    \param vec_size: integer input indicating the allocated size of return_vec.
+  \param str_size: integer input indicating the allocated size of ret_val.
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
-  \param string_size: maximum size of strings
 */
-int NDI2_get_string_vec(int handle, int in_key, char *ret_val,
+int 
+NDI2_get_string_vec(int handle, int in_key, char *ret_val,
                         int str_size)
 {
     state_struct *state_p;
@@ -1469,3 +1638,4 @@ int NDI2_get_string_vec(int handle, int in_key, char *ret_val,
     return (ndi_c_get_string_vec_h(state_p, in_key, ret_val, str_size));
 }
 
+/*! @} end of handle_get */

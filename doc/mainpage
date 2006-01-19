@@ -1,0 +1,31 @@
+/*! \mainpage
+
+The Nuclear Data Interface, NDI, is a C, C++, F77, and F90 callable
+library which provides nuclear data to user codes.  NDI solves the
+commanded information problem for nuclear data:
+
+\image latex problem.ps "The Commanded Information Frame"
+\image html problem.jpg "The Commanded Information Frame"
+
+-# When the user issues request E1 that NDI is required to respond to,
+-# if UC!E1 is not sensible according to specification then NDI will
+   return and error code,
+-# or if the requested data Y1 is not available either explicitly or via
+   calculation according to specification NDI will return a warning
+   code or else read NDI!Y1,
+-# which because the nuclear data has the real world properties,
+-# that satisfy the nuclear data requirements,
+-# NDI can assign NDI!Y2 according to specification,
+-# of the user's data format,
+-# resulting in Y2 ~ Y1 as required.
+
+To use NDI:
+-# Open a gendir handle
+   - optionally set or check the gendir handle state
+   - optionally get data from the gendir handle
+-# Make a data handle
+   - optionally set or check the data handle state
+   - optionally get data from the data handle
+-# Close the gendir handle
+
+*/

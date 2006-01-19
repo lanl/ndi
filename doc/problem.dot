@@ -1,0 +1,20 @@
+digraph frame {
+      nd[shape=box, label="nuclear data [x]"];
+      ndi[shape=box, label="NDI [c]"];
+      uc[shape=box, label="user code [b]"];
+      ud[shape=box, label="user data [x]"];
+      r[shape=ellipse, style=dashed, label="E1 => Y2 ~ Y1"];
+
+      ndi -> nd[label="NDI!Y1", arrowhead=none];
+      ndi -> ud[label="NDI!Y2", arrowhead=none];
+      ndi -> uc[label="UC!E1", arrowhead=none];
+      
+      r -> nd[label="Y1", style=dashed, arrowhead=none];
+      r -> ud[label="Y2", style=dashed];
+      r -> uc[label="E1", style=dashed, arrowhead=none];
+
+      { rank = min; uc }
+      { rank = same; ndi; ud; r }
+      { rank = max; nd }
+
+}
