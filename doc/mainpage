@@ -1,25 +1,124 @@
 /*! \mainpage
 
-The Nuclear Data Interface, NDI, is a C, C++, F77, and F90 callable
-library which provides nuclear data to user codes.  NDI solves the
-commanded information problem for nuclear data:
+\section summary Summary
+
+These notes document the interface specification for the Nuclear Data
+Interface V2, a C, C++, Fortran 77, and Fortran 90 callable library
+which provides nuclear data to user codes.  It provides a consistent,
+tested interface to the best and latest deterministic nuclear data
+evaluations for transport, thermonuclear burn, radiochemistry, and
+production/depletion.
+
+\section background Background
+
+Prior to the development of the Nuclear Data Interface (NDI), user
+codes were primarily responsible for obtaining and accessing their own
+nuclear data.  This resulted in a proliferation of data files in
+different and incompatible formats, which generally made the update of
+data a major, cross-project undertaking.  Worse still, some codes
+embedded nuclear data in the executable, confounding data updates with
+code modifications.  As a result, several FTEs were devoted, in
+parallel efforts, to the maintenance and update of nuclear data.
+
+NDI was developed in 1998 to provide a single source interface to the
+best, most modern, thoroughly tested nuclear data evaluations.  It was
+written in portable C, provided an interface to Fortran 77, Fortran
+90, C, and C++, and was ported to a number of production platforms, to
+support a variety of nuclear data user codes.  NDI provided more than
+a simple database access to nuclear data.  It augmented access to
+tabulated data with a variety of user selectable transformations and
+calculations, such as group collapse and spontaneous fission rates.
+
+NDI was rewritten in 2004 and released as major version 2, in response
+to its growing acceptance in the user community and a desire to let
+users combine nuclear data in more powerful ways.  Beginning with NDI
+2.0.0, handles encapsulate NDI state, and users can create a handle to
+an array of handles that can, for example, provide the data to
+simulate coupled neutron-gamma multigroup transport.  Encapsulating
+state also eases the use of NDI in multiple components throughout a
+code; each component can have it's own uniquely configure handle
+usable without concern of other component calls to NDI.  Handles also
+permit the cleanup of some NDI internal logic, visible to the user
+primarily in the promotion of the gendir index meta-data to a first
+class object.
+
+This document provides the philosophy and interface specification for
+NDI V2.
+ 
+\section design Design
+
+NDI solves the commanded information problem for nuclear data:
+provide, at the users bidding, a representation of nuclear data
+consistent with the best empirical data and models.  Figure 1.1 shows
+the commanded information problem frame, where each domain relevant to
+the problem is represented by a solid rectangle with the domain type
+represented by a symbol in brackets, interfaces between domains are
+represented by solid lines, and the requirements connecting the
+domains are represented by dashed lines.  The basic requirement for
+NDI is shown in the dashed oval: in response to a logical user request
+E1, which may physically require several interface calls (UC!E1) to
+explicate, make the users lexical representation of the data Y2
+correspond to the lexical representation of real world nuclear data
+Y1.  NDI may satisfy it's requirement by reading tabulated data NDI!Y1
+that corresponds directly to the requested user data NDI!Y2,
+by calculating user requested data NDI!Y2 from other tabulated data or
+models, by transforming read or calculated data into NDI!Y2, or by a
+series of these steps.
 
 \image latex problem.ps "The Commanded Information Frame"
-\image html problem.jpg "The Commanded Information Frame"
+\image html problem.jpg "Figure 1.1: The Commanded Information Frame"
+
+NDI's robust response requirement adds considerable complexity to NDI's
+implementation.  The following steps, labeled in Figure 1.1, are executed for
+every NDI call:
 
 -# When the user issues request E1 that NDI is required to respond to,
 -# if UC!E1 is not sensible according to specification then NDI will
-   return and error code,
+   return an error code,
 -# or if the requested data Y1 is not available either explicitly or via
-   calculation according to specification NDI will return a warning
-   code or else read NDI!Y1,
+   calculation or transformation according to specification NDI will 
+   return a warning code or else read or calculate NDI!Y1,
 -# which because the nuclear data has the real world properties,
 -# that satisfy the nuclear data requirements,
--# NDI can assign NDI!Y2 according to specification,
--# of the user's data format,
+-# NDI can transform into NDI!Y2 according to its state
+-# and the specification of the user's data format,
 -# resulting in Y2 ~ Y1 as required.
 
-To use NDI:
+NDI organizes its nuclear data into the following types:
+
+- multigroup_neutron: neutron deterministic transport data
+- multigroup_photon: photon deterministic transport data
+- multigroup_multi: coupled neutron-photon deterministic transport data 
+- tn: thermonuclear burn data
+- tnreactions: thermonuclear burn reactions
+- dosimetry_neutrons: dosimetry and radiochemistry data
+
+Each type of data is divided into logical libraries, which collect the
+data into complete sets of the best evaluations as of the library's
+release date.  The data within the libraries are organized into
+tables, indexed by isotope, reaction, or reaction chain identifier
+depending on the data type.
+
+The user's access of nuclear through NDI starts with the opening of a
+gendir handle, which connects the user to an index of all of the data
+available through NDI.  The gendir handle's state, which affects the
+subsequent processing of data requests through the handle, can be set
+or checked, and the user can get lists of the data available together
+with some basic information about that data.
+
+To access nuclear data the user makes a data handle of the desired
+type from the gendir handle.  The data handle inherits it's state from
+the default settings of the gendir handle and the user can set and check
+each handle's state individually.  Data handles are typically set to
+retrieve data from a particular logical library and from an isotope,
+reaction, or reaction chain identifier within that library.  Once the
+data handle's state is set to a particular table identifier, the user
+can get the data available for that table.
+
+The user releases all memory required by NDI and closes all files
+opened by NDI by closing the gendir handle.
+
+The typical use of NDI is thus:
 -# Open a gendir handle
    - optionally set or check the gendir handle state
    - optionally get data from the gendir handle
@@ -27,5 +126,98 @@ To use NDI:
    - optionally set or check the data handle state
    - optionally get data from the data handle
 -# Close the gendir handle
+
+\section specification Specification
+
+Each NDI V2 function name begins with the prefix \c NDI2_ for C and C++
+codes, and \c ndi2_ for Fortran77 and Fortran 90 codes, and is followed
+by a description of its function (open, close, set, check, get) and
+its data value return type.  For example, NDI's interface language
+requirement limits the user's data format to that of the least common
+denominator: integers, reals, strings, and simple arrays of these
+basic types, so the user's data type is incorporated in NDI's workhorse
+\c get family of functions, thus:
+
+- \c NDI2_get_int_val* 
+- \c NDI2_get_int_vec*
+- \c NDI2_get_float32_val*
+- \c NDI2_get_float32_vec*
+- \c NDI2_get_float64_val*
+- \c NDI2_get_float64_vec*
+- \c NDI2_get_string_val*
+- \c NDI2_get_string_vec*
+
+The first parameter of every NDI V2 function call is the gendir or
+data handle, which is created and assigned by the \c NDI2_open_gendir
+and \c NDI2_make_handle routines respectively and destroyed by the \c
+NDI2_close_gendir routine.  In the set, check, and get routines the
+handle specifies which state the call will affect.
+
+NDI treats all data as name-value pairs: the second (and possibly
+third) argument to every set, check, and get call is the name of the
+data requested.  Data names are defined integer constants specified
+symbolically in the include file \c ndi_keywords.i for Fortran 77 and
+Fortran 90 codes, and in the include file \c ndi_keywords.h for C and
+C++ codes.  The data name reference may be further disambiguated by an
+integer index third parameter, in the case of the \c NDI2_get*_n family
+of calls, or by a string third parameter, in the case of the \c
+NDI2_get_*_x family of calls.
+
+The remaining parameters specify the set, check, or get data value,
+and the request return status in Fortran 77 and Fortran 90.  Vector
+valued data is followed by its size, as is string valued data for C
+and C++ calls.  The size of returned vector or string data is available
+through the \c NDI2_get_size_* family of functions.
+
+Since NDI is required to do the user's bidding, it is required to deal
+with user calls gracefully, regardless of their nature.  To meet this
+requirement, every NDI C call returns an integer status variable, and
+every NDI Fortran call modifies its integer status variable \c ndi_err
+with the following values:
+
+-  +7: Bounds test failed: array terminated. 
+-  +6: Unexpected data (too many data items).
+-  +5: Unexpected zero quantity.
+-  +4: Trying to close NULL stream. 
+-  +3: Unable to close NDI directory file.
+-  +2: NDI not initialized before NDI_close. No action taken.
+-  +1: NDI already initialized. No action taken.
+-  +0: Call successfully executed
+-  -1: Error opening file.
+-  -2: NDI not initialized before NDI library call.
+-  -3: Error closing file.
+-  -4: Invalid input key to NDI user function.
+-  -5: Invalid key argument to NDI user function.
+-  -6: Index parameter sent to NDI user function out of range.
+-  -7: Isotope not set.
+-  -8: Isotope not found in gendir.
+-  -9: Data not available in current library for current zaid.
+- -10: 32-bit function is not implemented on current platform.
+- -11: Error reading file.
+- -12: Unexpected library data.
+- -13: Invalid input parameter.
+- -14: No memory available.
+- -15: Invalid data in library/directory file.
+- -16: Library type not set.
+- -17: Isotope not found in library.
+- -18: Library error: incorrect data order.
+- -19: Error setting file pointer.
+- -20: Data type not set (i.e. NDI_LIB_TYPE).
+- -21: Collapsing attempted but no energy structure chosen by user.
+- -22: Bad zaid input.
+- -23: Incompatible collapse group structure.
+- -24: Bad reaction identifier (MT or C number).
+
+In general, an value of zero indicates success, a positive error value
+indicates a warning, and a negative value indicates an error.
+
+The individual interface descriptions, arranged by logical modules in
+the module section of this document, correspond to these tasks:
+
+- Open or Close a Gendir Handle
+- Set or Check a Gendir Handle State
+- Make a Data Handle
+- Set or Check a Data Handle State
+- Get Data or Gendir Handle Data
 
 */

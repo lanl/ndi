@@ -114,23 +114,22 @@ NDI2_close_gendir(int handle)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
-      - \c NDI_COLLAPSE_DEFAULT
-      - \c NDI_CURR_PART_DEFAULT
-      - \c NDI_E_AVG_DEFAULT
-      - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
-      - \c NDI_FISS_PROD_DEFAULT
-      - \c NDI_KERMA_DEFAULT
-      - \c NDI_LIB_TYPE_DEFAULT
-      - \c NDI_LIBRARY_DEFAULT
-      - \c NDI_MAT_ORDER_DEFAULT
-      - \c NDI_NORM_DEFAULT
-      - \c NDI_REAC_ID_DEFAULT
-      - \c NDI_TEMP_DEFAULT
-      - \c NDI_TRANS_CORR_DEFAULT
-
+       - \c NDI_LIB_TYPE_DEFAULT: Library type  
+       - \c NDI_LIBRARY_DEFAULT: Library name 
+       - \c NDI_MAT_ORDER_DEFAULT: Matrix transpose order 
+       - \c NDI_COLLAPSE_DEFAULT: Energy group structure 
+       - \c NDI_E_BOUNDS_CURR_PART_DEFAULT: Current particle energy group structure 
+       - \c NDI_TRANS_CORR_DEFAULT: Use transport corrections 
+       - \c NDI_NORM_DEFAULT: Normalize chi and e_dist 
+       - \c NDI_REAC_ID_DEFAULT: Specify reaction identifiers as MT or C values 
+       - \c NDI_E_AVG_DEFAULT: Specify average bin energy calculation 
+       - \c NDI_KERMA_DEFAULT: Specify kerma/heating calculation 
+       - \c NDI_CURR_PART_DEFAULT: Specify current particle 
+       - \c NDI_TEMP_DEFAULT: Set default temperature  
+       - \c NDI_FISS_PROD_DEFAULT: Set default fission product ZAID 
 */
 int 
 NDI2_set_option_gendir(int handle, int in_key, const char *value)
@@ -173,23 +172,22 @@ NDI2_set_option_gendir(int handle, int in_key, const char *value)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
-      - \c NDI_COLLAPSE_DEFAULT
-      - \c NDI_CURR_PART_DEFAULT
-      - \c NDI_E_AVG_DEFAULT
-      - \c NDI_E_BOUNDS_CURR_PART_DEFAULT
-      - \c NDI_FISS_PROD_DEFAULT
-      - \c NDI_KERMA_DEFAULT
-      - \c NDI_LIB_TYPE_DEFAULT
-      - \c NDI_LIBRARY_DEFAULT
-      - \c NDI_MAT_ORDER_DEFAULT
-      - \c NDI_NORM_DEFAULT
-      - \c NDI_REAC_ID_DEFAULT
-      - \c NDI_TEMP_DEFAULT
-      - \c NDI_TRANS_CORR_DEFAULT
-
+       - \c NDI_LIB_TYPE_DEFAULT: Library type  
+       - \c NDI_LIBRARY_DEFAULT: Library name 
+       - \c NDI_MAT_ORDER_DEFAULT: Matrix transpose order 
+       - \c NDI_COLLAPSE_DEFAULT: Energy group structure 
+       - \c NDI_E_BOUNDS_CURR_PART_DEFAULT: Current particle energy group structure 
+       - \c NDI_TRANS_CORR_DEFAULT: Use transport corrections 
+       - \c NDI_NORM_DEFAULT: Normalize chi and e_dist 
+       - \c NDI_REAC_ID_DEFAULT: Specify reaction identifiers as MT or C values 
+       - \c NDI_E_AVG_DEFAULT: Specify average bin energy calculation 
+       - \c NDI_KERMA_DEFAULT: Specify kerma/heating calculation 
+       - \c NDI_CURR_PART_DEFAULT: Specify current particle 
+       - \c NDI_TEMP_DEFAULT: Set default temperature  
+       - \c NDI_FISS_PROD_DEFAULT: Set default fission product ZAID 
 */
 int 
 NDI2_check_option_gendir(int handle, int in_key, char *out_value,
@@ -243,8 +241,8 @@ NDI2_check_option_gendir(int handle, int in_key, char *out_value,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
-  \par Valid input types:
-  ======================
+  \par Valid type values:
+       =================
 
       - \c multigroup_neutron
       - \c multigroup_photon
@@ -405,26 +403,25 @@ NDI2_set_reaction(int handle, const char *zaid)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
-  - All \a handles:
-      - \c NDI_LIB_TYPE
-      - \c NDI_LIBRARY
-      - \c NDI_MAT_ORDER
-      - \c NDI_COLLAPSE
-      - \c NDI_E_BOUNDS_CURR_PART
-      - \c NDI_TRANS_CORR
-      - \c NDI_NORM
-      - \c NDI_REAC_ID
-      - \c NDI_E_AVG
-      - \c NDI_KERMA
-      - \c NDI_DEPLETION
-      - \c NDI_CHAIN
-      - \c NDI_CURR_PART
-      - \c NDI_TEMP
-      - \c NDI_FISS_PROD
-
+  - With all \a handles:
+       - \c NDI_LIB_TYPE:           Library type  
+       - \c NDI_LIBRARY:            Library name 
+       - \c NDI_MAT_ORDER:          Matrix transpose order 
+       - \c NDI_COLLAPSE:           Energy group structure 
+       - \c NDI_E_BOUNDS_CURR_PART:  Current particle energy group structure 
+       - \c NDI_TRANS_CORR:     Use transport corrections 
+       - \c NDI_NORM:   Normalize chi and e_dist 
+       - \c NDI_REAC_ID:        Specify reaction identifiers as MT or C values 
+       - \c NDI_E_AVG:  Specify average bin energy calculation 
+       - \c NDI_KERMA:  Specify kerma/heating calculation 
+       - \c NDI_DEPLETION:      Set depletion chain 
+       - \c NDI_CHAIN:  Set radiochemistry chain 
+       - \c NDI_CURR_PART:      Specify current particle 
+       - \c NDI_TEMP:   Set default temperature  
+       - \c NDI_FISS_PROD:      Set default fission product ZAID 
 */
 int 
 NDI2_set_option(int handle, int in_key, const char *value)
@@ -462,8 +459,8 @@ NDI2_set_option(int handle, int in_key, const char *value)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - All \a handles:
       - \c NDI_COLLAPSE
@@ -506,6 +503,26 @@ NDI2_set_float64_vec_option(int handle, int in_key,
   \param string_size: integer input maximum size of option string
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
+
+  \par Valid in_key values:
+       ===================
+
+  - With all \a handles:
+       - \c NDI_LIB_TYPE:           Library type  
+       - \c NDI_LIBRARY:            Library name 
+       - \c NDI_MAT_ORDER:          Matrix transpose order 
+       - \c NDI_COLLAPSE:           Energy group structure 
+       - \c NDI_E_BOUNDS_CURR_PART:  Current particle energy group structure 
+       - \c NDI_TRANS_CORR:     Use transport corrections 
+       - \c NDI_NORM:   Normalize chi and e_dist 
+       - \c NDI_REAC_ID:        Specify reaction identifiers as MT or C values 
+       - \c NDI_E_AVG:  Specify average bin energy calculation 
+       - \c NDI_KERMA:  Specify kerma/heating calculation 
+       - \c NDI_DEPLETION:      Set depletion chain 
+       - \c NDI_CHAIN:  Set radiochemistry chain 
+       - \c NDI_CURR_PART:      Specify current particle 
+       - \c NDI_TEMP:   Set default temperature  
+       - \c NDI_FISS_PROD:      Set default fission product ZAID 
 */
 int 
 NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
@@ -547,19 +564,19 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
   \return integer output containing the size (C only)
 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
-  - All \a handles:
+  - With all \a handles:
       - \c NDI_VERSION
       - \c NDI_GENDIR_PATH
-  - Gendir \a handle:
+  - With gendir \a handle:
       - \c NDI_ZAID 
       - \c NDI_TEMP
       - \c NDI_SIG_0
       - \c NDI_AT_WGT
       - \c NDI_AWR
-  - Multigroup tranport or dosimetry \a handles:
+  - With multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_ZAID
       - \c NDI_INFO
       - \c NDI_DATE_PROCESSED
@@ -621,7 +638,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_CHI_MAT_TOT
       - \c NDI_CHI_MAT_PR
       - \c NDI_CHI_MAT_DEL
-  - Multiparticle multigroup transport \a handle:
+  - With mutigroup_multi \a handle:
       - \c NDI_E_BOUNDS
       - \c NDI_WGTS
       - \c NDI_VEL
@@ -645,7 +662,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_NUM_PNU_PR
       - \c NDI_NUM_REAC
       - \c NDI_FISSIONABLE
-  - Thermonuclear burn \a handle:
+  - With tn \a handle:
       - \c NDI_ZAID
       - \c NDI_INFO
       - \c NDI_DATE_PROCESSED
@@ -680,7 +697,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_EINBAR
       - \c NDI_E_BOUNDS
       - \c NDI_E_AVG
-  - Thermonuclear reaction \a handle:
+  - With tnreactions \a handle:
       - \c NDI_ZAID
       - \c NDI_INFO
       - \c NDI_DATE_PROCESSED
@@ -755,8 +772,8 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   \return integer output containing the size (C only)
 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - All \a handles:
       - \c NDI_ZAID
@@ -839,8 +856,8 @@ NDI2_get_size_x(int handle, int in_key, const char *in_str,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multigroup Transport \& Dosimetry \a handle:
       - \c NDI_NUM_GRPS
@@ -897,8 +914,8 @@ NDI2_get_int_val(int handle, int in_key, int *ret_val)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multigroup Transport \& Dosimetry \a handle:
       - \c NDI_RPROD_ALL
@@ -945,8 +962,8 @@ NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multi-particle Multigroup Transport \a handle:
       - \c NDI_REAC_MT
@@ -1058,8 +1075,8 @@ NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multigroup Transport \a handle:
       - \c NDI_TEMP
@@ -1099,8 +1116,8 @@ NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - All \a handles:
       - \c NDI_ABUNDANCE
@@ -1143,8 +1160,8 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Gendir \a handle:
       - \c NDI_TEMP
@@ -1259,8 +1276,8 @@ NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - All \a handles:
       - \c NDI_TOT_PROD_XS
@@ -1300,8 +1317,8 @@ NDI2_get_float32_vec_x(int handle, int in_key,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multigroup Transport \a handle:
       - \c NDI_TEMP
@@ -1340,8 +1357,8 @@ NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - All \a handles:
       - \c NDI_ABUNDANCE
@@ -1384,8 +1401,8 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Gendir \a handle:
       - \c NDI_TEMP
@@ -1528,8 +1545,8 @@ NDI2_get_float64_vec_x(int handle, int in_key,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Any \a handle:
       - \c NDI_VERSION
@@ -1588,8 +1605,8 @@ NDI2_get_string_val(int handle, int in_key, char *ret_val,
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
 
-  \par Valid input keys:
-  ======================
+  \par Valid in_key values:
+       ===================
 
   - Multigroup Transport \& Dosimetry \a handle:
       - \c NDI_ZAID

@@ -36,9 +36,6 @@ static void ndi_find_zaid_string(char *in_line, int in_size,
 
 /**********************************************************************/
 
-int ndi_c_set_option_h(state_struct *state, int in_key,
-		       const char *in_value)
-
 /*  Purpose: Set options/defaults.
 
     Parameters:
@@ -49,14 +46,16 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
     positive value for warning, and a '0' if everything's ok.
 
 ***********************************************************************/
+int 
+ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 {
-    int ierr = 0;		/* Error flag: 0=no error, pos=warning, neg=error */
+    int ierr = 0;		/* Error flag
     int pindex = 0;		/* Secondary particle index */
     char *value;		/* Copy of input value of option */
     int in_value_len = 0;	/* Size of the in_value string */
 
 
-    /* Check that ndi_init has been called. */
+   /*** Check that NDI is initialized ***/
     if ((!state) || (!state->ndi_initialized)) {
 	return (-2);
     }
@@ -65,74 +64,60 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
     value = (char *) ndi_malloc(in_value_len * sizeof(char));
     ndi_niceStrCp(value, in_value, in_value_len);
 
-   /*** Check that NDI is initialized ***/
 
    /*************************/
     /*   Process input key   */
    /*************************/
     switch (in_key) {
 
-    case NDI_LIB_TYPE:
-	/*  Set library type  */
+    case NDI_LIB_TYPE:          /* Library type  */
 	ierr = ndi_set_lib_type(state, value);
 	break;
 
-    case NDI_LIBRARY:
-	/* Set source library */
+    case NDI_LIBRARY:           /* Library name */
 	ierr = ndi_set_library(state, value);
 	break;
 
-    case NDI_MAT_ORDER:
-	/* Set flag to transpose order of returned matrix */
+    case NDI_MAT_ORDER:         /* Matrix transpose order */
 	ierr = ndi_set_mat_order(state, value);
 	break;
 
-    case NDI_COLLAPSE:
-	/* Set no. of energy groups to collapse to */
+    case NDI_COLLAPSE:          /* Energy group structure */
 	ierr = ndi_set_collapse(state, value);
 	break;
 
-    case NDI_E_BOUNDS_CURR_PART:
-	/* Set energy group structure for current particle */
+    case NDI_E_BOUNDS_CURR_PART: /* Current particle energy group structure */
 	ierr = ndi_set_ebounds_curr_part(state, value);
 	break;
 
-    case NDI_TRANS_CORR:
-	/* Use transport corrections */
+    case NDI_TRANS_CORR:	/* Use transport corrections */
 	ierr = ndi_set_trans_corr_diag(state, value);
 	break;
 
-    case NDI_NORM:
-	/* Specify whether to normalize chis and edist -- default is normalize */
+    case NDI_NORM:	/* Normalize chi and e_dist */
 	ierr = ndi_set_norm(state, value);
 	break;
 
-    case NDI_REAC_ID:
-	/* Specify reaction identifiers--MT or C values */
+    case NDI_REAC_ID:	/* Specify reaction identifiers as MT or C values */
 	ierr = ndi_set_reac_id(state, value);
 	break;
-    case NDI_E_AVG:
-	/* Specify how to calculate average bin energies */
+    case NDI_E_AVG:	/* Specify average bin energy calculation */
 	ierr = ndi_set_e_avg(state, value);
 	break;
 
-    case NDI_KERMA:
-	/* Should the kerma/heating be calculated if library data not found */
+    case NDI_KERMA:	/* Specify kerma/heating calculation */
 	ierr = ndi_set_kerma_calc(state, value);
 	break;
 
-    case NDI_DEPLETION:
-	/* Set depletion chain -- for multigroup only */
+    case NDI_DEPLETION:	/* Set depletion chain */
 	ierr = ndi_depletion(state, value);
 	break;
 
-    case NDI_CHAIN:		/* Same as NDI_RADCHEM  */
-	/* Set radchem chain -- for dosimetry only */
+    case NDI_CHAIN:	/* Set radiochemistry chain */
 	ierr = ndi_radchem(state, value);
 	break;
 
-    case NDI_CURR_PART:
-	/* Specify which particle is 'current'  */
+    case NDI_CURR_PART:	/* Specify current particle */
 	if (state->library_type == 's') {
 
 	    pindex =
@@ -164,13 +149,11 @@ int ndi_c_set_option_h(state_struct *state, int in_key,
 
 	break;
 
-    case NDI_TEMP:
-	/*  Set default temperature  */
+    case NDI_TEMP:	/* Set default temperature  */
 	state->default_temp = strtod(value, (char **) NULL);
 	break;
 
-    case NDI_FISS_PROD:
-	/* Set default fission product ZAID */
+    case NDI_FISS_PROD:	/* Set default fission product ZAID */
 	if (strncmp(value, "default", 8) == 0) {
 	    strncpy(state->def_fiss_prod_id, DEF_FISSION_PROD,
 		    sizeof(state->def_fiss_prod_id));
