@@ -211,13 +211,12 @@ with the following values:
 In general, an value of zero indicates success, a positive error value
 indicates a warning, and a negative value indicates an error.
 
-The individual interface descriptions, arranged by logical modules in
-the module section of this document, correspond to these tasks:
-
-- Open or Close a Gendir Handle
-- Set or Check a Gendir Handle State
-- Make a Data Handle
-- Set or Check a Data Handle State
-- Get Data or Gendir Handle Data
+The individual interface descriptions, arranged by logical modules, is
+given in the Module Documentation of this document.  Under each
+section the C declaration of each function is given, followed by a
+brief description of its purpose.  In the Detailed Description
+subsections, each function's C declaration is given, followed by a
+description of it's purpose an example call from Fortran 77, the
+definition of its parameters, and its valid data names.
 
 */
