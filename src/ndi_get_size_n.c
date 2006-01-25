@@ -24,8 +24,6 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 
 /**********************************************************************/
 
-int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
-		       int *ierr)
 
 /* Purpose: Return the size of a "vector" in a multi-dimensional array.
    The vector is identified by vec_num (a zero-based index).
@@ -42,6 +40,9 @@ int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
    zero or negative as error.
 
 **********************************************************************/
+int 
+ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
+		       int *ierr)
 {
     int size = 0;		/* Default return value is '0' */
 
@@ -57,6 +58,8 @@ int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
 	*ierr =
 	    ndi_translate_sza_to_symbol(vec_num, tmp_str, MAX_IN_STR_LEN);
 	size = (int) strlen(tmp_str) + 1;
+    } else if (in_key == NDI_ERROR) {
+         size = strlen(ndi_error_string(vec_num)) + 1;
     } else {
 	if (is_gendir(state)) {
 	    *ierr = -2;		/* case not handled currently */

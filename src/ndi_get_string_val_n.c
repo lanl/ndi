@@ -30,8 +30,6 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 
 /**********************************************************************/
 
-int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
-			     char *ret_val, int str_size)
 
 /*  Purpose: Return a single string value.
     
@@ -44,6 +42,9 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
+int 
+ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
+			     char *ret_val, int str_size)
 {
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
@@ -60,6 +61,8 @@ int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
 
     if (in_key == NDI_ZAID) {
 	ierr = ndi_translate_sza_to_symbol(vec_num, ret_val, str_size);
+    } else if (in_key == NDI_ERROR) {
+         strncpy(ret_val, ndi_error_string(vec_num), str_size);
     } else {
 	if (is_gendir(state)) {
 	    ierr = -2;		/* case not handled currently */

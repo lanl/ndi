@@ -520,6 +520,7 @@ extern "C" {
 				  char *in_str, const int str_size);
     int ndi_use_sgndf_values(state_struct *state, int num_grps);
     int ndi_special_sza( int sza, char *sym_str, int str_size );
+    char *ndi_error_string(int ierr);
 
 
   /***  Subroutines in file ndi_misc_depl.c ***/

@@ -1,3 +1,14 @@
+2006-01-25  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_keywords.h (NDI_ERROR): added NDI_ERROR define
+
+	* ndi_misc.c (ndi_error_string): added error string text
+
+	* ndi_get_size_n.c (ndi_c_get_size_n_h): add NDI_ERROR option
+
+	* ndi_get_string_val_n.c ((state_struct *state, int in_key, int vec_num,
+			     char *ret_val, int str_size): add NDI_ERROR option
+
 2006-01-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* ndi_init_iso_state.c (set_depl_array): used new call

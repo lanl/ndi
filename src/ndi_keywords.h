@@ -159,7 +159,7 @@
 #define NDI_EDIST_TEMPS               128
 #define NDI_EDIST_INTERP_REG          129
 #define NDI_EDIST_INTERP_TYPE         130
-
+#define NDI_ERROR                     131
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

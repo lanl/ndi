@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_misc.c
+ * $Id$
  * Description:	Internal function--small misc functions used throughout.
- * Time-stamp:	<1999-05-05 11:02:20 jomc>
  *
  */
 
@@ -614,6 +613,66 @@ int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
     if (newindx == 0)
 	new_str[0] = '\0';
     return (ierr);
+}
+
+/**********************************************************************/
+/*
+ * Description: Return error or warning string corresponding to error number 
+ *
+ */
+
+char *
+ndi_error_string(int n)
+{
+     static char *warning[] = {
+          "Call successfully executed.",
+          "NDI already initialized; no action taken.",
+          "NDI not initialized before NDI2_close_gendir; no action taken.",
+          "Unable to close NDI gendir file.",
+          "Attempt to close NULL stream.", 
+          "Unexpected zero quantity.",
+          "Unexpected data: too many data items.",
+          "Bounds test failed: array terminated." 
+     };
+
+     static char *error[] = {
+          "Invalid warning/error number.",
+          "Error opening file.",
+          "NDI not initialized before NDI library call.",
+          "Error closing file.",
+          "Invalid input key to NDI user function.",
+          "Invalid key argument to NDI user function.",
+          "Index parameter out of range.",
+          "Isotope not set.",
+          "Isotope not found in gendir.",
+          "Data not available in current library for current zaid.",
+          "32-bit function is not implemented on current platform.",
+          "Error reading file.",
+          "Unexpected library data.",
+          "Invalid input parameter.",
+          "No memory available.",
+          "Invalid data in file.",
+          "Library type not set.",
+          "Isotope not found in library.",
+          "Library error: incorrect data order.",
+          "Error setting file pointer.",
+          "NDI_LIB TYPE not set.",
+          "Collapsing attempted but no energy structure chosen by user.",
+          "Bad zaid input.", 
+          "Incompatible collapse group structure.",
+          "Bad reaction identifier (MT or C number)."
+     };
+
+     int num_warnings = sizeof(warning)/sizeof(warning[0]);
+     int num_errors = sizeof(error)/sizeof(error[0]);
+
+     if (-num_errors < n && n < 0) { /* error */
+          return error[-n];
+     } else if ( 0 <= n && n < num_warnings) {
+          return warning[n];
+     } else {
+          return error[0];
+     }
 }
 
 /**********************************************************************/
