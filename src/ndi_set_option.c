@@ -49,7 +49,7 @@ static void ndi_find_zaid_string(char *in_line, int in_size,
 int 
 ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 {
-    int ierr = 0;		/* Error flag
+    int ierr = 0;		/* Error flag */
     int pindex = 0;		/* Secondary particle index */
     char *value;		/* Copy of input value of option */
     int in_value_len = 0;	/* Size of the in_value string */
