@@ -1,0 +1,29 @@
+digraph ndi {
+	//orientation=landscape;
+	size="7.5,10";
+	center=true;
+	label="green=past work\nyellow=present work(01/31/06)\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	rsb[label="Randy Baker"];
+	jomc[label="Joann Campbell"];
+	morgan[label="Morgan White"];
+	frankles[label="Stephanie Frankle"];
+	dkp[label="Kent Parsons"];
+
+	/* project */
+	ndi[label="NDI", shape="ellipse"];
+
+	morgan -> ndi[label="25) RC 618", color=red];
+	ndi -> dkp[label="27) Doc. I", color=yellow4];
+	ndi -> rsb[label="20) MG photon\nZA translation", color=green];
+	ndi -> jomc[label="26) PD energy\nprod. edits", color=yellow1];
+
+	frankles -> ndi[label="24) TN A=11", color=red];
+	ndi -> jomc[label="21) NDI error\nstring", color=green];
+
+	{rank = min; morgan; rsb; jomc} 
+	{rank = max; dkp; frankles}
+
+}
