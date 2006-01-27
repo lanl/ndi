@@ -27,7 +27,7 @@ Query:
 str_size = NDI2_get_size_n(handle, NDI_ERROR, err_no, &ierr);
 /* Get error string */
 ierr = NDI2_get_string_val_n(handle, NDI_ERROR, err_no, err_string, str_size);
-\end{verbatim}
+\end{verbatim} \\ \hline
 \end{tabular}
 \vspace{24pt}
 
@@ -39,3 +39,10 @@ Important Aspiration? No \\ \hline
 Classification: 2 \\ \hline
 \end{tabular}
 \vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2006/01/25 & mgg added NDI_ERROR keyword, ndi_error_string function \\ \hline
+\end{tabular}

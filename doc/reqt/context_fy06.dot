@@ -1,10 +1,11 @@
 digraph ndi {
-	orientation=landscape;
-	label="green=unimportant\nyellow=important\nred=urgent";
+	//orientation=landscape;
+	size="7.5,10";
+	center=true;
+	label="NDI FY06 Context\nred=R1 (02/01/06)\ngreen=R1 (06/01/06)\nblue=R3 (10/01/06)";
 	node[shape="box"];
 
 	/* stakeholders */
-	caw[label="Chuck Wingate"];
 	rsb[label="Randy Baker"];
 	drnuke[label="Steve Nolen"];
 	jomc[label="Joann Campbell"];
@@ -12,24 +13,26 @@ digraph ndi {
 	morgan[label="Morgan White"];
 	frankles[label="Stephanie Frankle"];
 	cms[label="Charlie Snell"];
+	dkp[label="Kent Parsons"];
 
 	/* project */
 	ndi[label="NDI", shape="ellipse"];
 
-	morgan -> ndi[label="25) 618 radchem", color=yellow1];
-	frankles -> ndi[label"24) A=11 TN data", color=yellow1];
-	
-	ndi -> rsb[label="06) SF Data", color=green];
-	ndi -> caw[label="11) PD chain handle", color=yellow1];
-	ndi -> drnuke[label="15) MG scatt. MC", color=yellow1];
-	ndi -> barcher[label="18) Red Storm Support", color=red];
-	ndi -> rsb[label="20) ZA Photonics", color=yellow1];
-	ndi -> jomc[label="21) NDI error string", color=yellow1];
-	ndi -> barcher[label="22) MG temp. dep.", color=yellow1];
-	ndi -> cms[label="23) CP transport", color=yellow1];
+	morgan -> ndi[label="25) RC 618", color=red];
+	ndi -> dkp[label="27) Doc. I", color=red];
+	ndi -> rsb[label="20) MG photon\nZA translation", color=red];
+	ndi -> barcher[label="18) Red Storm\nsupport", color=red];
+	ndi -> jomc[label="26) PD energy\nprod. edits", color=red];
 
-	/*
-	{rank = max; morgan; frankles} 
-	{rank = min; caw; drnuke; rsb; barcher; jomc}
-	*/
+	frankles -> ndi[label="24) TN A=11", color=green];
+	ndi -> jomc[label="21) NDI error\nstring", color=green];
+	ndi -> drnuke[label="15) MG scatt.\nMC", color=green];
+	ndi -> dkp[label="27) Doc. II", color=green];
+
+	ndi -> barcher[label="22) MG temp.\ndep. plan", color=blue];
+	ndi -> cms[label="23) CP transport\nplan", color=blue];
+
+	{rank = min; morgan; rsb; barcher; jomc} 
+	{rank = max; drnuke; dkp; frankles; cms}
+
 }
