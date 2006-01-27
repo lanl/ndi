@@ -1,3 +1,8 @@
+2006-01-27  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* photon.c (test_photon): updated test for photon ZA for
+	Requirement 20
+
 2005-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
 
 	* tn_new_handle.c (testtn_new): added tests for Requirement 12

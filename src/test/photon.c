@@ -39,6 +39,7 @@ int test_photon (void)
    int ext_num_zaid = 21;
    char test_zaid[133] = "";
 
+   /* Requirement 20: 1001 is now a valid photon zaid (returns 1000) */
    char *zaid_list[] = { "92000.", "1001.020pm", "92000.620", "3000", "pu", "10020"  };
    char *extend_zaid_list[] = { "U", "Pu", "92000", "92000.0", "U.62", "11000.020pm",
 				"C.", "He.02", "pu.020pm", "u620pm",

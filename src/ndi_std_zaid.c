@@ -19,8 +19,6 @@ static void ndi_process_extension(char *in_str, char **ext_p);
 
 /**********************************************************************/
 
-int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
-{
 
 /*  Purpose: To return a full or partial zaid (depending on the input
     zaid) in the standard format.
@@ -39,7 +37,9 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-
+int 
+ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
+{
     int ierr = 0;
     int Z;
     int A;
@@ -67,6 +67,52 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 
     return (ierr);
 
+}
+
+/*  Purpose: To return a full or partial element z0id (depending on the input
+    zaid) in the standard format.
+    
+    Parameters: 
+    in_zaid -- in & out: on input is a zaid or element symbol, on
+                         output is the zaid in standard format
+
+    Assumptions:
+    The input zaid contains an element symbol or zaid specifying
+    the Z and A number of an isotope.  Input can be in the form
+    U-235, u235, 92235, U.  (Capitalization doesn't matter.  There
+    may be a dash separating the element symbol and A number.  The return 
+    zaid in this case will be 92000
+
+    Return values:  Returns negative value for error condition,
+    positive value for warning, and a '0' if everything's ok. 
+
+***********************************************************************/
+int 
+ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size)
+{
+     int ierr = 0;
+    int Z;
+    int A;
+    int S;
+    char *zaid_extension_p = NULL;
+    char real_zaid[MAX_IN_STR_LEN];
+
+    real_zaid[0] = '\0';
+    if (!state) return -2;
+
+    ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
+
+    /* Check errors */
+    if ((Z <= MAX_Z) && (Z > 0)) {
+	sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000));
+
+	(void) ndi_process_extension(in_zaid, &zaid_extension_p);
+	strcat(real_zaid, zaid_extension_p);
+	strcpy(in_zaid, real_zaid);
+    } else {
+         ierr = -22;
+    }
+    return ierr;
 }
 
 /**********************************************************************/

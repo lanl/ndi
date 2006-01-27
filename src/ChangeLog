@@ -1,3 +1,12 @@
+2006-01-27  Mark G. Gray  <mgg@lambda2.lanl.gov>
+
+	* ndi_set_isotope.c (ndi_c_set_zaid_h): call to ndi_std_z0id for
+	photons 
+
+	* ndi_internal.h: ndi_std_z0id declaration
+
+	* ndi_std_zaid.c (ndi_std_z0id): zaid to z0id for Reqt 20
+
 2006-01-25  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* ndi_keywords.h (NDI_ERROR): added NDI_ERROR define
