@@ -2,17 +2,16 @@
 
 \section summary Summary
 
-These notes document the interface specification for the Nuclear Data
-Interface V2, a C, C++, Fortran 77, and Fortran 90 callable library
-which provides nuclear data to user codes.  It provides a consistent,
-tested interface to the best and latest deterministic nuclear data
-evaluations for transport, thermonuclear burn, radiochemistry, and
+These notes document the interface for NDI version 2, a C, C++,
+Fortran 77, and Fortran 90 callable library which provides consistent,
+tested access to the best and latest nuclear data evaluations for
+deterministic transport, thermonuclear burn, radiochemistry, and
 production/depletion.
 
 \section background Background
 
-Prior to the development of the Nuclear Data Interface (NDI), user
-codes were primarily responsible for obtaining and accessing their own
+Prior to the development of the Nuclear Data Interface (NDI), users
+were primarily responsible for obtaining and accessing their own
 nuclear data.  This resulted in a proliferation of data files in
 different and incompatible formats, which generally made the update of
 data a major, cross-project undertaking.  Worse still, some codes
@@ -27,7 +26,7 @@ written in portable C, provided an interface to Fortran 77, Fortran
 support a variety of nuclear data user codes.  NDI provided more than
 a simple database access to nuclear data.  It augmented access to
 tabulated data with a variety of user selectable transformations and
-calculations, such as group collapse and spontaneous fission rates.
+calculations.
 
 NDI was rewritten in 2004 and released as major version 2, in response
 to its growing acceptance in the user community and a desire to let
@@ -36,7 +35,7 @@ users combine nuclear data in more powerful ways.  Beginning with NDI
 an array of handles that can, for example, provide the data to
 simulate coupled neutron-gamma multigroup transport.  Encapsulating
 state also eases the use of NDI in multiple components throughout a
-code; each component can have it's own uniquely configure handle
+code; each component can have it's own uniquely configured handle
 usable without concern of other component calls to NDI.  Handles also
 permit the cleanup of some NDI internal logic, visible to the user
 primarily in the promotion of the gendir index meta-data to a first
@@ -57,13 +56,16 @@ represented by solid lines, and the requirements connecting the
 domains are represented by dashed lines.  The basic requirement for
 NDI is shown in the dashed oval: in response to a logical user request
 E1, which may physically require several interface calls (UC!E1) to
-explicate, make the users lexical representation of the data Y2
-correspond to the lexical representation of real world nuclear data
-Y1.  NDI may satisfy it's requirement by reading tabulated data NDI!Y1
-that corresponds directly to the requested user data NDI!Y2,
-by calculating user requested data NDI!Y2 from other tabulated data or
-models, by transforming read or calculated data into NDI!Y2, or by a
-series of these steps.
+explicate, make the users lexical representation of the data (i.e. the
+machine representation of numeric and character types) Y2, which may
+physically require several interface return data (NDI!Y1), correspond
+to the lexical representation (i.e. ASCII) of real world nuclear data
+Y1, which may require several data reads (NDI!Y2).  NDI may satisfy
+it's requirement by reading tabulated data NDI!Y1 that corresponds
+directly to the requested user data NDI!Y2, by calculating user
+requested data NDI!Y2 from other read tabulated data or models, by
+transforming read or calculated data into NDI!Y2, or by some
+combination of these steps.
 
 \image latex problem.ps "The Commanded Information Frame"
 \image html problem.jpg "Figure 1.1: The Commanded Information Frame"
@@ -99,14 +101,15 @@ release date.  The data within the libraries are organized into
 tables, indexed by isotope, reaction, or reaction chain identifier
 depending on the data type.
 
-The user's access of nuclear through NDI starts with the opening of a
-gendir handle, which connects the user to an index of all of the data
-available through NDI.  The gendir handle's state, which affects the
-subsequent processing of data requests through the handle, can be set
-or checked, and the user can get lists of the data available together
-with some basic information about that data.
+The user's access of nuclear data through NDI starts with the opening
+of a gendir handle, which connects the user to an Index Sequential
+Access File of all of the data tables available through NDI.  The
+gendir handle's state, which affects the subsequent processing of data
+requests through the handle, can be set or checked, and the user can
+get lists of the data tables available together with some basic
+information about each table.
 
-To access nuclear data the user makes a data handle of the desired
+To access a nuclear data table the user makes a data handle of the desired
 type from the gendir handle.  The data handle inherits it's state from
 the default settings of the gendir handle and the user can set and check
 each handle's state individually.  Data handles are typically set to
@@ -129,14 +132,14 @@ The typical use of NDI is thus:
 
 \section specification Specification
 
-Each NDI V2 function name begins with the prefix \c NDI2_ for C and C++
-codes, and \c ndi2_ for Fortran77 and Fortran 90 codes, and is followed
-by a description of its function (open, close, set, check, get) and
-its data value return type.  For example, NDI's interface language
-requirement limits the user's data format to that of the least common
-denominator: integers, reals, strings, and simple arrays of these
-basic types, so the user's data type is incorporated in NDI's workhorse
-\c get family of functions, thus:
+Each NDI V2 function name begins with the prefix \c NDI2_ in the C and
+C++ interface, and \c ndi2_ in the Fortran77 and Fortran 90 interface,
+and is followed by a description of its function (open, close, set,
+check, get) and its data value return type.  For example, NDI's
+interface language requirement limits the user's data format to that
+of the least common denominator: integers, reals, strings, and simple
+arrays of these basic types, so the user's data type is incorporated
+in NDI's workhorse \c get family of functions, thus:
 
 - \c NDI2_get_int_val* 
 - \c NDI2_get_int_vec*
@@ -150,24 +153,28 @@ basic types, so the user's data type is incorporated in NDI's workhorse
 The first parameter of every NDI V2 function call is the gendir or
 data handle, which is created and assigned by the \c NDI2_open_gendir
 and \c NDI2_make_handle routines respectively and destroyed by the \c
-NDI2_close_gendir routine.  In the set, check, and get routines the
-handle specifies which state the call will affect.
+NDI2_close_gendir routine.  In the set routines the handle specifies
+which state the call will affect; in the check routines the handle
+specifices which state the call will report; in get routines the
+handle specifies which state the call will use in reading,
+transforming or calculating the data.
 
-NDI treats all data as name-value pairs: the second (and possibly
-third) argument to every set, check, and get call is the name of the
-data requested.  Data names are defined integer constants specified
-symbolically in the include file \c ndi_keywords.i for Fortran 77 and
-Fortran 90 codes, and in the include file \c ndi_keywords.h for C and
-C++ codes.  The data name reference may be further disambiguated by an
-integer index third parameter, in the case of the \c NDI2_get*_n family
-of calls, or by a string third parameter, in the case of the \c
-NDI2_get_*_x family of calls.
+NDI treats all state and tablulated data as named values: the second
+(and possibly third) argument to every set, check, and get call is the
+name of the data requested.  Data names are defined integer constants
+specified symbolically in the include file \c ndi_keywords.i for
+Fortran 77 and Fortran 90 codes, and in the include file \c
+ndi_keywords.h for C and C++ codes.  The data name reference may be
+further disambiguated by an integer index third parameter, in the case
+of the \c NDI2_get*_n family of calls, or by a string third parameter,
+in the case of the \c NDI2_get_*_x family of calls.
 
 The remaining parameters specify the set, check, or get data value,
 and the request return status in Fortran 77 and Fortran 90.  Vector
-valued data is followed by its size, as is string valued data for C
-and C++ calls.  The size of returned vector or string data is available
-through the \c NDI2_get_size_* family of functions.
+valued data is followed by its user allocated maximum size, as is
+string valued data for C and C++ calls.  The actual size of returned
+vector or string data is available through the \c NDI2_get_size_*
+family of functions.
 
 Since NDI is required to do the user's bidding, it is required to deal
 with user calls gracefully, regardless of their nature.  To meet this
