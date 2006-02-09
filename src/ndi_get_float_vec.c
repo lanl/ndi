@@ -180,7 +180,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     switch (in_key) {
 
-    case NDI_E_BOUNDS:		/*  Energy boundaries  */
+    case NDI_E_BOUNDS:		/*  Energy group boundaries  */
 	/*  CHECK DEPENDENCY ON EBOUND ORDER */
 	/*  Check bounds */
 	if (state->iso_stat.e_bounds.file_ptr) {
@@ -478,7 +478,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	ierr = GET_E_BOUNDS_CURR_PART(state, return_vec, return_size);
 	break;
 
-    case NDI_TOT_DEPL_XS:
+    case NDI_TOT_DEPL_XS:       /* Total depletion cross section */
 	if (!state->ndi_depl_set) {
 	    ierr = ndi_set_default_depl(state);
 	}

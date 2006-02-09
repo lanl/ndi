@@ -52,7 +52,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     }
 
     /* Special case--library type need not be set if asking for version. */
-    if (in_key == NDI_ABUNDANCE) {
+    if (in_key == NDI_ABUNDANCE) { /* Natural abundance for isotope vec_num */
 	ierr = GET_ABUNDANCE(vec_num, ret_val);
 	return (ierr);
     }
@@ -89,8 +89,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 	/*           This section looks at non-standard isotope data           */
       /***********************************************************************/
 
-   case NDI_REAC_Q:                      
-      /* Reaction Q for reaction indexed by vec_num */
+   case NDI_REAC_Q:      /* Reaction Q for reaction vec_num */
       /* Change this test */
       if ( state->reac_id == 'c' ) {
 	 mt = ndi_c_c_to_mt( vec_num );
@@ -123,7 +122,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
      break;
 */
 
-    case NDI_TOT_PROD_Q:
+    case NDI_TOT_PROD_Q:        /* Total Production Q  */
 	if (!state->ndi_depl_set) {
 	    ierr = ndi_set_default_depl(state);
 	}

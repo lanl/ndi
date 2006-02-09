@@ -568,142 +568,143 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
        ===================
 
   - With all \a handles:
-      - \c NDI_VERSION
-      - \c NDI_GENDIR_PATH
+      - \c NDI_VERSION: String size
+      - \c NDI_GENDIR_PATH: String size
   - With gendir \a handle:
-      - \c NDI_ZAID 
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
+      - \c NDI_ZAID: String size
+      - \c NDI_TEMP: Array length
+      - \c NDI_SIG_0: Array length
+      - \c NDI_AT_WGT: Array length
+      - \c NDI_AWR: Array length
   - With multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
-      - \c NDI_DEPL_ZAID
-      - \c NDI_DEPL_INFO
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_SEC_PART_ZAIDS
-      - \c NDI_NUM_GRPS
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_UP_GRPS
-      - \c NDI_DOWN_GRPS
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
-      - \c NDI_NUM_REAC
-      - \c NDI_NUM_RPRODS
-      - \c NDI_PN_ORDER
-      - \c NDI_NUM_SEC_PARTS
-      - \c NDI_NUM_GRPS_CURR_PART
-      - \c NDI_PN_ORDER_CURR_PART
-      - \c NDI_NUM_TARGET
-      - \c NDI_LAST_GRP
-      - \c NDI_FISSIONABLE
-      - \c NDI_ATOMIC_NUM
-      - \c NDI_MASS_NUM
-      - \c NDI_NUM_PNU_PR
-      - \c NDI_E_AVG
-      - \c NDI_ENERGY_N
-      - \c NDI_ENERGY_AVAIL
-      - \c NDI_WGTS
-      - \c NDI_VEL
-      - \c NDI_HEATING
-      - \c NDI_KERMA
-      - \c NDI_SIG_TOT
-      - \c NDI_NU_TOT
-      - \c NDI_NU_PR
-      - \c NDI_NU_DEL
-      - \c NDI_NU_SIG_F_TOT
-      - \c NDI_NU_SIG_F_PR
-      - \c NDI_NU_SIG_F_DEL
-      - \c NDI_CHI_VEC_TOT
-      - \c NDI_CHI_VEC_PR
-      - \c NDI_CHI_VEC_DEL
-      - \c NDI_HEATING_CURR_PART
-      - \c NDI_KERMA_CURR_PART
-      - \c NDI_TOT_PROD_XS
-      - \c NDI_TOT_DEPL_XS
-      - \c NDI_E_BOUNDS
-      - \c NDI_NORM
-      - \c NDI_FISS_Q
-      - \c NDI_REAC_MT
-      - \c NDI_REAC_Q
-      - \c NDI_E_BOUNDS_CURR_PART
-      - \c NDI_RPROD_ALL
-      - \c NDI_RPROD_RMO
-      - \c NDI_RPROD_FEW
-      - \c NDI_CHI_MAT_TOT
-      - \c NDI_CHI_MAT_PR
-      - \c NDI_CHI_MAT_DEL
+      - \c NDI_ZAID: String size
+      - \c NDI_INFO: String size
+      - \c NDI_DATE_PROCESSED: String size
+      - \c NDI_DATE_SOURCE: String size
+      - \c NDI_LIBRARY_NAME: String size
+      - \c NDI_DEPL_ZAID: String size
+      - \c NDI_DEPL_INFO: String size
+      - \c NDI_SEC_PART_TYPES: String size
+      - \c NDI_SEC_PART_ZAIDS: String size
+      - \c NDI_NUM_GRPS: Array length
+      - \c NDI_TEMP: Array length
+      - \c NDI_SIG_0: Array length
+      - \c NDI_UP_GRPS: Array length
+      - \c NDI_DOWN_GRPS: Array length
+      - \c NDI_AT_WGT: Array length
+      - \c NDI_AWR: Array length
+      - \c NDI_NUM_REAC: Array length
+      - \c NDI_NUM_RPRODS: Array length
+      - \c NDI_PN_ORDER: Array length
+      - \c NDI_NUM_SEC_PARTS: Array length
+      - \c NDI_NUM_GRPS_CURR_PART: Array length
+      - \c NDI_PN_ORDER_CURR_PART: Array length
+      - \c NDI_NUM_TARGET: Array length
+      - \c NDI_LAST_GRP: Array length
+      - \c NDI_FISSIONABLE: Array length
+      - \c NDI_ATOMIC_NUM: Array length
+      - \c NDI_MASS_NUM: Array length
+      - \c NDI_NUM_PNU_PR: Array length
+      - \c NDI_E_AVG: Array length
+      - \c NDI_ENERGY_N: Array length
+      - \c NDI_ENERGY_AVAIL: Array length
+      - \c NDI_WGTS: Array length
+      - \c NDI_VEL: Array length
+      - \c NDI_HEATING: Array length
+      - \c NDI_KERMA: Array length
+      - \c NDI_SIG_TOT: Array length
+      - \c NDI_NU_TOT: Array length
+      - \c NDI_NU_PR: Array length
+      - \c NDI_NU_DEL: Array length
+      - \c NDI_NU_SIG_F_TOT: Array length
+      - \c NDI_NU_SIG_F_PR: Array length
+      - \c NDI_NU_SIG_F_DEL: Array length
+      - \c NDI_CHI_VEC_TOT: Array length
+      - \c NDI_CHI_VEC_PR: Array length
+      - \c NDI_CHI_VEC_DEL: Array length
+      - \c NDI_HEATING_CURR_PART: Array length
+      - \c NDI_KERMA_CURR_PART: Array length
+      - \c NDI_TOT_PROD_XS: Array length
+      - \c NDI_TOT_DEPL_XS: Array length
+      - \c NDI_E_BOUNDS: Array length
+      - \c NDI_NORM: Array length
+      - \c NDI_FISS_Q: Array length
+      - \c NDI_REAC_MT: Array length
+      - \c NDI_REAC_Q: Array length
+      - \c NDI_E_BOUNDS_CURR_PART: Array length
+      - \c NDI_RPROD_ALL: Array length
+      - \c NDI_RPROD_RMO: Array length
+      - \c NDI_RPROD_FEW: Array length
+      - \c NDI_CHI_MAT_TOT: Array length
+      - \c NDI_CHI_MAT_PR: Array length
+      - \c NDI_CHI_MAT_DEL: Array length
   - With mutigroup_multi \a handle:
-      - \c NDI_E_BOUNDS
-      - \c NDI_WGTS
-      - \c NDI_VEL
-      - \c NDI_E_AVG
-      - \c NDI_HEATING
-      - \c NDI_KERMA
-      - \c NDI_SIG_TOT
-      - \c NDI_NU_TOT
-      - \c NDI_NU_PR
-      - \c NDI_NU_DEL
-      - \c NDI_NU_SIG_F_TOT
-      - \c NDI_NU_SIG_F_PR
-      - \c NDI_NU_SIG_F_DEL
-      - \c NDI_CHI_VEC_TOT
-      - \c NDI_CHI_VEC_PR
-      - \c NDI_CHI_VEC_DEL
-      - \c NDI_REAC_MT
-      - \c NDI_ZAID
-      - \c  NDI_NUM_GRPS
-      - \c NDI_PN_ORDER
-      - \c NDI_NUM_PNU_PR
-      - \c NDI_NUM_REAC
-      - \c NDI_FISSIONABLE
+      - \c NDI_E_BOUNDS: Array length
+      - \c NDI_WGTS: Array length
+      - \c NDI_VEL: Array length
+      - \c NDI_E_AVG: Array length
+      - \c NDI_HEATING: Array length
+      - \c NDI_KERMA: Array length
+      - \c NDI_SIG_TOT: Array length
+      - \c NDI_NU_TOT: Array length
+      - \c NDI_NU_PR: Array length
+      - \c NDI_NU_DEL: Array length
+      - \c NDI_NU_SIG_F_TOT: Array length
+      - \c NDI_NU_SIG_F_PR: Array length
+      - \c NDI_NU_SIG_F_DEL: Array length
+      - \c NDI_CHI_VEC_TOT: Array length
+      - \c NDI_CHI_VEC_PR: Array length
+      - \c NDI_CHI_VEC_DEL: Array length
+      - \c NDI_REAC_MT: Array length
+      - \c NDI_ZAID: String size
+      - \c NDI_NUM_GRPS: Array length
+      - \c NDI_PN_ORDER: Array length
+      - \c NDI_NUM_PNU_PR: Array length
+      - \c NDI_NUM_REAC: Array length
+      - \c NDI_FISSIONABLE: Array length
   - With tn \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
-      - \c NDI_NUM_TEMPS
-      - \c NDI_NUM_SIGVBAR_INTERP
-      - \c NDI_NUM_EINBAR_INTERP
-      - \c NDI_NUM_SEC_PARTS
-      - \c NDI_NUM_REAC
-      - \c NDI_NUM_RPRODS
-      - \c NDI_NUM_REACTANTS
-      - \c NDI_REAC_Q
-      - \c NDI_NUM_GRPS
-      - \c NDI_EAVG_OUT
-      - \c NDI_EOUTBAR
-      - \c NDI_TEMPS
-      - \c NDI_SIGVBARS
-      - \c NDI_RPRODS_ID
-      - \c NDI_RPRODS_MLT
-      - \c NDI_REACTANTS_ID
-      - \c NDI_REACTANTS_MLT
-      - \c NDI_SIGVBAR_INTERP_REG
-      - \c NDI_SIGVBAR_INTERP_TYPE
-      - \c NDI_EINBAR_INTERP_REG
-      - \c NDI_EINBAR_INTERP_TYPE
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_EDIST
-      - \c NDI_EDIST_INTERP_REG
-      - \c NDI_EDIST_INTERP_TYPE
-      - \c NDI_EDIST_INTERP_REG
-      - \c NDI_EINBAR
-      - \c NDI_E_BOUNDS
-      - \c NDI_E_AVG
+      - \c NDI_ZAID: String size
+      - \c NDI_INFO: String size
+      - \c NDI_DATE_PROCESSED: String size
+      - \c NDI_DATE_SOURCE: String size
+      - \c NDI_LIBRARY_NAME: String size
+      - \c NDI_NUM_TEMPS: Array length
+      - \c NDI_NUM_SIGVBAR_INTERP: Array length
+      - \c NDI_NUM_EINBAR_INTERP: Array length
+      - \c NDI_NUM_SEC_PARTS: Array length
+      - \c NDI_NUM_REAC: Array length
+      - \c NDI_NUM_RPRODS: Array length
+      - \c NDI_NUM_REACTANTS: Array length
+      - \c NDI_REAC_Q: Array length
+      - \c NDI_NUM_GRPS: Array length
+      - \c NDI_EAVG_OUT: Array length
+      - \c NDI_EOUTBAR: Array length
+      - \c NDI_TEMPS: Array length
+      - \c NDI_SIGVBARS: Array length
+      - \c NDI_RPRODS_ID: Array length
+      - \c NDI_RPRODS_MLT: Array length
+      - \c NDI_REACTANTS_ID: Array length
+      - \c NDI_REACTANTS_MLT: Array length
+      - \c NDI_SIGVBAR_INTERP_REG: Array length
+      - \c NDI_SIGVBAR_INTERP_TYPE: Array length
+      - \c NDI_EINBAR_INTERP_REG: Array length
+      - \c NDI_EINBAR_INTERP_TYPE: Array length
+      - \c NDI_SEC_PART_TYPES: Array length
+      - \c NDI_EDIST: Array length
+      - \c NDI_EDIST_INTERP_REG: Array length
+      - \c NDI_EDIST_INTERP_TYPE: Array length
+      - \c NDI_EDIST_INTERP_REG: Array length
+      - \c NDI_EDIST_TEMPS: Array length
+      - \c NDI_EINBAR: Array length
+      - \c NDI_E_BOUNDS: Array length
+      - \c NDI_E_AVG: Array length
   - With tnreactions \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
-      - \c NDI_NUM_REAC
+      - \c NDI_ZAID: String size
+      - \c NDI_INFO: String size
+      - \c NDI_DATE_PROCESSED: String size
+      - \c NDI_DATE_SOURCE: String size
+      - \c NDI_LIBRARY_NAME: String size
+      - \c NDI_NUM_REAC: Array length
 */
 int 
 NDI2_get_size(int handle, int in_key, int *ierr)
@@ -726,8 +727,8 @@ NDI2_get_size(int handle, int in_key, int *ierr)
 
   \par Fortran example
   \code
-  ! Get size of sigma array
-  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  ! Get size of reation label 18
+  call ndi2_get_size_n(handle, NDI_REAC_LABEL, 18, size, ierr)
   \endcode
 
   \param handle: integer input state handle
@@ -1078,16 +1079,15 @@ NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
   \par Valid in_key values:
        ===================
 
-  - Multigroup Transport \a handle:
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
-  - Thermonuclear burn \a handle:
-      - \c NDI_REAC_Q
-      - \c NDI_EAVG_OUT
-      - \c NDI_EOUTBAR
-
+  - multigroup_neutron \a handle:
+      - \c NDI_TEMP: Temperature
+      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_AT_WGT: Atomic weight
+      - \c NDI_AWR: Atomic weight ratio
+  - tn \a handle:
+      - \c NDI_REAC_Q: Reaction Q value
+      - \c NDI_EAVG_OUT: Average outgoing energy
+      - \c NDI_EOUTBAR: Average outgoing energy
 
 */
 int 
@@ -1120,10 +1120,10 @@ NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
        ===================
 
   - All \a handles:
-      - \c NDI_ABUNDANCE
-  - Thermonuclear burn \a handle:
-      - \c NDI_REAC_Q
-      - \c NDI_TOT_PROD_Q
+      - \c NDI_ABUNDANCE: Natural abundance for isotope \a vec_num
+  - multigroup_neutron or dosimetry_neutron \a handle:
+      - \c NDI_REAC_Q: Reaction Q for reaction \a vec_num
+      - \c NDI_TOT_PROD_Q: Total production Q
 
 */
 int 
@@ -1163,47 +1163,48 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
   \par Valid in_key values:
        ===================
 
-  - Gendir \a handle:
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_E_BOUNDS
-      - \c NDI_E_AVG
-      - \c NDI_ENERGY_N
-      - \c NDI_ENERGY_AVAIL
-      - \c NDI_WGTS
-      - \c NDI_VEL
-      - \c NDI_HEATING
-      - \c NDI_KERMA
-      - \c NDI_HEATING_CURR_PART
-      - \c NDI_KERMA_CURR_PART
-      - \c NDI_SIG_TOT
-      - \c NDI_NU_TOT
-      - \c NDI_NU_PR
-      - \c NDI_NU_DEL
-      - \c NDI_NU_SIG_F_TOT
-      - \c NDI_NU_SIG_F_PR
-      - \c NDI_NU_SIG_F_DEL
-      - \c NDI_CHI_VEC_TOT
-      - \c NDI_CHI_VEC_PR
-      - \c NDI_CHI_VEC_DEL
-      - \c NDI_CHI_MAT_TOT
-      - \c NDI_CHI_MAT_DEL
-      - \c NDI_CHI_MAT_PR
-      - \c NDI_NORM
-      - \c NDI_FISS_Q
-      - \c NDI_REAC_Q
-      - \c NDI_E_BOUNDS_CURR_PART
-      - \c NDI_TOT_DEPL_XS
-  - Thermonuclear burn \a handle:
-      - \c NDI_TEMPS
-      - \c NDI_SIGVBARS
-      - \c NDI_EINBAR
-      - \c NDI_EDIST
-      - \c NDI_E_BOUNDS
-      - \c NDI_E_AVG
+  - gendir \a handle:
+      - \c NDI_TEMP: Temperatures
+      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_AT_WGT: Atomic weight
+      - \c NDI_AWR: Atomic weight ratio
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_E_BOUNDS: Energy group boundaries
+      - \c NDI_E_AVG: Average group energies
+      - \c NDI_ENERGY_N: Energy given to neutrons
+      - \c NDI_ENERGY_AVAIL: Energy available
+      - \c NDI_WGTS: Group weights
+      - \c NDI_VEL: Group velocities
+      - \c NDI_HEATING: Group heating
+      - \c NDI_KERMA: Group kerma
+      - \c NDI_HEATING_CURR_PART: Partial heating for current particle
+      - \c NDI_KERMA_CURR_PART: Partial kerma for current particle
+      - \c NDI_SIG_TOT: Sigma total
+      - \c NDI_NU_TOT: Nubar total
+      - \c NDI_NU_PR: Nubar prompt
+      - \c NDI_NU_DEL: Nubar delayed
+      - \c NDI_NU_SIG_F_TOT: Nubar sigma fission total
+      - \c NDI_NU_SIG_F_PR: Nubar sigma fission prompt
+      - \c NDI_NU_SIG_F_DEL: Nubar sigma fission delayed
+      - \c NDI_CHI_VEC_TOT: Chi vector total
+      - \c NDI_CHI_VEC_PR: Chi vector prompt
+      - \c NDI_CHI_VEC_DEL: Chi vector delayed
+      - \c NDI_CHI_MAT_TOT: Chi matrix total
+      - \c NDI_CHI_MAT_DEL: Chi matrix delayed
+      - \c NDI_CHI_MAT_PR: Chi matrix prompt
+      - \c NDI_NORM: Chi normalization
+      - \c NDI_FISS_Q: Fission Q
+      - \c NDI_REAC_Q: Reaction Q
+      - \c NDI_E_BOUNDS_CURR_PART: Secondary particle energy boundaries
+      - \c NDI_TOT_DEPL_XS: Total depletion cross section
+  - tn \a handle:
+      - \c NDI_TEMPS: Temperatures
+      - \c NDI_SIGVBARS: Sigma Vbars
+      - \c NDI_EINBAR: Thermal-averaged total incident energy
+      - \c NDI_EDIST: Current particle's energy distribution
+      - \c NDI_EDIST_TEMPS: Temperature interpolation type 
+      - \c NDI_E_BOUNDS: Energy boundaries for secondary particle
+      - \c NDI_E_AVG: Unweighted average group energy
 
 */
 int 
@@ -1234,6 +1235,23 @@ NDI2_get_float32_vec(int handle, int in_key,
   \param vec_size: integer input indicating the allocated size of \a return_vec.
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
+
+  \par Valid in_key values:
+       ===================
+
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_PN_DOWN_FULL: Pn scattering matrix - downscatter diagonal
+      - \c NDI_PN_FULL: Full Pn scattering matrix
+      - \c NDI_SIG_REAC: Sigma edit cross sections
+      - \c NDI_PNU_PR: Prompt fission neutron multiplicity probabilities
+      - \c NDI_SIG_PNU_PR:
+      - \c NDI_PN_PROD_FULL_CURR_PART: Full production matrix current particle
+      - \c NDI_TRANSFER_MAT_TOT: Transfer matrix total
+      - \c NDI_TRANSFER_MAT_PR: Transfer matrix prompt
+      - \c NDI_CORR_DIAG: Diagonal transport correction
+      - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
+      - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
+
 */
 int 
 NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
@@ -1279,9 +1297,9 @@ NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
   \par Valid in_key values:
        ===================
 
-  - All \a handles:
-      - \c NDI_TOT_PROD_XS
-
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str
+      - \c NDI_RPROD_MLT: Reaction multiplicity for product \a in_str
 */
 int 
 NDI2_get_float32_vec_x(int handle, int in_key,
@@ -1320,15 +1338,15 @@ NDI2_get_float32_vec_x(int handle, int in_key,
   \par Valid in_key values:
        ===================
 
-  - Multigroup Transport \a handle:
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
-  - Thermonuclear burn \a handle:
-      - \c NDI_REAC_Q
-      - \c NDI_EAVG_OUT
-      - \c NDI_EOUTBAR
+  - multigroup_neutron \a handle:
+      - \c NDI_TEMP: Temperature
+      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_AT_WGT: Atomic weight
+      - \c NDI_AWR: Atomic weight ratio
+  - tn \a handle:
+      - \c NDI_REAC_Q: Reaction Q value
+      - \c NDI_EAVG_OUT: Average outgoing energy
+      - \c NDI_EOUTBAR: Average outgoing energy
 
 */
 int 
@@ -1361,10 +1379,10 @@ NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
        ===================
 
   - All \a handles:
-      - \c NDI_ABUNDANCE
-  - Thermonuclear burn \a handle:
-      - \c NDI_REAC_Q
-      - \c NDI_TOT_PROD_Q
+      - \c NDI_ABUNDANCE: Natural abundance for isotope \a vec_num
+  - multigroup_neutron or dosimetry_neutron \a handle:
+      - \c NDI_REAC_Q: Reaction Q for reaction \a vec_num
+      - \c NDI_TOT_PROD_Q: Total production Q
 
 */
 int 
@@ -1404,47 +1422,49 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
   \par Valid in_key values:
        ===================
 
-  - Gendir \a handle:
-      - \c NDI_TEMP
-      - \c NDI_SIG_0
-      - \c NDI_AT_WGT
-      - \c NDI_AWR
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_E_BOUNDS
-      - \c NDI_E_AVG
-      - \c NDI_ENERGY_N
-      - \c NDI_ENERGY_AVAIL
-      - \c NDI_WGTS
-      - \c NDI_VEL
-      - \c NDI_HEATING
-      - \c NDI_KERMA
-      - \c NDI_HEATING_CURR_PART
-      - \c NDI_KERMA_CURR_PART
-      - \c NDI_SIG_TOT
-      - \c NDI_NU_TOT
-      - \c NDI_NU_PR
-      - \c NDI_NU_DEL
-      - \c NDI_NU_SIG_F_TOT
-      - \c NDI_NU_SIG_F_PR
-      - \c NDI_NU_SIG_F_DEL
-      - \c NDI_CHI_VEC_TOT
-      - \c NDI_CHI_VEC_PR
-      - \c NDI_CHI_VEC_DEL
-      - \c NDI_CHI_MAT_TOT
-      - \c NDI_CHI_MAT_DEL
-      - \c NDI_CHI_MAT_PR
-      - \c NDI_NORM
-      - \c NDI_FISS_Q
-      - \c NDI_REAC_Q
-      - \c NDI_E_BOUNDS_CURR_PART
-      - \c NDI_TOT_DEPL_XS
-  - Thermonuclear burn \a handle:
-      - \c NDI_TEMPS
-      - \c NDI_SIGVBARS
-      - \c NDI_EINBAR
-      - \c NDI_EDIST
-      - \c NDI_E_BOUNDS
-      - \c NDI_E_AVG
+  - gendir \a handle:
+      - \c NDI_TEMP: Temperatures
+      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_AT_WGT: Atomic weight
+      - \c NDI_AWR: Atomic weight ratio
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_E_BOUNDS: Energy group boundaries
+      - \c NDI_E_AVG: Average group energies
+      - \c NDI_ENERGY_N: Energy given to neutrons
+      - \c NDI_ENERGY_AVAIL: Energy available
+      - \c NDI_WGTS: Group weights
+      - \c NDI_VEL: Group velocities
+      - \c NDI_HEATING: Group heating
+      - \c NDI_KERMA: Group kerma
+      - \c NDI_HEATING_CURR_PART: Partial heating for current particle
+      - \c NDI_KERMA_CURR_PART: Partial kerma for current particle
+      - \c NDI_SIG_TOT: Sigma total
+      - \c NDI_NU_TOT: Nubar total
+      - \c NDI_NU_PR: Nubar prompt
+      - \c NDI_NU_DEL: Nubar delayed
+      - \c NDI_NU_SIG_F_TOT: Nubar sigma fission total
+      - \c NDI_NU_SIG_F_PR: Nubar sigma fission prompt
+      - \c NDI_NU_SIG_F_DEL: Nubar sigma fission delayed
+      - \c NDI_CHI_VEC_TOT: Chi vector total
+      - \c NDI_CHI_VEC_PR: Chi vector prompt
+      - \c NDI_CHI_VEC_DEL: Chi vector delayed
+      - \c NDI_CHI_MAT_TOT: Chi matrix total
+      - \c NDI_CHI_MAT_DEL: Chi matrix delayed
+      - \c NDI_CHI_MAT_PR: Chi matrix prompt
+      - \c NDI_NORM: Chi normalization
+      - \c NDI_FISS_Q: Fission Q
+      - \c NDI_REAC_Q: Reaction Q
+      - \c NDI_E_BOUNDS_CURR_PART: Secondary particle energy boundaries
+      - \c NDI_TOT_DEPL_XS: Total depletion cross section
+  - tn \a handle:
+      - \c NDI_TEMPS: Temperatures
+      - \c NDI_SIGVBARS: Sigma Vbars
+      - \c NDI_EINBAR: Thermal-averaged total incident energy
+      - \c NDI_EDIST: Current particle's energy distribution
+      - \c NDI_EDIST_TEMPS: Temperature interpolation type 
+      - \c NDI_E_BOUNDS: Energy boundaries for secondary particle
+      - \c NDI_E_AVG: Unweighted average group energy
+
 */
 int 
 NDI2_get_float64_vec(int handle, int in_key,
@@ -1474,6 +1494,23 @@ NDI2_get_float64_vec(int handle, int in_key,
   \param vec_size: integer input indicating the allocated size of return_vec.
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
+
+  \par Valid in_key values:
+       ===================
+
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_PN_DOWN_FULL: Pn scattering matrix - downscatter diagonal
+      - \c NDI_PN_FULL: Full Pn scattering matrix
+      - \c NDI_SIG_REAC: Sigma edit cross sections
+      - \c NDI_PNU_PR: Prompt fission neutron multiplicity probabilities
+      - \c NDI_SIG_PNU_PR:
+      - \c NDI_PN_PROD_FULL_CURR_PART: Full production matrix current particle
+      - \c NDI_TRANSFER_MAT_TOT: Transfer matrix total
+      - \c NDI_TRANSFER_MAT_PR: Transfer matrix prompt
+      - \c NDI_CORR_DIAG: Diagonal transport correction
+      - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
+      - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
+
 */
 int 
 NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
@@ -1508,6 +1545,13 @@ NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
   \param vec_size: maximum size of float64 array
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only) 
+
+  \par Valid in_key values:
+       ===================
+
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str
+      - \c NDI_RPROD_MLT: Reaction multiplicity for product \a in_str
 */
 int 
 NDI2_get_float64_vec_x(int handle, int in_key,
@@ -1549,30 +1593,30 @@ NDI2_get_float64_vec_x(int handle, int in_key,
        ===================
 
   - Any \a handle:
-      - \c NDI_VERSION
-      - \c NDI_GENDIR_PATH
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
-      - \c NDI_DEPL_ZAID
-      - \c NDI_DEPL_INFO
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_SEC_PART_ZAIDS
-  - Thermonuclear burn \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
-  - Thermonuclear burn reaction \a handle:
-      - \c NDI_ZAID
-      - \c NDI_INFO
-      - \c NDI_DATE_PROCESSED
-      - \c NDI_DATE_SOURCE
-      - \c NDI_LIBRARY_NAME
+      - \c NDI_VERSION: NDI version
+      - \c NDI_GENDIR_PATH: Gendir file path
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_ZAID: Zaid
+      - \c NDI_INFO: Information line
+      - \c NDI_DATE_PROCESSED: Date zaid was processed
+      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_LIBRARY_NAME: Name of current library
+      - \c NDI_DEPL_ZAID: Depletion zaid
+      - \c NDI_DEPL_INFO: Depletion information
+      - \c NDI_SEC_PART_TYPES: Type of current particle
+      - \c NDI_SEC_PART_ZAIDS: Zaid of current particle
+  - tn \a handle:
+      - \c NDI_ZAID: Zaid
+      - \c NDI_INFO: Information line
+      - \c NDI_DATE_PROCESSED: Date zaid was processed
+      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_LIBRARY_NAME: Name of current library
+  - tnreactions \a handle:
+      - \c NDI_ZAID: Zaid
+      - \c NDI_INFO: Information line
+      - \c NDI_DATE_PROCESSED: Date zaid was processed 
+      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_LIBRARY_NAME: Name of current library
   
 */
 int 
@@ -1608,19 +1652,22 @@ NDI2_get_string_val(int handle, int in_key, char *ret_val,
   \par Valid in_key values:
        ===================
 
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_ZAID
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_SEC_PART_ZAIDS
-      - \c NDI_TARGET
-      - \c NDI_RPRODS_ID
-      - \c NDI_INC_PART_TYPES
-  - Thermonuclear burn \a handle:
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_RPRODS_ID
-      - \c NDI_REACTANTS_ID
-  - Thermonuclear burn reaction \a handle:
-      - \c NDI_LIST_REAC
+  - multigroup_neutron \& dosimetry_neutron \a handle:
+      - \c NDI_ZAID: Zaid
+      - \c NDI_SEC_PART_TYPES: Secondary particle types
+      - \c NDI_SEC_PART_ZAIDS: Secondary particle zaids
+      - \c NDI_TARGET: Zaid of targect specified by \a vec_num
+      - \c NDI_RPRODS_ID: Reaction product id for product \a vec_num
+      - \c NDI_INC_PART_TYPES: Incident particle types
+      - \c NDI_REAC_LABEL: Reaction label by MT
+  - multigroup_multi \a handle:
+      - \c NDI_REAC_LABEL: Reaction label by MT
+  - tn \a handle:
+      - \c NDI_SEC_PART_TYPES: Secondary particle types
+      - \c NDI_RPRODS_ID: Reaction product id for product \a vec_num
+      - \c NDI_REACTANTS_ID: Reactant id specified by \a vec_num
+  - tnreactions \a handle:
+      - \c NDI_LIST_REAC: List of reactions
 
 */
 int 
@@ -1643,7 +1690,14 @@ NDI2_get_string_val_n(int handle, int in_key, int vec_num,
   containing the values returned by NDI.
   \param str_size: integer input indicating the allocated size of ret_val.
   \param ndi_err: integer output error code (Fortran only)
-  \return integer output error code (C only) 
+  \return integer output error code (C only)
+
+  \par Valid in_key values:
+       ===================
+
+  - gendir \a handle:
+      - \c NDI_ZAID: Zaid
+ 
 */
 int 
 NDI2_get_string_vec(int handle, int in_key, char *ret_val,
