@@ -312,23 +312,23 @@ NDI2_set_isotope(int handle, const char *zaid)
 }
 
 /*!
-  \brief Set zaid for \a handle.
+  \brief Set ZAID for \a handle.
 
   This function associates a handle with an entry in the NDI index file.  
-  The file associated with the first matching zaid entry in the index file 
+  The file associated with the first matching ZAID entry in the index file 
   is opened, and the physical data associated with that entry initializes the 
   handle data.  Subsequent call to the \a NDI2_get family of functions with 
   this handle will return the requested physical data associated with this 
-  zaid.
+  ZAID.
 
   \par Fortran example
   \code
-  ! Set zaid U-235
+  ! Set ZAID U-235
   call ndi2_set_zaid(handle, "92235", ndi_err)
   \endcode
 
   \param handle: integer input handle
-  \param zaid: string input containing zaid
+  \param zaid: string input containing ZAID
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 */
@@ -586,25 +586,25 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_DEPL_INFO: String size
       - \c NDI_SEC_PART_TYPES: String size
       - \c NDI_SEC_PART_ZAIDS: String size
-      - \c NDI_NUM_GRPS: Array length
-      - \c NDI_TEMP: Array length
-      - \c NDI_SIG_0: Array length
-      - \c NDI_UP_GRPS: Array length
-      - \c NDI_DOWN_GRPS: Array length
-      - \c NDI_AT_WGT: Array length
-      - \c NDI_AWR: Array length
-      - \c NDI_NUM_REAC: Array length
-      - \c NDI_NUM_RPRODS: Array length
-      - \c NDI_PN_ORDER: Array length
-      - \c NDI_NUM_SEC_PARTS: Array length
-      - \c NDI_NUM_GRPS_CURR_PART: Array length
-      - \c NDI_PN_ORDER_CURR_PART: Array length
-      - \c NDI_NUM_TARGET: Array length
-      - \c NDI_LAST_GRP: Array length
-      - \c NDI_FISSIONABLE: Array length
-      - \c NDI_ATOMIC_NUM: Array length
-      - \c NDI_MASS_NUM: Array length
-      - \c NDI_NUM_PNU_PR: Array length
+      - \c NDI_NUM_GRPS: Scalar length
+      - \c NDI_TEMP: Scalar length
+      - \c NDI_SIG_0: Scalar length
+      - \c NDI_UP_GRPS: Scalar length
+      - \c NDI_DOWN_GRPS: Scalar length
+      - \c NDI_AT_WGT: Scalar length
+      - \c NDI_AWR: Scalar length
+      - \c NDI_NUM_REAC: Scalar length
+      - \c NDI_NUM_RPRODS: Scalar length
+      - \c NDI_PN_ORDER: Scalar length
+      - \c NDI_NUM_SEC_PARTS: Scalar length
+      - \c NDI_NUM_GRPS_CURR_PART: Scalar length
+      - \c NDI_PN_ORDER_CURR_PART: Scalar length
+      - \c NDI_NUM_TARGET: Scalar length
+      - \c NDI_LAST_GRP: Scalar length
+      - \c NDI_FISSIONABLE: Scalar length
+      - \c NDI_ATOMIC_NUM: Scalar length
+      - \c NDI_MASS_NUM: Scalar length
+      - \c NDI_NUM_PNU_PR: Scalar length
       - \c NDI_E_AVG: Array length
       - \c NDI_ENERGY_N: Array length
       - \c NDI_ENERGY_AVAIL: Array length
@@ -632,12 +632,12 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_REAC_MT: Array length
       - \c NDI_REAC_Q: Array length
       - \c NDI_E_BOUNDS_CURR_PART: Array length
-      - \c NDI_RPROD_ALL: Array length
-      - \c NDI_RPROD_RMO: Array length
-      - \c NDI_RPROD_FEW: Array length
-      - \c NDI_CHI_MAT_TOT: Array length
-      - \c NDI_CHI_MAT_PR: Array length
-      - \c NDI_CHI_MAT_DEL: Array length
+      - \c NDI_RPROD_ALL: Matrix length
+      - \c NDI_RPROD_RMO: Matrix length
+      - \c NDI_RPROD_FEW: Matrix length
+      - \c NDI_CHI_MAT_TOT: Matrix length
+      - \c NDI_CHI_MAT_PR: Matrix length
+      - \c NDI_CHI_MAT_DEL: Matrix length
   - With mutigroup_multi \a handle:
       - \c NDI_E_BOUNDS: Array length
       - \c NDI_WGTS: Array length
@@ -657,28 +657,28 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_CHI_VEC_DEL: Array length
       - \c NDI_REAC_MT: Array length
       - \c NDI_ZAID: String size
-      - \c NDI_NUM_GRPS: Array length
-      - \c NDI_PN_ORDER: Array length
-      - \c NDI_NUM_PNU_PR: Array length
-      - \c NDI_NUM_REAC: Array length
-      - \c NDI_FISSIONABLE: Array length
+      - \c NDI_NUM_GRPS: Scalar length
+      - \c NDI_PN_ORDER: Scalar length
+      - \c NDI_NUM_PNU_PR: Scalar length
+      - \c NDI_NUM_REAC: Scalar length
+      - \c NDI_FISSIONABLE: Scalar length
   - With tn \a handle:
       - \c NDI_ZAID: String size
       - \c NDI_INFO: String size
       - \c NDI_DATE_PROCESSED: String size
       - \c NDI_DATE_SOURCE: String size
       - \c NDI_LIBRARY_NAME: String size
-      - \c NDI_NUM_TEMPS: Array length
-      - \c NDI_NUM_SIGVBAR_INTERP: Array length
-      - \c NDI_NUM_EINBAR_INTERP: Array length
-      - \c NDI_NUM_SEC_PARTS: Array length
-      - \c NDI_NUM_REAC: Array length
-      - \c NDI_NUM_RPRODS: Array length
-      - \c NDI_NUM_REACTANTS: Array length
-      - \c NDI_REAC_Q: Array length
-      - \c NDI_NUM_GRPS: Array length
-      - \c NDI_EAVG_OUT: Array length
-      - \c NDI_EOUTBAR: Array length
+      - \c NDI_NUM_TEMPS: Scalar length
+      - \c NDI_NUM_SIGVBAR_INTERP: Scalar length
+      - \c NDI_NUM_EINBAR_INTERP: Scalar length
+      - \c NDI_NUM_SEC_PARTS: Scalar length
+      - \c NDI_NUM_REAC: Scalar length
+      - \c NDI_NUM_RPRODS: Scalar length
+      - \c NDI_NUM_REACTANTS: Scalar length
+      - \c NDI_REAC_Q: Scalar length
+      - \c NDI_NUM_GRPS: Scalar length
+      - \c NDI_EAVG_OUT: Scalar length
+      - \c NDI_EOUTBAR: Scalar length
       - \c NDI_TEMPS: Array length
       - \c NDI_SIGVBARS: Array length
       - \c NDI_RPRODS_ID: Array length
@@ -704,7 +704,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_DATE_PROCESSED: String size
       - \c NDI_DATE_SOURCE: String size
       - \c NDI_LIBRARY_NAME: String size
-      - \c NDI_NUM_REAC: Array length
+      - \c NDI_NUM_REAC: Scalar length
 */
 int 
 NDI2_get_size(int handle, int in_key, int *ierr)
@@ -1037,7 +1037,7 @@ NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
   \par Fortran example
   \code
   ! Get list of integer reaction MTs for PD reactions
-  ! from handle zaid target to "92235" product
+  ! from handle ZAID target to "92235" product
   call ndi2_get_int_vec_x(handle, NDI_REAC_MT, "92235", ret_vec, ierr, size)
   \endcode
 
@@ -1079,7 +1079,7 @@ NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TEMP: Temperature
       - \c NDI_SIG_0: Sigma zero
       - \c NDI_AT_WGT: Atomic weight
@@ -1121,7 +1121,7 @@ NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
 
   - All \a handles:
       - \c NDI_ABUNDANCE: Natural abundance for isotope \a vec_num
-  - multigroup_neutron or dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_REAC_Q: Reaction Q for reaction \a vec_num
       - \c NDI_TOT_PROD_Q: Total production Q
 
@@ -1168,7 +1168,7 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
       - \c NDI_SIG_0: Sigma zero
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_E_BOUNDS: Energy group boundaries
       - \c NDI_E_AVG: Average group energies
       - \c NDI_ENERGY_N: Energy given to neutrons
@@ -1239,7 +1239,7 @@ NDI2_get_float32_vec(int handle, int in_key,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_PN_DOWN_FULL: Pn scattering matrix - downscatter diagonal
       - \c NDI_PN_FULL: Full Pn scattering matrix
       - \c NDI_SIG_REAC: Sigma edit cross sections
@@ -1297,7 +1297,7 @@ NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str
       - \c NDI_RPROD_MLT: Reaction multiplicity for product \a in_str
 */
@@ -1338,7 +1338,7 @@ NDI2_get_float32_vec_x(int handle, int in_key,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TEMP: Temperature
       - \c NDI_SIG_0: Sigma zero
       - \c NDI_AT_WGT: Atomic weight
@@ -1380,7 +1380,7 @@ NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
 
   - All \a handles:
       - \c NDI_ABUNDANCE: Natural abundance for isotope \a vec_num
-  - multigroup_neutron or dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_REAC_Q: Reaction Q for reaction \a vec_num
       - \c NDI_TOT_PROD_Q: Total production Q
 
@@ -1427,7 +1427,7 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
       - \c NDI_SIG_0: Sigma zero
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_E_BOUNDS: Energy group boundaries
       - \c NDI_E_AVG: Average group energies
       - \c NDI_ENERGY_N: Energy given to neutrons
@@ -1498,7 +1498,7 @@ NDI2_get_float64_vec(int handle, int in_key,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_PN_DOWN_FULL: Pn scattering matrix - downscatter diagonal
       - \c NDI_PN_FULL: Full Pn scattering matrix
       - \c NDI_SIG_REAC: Sigma edit cross sections
@@ -1549,7 +1549,7 @@ NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \& dosimetry_neutron \a handle:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str
       - \c NDI_RPROD_MLT: Reaction multiplicity for product \a in_str
 */
@@ -1595,27 +1595,27 @@ NDI2_get_float64_vec_x(int handle, int in_key,
   - Any \a handle:
       - \c NDI_VERSION: NDI version
       - \c NDI_GENDIR_PATH: Gendir file path
-  - multigroup_neutron \& dosimetry_neutron \a handle:
-      - \c NDI_ZAID: Zaid
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
+      - \c NDI_ZAID: ZAID
       - \c NDI_INFO: Information line
-      - \c NDI_DATE_PROCESSED: Date zaid was processed
-      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_DATE_PROCESSED: Date ZAID was processed
+      - \c NDI_DATE_SOURCE: Date of ZAID source info
       - \c NDI_LIBRARY_NAME: Name of current library
-      - \c NDI_DEPL_ZAID: Depletion zaid
+      - \c NDI_DEPL_ZAID: Depletion ZAID
       - \c NDI_DEPL_INFO: Depletion information
       - \c NDI_SEC_PART_TYPES: Type of current particle
-      - \c NDI_SEC_PART_ZAIDS: Zaid of current particle
+      - \c NDI_SEC_PART_ZAIDS: ZAID of current particle
   - tn \a handle:
-      - \c NDI_ZAID: Zaid
+      - \c NDI_ZAID: ZAID
       - \c NDI_INFO: Information line
-      - \c NDI_DATE_PROCESSED: Date zaid was processed
-      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_DATE_PROCESSED: Date ZAID was processed
+      - \c NDI_DATE_SOURCE: Date of ZAID source info
       - \c NDI_LIBRARY_NAME: Name of current library
   - tnreactions \a handle:
-      - \c NDI_ZAID: Zaid
+      - \c NDI_ZAID: ZAID
       - \c NDI_INFO: Information line
-      - \c NDI_DATE_PROCESSED: Date zaid was processed 
-      - \c NDI_DATE_SOURCE: Date of zaid source info
+      - \c NDI_DATE_PROCESSED: Date ZAID was processed 
+      - \c NDI_DATE_SOURCE: Date of ZAID source info
       - \c NDI_LIBRARY_NAME: Name of current library
   
 */
@@ -1652,10 +1652,10 @@ NDI2_get_string_val(int handle, int in_key, char *ret_val,
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron \& dosimetry_neutron \a handle:
-      - \c NDI_ZAID: Zaid
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
+      - \c NDI_ZAID: ZAID
       - \c NDI_SEC_PART_TYPES: Secondary particle types
-      - \c NDI_SEC_PART_ZAIDS: Secondary particle zaids
+      - \c NDI_SEC_PART_ZAIDS: Secondary particle ZAIDs
       - \c NDI_TARGET: Zaid of targect specified by \a vec_num
       - \c NDI_RPRODS_ID: Reaction product id for product \a vec_num
       - \c NDI_INC_PART_TYPES: Incident particle types
@@ -1696,7 +1696,7 @@ NDI2_get_string_val_n(int handle, int in_key, int vec_num,
        ===================
 
   - gendir \a handle:
-      - \c NDI_ZAID: Zaid
+      - \c NDI_ZAID: ZAID
  
 */
 int 
