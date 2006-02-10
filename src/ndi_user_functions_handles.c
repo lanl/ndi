@@ -738,6 +738,64 @@ NDI2_get_size(int handle, int in_key, int *ierr)
   \param ierr: integer output error code
   \return integer output containing the size (C only)
 
+  \par Valid in_key values:
+       ===================
+
+  - All \a handles:
+      - \c NDI_ZAID String size
+      - \c NDI_ERROR: String size
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handles:
+      - \c NDI_RPROD_ALL: Scalar length
+      - \c NDI_RPROD_RMO: Scalar length
+      - \c NDI_RPROD_FEW: Scalar length
+      - \c NDI_REAC_MT: Scalar length
+      - \c NDI_REAC_Q: Scalar length
+      - \c NDI_ABUNDANCE: Scalar length
+      - \c NDI_TOT_PROD_Q: Scalar length
+      - \c NDI_SEC_PART_TYPES: String size
+      - \c NDI_SEC_PART_ZAIDS: String size
+      - \c NDI_TARGET: String size
+      - \c NDI_RPRODS_ID: String size
+      - \c NDI_INC_PART_TYPES: String size
+      - \c NDI_REAC_LABEL: String size
+      - \c NDI_TOT_PROD_XS: Array length
+      - \c NDI_SIG_REAC: Array length
+      - \c NDI_CORR_DIAG: Array length
+      - \c NDI_CORR_BHS: Array length
+      - \c NDI_PNU_PR: Array length
+      - \c NDI_SIG_PNU_PR: Array length
+      - \c NDI_RPROD_ID_ALL: Array length
+      - \c NDI_RPROD_MLT_ALL: Array length
+      - \c NDI_RPROD_ID_RMO: Array length
+      - \c NDI_RPROD_MLT_RMO: Array length
+      - \c NDI_RPROD_ID_FEW: Array length
+      - \c NDI_RPROD_MLT_FEW: Array length
+      - \c NDI_PN_DOWN_FULL: Matrix length
+      - \c NDI_PN_FULL: Matrix length
+      - \c NDI_TRANSFER_MAT_TOT: Matrix length
+      - \c NDI_TRANSFER_MAT_PR: Matrix length
+      - \c NDI_PN_PROD_FULL_CURR_PART: Matrix length
+  - multigroup_multi \a handle:
+      - \c NDI_PN_FULL: Array length
+      - \c NDI_SIG_REAC: Array length
+      - \c NDI_PNU_PR: Array length
+      - \c NDI_SIG_PNU_PR: Array length
+      - \c NDI_CORR_DIAG: Array length
+      - \c NDI_CORR_BHS: Array length
+  - tn \a handle:
+      - \c NDI_RPRODS_MLT: Scalar length
+      - \c NDI_REACTANTS_MLT: Scalar length
+      - \c NDI_RPRODS_ID: String size
+      - \c NDI_REACTANTS_ID: String size
+      - \c NDI_SEC_PART_TYPES: String size
+  - tnreactions \a handle:
+      - \c NDI_NUM_RPRODS: Scalar length
+      - \c NDI_NUM_REACTANTS: Scalar length
+      - \c NDI_RPRODS_ID: Array length
+      - \c NDI_RPRODS_MLT: Array length
+      - \c NDI_REACTANTS_ID: Array length
+      - \c NDI_REACTANTS_MLT: Array length
+      - \c NDI_LIST_REAC: String size
 */
 int 
 NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
@@ -761,8 +819,8 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 
   \par Fortran example
   \code
-  ! Get size of sigma array
-  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  ! Get size of total product cross section array
+  call ndi2_get_size_x(handle, NDI_TOT_PROD_XS, in_str, size, ierr)
   \endcode
 
   \param handle: integer input state handle
@@ -776,60 +834,10 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   \par Valid in_key values:
        ===================
 
-  - All \a handles:
-      - \c NDI_ZAID
-  - Multigroup tranport or dosimetry \a handles:
-      - \c NDI_RPROD_ALL
-      - \c NDI_RPROD_RMO
-      - \c NDI_RPROD_FEW
-      - \c NDI_REAC_MT
-      - \c NDI_REAC_Q
-      - \c NDI_ABUNDANCE
-      - \c NDI_TOT_PROD_Q
-      - \c NDI_SEC_PART_TYPES
-      - \c NDI_SEC_PART_ZAIDS
-      - \c NDI_TARGET
-      - \c NDI_RPRODS_ID
-      - \c NDI_INC_PART_TYPES
-      - \c NDI_REAC_LABEL
-      - \c NDI_TOT_PROD_XS
-      - \c NDI_SIG_REAC
-      - \c NDI_CORR_DIAG
-      - \c NDI_CORR_BHS
-      - \c NDI_PNU_PR
-      - \c NDI_SIG_PNU_PR
-      - \c NDI_RPROD_ID_ALL
-      - \c NDI_RPROD_MLT_ALL
-      - \c NDI_RPROD_ID_RMO
-      - \c NDI_RPROD_MLT_RMO
-      - \c NDI_RPROD_ID_FEW
-      - \c NDI_RPROD_MLT_FEW
-      - \c NDI_PN_DOWN_FULL
-      - \c NDI_PN_FULL
-      - \c NDI_TRANSFER_MAT_TOT
-      - \c NDI_TRANSFER_MAT_PR
-      - \c NDI_PN_PROD_FULL_CURR_PART
-  - Multiparticle multigroup transport \a handle:
-      - \c NDI_PN_FULL
-      - \c NDI_SIG_REAC
-      - \c NDI_PNU_PR
-      - \c NDI_SIG_PNU_PR
-      - \c NDI_CORR_DIAG
-      - \c NDI_CORR_BHS
-  - Thermonuclear burn \a handle:
-      - \c NDI_RPRODS_MLT
-      - \c NDI_REACTANTS_MLT
-      - \c NDI_RPRODS_ID
-      - \c NDI_REACTANTS_ID
-      - \c NDI_SEC_PART_TYPES
-  - Thermonuclear reaction \a handle:
-      - \c NDI_NUM_RPRODS
-      - \c NDI_NUM_REACTANTS
-      - \c NDI_RPRODS_ID
-      - \c NDI_RPRODS_MLT
-      - \c NDI_REACTANTS_ID
-      - \c NDI_REACTANTS_MLT
-      - \c NDI_LIST_REAC
+  - multigroup_neutron or multigroup_photon \a handles:
+      - \c NDI_TOT_PROD_XS: Array length
+      - \c NDI_REAC_MT: Array length
+      - \c NDI_RPROD_MLT: Array length
 */
 int 
 NDI2_get_size_x(int handle, int in_key, const char *in_str,
@@ -860,33 +868,39 @@ NDI2_get_size_x(int handle, int in_key, const char *in_str,
   \par Valid in_key values:
        ===================
 
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_NUM_GRPS
-      - \c NDI_FISSIONABLE
-      - \c NDI_UP_GRPS
-      - \c NDI_DOWN_GRPS
-      - \c NDI_LAST_GRP
-      - \c NDI_NUM_REAC
-      - \c NDI_NUM_PNU_PR
-      - \c NDI_NUM_GRPS_CURR_PART
-      - \c NDI_NUM_TARGET
-      - \c NDI_NUM_RPRODS
-      - \c NDI_ATOMIC_NUM
-      - \c NDI_MASS_NUM
-      - \c NDI_PN_ORDER
-      - \c NDI_NUM_SEC_PARTS
-      - \c NDI_PN_ORDER_CURR_PART
-  - Thermonuclear burn \a handle:
-      - \c NDI_NUM_TEMPS
-      - \c NDI_NUM_SEC_PARTS
-      - \c NDI_NUM_SIGVBAR_INTERP
-      - \c NDI_NUM_EINBAR_INTERP
-      - \c NDI_NUM_REAC
-      - \c NDI_NUM_RPRODS
-      - \c NDI_NUM_REACTANTS
-      - \c NDI_NUM_GRPS
-  - Thermonuclear reaction \a handle:
-      - \c NDI_NUM_REAC
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
+      - \c NDI_NUM_GRPS: Number of groups
+      - \c NDI_FISSIONABLE: Fission data flag
+      - \c NDI_UP_GRPS: Number of upscatter groups
+      - \c NDI_DOWN_GRPS: Number of downscatter groups
+      - \c NDI_LAST_GRP: Last neutron group
+      - \c NDI_NUM_REAC: Number of reaction edits
+      - \c NDI_NUM_PNU_PR: Number of fission neutron probabilities
+      - \c NDI_NUM_GRPS_CURR_PART: Number of groups current particle
+      - \c NDI_NUM_TARGET: Number of targets 
+      - \c NDI_NUM_RPRODS: Number of products
+      - \c NDI_ATOMIC_NUM: Atomic number
+      - \c NDI_MASS_NUM: Mass number
+      - \c NDI_PN_ORDER: Number of scattering matrices
+      - \c NDI_NUM_SEC_PARTS: Number of secondary particles
+      - \c NDI_PN_ORDER_CURR_PART: Number of production matricies current particle
+  - multigroup_multi \a handle:
+      - \c NDI_NUM_GRPS: Number of groups
+      - \c NDI_PN_ORDER: Number of scattering matrices
+      - \c NDI_NUM_PNU_PR: Number of fission neutron probabilities
+      - \c NDI_NUM_REAC: Number of reaction edits
+      - \c NDI_FISSIONABLE: Fission data flag
+  - tn \a handle:
+      - \c NDI_NUM_TEMPS: Number of temperatures
+      - \c NDI_NUM_SEC_PARTS: Number of secondary particles
+      - \c NDI_NUM_SIGVBAR_INTERP: Number of sigvbar interpolation regions
+      - \c NDI_NUM_EINBAR_INTERP: Number of einbar interpolation regions
+      - \c NDI_NUM_REAC: Number of reactions
+      - \c NDI_NUM_RPRODS: Number of reaction products
+      - \c NDI_NUM_REACTANTS: Number of reactants
+      - \c NDI_NUM_GRPS: Number of secondary particle energy groups
+  - tnreactions \a handle:
+      - \c NDI_NUM_REAC: Number of reactions
 
 */
 int 
@@ -918,22 +932,26 @@ NDI2_get_int_val(int handle, int in_key, int *ret_val)
   \par Valid in_key values:
        ===================
 
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_RPROD_ALL
-      - \c NDI_RPROD_RMO
-      - \c NDI_RPROD_FEW
-      - \c NDI_REACT_MT
-      - \c NDI_INC_PART_TYPES
-      - \c NDI_TARGET
-      - \c NDI_RPRODS_ID
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
+      - \c NDI_RPROD_ALL: Number of products for reaction \a vec_num
+      - \c NDI_RPROD_RMO: Number of products for reaction \a vec_num
+      - \c NDI_RPROD_FEW: Number of products for reaction \a vec_num
+      - \c NDI_REACT_MT: Reaction MT for reaction \a vec_num
+      - \c NDI_INC_PART_TYPES: Incident particle types
+      - \c NDI_TARGET: ZAID of target \a vec_num
+      - \c NDI_RPRODS_ID: ZAID of reaction product \a vec_num
+  - multigroup_multi \a handle:
+      - \c NDI_REACT_MT: Reaction MT for reaction \a vec_num
+      - \c NDI_LAST_GRP: Last group index of particle \a vec_num
+      - \c NDI_PARTICLE_N: Handle of particle \a vec_num
   - Thermonuclear burn \a handle:
-      - \c NDI_RPRODS_ID
-      - \c NDI_RPRODS_MLT
-      - \c NDI_REACTANTS_ID
-      - \c NDI_REACTANTS_MLT
+      - \c NDI_RPRODS_ID: ZAID of reaction product \a vec_num
+      - \c NDI_RPRODS_MLT: Multiplicity of reaction product \a vec_num
+      - \c NDI_REACTANTS_ID: ZAID of reaction product \a vec_num
+      - \c NDI_REACTANTS_MLT: Multiplicity of reactant \a vec_num
   - Thermonuclear reaction \a handle:
-      - \c NDI_NUM_RPRODS
-      - \c NDI_NUM_REACTANTS
+      - \c NDI_NUM_RPRODS: Number of reaction products
+      - \c NDI_NUM_REACTANTS: Number of reactants
 
 */
 int 
@@ -966,25 +984,26 @@ NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
   \par Valid in_key values:
        ===================
 
-  - Multi-particle Multigroup Transport \a handle:
-      - \c NDI_REAC_MT
-  - Multigroup Transport \& Dosimetry \a handle:
-      - \c NDI_RPRODS_ID
-      - \c NDI_RPROD_ALL
-      - \c NDI_RPROD_RMO
-      - \c NDI_RPROD_FEW
-      - \c NDI_REAC_MT
-  - Thermonuclear burn \a handle:
-      - \c NDI_RPRODS_ID
-      - \c NDI_RPRODS_MLT
-      - \c NDI_REACTANTS_ID
-      - \c NDI_REACTANTS_MLT
-      - \c NDI_SIGVBAR_INTERP_REG
-      - \c NDI_SIGVBAR_INTERP_TYPE
-      - \c NDI_EINBAR_INTERP_REG
-      - \c NDI_EINBAR_INTERP_TYPE
-      - \c NDI_SEC_PART_TYPES
-
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
+      - \c NDI_RPRODS_ID: Array of reaction product ZAIDs for target
+      - \c NDI_RPROD_ALL: Array of reation products ZAIDs for all reactions
+      - \c NDI_RPROD_RMO: Array of reaction product ZAIDs for all reactions
+      - \c NDI_RPROD_FEW: Array of reaction product ZAIDs for all reactions
+      - \c NDI_REAC_MT: Array of number of reaction MTs
+  - multigroup_multi \a handle:
+      - \c NDI_REAC_MT: Array of number of reaction MTs
+  - tn \a handle:
+      - \c NDI_RPRODS_ID: Array of reaction product ZAIDs for target
+      - \c NDI_RPRODS_MLT: Array of reaction product multiplicities
+      - \c NDI_REACTANTS_ID: Array of reactant ZAIDs
+      - \c NDI_REACTANTS_MLT: Array of reactant multipliticies
+      - \c NDI_SIGVBAR_INTERP_REG: Array of sigvbar interpolation region endpoins
+      - \c NDI_SIGVBAR_INTERP_TYPE: Array of sigvbar interpolation region types
+      - \c NDI_EINBAR_INTERP_REG: Array of einbar interpolation region endpoints
+      - \c NDI_EINBAR_INTERP_TYPE: Array of einbar interpolation region types
+      - \c NDI_SEC_PART_TYPES: Array of secondary particle types
+      - \c NDI_EDIST_INTERP_REG: Array of edist interpolation region endpoints
+      - \c NDI_EDIST_INTERP_TYPE: Array of edist interpolation region types
 */
 int 
 NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
@@ -1015,6 +1034,23 @@ NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
   \param ndi_err: integer output error code (Fortran only)
   \param vec_size: integer input maximum size of integer vector
   \return integer output error code (C only) 
+ 
+  \par Valid in_key values:
+       ===================
+
+  - multigroup_neutron or multigroup_photon \a handle:
+      - \c NDI_RPRODS_ID_ALL: Array of reaction product ZAIDs for reaction \a vec_num
+      - \c NDI_RPROD_MLT_ALL: Array of reaction product multiplicities for reaction \a vec_num
+      - \c NDI_RPROD_ID_RMO: Array of reaction product ZAIDs for reaction \a vec_num
+      - \c NDI_RPROD_MLT_RMO:  Array of reaction product multiplicities for reaction \a vec_num
+      - \c NDI_RPROD_ID_FEW: Array of reaction product ZAIDs for reaction \a vec_num
+      - \c NDI_RPROD_MLT_FEW:  Array of reaction product multiplicities for reaction \a vec_num
+  - tn \a handle:
+      - \c NDI_RPRODS_ID: Array of reaction product ZAIDs for reaction \a vec_num
+      - \c NDI_RPRODS_MLT: Array of reaction product multiplicities for reaction \a vec_num
+      - \c NDI_REACTANTS_ID: Array of reactant ZAIDs for reaction \a vec_num
+      - \c NDI_REACTANTS_MLT: Array of reactant multipliticies for reaction \a vec_num
+
 */
 int 
 NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
@@ -1048,6 +1084,12 @@ NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
   \param ndi_err: integer output error code (Fortran only)
   \param vec_size: integer input maximum size of integer vector
   \return integer output error code (C only) 
+
+  \par Valid in_key values:
+       ===================
+
+  - multigroup_neutron or multigroup_photon \a handle:
+      - \c NDI_REAC_MT: Array of reaction MTs for product \a in_str
 */
 int 
 NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
