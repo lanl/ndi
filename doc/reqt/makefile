@@ -12,10 +12,11 @@
 %.ps: %.dvi
 	dvips -o $@ $<
 
+2.0.4: context_2.0.4.ps rcf_2.0.4.ps
+
 fy06: context_fy06.ps rcf_fy06.ps
 fy06.pdf: context_fy06.pdf rcf_fy06.pdf
 
-2.0.4: context_2.0.4.ps rcf_2.0.4.ps
 2.0.2: context_2.0.2.ps rcf_2.0.2.ps
 2.0.1: context_2.0.1.ps rcf_2.0.1.ps
 
