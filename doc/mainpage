@@ -79,7 +79,8 @@ every NDI call:
    return an error code,
 -# or if the requested data Y1 is not available either explicitly or via
    calculation or transformation according to specification NDI will 
-   return a warning code or else read or calculate NDI!Y1,
+   return a error code or else read NDI!Y1 or calculate NDI!Y1 with a
+   warning code,
 -# which because the nuclear data has the real world properties,
 -# that satisfy the nuclear data requirements,
 -# NDI can transform into NDI!Y2 according to its state
