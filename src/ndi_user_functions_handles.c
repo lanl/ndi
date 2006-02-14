@@ -493,14 +493,14 @@ NDI2_set_float64_vec_option(int handle, int in_key,
 
   \par Fortran example
   \code
-  ! Get size of sigma total array
-  call ndi2_get_size(handle, NDI_SIG_TOT, size, ierr)
+  ! Get current library type 
+  call ndi2_check_option(handle, NDI_LIB_TYPE, lib_str, ierr)
   \endcode
 
   \param handle: integer input state handle
   \param in_key: integer input key indicating the option requested
   \param out_value: string output containing the option value
-  \param string_size: integer input maximum size of option string
+  \param string_size: integer input maximum size of option string (C only)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 

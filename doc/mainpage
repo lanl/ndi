@@ -11,33 +11,33 @@ production/depletion.
 \section background Background
 
 Prior to the development of the Nuclear Data Interface (NDI), users
-were primarily responsible for obtaining and accessing their own
-nuclear data.  This resulted in a proliferation of data files in
-different and incompatible formats, which generally made the update of
-data a major, cross-project undertaking.  Worse still, some codes
-embedded nuclear data in the executable, confounding data updates with
-code modifications.  As a result, several FTEs were devoted, in
-parallel efforts, to the maintenance and update of nuclear data.
+were responsible for obtaining and accessing their own nuclear data.
+This resulted in a proliferation of data files in incompatible
+formats, and generally made the update of data a major, cross-project
+undertaking.  Worse still, some codes embedded nuclear data in the
+executable, confounding data updates with code modifications.  As a
+result, several FTEs were devoted, in parallel efforts, to the
+maintenance and update of nuclear data.
 
 NDI was developed in 1998 to provide a single source interface to the
 best, most modern, thoroughly tested nuclear data evaluations.  It was
 written in portable C, provided an interface to Fortran 77, Fortran
-90, C, and C++, and was ported to a number of production platforms, to
-support a variety of nuclear data user codes.  NDI provided more than
-a simple database access to nuclear data.  It augmented access to
-tabulated data with a variety of user selectable transformations and
-calculations.
+90, C, and C++, was ported to a number of production platforms, and
+eventually supported a variety of nuclear data user codes.  NDI
+provided more than a simple database access to nuclear data.  It
+augmented access to tabulated data with a variety of user selectable
+transformations and calculations.
 
 NDI was rewritten in 2004 and released as major version 2, in response
 to its growing acceptance in the user community and a desire to let
 users combine nuclear data in more powerful ways.  Beginning with NDI
-2.0.0, handles encapsulate NDI state, and users can create a handle to
-an array of handles that can, for example, provide the data to
+2.0.0, handles encapsulate NDI state, and users could create a handle
+to an array of handles that could, for example, provide the data to
 simulate coupled neutron-gamma multigroup transport.  Encapsulating
-state also eases the use of NDI in multiple components throughout a
-code; each component can have it's own uniquely configured handle
-usable without concern of other component calls to NDI.  Handles also
-permit the cleanup of some NDI internal logic, visible to the user
+state also eased the use of NDI by multiple modules in one code; each
+module could have its own uniquely configured handle usable without
+interference from another module's calls to NDI.  Handles also
+permitted the cleanup of some NDI internal logic, visible to the user
 primarily in the promotion of the gendir index meta-data to a first
 class object.
 
@@ -47,27 +47,30 @@ NDI V2.
 \section design Design
 
 NDI solves the commanded information problem for nuclear data:
-provide, at the users bidding, a representation of nuclear data
-consistent with the best empirical data and models.  Figure 1.1 shows
-the commanded information problem frame, where each domain relevant to
-the problem is represented by a solid rectangle with the domain type
-represented by a symbol in brackets, interfaces between domains are
-represented by solid lines, and the requirements connecting the
-domains are represented by dashed lines.  The basic requirement for
-NDI is shown in the dashed oval: in response to a logical user request
-E1, which may physically require several interface calls (UC!E1) to
-explicate, make the users lexical representation of the data (i.e. the
-machine representation of numeric and character types) Y2, which may
-physically require several interface return data (NDI!Y1), correspond
-to the lexical representation (i.e. ASCII) of real world nuclear data
-Y1, which may require several data reads (NDI!Y2).  NDI may satisfy
-it's requirement by reading tabulated data NDI!Y1 that corresponds
-directly to the requested user data NDI!Y2, by calculating user
-requested data NDI!Y2 from other read tabulated data or models, by
-transforming read or calculated data into NDI!Y2, or by some
-combination of these steps.
+provide, at the users bidding, a computer representation of nuclear
+data consistent with the best empirical data and models.  Figure 1.1
+shows the commanded information problem frame, where each domain
+relevant to the problem is represented by a solid rectangle and the
+interfaces between domains are represented by solid lines.
+The domains are labeled by the type relevant to NDI in square
+brackets: the user code is a Biddable domain, NDI is a Causal domain,
+and user and nuclear data are both leXical domains.
+ 
+The requirements connecting the domains are represented by dashed
+lines, and the basic requirement for NDI is shown in the dashed oval:
+in response to a logical request Event (E1), which may require several
+physical User Code request Events (UC!E1) to explicate, make the
+user's logical lexical representation of the data Y2, which may
+require several NDI returns of physical lexical data (NDI!Y2),
+correspond to the logical lexical representation of nuclear data Y1,
+which may require several NDI reads of nuclear physical lexical data
+(NDI!Y2).  NDI may satisfy its requirement by reading tabulated data
+NDI!Y1 that corresponds directly to the requested user data NDI!Y2, by
+calculating user requested data NDI!Y2 from other read tabulated data
+with models, by transforming read or calculated data into NDI!Y2, or
+by some combination of these steps.
 
-\image latex problem.ps "The Commanded Information Frame"
+\image latex problem.jpg "The Commanded Information Frame"
 \image html problem.jpg "Figure 1.1: The Commanded Information Frame"
 
 NDI's robust response requirement adds considerable complexity to NDI's
@@ -89,7 +92,8 @@ every NDI call:
 
 NDI organizes its nuclear data into the following types:
 
-- multigroup_neutron: neutron deterministic transport data
+- multigroup_neutron: neutron deterministic transport and production
+  depletion data
 - multigroup_photon: photon deterministic transport data
 - multigroup_multi: coupled neutron-photon deterministic transport data 
 - tn: thermonuclear burn data
@@ -110,14 +114,14 @@ requests through the handle, can be set or checked, and the user can
 get lists of the data tables available together with some basic
 information about each table.
 
-To access a nuclear data table the user makes a data handle of the desired
-type from the gendir handle.  The data handle inherits it's state from
-the default settings of the gendir handle and the user can set and check
-each handle's state individually.  Data handles are typically set to
-retrieve data from a particular logical library and from an isotope,
-reaction, or reaction chain identifier within that library.  Once the
-data handle's state is set to a particular table identifier, the user
-can get the data available for that table.
+To access a nuclear data table the user makes a data handle of the
+desired type from the gendir handle.  The data handle inherits its
+state from the default settings of the gendir handle and the user can
+set and check each handle's state individually.  Data handles are
+typically set to retrieve data from a particular logical library and
+from an isotope, reaction, or reaction chain identifier within that
+library.  Once the data handle's state is set to a particular table
+identifier, the user can get the data available for that table.
 
 The user releases all memory required by NDI and closes all files
 opened by NDI by closing the gendir handle.
@@ -156,19 +160,20 @@ data handle, which is created and assigned by the \c NDI2_open_gendir
 and \c NDI2_make_handle routines respectively and destroyed by the \c
 NDI2_close_gendir routine.  In the set routines the handle specifies
 which state the call will affect; in the check routines the handle
-specifices which state the call will report; in get routines the
+specifies which state the call will report; in get routines the
 handle specifies which state the call will use in reading,
 transforming or calculating the data.
 
-NDI treats all state and tablulated data as named values: the second
+NDI treats all state and tabulated data as named values: the second
 (and possibly third) argument to every set, check, and get call is the
-name of the data requested.  Data names are defined integer constants
-specified symbolically in the include file \c ndi_keywords.i for
-Fortran 77 and Fortran 90 codes, and in the include file \c
-ndi_keywords.h for C and C++ codes.  The data name reference may be
-further disambiguated by an integer index third parameter, in the case
-of the \c NDI2_get*_n family of calls, or by a string third parameter,
-in the case of the \c NDI2_get_*_x family of calls.
+name (and possible index or sub-name) of the data requested.  Data
+names are defined integer constants specified symbolically in the
+include file \c ndi_keywords.i for Fortran 77 and Fortran 90 codes,
+and in the include file \c ndi_keywords.h for C and C++ codes.  The
+data name reference may be further disambiguated by an integer index
+third parameter, in the case of the \c NDI2_get*_n family of calls, or
+by a string sub-name third parameter, in the case of the \c
+NDI2_get_*_x family of calls.
 
 The remaining parameters specify the set, check, or get data value,
 and the request return status in Fortran 77 and Fortran 90.  Vector
@@ -224,7 +229,7 @@ given in the Module Documentation of this document.  Under each
 section the C declaration of each function is given, followed by a
 brief description of its purpose.  In the Detailed Description
 subsections, each function's C declaration is given, followed by a
-description of it's purpose an example call from Fortran 77, the
+description of its purpose an example call from Fortran 77, the
 definition of its parameters, and its valid data names.
 
 */
