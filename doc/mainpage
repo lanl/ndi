@@ -2,11 +2,15 @@
 
 \section summary Summary
 
-These notes document the interface for NDI version 2, a C, C++,
+This manual documents the interface for NDI version 2, a C, C++,
 Fortran 77, and Fortran 90 callable library which provides consistent,
 tested access to the best and latest nuclear data evaluations for
 deterministic transport, thermonuclear burn, radiochemistry, and
-production/depletion.
+production/depletion.  The following sections provide some historical
+background to NDI's development, the design philosophy for the code,
+the specification for the interface, and the detailed signature
+specifications for all NDI version 2 interface calls grouped by
+logical modules.
 
 \section background Background
 
@@ -16,14 +20,14 @@ This resulted in a proliferation of data files in incompatible
 formats, and generally made the update of data a major, cross-project
 undertaking.  Worse still, some codes embedded nuclear data in the
 executable, confounding data updates with code modifications.  As a
-result, several FTEs were devoted, in parallel efforts, to the
+result several FTEs were devoted, in parallel efforts, to the
 maintenance and update of nuclear data.
 
 NDI was developed in 1998 to provide a single source interface to the
 best, most modern, thoroughly tested nuclear data evaluations.  It was
 written in portable C, provided an interface to Fortran 77, Fortran
 90, C, and C++, was ported to a number of production platforms, and
-eventually supported a variety of nuclear data user codes.  NDI
+eventually supplied nuclear data to a variety of user codes.  NDI
 provided more than a simple database access to nuclear data.  It
 augmented access to tabulated data with a variety of user selectable
 transformations and calculations.
@@ -41,8 +45,8 @@ permitted the cleanup of some NDI internal logic, visible to the user
 primarily in the promotion of the gendir index meta-data to a first
 class object.
 
-This document provides the philosophy and interface specification for
-NDI V2.
+This document provides the design philosophy and interface
+specification for NDI version 2.
  
 \section design Design
 
@@ -70,7 +74,7 @@ calculating user requested data NDI!Y2 from other read tabulated data
 with models, by transforming read or calculated data into NDI!Y2, or
 by some combination of these steps.
 
-\image latex problem.jpg "The Commanded Information Frame"
+\image latex problem.jpg "The Commanded Information Frame" width=\textwidth
 \image html problem.jpg "Figure 1.1: The Commanded Information Frame"
 
 NDI's robust response requirement adds considerable complexity to NDI's
@@ -82,15 +86,15 @@ every NDI call:
    return an error code,
 -# or if the requested data Y1 is not available either explicitly or via
    calculation or transformation according to specification NDI will 
-   return a error code or else read NDI!Y1 or calculate NDI!Y1 with a
-   warning code,
+   return a error code or else read NDI!Y1 with a success code or
+   calculate NDI!Y1 with a warning code,
 -# which because the nuclear data has the real world properties,
 -# that satisfy the nuclear data requirements,
 -# NDI can transform into NDI!Y2 according to its state
 -# and the specification of the user's data format,
 -# resulting in Y2 ~ Y1 as required.
 
-NDI organizes its nuclear data into the following types:
+NDI organizes its data into the following types:
 
 - multigroup_neutron: neutron deterministic transport and production
   depletion data
@@ -137,14 +141,14 @@ The typical use of NDI is thus:
 
 \section specification Specification
 
-Each NDI V2 function name begins with the prefix \c NDI2_ in the C and
-C++ interface, and \c ndi2_ in the Fortran77 and Fortran 90 interface,
-and is followed by a description of its function (open, close, set,
-check, get) and its data value return type.  For example, NDI's
-interface language requirement limits the user's data format to that
-of the least common denominator: integers, reals, strings, and simple
-arrays of these basic types, so the user's data type is incorporated
-in NDI's workhorse \c get family of functions, thus:
+Each NDI version 2 function name begins with the prefix \c NDI2_ in
+the C and C++ interface, and \c ndi2_ in the Fortran77 and Fortran 90
+interface, and is followed by a description of its function (open,
+close, set, check, get) and its data value return type.  For example,
+NDI's interface language requirement limits the user's data format to
+that of the least common denominator: integers, reals, strings, and
+simple arrays of these basic types, so the user's data return type is
+incorporated in NDI's workhorse \c get family of functions, thus:
 
 - \c NDI2_get_int_val* 
 - \c NDI2_get_int_vec*
@@ -155,14 +159,14 @@ in NDI's workhorse \c get family of functions, thus:
 - \c NDI2_get_string_val*
 - \c NDI2_get_string_vec*
 
-The first parameter of every NDI V2 function call is the gendir or
-data handle, which is created and assigned by the \c NDI2_open_gendir
-and \c NDI2_make_handle routines respectively and destroyed by the \c
-NDI2_close_gendir routine.  In the set routines the handle specifies
-which state the call will affect; in the check routines the handle
-specifies which state the call will report; in get routines the
-handle specifies which state the call will use in reading,
-transforming or calculating the data.
+The first parameter of every NDI version 2 function call is the gendir
+or data handle, which is created and assigned by the \c
+NDI2_open_gendir and \c NDI2_make_handle routines respectively and
+destroyed by the \c NDI2_close_gendir routine.  In the set routines
+the handle specifies which state the call will affect; in the check
+routines the handle specifies which state the call will report; in get
+routines the handle specifies which state the call will use in
+reading, transforming or calculating the data.
 
 NDI treats all state and tabulated data as named values: the second
 (and possibly third) argument to every set, check, and get call is the
@@ -221,11 +225,14 @@ with the following values:
 - -23: Incompatible collapse group structure.
 - -24: Bad reaction identifier (MT or C number).
 
-In general, an value of zero indicates success, a positive error value
-indicates a warning, and a negative value indicates an error.
+In general, a value of zero indicates success, a positive error value
+indicates a warning, and a negative value indicates an error.  In the
+case of a warning, NDI attempts to return usable data so the user can
+decide to ignore the warning and use the data anyway.  In the case of
+an error, NDI returns zero numerical data or the empty string. 
 
-The individual interface descriptions, arranged by logical modules, is
-given in the Module Documentation of this document.  Under each
+The individual interface descriptions, arranged by logical modules,
+are given in the Module Documentation of this document.  Under each
 section the C declaration of each function is given, followed by a
 brief description of its purpose.  In the Detailed Description
 subsections, each function's C declaration is given, followed by a
