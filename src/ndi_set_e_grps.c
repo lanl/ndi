@@ -1,7 +1,6 @@
 /*
- * File:    ndi_set_e_grps.c
+ * $Id$
  * Description: Internal function--set the new energy group boundaries.
- * Time-stamp:  <99/11/03 17:11:51 jomc>
  *
  */
 
@@ -116,10 +115,11 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     27_anl      - ANL standard 27-group structure (NJOY IGN 4)
     21_lanl     - LANL standard 21-group structure
     17_llnl     - LLNL BDFLS ID  93 '17 group metric'
+    16_llnl     - LLNL 
     16_awe      - AWE standard 16-group structure
     16_hr       - 16-group structure used by popular Hansen-Roach library
     16_lanl     - LANL standard 16-group structure
-    16_lanl2    - LANL alternate 16-group structure
+    16_lanl2    - LANL alternate 16-group structure, closest to 16_llnl
     14_lanl     - LANL 14-group structure
     13_lanl     - LANL 13-group structure
     12_lanl     - LANL 12-group structure
@@ -2386,6 +2386,15 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
+    double _16_llnl[] = {
+        1.4683e+01,    1.3542e+01,    1.2499e+01,
+        1.1547e+01,    9.6648e+00,    7.9096e+00,    6.3666e+00,
+        4.7044e+00,    2.5299e+00,    1.1761e+00,    6.3247e-01,
+        2.9402e-01,    2.0746e-01,    9.8909e-02,    2.6462e-02,
+        7.5270e-03,    2.0908e-08
+    };
+
+
     double _16_awe[] = {
         1.46e+01,    1.35e+01,    1.25e+01,    1.15e+01,
         9.50e+00,    8.00e+00,    6.50e+00,    4.50e+00,
@@ -2413,8 +2422,8 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    /* XXX ??? 16_LLNL is this REALLY correct? it looks more like a lanl structure */
-    /* Indeed is was an alternate 16_lanl structure and is so named here */
+    /* Used to also be labeled as 16_LLNL.  It is the closest structure to */
+    /* the 16_llnl using LANL energy boundaries. */
     double _16_lanl2[] = {
         1.700e+01,    1.350e+01,    1.200e+01,    1.000e+01,
         7.790e+00,    6.070e+00,    3.680e+00,    2.865e+00,
@@ -3026,9 +3035,13 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         new_grp_ptr = _16_lanl;
         *new_grp = 16;
 
-    } else if ((strcmp("16_llnl", grp_struc) == 0) ||
+    } else if ((strcmp("16_LLNL", grp_struc) == 0) ||
                (strcmp("16_lanl2", grp_struc) == 0)) {
         new_grp_ptr = _16_lanl2;
+        *new_grp = 16;
+
+    } else if (strcmp("16_llnl", grp_struc) == 0) {
+        new_grp_ptr = _16_llnl;
         *new_grp = 16;
 
     } else if ((strcmp("14_lanl", grp_struc) == 0) ||
