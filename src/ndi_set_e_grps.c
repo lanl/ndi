@@ -115,7 +115,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     27_anl      - ANL standard 27-group structure (NJOY IGN 4)
     21_lanl     - LANL standard 21-group structure
     17_llnl     - LLNL BDFLS ID  93 '17 group metric'
-    16_llnl     - LLNL 
+    16_llnl     - LLNL 16-group neutron group structure from SGNDF file
     16_awe      - AWE standard 16-group structure
     16_hr       - 16-group structure used by popular Hansen-Roach library
     16_lanl     - LANL standard 16-group structure
