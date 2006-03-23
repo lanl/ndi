@@ -21,7 +21,7 @@ int main ()
     int num_zaids = 4;
     char *zaid_list[] = { "u235", "li6", "pu239", "c12"}; 
     int num_grp_structs = 4;
-    char *collapse_type[] = { "30_lanl", "16_llnl", "16_lanl", "16_llnl"};
+    char *collapse_type[] = { "30_lanl", "16_lanl2", "16_lanl", "16_lanl2"};
 
     ndi_float64 *return_vec = NULL;
  

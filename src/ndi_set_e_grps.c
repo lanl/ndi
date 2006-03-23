@@ -2422,8 +2422,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    /* Used to also be labeled as 16_LLNL.  It is the closest structure to */
-    /* the 16_llnl using LANL energy boundaries. */
+    /* The closest structure to 16_llnl using LANL energy boundaries. */
     double _16_lanl2[] = {
         1.700e+01,    1.350e+01,    1.200e+01,    1.000e+01,
         7.790e+00,    6.070e+00,    3.680e+00,    2.865e+00,
@@ -3035,8 +3034,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         new_grp_ptr = _16_lanl;
         *new_grp = 16;
 
-    } else if ((strcmp("16_LLNL", grp_struc) == 0) ||
-               (strcmp("16_lanl2", grp_struc) == 0)) {
+    } else if (strcmp("16_lanl2", grp_struc) == 0) {
         new_grp_ptr = _16_lanl2;
         *new_grp = 16;
 

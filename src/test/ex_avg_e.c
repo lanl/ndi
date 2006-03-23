@@ -13,7 +13,7 @@ int main() {
     ierr = ndi_init();
     ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
     ierr = ndi_set_option( NDI_LIBRARY, "mendf6" );
-    ierr = ndi_set_option( NDI_COLLAPSE, "16_llnl");
+    ierr = ndi_set_option( NDI_COLLAPSE, "16_lanl2");
     ierr = ndi_set_isotope("u235");
 
     vec_size = ndi_get_size(NDI_E_AVG, &ierr);

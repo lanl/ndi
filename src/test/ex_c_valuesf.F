@@ -15,7 +15,7 @@
       call ndi_init(ierr)
       call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr)
       call ndi_set_option( NDI_LIBRARY, "mendf6", ierr)
-      call ndi_set_option( NDI_COLLAPSE, "16_llnl", ierr)
+      call ndi_set_option( NDI_COLLAPSE, "16_lanl2", ierr)
       call ndi_set_option( NDI_REAC_ID, "c", ierr)
       call ndi_set_isotope("pu239", ierr)
 

@@ -13,7 +13,7 @@
       call ndi_init(ierr)
       call ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron", ierr)
       call ndi_set_option( NDI_LIBRARY, "mendf5", ierr)
-      call ndi_set_option( NDI_COLLAPSE, "16_llnl", ierr)
+      call ndi_set_option( NDI_COLLAPSE, "16_lanl2", ierr)
       call ndi_set_isotope("u235", ierr)
 
       vec_size = 500

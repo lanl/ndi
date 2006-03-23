@@ -273,9 +273,9 @@ int main ()
        ret_vec64 = NULL;
    }
 
- /*  Collapse to 16_llnl */
-  printf("******** U235:  SGNDF energies; 16_llnl ********\n");
-   ierr = ndi_set_option(NDI_COLLAPSE, "16_llnl");
+ /*  Collapse to 16_lanl2 */
+  printf("******** U235:  SGNDF energies; 16_lanl2 ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl2");
    vec_size = ndi_get_size(NDI_E_AVG, &ierr);
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
