@@ -54,10 +54,10 @@ NDI2_open_gendir(int *handle, const char *path)
 /*!
   \brief Close handle to NDI gendir index file.
 
-  This function deallocates the memory associated with a gendir handle and its 
-  children and closes the associated NDI gendir file pointer.  It should be 
-  called once for each gendir handle opened after it and its children are no 
-  longer needed.
+  This function deallocates the memory associated with a gendir handle and 
+  its data handles and closes the associated NDI gendir file pointer.  It 
+  should be called once for each gendir handle opened after it and its data 
+  handles are no longer needed.
 
   \par Fortran example
   \code
@@ -218,16 +218,18 @@ NDI2_check_option_gendir(int handle, int in_key, char *out_value,
 /*! @} end of gendir_set */
 
 /*! \defgroup make_handle Data Handle Make
- *  This function makes data handles.  It requires a valid gendir handle
- *  from a call to \a NDI2_open_gendir.
+ *  This function makes new data handles.  It requires a valid gendir handle 
+    from a prior call to \a NDI2_open_gendir or valid data handle from a 
+    prior call to \a NDI2_make_handle.
  *  @{
  */
 
 /*!
-  \brief Make child \a handle1 of \a type from parent \a handle0.
+  \brief Make new data handle \a handle1 of \a type from an old 
+   handle \a handle0.
 
-  This function makes a handle of specificed type capable of accessing 
-  the physical data indexed by its parent gendir.
+  This function makes a data handle of specificed type capable of accessing 
+  the physical data indexed by its ancestor gendir handle.
 
   \par Fortran example
   \code
@@ -235,9 +237,9 @@ NDI2_check_option_gendir(int handle, int in_key, char *out_value,
   call ndi2_make_handle(handle0, "multigroup_neutron", handle1, ndi_err)
   \endcode
 
-  \param handle0: integer input parent handle
+  \param handle0: integer input gendir or data handle
   \param type: string input containing the library type
-  \param handle1: integer output child handle
+  \param handle1: integer output data handle
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
@@ -944,12 +946,12 @@ NDI2_get_int_val(int handle, int in_key, int *ret_val)
       - \c NDI_REACT_MT: Reaction MT for reaction \a vec_num
       - \c NDI_LAST_GRP: Last group index of particle \a vec_num
       - \c NDI_PARTICLE_N: Handle of particle \a vec_num
-  - Thermonuclear burn \a handle:
+  - tn \a handle:
       - \c NDI_RPRODS_ID: ZAID of reaction product \a vec_num
       - \c NDI_RPRODS_MLT: Multiplicity of reaction product \a vec_num
       - \c NDI_REACTANTS_ID: ZAID of reaction product \a vec_num
       - \c NDI_REACTANTS_MLT: Multiplicity of reactant \a vec_num
-  - Thermonuclear reaction \a handle:
+  - tnreactions \a handle:
       - \c NDI_NUM_RPRODS: Number of reaction products
       - \c NDI_NUM_REACTANTS: Number of reactants
 
@@ -997,7 +999,7 @@ NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
       - \c NDI_RPRODS_MLT: Array of reaction product multiplicities
       - \c NDI_REACTANTS_ID: Array of reactant ZAIDs
       - \c NDI_REACTANTS_MLT: Array of reactant multipliticies
-      - \c NDI_SIGVBAR_INTERP_REG: Array of sigvbar interpolation region endpoins
+      - \c NDI_SIGVBAR_INTERP_REG: Array of sigvbar interpolation region endpoints
       - \c NDI_SIGVBAR_INTERP_TYPE: Array of sigvbar interpolation region types
       - \c NDI_EINBAR_INTERP_REG: Array of einbar interpolation region endpoints
       - \c NDI_EINBAR_INTERP_TYPE: Array of einbar interpolation region types
@@ -1123,7 +1125,7 @@ NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
 
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TEMP: Temperature
-      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_SIG_0: Self sheilding parameter
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
   - tn \a handle:
@@ -1207,7 +1209,7 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
 
   - gendir \a handle:
       - \c NDI_TEMP: Temperatures
-      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_SIG_0: Self sheilding parameter
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
@@ -1221,19 +1223,19 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
       - \c NDI_KERMA: Group kerma
       - \c NDI_HEATING_CURR_PART: Partial heating for current particle
       - \c NDI_KERMA_CURR_PART: Partial kerma for current particle
-      - \c NDI_SIG_TOT: Sigma total
-      - \c NDI_NU_TOT: Nubar total
-      - \c NDI_NU_PR: Nubar prompt
-      - \c NDI_NU_DEL: Nubar delayed
-      - \c NDI_NU_SIG_F_TOT: Nubar sigma fission total
-      - \c NDI_NU_SIG_F_PR: Nubar sigma fission prompt
-      - \c NDI_NU_SIG_F_DEL: Nubar sigma fission delayed
-      - \c NDI_CHI_VEC_TOT: Chi vector total
-      - \c NDI_CHI_VEC_PR: Chi vector prompt
-      - \c NDI_CHI_VEC_DEL: Chi vector delayed
-      - \c NDI_CHI_MAT_TOT: Chi matrix total
-      - \c NDI_CHI_MAT_DEL: Chi matrix delayed
-      - \c NDI_CHI_MAT_PR: Chi matrix prompt
+      - \c NDI_SIG_TOT: Total cross section
+      - \c NDI_NU_TOT: Total nubar
+      - \c NDI_NU_PR: Prompt nubar
+      - \c NDI_NU_DEL: Delayed nubar
+      - \c NDI_NU_SIG_F_TOT: Total nubar*fission cross section
+      - \c NDI_NU_SIG_F_PR: Prompt nubar*fission cross section
+      - \c NDI_NU_SIG_F_DEL: Delayed nubar*fission cross section
+      - \c NDI_CHI_VEC_TOT: Total chi vector
+      - \c NDI_CHI_VEC_PR: Prompt chi vector
+      - \c NDI_CHI_VEC_DEL: Delayed chi vector
+      - \c NDI_CHI_MAT_TOT: Total chi matrix
+      - \c NDI_CHI_MAT_DEL: Delayed chi matrix
+      - \c NDI_CHI_MAT_PR: Prompt chi matrix
       - \c NDI_NORM: Chi normalization
       - \c NDI_FISS_Q: Fission Q
       - \c NDI_REAC_Q: Reaction Q
@@ -1243,7 +1245,7 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
       - \c NDI_TEMPS: Temperatures
       - \c NDI_SIGVBARS: Sigma Vbars
       - \c NDI_EINBAR: Thermal-averaged total incident energy
-      - \c NDI_EDIST: Current particle's energy distribution
+      - \c NDI_EDIST: Current secondary particle's energy distribution
       - \c NDI_EDIST_TEMPS: Temperature interpolation type 
       - \c NDI_E_BOUNDS: Energy boundaries for secondary particle
       - \c NDI_E_AVG: Unweighted average group energy
@@ -1284,12 +1286,12 @@ NDI2_get_float32_vec(int handle, int in_key,
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_PN_DOWN_FULL: Pn scattering matrix - downscatter diagonal
       - \c NDI_PN_FULL: Full Pn scattering matrix
-      - \c NDI_SIG_REAC: Sigma edit cross sections
+      - \c NDI_SIG_REAC: Edit cross sections
       - \c NDI_PNU_PR: Prompt fission neutron multiplicity probabilities
       - \c NDI_SIG_PNU_PR:
       - \c NDI_PN_PROD_FULL_CURR_PART: Full production matrix current particle
-      - \c NDI_TRANSFER_MAT_TOT: Transfer matrix total
-      - \c NDI_TRANSFER_MAT_PR: Transfer matrix prompt
+      - \c NDI_TRANSFER_MAT_TOT: Total transfer matrix
+      - \c NDI_TRANSFER_MAT_PR: Prompt transfer matrix
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
@@ -1382,7 +1384,7 @@ NDI2_get_float32_vec_x(int handle, int in_key,
 
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TEMP: Temperature
-      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_SIG_0: Self sheilding parameter
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
   - tn \a handle:
@@ -1466,7 +1468,7 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
 
   - gendir \a handle:
       - \c NDI_TEMP: Temperatures
-      - \c NDI_SIG_0: Sigma zero
+      - \c NDI_SIG_0: Self sheilding parameter
       - \c NDI_AT_WGT: Atomic weight
       - \c NDI_AWR: Atomic weight ratio
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
@@ -1480,19 +1482,19 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
       - \c NDI_KERMA: Group kerma
       - \c NDI_HEATING_CURR_PART: Partial heating for current particle
       - \c NDI_KERMA_CURR_PART: Partial kerma for current particle
-      - \c NDI_SIG_TOT: Sigma total
-      - \c NDI_NU_TOT: Nubar total
-      - \c NDI_NU_PR: Nubar prompt
-      - \c NDI_NU_DEL: Nubar delayed
-      - \c NDI_NU_SIG_F_TOT: Nubar sigma fission total
-      - \c NDI_NU_SIG_F_PR: Nubar sigma fission prompt
-      - \c NDI_NU_SIG_F_DEL: Nubar sigma fission delayed
-      - \c NDI_CHI_VEC_TOT: Chi vector total
-      - \c NDI_CHI_VEC_PR: Chi vector prompt
-      - \c NDI_CHI_VEC_DEL: Chi vector delayed
-      - \c NDI_CHI_MAT_TOT: Chi matrix total
-      - \c NDI_CHI_MAT_DEL: Chi matrix delayed
-      - \c NDI_CHI_MAT_PR: Chi matrix prompt
+      - \c NDI_SIG_TOT: Total cross section
+      - \c NDI_NU_TOT: Total nubar
+      - \c NDI_NU_PR: Prompt nubar
+      - \c NDI_NU_DEL: Delayed nubar
+      - \c NDI_NU_SIG_F_TOT: Total nubar*fission cross section
+      - \c NDI_NU_SIG_F_PR: Prompt nubar*fission cross section
+      - \c NDI_NU_SIG_F_DEL: Delayed nubar*fission cross section
+      - \c NDI_CHI_VEC_TOT: Total chi vector
+      - \c NDI_CHI_VEC_PR: Prompt chi vector
+      - \c NDI_CHI_VEC_DEL: Delayed chi vector
+      - \c NDI_CHI_MAT_TOT: Total chi matrix
+      - \c NDI_CHI_MAT_DEL: Delayed chi matrix
+      - \c NDI_CHI_MAT_PR: Prompt chi matrix
       - \c NDI_NORM: Chi normalization
       - \c NDI_FISS_Q: Fission Q
       - \c NDI_REAC_Q: Reaction Q
@@ -1502,7 +1504,7 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
       - \c NDI_TEMPS: Temperatures
       - \c NDI_SIGVBARS: Sigma Vbars
       - \c NDI_EINBAR: Thermal-averaged total incident energy
-      - \c NDI_EDIST: Current particle's energy distribution
+      - \c NDI_EDIST: Current secondary particle's energy distribution
       - \c NDI_EDIST_TEMPS: Temperature interpolation type 
       - \c NDI_E_BOUNDS: Energy boundaries for secondary particle
       - \c NDI_E_AVG: Unweighted average group energy
@@ -1547,8 +1549,8 @@ NDI2_get_float64_vec(int handle, int in_key,
       - \c NDI_PNU_PR: Prompt fission neutron multiplicity probabilities
       - \c NDI_SIG_PNU_PR:
       - \c NDI_PN_PROD_FULL_CURR_PART: Full production matrix current particle
-      - \c NDI_TRANSFER_MAT_TOT: Transfer matrix total
-      - \c NDI_TRANSFER_MAT_PR: Transfer matrix prompt
+      - \c NDI_TRANSFER_MAT_TOT: Total transfer matrix
+      - \c NDI_TRANSFER_MAT_PR: Prompt transfer matrix
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num

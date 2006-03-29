@@ -16,12 +16,12 @@ logical modules.
 
 Prior to the development of the Nuclear Data Interface (NDI), users
 were responsible for obtaining and accessing their own nuclear data.
-This resulted in a proliferation of data files in incompatible
-formats, and generally made the update of data a major, cross-project
-undertaking.  Worse still, some codes embedded nuclear data in the
-executable, confounding data updates with code modifications.  As a
-result several FTEs were devoted, in parallel efforts, to the
-maintenance and update of nuclear data.
+This resulted in a proliferation of data files in incompatible formats
+and made the update of data a major, cross-project undertaking.  Worse
+still, some codes embedded nuclear data in the executable, confounding
+data updates with code modifications.  As a result several FTEs were
+devoted, in parallel efforts, to the maintenance and update of nuclear
+data.
 
 NDI was developed in 1998 to provide a single source interface to the
 best, most modern, thoroughly tested nuclear data evaluations.  It was
@@ -55,10 +55,10 @@ provide, at the users bidding, a computer representation of nuclear
 data consistent with the best empirical data and models.  Figure 1.1
 shows the commanded information problem frame, where each domain
 relevant to the problem is represented by a solid rectangle and the
-interfaces between domains are represented by solid lines.
-The domains are labeled by the type relevant to NDI in square
-brackets: the user code is a Biddable domain, NDI is a Causal domain,
-and user and nuclear data are both leXical domains.
+interfaces between domains are represented by solid lines.  Each
+domain type relevant to NDI is labeled in square brackets: the user
+code is a Biddable domain, NDI is a Causal domain, and user and
+nuclear data are both leXical domains.
  
 The requirements connecting the domains are represented by dashed
 lines, and the basic requirement for NDI is shown in the dashed oval:
@@ -86,7 +86,7 @@ every NDI call:
    return an error code,
 -# or if the requested data Y1 is not available either explicitly or via
    calculation or transformation according to specification NDI will 
-   return a error code or else read NDI!Y1 with a success code or
+   return a error code, or else read NDI!Y1 with a success code, or
    calculate NDI!Y1 with a warning code,
 -# which because the nuclear data has the real world properties,
 -# that satisfy the nuclear data requirements,
@@ -148,7 +148,7 @@ close, set, check, get) and its data value return type.  For example,
 NDI's interface language requirement limits the user's data format to
 that of the least common denominator: integers, reals, strings, and
 simple arrays of these basic types, so the user's data return type is
-incorporated in NDI's workhorse \c get family of functions, thus:
+incorporated in NDI's workhorse \c get family of functions, thus in C:
 
 - \c NDI2_get_int_val* 
 - \c NDI2_get_int_vec*
@@ -162,26 +162,26 @@ incorporated in NDI's workhorse \c get family of functions, thus:
 The first parameter of every NDI version 2 function call is the gendir
 or data handle, which is created and assigned by the \c
 NDI2_open_gendir and \c NDI2_make_handle routines respectively and
-destroyed by the \c NDI2_close_gendir routine.  In the set routines
-the handle specifies which state the call will affect; in the check
-routines the handle specifies which state the call will report; in get
-routines the handle specifies which state the call will use in
+destroyed by the \c NDI2_close_gendir routine.  In the \c set routines
+the handle specifies which state the call will affect; in the \c check
+routines the handle specifies which state the call will report; in \c
+get routines the handle specifies which state the call will use in
 reading, transforming or calculating the data.
 
 NDI treats all state and tabulated data as named values: the second
-(and possibly third) argument to every set, check, and get call is the
-name (and possible index or sub-name) of the data requested.  Data
-names are defined integer constants specified symbolically in the
-include file \c ndi_keywords.i for Fortran 77 and Fortran 90 codes,
-and in the include file \c ndi_keywords.h for C and C++ codes.  The
-data name reference may be further disambiguated by an integer index
-third parameter, in the case of the \c NDI2_get*_n family of calls, or
-by a string sub-name third parameter, in the case of the \c
-NDI2_get_*_x family of calls.
+(and possibly third) argument to every \c set, \c check, and \c get
+call is the name (and possible index or sub-name) of the data
+requested.  Data names are defined integer constants specified
+symbolically in the include file \c ndi_keywords.i for Fortran 77 and
+Fortran 90 codes, and in the include file \c ndi_keywords.h for C and
+C++ codes.  The data name reference may be further disambiguated by an
+integer index third parameter, in the case of the \c NDI2_get*_n
+family of calls, or by a string sub-name third parameter, in the case
+of the \c NDI2_get_*_x family of calls.
 
 The remaining parameters specify the set, check, or get data value,
 and the request return status in Fortran 77 and Fortran 90.  Vector
-valued data is followed by its user allocated maximum size, as is
+valued data are followed by their user allocated maximum size, as are
 string valued data for C and C++ calls.  The actual size of returned
 vector or string data is available through the \c NDI2_get_size_*
 family of functions.
@@ -225,11 +225,11 @@ with the following values:
 - -23: Incompatible collapse group structure.
 - -24: Bad reaction identifier (MT or C number).
 
-In general, a value of zero indicates success, a positive error value
+In general, a value of zero indicates success, a positive value
 indicates a warning, and a negative value indicates an error.  In the
 case of a warning, NDI attempts to return usable data so the user can
 decide to ignore the warning and use the data anyway.  In the case of
-an error, NDI returns zero numerical data or the empty string. 
+an error, NDI returns zero numerical data or the empty string.
 
 The individual interface descriptions, arranged by logical modules,
 are given in the Module Documentation of this document.  Under each
