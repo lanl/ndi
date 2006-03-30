@@ -485,6 +485,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
 	ierr =
 	    GET_DEPL_XS(state, &state->iso_stat, return_vec, return_size);
+        if (ierr == 9) ierr = 0; /* radlib warning kludge */
 	break;
 
       /**********  UNKNOWN KEYWORD  ***********/

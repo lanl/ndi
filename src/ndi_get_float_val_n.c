@@ -133,7 +133,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 	} else {
 	    ierr = GET_PROD_Q(state, vec_num, ret_val);
 	}
-
+        if (ierr == 9) ierr = 0; /* radlib warning kludge */
 	break;
 
 
