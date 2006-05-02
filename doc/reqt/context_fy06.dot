@@ -2,7 +2,7 @@ digraph ndi {
 	//orientation=landscape;
 	size="7.5,10";
 	center=true;
-	label="NDI FY06 Context\nred=R1 (02/01/06)\ngreen=R1 (06/01/06)\nblue=R3 (10/01/06)";
+	label="NDI FY06 Context (05/02/06)\nred=R1 (02/01/06)\ngreen=R2 (06/01/06)\nblue=R3 (10/01/06)";
 	node[shape="box"];
 
 	/* stakeholders */
@@ -21,11 +21,11 @@ digraph ndi {
 	morgan -> ndi[label="25) RC 618", color=red];
 	ndi -> dkp[label="27) Doc. I", color=red];
 	ndi -> rsb[label="20) MG photon\nZA translation", color=red];
-	ndi -> barcher[label="18) Red Storm\nsupport", color=red];
-	ndi -> jomc[label="26) PD energy\nprod. edits", color=red];
+	ndi -> barcher[label="18) Red Storm\nsupport", color=green];
+	ndi -> jomc[label="26) PD energy\nprod. edits", color=green];
 
-	frankles -> ndi[label="24) TN A=11", color=green];
-	ndi -> jomc[label="21) NDI error\nstring", color=green];
+	frankles -> ndi[label="24) TN A=11", color=red];
+	ndi -> jomc[label="21) NDI error\nstring", color=red];
 	ndi -> drnuke[label="15) MG scatt.\nMC", color=green];
 	ndi -> dkp[label="27) Doc. II", color=green];
 

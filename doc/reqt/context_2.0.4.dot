@@ -3,7 +3,7 @@ digraph ndi {
 	page="8.5, 11";
 	size="6.5, 9";
 	center=true;
-	label="green=past work\nyellow=present work(01/31/06)\nred=future work";
+	label="green=past work\nyellow=present work(02/10/06)\nred=future work";
 	node[shape="box"];
 
 	/* stakeholders */
