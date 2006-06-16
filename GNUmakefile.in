@@ -29,4 +29,4 @@ distclean:
 	$(RM) Makefile config.log config.status
 
 check_data:
-	(cd src; $(MAKE) check_data)
+	(cd test; $(MAKE) check_sum)
