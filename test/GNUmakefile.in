@@ -1,0 +1,85 @@
+######################################################################
+#
+# Second-level make file for NDI
+# 
+# This make file does the real work, but probably you should be
+# calling this from the make file in the directory above.
+#
+######################################################################
+
+.PHONY:		all check clean distclean install
+
+SHELL		= /bin/sh
+VPATH		= @srcdir@
+CONFIG		= @CONFIG@
+
+top_srcdir	= @top_srcdir@
+srcdir		= @srcdir@
+testlib		= @srcdir@/test/lib
+
+VERSION		= $(shell head -1 $(top_srcdir)/src/VERSION)
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+bindir		= $(exec_prefix)/bin
+libdir		= $(prefix)/$(VERSION)/$(CONFIG)/lib
+includedir	= $(prefix)/$(VERSION)/$(CONFIG)/include
+
+DEP		= gcc -MM
+CPP		= @CPP@
+RANLIB		= @RANLIB@
+INSTALL		= @INSTALL@
+AWK		= @AWK@
+MD5SUM		= @MD5SUM@
+
+######################################################################
+
+# configuration selection is based on the variable CONFIG
+
+include $(top_srcdir)/conf/$(CONFIG).mk
+
+######################################################################
+
+CPPFLAGS	+= -I $(includedir)
+LDFLAGS		+= -L $(libdir)
+
+DATA_TEST_SRC := \
+	mgn_data.c \
+	tn_data.c \
+	dosn_data.c \
+	proddepl_data.c \
+	tnreac_data.c \
+	radchem_data.c 
+
+DATA_TESTS	:= $(DATA_TEST_SRC:%.c=testc_%)
+
+# target rules
+
+check_sum: check_data
+	awk '/ZAID COUNT/ { printf("%s,", $$4) }' check_data.out
+
+check_data: check_data.out
+
+check_data.out: $(DATA_TESTS)
+	@ $(RM) $@
+	@ for i in $(DATA_TESTS); \
+	do \
+	./$$i >> $@; \
+	done
+
+clean:
+	$(RM) $(DATA_TESTS) check_data.out 
+
+testclean:
+	$(RM) $(DATA_TESTS) check_data.out
+
+# pattern rules
+
+testc_%: $(TARGET)
+
+testc_%: %.c
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
+
