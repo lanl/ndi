@@ -12,24 +12,27 @@ then
 	case "${host}" in   
 	*-ibm-aix*)
 		CONFIG=aix
+		NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
 			;;
 	sparc-sun-solaris2.*)
 		CONFIG=sun
+		NDI_ROOT=/usr/local/codes/data/nuclear/ndi
 		;;
 	i?86-*-linux*)
 		CONFIG=intel-linux
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	x86_64-*-linux*)
 		CONFIG=x86_64-linux
-		;;
-	ymp-cray-unicos*)
-		CONFIG=cray
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	mips-sgi-irix*)
 		CONFIG=sgi-64
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	alpha*-dec*)
 		CONFIG=alpha-tru64
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	*)
 		AC_MSG_ERROR([Cannot guess CONFIG])
@@ -45,6 +48,13 @@ else
 fi
 AC_MSG_RESULT([${CONFIG}.mk])
 AC_SUBST([CONFIG])
+
+AC_MSG_CHECKING([makefile installation prefix])
+if test "${with_prefix:=/usr/local}" = /usr/local
+then
+	prefix=${NDI_ROOT}
+fi
+AC_MSG_RESULT([${prefix}])
 
 dnl Checks for programs.
 
@@ -70,7 +80,7 @@ AC_TYPE_SIZE_T
 dnl Checks for library functions.
 AC_CHECK_FUNCS(strstr strtod strtol)
 
-AC_OUTPUT(GNUmakefile src/GNUmakefile)
+AC_OUTPUT(GNUmakefile src/GNUmakefile test/GNUmakefile)
 
 test -d src/.dep || mkdir src/.dep
 test -d src/test || mkdir src/test

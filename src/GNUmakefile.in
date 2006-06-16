@@ -12,15 +12,18 @@
 SHELL		= /bin/sh
 VPATH		= @srcdir@
 CONFIG		= @CONFIG@
+
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
 testlib		= @srcdir@/test/lib
 
+VERSION		= $(shell head -1 $(srcdir)/VERSION)
+
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
 bindir		= $(exec_prefix)/bin
-libdir		= $(prefix)/lib
-includedir	= $(prefix)/include
+libdir		= $(prefix)/$(VERSION)/$(CONFIG)/lib
+includedir	= $(prefix)/$(VERSION)/$(CONFIG)/include
 
 DEP		= gcc -MM
 CPP		= @CPP@

@@ -56,7 +56,7 @@ DATA_TESTS	:= $(DATA_TEST_SRC:%.c=testc_%)
 # target rules
 
 check_sum: check_data
-	awk '/ZAID COUNT/ { printf("%s,", $$4) }' check_data.out
+	$(AWK) '/ZAID COUNT/ { printf("%s,", $$4) }' check_data.out
 
 check_data: check_data.out
 

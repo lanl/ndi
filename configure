@@ -1354,24 +1354,27 @@ then
 	case "${host}" in
 	*-ibm-aix*)
 		CONFIG=aix
+		NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
 			;;
 	sparc-sun-solaris2.*)
 		CONFIG=sun
+		NDI_ROOT=/usr/local/codes/data/nuclear/ndi
 		;;
 	i?86-*-linux*)
 		CONFIG=intel-linux
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	x86_64-*-linux*)
 		CONFIG=x86_64-linux
-		;;
-	ymp-cray-unicos*)
-		CONFIG=cray
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	mips-sgi-irix*)
 		CONFIG=sgi-64
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	alpha*-dec*)
 		CONFIG=alpha-tru64
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
 	*)
 		{ { echo "$as_me:$LINENO: error: Cannot guess CONFIG" >&5
@@ -1392,6 +1395,15 @@ fi
 echo "$as_me:$LINENO: result: ${CONFIG}.mk" >&5
 echo "${ECHO_T}${CONFIG}.mk" >&6
 
+
+echo "$as_me:$LINENO: checking makefile installation prefix" >&5
+echo $ECHO_N "checking makefile installation prefix... $ECHO_C" >&6
+if test "${with_prefix:=/usr/local}" = /usr/local
+then
+	prefix=${NDI_ROOT}
+fi
+echo "$as_me:$LINENO: result: ${prefix}" >&5
+echo "${ECHO_T}${prefix}" >&6
 
 
 ac_ext=c
@@ -3217,7 +3229,7 @@ fi
 done
 
 
-                    ac_config_files="$ac_config_files GNUmakefile src/GNUmakefile"
+                              ac_config_files="$ac_config_files GNUmakefile src/GNUmakefile test/GNUmakefile"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -3770,6 +3782,7 @@ do
   # Handling of arguments.
   "GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES GNUmakefile" ;;
   "src/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES src/GNUmakefile" ;;
+  "test/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES test/GNUmakefile" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
