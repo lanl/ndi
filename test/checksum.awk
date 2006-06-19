@@ -5,4 +5,4 @@
           count = $4;
 }
 
-END { print count }
+END { printf("%s\t%s\t%s\t%s\n", d, m, p, count) }

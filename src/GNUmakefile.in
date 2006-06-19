@@ -9,15 +9,19 @@
 
 .PHONY:		all check clean distclean install
 
+vpath %.c @srcdir@
+vpath %.h @srcdir@
+vpath %.f @srcdir@
+vpath %.F @srcdir@
+
 SHELL		= /bin/sh
-VPATH		= @srcdir@
 CONFIG		= @CONFIG@
 
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
 testlib		= @srcdir@/test/lib
 
-VERSION		= $(shell head -1 $(srcdir)/VERSION)
+VERSION		= $(shell head -1 $(top_srcdir)/VERSION)
 
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
@@ -32,7 +36,6 @@ INSTALL		= @INSTALL@
 AWK		= @AWK@
 MD5SUM		= @MD5SUM@
 
-VERSION 	:= ndi_version.h
 FMANGLE 	:= fmangle.h
 VAR_TYPE	:= ndi_var_type.h
 GROUP		:= pdata
@@ -269,9 +272,6 @@ check: $(TARGET) $(TESTOUT)
 	fi ; \
 	done
 
-check_all: $(TARGET) $(TESTC) $(TESTF)
-	echo "Insert commands to run the tests here"
-
 check_data: $(TARGET) $(DATA_TESTS)
 	@ $(RM) $@.out
 	@ for i in $(DATA_TESTS); \
@@ -284,7 +284,7 @@ clean:
 	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
 
 distclean: clean
-	$(RM) $(TARGET) $(VERSION) $(FMANGLE) $(VAR_TYPE) $(TESTOUT) \
+	$(RM) $(TARGET) $(FMANGLE) $(VAR_TYPE) $(TESTOUT) \
 	$(DATA_TESTS) check_data.out 
 
 testclean:
@@ -294,18 +294,18 @@ install: all
 	umask 002 ; \
 	$(INSTALL) -g $(GROUP) -m 775 -d $(includedir) ; \
 	$(INSTALL) -g $(GROUP) -m 775 -d $(libdir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 libndi.a $(libdir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 $(srcdir)/ndi_keywords.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 ndi_keywords.i $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 664 ndi_var_type.h $(includedir)
+	$(INSTALL) -g $(GROUP) -m 644 libndi.a $(libdir) ; \
+	$(INSTALL) -g $(GROUP) -m 644 $(srcdir)/ndi.h $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 644 $(srcdir)/ndi_keywords.h $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 644 ndi_keywords.i $(includedir) ; \
+	$(INSTALL) -g $(GROUP) -m 644 ndi_var_type.h $(includedir)
 
-libndi.a: $(VERSION) $(FMANGLE) $(VAR_TYPE) $(OBJ)
+libndi.a: ndi_version.h $(FMANGLE) $(VAR_TYPE) $(OBJ)
 	$(AR) $(ARFLAGS) $@ $(OBJ)
 	$(RANLIB) $@
 
-$(VERSION): VERSION
-	echo '#define NDI_VERSION_DATA "'`cat $(srcdir)/VERSION`'"' > $@
+$(srcdir)/ndi_version.h: $(top_srcdir)/VERSION
+	echo '#define NDI_VERSION_DATA "'`cat $(top_srcdir)/VERSION`'"' > $@
 
 $(VAR_TYPE): ndi_define_float.c
 	@echo Making $(VAR_TYPE)
@@ -381,11 +381,11 @@ endif
 
 # rules for calculating dependency files
 
-.dep/%.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
+.dep/%.d: %.c ndi_version.h $(FMANGLE) $(VAR_TYPE)
 	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
 
-.dep/%_float32.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
+.dep/%_float32.d: %.c ndi_version.h $(FMANGLE) $(VAR_TYPE)
 	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
 
-.dep/%_float64.d: %.c $(VERSION) $(FMANGLE) $(VAR_TYPE)
+.dep/%_float64.d: %.c ndi_version.h $(FMANGLE) $(VAR_TYPE)
 	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@

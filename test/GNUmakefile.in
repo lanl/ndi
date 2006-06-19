@@ -9,15 +9,17 @@
 
 .PHONY:		all check clean distclean install
 
+vpath %.c @srcdir@
+vpath %.h @srcdir@
+
 SHELL		= /bin/sh
-VPATH		= @srcdir@
 CONFIG		= @CONFIG@
 
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
 testlib		= @srcdir@/test/lib
 
-VERSION		= $(shell head -1 $(top_srcdir)/src/VERSION)
+VERSION		= $(shell head -1 $(top_srcdir)/VERSION)
 
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
@@ -56,7 +58,12 @@ DATA_TESTS	:= $(DATA_TEST_SRC:%.c=testc_%)
 # target rules
 
 check_sum: check_data
-	$(AWK) -f $(srcdir)/checksum.awk check_data.out
+	$(AWK) -v d="`date`" -v m="`hostname`" -v p="$(libdir)" \
+		-f $(srcdir)/checksum.awk check_data.out
+
+check_perms:
+	ls -lR $(prefix)/$(VERSION) | \
+	awk -v p=$(prefix)/$(VERSION) -f $(srcdir)/checkperms.awk
 
 check_data: check_data.out
 
