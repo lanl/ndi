@@ -67,7 +67,7 @@ fi
 cd $BUILD_DIR
 gmake prefix=$INSTALL_DIR install
 cd ../$DEBUG_DIR/src
-../../conf/install-sh -c -g $GROUP -m 664 libndi.a \
+../../conf/install-sh -c -g $GROUP -m 644 libndi.a \
                                           $INSTALL_DIR/lib/libndi_debug.a
 cd ../..
 
@@ -75,4 +75,4 @@ cd ../..
 
 chgrp -R $GROUP $NDI_ROOT/$ndi_version
 find $NDI_ROOT/$ndi_version -type d -exec chmod 775 {} \;
-find $NDI_ROOT/$ndi_version -type f -exec chmod 664 {} \;
+find $NDI_ROOT/$ndi_version -type f -exec chmod 644 {} \;

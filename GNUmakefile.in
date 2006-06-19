@@ -21,12 +21,15 @@ check:
 install:
 	(cd src; $(MAKE) install)
 
+check_install:
+	(cd test; $(MAKE) check_install)
+
 clean:
 	(cd src; $(MAKE) clean)
+	(cd test; $(MAKE) clean)
 
 distclean:
 	(cd src; $(MAKE) distclean)
+	(cd test; $(MAKE) distclean)
 	$(RM) Makefile config.log config.status
-
-check_data:
-	(cd test; $(MAKE) check_sum)
+	$(RM) -fr autom4e.cache

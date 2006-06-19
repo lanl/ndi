@@ -1,11 +1,14 @@
 BEGIN {
-     perms = "-rw-rw-r--|drwxrwxr-x";
+     perms = "-rw-r[-w]-r--|drw[xsStT]rw[xsStT]r-[xsStT]";
      group = "pdata";
      result = 1;
 }
 
 NF > 4 {
-     result = result && ($1 ~ perms && $4  group);
+     if (! ($1 ~ perms && $4 ~ group)) {
+          print $0;
+          result = 0;
+     }
 }
 
 END {
