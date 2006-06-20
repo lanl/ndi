@@ -297,7 +297,8 @@ install: all
 	umask 002 ; \
 	$(INSTALL_DIR) $(includedir) ; \
 	$(INSTALL_DIR) $(libdir) ; \
-	$(INSTALL_LIB) libndi.a $(libdir) ; \
+	$(INSTALL_LIB) libndi.a \
+		$(libdir)$(if $(DEBUG),/libndi_debug.a,/libndi.a) ; \
 	$(INSTALL_LIB) $(srcdir)/ndi.h $(includedir) ; \
 	$(INSTALL_LIB) $(srcdir)/ndi_keywords.h $(includedir) ; \
 	$(INSTALL_LIB) ndi_keywords.i $(includedir) ; \
@@ -339,7 +340,7 @@ ndi.md: $(SRC)
 ndi.sv: 
 	$(MD5SUM) --check ndi.md
 
-GNUmakefile: GNUmakefile.in $(top_srcdir)/config.status
+GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
 	cd $(top_srcdir) && ./config.status
 
 # pattern rules
