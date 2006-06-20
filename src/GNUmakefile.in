@@ -40,6 +40,9 @@ FMANGLE 	:= fmangle.h
 VAR_TYPE	:= ndi_var_type.h
 GROUP		:= pdata
 
+INSTALL_DIR	= $(INSTALL) -g $(GROUP) -m 775 -d
+INSTALL_LIB	= $(INSTALL) -g $(GROUP) -m 644
+
 ######################################################################
 
 # configuration selection is based on the variable CONFIG
@@ -292,13 +295,13 @@ testclean:
 
 install: all
 	umask 002 ; \
-	$(INSTALL) -g $(GROUP) -m 775 -d $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 775 -d $(libdir) ; \
-	$(INSTALL) -g $(GROUP) -m 644 libndi.a $(libdir) ; \
-	$(INSTALL) -g $(GROUP) -m 644 $(srcdir)/ndi.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 644 $(srcdir)/ndi_keywords.h $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 644 ndi_keywords.i $(includedir) ; \
-	$(INSTALL) -g $(GROUP) -m 644 ndi_var_type.h $(includedir)
+	$(INSTALL_DIR) $(includedir) ; \
+	$(INSTALL_DIR) $(libdir) ; \
+	$(INSTALL_LIB) libndi.a $(libdir) ; \
+	$(INSTALL_LIB) $(srcdir)/ndi.h $(includedir) ; \
+	$(INSTALL_LIB) $(srcdir)/ndi_keywords.h $(includedir) ; \
+	$(INSTALL_LIB) ndi_keywords.i $(includedir) ; \
+	$(INSTALL_LIB) ndi_var_type.h $(includedir)
 
 libndi.a: ndi_version.h $(FMANGLE) $(VAR_TYPE) $(OBJ)
 	$(AR) $(ARFLAGS) $@ $(OBJ)
@@ -335,6 +338,9 @@ ndi.md: $(SRC)
 
 ndi.sv: 
 	$(MD5SUM) --check ndi.md
+
+GNUmakefile: GNUmakefile.in $(top_srcdir)/config.status
+	cd $(top_srcdir) && ./config.status
 
 # pattern rules
 

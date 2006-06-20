@@ -57,7 +57,7 @@ DATA_TESTS	:= $(DATA_TEST_SRC:%.c=testc_%)
 
 # target rules
 
-check_install: check_perms check_sum
+checkinstall: check_perms check_sum
 
 check_perms:
 	@ls -lR $(prefix)/$(VERSION) | \
@@ -79,6 +79,9 @@ clean:
 
 testclean:
 	$(RM) $(DATA_TESTS) check_data.out
+
+GNUmakefile: GNUmakefile.in $(top_srcdir)/config.status
+	cd $(top_srcdir) && ./config.status
 
 # pattern rules
 
