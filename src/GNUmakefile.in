@@ -21,7 +21,6 @@ CONFIG		= @CONFIG@
 
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
-testlib		= @srcdir@/test/lib
 
 VERSION		= $(shell head -1 $(top_srcdir)/VERSION)
 
@@ -161,7 +160,7 @@ distclean: clean
 	$(RM) $(TARGET) $(FMANGLE) $(VAR_TYPE)
 
 install: all
-	umask 002 ; \
+	umask 022 ; \
 	$(INSTALL_DIR) $(includedir) ; \
 	$(INSTALL_DIR) $(libdir) ; \
 	$(INSTALL_LIB) libndi.a \
