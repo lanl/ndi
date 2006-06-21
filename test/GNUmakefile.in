@@ -18,7 +18,6 @@ CONFIG		= @CONFIG@
 
 top_srcdir	= @top_srcdir@
 srcdir		= @srcdir@
-testlib		= @srcdir@/test/lib
 
 VERSION		= $(shell head -1 $(top_srcdir)/VERSION)
 
@@ -54,7 +53,7 @@ DATA_TEST_SRC := \
 	tnreac_data.c \
 	radchem_data.c 
 
-DATA_TESTS	:= $(DATA_TEST_SRC:%.c=testc_%)
+DATA_TESTS	:= $(DATA_TEST_SRC:%.c=%)
 
 # target rules
 
@@ -86,10 +85,8 @@ GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
 
 # pattern rules
 
-testc_%: $(TARGET)
-
-testc_%: %.c
-	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
+%: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
