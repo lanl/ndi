@@ -5,6 +5,8 @@
 # This make file does the real work, but probably you should be
 # calling this from the make file in the directory above.
 #
+#   $Id$
+#
 ######################################################################
 
 .PHONY:		all check clean distclean install
@@ -128,107 +130,6 @@ SRC_FLOAT := \
 	ndimp_get_float_vec.c \
 	ndimp_get_float_vec_n.c 
 
-SRC_TESTC := \
-	test/5.c \
-	test/5_handle.c \
-	test/abundance_test.c \
-	test/abundance_test_handle.c \
-	test/avg_e.c \
-	test/avg_e2.c \
-	test/c.c \
-	test/c_handle.c \
-	test/chi.c \
-	test/chi_handle.c \
-	test/depl.c \
-	test/depl_handle.c \
-	test/depl2.c \
-	test/depl2_handle.c \
-	test/depl_zaid.c \
-	test/ekerma.c \
-	test/ebounds.c \
-	test/err22.c \
-	test/ex_avg_e.c \
-	test/ex_gendir_path.c \
-	test/ex_kerma1.c \
-	test/ex_kerma2.c \
-	test/gendir_handle.c \
-	test/gendir_path.c \
-	test/handle_bashing.c \
-	test/kerma_example.c \
-	test/kerma_example_handle.c \
-	test/library_check.c \
-	test/mg_sec_part.c \
-	test/mpmg.c \
-	test/mpmg_grps.c \
-	test/mpmg2.c \
-	test/ndid.c \
-	test/ndid_handle.c \
-	test/ngk_test.c \
-	test/ngk_test_handle.c \
-	test/nonfissionables.c \
-	test/nonfissionables_handle.c \
-	test/old_rprod.c \
-	test/photon.c \
-	test/pnu.c \
-	test/pnu_handle.c \
-	test/radchem.c \
-	test/radchem_handle.c \
-	test/sgndf.c \
-	test/symbol_translate.c \
-	test/symbol_translate_handle.c \
-	test/tn3.c \
-	test/tn3_handle.c \
-	test/tn4.c \
-	test/tn4_handle.c \
-	test/tn5.c \
-	test/tn5_handle.c \
-	test/tn_c.c \
-	test/tn_c_handle.c \
-	test/tn_chain.c \
-	test/tn_chain_handle.c \
-	test/tn_interp_params.c \
-	test/tn_interp_params_handle.c \
-	test/tn_new.c \
-	test/tn_new_handle.c \
-	test/tn_simple.c \
-	test/tn_simple_handle.c \
-	test/tn_use.c \
-	test/tn_use_handle.c \
-	test/tnreac_c.c \
-	test/tnreac_c_handle.c \
-	test/transfer_mat.c \
-	test/transpose_scat.c \
-	test/za.c \
-	test/za_handle.c 
-
-SRC_TESTF := \
-	test/ex_avg_ef.F \
-	test/ex_gendir_pathf.F \
-	test/ex_kerma1f.F \
-	test/ex_kerma2f.F  \
-	test/f_handlef.F \
-	test/f_handlef2.F \
-	test/gendir_pathf.F \
-	test/library_checkf.F \
-	test/mpmgf.F \
-	test/mpmg2f.F \
-	test/ndi_testf.F\
-	test/ndi_testf2.F\
-	test/ndidf.F\
-	test/ndidf_handle.F\
-	test/radchemf.F\
-	test/symbol_translatef.F \
-	test/transpose_scatf.F \
-	test/21grp_ck.F
-
-DATA_TEST_SRC := \
-	test/mgn_data.c \
-	test/tn_data.c \
-	test/dosn_data.c \
-	test/proddepl_data.c \
-	test/tnreac_data.c \
-	test/radchem_data.c 
-
 ifneq (,$(findstring cray, $(CONFIG)))
 SRC += ndi_fortran_cray.c
 else
@@ -242,17 +143,6 @@ OBJ	+= $(SRC:%.c=%.o)
 OBJ	+= $(SRC_FLOAT:%.c=%_float32.o)
 OBJ	+= $(SRC_FLOAT:%.c=%_float64.o)
 
-OBJ_TESTC:=  test/all.o $(SRC_TESTC:%.c=%.o)
-TESTC	:=  testc_all $(SRC_TESTC:test/%.c=testc_%)
-TESTF	:=  $(SRC_TESTF:test/%.F=testf_%)
-DATA_TESTS	:= $(DATA_TEST_SRC:test/%.c=testc_%)
-
-# determine test output files
-
-TESTOUT	:=
-TESTOUT	+= $(SRC_TESTC:test/%.c=testc_%.out)
-TESTOUT	+= $(SRC_TESTF:test/%.F=testf_%.out)
-
 # determine dependency files
 
 DEPENDENCIES 	:= 
@@ -264,34 +154,11 @@ DEPENDENCIES	+= $(SRC_FLOAT:%.c=.dep/%_float64.d)
 
 all: $(TARGET)
 
-check: $(TARGET) $(TESTOUT)
-	@ for i in $(TESTOUT) ; \
-	do  \
-	if (perl $(srcdir)/test/fcmp.pl $$i $(srcdir)/test/output/$$i); \
-	then \
-	echo PASSED: $$i ; \
-	else \
-	echo *****TEST FAILED:  $$i ; \
-	fi ; \
-	done
-
-check_data: $(TARGET) $(DATA_TESTS)
-	@ $(RM) $@.out
-	@ for i in $(DATA_TESTS); \
-	do \
-	./$$i >> $@.out; \
-	rm $$i; \
-	done
-
 clean:
-	$(RM) $(OBJ) $(DEPENDENCIES) $(OBJ_TESTC) $(TESTC) $(TESTF)
+	$(RM) $(OBJ) $(DEPENDENCIES) 
 
 distclean: clean
-	$(RM) $(TARGET) $(FMANGLE) $(VAR_TYPE) $(TESTOUT) \
-	$(DATA_TESTS) check_data.out 
-
-testclean:
-	$(RM) $(TESTC) $(TESTF) $(TESTOUT) $(DATA_TESTS) check_data.out
+	$(RM) $(TARGET) $(FMANGLE) $(VAR_TYPE)
 
 install: all
 	umask 002 ; \
@@ -328,8 +195,6 @@ $(FMANGLE): fcallscc.c fcallscf.f ndi_keywords.i
 	./f_calls_c > $@
 	$(RM) f_calls_c fcallscc.o fcallscf.o
 
-testc_all: $(TARGET) $(OBJ_TESTC)
-	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(OBJ_TESTC) -o $@ $(LDLIBS)
 
 ndi_keywords.i: ndi_keywords.h
 	$(AWK) -f $(srcdir)/keywords.awk $(srcdir)/ndi_keywords.h > ndi_keywords.i
@@ -344,23 +209,6 @@ GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
 	cd $(top_srcdir) && ./config.status
 
 # pattern rules
-
-testc_%: $(TARGET)
-
-testc_%: test/%.c
-	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
-
-testf_%: $(TARGET)
-
-testf_%: test/%.F
-	$(CPP) -P -I$(srcdir) $(CPPFLAGS) $< > $@.f 
-	$(FC) $(FFLAGS) -I$(srcdir) $(LDFLAGS) -o $@ $@.f $(LDLIBS)
-
-test/%.o: test/%.c
-	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -c -o $@ $<
-
-test%.out:  test%
-	NDI_GENDIR_PATH=$(testlib)/gendir.test ./$< > $@ 2>&1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
@@ -396,3 +244,5 @@ endif
 
 .dep/%_float64.d: %.c ndi_version.h $(FMANGLE) $(VAR_TYPE)
 	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
+
+######################################################################

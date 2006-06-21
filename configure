@@ -3229,7 +3229,7 @@ fi
 done
 
 
-                              ac_config_files="$ac_config_files GNUmakefile src/GNUmakefile test/GNUmakefile"
+                                                  ac_config_files="$ac_config_files GNUmakefile src/GNUmakefile test/GNUmakefile src/test/GNUmakefile src/test/gendir"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -3783,6 +3783,8 @@ do
   "GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES GNUmakefile" ;;
   "src/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES src/GNUmakefile" ;;
   "test/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES test/GNUmakefile" ;;
+  "src/test/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES src/test/GNUmakefile" ;;
+  "src/test/gendir" ) CONFIG_FILES="$CONFIG_FILES src/test/gendir" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
@@ -4130,4 +4132,3 @@ fi
 
 
 test -d src/.dep || mkdir src/.dep
-test -d src/test || mkdir src/test

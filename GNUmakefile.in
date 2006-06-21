@@ -23,7 +23,7 @@ all:
 	(cd src; $(MAKE) all)
 
 check:
-	(cd src; $(MAKE) check)
+	(cd src/test; $(MAKE) check)
 
 install:
 	(cd src; $(MAKE) install)

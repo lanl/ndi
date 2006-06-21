@@ -80,7 +80,7 @@ AC_TYPE_SIZE_T
 dnl Checks for library functions.
 AC_CHECK_FUNCS(strstr strtod strtol)
 
-AC_OUTPUT(GNUmakefile src/GNUmakefile test/GNUmakefile)
+AC_OUTPUT(GNUmakefile src/GNUmakefile test/GNUmakefile
+		      src/test/GNUmakefile src/test/gendir)
 
 test -d src/.dep || mkdir src/.dep
-test -d src/test || mkdir src/test
