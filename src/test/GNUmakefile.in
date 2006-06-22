@@ -1,0 +1,193 @@
+######################################################################
+#
+# Second-level make file for NDI
+# 
+# This make file does the real work, but probably you should be
+# calling this from the make file in the directory above.
+#
+#	$Id$
+#
+######################################################################
+
+.PHONY:		all check clean distclean
+
+vpath %.c @srcdir@
+vpath %.h @srcdir@
+vpath %.f @srcdir@
+vpath %.F @srcdir@
+
+SHELL		= /bin/sh
+CONFIG		= @CONFIG@
+
+top_srcdir	= @top_srcdir@
+srcdir		= @srcdir@
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+
+DEP		= gcc -MM
+CPP		= @CPP@
+RANLIB		= @RANLIB@
+INSTALL		= @INSTALL@
+AWK		= @AWK@
+MD5SUM		= @MD5SUM@
+
+######################################################################
+
+# configuration selection is based on the variable CONFIG
+
+include $(top_srcdir)/conf/$(CONFIG).mk
+
+######################################################################
+
+CPPFLAGS	+= -I$(top_srcdir)/src
+LDFLAGS		+= -L..
+LDLIBS		:= -lndi_debug -lm
+
+SRC_TESTC := \
+	5.c \
+	5_handle.c \
+	abundance_test.c \
+	abundance_test_handle.c \
+	avg_e.c \
+	avg_e2.c \
+	c.c \
+	c_handle.c \
+	chi.c \
+	chi_handle.c \
+	depl.c \
+	depl_handle.c \
+	depl2.c \
+	depl2_handle.c \
+	depl_zaid.c \
+	ekerma.c \
+	ebounds.c \
+	err22.c \
+	ex_avg_e.c \
+	ex_gendir_path.c \
+	ex_kerma1.c \
+	ex_kerma2.c \
+	gendir_handle.c \
+	gendir_path.c \
+	handle_bashing.c \
+	kerma_example.c \
+	kerma_example_handle.c \
+	library_check.c \
+	mg_sec_part.c \
+	mpmg.c \
+	mpmg_grps.c \
+	mpmg2.c \
+	ndid.c \
+	ndid_handle.c \
+	ngk_test.c \
+	ngk_test_handle.c \
+	nonfissionables.c \
+	nonfissionables_handle.c \
+	old_rprod.c \
+	photon.c \
+	pnu.c \
+	pnu_handle.c \
+	radchem.c \
+	radchem_handle.c \
+	sgndf.c \
+	symbol_translate.c \
+	symbol_translate_handle.c \
+	tn3.c \
+	tn3_handle.c \
+	tn4.c \
+	tn4_handle.c \
+	tn5.c \
+	tn5_handle.c \
+	tn_c.c \
+	tn_c_handle.c \
+	tn_chain.c \
+	tn_chain_handle.c \
+	tn_interp_params.c \
+	tn_interp_params_handle.c \
+	tn_new.c \
+	tn_new_handle.c \
+	tn_simple.c \
+	tn_simple_handle.c \
+	tn_use.c \
+	tn_use_handle.c \
+	tnreac_c.c \
+	tnreac_c_handle.c \
+	transfer_mat.c \
+	transpose_scat.c \
+	za.c \
+	za_handle.c 
+
+SRC_TESTF := \
+	ex_avg_ef.F \
+	ex_gendir_pathf.F \
+	ex_kerma1f.F \
+	ex_kerma2f.F  \
+	f_handlef.F \
+	f_handlef2.F \
+	gendir_pathf.F \
+	library_checkf.F \
+	mpmgf.F \
+	mpmg2f.F \
+	ndi_testf.F\
+	ndi_testf2.F\
+	ndidf.F\
+	ndidf_handle.F\
+	radchemf.F\
+	symbol_translatef.F \
+	transpose_scatf.F \
+	21grp_ck.F
+
+# determine the test object files
+
+TESTC	:=  $(SRC_TESTC:%.c=%)
+TESTF	:=  $(SRC_TESTF:%.F=%)
+
+# determine test output files
+
+TESTOUT	:=
+TESTOUT	+= $(SRC_TESTC:%.c=testc_%.out)
+TESTOUT	+= $(SRC_TESTF:%.F=testf_%.out)
+
+# target rules
+
+all: $(TESTC) $(TESTF)
+
+$(TESTC): ../libndi_debug.a
+
+$(TESTF): ../libndi_debug.a
+
+check: $(TESTOUT)
+	@ for i in $(TESTOUT) ; \
+	do  \
+	if (perl $(srcdir)/fcmp.pl $$i $(srcdir)/output/$$i); \
+	then \
+	echo PASSED: $$i ; \
+	else \
+	echo *****TEST FAILED:  $$i ; \
+	fi ; \
+	done
+
+clean:
+	$(RM) $(OBJ_TESTC) $(TESTC) $(TESTF)
+
+distclean: clean
+	$(RM) $(TESTOUT)
+
+GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
+	cd $(top_srcdir) && ./config.status
+
+# pattern rules
+
+%: %.c
+	$(CC) $(CFLAGS) -g $(CPPFLAGS) $(LDFLAGS) $(STANDALONE_FLAG) -o $@ $< $(LDLIBS)
+
+%: %.F
+	$(CPP) -P $(CPPFLAGS) $< > $@.f 
+	$(FC) $(FFLAGS) -g $(LDFLAGS) -o $@ $@.f $(LDLIBS)
+
+testc_%.out:  %
+	./$< > $@ 2>&1
+
+testf_%.out:  %
+	./$< > $@ 2>&1
+
