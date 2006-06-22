@@ -3,7 +3,6 @@
 GROUP=pdata
 GNU_OS_OUT=`./gnu-os`
 BUILD_DIR=build-$GNU_OS_OUT
-DEBUG_DIR=debug-$GNU_OS_OUT
 
 INSTALL_DIR=`(cd $BUILD_DIR; gmake print_install | tail -1)`
 
@@ -25,4 +24,3 @@ else
 fi
 
 (cd $BUILD_DIR; gmake install)
-(cd $DEBUG_DIR; gmake DEBUG=1 install)
