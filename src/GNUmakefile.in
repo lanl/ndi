@@ -12,7 +12,7 @@
 .PHONY:		all check clean distclean install
 
 vpath %.c @srcdir@
-vpath %.h @srcdir@
+vpath %.h @srcdir@ .
 vpath %.f @srcdir@
 vpath %.F @srcdir@
 
@@ -46,6 +46,8 @@ INSTALL_LIB	= $(INSTALL) -g $(GROUP) -m 644
 include $(top_srcdir)/conf/$(CONFIG).mk
 
 ######################################################################
+
+CPPFLAGS	+= -I. -I$(srcdir)
 
 TARGET := libndi.a libndi_debug.a
 
@@ -184,7 +186,7 @@ $(srcdir)/ndi_version.h: $(top_srcdir)/VERSION
 ndi_var_type.h: ndi_define_float.c
 	@echo Making ndi_var_type.h
 	$(RM) ndi_define_float
-	$(CC) $(CFLAGS) -I$(srcdir) $(CPPFLAGS) -o ndi_define_float \
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o ndi_define_float \
 	$(srcdir)/ndi_define_float.c
 	./ndi_define_float > $@
 	$(RM) ndi_define_float
@@ -192,7 +194,7 @@ ndi_var_type.h: ndi_define_float.c
 fmangle.h: fcallscc.c fcallscf.f ndi_keywords.i
 	@echo Making fmangle.h
 	$(RM) f_calls_c
-	$(CC) -c $(CFLAGS) -I$(srcdir) $(CPPFLAGS) $(srcdir)/fcallscc.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(srcdir)/fcallscc.c
 	$(FC) -c $(FFLAGS) -I$(srcdir) $(srcdir)/fcallscf.f
 	$(FC) $(FFLAGS) -I$(srcdir) -o f_calls_c fcallscf.o fcallscc.o
 	./f_calls_c > $@
@@ -208,36 +210,38 @@ ndi.md: $(SRC)
 ndi.sv: 
 	$(MD5SUM) --check ndi.md
 
-GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
-	cd $(top_srcdir) && ./config.status
-
 # pattern rules
 
 %.o: %.f
 	$(FC) $(FFLAGS) -c -o $@ $<
 
 %.o: %.F
-	$(CPP) -P -I$(srcdir) $(CPPFLAGS) $< > $@.f 
+	$(CPP) -P $(CPPFLAGS) $< > $@.f 
 	$(FC) $(FFLAGS) -I$(srcdir) -c -o $@ $<
 
 %.o: %.c
-	$(CC) $(CFLAGS) -O -DNDEBUG -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
+	$(CC) $(CFLAGS) -O -DNDEBUG $(CPPFLAGS) \
+	$(NO_NAME_SUB_FLAG) -c -o $@ $<
 
 %_float32.o: %.c
-	$(CC) $(CFLAGS) -O -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -O $(CPPFLAGS) \
+	$(FLOAT32FLAGS) -c -o $@ $<
 
 %_float64.o: %.c
-	$(CC) $(CFLAGS) -O -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -O $(CPPFLAGS) \
+	$(FLOAT64FLAGS) -c -o $@ $<
 
 %_debug.o: %.c
-	$(CC) $(CFLAGS) -g -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) -c -o $@ $<
+	$(CC) $(CFLAGS) -g $(CPPFLAGS) \
+	$(NO_NAME_SUB_FLAG) -c -o $@ $<
 
 %_float32_debug.o: %.c
-	$(CC) $(CFLAGS) -g -I$(srcdir) $(CPPFLAGS) $(FLOAT32FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -g $(CPPFLAGS) \
+	$(FLOAT32FLAGS) -c -o $@ $<
 
 %_float64_debug.o: %.c
-	$(CC) $(CFLAGS) -g -I$(srcdir) $(CPPFLAGS) $(FLOAT64FLAGS) -c -o $@ $<
-
+	$(CC) $(CFLAGS) -g $(CPPFLAGS) \
+	$(FLOAT64FLAGS) -c -o $@ $<
 
 # include dependency files, if we were not invoked as "make clean"
 # or "make distclean"
@@ -249,12 +253,15 @@ endif
 # rules for calculating dependency files
 
 .dep/%.d: %.c ndi_version.h fmangle.h ndi_var_type.h
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $< | sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
+	$(DEP) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $< | \
+	sed  -e 's@^.*\.o:@$*.o $*.d:@' > $@
 
 .dep/%_float32.d: %.c ndi_version.h fmangle.h ndi_var_type.h
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT32FLAGS) $< | sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
+	$(DEP) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT32FLAGS) $< | \
+	sed  -e 's@^.*\.o:@$*_float32.o $*_float32.d:@' > $@
 
 .dep/%_float64.d: %.c ndi_version.h fmangle.h ndi_var_type.h
-	$(DEP) -I$(srcdir) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT64FLAGS) $< | sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
+	$(DEP) $(CPPFLAGS) $(NO_NAME_SUB_FLAG) $(FLOAT64FLAGS) $< | \
+	sed  -e 's@^.*\.o:@$*_float64.o $*_float64.d:@' > $@
 
 ######################################################################

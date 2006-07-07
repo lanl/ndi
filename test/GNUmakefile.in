@@ -81,9 +81,6 @@ clean:
 testclean:
 	$(RM) $(DATA_TESTS) check_data.out
 
-GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
-	cd $(top_srcdir) && ./config.status
-
 # pattern rules
 
 %: %.c

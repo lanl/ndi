@@ -40,7 +40,7 @@ include $(top_srcdir)/conf/$(CONFIG).mk
 
 ######################################################################
 
-CPPFLAGS	+= -I$(top_srcdir)/src
+CPPFLAGS	+= -I.. -I$(top_srcdir)/src
 LDFLAGS		+= -L..
 LDLIBS		:= -lndi_debug -lm
 
@@ -172,9 +172,6 @@ clean:
 
 distclean: clean
 	$(RM) $(TESTOUT)
-
-GNUmakefile: $(srcdir)/GNUmakefile.in $(top_srcdir)/config.status
-	cd $(top_srcdir) && ./config.status
 
 # pattern rules
 
