@@ -1,5 +1,5 @@
 BEGIN {
-     perms = "-rw-r[-w]-r--|drw[xsStT]rw[xsStT]r-[xsStT]";
+     perms = "-r[-w]-r[-w]-r--|drw[xsStT]rw[xsStT]r-[xsStT]";
      group = "pdata";
      result = 1;
 }

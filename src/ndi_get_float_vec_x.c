@@ -74,7 +74,7 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 	} else {
 	    ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
 	}
-        if (ierr == 9) ierr = 0; /* radlib warning kludge */
+        /* if (ierr == 9) ierr = 0; /* radlib warning kludge */
 	break;
 
     case NDI_RPROD_MLT:		/* Reaction multiplicity */

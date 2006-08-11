@@ -1,3 +1,7 @@
+2006-08-11  Mark G. Gray  <mgg@qsc5>
+
+	* ndi_zaid_dir.c: (ndi_zaid_dir) added radchem_chains to lib match
+
 2006-01-27  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* ndi_set_isotope.c (ndi_c_set_zaid_h): call to ndi_std_z0id for

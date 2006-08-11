@@ -64,11 +64,8 @@ SRC_TESTC := \
 	ebounds.c \
 	err22.c \
 	ex_avg_e.c \
-	ex_gendir_path.c \
 	ex_kerma1.c \
 	ex_kerma2.c \
-	gendir_handle.c \
-	gendir_path.c \
 	handle_bashing.c \
 	kerma_example.c \
 	kerma_example_handle.c \
@@ -116,15 +113,16 @@ SRC_TESTC := \
 	transpose_scat.c \
 	za.c \
 	za_handle.c 
+#	ex_gendir_path.c \
+#	gendir_handle.c \
+#	gendir_path.c \
 
 SRC_TESTF := \
 	ex_avg_ef.F \
-	ex_gendir_pathf.F \
 	ex_kerma1f.F \
 	ex_kerma2f.F  \
 	f_handlef.F \
 	f_handlef2.F \
-	gendir_pathf.F \
 	library_checkf.F \
 	mpmgf.F \
 	mpmg2f.F \
@@ -136,6 +134,8 @@ SRC_TESTF := \
 	symbol_translatef.F \
 	transpose_scatf.F \
 	21grp_ck.F
+#	ex_gendir_pathf.F \
+#	gendir_pathf.F \
 
 # determine the test object files
 

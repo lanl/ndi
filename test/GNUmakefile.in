@@ -42,8 +42,8 @@ include $(top_srcdir)/conf/$(CONFIG).mk
 
 ######################################################################
 
-CPPFLAGS	+= -I $(includedir)
-LDFLAGS		+= -L $(libdir)
+CPPFLAGS	+= -I$(includedir)
+LDFLAGS		+= -L$(libdir)
 LDLIBS		:= -lndi -lm
 
 DATA_TEST_SRC := \

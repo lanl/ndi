@@ -152,7 +152,8 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 				*at_wgt = dir_rec.at_wgt;
 
 				/*  Check current library against user-default library */
-				if ( (reaction_flag != 0) ||   /* Chain libraries currently are undefined */
+   /* Chain libraries currently are undefined */
+				if ( (reaction_flag != 0 && l_type != 'd') ||
                                      ( (strchr(in_zaid, '.') != NULL) &&
                                        (isalnum (* (strchr (in_zaid, '.') + 1))))) {
 				    /* A library is implied in the ZAID */
