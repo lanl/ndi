@@ -37,7 +37,7 @@ MD5SUM		= @MD5SUM@
 GROUP		:= pdata
 
 INSTALL_DIR	= $(INSTALL) -g $(GROUP) -m 775 -d
-INSTALL_LIB	= $(INSTALL) -g $(GROUP) -m 644
+INSTALL_LIB	= $(INSTALL) -g $(GROUP) -m 444
 
 ######################################################################
 
