@@ -1376,6 +1376,10 @@ then
 		CONFIG=alpha-tru64
 		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
+	powerpc-apple-darwin*)
+		CONFIG=powerpc-darwin
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
+		;;
 	*)
 		{ { echo "$as_me:$LINENO: error: Cannot guess CONFIG" >&5
 echo "$as_me: error: Cannot guess CONFIG" >&2;}
