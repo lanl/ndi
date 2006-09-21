@@ -50,7 +50,9 @@ AC_MSG_RESULT([${CONFIG}.mk])
 AC_SUBST([CONFIG])
 
 AC_MSG_CHECKING([makefile installation prefix])
-if test "${with_prefix:=/usr/local}" = /usr/local
+AC_PREFIX_DEFAULT(${NDI_ROOT})
+
+if test "${prefix:=/usr/local}" = "/usr/local" -o "${prefix}" = "NONE"
 then
 	prefix=${NDI_ROOT}
 fi

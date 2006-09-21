@@ -1,6 +1,37 @@
 #!/bin/sh
+#
+# NAME
+#    build - build platform dependent NDI library
+#
+# SYNOPSIS 
+#    build [target]
+#
+# DESCRIPTION
+#    This command configures NDI in a platform dependent build 
+#    directory and makes the specified target.
+########################################################################
+CMDNAME=`basename $0`
+USAGE="Usage: $CMDNAME [-C<config option>] [target]"
 
+#
+# Parse the command options
+#
+
+while getopts C: OPT
+do
+  case $OPT in
+      C) CONFIG=$OPTARG
+	  ;;
+      \?) echo "$USAGE" 1>&2
+          exit 1
+	  ;;
+   esac
+done
+shift `expr $OPTIND - 1`
+
+#
 # assign platform dependent build directory
+#
 GNU_OS_OUT=`conf/config.guess`
 BUILD_DIR=build-${GNU_OS_OUT}
 
@@ -8,8 +39,10 @@ BUILD_DIR=build-${GNU_OS_OUT}
 if test ! -d ${BUILD_DIR} 
 then
     mkdir ${BUILD_DIR}
-    (cd ${BUILD_DIR}; ../configure)
+    (cd ${BUILD_DIR}; ../configure $CONFIG)
 fi
 
 # execute make command in build directory
 (cd ${BUILD_DIR}; gmake $*)
+
+########################################################################
