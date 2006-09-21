@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # assign platform dependent build directory
-GNU_OS_OUT=`./gnu-os`
+GNU_OS_OUT=`conf/config.guess`
 BUILD_DIR=build-${GNU_OS_OUT}
 
 # create and configure in build directory if it doesn't exist
