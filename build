@@ -4,30 +4,35 @@
 #    build - build platform dependent NDI library
 #
 # SYNOPSIS 
-#    build [target]
+#    build [-C <config option>] [target]
 #
 # DESCRIPTION
 #    This command configures NDI in a platform dependent build 
 #    directory and makes the specified target.
 ########################################################################
 CMDNAME=`basename $0`
-USAGE="Usage: $CMDNAME [-C<config option>] [target]"
+USAGE="Usage: $CMDNAME [-C <config option>] [target]"
 
 #
 # Parse the command options
 #
 
-while getopts C: OPT
+while :
 do
-  case $OPT in
-      C) CONFIG=$OPTARG
+  case $1 in
+      -C) CONFIG=$2
+	  shift 2
 	  ;;
-      \?) echo "$USAGE" 1>&2
+      --) shift
+	  break
+	  ;;
+      -*) echo "$USAGE" 1>&2
           exit 1
+	  ;;
+      *) break
 	  ;;
    esac
 done
-shift `expr $OPTIND - 1`
 
 #
 # assign platform dependent build directory

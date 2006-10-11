@@ -42,6 +42,8 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 				   NDI_VERSION_DATA "/share/gendir",
 				   "/usr/gapps/lanl-data/nuclear/ndi/"
 				   NDI_VERSION_DATA "/share/gendir",
+				   "/projects/lanl-data/nuclear/ndi/"
+				   NDI_VERSION_DATA "/share/gendir",
 				   ""};
     int i;
 

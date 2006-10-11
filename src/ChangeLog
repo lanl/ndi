@@ -1,3 +1,8 @@
+2006-09-27  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_open_gendir.c (ndi_open_gendir): Added red storm path to
+	gendir search
+
 2006-08-11  Mark G. Gray  <mgg@qsc5>
 
 	* ndi_zaid_dir.c: (ndi_zaid_dir) added radchem_chains to lib match
