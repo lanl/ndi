@@ -22,7 +22,7 @@ digraph ndi {
 	ndi -> rsb[label="20) MG photon\nZA translation", color=green];
 
 	frankles -> ndi[label="24) TN A=11", color=green];
-	ndi -> jomc[label="21) NDI error\nstring", color=green];
+	ndi -> jomc[label="21) NDI error\nstring", color=yellow];
 
 	{rank = min; morgan; rsb; jomc} 
 	{rank = max; dkp; frankles}

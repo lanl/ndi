@@ -1,0 +1,41 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Average bin energy & Control number: 30\\ \hline
+Stakeholder: John Vandenkieboom & Request date: October 16, 2005\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Add option to calculate average bin energy from collapsed average bin
+velocity by $\bar{E} = \frac{1}{2} m \bar{v}^2$ \\ \hline
+\end{tabular}
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: Replace hard code kludge\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query: 
+\begin{verbatim}
+/* Set calcGet number of edist interpolation temperatures */
+ierr = NDI2_set_option_size(handle, NDI_E_AVG, "from_ke");
+/* Get array of edist interpolation temperatures */
+ierr = NDI2_get_float64_vec(handle, NDI_E_AVG, temp_vec, num_grp);
+\end{verbatim}
+\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}

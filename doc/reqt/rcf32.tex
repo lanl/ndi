@@ -1,0 +1,45 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: NDI\_ENERGY\_N extended to multi-particle & Control number: 32\\ \hline
+Stakeholder: Joann Campbell & Request date: October 16, 2006\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Add support for \texttt{ndi\_get\_floatXX\_vec} call with
+\texttt{NDI\_ENERGY\_N} for multiparticle handle.  Return appropriate
+values for neutron, zeros for everything else.\\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: Needed for standard energy edits\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+/* Get size of neutron energy vector (handle's num_grps) */ 
+num_it = NDI2_get_size(handle, NDI_ENERGY_N, &ierr);
+/* Get array of neutron energy (zeros returned for other particles */
+ierr = NDI2_get_float64_vec(handle, NDI_ENERGY_N, tmp_vec, size);
+\end{verbatim}
+\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+
+

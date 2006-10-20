@@ -1,0 +1,32 @@
+digraph ndi {
+	orientation=landscape;
+	page="8.5, 11";
+	size="6.5, 9";
+	center=true;
+	label="green=past work\nyellow=present work(10/23/06)\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	jomc[label="Joann Campbell"];
+	morgan[label="Morgan White"];
+	rcl[label="Bob Little"];
+	dkp[label="Kent Parsons"];
+	boom[label="John Vandenkieboom"];
+	cms[label="Charlie Snell"];
+	drnuke[label="Steven Nolen"];
+
+	/* project */
+	ndi[label="NDI 2.0.6", shape="ellipse"];
+	
+	ndi -> drnuke[label="15) MCMG", color=red];
+	ndi -> morgan[label="28) User Weights", color=red];
+	ndi -> cms[label="29) Cont. 2nd dist.", color=red];
+	ndi -> boom[label="30) E_AVG from ke", color=red];
+	jomc -> ndi[label="31) PD chain", color=green];
+	ndi -> jomc[label="31) PD chain", color=yellow];
+	ndi -> jomc[label="32) MP NDI_ENERGY_N", color=red];
+	ndi -> morgan[label="33) Named weight sets", color=red];
+	ndi -> dkp[label="34) Am SN data", color=red];
+	rcl -> ndi[label="34) Am SN data", color=red];
+
+}

@@ -1,0 +1,39 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: User input weights & Control number: 28\\ \hline
+Stakeholder: Morgan White & Request date: October 16, 2005\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+User specified weight array for collapse \\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: Research project\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query: 
+\begin{verbatim}
+/* Set collapse weights */
+ierr = NDI2_set_float64_vec(handle, NDI_WEIGHTS, weights, num_grps);
+\end{verbatim}\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? No \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
