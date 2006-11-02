@@ -1,0 +1,39 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Treat monoenergetic TN neutrons appropriately & Control number: 36\\ \hline
+Stakeholder: Joann Campbell & Request date: October 31, 2005\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Distribute monoenergetic TN neutrons among groups to conserve energy.\\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: Energy conservation issue\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query: 
+\begin{verbatim}
+/* Select monoenergetic neutron treatment */
+ierr = NDI2_set_option(handle, NDI_MONO_ENERGY, "average");
+\end{verbatim}
+\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
