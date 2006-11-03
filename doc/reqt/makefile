@@ -1,38 +1,39 @@
+
+# DEFINE VERSION and DEPENDS list
+
+VERSION ?= $(shell ls -t rcf_*.tex | head -1 | sed 's/rcf_\(.*\)\.tex/\1/')
+
+DEPENDS	:= $(shell grep input rcf_$(VERSION).tex | \
+			sed 's/^[ \t]*\\input{\(.*\)}[ \t]*$$/\1.tex/')
+
+RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
+RERUNBIB = "No file.*\.bbl|Citation.*undefined"
+
+
+
+# RULES
+
 %.ps: %.dot
 	dot -Tps -o $@ $<
 
 %.pdf: %.tex
 	pdflatex $<
-	pdflatex $<
+	egrep -c $(RERUNBIB) $*.log && (bibtex $*;pdflatex $<); true
+	egrep $(RERUN) $*.log && (pdflatex $<) ; true
+	egrep $(RERUN) $*.log && (pdflatex $<) ; true
 
-%.dvi: %.tex
-	latex $<
-	latex $<
+# TARGETS
 
-%.ps: %.dvi
-	dvips -o $@ $<
+$(VERSION): context_$(VERSION).ps rcf_$(VERSION).pdf
 
-2.0.4: context_2.0.4.ps rcf_2.0.4.ps
+context_$(VERSION).ps: context_$(VERSION).dot
 
-fy06: context_fy06.ps rcf_fy06.ps
-fy06.pdf: context_fy06.pdf rcf_fy06.pdf
+rcf_$(VERSION).pdf: rcf_$(VERSION).tex $(DEPENDS)
 
-2.0.2: context_2.0.2.ps rcf_2.0.2.ps
-2.0.1: context_2.0.1.ps rcf_2.0.1.ps
+.PHONY: print clean
 
-rcf_2.0.4.ps: rcf_2.0.4.tex rcf17.tex rcf20.tex rcf21.tex \
-		rcf24.tex rcf25.tex rcf26.tex rcf27.tex
-
-rcf_2.0.2.ps: rcf_2.0.2.tex rcf7.tex rcf12.tex rcf14.tex \
-		rcf16.tex rcf17.tex rcf19.tex
-
-rcf_fy06.ps: rcf_fy06.tex rcf15.tex rcf18.tex rcf20.tex \
-		rcf21.tex rcf22.tex rcf23.tex rcf24.tex \
-		rcf25.tex rcf26.tex rcf27.tex
-
-rcf_fy06.pdf: rcf_fy06.tex rcf15.tex rcf18.tex rcf20.tex \
-		rcf21.tex rcf22.tex rcf23.tex rcf24.tex \
-		rcf25.tex rcf26.tex rcf27.tex
+print: context_$(VERSION).ps rcf_$(VERSION).pdf
+	lpr context_$(VERSION).ps rcf_$(VERSION).pdf
 
 clean:
-	rm *.ps *.pdf *.aux *.log *~
+	rm -f *.ps *.pdf *.aux *.log *.dvi *~
