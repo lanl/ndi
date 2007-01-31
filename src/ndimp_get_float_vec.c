@@ -39,6 +39,7 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
     case NDI_WGTS:
     case NDI_VEL:
     case NDI_E_AVG:
+    case NDI_ENERGY_N:
     case NDI_HEATING:
     case NDI_KERMA:
     case NDI_SIG_TOT:
