@@ -34,6 +34,10 @@ then
 		CONFIG=alpha-tru64
 		NDI_ROOT=/usr/projects/data/nuclear/ndi
 		;;
+	powerpc-*-darwin*)
+		CONFIG=powerpc-darwin
+		NDI_ROOT=/usr/projects/data/nuclear/ndi
+		;;
 	*)
 		AC_MSG_ERROR([Cannot guess CONFIG])
 		;;
