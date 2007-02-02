@@ -831,24 +831,27 @@ static int NDI_CALC_E_N(state_struct *state, FLOAT_TYPE * return_vec,
 	num_grps = state->grp_num_new;
     }
 
-    /*p0_size =  num_grps * num_grps; */
-    p0_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &ierr);
+    if (state->particle_type == 1) { /* Neutron */
+         /*p0_size =  num_grps * num_grps; */
+         p0_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &ierr);
 
-    p0_vec = (FLOAT_TYPE *) ndi_malloc(p0_size * sizeof(FLOAT_TYPE));
-    ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0, p0_vec, p0_size);
-    eavg = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
-    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_E_AVG, eavg, num_grps);
-    for (i = 0; i < num_grps; i++) {
-	return_vec[i] = 0;
-	for (j = 0; j < num_grps; j++) {
-	    return_vec[i] += eavg[j] * p0_vec[(i * num_grps) + j];
-	}
+         p0_vec = (FLOAT_TYPE *) ndi_malloc(p0_size * sizeof(FLOAT_TYPE));
+         ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0, 
+                                      p0_vec, p0_size);
+         eavg = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+         ierr = NDI_GET_FLOAT_VEC_H(state, NDI_E_AVG, eavg, num_grps);
+         for (i = 0; i < num_grps; i++) {
+              return_vec[i] = 0;
+              for (j = 0; j < num_grps; j++) {
+                   return_vec[i] += eavg[j] * p0_vec[(i * num_grps) + j];
+              }
+         }
+
+         if (p0_vec)
+              ndi_free((void **) &p0_vec);
+         if (eavg)
+              ndi_free((void **) &eavg);
     }
-
-    if (p0_vec)
-	ndi_free((void **) &p0_vec);
-    if (eavg)
-	ndi_free((void **) &eavg);
     return (ierr);
 }
 
@@ -2174,7 +2177,7 @@ static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
     int ierr = 0;
     int i;
     ndi_float64 *eavg_p;
-    ndi_float64 _16_llnl_eavg[] =
+    ndi_float64 _16_lanl2_eavg[] =
 	{ 14.149974, 12.900168, 11.025994, 8.7271099, 6.8058861,
 	4.5529926, 3.2272797, 1.9317643, 0.87432668, 0.32892994,
 	0.11622681, 4.26904e-2, 1.567259e-2, 5.7608294e-3,
@@ -2191,7 +2194,7 @@ static int COPY_SGNDF_E(int num_grps, FLOAT_TYPE * return_vec,
     };
 
     if (num_grps == 16) {
-	eavg_p = _16_llnl_eavg;
+	eavg_p = _16_lanl2_eavg;
     } else if (num_grps == 30) {
 	eavg_p = _30_lanl_eavg;
     } else {

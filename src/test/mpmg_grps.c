@@ -100,6 +100,21 @@ int main ()
         free(int_vec);
    }
 
+   /* ENERGY_N (Requirement 32) */
+   flt_vec_size = NDI2_get_size(data_handle, NDI_ENERGY_N, &ierr);
+   if (ierr)
+        printf("\n  **Error %d getting size of energy_n.\n", ierr);
+   printf("  Energy_n size: %d\n", flt_vec_size);
+
+   flt64_vec = (ndi_float64 *)calloc(flt_vec_size, sizeof(ndi_float64));
+   ierr = NDI2_get_float64_vec(data_handle, NDI_ENERGY_N, 
+                               flt64_vec, flt_vec_size);
+   if (ierr)
+        printf("\n  **Error %d getting energy_n.\n", ierr);
+   print_float64_vec(flt64_vec, flt_vec_size);
+   if (flt64_vec) {
+        free(flt64_vec);
+   }
 
    /* EBOUNDS */
    flt_vec_size = NDI2_get_size(data_handle, NDI_E_BOUNDS, &ierr);

@@ -1,3 +1,7 @@
+2007-02-02  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* mpmg_grps.c (main): updated test for mp energy_n for Requirement 32
+
 2006-01-27  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
 	* photon.c (test_photon): updated test for photon ZA for
