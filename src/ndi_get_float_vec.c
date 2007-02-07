@@ -72,7 +72,7 @@ static int LEGACY_E_CALC(state_struct *state, int num_grps,
                          FLOAT_TYPE *return_vec, int return_size);
 static int FLAT_ENERGY (state_struct *state, int num_grps, 
                          FLOAT_TYPE *return_vec, int return_size);
-static int RE_ENERGY (state_struct *state, int num_grps, 
+static int TD_ENERGY (state_struct *state, int num_grps, 
                       FLOAT_TYPE *return_vec, int return_size);
 
 
@@ -489,7 +489,6 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
 	ierr =
 	    GET_DEPL_XS(state, &state->iso_stat, return_vec, return_size);
-        /* if (ierr == 9) ierr = 0; /* radlib warning kludge */
 	break;
 
       /**********  UNKNOWN KEYWORD  ***********/
@@ -2416,7 +2415,7 @@ static int LEGACY_E_CALC(state_struct *state, int num_grps, FLOAT_TYPE *return_v
 /*********************************************************************/
 
 /* Flat weighted average energy */
-static int FLAT_ENERGY (state_struct *state, int num_grps, 
+static int FLAT_ENERGY(state_struct *state, int num_grps, 
                          FLOAT_TYPE *return_vec, int return_size) 
 {
     int ierr = 0;
@@ -2559,7 +2558,7 @@ static double tdx(double x)
 }
 
 /* TD weighted average energy */
-static int TD_ENERGY (state_struct *state, int num_grps, 
+static int TD_ENERGY(state_struct *state, int num_grps, 
                          FLOAT_TYPE *return_vec, int return_size) 
 {
     int ierr = 0;
