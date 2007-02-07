@@ -1,3 +1,16 @@
+2007-02-07  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_set_option.c (ndi_set_e_avg): added FLAT_CALC, TD_CALC to options
+
+	* ndi_internal.h: added FLAT_CALC, TD_CALC to options
+
+	* ndi_define_float.c (main): registered FLAT, TD energy
+	calculation routines
+
+	* ndi_get_float_vec.c (FLAT_ENERGY): added flat weight average
+	energy calculation
+	(TD_ENERGY): added td weight average energy calculation
+
 2007-02-02  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_CALC_E_N): non-zero return for neutrons only

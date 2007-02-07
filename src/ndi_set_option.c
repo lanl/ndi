@@ -547,6 +547,10 @@ static int ndi_set_e_avg(state_struct *state, const char *value)
 	state->e_avg_calc = SGNDF;
    } else if ( strncmp( value, "legacy_calc", 12 ) == 0 ) {
       state->e_avg_calc = LEGACY_VEL_CALC;
+   } else if ( strncmp( value, "from_flat", 10 ) == 0 ) {
+      state->e_avg_calc = FLAT_CALC;
+   } else if ( strncmp( value, "from_td", 8 ) == 0 ) {
+      state->e_avg_calc = TD_CALC;
     } else {
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;

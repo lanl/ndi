@@ -117,6 +117,8 @@ int main()
     printf("#define MIDPT_ENERGY ndi_midpt_energy32\n");
     printf("#define VELOCITY_CALC ndi_velocity_calc32\n");
     printf("#define LEGACY_E_CALC ndi_legacy_e_calc32\n");
+    printf("#define FLAT_ENERGY ndi_flat_energy32\n");
+    printf("#define TD_ENERGY ndi_td_energy32\n");
 
     printf("#else\n");
     printf("#define FLOAT_TYPE ndi_float64\n");
@@ -207,6 +209,8 @@ int main()
     printf("#define MIDPT_ENERGY ndi_midpt_energy64\n");
     printf("#define VELOCITY_CALC ndi_velocity_calc64\n");
     printf("#define LEGACY_E_CALC ndi_legacy_e_calc64\n");
+    printf("#define FLAT_ENERGY ndi_flat_energy64\n");
+    printf("#define TD_ENERGY ndi_td_energy64\n");
 
     printf("#endif\n\n\n");
 

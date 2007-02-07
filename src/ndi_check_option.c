@@ -458,6 +458,10 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 	strncpy(value, "from_sgndf", string_size);
     } else if ( state->e_avg_calc == LEGACY_VEL_CALC ) {
         strncpy( value, "legacy_calc", string_size );
+    } else if ( state->e_avg_calc == FLAT_CALC ) {
+        strncpy( value, "from_flat", string_size );
+    } else if ( state->e_avg_calc == TD_CALC ) {
+        strncpy( value, "from_td", string_size );
     } else {
 	strncpy(value, "", string_size);
 	ierr = -27;

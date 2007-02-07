@@ -68,7 +68,7 @@ typedef long int_zaid_type;
 typedef char mg_zaid[64];
 typedef char tn_zaid[64];
 
-enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC};
+enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC, FLAT_CALC, TD_CALC};
 enum kerma_calc_type {DATA, CALC, DATA_CALC};  
 
 typedef struct _dir_entry {
