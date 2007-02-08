@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="green=past work\nyellow=present work(01/31/07)\nred=future work";
+	label="green=past work\nyellow=present work(02/08/07)\nred=future work";
 	node[shape="box"];
 
 	/* stakeholders */
@@ -16,12 +16,11 @@ digraph ndi {
 	/* project */
 	ndi[label="NDI 2.0.6", shape="ellipse"];
 	
-	ndi -> boom[label="30) E_AVG\nfrom v_bar", color=yellow];
 	jomc -> ndi[label="31) User\nPD chain", color=green];
-	ndi -> jomc[label="31) User\nPD chain", color=yellow];
-	ndi -> jomc[label="32) Multi-part.\n NDI_ENERGY_N", color=yellow];
-	ndi -> bag[label="34) Am\nSN data", color=red];
-	rcl -> ndi[label="34) Am\nSN data", color=red];
-	ndi -> boom[label="35) E_AVG\nfrom weights", color=yellow];
+	ndi -> jomc[label="31) User\nPD chain", color=green];
+	ndi -> jomc[label="32) Multi-part.\n NDI_ENERGY_N", color=green];
+	ndi -> bag[label="34) Am\nSN data", color=green];
+	rcl -> ndi[label="34) Am\nSN data", color=green];
+	ndi -> boom[label="35) E_AVG\nfrom weights", color=green];
 
 }
