@@ -352,6 +352,145 @@ int main ()
        ret_vec64 = NULL;
    }
 
+   /* Average energies from flat calculation (reqt 35)*/
+   /* No collapsing */
+   printf("******** U235:  Flat calculation; no collapse ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "default");
+   ierr = ndi_set_option(NDI_E_AVG, "from_flat");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (flat calculation) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+   
+   /* Collapsing */
+   printf("******** U235:  Flat calculation; 16_lanl ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (flat calculation) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+
+   
+   /* Set collapse structure to same as default */
+   printf("******** U235:  Flat calculation; 30_lanl ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "30_lanl");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (flat calculation) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+
+   /* TD average energies  (reqt 35) */
+   /* No collapsing */
+   printf("******** U235:  TD energies; no collapse ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "default");
+   ierr = ndi_set_option(NDI_E_AVG, "from_td");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+   
+   /* Collapsing */
+   printf("******** U235:  TD energies; 16_lanl ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+
+   
+   /*  Set collapse structure to same as default */
+   printf("******** U235:  TD energies; 30_lanl ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "30_lanl");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+
+ /*  Collapse to 16_lanl2 */
+  printf("******** U235:  TD energies; 16_lanl2 ********\n");
+   ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl2");
+   vec_size = ndi_get_size(NDI_E_AVG, &ierr);
+   ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+   }
+
+   printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   if (ret_vec64) {
+       free(ret_vec64);
+       ret_vec64 = NULL;
+   }
+
    ierr = ndi_close();
    if (ierr)
      printf("  **Error %d in closing NDI.\n\n", ierr );

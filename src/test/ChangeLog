@@ -1,3 +1,8 @@
+2007-02-08  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* avg_e.c (main): updated test for flat, TD average energies for
+	Requirement 35
+
 2007-02-02  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* mpmg_grps.c (main): updated test for mp energy_n for Requirement 32
