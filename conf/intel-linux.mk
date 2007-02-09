@@ -9,7 +9,7 @@
 # Standard macros
 CC		:= cc
 FC		:= lf95
-CFLAGS		:= -Wall
+CFLAGS		:= -Wall -fPIC
 ASFLAGS		:= $(CFLAGS)
 
 # defines

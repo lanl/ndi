@@ -26,7 +26,7 @@ prefix		= @prefix@
 exec_prefix	= @exec_prefix@
 
 DEP		= gcc -MM
-CPP		= @CPP@
+CPP		= @CPP@ -E -traditional
 RANLIB		= @RANLIB@
 INSTALL		= @INSTALL@
 AWK		= @AWK@

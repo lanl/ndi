@@ -4,16 +4,16 @@
 #
 ######################################################################
 
-# CONFIG = intel-linux
+# CONFIG = x86_65-linux
 
 # Standard macros
 CC		:= /usr/bin/gcc
 FC		:= pgf95
-CFLAGS		:= -Wall
+CFLAGS		:= -Wall -fPIC
 ASFLAGS		:= $(CFLAGS)
 
 # defines
-CPPFLAGS	+= -DLINUX
+CPPFLAGS	+= -DLINUX 
 NO_NAME_SUB_FLAG:= -D__NDI_NO_NAME_SUB
 FLOAT32FLAGS    := -DFLOAT32
 FLOAT64FLAGS    := -DFLOAT64
