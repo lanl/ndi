@@ -1,11 +1,13 @@
 #include "ndi_keywords.h"
-#define ZAID_STR_SIZE 133
 
       program main
 
+      integer ZAIDSS
+      parameter (ZAIDSS=133)
+
       integer ierr
       integer i
-      character*ZAID_STR_SIZE zaid_str
+      character*(ZAIDSS) zaid_str
 
       integer num_izaid
       integer izaid(14)

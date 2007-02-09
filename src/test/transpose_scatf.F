@@ -1,9 +1,9 @@
 #include "ndi_keywords.h"
 
-#define MAX_VEC_SIZE 70000
-#define NUM_P_GRPS 2
-
       program main
+
+      integer MAXVEC, NUMPG
+      parameter (MAXVEC=70000, NUMPG=2)
 
       integer ierr
       integer gendir, gendir2
@@ -12,11 +12,11 @@
       integer vec_size
       integer neutron_h, photon_h
       integer pgrps
-      real*8 scat_trans(MAX_VEC_SIZE)
-      real*8 scat_no_trans(MAX_VEC_SIZE)
-      real*8 pbounds(NUM_P_GRPS + 1)
+      real*8 scat_trans(MAXVEC)
+      real*8 scat_no_trans(MAXVEC)
+      real*8 pbounds(NUMPG + 1)
 
-      pgrps = NUM_P_GRPS
+      pgrps = NUMPG
       data pbounds  / 20.0, 4.0, 0.1 /
 
       write(*,*) "**  TRANSPOSE SET IN DATA TABLE  **"
@@ -47,7 +47,7 @@ c     Single particle test
      $     vec_size, ierr)
       call check_err(ierr, "getting pn full size")
       call ndi2_get_float64_vec_n(single_part_handle, NDI_PN_FULL, 0,
-     $     scat_no_trans, MAX_VEC_SIZE, ierr)
+     $     scat_no_trans, MAXVEC, ierr)
       call check_err(ierr, "getting pn full")
       write(*,*) "  No transpose:"
       print 10, (scat_no_trans(i), i = 1, vec_size)
@@ -57,7 +57,7 @@ c     Single particle test
      $     'transpose', ierr)
       call check_err(ierr, "setting mat order transpose")
       call ndi2_get_float64_vec_n(single_part_handle, NDI_PN_FULL, 0,
-     $     scat_trans, MAX_VEC_SIZE, ierr)
+     $     scat_trans, MAXVEC, ierr)
       call check_err(ierr, "getting transposed pn full")
       write(*,*) " "
       write(*,*) " "
@@ -101,7 +101,7 @@ c     Get data
      $     vec_size, ierr)
       call check_err(ierr, "getting pn full size")
       call ndi2_get_float64_vec_n(mpmg_handle, NDI_PN_FULL, 0,
-     $     scat_no_trans, MAX_VEC_SIZE, ierr)
+     $     scat_no_trans, MAXVEC, ierr)
       call check_err(ierr, "getting pn full")
       write(*,*) "  No transpose:"
       print 10, (scat_no_trans(i), i = 1, vec_size)
@@ -110,7 +110,7 @@ c     Get data
      $     "transpose", ierr)
       call check_err(ierr, "setting mat order transpose")
       call ndi2_get_float64_vec_n(mpmg_handle, NDI_PN_FULL, 0,
-     $     scat_trans, MAX_VEC_SIZE, ierr)
+     $     scat_trans, MAXVEC, ierr)
       call check_err(ierr, "setting pn full")
       write(*,*) " "
       write(*,*) " "
@@ -150,7 +150,7 @@ c     Single particle test
      $     vec_size, ierr)
       call check_err(ierr, "getting pn full size")
       call ndi2_get_float64_vec_n(single_part_handle, NDI_PN_FULL, 0,
-     $     scat_no_trans, MAX_VEC_SIZE, ierr)
+     $     scat_no_trans, MAXVEC, ierr)
       call check_err(ierr, "getting pn full")
       write(*,*) "  No transpose:"
       print 10, (scat_no_trans(i), i = 1, vec_size)
@@ -175,7 +175,7 @@ c     Get another data handle after setting transpose
       call check_err(ierr, "setting isotope 92235")
 
       call ndi2_get_float64_vec_n(single_part_handle2, NDI_PN_FULL, 0,
-     $     scat_trans, MAX_VEC_SIZE, ierr)
+     $     scat_trans, MAXVEC, ierr)
       call check_err(ierr, "getting transposed pn full")
       write(*,*) " "
       write(*,*) " "
@@ -220,7 +220,7 @@ c     Get data
      $     vec_size, ierr)
       call check_err(ierr, "getting pn full size")
       call ndi2_get_float64_vec_n(mpmg_handle, NDI_PN_FULL, 0,
-     $     scat_no_trans, MAX_VEC_SIZE, ierr)
+     $     scat_no_trans, MAXVEC, ierr)
       call check_err(ierr, "getting pn full")
       write(*,*) "  No transpose:"
       print 10, (scat_no_trans(i), i = 1, vec_size)
@@ -258,7 +258,7 @@ c     Get data
      $     vec_size, ierr)
       call check_err(ierr, "getting transposed pn full size")
       call ndi2_get_float64_vec_n(mpmg_handle2, NDI_PN_FULL, 0,
-     $     scat_trans, MAX_VEC_SIZE, ierr)
+     $     scat_trans, MAXVEC, ierr)
       call check_err(ierr, "setting pn full")
       write(*,*) " "
       write(*,*) " "

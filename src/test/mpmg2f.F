@@ -1,8 +1,9 @@
 #include "ndi_keywords.h"
 
-#define MAX_VEC_SIZE 70000
-
       program main
+
+      integer MAXVEC
+      parameter (MAXVEC=70000)
 
       integer ierr
       integer i
@@ -10,13 +11,13 @@
       integer data_handle
       integer return_int
       integer int_vec_size
-      integer int_vec(MAX_VEC_SIZE)
+      integer int_vec(MAXVEC)
       integer flt_vec_size
       integer handle0, handle1
       integer num_libraries
       character*8 library(3)
       character*16 part_zaid
-      real*8 flt64_vec(MAX_VEC_SIZE)
+      real*8 flt64_vec(MAXVEC)
       
       num_libraries = 3
       data library / 'ngk6', 'm6_ng', 'acti_ng' /
@@ -125,7 +126,7 @@ c     LIST OF MTS
  200     format("  Reaction MTs size:  ", i3) 
          
          call ndi2_get_int_vec(data_handle, NDI_REAC_MT, int_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 210) ierr
  210        format("  **Error ", i3, " getting reaction MTs.")
@@ -144,7 +145,7 @@ c     EBOUNDS
  240     format("  Ebounds size:  ", i3)
          
          call ndi2_get_float64_vec(data_handle, NDI_E_BOUNDS,
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 250) ierr
  250        format("  **Error ", i3, " getting energy boundaries.")
@@ -163,7 +164,7 @@ c     EAVG
  241     format("  Eavg size:  ", i3)
          
          call ndi2_get_float64_vec(data_handle, NDI_E_AVG,
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 251) ierr
  251        format("  **Error ", i3, " getting average energies.")
@@ -181,7 +182,7 @@ c     WEIGHTS
  285     format(a40, i3)
          
          call ndi2_get_float64_vec(data_handle, NDI_WGTS, flt64_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting weights."
          endif
@@ -195,7 +196,7 @@ c     VELOCITIES
          write(*, 285) "  Velocity size:  ", flt_vec_size
          
          call ndi2_get_float64_vec(data_handle, NDI_VEL, flt64_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting velocity."
          endif
@@ -213,7 +214,7 @@ c     TOTAL CROSS SECTION
  280     format("  Total cross-section size:  ", i3)
          
          call ndi2_get_float64_vec(data_handle, NDI_SIG_TOT, flt64_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 290) ierr
  290        format("  **Error ", i3, " getting total cross section.")
@@ -229,7 +230,7 @@ c     CHI VECTOR
          write(*, 285) "  Prompt chi size:  ", flt_vec_size
          
          call ndi2_get_float64_vec(data_handle, NDI_CHI_VEC_PR, 
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting prompt chi vector."
          endif
@@ -243,7 +244,7 @@ c     NUBAR
          write(*, 285) "  Prompt nubar size:  ", flt_vec_size
          
          call ndi2_get_float64_vec(data_handle, NDI_NU_PR, flt64_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting prompt nubar."
          endif
@@ -258,7 +259,7 @@ c     NUBAR_SIG_F
          write(*, 285) "  Prompt nu_sigf size:  ", flt_vec_size
          
          call ndi2_get_float64_vec(data_handle, NDI_NU_SIG_F_PR, 
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting prompt nu_sigf."
          endif
@@ -273,7 +274,7 @@ c     PNU PROMPT
          write(*, 285) "  Prompt pnu:  ", flt_vec_size
          
          call ndi2_get_float64_vec_n(data_handle, NDI_PNU_PR, 2, 
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting prompt pnu. (2)"
          endif
@@ -288,7 +289,7 @@ c     SIG*PNU PROMPT
          write(*, 285) "  Prompt sig*pnu:  ", flt_vec_size
          
          call ndi2_get_float64_vec_n(data_handle, NDI_SIG_PNU_PR, 2, 
-     $        flt64_vec,MAX_VEC_SIZE, ierr)
+     $        flt64_vec,MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr, " getting prompt sig*pnu. (2)"
          endif
@@ -305,7 +306,7 @@ c     REACTION CROSS SECTION (MT=2)
      $        flt_vec_size
          
          call ndi2_get_float64_vec_n(data_handle, NDI_SIG_REAC, 2, 
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr,
      $           " getting reaction cross section (mt=2)."
@@ -323,7 +324,7 @@ c     DIAGONAL TRANSPORT CORRECTION (order = 2)
      $        flt_vec_size
          
          call ndi2_get_float64_vec_n(data_handle, NDI_CORR_DIAG, 2,
-     $         flt64_vec, MAX_VEC_SIZE, ierr)
+     $         flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr,
      $           " getting diagonal transport correction."
@@ -341,7 +342,7 @@ c     BHS TRANSPORT CORRECTION (order = 2)
      $        flt_vec_size
          
          call ndi2_get_float64_vec_n(data_handle, NDI_CORR_BHS, 2,
-     $         flt64_vec, MAX_VEC_SIZE, ierr)
+     $         flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 275) ierr,
      $           " getting BHS transport correction (2)."
@@ -361,7 +362,7 @@ c     SCATTERING MATRIX
  310     format("  Scatter matrix size:  ", i5)
          
          call ndi2_get_float64_vec_n(data_handle, NDI_PN_FULL, 0,
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 320) ierr
  320        format("  **Error ", i3, " getting scattering matrix.")

@@ -1,6 +1,5 @@
 #include "ndi_keywords.h"
 
-
       program main
 
       integer ierr

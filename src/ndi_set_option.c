@@ -1,7 +1,6 @@
 /*
- * File:	ndi_set_option.c
+ * $Id$
  * Description:	User function--set defaults.
- * Time-stamp:	<2000-02-03 14:56:24 jomc>
  *
  */
 

@@ -1,3 +1,7 @@
+2007-02-09  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_check_option.c (ndi_get_lib_type): updated library type list
+	
 2007-02-07  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_set_option.c (ndi_set_e_avg): added FLAT_CALC, TD_CALC to options

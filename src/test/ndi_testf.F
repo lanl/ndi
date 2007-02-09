@@ -1,14 +1,11 @@
 #include "ndi_keywords.h"
 
-#define FLOAT_VEC_SIZE 2000
-#define AWR_SIZE 500
-#define STR_SIZE 500
-#define ZAID_SIZE 13
-
       program main
 
+      integer FVECS, AWRS, STRS, ZAIDS
+      parameter (FVECS=2000, AWRS=500, STRS=500, ZAIDS=13)
       
-      character*ZAID_SIZE zaid, tmp_zaid
+      character*(ZAIDS) zaid, tmp_zaid
       character*132 info
 c      character*30 vers
       character*12 vec_str
@@ -48,7 +45,7 @@ c      character*30 vers
       character*8   num_grp_str
       integer return_int, vec_num, return_int_vec(20)
       integer num_element, zd_cnt
-      real*8 return_flt, return_flt_vec(FLOAT_VEC_SIZE)
+      real*8 return_flt, return_flt_vec(FVECS)
 
 
       int_val_num = 10
@@ -279,7 +276,7 @@ c     Return float vector
  62         format(a12, ': ')
             call ndi_get_size(flt_vec(i), num_element, ierr)
             call ndi_get_float64_vec(flt_vec(i), return_flt_vec,
-     $           FLOAT_VEC_SIZE, ierr)
+     $           FVECS, ierr)
             if (num_element.gt. 0 ) then
                print 61, (return_flt_vec(j), j = 1, num_element)
  61            format(6(1pE12.5, 2x))
@@ -303,7 +300,7 @@ c     Return float vector from matrix
             call ndi_get_size_n(flt_vec_n(i), vec_num, num_element,
      $           ierr)
             call ndi_get_float64_vec_n(flt_vec_n(i), vec_num,
-     $           return_flt_vec,  FLOAT_VEC_SIZE, ierr)
+     $           return_flt_vec,  FVECS, ierr)
             if (num_element. gt. 0 ) then
                print 72, (return_flt_vec(j), j = 1, num_element)
  72            format(6(1pE12.5, 2x))
@@ -321,7 +318,7 @@ c     Return float vector given string
             call ndi_get_size_x(flt_vec_x(i), vec_str, num_element,
      $           ierr)
             call ndi_get_float64_vec_x(flt_vec_x(i), vec_str,
-     $           return_flt_vec,  FLOAT_VEC_SIZE, ierr)
+     $           return_flt_vec,  FVECS, ierr)
             if (num_element .gt. 0 ) then
                print 82, (return_flt_vec(j), j = 1, num_element)
  82            format(6(1pE12.5, 2x))
@@ -352,7 +349,7 @@ c     Float vector
             call ndi_get_size(sec_part(i), num_element, ierr)
             if (num_element .gt. 0 ) then
             call ndi_get_float64_vec(sec_part(i), return_flt_vec,
-     $           FLOAT_VEC_SIZE, ierr)
+     $           FVECS, ierr)
                print 95, (return_flt_vec(j), j = 1, num_element)
  95            format(6(1pE12.5, 2x))
             endif
@@ -369,7 +366,7 @@ c     Float vector from matrix
      $           ierr)
             if ( num_element.gt. 0 ) then
             call ndi_get_float64_vec_n(sec_part(i), vec_num,
-     $           return_flt_vec, FLOAT_VEC_SIZE, ierr)
+     $           return_flt_vec, FVECS, ierr)
                print 98, (return_flt_vec(j), j = 1, num_element)
  98            format(6(1pE12.5, 2x))
             endif

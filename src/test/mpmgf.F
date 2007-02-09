@@ -1,8 +1,9 @@
 #include "ndi_keywords.h"
 
-#define MAX_VEC_SIZE 200
-
       program main
+
+      integer MAXVEC
+      parameter (MAXVEC=200)
 
       integer ierr
       integer gendir_handle
@@ -10,11 +11,11 @@
       integer handle(3)
       integer return_int
       integer int_vec_size
-      integer int_vec(MAX_VEC_SIZE)
+      integer int_vec(MAXVEC)
       integer flt_vec_size
       integer pebounds
       real*8 pbounds(3)
-      real*8 flt64_vec(MAX_VEC_SIZE)
+      real*8 flt64_vec(MAXVEC)
       
       pebounds = 3
       data pbounds / 20.0, 4.0, 0.1 /
@@ -142,7 +143,7 @@ c     LIST OF MTS
  200     format("  Reaction MTs size:  ", i3) 
          
          call ndi2_get_int_vec(data_handle, NDI_REAC_MT, int_vec,
-     $        MAX_VEC_SIZE, ierr)
+     $        MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 210) ierr
  210        format("  **Error ", i3, " getting reaction MTs.")
@@ -161,7 +162,7 @@ c     EBOUNDS
  240     format("  Ebounds size:  ", i3)
          
          call ndi2_get_float64_vec(data_handle, NDI_E_BOUNDS,
-     $        flt64_vec, MAX_VEC_SIZE, ierr)
+     $        flt64_vec, MAXVEC, ierr)
          if (ierr .ne. 0) then 
             write(*, 250) ierr
  250        format("  **Error ", i3, " getting energy boundaries.")

@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_check_option.c
+ *$Id$
  * Description:	User function--check defaults.
- * Time-stamp:	<1999-05-06 07:55:53 jomc>
  *
  */
 
@@ -213,13 +212,18 @@ static int ndi_get_lib_type(state_struct *state, char *value,
 
     if ((state->particle_type == 1) && (state->library_type == 'm')) {
 	strncpy(value, "multigroup_neutron", string_size);
-    } else if ((state->particle_type == -1)
-	       && (state->library_type == 's')) {
+    } else if ((state->particle_type == -1) && (state->library_type == 's')) {
 	strncpy(value, "tn", string_size);
+    } else if ((state->particle_type == -1) && (state->library_type == 'r')) {
+	strncpy(value, "tnreactions", string_size);
     } else if ((state->particle_type == 0) && (state->library_type == 'm')) {
 	strncpy(value, "multigroup_photon", string_size);
+    } else if ((state->particle_type == 1) && (state->library_type == 'd')) {
+	strncpy(value, "dosimetry_neutron", string_size);
+    } else if ((state->particle_type == -1) && (state->library_type == 'p')) {
+	strncpy(value, "multigroup_multi", string_size);
     } else {
-	strncpy(value, "", string_size);
+         strncpy(value, "", string_size);
 	ierr = 9;
     }
 
