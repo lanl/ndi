@@ -12,12 +12,13 @@
 #  ========================================================================  #
 
 BEGIN {
-    printf("       integer,          parameter :: NDI_REAL = 8\n");
-    printf("       integer,          parameter :: NDI_INT  = 4\n");
+    printf("      integer,          parameter :: NDI_REAL = 8\n");
+    printf("      integer,          parameter :: NDI_INT  = 4\n");
 }
 
 NF == 3 && $1 == "#define" {
-    printf("       integer(NDI_INT), parameter :: %-32s = %d\n", $2, $3);
+    printf("      integer(NDI_INT), parameter :: %36s\n", "&");
+    printf("     &                  %-32s = %d\n", $2, $3);
 }
 
 #  ========================================================================  #
