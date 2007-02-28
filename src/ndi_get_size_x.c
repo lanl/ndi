@@ -53,10 +53,11 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
 
     if (is_gendir(state)) {
 	*ierr = -2;
-    } else if (state->library_type == 'm') {
+    } else if ((state->library_type == 'm') ||
+               (state->library_type == 'd')) {
 	size = get_mg_size_x(state, in_key, in_str, ierr);
     } else if (state->library_type == ' ') {
-	*ierr = -16;
+	*ierr = -16;            /* library type not set */
     } else {
 	/* Incompatible library type */
 	*ierr = -4;

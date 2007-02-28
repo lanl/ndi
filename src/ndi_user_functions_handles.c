@@ -836,7 +836,7 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   \par Valid in_key values:
        ===================
 
-  - multigroup_neutron or multigroup_photon \a handles:
+  - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handles:
       - \c NDI_TOT_PROD_XS: Array length
       - \c NDI_REAC_MT: Array length
       - \c NDI_RPROD_MLT: Array length
@@ -938,12 +938,12 @@ NDI2_get_int_val(int handle, int in_key, int *ret_val)
       - \c NDI_RPROD_ALL: Number of products for reaction \a vec_num
       - \c NDI_RPROD_RMO: Number of products for reaction \a vec_num
       - \c NDI_RPROD_FEW: Number of products for reaction \a vec_num
-      - \c NDI_REACT_MT: Reaction MT for reaction \a vec_num
+      - \c NDI_REAC_MT: Reaction MT for reaction \a vec_num
       - \c NDI_INC_PART_TYPES: Incident particle types
       - \c NDI_TARGET: ZAID of target \a vec_num
       - \c NDI_RPRODS_ID: ZAID of reaction product \a vec_num
   - multigroup_multi \a handle:
-      - \c NDI_REACT_MT: Reaction MT for reaction \a vec_num
+      - \c NDI_REAC_MT: Reaction MT for reaction \a vec_num
       - \c NDI_LAST_GRP: Last group index of particle \a vec_num
       - \c NDI_PARTICLE_N: Handle of particle \a vec_num
   - tn \a handle:
@@ -1041,7 +1041,7 @@ NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
        ===================
 
   - multigroup_neutron or multigroup_photon \a handle:
-      - \c NDI_RPRODS_ID_ALL: Array of reaction product ZAIDs for reaction \a vec_num
+      - \c NDI_RPROD_ID_ALL: Array of reaction product ZAIDs for reaction \a vec_num
       - \c NDI_RPROD_MLT_ALL: Array of reaction product multiplicities for reaction \a vec_num
       - \c NDI_RPROD_ID_RMO: Array of reaction product ZAIDs for reaction \a vec_num
       - \c NDI_RPROD_MLT_RMO:  Array of reaction product multiplicities for reaction \a vec_num
@@ -1581,6 +1581,12 @@ NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 /*!
   \brief Get the 64-bit floating-point \a return_vec indicated by \a in_key
   and \a in_str from \a handle.
+
+  \par Fortran example:
+  \code
+  ! Get the total production cross sections for Y-87
+  call ndi2_get_float64_vec_x(handle, NDI_TOT_PROD_XS, "39087", return_vec, vec_size, ndi_err)
+  \endcode
 
   \param handle: integer input handle
   \param in_key: integer input key indicating data sought
