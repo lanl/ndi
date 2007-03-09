@@ -1702,6 +1702,8 @@ NDI2_get_string_val(int handle, int in_key, char *ret_val,
   \par Valid in_key values:
        ===================
 
+  - Any \a handle:
+      - \c NDI_ERROR: Error string for error number
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_ZAID: ZAID
       - \c NDI_SEC_PART_TYPES: Secondary particle types
