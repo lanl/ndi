@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_get_float_val_n.c
+ * $Id$
  * Description:	User function--return an element of a vector (float).
- * Time-stamp:	<1999-04-07 15:05:24 jomc>
  *
  */
 
@@ -22,9 +21,6 @@ static int GET_PROD_Q(state_struct *state, const int rprod_in,
 
 /**********************************************************************/
 
-int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
-			  FLOAT_TYPE * ret_val)
-
 /**********************************************************************/
 /*  Purpose: Return a single real value which is an element of
     a vector.
@@ -39,6 +35,8 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
+int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
+			  FLOAT_TYPE * ret_val)
 {
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
     int reac_index;
@@ -127,12 +125,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 	    ierr = ndi_set_default_depl(state);
 	}
 
-	/* Check if incoming rprod zaid is the default fission product */
-	if (vec_num == atoi(state->def_fiss_prod_id)) {
-	    ierr = GET_PROD_Q(state, 99999, ret_val);
-	} else {
-	    ierr = GET_PROD_Q(state, vec_num, ret_val);
-	}
+        ierr = GET_PROD_Q(state, vec_num, ret_val);
 	break;
 
 

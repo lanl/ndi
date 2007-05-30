@@ -69,21 +69,12 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 
     case NDI_TOT_PROD_XS:	/* Total production x.s. for target given by 
 				   global var. 'zaid' and product given by in_str */
-	if (strcmp(in_str, state->def_fiss_prod_id) == 0) {
-	    ierr = GET_PROD_REAC(state, "99999", return_vec, vec_size);
-	} else {
-	    ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
-	}
-        /* if (ierr == 9) ierr = 0; /* radlib warning kludge */
-	break;
+         ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
+         break;
 
     case NDI_RPROD_MLT:		/* Reaction multiplicity */
-	if (strcmp(in_str, state->def_fiss_prod_id) == 0) {
-	    ierr = GET_RPROD_MLT(state, "99999", return_vec, vec_size);
-	} else {
-	    ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
-	}
-	break;
+         ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
+         break;
 
 
       /**********  UNKNOWN KEYWORD  ***********/

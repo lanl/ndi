@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_misc_depl.c
+ * $Id$
  * Description:	Miscellaneous functions dealing with depletion (no floats)
- * Time-stamp:	<2000-02-08 15:43:38 jomc>
  *
  */
 
@@ -198,95 +197,57 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
 /**********************************************************************/
 /**********************************************************************/
 
+/* Set *rprod_p to point at the rprod struct whose zaid is given by
+   the input rprod.  The param prod_index will be the index of the
+   desired rprod in the rprod_p array.  If no such prod is found,
+   rprod_p will be NULL and prod_index will be set to -1.  On entry
+   *rprod_p will point to the beginning of the rprod array.
+   
+   On entering prod_index is the number of rprods in the current array.  
+   On exit, it will be the index of the desired rprod.
+*/
 int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
                        const char *rprod, int *prod_index)
-
-/* Set *rprod_p to point at the rprod struct whose zaid is given by the input
-   rprod.  The param prod_index will be the index of the desired rprod in the 
-   rprod_p array.  If no such prod is found, rprod_p will be NULL and prod_index
-   will be set to -1.  On entry *rprod_p will point to the beginning of the rprod
-   array.
-   
-   On entering prod_index is the number of rprods in the current array.  On exit,
-   it will be the index of the desired rprod.
-*/
 {
-
     int i;
     int ierr = 0;
-    int curr_index = -1;
     int iprod;
     int num_rprods = *prod_index;
-    int zaid_size = MAX_SZA_SIZE;
-    char *token;
-    char tmp_zaid[MAX_SZA_SIZE];
-    char *curr_zaid = tmp_zaid;
-
     depl_rprod_struct *curr_prod = *rprod_p;
-
-    if (!state) {
-	return (-2);
-    }
 
     /* Initialize output variables */
     *rprod_p = (depl_rprod_struct *) NULL;
     *prod_index = -1;
 
-    /* Check that depletion is set */
-    if (!state->ndi_depl_set) {
-	/* Depletion option not set */
-	ierr = -30;
-	return (ierr);
+    /* Check input */
+    if (!state) {               /* State uninitialized error */
+	return (-2);
+    }
+
+    if (!state->ndi_depl_set) {	/* Depletion uninitialized error */
+	return (-30);
     }
 
     /* Change input rprod to integer */
-    strcpy(tmp_zaid, rprod);
+    iprod = atoi(rprod);
 
-    if ((strcmp(tmp_zaid, "-999") != 0) &&
-        ( strcmp( tmp_zaid, "99999" ) != 0 )) {
-	if (tmp_zaid[0] == '-') {
-	    curr_zaid = &tmp_zaid[1];
-	    zaid_size -= 1;
-	}
-	ierr = ndi_std_zaid(state, curr_zaid, zaid_size);
-    }
-
-    token = strtok(tmp_zaid, ".");
-    if (token != NULL) {
-	iprod = (int) strtol(token, (char **) NULL, 10);
-    } else {
-	iprod = (int) strtol(tmp_zaid, (char **) NULL, 10);
-    }
-
-    /* Find rprod index in rprod array */
+    /* Search for iprod (or 99999 if fission product) in depletion set */
     for (i = 0; i < num_rprods; i++) {
-	if (curr_prod->izaid == iprod) {
-	    curr_index = i;
+	if (curr_prod[i].izaid == iprod  ||
+             (atoi(state->def_fiss_prod_id) == iprod && 
+              curr_prod[i].izaid == 99999)) {
 	    break;
-	} else if ((curr_prod->izaid == 99999) &&
-		   (iprod ==
-		    (int) strtol(state->def_fiss_prod_id, (char **) NULL,
-				 10))) {
-	    /* Special check for fission products 
-	       The curr_prod is still '99999', while iprod has been changed
-	       to the default fission product */
-	    curr_index = i;
-	    break;
-	} else {
-	    curr_prod++;
 	}
     }
-    if (curr_index < 0) {
-	/* Reaction product not found in current depletion set */
-	ierr = -32;
-	return (ierr);
+
+    if (i == num_rprods) { /* Reaction product not in depletion set error */
+	return (-32);
     }
 
-    *rprod_p = curr_prod;
-    *prod_index = curr_index;
+    *rprod_p = &curr_prod[i];
+    *prod_index = i;
 
     return (ierr);
-
 }
 
 /**********************************************************************/

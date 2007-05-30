@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_get_int_vec_n.c
+ * $Id$
  * Description:	User function--return a vector which is an element of a matrix.
- * Time-stamp:	<2005-05-03 14:46:48 mgg>
  *
  */
 
@@ -87,13 +86,8 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
     switch (in_key) {
 
     case NDI_REAC_MT:
-
-	if (strcmp(in_str, state->def_fiss_prod_id) == 0) {
-	    ierr = get_reac_mt(state, "99999", return_vec, vec_size);
-	} else {
-	    ierr = get_reac_mt(state, in_str, return_vec, vec_size);
-	}
-	break;
+         ierr = get_reac_mt(state, in_str, return_vec, vec_size);
+         break;
 
       /***********  UNKNOWN KEYWORD  **************/
 

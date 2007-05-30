@@ -1,3 +1,20 @@
+2007-05-30  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_get_int_vec_x.c (get_int_vec_x_mg): Remove superfluous
+	fission product check
+
+	* ndi_get_float_vec_x.c (NDI_GET_FLOAT_VEC_X_H): Remove
+	superfluous fission product check
+
+	* ndi_get_float_val_n.c ((state_struct *state, int in_key, int vec_num,
+			  FLOAT_TYPE * ret_val): Remove superfluous
+			  fission prduct check 
+
+	* ndi_get_size_x.c (get_mg_size_x): Remove superfluous fission
+	product check 
+
+	* ndi_misc_depl.c (ndi_set_curr_rprod): Simplify code
+
 2007-02-28  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_size_x.c (ndi_c_get_size_x_h): added dosimetry_neutron

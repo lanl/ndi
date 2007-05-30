@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_get_size_x.c
+ * $Id$
  * Description:	User function--returns size of an element of a multi-dim array.
- * Time-stamp:	<00/10/11 16:46:26 jomc>
  *
  */
 
@@ -109,12 +108,7 @@ static int get_mg_size_x(state_struct *state, int in_key,
 
      case NDI_REAC_MT:
      case NDI_RPROD_MLT:
-	if (strcmp(in_str, state->def_fiss_prod_id) == 0) {
-             return_value = get_reac_mt_size(state, "99999", ierr);
-	} else {
-             return_value = get_reac_mt_size(state,  in_str, ierr);
-	}
-
+          return_value = get_reac_mt_size(state, in_str, ierr);
           break;
 
      /***********  UNKNOWN KEYWORD  **************/
