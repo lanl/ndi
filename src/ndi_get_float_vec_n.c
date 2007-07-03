@@ -1042,9 +1042,9 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 	for (i = 0; i < num_grps; i++) {
 	    for (j = 0; j < num_grps; j++) {
 		if (((i * num_grps) + j) < vec_size) {
-		    *(return_vec + ((i * num_grps) + j)) =
-			*(scat_mat + ((i * num_grps) + j))
-                     + *(nusigf + i) * *(chi_mat +  ((i * num_grps) + j));
+		    return_vec[i * num_grps + j] =
+			scat_mat[i * num_grps + j]
+                     + nusigf[i] * chi_mat[i * num_grps + j];
 /*			+ *(nusigf + i) * *(chi_mat + j); */
 		} else {
 		    ierr = 7;

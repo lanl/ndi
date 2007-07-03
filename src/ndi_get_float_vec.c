@@ -765,7 +765,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
              /* divide fission transfer mat by nu_sigmaf to get chi mat */
              for (in = 0; in < num_elements; in++) {
                   for (out = 0; out < num_elements; out++) {
-                       return_mat[in * num_elements + out] /= nusigf[out];
+                       return_mat[in * num_elements + out] /= nusigf[in];
                   }
              }
              if (nusigf) ndi_free((void **) &nusigf);
@@ -1527,7 +1527,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status *mg,
          chi_mat = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
          if (!chi_mat) return (-14);
 
-         ierr = GET_CHI_MAT(state, chi_type, chi_mat, num_grps, &n);
+         ierr = GET_CHI_MAT(state, chi_type, chi_mat, num_grps, n);
 
          /* get collapsed nu_sig_f */
          n = num_grps;
