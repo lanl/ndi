@@ -1,3 +1,12 @@
+2007-07-03  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_get_float_vec.c (GET_CHI_MAT): Fixed chi matrix collapse
+	(NDI_GET_CHI_VEC): Changed matrix vector collapse to F . C_m
+
+2007-07-02  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_collapse_float.c (ndi_collapse_float): Clarified flooring code 
+
 2007-05-30  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
 	* ndi_get_int_vec_x.c (get_int_vec_x_mg): Remove superfluous

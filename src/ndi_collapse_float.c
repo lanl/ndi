@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_collapse_float.c
+ * $Id$
  * Description:	Internal function--collapse vector using weighting function.
- * Time-stamp:	<1999-04-01 15:06:32 jomc>
  *
  */
 
@@ -20,17 +19,6 @@
 
 /**********************************************************************/
 
-#ifdef FLOAT32
-int
-ndi_collapse_float32(state_struct *state, const FLOAT_TYPE * old_vec,
-		     int old_grp_num, int recip_flag,
-		     FLOAT_TYPE * return_vec, int return_size)
-#else
-int
-ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
-		     int old_grp_num, int recip_flag,
-		     FLOAT_TYPE * return_vec, int return_size)
-#endif
 /*********************************************************************
     
     Purpose:  Collapse a vector using a weighting function.
@@ -67,6 +55,17 @@ ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
     it is at least of size old_grp_num.
 
 ***********************************************************************/
+#ifdef FLOAT32
+int
+ndi_collapse_float32(state_struct *state, const FLOAT_TYPE * old_vec,
+		     int old_grp_num, int recip_flag,
+		     FLOAT_TYPE * return_vec, int return_size)
+#else
+int
+ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
+		     int old_grp_num, int recip_flag,
+		     FLOAT_TYPE * return_vec, int return_size)
+#endif
 {
     int i, j;
     FLOAT_TYPE wt_sum;		/* Sum of weights */
@@ -91,17 +90,19 @@ ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	    break;
 	}
 
-	wt_sum = 0;
-	return_vec[i] = 0;
-	low_bound = state->new_ebounds[i];
-	up_bound = state->new_ebounds[i + 1];
-	if (recip_flag == 2) {
+        low_bound = state->new_ebounds[i];
+        up_bound = state->new_ebounds[i + 1];
+
+	if (recip_flag == 2) { /* case 2: flooring */
 	    if (i == 0) {
 		low_bound = 0;
 	    } else if (i == (state->grp_num_new - 1)) {
 		up_bound = old_grp_num;
 	    }
 	}
+
+	wt_sum = 0;
+	return_vec[i] = 0;
 	for (j = low_bound; j < up_bound; j++) {
 
 	    /*  Accumulate sum based on type of averaging requested */

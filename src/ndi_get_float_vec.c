@@ -22,9 +22,8 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 			    FLOAT_TYPE * return_vec, int return_size);
 static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 			    FLOAT_TYPE * return_vec, int return_size);
-static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
-		       long vec_ptr, FLOAT_TYPE * return_mat, int num_grps,
-		       int return_size);
+static int GET_CHI_MAT(state_struct *state, char chi_type, 
+                       FLOAT_TYPE *return_mat, int num_grps, int return_size);
 static int GET_E_BOUNDS_CURR_PART(state_struct *state,
 				  FLOAT_TYPE * return_vec,
 				  int return_size);
@@ -388,9 +387,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
 	ierr =
-	    GET_CHI_MAT(state, state->lib_stream,
-			state->iso_stat.chi_mat_tot.file_ptr,
-			state->iso_stat.chi_vec_tot.file_ptr, return_vec,
+	    GET_CHI_MAT(state, 't', return_vec,
 			num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
@@ -403,9 +400,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
 	ierr =
-	    GET_CHI_MAT(state, state->lib_stream,
-			state->iso_stat.chi_mat_pr.file_ptr,
-			state->iso_stat.chi_vec_pr.file_ptr, return_vec,
+	    GET_CHI_MAT(state, 'p', return_vec,
 			num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
@@ -418,9 +413,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
 	ierr =
-	    GET_CHI_MAT(state, state->lib_stream,
-			state->iso_stat.chi_mat_del.file_ptr,
-			state->iso_stat.chi_vec_del.file_ptr, return_vec,
+	    GET_CHI_MAT(state, 'd', return_vec,
 			num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
@@ -621,8 +614,8 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 /*********************************************************************/
 /*********************************************************************/
 
-static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
-		       long vec_ptr, FLOAT_TYPE * return_mat,
+static int GET_CHI_MAT(state_struct *state, char chi_type, 
+                       FLOAT_TYPE *return_mat,
 		       int lib_num_grps, int return_size)
 {
 
@@ -636,9 +629,34 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
     int mat_size = return_size;
     FLOAT_TYPE *temp_mat = return_mat;
     FLOAT_TYPE *row_ptr = NULL;
+    long mat_ptr;
+    long vec_ptr;
 
+    int num_elements;
+    int collapse_flag;
+    FLOAT_TYPE *nusigf;
+    int in, out;
 
     (void) NDI_INIT_FLOAT_VEC(return_mat, return_size);
+
+    switch(chi_type) {
+    case 't':
+         mat_ptr = state->iso_stat.chi_mat_tot.file_ptr;
+         vec_ptr = state->iso_stat.chi_vec_tot.file_ptr;
+         break;
+    case 'p':
+         mat_ptr = state->iso_stat.chi_mat_pr.file_ptr;
+         vec_ptr = state->iso_stat.chi_vec_pr.file_ptr;
+         break;
+    case 'd':
+         mat_ptr = state->iso_stat.chi_mat_del.file_ptr;
+         vec_ptr = state->iso_stat.chi_vec_del.file_ptr;
+         break;
+    default:
+         ierr = -13;
+         return (ierr);
+         break;
+    }
 
     if (!state) {
 	return (-2);
@@ -663,7 +681,7 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
 
     if (mat_ptr) {
 	/*  Full matrix is in library  */
-	ierr = NDI_READ_FLOAT_BLOCK(stream, mat_ptr, num_full_mat,
+	ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, mat_ptr, num_full_mat,
 				    temp_mat, mat_size);
     } else {
 	/* Matrix is constructed from vector */
@@ -673,7 +691,7 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
 		(FLOAT_TYPE *) ndi_malloc(lib_num_grps *
 					  sizeof(FLOAT_TYPE));
 	    if (vec_array) {
-		ierr = NDI_READ_FLOAT_BLOCK(stream, vec_ptr,
+		ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_ptr,
 					    lib_num_grps,
 					    vec_array, lib_num_grps);
 		ierr =
@@ -703,18 +721,57 @@ static int GET_CHI_MAT(state_struct *state, FILE *stream, long mat_ptr,
     /*   COLLAPSING REQUIRED   */
     if (state->collapse_flag) {
 	if (ierr >= 0) {
+
+             /* allocate library group sized nu_sigf */
+             num_elements = lib_num_grps;
+             nusigf = 
+                  (FLOAT_TYPE *) ndi_malloc(num_elements *sizeof(FLOAT_TYPE));
+             if (!nusigf) return (-14); /* Out of memory */
+
+             /* turn off collapsing and get full (nu sigma_f) */
+             collapse_flag = state->collapse_flag;
+             state->collapse_flag = 0;
+             ierr = NDI_GET_NUSIGF(state, chi_type, nusigf, &num_elements);
+             state->collapse_flag = collapse_flag;
+             if (ierr < 0) return (ierr);
+
+             /* multiply chi matrix by nu_sigmaf to get fission transfer mat */
+             for (in = 0; in < num_elements; in++) {
+                  for (out = 0; out < num_elements; out++) {
+                       temp_mat[in * num_elements + out] *= nusigf[in];
+                  }
+             }
+             if (nusigf) ndi_free((void **) &nusigf);
+
 	    tmp_err =
 		NDI_COLLAPSE_MAT(temp_mat, lib_num_grps, lib_num_grps,
 				 state->grp_num_new, state->grp_num_new,
 				 state->new_ebounds, state->new_ebounds,
 				 state->lib_weight, return_mat,
 				 return_size);
-	    if (tmp_err == 7) {
-		/* return_mat is not large enough data was truncated so forget normalization and transpose */
-		return (tmp_err);
-	    }
+
+	    if (tmp_err == 7) return (tmp_err); /* return_mat too small */
+
 	    coll_num_grps = state->grp_num_new;
-	    /*        tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_full_mat, return_mat ); */
+
+             /* allocate collapse group sized nu_sigf */
+             num_elements = coll_num_grps;
+             nusigf = 
+                  (FLOAT_TYPE *) ndi_malloc(num_elements *sizeof(FLOAT_TYPE));
+             if (!nusigf) return (-14); /* Out of memory */
+
+             /* get collapse (nu sigma_f) */
+             ierr = NDI_GET_NUSIGF(state, chi_type, nusigf, &num_elements);
+             if (ierr < 0) return (ierr);
+
+             /* divide fission transfer mat by nu_sigmaf to get chi mat */
+             for (in = 0; in < num_elements; in++) {
+                  for (out = 0; out < num_elements; out++) {
+                       temp_mat[in * num_elements + out] /= nusigf[out];
+                  }
+             }
+             if (nusigf) ndi_free((void **) &nusigf);
+
 	    if (tmp_err < 0) {
 		ierr = tmp_err;
 	    }
@@ -1351,10 +1408,6 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
 /*********************************************************************/
 /*********************************************************************/
 
-static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
-			   char chi_type, FLOAT_TYPE * return_vec,
-			   int *return_size)
-{
 
     /*  Purpose:  Fill array 'return_vec' with appropriate chi vector
        (i.e. the energy distribution of neutrons produced after fission,
@@ -1391,9 +1444,12 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
 
        ******************************************************************** */
 
+static int NDI_GET_CHI_VEC(state_struct *state, isotope_status *mg,
+			   char chi_type, FLOAT_TYPE *return_vec,
+			   int *return_size)
+{
     int ierr = 0;
     int n;
-    int collapse_flag;
     int num_grps;
     char chi_type1;
     char chi_type2;
@@ -1404,11 +1460,13 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
     FLOAT_TYPE *chi1_vec = NULL;
     FLOAT_TYPE *chi2_vec = NULL;
     FLOAT_TYPE *nu_sig_f = NULL;
+    FLOAT_TYPE *chi_mat;
+    FLOAT_TYPE *wgts;
     FLOAT_TYPE chi_wgt1 = 0.0;
     FLOAT_TYPE chi_wgt2 = 0.0;
     FLOAT_TYPE chi_value = 0.0;
     FLOAT_TYPE norm_sum = 0.0;
-
+    int in, out;
 
     (void) NDI_INIT_FLOAT_VEC(return_vec, *return_size);
 
@@ -1466,25 +1524,41 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status * mg,
     } else if (chi_mat_ptr && ndi_nusigf_avail(state, chi_type)) {
 	/* (2)  Form chi vector by flux-averaging chi matrix */
 
-         nu_sig_f = (FLOAT_TYPE *) ndi_malloc(mg->num_grps *
-                                              sizeof(FLOAT_TYPE));
-         if (!nu_sig_f) {
-              return (-14);
+         /* get collapsed chi matrix */
+         n = num_grps * num_grps;
+         chi_mat = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+         if (!chi_mat) return (-14);
+
+         ierr = GET_CHI_MAT(state, chi_type, chi_mat, num_grps, &n);
+
+         /* get collapsed nu_sig_f */
+         n = num_grps;
+         nu_sig_f = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+         if (!nu_sig_f) return (-14);
+         ierr = NDI_GET_NUSIGF(state, chi_type, nu_sig_f, &n);
+  
+         /* get collapsed weights */
+         n = num_grps;
+         wgts = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+         ierr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream, 
+                                     state->iso_stat.wgts.file_ptr, 3, 
+                                     num_grps, wgts, n);
+
+         for (out = 0; out < n; out++) {
+              return_vec[out] = 0.0;
+              norm_sum = 0.0;
+              for (in = 0; in < n; in++) {
+                   return_vec[out] += nu_sig_f[in] * wgts[in] * 
+                        chi_mat[in * n + out];
+                   norm_sum += nu_sig_f[in] * wgts[in];
+              }
+              return_vec[out] /= norm_sum;
          }
 
-         collapse_flag = state->collapse_flag; /* remember collapse state */
-         state->collapse_flag = 0; /* turn collapse off */
-         n = mg->num_grps;
-         ierr = NDI_GET_NUSIGF(state, chi_type, nu_sig_f, &n);
-         state->collapse_flag = collapse_flag; /* restore collapse state */
+	if (wgts) ndi_free((void **) &wgts);
+	if (nu_sig_f) ndi_free((void **) &nu_sig_f);
+	if (chi_mat) ndi_free((void **) &chi_mat);
 
-	ierr =
-	    CHI_MAT_TO_VEC(state, state->lib_stream, chi_mat_ptr, nu_sig_f,
-			   return_vec, *return_size, 2, mg->num_grps);
-
-	if (nu_sig_f) {
-	    ndi_free((void **) &nu_sig_f);
-	}
 
 	/* Enough info available to calculate chi from other chi vectors */
     } else if (chi1_ptr && chi2_ptr && ndi_nusigf_avail(state, chi_type1)
