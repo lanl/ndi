@@ -23,7 +23,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 			    FLOAT_TYPE * return_vec, int return_size);
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
-                       FLOAT_TYPE *return_mat, int num_grps, int return_size);
+                       FLOAT_TYPE *return_mat, int return_size);
 static int GET_E_BOUNDS_CURR_PART(state_struct *state,
 				  FLOAT_TYPE * return_vec,
 				  int return_size);
@@ -384,9 +384,9 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	break;
 
     case NDI_CHI_MAT_TOT:	/* chi total matrix */
-	num_elements = state->iso_stat.num_grps;
+	num_elements = return_size;
 	/*  Check bounds */
-	ierr = GET_CHI_MAT(state, 't', return_vec, num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 't', return_vec, num_elements);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -395,9 +395,9 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	break;
 
     case NDI_CHI_MAT_PR:	/* chi prompt matrix */
-	num_elements = state->iso_stat.num_grps;
+	num_elements = return_size;
 	/*  Check bounds */
-	ierr = GET_CHI_MAT(state, 'p', return_vec, num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 'p', return_vec, num_elements);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -406,9 +406,9 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	break;
 
     case NDI_CHI_MAT_DEL:	/* chi delayed matrix */
-	num_elements = state->iso_stat.num_grps;
+	num_elements = return_size;
 	/*  Check bounds */
-	ierr = GET_CHI_MAT(state, 'd', return_vec, num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 'd', return_vec, num_elements);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -609,8 +609,7 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 /*********************************************************************/
 
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
-                       FLOAT_TYPE *return_mat,
-		       int lib_num_grps, int return_size)
+                       FLOAT_TYPE *return_mat, int return_size)
 {
 
     /* lib_num_grps is the number of groups--uncollapsed */
@@ -626,13 +625,13 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
     long mat_ptr;
     long vec_ptr;
 
-    int num_elements;
-    int collapse_flag;
-    FLOAT_TYPE *nusigf;
-    int in, out;
+    int lib_num_grps;
 
     (void) NDI_INIT_FLOAT_VEC(return_mat, return_size);
 
+    if (!state) return (-2);    /* state not initialized */
+
+    lib_num_grps = state->iso_stat.num_grps;
     switch(chi_type) {
     case 't':
          mat_ptr = state->iso_stat.chi_mat_tot.file_ptr;
@@ -647,72 +646,63 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
          vec_ptr = state->iso_stat.chi_vec_del.file_ptr;
          break;
     default:
-         ierr = -13;
-         return (ierr);
+         return (-13);            /* invalid input parameter */
          break;
     }
 
-    if (!state) {
-	return (-2);
-    }
-
     if (lib_num_grps <= 0) {
-	ierr = 9;
+	ierr = 9;               /* Data not available */
 	return (ierr);
     }
 
     num_full_mat = lib_num_grps * lib_num_grps;
 
     if (state->collapse_flag) { /* check for collapse resources */
-         if (!ndi_nusigf_avail(state, chi_type)) return (-9); /* no data */
+         if (!ndi_nusigf_avail(state, chi_type)) return (-9); /* No data */
 	temp_mat =
 	    (FLOAT_TYPE *) ndi_malloc(num_full_mat * sizeof(FLOAT_TYPE));
 	mat_size = num_full_mat;
         if (!temp_mat) return (-14);	    /* Out of memory */
     }
 
-    if (mat_ptr) {
-	/*  Full matrix is in library  */
-	ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, mat_ptr, num_full_mat,
-				    temp_mat, mat_size);
-    } else {
-	/* Matrix is constructed from vector */
-	if (vec_ptr) {
+    if (mat_ptr) {              /* Full matrix in library  */
+         ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, mat_ptr, num_full_mat,
+                                     temp_mat, mat_size);
+    } else if (vec_ptr) { /* Construct Matrix from vector in library */
 	    FLOAT_TYPE *vec_array;
+
 	    vec_array =
 		(FLOAT_TYPE *) ndi_malloc(lib_num_grps *
 					  sizeof(FLOAT_TYPE));
 	    if (vec_array) {
-		ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_ptr,
+                 ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_ptr,
 					    lib_num_grps,
 					    vec_array, lib_num_grps);
 		ierr =
 		    NDI_VEC2MAT(vec_array, lib_num_grps, temp_mat,
 				num_full_mat, mat_size);
-		if (vec_array)
-		    ndi_free((void **) &vec_array);
-	    } else {
-		/* Out of memory */
-		ierr = -14;
+		if (vec_array) ndi_free((void **) &vec_array);
+	    } else {		/* Out of memory */
+                 return (-14;)
 	    }
-	    if (tmp_err == 7) {
-		/* Data was truncated so forget normalization and transpose */
+
+	    if (tmp_err == 7) {		/* Data was truncated; quit */
 		return (tmp_err);
 	    }
-	    /* Warning: matrix has been constructed */
-	    if (ierr == 0) {
+	    if (ierr == 0) { 	    /* Matrix has been constructed */
 		ierr = 10;
 	    }
-	} else {
-	    /* Error: data not available */
-	    ierr = -9;
-	}
+    } else {                /* Error: data not available */
+         return (-9);
     }
-
 
     /*   COLLAPSING REQUIRED   */
     if (state->collapse_flag) {
 	if (ierr >= 0) {
+             int num_elements;
+             int collapse_flag;
+             FLOAT_TYPE *nusigf = NULL;
+             int in, out;
 
              /* 1) create fission transfer matrix from chi matrix */
 
@@ -747,7 +737,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
 	    if (tmp_err == 7) return (tmp_err); /* return_mat too small */
 
-            /* 3) creat chi matrix from fission transfer matrix */
+            /* 3) create chi matrix from fission transfer matrix */
 	    coll_num_grps = state->grp_num_new;
 
              /* allocate collapse group sized nu_sigf */
@@ -1525,7 +1515,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status *mg,
          chi_mat = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
          if (!chi_mat) return (-14);
 
-         ierr = GET_CHI_MAT(state, chi_type, chi_mat, num_grps, n);
+         ierr = GET_CHI_MAT(state, chi_type, chi_mat, n);
 
          /* get collapsed nu_sig_f */
          n = num_grps;
