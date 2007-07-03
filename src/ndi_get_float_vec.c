@@ -683,7 +683,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 				num_full_mat, mat_size);
 		if (vec_array) ndi_free((void **) &vec_array);
 	    } else {		/* Out of memory */
-                 return (-14;)
+                 return (-14);
 	    }
 
 	    if (tmp_err == 7) {		/* Data was truncated; quit */
