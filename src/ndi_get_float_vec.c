@@ -663,14 +663,12 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
     num_full_mat = lib_num_grps * lib_num_grps;
 
-    if (state->collapse_flag) {
+    if (state->collapse_flag) { /* check for collapse resources */
+         if (!ndi_nusigf_avail(state, chi_type)) return (-9); /* no data */
 	temp_mat =
 	    (FLOAT_TYPE *) ndi_malloc(num_full_mat * sizeof(FLOAT_TYPE));
 	mat_size = num_full_mat;
-	if (!temp_mat) {
-	    /* Out of memory */
-	    return (-14);
-	}
+        if (!temp_mat) return (-14);	    /* Out of memory */
     }
 
     if (mat_ptr) {

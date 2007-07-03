@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_get_float_vec_.c
- * Description:	Source for libndi.a
- * Time-stamp:	<02/08/29 09:03:44 jomc>
+ * $Id$
+ * File:	ndi_get_float_vec_n.c
  *
  */
 
@@ -987,11 +986,13 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 
     case NDI_TRANSFER_MAT_PR:
 	nusigf_type = NDI_NU_SIG_F_PR;
-	chi_type = NDI_CHI_MAT_PR;
+/*	chi_type = NDI_CHI_MAT_PR; */
+	chi_type = NDI_CHI_VEC_PR;
 	break;
     case NDI_TRANSFER_MAT_TOT:
 	nusigf_type = NDI_NU_SIG_F_TOT;
-	chi_type = NDI_CHI_MAT_TOT;
+/*	chi_type = NDI_CHI_MAT_TOT; */
+	chi_type = NDI_CHI_VEC_TOT;
 	break;
     default:
 	ierr = -13;
@@ -1044,8 +1045,8 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 		if (((i * num_grps) + j) < vec_size) {
 		    return_vec[i * num_grps + j] =
 			scat_mat[i * num_grps + j]
-                     + nusigf[i] * chi_mat[i * num_grps + j];
-/*			+ *(nusigf + i) * *(chi_mat + j); */
+/*                     + nusigf[i] * chi_mat[i * num_grps + j]; */
+			+ nusigf[i] * chi_mat[j]; 
 		} else {
 		    ierr = 7;
 		}
