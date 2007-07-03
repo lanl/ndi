@@ -386,9 +386,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     case NDI_CHI_MAT_TOT:	/* chi total matrix */
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
-	ierr =
-	    GET_CHI_MAT(state, 't', return_vec,
-			num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 't', return_vec, num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -399,9 +397,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     case NDI_CHI_MAT_PR:	/* chi prompt matrix */
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
-	ierr =
-	    GET_CHI_MAT(state, 'p', return_vec,
-			num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 'p', return_vec, num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -412,9 +408,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     case NDI_CHI_MAT_DEL:	/* chi delayed matrix */
 	num_elements = state->iso_stat.num_grps;
 	/*  Check bounds */
-	ierr =
-	    GET_CHI_MAT(state, 'd', return_vec,
-			num_elements, return_size);
+	ierr = GET_CHI_MAT(state, 'd', return_vec, num_elements, return_size);
 	if (ierr == -9) {
 	    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 	    ierr = 9;
@@ -470,7 +464,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_E_BOUNDS_CURR_PART:	/* secondary particle energy boundaries */
+    case NDI_E_BOUNDS_CURR_PART:	/* sec. particle energy boundaries */
 	/*  Check bounds */
 	ierr = GET_E_BOUNDS_CURR_PART(state, return_vec, return_size);
 	break;
@@ -722,6 +716,8 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
     if (state->collapse_flag) {
 	if (ierr >= 0) {
 
+             /* 1) create fission transfer matrix from chi matrix */
+
              /* allocate library group sized nu_sigf */
              num_elements = lib_num_grps;
              nusigf = 
@@ -743,6 +739,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
              }
              if (nusigf) ndi_free((void **) &nusigf);
 
+             /* 2) collapse fission transfer matrix */
 	    tmp_err =
 		NDI_COLLAPSE_MAT(temp_mat, lib_num_grps, lib_num_grps,
 				 state->grp_num_new, state->grp_num_new,
@@ -752,6 +749,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
 	    if (tmp_err == 7) return (tmp_err); /* return_mat too small */
 
+            /* 3) creat chi matrix from fission transfer matrix */
 	    coll_num_grps = state->grp_num_new;
 
              /* allocate collapse group sized nu_sigf */
@@ -767,7 +765,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
              /* divide fission transfer mat by nu_sigmaf to get chi mat */
              for (in = 0; in < num_elements; in++) {
                   for (out = 0; out < num_elements; out++) {
-                       temp_mat[in * num_elements + out] /= nusigf[out];
+                       return_mat[in * num_elements + out] /= nusigf[out];
                   }
              }
              if (nusigf) ndi_free((void **) &nusigf);
