@@ -17,7 +17,9 @@
 
 static int local_isblank(const char *str);
 static FILE *fpath(const char *rel_path, const char *mode, 
-                   int rel_flag, char *file, int len);
+                   unsigned int flag, char *file, int len);
+
+enum { PLAIN = 01, PREFIX = 02 };
 
 /**********************************************************************
 
@@ -41,17 +43,18 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 
     if (in_path != NULL && !local_isblank(in_path)) {
 	/* in_path set */
-	if ((*dir_stream = fpath(in_path, "rb", 1, 
+	if ((*dir_stream = fpath(in_path, "rb", PLAIN | PREFIX, 
                                  dir_file, MAX_IN_PATH_LEN)) == NULL) {
 	    /* in_path file unreadable */
 	    ierr = 11;
 	    if ((*dir_stream = 
-                 fpath("gendir", "rb", 1, 
+                 fpath("gendir", "rb", PLAIN, 
                        dir_file, MAX_IN_PATH_LEN)) == NULL) {
 		/* gendir unreadable */
 		if (getenv("NDI_GENDIR_PATH")) {
                      if ((*dir_stream = fpath(getenv("NDI_GENDIR_PATH"), "rb",
-                                              1, dir_file, MAX_IN_PATH_LEN)) ==
+                                              PLAIN | PREFIX, 
+                                              dir_file, MAX_IN_PATH_LEN)) ==
                           NULL) {
 			/* NDI_GENDIR_PATH file unreadable */
 			ierr = 11;
@@ -60,11 +63,12 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 	    }		
 	}
     } else {
-	if ((*dir_stream = fpath("gendir", "rb", 1, 
+	if ((*dir_stream = fpath("gendir", "rb", PLAIN, 
                                  dir_file, MAX_IN_PATH_LEN)) == NULL) {
 	    /* gendir unreadable */
 	    if (getenv("NDI_GENDIR_PATH")) {
-                 if ((*dir_stream = fpath(getenv("NDI_GENDIR_PATH"), "rb", 1,
+                 if ((*dir_stream = fpath(getenv("NDI_GENDIR_PATH"), "rb", 
+                                          PLAIN | PREFIX,
                                          dir_file, MAX_IN_PATH_LEN)) == 
                      NULL) {
 		    /* NDI_GENDIR_PATH file unreadable */
@@ -76,7 +80,8 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 
     if (*dir_stream == NULL) {
 	/* Check for the default file */
-         *dir_stream = fpath(def_file, "rb", 0, dir_file, MAX_IN_PATH_LEN);
+         *dir_stream = fpath(def_file, "rb", PREFIX, 
+                             dir_file, MAX_IN_PATH_LEN);
     }
 
     if (*dir_stream == NULL) {
@@ -115,15 +120,15 @@ static int local_isblank(const char *str)
 /**********************************************************************/
 
 /* 
- * Try to open rel_path with mode if rel_flag set, then
- * try to open abs_path[i]+rel_path with mode for each i.
+ * Try to open rel_path with mode if flag PLAIN set, then
+ * try to open abs_path[i]+rel_path with mode if flag PREFIX is set.
  *
  * set file to path and return file pointer upon success or
  * set file to "" and return NULL if no sucess.
  *
  */
 FILE *fpath(const char *rel_path, const char *mode, 
-            int rel_flag, char *file, int len)
+            unsigned int flag, char *file, int len)
 {
      char *abs_path[] = {"/usr/local/codes/data/nuclear/ndi/",
                          "/usr/projects/data/nuclear/ndi/",
@@ -134,17 +139,19 @@ FILE *fpath(const char *rel_path, const char *mode,
      FILE *f;
      int i;
 
-     if (rel_flag) {            /* try relative path first */
+     if (flag & PLAIN) {            /* try relative path first */
           strncpy(file, rel_path, len);
           f = fopen(file, mode);
           if (f) return f;      /* success */
      }
 
-     for (i = 0; strcmp(abs_path[i], ""); i++) { /* try absolute paths */
-          strncpy(file, abs_path[i], len);
-          strncat(file, rel_path, len);
-          f = fopen(file, mode);
-          if (f) return f;      /* success */
+     if ((flag & PREFIX) && rel_path[0] != '/') { /* try absolute paths */
+          for (i = 0; strcmp(abs_path[i], ""); i++) {
+               strncpy(file, abs_path[i], len);
+               strncat(file, rel_path, len);
+               f = fopen(file, mode);
+               if (f) return f;      /* success */
+          }
      }
 
      strncpy(file, "", len);
