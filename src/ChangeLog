@@ -1,3 +1,8 @@
+2007-07-05  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_open_gendir.c (ndi_open_gendir): Relative gendir path
+	(Reqt. 37)
+
 2007-07-03  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
 	* ndi_get_float_vec.c (GET_CHI_MAT): Fixed chi matrix collapse

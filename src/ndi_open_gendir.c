@@ -1,8 +1,6 @@
-
 /*
- * File:	ndi_open_gendir.c
+ * $Id$
  * Description:	Internal function--open the gendir file.
- * Time-stamp:	<1999-01-14 08:38:28 jomc>
  *
  */
 
@@ -18,6 +16,8 @@
 #include "ndi_state.h"
 
 static int local_isblank(const char *str);
+static FILE *fpath(const char *rel_path, const char *mode, 
+                   int rel_flag, char *file, int len);
 
 /**********************************************************************
 
@@ -34,31 +34,25 @@ static int local_isblank(const char *str);
 int ndi_open_gendir(FILE **dir_stream, const char *in_path, 
                     char **open_path)
 {
+    char *def_file = NDI_VERSION_DATA "/share/gendir";
+
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
-    static char *default_file[] = {"/usr/local/codes/data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir",
-				   "/usr/projects/data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir",
-				   "/usr/gapps/lanl-data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir",
-				   "/projects/lanl-data/nuclear/ndi/"
-				   NDI_VERSION_DATA "/share/gendir",
-				   ""};
-    int i;
 
     if (in_path != NULL && !local_isblank(in_path)) {
 	/* in_path set */
-	strcpy(dir_file, in_path);
-	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+	if ((*dir_stream = fpath(in_path, "rb", 1, 
+                                 dir_file, MAX_IN_PATH_LEN)) == NULL) {
 	    /* in_path file unreadable */
 	    ierr = 11;
-	    strcpy(dir_file, "gendir");
-	    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+	    if ((*dir_stream = 
+                 fpath("gendir", "rb", 1, 
+                       dir_file, MAX_IN_PATH_LEN)) == NULL) {
 		/* gendir unreadable */
 		if (getenv("NDI_GENDIR_PATH")) {
-		    strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
-		    if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+                     if ((*dir_stream = fpath(getenv("NDI_GENDIR_PATH"), "rb",
+                                              1, dir_file, MAX_IN_PATH_LEN)) ==
+                          NULL) {
 			/* NDI_GENDIR_PATH file unreadable */
 			ierr = 11;
 		    }
@@ -66,12 +60,13 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 	    }		
 	}
     } else {
-	strcpy(dir_file, "gendir");
-	if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+	if ((*dir_stream = fpath("gendir", "rb", 1, 
+                                 dir_file, MAX_IN_PATH_LEN)) == NULL) {
 	    /* gendir unreadable */
 	    if (getenv("NDI_GENDIR_PATH")) {
-		strcpy(dir_file, getenv("NDI_GENDIR_PATH"));
-		if ((*dir_stream = fopen(dir_file, "rb")) == NULL) {
+                 if ((*dir_stream = fpath(getenv("NDI_GENDIR_PATH"), "rb", 1,
+                                         dir_file, MAX_IN_PATH_LEN)) == 
+                     NULL) {
 		    /* NDI_GENDIR_PATH file unreadable */
 		    ierr = 12;
 	        }
@@ -81,11 +76,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 
     if (*dir_stream == NULL) {
 	/* Check for the default file */
-	for (i = 0; strcmp(default_file[i], ""); i++) {
-	    strcpy(dir_file, default_file[i]);
-	    if ((*dir_stream = fopen(dir_file, "rb")) != NULL)
-		break;
-	}
+         *dir_stream = fpath(def_file, "rb", 0, dir_file, MAX_IN_PATH_LEN);
     }
 
     if (*dir_stream == NULL) {
@@ -99,7 +90,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 					sizeof(char)))) {
 		    strncpy(*open_path, dir_file, strlen(dir_file) + 1);
 		} else {
-		    ierr = -14;
+		    ierr = -14; /* Out of Memory */
 		}
 	    }
 	} else {
@@ -121,4 +112,42 @@ static int local_isblank(const char *str)
     return str[i] == '\0';
 }
 
+/**********************************************************************/
+
+/* 
+ * Try to open rel_path with mode if rel_flag set, then
+ * try to open abs_path[i]+rel_path with mode for each i.
+ *
+ * set file to path and return file pointer upon success or
+ * set file to "" and return NULL if no sucess.
+ *
+ */
+FILE *fpath(const char *rel_path, const char *mode, 
+            int rel_flag, char *file, int len)
+{
+     char *abs_path[] = {"/usr/local/codes/data/nuclear/ndi/",
+                         "/usr/projects/data/nuclear/ndi/",
+                         "/usr/gapps/lanl-data/nuclear/ndi/",
+                         "/projects/lanl-data/nuclear/ndi/",
+                         ""};
+
+     FILE *f;
+     int i;
+
+     if (rel_flag) {            /* try relative path first */
+          strncpy(file, rel_path, len);
+          f = fopen(file, mode);
+          if (f) return f;      /* success */
+     }
+
+     for (i = 0; strcmp(abs_path[i], ""); i++) { /* try absolute paths */
+          strncpy(file, abs_path[i], len);
+          strncat(file, rel_path, len);
+          f = fopen(file, mode);
+          if (f) return f;      /* success */
+     }
+
+     strncpy(file, "", len);
+     return NULL;               /* file not found */
+}
 /**********************************************************************/
