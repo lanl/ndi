@@ -1,0 +1,28 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	title="NDI 2.0.7 Context Diagram (07/05/07)"; 
+	label="green=completed work\nyellow=ongoing work\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	morgan[label="Morgan White"];
+	jomc[label="Joann Campbell"];
+	brobey[label="Bob Robey"];
+	snell[label="Charlie Snell"];
+
+	/* project */
+	ndi[label="NDI 2.0.7", shape="ellipse"];
+	
+	morgan -> ndi[label="22) Multi-Temp.\n MG data", color=red];
+	ndi -> morgan[label="40) Chi matrix collapse", color=yellow];
+	ndi -> rsb[label="22) Multi-Temp.\nMG interface", color=red];
+	ndi -> jomc[label="38) NDICL", color=yellow];
+	ndi -> brobey[label="37) Relative Gendir\n in_path search", color=green];
+	ndi -> snell[label="29) Cont. 2nd TN\n Ene. Dist.", color=red];
+	ndi -> jomc[label="39) PD fission product", color=green];
+
+}

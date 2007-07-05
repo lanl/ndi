@@ -1,0 +1,51 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Relative Gendir Path Search & Control number: 37\\ \hline
+Stakeholder: Robert Robey & Request date: \\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Search platform dependant path prefix for relative gendir \texttt{in\_path}.\\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query: 
+\begin{verbatim}
+/* Open \$NDIPATH/2.0.6/share/special/gendir
+   where \$NDIPATH=/usr/projects/data/nuclear/ndi:
+                   /usr/gapps/lanl-data/nuclear/ndi: 
+                   /projects/lanl-data/nuclear/ndi  2*/
+ierr = NDI2_open_gendir(handle, "2.0.6/share/special/gendir");
+\end{verbatim}
+\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2007/06/18 & mgg Put pre-alpha on flash \\ \hline 
+2007/06/21 & mgg Put pre-alpha on lightning \\ \hline 
+\end{tabular}
