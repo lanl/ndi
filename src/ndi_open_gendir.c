@@ -1,4 +1,5 @@
 /*
+ *
  * $Id$
  * Description:	Internal function--open the gendir file.
  *
@@ -120,7 +121,7 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
                          "/projects/lanl-data/nuclear/ndi/",
                          ""};
 
-     char *prefix = "$NDIROOT/";
+     char prefix[] = "$NDIROOT/";
 
      FILE *f;
      int i;
@@ -128,7 +129,7 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
      if (strncmp(rel_path, prefix, strlen(prefix)) == 0) {
           for (i = 0; strcmp(abs_path[i], ""); i++) {
                strncpy(file, abs_path[i], len);
-               strncat(file, rel_path, len);
+               strncat(file, rel_path+strlen(prefix), len);
                if ((f = fopen(file, mode))) return f; /* success */
           }
      } else {
