@@ -6,12 +6,12 @@ Requirement Control Form
 Requirement Elicitation:
 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Short name: MG Temperature Dependence Plan& Control number: 22\\ \hline
-Stakeholder: Bill Archer & Request date: June 10, 2005\\
+Short name: MG Temperature Dependence & Control number: 22\\ \hline
+Stakeholder: Randal Baker & Request date: June 10, 2005\\
 \end{tabular}
 \begin{tabular}{|p{433pt}|} \hline
 Description: \\ 
-Provide Temperature dependent multigroup transport data plan. \\
+Provide Temperature dependent multigroup transport data. \\
 \hline
 \end{tabular} 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
@@ -21,7 +21,17 @@ Urgent: No & Comment: Urgency likely to change\\ \hline
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
-Representation: PDF document \\ \hline
+Query:
+\begin{verbatim}
+/* Get number of available temperatures */
+num_t = NDI2_get_size(handle, NDI_TEMP, &ierr);
+/* Get array of temperatures */
+ierr = NDI2_get_float64_vec(handle, NDI_TEMP, temp_vec, num_t);
+/* Set temperature to */
+ierr = NDI2_set_option(handle, NDI_TEMP, "1.0");
+\end{verbatim}
+\\ \hline
+
 \end{tabular}
 
 \vspace{24pt}

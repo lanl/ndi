@@ -7,7 +7,7 @@ Requirement Elicitation:
 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
 Short name: Nuclear Data Interface Command Line & Control number: 38\\ \hline
-Stakeholder: Joann Campbell & Request date: October 31, 2005\\
+Stakeholder: Joann Campbell & Request date: April 09, 2007\\
 \end{tabular}
 \begin{tabular}{|p{433pt}|} \hline
 Description: \\ 
@@ -21,13 +21,15 @@ Urgent: No & Comment: \\ \hline
 \vspace{12pt}
 
 \begin{tabular}{|p{433pt}|} \hline
-Query: 
+Example Use: 
 \begin{verbatim}
 open_gendir ""
 make_handle handle0 "multigroup_neutron"
-set_option handle1 NDI_LIB
+set_option handle1 NDI_LIBRARY "mendf6"
 set_zaid handle1 "92235"
-get_float_vec handle1 NDI_CHI_VEC_TOT
+get_float_val handle1 NDI_SIG_0
+get_size handle1 NDI_E_BOUNDS
+get_float_vec handle1 NDI_E_BOUNDS
 close_gendir
 \end{verbatim}
 \\ \hline
@@ -41,11 +43,13 @@ Important user? Yes \\ \hline
 Important Aspiration? Yes \\ \hline
 Classification: 2 \\ \hline
 \end{tabular}
+\vspace{24pt}
 
 Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
 Date & Description \\ \hline
-2006/12/01 & mgg released \textbf{A Conservative Continuous to
-  Discrete Energy Distribution Collapse Algorithm} \\ \hline
+2007/06/18 & mgg Installed pre-alpha for testing on flash. \\ \hline
+2007/06/20 & mgg Installed pre-alpha for ADAPT on lightning \\ \hline
+
 \end{tabular}
