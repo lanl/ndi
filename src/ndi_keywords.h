@@ -160,6 +160,10 @@
 #define NDI_EDIST_INTERP_REG          129
 #define NDI_EDIST_INTERP_TYPE         130
 #define NDI_ERROR                     131
+#define NDI_EDIST_CONT_E              132
+#define NDI_EDIST_CONT_P              133
+#define NDI_EDIST_CONT_INTERP_REG     134
+#define NDI_EDIST_CONT_INTERP_TYPE    135
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

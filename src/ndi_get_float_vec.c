@@ -50,6 +50,8 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
 		       FLOAT_TYPE * return_vec, int return_size);
 static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
 			 FLOAT_TYPE * return_vec, int return_size);
+static int GET_EDIST_CONT(state_struct *state, char var,
+                          FLOAT_TYPE *return_vec, int return_size);
 static int CALC_CHI_WGT(state_struct *state, char nu_type,
 			FLOAT_TYPE * nu_avg);
 static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
@@ -560,6 +562,14 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
               return (-30);
          }
 
+         break;
+
+    case NDI_EDIST_CONT_E:
+         ierr = GET_EDIST_CONT(state, 'E', return_vec, return_size);
+         break;
+
+    case NDI_EDIST_CONT_P:
+         ierr = GET_EDIST_CONT(state, 'P', return_vec, return_size);
          break;
 
     case NDI_E_BOUNDS:		/*  Multigroup energy boundaries for sec. part distr. */
@@ -1839,6 +1849,77 @@ static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
 }
 
 /*********************************************************************/
+static int GET_EDIST_CONT(state_struct *state, char var,
+                          FLOAT_TYPE *return_vec, int return_size)
+{
+     int ierr=0;
+     int i, n;
+     int lo, hi, it;
+     double *E;
+     double *P;
+     interp_params interp;
+     sec_part_distr *part;
+
+     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
+     
+     /* check that state, secondary particle selected */
+     if (!state) return -2;
+     if ((state->curr_part_index < 0) || 
+         (state->curr_part_index >= state->sec_part_filled))
+          return -30;
+
+     part = &(state->tn_stat.sec_part[state->curr_part_index]);
+     if (!part) return -30;
+
+     /* find nearest temperature index */
+     ierr = ndi_find_temp_bound_index(state->default_temp, part->edist,
+                                      part->temp_interp.npts, &hi, &lo, &it);
+
+     if (ierr < 0) return -30;
+
+     interp = part->edist[it].interp;
+
+     /* allocate E and P */
+     n = interp.npts;
+     E = (double *) ndi_malloc(n * sizeof(double));
+     if (!E) return -14;        /* Out of memory */
+     P = (double *) ndi_malloc(n * sizeof(double));
+     if (!P) {
+          ndi_free((void**) &E);
+          return -14;           /* Out of memory */
+     }
+
+     /* read E and P */
+     ierr = ndi_read_float_pair(state->lib_stream, part->edist[it].file_ptr,
+                                n, E, P, n);
+
+     if (ierr < 0) {
+          if (E) ndi_free((void **) &E);
+          if (P) ndi_free((void **) &P);
+          return -30;
+     }
+
+     if (n > return_size) {
+          n = return_size;
+          ierr = 7;             /* Data truncated */
+     }
+
+     /* Copy data to return_vec */
+     for (i = 0; i < n; i++) {
+          if (var == 'E') {
+               return_vec[i] = E[i];
+          } else if (var == 'P') {
+               return_vec[i] = P[i];
+          } else {
+               ierr = -13;      /* Invalid parameter */
+          }
+     }
+
+     if (E) ndi_free((void **) &E);
+     if (P) ndi_free((void **) &P);
+     return ierr;     
+}
+
 /*********************************************************************/
 
 static int CALC_CHI_WGT(state_struct *state, char nu_type,

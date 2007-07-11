@@ -574,6 +574,60 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
          break;
 
+    case NDI_EDIST_CONT_E:
+    case NDI_EDIST_CONT_P:
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int hi, lo, it;
+
+                   *ierr = ndi_find_temp_bound_index(state->default_temp,
+                                                    part->edist, 
+                                                    part->temp_interp.npts, 
+                                                    &hi, &lo, &it);
+                   if (ierr < 0) return -30;
+
+                   return_value = part->edist[it].interp.npts;
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
+    case NDI_EDIST_CONT_INTERP_REG:
+    case NDI_EDIST_CONT_INTERP_TYPE:
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int hi, lo, it;
+
+                   *ierr = ndi_find_temp_bound_index(state->default_temp,
+                                                    part->edist, 
+                                                    part->temp_interp.npts, 
+                                                    &hi, &lo, &it);
+                   if (ierr < 0) return -30;
+
+                   return_value = part->edist[it].interp.nint;
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
     case NDI_EINBAR:
 	/* thermal-averaged total incoming energy for each temp. */
 	return_value = state->tn_stat.num_temps;

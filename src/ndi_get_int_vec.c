@@ -1,8 +1,7 @@
-
 /*
- * File:	ndi_get_int_vec.c
+ *
+ * $Id$
  * Description:	User function--returns an integer vector.
- * Time-stamp:	<2000-02-01 17:39:56 jomc>
  *
  */
 
@@ -383,6 +382,66 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 
                    for (i = 0; i < part->temp_interp.nint; i++)
                         return_vec[i] = part->temp_interp.int_type[i];
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
+    case NDI_EDIST_CONT_INTERP_REG:
+         /* Vector of interpolation type for current particle's temperature
+            interpolation regions */
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int hi, lo, it;
+                   int i;
+
+                   ierr = ndi_find_temp_bound_index(state->default_temp,
+                                                    part->edist, 
+                                                    part->temp_interp.npts, 
+                                                    &hi, &lo, &it);
+                   if (ierr < 0) return -30;
+
+                   for (i = 0; i < part->edist[it].interp.nint; i++)
+                        return_vec[i] = part->edist[it].interp.nbt[i];
+              } else {
+                   return (-30);
+              }
+         } else {
+              return (-30);
+         }
+
+         break;
+
+    case NDI_EDIST_CONT_INTERP_TYPE:
+         /* Vector of endpoints for current particle's temperature 
+            interpolation regions*/
+         if (state->grp_num_new <= 0) return (-21);
+         if ((state->curr_part_index >= 0) ||
+             (state->curr_part_index < state->sec_part_filled)) {
+              sec_part_distr *part;
+              
+              part = &(state->tn_stat.sec_part[state->curr_part_index]);
+              if (part) {
+                   int hi, lo, it;
+                   int i;
+
+                   ierr = ndi_find_temp_bound_index(state->default_temp,
+                                                    part->edist, 
+                                                    part->temp_interp.npts, 
+                                                    &hi, &lo, &it);
+                   if (ierr < 0) return -30;
+
+                   for (i = 0; i < part->edist[it].interp.nint; i++)
+                        return_vec[i] = part->edist[it].interp.int_type[i];
               } else {
                    return (-30);
               }

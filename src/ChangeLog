@@ -1,3 +1,19 @@
+2007-07-11  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_get_size.c (get_tn_size):  added
+	NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
+	NDI_EDIST_CONT_INTERP_TYPE
+
+	* ndi_keywords.h (NDI_EDIST_CONT_INTERP_TYPE): added
+	NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
+	NDI_EDIST_CONT_INTERP_TYPE
+
+	* ndi_get_int_vec.c (get_int_vec_tn): added
+	NDI_EDIST_CONT_INTERP_TYPE and NDI_EDIST_CONT_INTERP_REG
+
+	* ndi_get_float_vec.c (GET_EDIST_CONT): routine to get TN
+	secondary particle distribution
+
 2007-07-05  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
 	* ndi_open_gendir.c (ndi_open_gendir): Relative gendir path
