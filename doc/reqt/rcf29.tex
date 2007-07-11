@@ -24,10 +24,14 @@ Urgent: No & Comment: Information currently accessed directly from files\\ \hlin
 \begin{tabular}{|p{433pt}|} \hline
 Query:
 \begin{verbatim}
-/* Get size of secondary particle distribution */
-num_it = NDI2_get_size(handle, NDI_EDIST_CONT, &ierr);
-/* Get array of secondary particle distribution */
-ierr = NDI2_get_float64_vec(handle, NDI_EDIST_CONT, temp_vec, num_it);
+/* Get size of secondary particle distribution energies */
+num_it = NDI2_get_size(handle, NDI_EDIST_CONT_E, &ierr);
+/* Get array of secondary particle distribution energies */
+ierr = NDI2_get_float64_vec(handle, NDI_EDIST_CONT_E, temp_vec, num_it);
+/* Get size of secondary particle distribution probabilities */
+num_it = NDI2_get_size(handle, NDI_EDIST_CONT_P, &ierr);
+/* Get array of secondary particle distribution probabilities */
+ierr = NDI2_get_float64_vec(handle, NDI_EDIST_CONT_P, temp_vec, num_it);
 /* Get # of secondary particle distribution interpolating region bounds */
 num_ir = NDI2_get_size(handle, NDI_EDIST_CONT_INTERP_REG, &ierr);
 /* Get # of secondary particle distribution interpolating types */
@@ -47,5 +51,13 @@ Requirement Analysis:
 Important user? Yes \\ \hline
 Important Aspiration? Yes \\ \hline
 Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2007/07/11 & mgg Wrote code \\ \hline
 \end{tabular}
 
