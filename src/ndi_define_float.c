@@ -68,6 +68,7 @@ int main()
     printf("#define GET_FLOAT_VEC_MG ndi_get_float32_vec_mg\n");
     printf("#define GET_FLOAT_VEC_TN ndi_get_float32_vec_tn\n");
     printf("#define GET_EDIST_VEC ndi_get_edist_vec32\n");
+    printf("#define GET_EDIST_CONT ndi_get_edist_cont32\n");
     printf("#define READ_FLOAT_PAIR ndi_read_float32_pair\n");
     printf("#define NDI_LIN_LIN_COLLAPSE ndi_lin_lin_collapse32\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg32\n");
@@ -160,6 +161,7 @@ int main()
     printf("#define GET_FLOAT_VEC_MG ndi_get_float64_vec_mg\n");
     printf("#define GET_FLOAT_VEC_TN ndi_get_float64_vec_tn\n");
     printf("#define GET_EDIST_VEC ndi_get_edist_vec64\n");
+    printf("#define GET_EDIST_CONT ndi_get_edist_cont64\n");
     printf("#define READ_FLOAT_PAIR ndi_read_float64_pair\n");
     printf("#define NDI_LIN_LIN_COLLAPSE ndi_lin_lin_collapse64\n");
     printf("#define NDI_CALC_E_AVG ndi_calc_e_avg64\n");
