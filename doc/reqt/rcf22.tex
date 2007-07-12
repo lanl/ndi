@@ -24,9 +24,9 @@ Urgent: No & Comment: Urgency likely to change\\ \hline
 Query:
 \begin{verbatim}
 /* Get number of available temperatures */
-num_t = NDI2_get_size(handle, NDI_TEMP, &ierr);
+num_t = NDI2_get_size(handle, NDI_TEMPS, &ierr);
 /* Get array of temperatures */
-ierr = NDI2_get_float64_vec(handle, NDI_TEMP, temp_vec, num_t);
+ierr = NDI2_get_float64_vec(handle, NDI_TEMPS, temp_vec, num_t);
 /* Set temperature to */
 ierr = NDI2_set_option(handle, NDI_TEMP, "1.0");
 \end{verbatim}
@@ -44,3 +44,10 @@ Important Aspiration? No \\ \hline
 Classification: 2 \\ \hline
 \end{tabular}
 \vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2007/07/12 & mgg Wrote stub code \\ \hline
+\end{tabular}

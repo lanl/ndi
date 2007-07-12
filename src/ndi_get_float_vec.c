@@ -474,7 +474,20 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	    GET_DEPL_XS(state, &state->iso_stat, return_vec, return_size);
 	break;
 
+    case NDI_TEMPS:             /* Multi-temperature stub (reqt. 22) */
+         if (state->iso_stat.temp >= 0) {
+              if (return_size > 0) { /* Return single temperature */
+                   return_vec[0] = state->iso_stat.temp;
+              } else {
+                   ierr = 7;    /* Data was truncated */
+              }
+         } else {
+              ierr = -9;        /* Data not available */
+         }
+         break;
+
       /**********  UNKNOWN KEYWORD  ***********/
+
 
     default:
 	ierr = -4;

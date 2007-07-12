@@ -358,6 +358,9 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 	}
 	break;
 
+    case NDI_TEMPS:             /* multi-temperature stub (Reqt. 22 */
+         return_value = 1;
+         break;
 
       /****************************/
 	/*  Multi-dim array values  */
