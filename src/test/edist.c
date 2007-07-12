@@ -6,6 +6,7 @@
 
 void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
 void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
+void print_int_vec(int *int_ptr, int num_elements);
 
 int main ()
 
@@ -21,6 +22,7 @@ int main ()
   char info[133];
   ndi_float64 eavg_out;
   ndi_float64 *edist64;
+  int *interp;
   
   
   char *zaid_list[] = { "d+t->n+a.111ztn",
@@ -133,8 +135,79 @@ int main ()
 		ierr, curr_part );
        }
        print_float64_vec( edist64, vec_size);	 
-       if ( curr_part ) { free( curr_part ); }
-       if ( edist64 ) { free( edist64 ); }
+       if ( edist64 ) free( edist64 );
+
+       /*********** CONTINUOUS SECONDARY PARTICLE DATA *******************/
+
+       /* Get EDIST_CONT_INTERP_REG (Reqt. 29) */
+       vec_size = ndi_get_size(NDI_EDIST_CONT_INTERP_REG, &ierr);
+       if ((vec_size < 1) || (ierr != 0)) {
+            printf("  **Error %d getting size (%d)"
+                   " of EDIST_CONT_INTERP_REG. \n",
+                   ierr, vec_size);
+       }
+       printf ("      Vector size is:  %d\n", vec_size );
+       interp = (int *)malloc( vec_size * sizeof(int) );
+       ierr = ndi_get_int_vec( NDI_EDIST_CONT_INTERP_REG, interp, vec_size );
+       if (ierr) {
+	 printf("  **Error %d getting EDIST_CONT_INTERP_REG"
+                " for particle %s returns:\n", ierr, curr_part );
+       }
+       print_int_vec( interp, vec_size);	 
+       if ( interp ) free( interp );
+
+       /* Get EDIST_CONT_INTERP_TYPE (Reqt. 29) */
+       vec_size = ndi_get_size(NDI_EDIST_CONT_INTERP_TYPE, &ierr);
+       if ((vec_size < 1) || (ierr != 0)) {
+            printf("  **Error %d getting size (%d)"
+                   " of EDIST_CONT_INTERP_TYPE. \n", ierr, vec_size);
+       }
+       printf ("      Vector size is:  %d\n", vec_size );
+       interp = (int *)malloc( vec_size * sizeof(int) );
+       ierr = ndi_get_int_vec( NDI_EDIST_CONT_INTERP_TYPE, interp, vec_size );
+       if (ierr) {
+	 printf("  **Error %d getting EDIST_CONT_INTERP_TYPE"
+                " for particle %s returns:\n", ierr, curr_part );
+       }
+       print_int_vec( interp, vec_size);	 
+       if ( interp ) free( interp );
+
+
+       /* Get EDIST_CONT_E (Reqt. 29) */
+       vec_size = ndi_get_size (NDI_EDIST_CONT_E, &ierr);
+       if ((vec_size < 1) || (ierr != 0)) {
+            printf("  **Error %d in getting size (%d)"
+                   " of EDIST_CONT_E. \n", ierr, vec_size);
+       }
+           
+       printf ("      Vector size is:  %d\n", vec_size );
+       edist64 = (ndi_float64 *)malloc( vec_size * sizeof(ndi_float64) );
+       ierr = ndi_get_float64_vec( NDI_EDIST_CONT_E, edist64, vec_size );
+       if (ierr) {
+	 printf("  **Error %d getting EDIST_CONT_P"
+                " for particle %s returns:\n", ierr, curr_part );
+       }
+       print_float64_vec( edist64, vec_size);	 
+       if ( edist64 ) free( edist64 );
+
+       /* Get EDIST_CONT_P (Reqt. 29) */
+       vec_size = ndi_get_size (NDI_EDIST_CONT_P, &ierr);
+       if ((vec_size < 1) || (ierr != 0)) {
+            printf("  **Error %d in getting size (%d)"
+                   " EDIST_CONT_P. \n", ierr, vec_size);
+       }
+           
+       printf ("      Vector size is:  %d\n", vec_size );
+       edist64 = (ndi_float64 *)malloc( vec_size * sizeof(ndi_float64) );
+       ierr = ndi_get_float64_vec( NDI_EDIST_CONT_P, edist64, vec_size );
+       if (ierr) {
+	 printf("  **Error %d getting EDIST_CONT_P"
+                " for particle %s returns:\n", ierr, curr_part );
+       }
+       print_float64_vec( edist64, vec_size);	 
+       if ( edist64 ) free( edist64 );
+
+       if ( curr_part ) free( curr_part );
 
        /*********** SECONDARY PARTICLE AVERAGE OUTGOING ENERGY ***********/
 
@@ -189,6 +262,20 @@ void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements ) {
       if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
 	 printf("\n");
       printf("%22.15e  ", flt64_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/
+
+void print_int_vec( int *int_ptr, int num_elements ) {
+
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
+	 printf("\n");
+      printf("%10d  ", int_ptr[n]);
    }
    printf("\n");
 }

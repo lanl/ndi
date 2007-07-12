@@ -62,6 +62,7 @@ SRC_TESTC := \
 	depl_zaid.c \
 	ekerma.c \
 	ebounds.c \
+	edist.c \
 	err22.c \
 	ex_avg_e.c \
 	ex_kerma1.c \
