@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="NDI 2.0.7 Context Diagram\n(07/09/07)\ngreen=completed work\nyellow=ongoing work\nred=future work";
+	label="NDI 2.0.7 Context Diagram\n(07/12/07)\ngreen=completed work\nyellow=ongoing work\nred=future work";
 	node[shape="box"];
 
 	/* stakeholders */
@@ -22,7 +22,7 @@ digraph ndi {
 	ndi -> rsb[label="22) Multi-Temp.\nMG interface", color=yellow];
 	ndi -> jomc[label="38) NDICL", color=green];
 	ndi -> brobey[label="37) Relative Gendir\n in_path search", color=green];
-	ndi -> snell[label="29) Cont. 2nd TN\n Ene. Dist.", color=yellow];
+	ndi -> snell[label="29) Cont. 2nd TN\n Ene. Dist.", color=green];
 	ndi -> jomc[label="39) PD fission product", color=green];
 
 }
