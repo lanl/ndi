@@ -2156,9 +2156,9 @@ static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
          if (ierr < 0) return ierr; /* Bail on error */
 
          /* Calculate uncollapsed nu_sigf */
-         nu_sig1_vec = (FLOAT_TYPE *) ndi_malloc(num_elements * 
+         nu_sigf1_vec = (FLOAT_TYPE *) ndi_malloc(num_elements * 
                                                  sizeof(FLOAT_TYPE));
-         if (!nu_sig1_vec) return -14; /* Out of memory */
+         if (!nu_sigf1_vec) return -14; /* Out of memory */
 
          for (n = 0; n < num_elements; n++) {
               nu_sigf1_vec[n] = nu[n] * sigf[n];
@@ -2166,8 +2166,17 @@ static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
 
          /* Restore collapse flag */
          state->collapse_flag = collapse_flag;
-         ierr = NDI_COLLAPSE_FLOAT(state, nu_sigf1_vec, num_elements, 
-                                   0, return_vec, *return_size);
+
+         if (state->collapse_flag) {
+              ierr = NDI_COLLAPSE_FLOAT(state, nu_sigf1_vec, num_elements, 
+                                        0, return_vec, *return_size);
+         } else {
+              if (num_elements > *return_size) ierr = 7;  /* Data truncated */
+              for (n = 0; n < ((num_elements < *return_size) ? 
+                               num_elements: *return_size); n++) {
+                   return_vec[n] = nu_sigf1_vec[n];
+              }
+         }
 
          if (nu_sigf1_vec) ndi_free((void **) &nu_sigf1_vec);
          if (sigf) ndi_free((void **) &sigf);
