@@ -1549,7 +1549,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, isotope_status *mg,
          if (!wgts) return -14; /* Out of memory */
          ierr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream, 
                                      state->iso_stat.wgts.file_ptr, 3, 
-                                     num_grps, wgts, n);
+                                     mg->num_grps, wgts, n);
 
          /* Project matrix to vector */
          norm_sum = 0.0;
@@ -2050,8 +2050,6 @@ static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
     FLOAT_TYPE *nu_sigf2_vec = NULL;
     FLOAT_TYPE *nu = NULL;
     FLOAT_TYPE *sigf = NULL;
-    /*    FLOAT_TYPE *sigf = NULL; 
-       FLOAT_TYPE *nu = NULL;  */
 
     if (!state) {
 	return (-2);
@@ -2135,31 +2133,45 @@ static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
 
     } else if (ndi_nu_avail(state, nu_type) && ndi_sigf_avail(state)) {
 	/* Calculate nu_sigf from nu and MT=18 cross section */
-	nu = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-	sigf =
-	    (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-	curr_size = num_elements;
-	ierr =
-	    NDI_GET_NU(state, &state->iso_stat, nu_type, nu, &curr_size);
-	/* Check error */
-	curr_size = num_elements;
-	ierr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &curr_size);
-	/*Check errors */
-	for (n = 0; n < num_elements; n++) {
-	    if (n < *return_size) {
-		return_vec[n] = nu[n] * sigf[n];
-	    } else {
-		/* Bounds check */
-		ierr = 7;
-		break;
-	    }
-	}
-	if (nu) {
-	    ndi_free((void **) &nu);
-	}
-	if (sigf) {
-	    ndi_free((void **) &sigf);
-	}
+
+         int collapse_flag;
+
+         /* Turn off collapse flag */
+         collapse_flag = state->collapse_flag;
+         state->collapse_flag = 0;
+
+         num_elements = state->iso_stat.num_grps;
+
+         /* Get nu */
+         nu = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+         if (!nu) return -14;    /* Out of memory */
+         curr_size = num_elements;
+         ierr = NDI_GET_NU(state, &state->iso_stat, nu_type, nu, &curr_size);
+         if (ierr < 0) return ierr; /* Bail on error */
+
+         /* Get sigf */
+         sigf = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+         curr_size = num_elements;
+         ierr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &curr_size);
+         if (ierr < 0) return ierr; /* Bail on error */
+
+         /* Calculate uncollapsed nu_sigf */
+         nu_sig1_vec = (FLOAT_TYPE *) ndi_malloc(num_elements * 
+                                                 sizeof(FLOAT_TYPE));
+         if (!nu_sig1_vec) return -14; /* Out of memory */
+
+         for (n = 0; n < num_elements; n++) {
+              nu_sigf1_vec[n] = nu[n] * sigf[n];
+         }
+
+         /* Restore collapse flag */
+         state->collapse_flag = collapse_flag;
+         ierr = NDI_COLLAPSE_FLOAT(state, nu_sigf1_vec, num_elements, 
+                                   0, return_vec, *return_size);
+
+         if (nu_sigf1_vec) ndi_free((void **) &nu_sigf1_vec);
+         if (sigf) ndi_free((void **) &sigf);
+         if (nu) ndi_free((void **) &nu);
 
     } else {
 	/* No error or warning for no data--just return zeroes? */
