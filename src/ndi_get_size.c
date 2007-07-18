@@ -592,7 +592,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
                                                     part->edist, 
                                                     part->temp_interp.npts, 
                                                     &hi, &lo, &it);
-                   if (ierr < 0) return -30;
+                   if (*ierr < 0) return -30;
 
                    return_value = part->edist[it].interp.npts;
               } else {
@@ -619,7 +619,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
                                                     part->edist, 
                                                     part->temp_interp.npts, 
                                                     &hi, &lo, &it);
-                   if (ierr < 0) return -30;
+                   if (*ierr < 0) return -30;
 
                    return_value = part->edist[it].interp.nint;
               } else {
