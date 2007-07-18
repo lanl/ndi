@@ -960,6 +960,8 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
 
 /*********************************************************************/
 
+/* #define TRANSFER_CHI_VEC */
+
 static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 			    FLOAT_TYPE * return_vec, int vec_size)
 {
@@ -972,7 +974,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
     char transpose_state;
     FLOAT_TYPE *pn_ptr = return_vec;
     FLOAT_TYPE *nusigf = NULL;
-    FLOAT_TYPE *chi_mat = NULL;
+    FLOAT_TYPE *chi = NULL;
     FLOAT_TYPE *scat_mat = NULL;
     int num_grps;
 
@@ -986,13 +988,19 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 
     case NDI_TRANSFER_MAT_PR:
 	nusigf_type = NDI_NU_SIG_F_PR;
-/*	chi_type = NDI_CHI_MAT_PR; */
+#ifdef TRANSFER_CHI_VEC
 	chi_type = NDI_CHI_VEC_PR;
+#else
+	chi_type = NDI_CHI_MAT_PR;
+#endif
 	break;
     case NDI_TRANSFER_MAT_TOT:
 	nusigf_type = NDI_NU_SIG_F_TOT;
-/*	chi_type = NDI_CHI_MAT_TOT; */
+#ifdef TRANSFER_CHI_VEC
 	chi_type = NDI_CHI_VEC_TOT;
+#else
+	chi_type = NDI_CHI_MAT_TOT;
+#endif
 	break;
     default:
 	ierr = -13;
@@ -1009,21 +1017,17 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
     if (vec_num == 0) {
 	/* Corrections are only applied to 0th order matrix */
 	array_size = ndi_c_get_size_h(state, chi_type, &ierr);
-	chi_mat =
-	    (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
+	chi = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
 	/* Check for error */
-	ierr = NDI_GET_FLOAT_VEC_H(state, chi_type, chi_mat, array_size);
+	ierr = NDI_GET_FLOAT_VEC_H(state, chi_type, chi, array_size);
 
 	array_size = ndi_c_get_size_h(state, nusigf_type, &ierr);
-	nusigf =
-	    (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
+	nusigf = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
 	/* Check for error */
 	ierr = NDI_GET_FLOAT_VEC_H(state, nusigf_type, nusigf, array_size);
 
-	array_size =
-	    ndi_c_get_size_n_h(state, NDI_PN_FULL, vec_num, &ierr);
-	scat_mat =
-	    (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
+	array_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, vec_num, &ierr);
+	scat_mat = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
 	/* Check for error */
 	pn_ptr = scat_mat;
     }
@@ -1045,8 +1049,11 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 		if (((i * num_grps) + j) < vec_size) {
 		    return_vec[i * num_grps + j] =
 			scat_mat[i * num_grps + j]
-/*                     + nusigf[i] * chi_mat[i * num_grps + j]; */
-			+ nusigf[i] * chi_mat[j]; 
+#ifdef TRANSFER_CHI_VEC
+			+ nusigf[i] * chi[j];
+#else
+                     + nusigf[i] * chi[i * num_grps + j];
+#endif
 		} else {
 		    ierr = 7;
 		}
@@ -1054,8 +1061,8 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 	}
 	if (nusigf)
 	    ndi_free((void **) &nusigf);
-	if (chi_mat)
-	    ndi_free((void **) &chi_mat);
+	if (chi)
+	    ndi_free((void **) &chi);
 	if (scat_mat)
 	    ndi_free((void **) &scat_mat);
     }
