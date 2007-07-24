@@ -4,7 +4,7 @@
 void ndi_free(void **p)
 {
 
-    free(*p);
+    if (*p) free(*p);
     *p = NULL;
 
 }

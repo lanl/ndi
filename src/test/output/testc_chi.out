@@ -407,7 +407,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -470,7 +470,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -533,7 +533,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -596,7 +596,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -659,7 +659,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -722,7 +722,7 @@ Total chi vector:
  6.400000e-01    1.600000e-01    0.000000e+00    0.000000e+00    1.000000e-01    1.000000e-01   
 
 Prompt chi vector:
- 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    6.938894e-18    6.938894e-18   
+ 8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
@@ -788,7 +788,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -851,7 +851,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -914,7 +914,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -977,7 +977,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -1040,7 +1040,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -1103,7 +1103,7 @@ Prompt chi vector:
  8.000000e-01    2.000000e-01    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
--1.110223e-16   -2.775558e-17    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
+ 0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    5.000000e-01    5.000000e-01   
 
 Total chi matrix:
   **Error 10 in total chi matrix -- returned value is:
@@ -1160,6 +1160,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1221,6 +1222,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1282,6 +1284,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1343,6 +1346,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1404,6 +1408,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1465,6 +1470,7 @@ Nu_sig_f delayed:
  2.000000e+00    1.000000e+00    1.000000e+00    1.000000e+00    2.000000e+00    8.000000e+00   
 
 Total chi vector:
+  **Error -9 in total chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Prompt chi vector:
@@ -1529,6 +1535,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1590,6 +1597,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1651,6 +1659,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1712,6 +1721,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1773,6 +1783,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1834,6 +1845,7 @@ Total chi vector:
  1.226667e-01    5.440000e-01    1.333333e-01    5.600000e-02    4.800000e-02    9.600000e-02   
 
 Prompt chi vector:
+  **Error -9 in prompt chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
@@ -1898,6 +1910,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
@@ -1959,6 +1972,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
@@ -2020,6 +2034,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
@@ -2081,6 +2096,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
@@ -2142,6 +2158,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
@@ -2203,6 +2220,7 @@ Prompt chi vector:
  1.533333e-01    6.800000e-01    1.666667e-01    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 
 Total chi matrix:
