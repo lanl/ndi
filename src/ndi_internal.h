@@ -57,7 +57,7 @@
 (((new_err) < 0) || (((curr_err) >= 0) && ((new_err) != 0))) ? \
 (new_err) : (curr_err)
 
-#define NDI_IF_FINI(cond, err, val) if (cond) err=val; if (err<0) goto fini
+#define NDI_THROW(err, val) err=val; if (err<0) goto catch
 
 /**********************************************************************/
 
