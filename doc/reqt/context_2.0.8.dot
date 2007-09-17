@@ -1,0 +1,32 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="NDI 2.0.8 Context Diagram\n(09/23/07)\ngreen=completed work\nyellow=ongoing work\nred=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	drnuke[label="Steve Nolen"];
+	angelah[label="Angela Herring"];
+	morgan[label="Morgan White"];
+	jomc[label="Joann Campbell"];
+	rsb[label="Randy Baker"];
+	dahl[label="Jon Dahl"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.8", shape="ellipse"];
+	
+	angelah -> ndi[[label="15) MG scatt.\nMC", color=red];
+	ndi -> drnuke[label="15) MG scatt.\nMC", color=red];
+
+	morgan -> ndi[label="22) Multi-Temp.\n MG data", color=red];
+	ndi -> rsb[label="22) Multi-Temp.\nMG interface", color=yellow];
+
+	ndi -> morgan[label="42) Chi\nMatrix Calc.", color=yellow];
+
+	ndi -> dahl[label="43) Multi-part.\nChi Matrix", color=red];
+
+	ndi-> jomc[label="44) Med-Fi\nGroup Struc", color=yellow];
+}
