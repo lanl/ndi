@@ -1,3 +1,9 @@
+2007-10-01  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndimp_get_size.c (ndimp_get_size): Added CHI_MAT sizes to MP
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Added 91_lanl, 49_lanl group structures
+
 2007-07-12  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
 	* ndi_get_size.c (get_mg_size): Added multi-temperature stub

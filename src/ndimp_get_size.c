@@ -49,6 +49,14 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
 	return_val = get_num_unique_reac(h, ierr);
 	break;
 
+        /* Matrix values */
+    case NDI_CHI_MAT_TOT:
+    case NDI_CHI_MAT_PR:
+    case NDI_CHI_MAT_DEL:
+         return_val = get_sum_of_particle_sizes(h, in_key, ierr);
+         return_val *= return_val;
+         break;
+
     /* All single values */
     case NDI_ZAID:		/*  ZAID  */
 	return_val = strlen(handle[0]->iso_stat.zaid) + 1;
