@@ -32,7 +32,20 @@ Requirement Analysis:
 \begin{tabular}{|p{433pt}|} \hline
 Important user? Yes \\ \hline
 Important Aspiration? Yes \\ \hline
-Classification: 1 \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+/* Get size of chi matrix */
+num_t = NDI2_get_size(handle, NDI_CHI_MAT_PR, &ierr);
+/* Get chi matrix */
+ierr = NDI2_get_float64_vec(handle, NDI_CHI_MAT_PR, temp_vec, num_t);
+\end{verbatim}
+\\ \hline
+
 \end{tabular}
 \vspace{24pt}
 
@@ -40,4 +53,8 @@ Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
 Date & Description \\ \hline
+2007/10/01 & mgg Added \texttt{NDI\_CHI\_MAT} to multi-particle get
+size \\ \hline 
+2007/10/01 & mgg Tested 2x12 $(n,\gamma)$ $\chi$ matrix using ndicl \\
+\hline 
 \end{tabular}

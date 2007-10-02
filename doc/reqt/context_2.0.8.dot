@@ -29,8 +29,8 @@ digraph ndi {
 	ndi -> morgan[label="42) Chi\nMatrix Calc.", style=dashed,
 	color="#FFBF00" ];
 
-	ndi -> dahl[label="43) Multi-part.\nChi Matrix", style=dotted,
-	color=red];
+	ndi -> dahl[label="43) Multi-part.\nChi Matrix", style=solid,
+	color=green];
 
 	ndi-> jomc[label="44) Med-Fi\nGroup Struc", style=solid,
 	color=green ];
