@@ -738,9 +738,18 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
                 chi_ptr2 && ndi_nusigf_avail(state, chi_type2)) {
           /* (2) Calculate requested chi matrix from other two matricies */
 
+          /* Get chi_mat1 */
+          n = lib_num_grps * lib_num_grps;
+          chi_mat1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+          if (!chi_mat1) NDI_THROW(ierr, -14); /* Out of memory */
+
+          jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, chi_ptr1, 
+                                      n, chi_mat1, n);
+          if (jerr) NDI_THROW(ierr, jerr);
+
           /* Get nu_sig_f1 */
           n = lib_num_grps;
-          nusigf1 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+          nusigf1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!nusigf1) NDI_THROW(ierr, -14); /* Out of memory */
 
           collapse_flag = state->collapse_flag; /* remember user collapse */
@@ -749,18 +758,18 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
           state->collapse_flag = collapse_flag; /* restore user collapse */
           if (jerr) NDI_THROW(ierr, jerr);
 
-          /* Get chi_mat1 */
+          /* Get chi_mat2 */
           n = lib_num_grps * lib_num_grps;
-          chi_mat1 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-          if (!chi_mat1) NDI_THROW(ierr, -14); /* Out of memory */
+          chi_mat2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+          if (!chi_mat2) NDI_THROW(ierr, -14); /* Out of memory */
 
-          jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, chi_ptr1, 
-                                      n, chi_mat1, n);
+          jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, chi_ptr2, 
+                                      n, chi_mat2, n);
           if (jerr) NDI_THROW(ierr, jerr);
 
           /* Get nusigf2 */
           n = lib_num_grps;
-          nusigf2 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+          nusigf2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!nusigf2) NDI_THROW(ierr, -14); /* Out of memory */
 
           collapse_flag = state->collapse_flag; /* remember user collapse */
@@ -769,22 +778,13 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
           state->collapse_flag = collapse_flag; /* restore user collapse */
           if (jerr) NDI_THROW(ierr, jerr);
 
-          /* Get chi_mat2 */
-          n = lib_num_grps * lib_num_grps;
-          chi_mat2 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-          if (!chi_mat2) NDI_THROW(ierr, -14); /* Out of memory */
-
-          jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, chi_ptr2, 
-                                      n, chi_mat2, n);
-          if (jerr) NDI_THROW(ierr, jerr);
-
           n = lib_num_grps;
           /* Calculate fission transfer matrix */
           for (in = 0; in < n; in++) {
                norm = 0.0;
                for (out = 0; out < n; out++) {
-                    chi_mat[in*n+out] = (nusigf1[in]*chi_mat1[in*n+out]) + 
-                         s * (nusigf2[in]*chi_mat2[in*n+out]);
+                    chi_mat[in*n+out] = (nusigf1[in] * chi_mat1[in*n+out]) + 
+                         s * (nusigf2[in] * chi_mat2[in*n+out]);
                     if (chi_mat[in*n+out] < 0.0) chi_mat[in*n+out] = 0.0;
                     norm += chi_mat[in*n+out];
                }
@@ -817,20 +817,9 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
                 chi_flg2 && ndi_nusigf_avail(state, chi_type2)) {
           /* (2) Calculate chi matrix from other two */
 
-          /* Get nu_sig_f1 */
-          n = lib_num_grps;
-          nusigf1 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-          if (!nusigf1) NDI_THROW(ierr, -14); /* Out of memory */
-
-          collapse_flag = state->collapse_flag; /* remember user collapse */
-          state->collapse_flag = 0; /* turn off collapse */
-          jerr = NDI_GET_NUSIGF(state, chi_type1, nusigf1, &n);
-          state->collapse_flag = collapse_flag; /* restore user collapse */
-          if (jerr) NDI_THROW(ierr, jerr);
-
           /* Get chi_mat1 */
           n = lib_num_grps * lib_num_grps;
-          chi_mat1 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+          chi_mat1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!chi_mat1) NDI_THROW(ierr, -14); /* Out of memory */
 
           collapse_flag = state->collapse_flag; /* remember user collapse */
@@ -846,20 +835,20 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
           if (jerr) NDI_THROW(ierr, jerr);
           if (jerr == 10) ierr = jerr; /* Calculated matrix */
 
-          /* Get nusigf2 */
+          /* Get nu_sig_f1 */
           n = lib_num_grps;
-          nusigf2 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-          if (!nusigf2) NDI_THROW(ierr, -14); /* Out of memory */
+          nusigf1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+          if (!nusigf1) NDI_THROW(ierr, -14); /* Out of memory */
 
           collapse_flag = state->collapse_flag; /* remember user collapse */
           state->collapse_flag = 0; /* turn off collapse */
-          jerr = NDI_GET_NUSIGF(state, chi_type2, nusigf2, &n);
+          jerr = NDI_GET_NUSIGF(state, chi_type1, nusigf1, &n);
           state->collapse_flag = collapse_flag; /* restore user collapse */
           if (jerr) NDI_THROW(ierr, jerr);
 
           /* Get chi_mat2 */
           n = lib_num_grps * lib_num_grps;
-          chi_mat2 = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+          chi_mat2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!chi_mat2) NDI_THROW(ierr, -14); /* Out of memory */
 
           collapse_flag = state->collapse_flag; /* remember user collapse */
@@ -875,13 +864,24 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
           if (jerr) NDI_THROW(ierr, jerr);
           if (jerr == 10) ierr = jerr; /* Calculated matrix */
 
+          /* Get nusigf2 */
+          n = lib_num_grps;
+          nusigf2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+          if (!nusigf2) NDI_THROW(ierr, -14); /* Out of memory */
+
+          collapse_flag = state->collapse_flag; /* remember user collapse */
+          state->collapse_flag = 0; /* turn off collapse */
+          jerr = NDI_GET_NUSIGF(state, chi_type2, nusigf2, &n);
+          state->collapse_flag = collapse_flag; /* restore user collapse */
+          if (jerr) NDI_THROW(ierr, jerr);
+
           n = lib_num_grps;
           /* Calculate fission transfer matrix */
           for (in = 0; in < n; in++) {
                norm = 0.0;
                for (out = 0; out < n; out++) {
-                    chi_mat[in*n+out] = (nusigf1[in]*chi_mat1[in*n+out]) + 
-                         s * (nusigf2[in]*chi_mat2[in*n+out]);
+                    chi_mat[in*n+out] = (nusigf1[in] * chi_mat1[in*n+out]) + 
+                         s * (nusigf2[in] * chi_mat2[in*n+out]);
                     if (chi_mat[in*n+out] < 0.0) chi_mat[in*n+out] = 0.0;
                     norm += chi_mat[in*n+out];
                }
@@ -903,7 +903,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
           /* Allocate library group sized nu_sigf */
           n = lib_num_grps;
-          nusigf = (FLOAT_TYPE *) ndi_malloc(n*sizeof(FLOAT_TYPE));
+          nusigf = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!nusigf) NDI_THROW(ierr, -14); /* Out of memory */
 
           /* Turn off collapsing and get full (nu sigma_f) */
@@ -934,7 +934,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
           /* Allocate collapse group sized nu_sigf */
           n = coll_num_grps;
           ndi_free((void **) &nusigf);
-          nusigf = (FLOAT_TYPE *) ndi_malloc(n*sizeof(FLOAT_TYPE));
+          nusigf = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!nusigf) NDI_THROW(ierr, -14); /* Out of memory */
 
           /* Get collapse (nu sigma_f) */
@@ -979,7 +979,6 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
      }
 
      /*   Transpose matrix */
-     /* coll_num_grps currently set to current number of collapse groups */
      if ((state->mat_order == 't') && (ierr >= 0)) {
           jerr = NDI_TRANSPOSE_FLOAT(return_mat, coll_num_grps, coll_num_grps);
           if (jerr) NDI_THROW(ierr, jerr);
@@ -1594,7 +1593,6 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
 /*********************************************************************/
 /*********************************************************************/
 
-
     /*  Purpose:  Fill array 'return_vec' with appropriate chi vector
        (i.e. the energy distribution of neutrons produced after fission,
        assuming independence of incident neutron energy).  The vector
@@ -1609,9 +1607,6 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
        chi_wgt_tot * chi_tot = chi_wgt_pr * chi_pr + chi_wgt_del * chi_del,
        where chi_wgt_tot = sum over groups (i) of (nu_sigf_tot(i) * wgt(i) ) 
        and similarly for other nu_avg values
-
-       (LATER: Calculate if other chi matrices are available. )
-
 
        Parameters:
        state -- in:pointer to handle state
@@ -1633,8 +1628,6 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
 static int NDI_GET_CHI_VEC(state_struct *state, char chi_type, 
                            FLOAT_TYPE *return_vec, int *return_size)
 {
-     isotope_status *mg = &state->iso_stat;
-
      int ierr = 0;
      int jerr = 0;
 
@@ -1671,71 +1664,71 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
      switch (chi_type) {
 
      case 't':                  /* total neutrons */
-          chi_vec_ptr = mg->chi_vec_tot.file_ptr;
+          chi_vec_ptr = state->iso_stat.chi_vec_tot.file_ptr;
 
-          chi_mat_ptr = mg->chi_mat_tot.file_ptr;
+          chi_mat_ptr = state->iso_stat.chi_mat_tot.file_ptr;
 
           chi_type1 = 'p';
-          chi_flg1 = (mg->chi_vec_pr.file_ptr ||
-                      mg->chi_mat_pr.file_ptr);
+          chi_flg1 = (state->iso_stat.chi_vec_pr.file_ptr ||
+                      state->iso_stat.chi_mat_pr.file_ptr);
           s = +1.0;
           chi_type2 = 'd';
-          chi_flg2 = (mg->chi_vec_del.file_ptr ||
-                      mg->chi_mat_del.file_ptr);
+          chi_flg2 = (state->iso_stat.chi_vec_del.file_ptr ||
+                      state->iso_stat.chi_mat_del.file_ptr);
           break;
 
      case 'p':                  /* prompt neutrons */
-          chi_vec_ptr = mg->chi_vec_pr.file_ptr;
+          chi_vec_ptr = state->iso_stat.chi_vec_pr.file_ptr;
 
-          chi_mat_ptr = mg->chi_mat_pr.file_ptr;
+          chi_mat_ptr = state->iso_stat.chi_mat_pr.file_ptr;
 
           chi_type1 = 't';
-          chi_flg1 = (mg->chi_vec_tot.file_ptr ||
-                      mg->chi_mat_tot.file_ptr);
+          chi_flg1 = (state->iso_stat.chi_vec_tot.file_ptr ||
+                      state->iso_stat.chi_mat_tot.file_ptr);
           s = -1.0;
           chi_type2 = 'd';
-          chi_flg2 = (mg->chi_vec_del.file_ptr ||
-                      mg->chi_mat_del.file_ptr);
+          chi_flg2 = (state->iso_stat.chi_vec_del.file_ptr ||
+                      state->iso_stat.chi_mat_del.file_ptr);
           break;
 
      case 'd':                  /* delayed neutrons */
-          chi_vec_ptr = mg->chi_vec_del.file_ptr;
+          chi_vec_ptr = state->iso_stat.chi_vec_del.file_ptr;
 
-          chi_mat_ptr = mg->chi_mat_del.file_ptr;
+          chi_mat_ptr = state->iso_stat.chi_mat_del.file_ptr;
 
           chi_type1 = 't';
-          chi_flg1 = (mg->chi_vec_tot.file_ptr ||
-                      mg->chi_mat_tot.file_ptr);
+          chi_flg1 = (state->iso_stat.chi_vec_tot.file_ptr ||
+                      state->iso_stat.chi_mat_tot.file_ptr);
           s = -1.0;
           chi_type2 = 'p';
-          chi_flg2 = (mg->chi_vec_pr.file_ptr ||
-                      mg->chi_mat_pr.file_ptr);
+          chi_flg2 = (state->iso_stat.chi_vec_pr.file_ptr ||
+                      state->iso_stat.chi_mat_pr.file_ptr);
           break;
 
      default:
           NDI_THROW(ierr, -13);           /* Invalid input parameter */
      }
 
-     if (mg->fissionable == 0) goto catch; /* Not fissionable */
+     if (state->iso_stat.fissionable == 0) goto catch; /* Not fissionable */
 
      if (state->collapse_flag) {
           num_grps = state->grp_num_new;
      } else {
-          num_grps = mg->num_grps;
+          num_grps = state->iso_stat.num_grps;
      }
 
      if (chi_vec_ptr) {
           /* (1) Read chi vector from library */
           jerr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream, chi_vec_ptr,
-                                      2, mg->num_grps,
+                                      2, state->iso_stat.num_grps,
                                       return_vec, *return_size);
           if (jerr) NDI_THROW(ierr, jerr);
 
      } else if (chi_mat_ptr && ndi_nusigf_avail(state, chi_type) && 
-                mg->wgts.file_ptr) {
+                state->iso_stat.wgts.file_ptr) {
           /* (2)  Project chi vector from chi matrix */
 
-          /* Get collapsed chi matrix; turn transpose off */
+          /* Get collapsed chi matrix */
           n = num_grps * num_grps;
           chi_mat = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!chi_mat) NDI_THROW(ierr, -14); /* Out of memory */
@@ -1760,8 +1753,8 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
           if (!wgts) NDI_THROW(ierr, -14); /* Out of memory */
 
           jerr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream, 
-                                      mg->wgts.file_ptr, 3, 
-                                      mg->num_grps, wgts, n);
+                                      state->iso_stat.wgts.file_ptr, 3, 
+                                      state->iso_stat.num_grps, wgts, n);
           if (jerr) NDI_THROW(ierr, jerr);
 
           /* Project matrix to vector */
@@ -1782,15 +1775,10 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
           }
 
      } else if (chi_flg1 && ndi_nusigf_avail(state, chi_type1) && 
-		chi_flg2 && ndi_nusigf_avail(state, chi_type2) && 
-                mg->wgts.file_ptr) {
+		chi_flg2 && ndi_nusigf_avail(state, chi_type2)) {
           /* (3) Calculate chi vector from other two */
 
-
-          /* Get first chi weight and vector */
-          jerr = CALC_CHI_WGT(state, chi_type1, &chi_wgt1);
-          if (jerr) NDI_THROW(ierr, jerr);
-     
+          /* Get first chi vector */
           n = num_grps;
           chi_vec1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!chi_vec1) NDI_THROW(ierr, -14); /* Out of memory */
@@ -1801,10 +1789,11 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
           state->no_norm = no_norm; /* restore user normalization */
           if (jerr) NDI_THROW(ierr, jerr);
 
-          /* Get second chi weight and vector */
-          jerr = CALC_CHI_WGT(state, chi_type2, &chi_wgt2);
+          /* Get first chi weight */
+          jerr = CALC_CHI_WGT(state, chi_type1, &chi_wgt1);
           if (jerr) NDI_THROW(ierr, jerr);
-
+     
+          /* Get second chi vector */
           n = num_grps;
           chi_vec2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
           if (!chi_vec2) NDI_THROW(ierr, -14); /* Out of memory */
@@ -1813,6 +1802,10 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
           state->no_norm = 1;   /* turn off normalization */
           jerr = NDI_GET_CHI_VEC(state, chi_type2, chi_vec2, &n);
           state->no_norm = no_norm; /* restore user normalization */
+          if (jerr) NDI_THROW(ierr, jerr);
+
+          /* Get second chi weight */
+          jerr = CALC_CHI_WGT(state, chi_type2, &chi_wgt2);
           if (jerr) NDI_THROW(ierr, jerr);
 
           for (n = 0; n < num_grps; n++) {

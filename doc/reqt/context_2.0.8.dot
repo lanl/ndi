@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="NDI 2.0.8 Context Diagram\n(10/01/07)\ngreen=completed work\namber=ongoing work\nred=future work";
+	label="NDI 2.0.8 Context Diagram\n(10/05/07)\ngreen=completed work\namber=ongoing work\nred=future work";
 	node[shape="box"];
 
 	/* stakeholders */
@@ -26,8 +26,8 @@ digraph ndi {
 	ndi -> rsb[label="22) Multi-Temp.\nMG interface",
 	style=dashed, color="#FFBF00"];
 
-	ndi -> morgan[label="42) Chi\nMatrix Calc.", style=dashed,
-	color="#FFBF00" ];
+	ndi -> morgan[label="42) Chi\nMatrix Calc.", style=solid,
+	color=green];
 
 	ndi -> dahl[label="43) Multi-part.\nChi Matrix", style=solid,
 	color=green];
