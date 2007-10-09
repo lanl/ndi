@@ -1,3 +1,8 @@
+2007-10-09  Mark G. Gray  <mgg@ffe-64.lanl.gov>
+
+	* ndi_get_float_vec_n.c (GET_TRANSFER_MAT): Removed Chi vector
+	conditional code; use Chi matrix
+
 2007-10-03  Mark Gray  <mgg@mckennitt.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_GET_CHI_VEC): Added calculation of chi

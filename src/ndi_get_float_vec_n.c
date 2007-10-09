@@ -960,8 +960,6 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
 
 /*********************************************************************/
 
-/* #define TRANSFER_CHI_VEC */
-
 static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 			    FLOAT_TYPE * return_vec, int vec_size)
 {
@@ -988,19 +986,11 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 
     case NDI_TRANSFER_MAT_PR:
 	nusigf_type = NDI_NU_SIG_F_PR;
-#ifdef TRANSFER_CHI_VEC
-	chi_type = NDI_CHI_VEC_PR;
-#else
 	chi_type = NDI_CHI_MAT_PR;
-#endif
 	break;
     case NDI_TRANSFER_MAT_TOT:
 	nusigf_type = NDI_NU_SIG_F_TOT;
-#ifdef TRANSFER_CHI_VEC
-	chi_type = NDI_CHI_VEC_TOT;
-#else
 	chi_type = NDI_CHI_MAT_TOT;
-#endif
 	break;
     default:
 	ierr = -13;
@@ -1010,9 +1000,8 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
     if (ierr < 0)
 	return (ierr);
 
-    /*  Don't transpose matrix, but save user-defined transpose & trans. cor. state */
-    transpose_state = state->mat_order;
-    state->mat_order = 'd';
+    transpose_state = state->mat_order; /* remember user transpose */
+    state->mat_order = 'd';     /* turn transpose off */
 
     if (vec_num == 0) {
 	/* Corrections are only applied to 0th order matrix */
@@ -1034,7 +1023,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 
     ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_FULL, vec_num, pn_ptr,
                                  array_size);
-    state->mat_order = transpose_state;
+    state->mat_order = transpose_state; /* restore user transpose */
 
     if (state->collapse_flag) {
 	num_grps = state->grp_num_new;
@@ -1049,11 +1038,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 		if (((i * num_grps) + j) < vec_size) {
 		    return_vec[i * num_grps + j] =
 			scat_mat[i * num_grps + j]
-#ifdef TRANSFER_CHI_VEC
-			+ nusigf[i] * chi[j];
-#else
                      + nusigf[i] * chi[i * num_grps + j];
-#endif
 		} else {
 		    ierr = 7;
 		}
