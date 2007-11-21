@@ -4,7 +4,10 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="NDI 2.0.8 Context Diagram\n(10/05/07)\ngreen=completed work\namber=ongoing work\nred=future work";
+	label="Context Diagram 10/12/07\n\
+	solid green=completed work\n\
+	dashed amber=ongoing work\n\
+	dotted red=future work";
 	node[shape="box"];
 
 	/* stakeholders */
@@ -21,7 +24,7 @@ digraph ndi {
 	angelah -> ndi[label="15) MG scatt.\nMC", style=dotted, color=red];
 	ndi -> drnuke[label="15) MG scatt.\nMC", style=dotted, color=red];
 
-	morgan -> ndi[label="22) Multi-Temp.\n MG data",
+	morgan -> ndi[label="22) Multi-Temp.\nMG data",
 	style=dotted, color=red];
 	ndi -> rsb[label="22) Multi-Temp.\nMG interface",
 	style=dashed, color="#FFBF00"];
