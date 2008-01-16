@@ -1,8 +1,6 @@
-
 /*
- * File:	ndi_get_float_vec_x.c
- * Description:	Source for libndi.a
- * Time-stamp:	<2000-02-03 15:26:44 jomc>
+ * $Id$
+ * Description:	User function--returns vector from multi-dim array
  *
  */
 
@@ -17,49 +15,126 @@
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
 
+static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
+                                  const char *in_str,
+                                  FLOAT_TYPE *return_vec, int vec_size);
+
+static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key, 
+                              const char *in_str,
+                              FLOAT_TYPE *return_vec, int vec_size);
 
 /**********************************************************************/
 
-int
-NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
-		      const char *in_str, FLOAT_TYPE * return_vec,
-		      int vec_size)
+int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
+                          const char *in_str, 
+                          FLOAT_TYPE *return_vec, int vec_size)
 {
 
     int ierr = 0;
-    int tmp_err = 0;
 
     /* Initialize return_vec with zeroes */
     ierr = NDI_INIT_FLOAT_VEC(return_vec, vec_size);
 
-    if (!state) {
-	return (-2);
-    }
+    if (!state || !state->ndi_initialized)
+	NDI_THROW(ierr, -2);
 
-    /* Check that ndi_init has been called. */
-    if (!state->ndi_initialized) {
-	return (-2);
-    }
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
-	ierr = -2;
-	return (ierr);
+         NDI_THROW(ierr, -2);
     }
 #endif
 
-    if (state->library_type == ' ') {
-	/* Library type was not set */
-	return (-16);
-    } else if ((state->library_type != 'm') &&
-	       (state->library_type != 'd')) {
-	/* Incompatible library -- bad input key */
-	return (-4);
+    if (is_gendir(state)) {
+         ierr = GET_FLOAT_VEC_X_GENDIR(state, in_key, in_str, 
+                                       return_vec, vec_size);
+    } else if ((state->library_type == 'm') ||
+               (state->library_type == 'd')) {
+         ierr = GET_FLOAT_VEC_X_MG(state, in_key, in_str, 
+                                   return_vec, vec_size);
+    } else if (state->library_type == ' ') {
+         NDI_THROW(ierr, -16);	/* Library type was not set */
+    } else {
+         NDI_THROW(ierr, -4);   /* Bad input key */
     }
 
-    /* Check that isotope is set */
-    if (!state->iso_stat.set_flag) {
-	return (-7);
+catch:
+    return (ierr);
+}
+
+/*********************************************************************/
+/*********************************************************************/
+
+static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
+                                   const char *in_str,
+                                   FLOAT_TYPE *return_vec, int vec_size)
+{
+    int ierr = 0;
+    long fpos = -1;
+    dir_entry rec;
+    char *section;
+    int c = 0;
+    double *dptr;
+
+    if (!state)                 /* check state sanity */
+	NDI_THROW(ierr, -2);
+
+    section = ndi_get_section(state);
+    if (section == 0)
+	NDI_THROW(ierr, -16);   /* Library type not set */
+
+
+    switch(in_key) {            /* Process keyword */
+    case NDI_TEMP:
+         dptr = &rec.temp;
+         break;
+    case NDI_SIG_0:
+         dptr = &rec.sig_0;
+         break;
+    case NDI_AT_WGT:
+         dptr = &rec.at_wgt;
+         break;
+    case NDI_AWR:
+         dptr = &rec.awr;
+         break;
+    default:
+         NDI_THROW(ierr, -4);   /* Unrecognized input key */
     }
+
+    fpos = ftell(state->ndi_dir); /* remember file position */
+	
+    if (ndi_fseek_str(state->ndi_dir, section, 0) != 0)
+         NDI_THROW(ierr, -11);  /* Section not found */
+
+    while (ndi_fget_dir_block(&rec, state->ndi_dir) > 0) {
+         if ((strncmp(rec.lib, state->library_vers, 
+                      strlen(state->library_vers)) == 0) &&
+             (strncmp(rec.zaid, in_str, strlen(in_str)) == 0)) {
+              if (c < vec_size) {
+                   return_vec[c++] = (FLOAT_TYPE) *dptr;
+              } else {
+                   NDI_THROW(ierr, 7);
+                   break;
+              }
+              
+         }
+    }
+
+catch:
+    if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
+    return ierr;
+}
+
+/**********************************************************************/
+/*********************************************************************/
+
+static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key, 
+                              const char *in_str,
+                              FLOAT_TYPE *return_vec, int vec_size)
+{
+     int ierr = 0;
+
+    if (!state->iso_stat.set_flag)
+         NDI_THROW(ierr, -7);   /* Isotope not set */
 
    /*************************/
     /*   Process input key   */
@@ -67,8 +142,9 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 
     switch (in_key) {
 
-    case NDI_TOT_PROD_XS:	/* Total production x.s. for target given by 
-				   global var. 'zaid' and product given by in_str */
+    case NDI_TOT_PROD_XS:	/* Total production x.s. for target
+				   given by global var. 'zaid' and
+				   product given by in_str */
          ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
          break;
 
@@ -76,19 +152,13 @@ NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
          ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
          break;
 
-
-      /**********  UNKNOWN KEYWORD  ***********/
-
-    default:
-	ierr = -4;
+    default:     /**********  UNKNOWN KEYWORD  ***********/
+	NDI_THROW(ierr, -4);
 	break;
     }
 
-
-    if ((tmp_err != 0) && (ierr >= 0)) {
-	ierr = tmp_err;
-    }
-    return (ierr);
+catch:
+    return ierr;
 }
 
 /*********************************************************************/
@@ -245,5 +315,4 @@ int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
 
 }
 
-/*********************************************************************/
 /*********************************************************************/

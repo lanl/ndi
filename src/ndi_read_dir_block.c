@@ -157,3 +157,121 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
 }
 
 /**********************************************************************/
+
+/* ndi_fseek_str sets the file position for stream; a subsequent read
+ * or write will access data begining at the new position.  The
+ * position is set to the line following the first line that matches
+ * str.  Search from beginning of the file if wherefrom = 0, the
+ * current position if wherefrom = 1.  Restores file position and
+ * returns non-zero on error. */
+
+int ndi_fseek_str(FILE *stream, const char *str, int wherefrom)
+{
+     char *l;
+     char line[MAX_IN_STR_LEN];
+     long fpos;
+
+     fpos = ftell(stream);      /* remember file position */
+
+     if (wherefrom == 0) rewind(stream); /* start from beginning */
+
+     while ((l = fgets(line, sizeof(line), stream)) != NULL)
+          if (strncmp(line, str, strlen(str)) == 0) break;
+
+     if (l == NULL) { 
+          fseek(stream, fpos, SEEK_SET); /* restore original file position */
+          return -1;            /* not found or file error */
+     } else {
+          return 0;             /* success */
+     }
+}
+
+/**********************************************************************/
+
+/* ndi_fget_dir_block reads the next record in the file and attempts
+ * to parse it as a dir_block.  Returns the number of fields
+ * successfully parsed. */
+
+int ndi_fget_dir_block(dir_entry *rec, FILE *stream)
+{
+     long fpos;
+     char *l;
+     char s[] = " ,\t\n=";
+     char *t;
+     char line[MAX_IN_STR_LEN];
+     int n = 0;
+
+     (void) ndi_init_dir_rec(rec);
+
+     fpos = ftell(stream);      /* remember file position */
+
+     while ((l=fgets(line, sizeof(line), stream)) != NULL) {
+          for (t = strtok(line, s); t != NULL; t = strtok(NULL, s)) {
+               if (strcmp(t, "z") == 0) { /* ZAID */
+                    t = strtok(NULL, s);
+                    strcpy(rec->zaid, t);
+                    n++;
+               } else if (strcmp(t, "d") == 0) { /* Date */
+                    t = strtok(NULL, s);
+                    strcpy(rec->date, t);
+                    n++;
+               } else if (strcmp(t, "l") == 0) { /* Library */
+                    t = strtok(NULL, s);
+                    strcpy(rec->lib, t);
+                    n++;
+               } else if (strcmp(t, "f") == 0) { /* file path */
+                    t = strtok(NULL, s);
+                    strcpy(rec->path, t);
+                    n++;
+               } else if (strcmp(t, "ft") == 0) { /* File type (asc,bin) */
+                    t = strtok(NULL, s);
+                    strcpy(rec->lib_type, t);
+                    n++;
+               } else if (strcmp(t, "ln") == 0) { /* Start line number */
+                    t = strtok(NULL, s);
+                    rec->line_num = strtol(t, (char **) NULL, 10);
+                    n++;
+               } else if (strcmp(t, "o") == 0) { /* File offset */
+                    t = strtok(NULL, s);
+                    rec->offset = strtol(t, (char **) NULL, 10);
+                    n++;
+               } else if (strcmp(t, "ng") == 0) {/* Number of groups */
+                    t = strtok(NULL, s);
+                    rec->num_grps =
+                    (int) strtol(t, (char **) NULL, 10);
+                    n++;
+               } else if (strcmp(t, "t") == 0) {/* Temperature */
+                    t = strtok(NULL, s);
+                    rec->temp = strtod(t, (char **) NULL);
+                    n++;
+               } else if (strcmp(t, "s0") == 0) {/* Self-shielding */
+                    t = strtok(NULL, s);
+                    rec->sig_0 = strtod(t, (char **) NULL);
+                    n++;
+               } else if (strcmp(t, "aw") == 0) {/* Atomic weight */
+                    t = strtok(NULL, s);
+                    rec->at_wgt = strtod(t, (char **) NULL);
+                    n++;
+               } else if (strcmp(t, "awr") == 0) {/* Atomic weight ratio */
+                    t = strtok(NULL, s);
+                    rec->awr = strtod(t, (char **) NULL);
+                    n++;
+               } else if (strcmp(t, "eg") == 0) { /* Energy group symbol */
+                    t = strtok(NULL, s);
+                    strcpy(rec->egrp, t);
+                    n++;
+               } else if (strcmp(t, "end") == 0) {/* End of Record */
+                    break;
+               }
+          }
+     }
+
+     if (l == NULL) {
+          fseek(stream, fpos, SEEK_SET); /* restore file position */
+          return 0;
+     } else {
+          return n;
+     }
+}
+
+/**********************************************************************/

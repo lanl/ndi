@@ -14,6 +14,9 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
+static int get_size_x_gendir(state_struct *state, int in_key,
+                             const char *in_str, int *ierr);
+
 static int get_mg_size_x(state_struct *state, int in_key,
 			 const char *in_str, int *ierr);
 
@@ -44,29 +47,75 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
     int size = 0;		/* Default return value is '0' */
 
     *ierr = 0;			/* Default error value */
-    /* Check that ndi_init has been called. */
+
     if ((!state) || (!state->ndi_initialized)) {
-	*ierr = -2;
-	return (size);
+         NDI_THROW(*ierr, -2);  /* State not initialized */
     }
 
     if (is_gendir(state)) {
-	*ierr = -2;
+	*ierr = get_size_x_gendir(state, in_key, in_str, ierr);
     } else if ((state->library_type == 'm') ||
                (state->library_type == 'd')) {
 	size = get_mg_size_x(state, in_key, in_str, ierr);
     } else if (state->library_type == ' ') {
-	*ierr = -16;            /* library type not set */
+	NDI_THROW(*ierr, -16);            /* library type not set */
     } else {
-	/* Incompatible library type */
-	*ierr = -4;
+         NDI_THROW(*ierr, -4);	/* Incompatible library type */
     }
 
     if (size < 0) {
 	size = 0;
     }
 
+catch:
     return (size);
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int get_size_x_gendir(state_struct *state, int in_key,
+                             const char *in_str, int *ierr)
+{
+    char *section;
+    long fpos = -1;
+    dir_entry rec;
+    int count = 0;
+
+    section = ndi_get_section(state);
+
+    if (section == 0)
+	NDI_THROW(*ierr, -16);   /* Library type not set */
+
+    fpos = ftell(state->ndi_dir); /* remember file position */
+	
+    if (ndi_fseek_str(state->ndi_dir, section, 0) != 0)
+         NDI_THROW(*ierr, -11);
+
+    while (ndi_fget_dir_block(&rec, state->ndi_dir) > 0) {
+         if ((strncmp(rec.lib, state->library_vers, 
+                      strlen(state->library_vers)) == 0) &&
+             (strncmp(rec.zaid, in_str, strlen(in_str)) == 0)) {
+              
+              switch(in_key) {            /* Process keyword */
+              case NDI_ZAID:
+                   count += strlen(rec.zaid) + 1;
+                   break;
+              case NDI_TEMP:
+              case NDI_SIG_0:
+              case NDI_AT_WGT:
+              case NDI_AWR:
+                   count++;
+                   break;
+              default:
+                   NDI_THROW(*ierr, -4);   /* Unrecognized input key */
+              }
+         }
+    }
+
+catch:
+    if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
+    return count;
 }
 
 /**********************************************************************/
@@ -75,20 +124,11 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
 static int get_mg_size_x(state_struct *state, int in_key,
 			 const char *in_str, int *ierr)
 {
-
     int return_value = 0;	/* Default return value is '0' */
 
-    if (!state) {
-	*ierr = -2;
-	return (0);
-    }
 
-    *ierr = 0;			/* Default error value */
-
-    /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	*ierr = -7;
-	return (return_value);
+         NDI_THROW(*ierr, -7);  /* Isotope not set */
     }
 
    /*************************/
@@ -97,8 +137,6 @@ static int get_mg_size_x(state_struct *state, int in_key,
     switch (in_key) {
 
     case NDI_TOT_PROD_XS:	/* Total production cross section */
-	/* Check in_str is valid */
-	/* instr */
 	if (state->collapse_flag != 0) {
 	    return_value = state->grp_num_new;
 	} else {
@@ -114,10 +152,11 @@ static int get_mg_size_x(state_struct *state, int in_key,
      /***********  UNKNOWN KEYWORD  **************/
 
     default:
-	*ierr = -4;
+	NDI_THROW(*ierr, -4);
 	break;
     }
 
+catch:
     return (return_value);
 }
 

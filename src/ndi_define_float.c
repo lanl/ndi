@@ -55,6 +55,8 @@ int main()
     printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float32_vec\n");
     printf("#define NDI_GET_FLOAT_VEC_N ndi_c_get_float32_vec_n\n");
     printf("#define NDI_GET_FLOAT_VEC_X ndi_c_get_float32_vec_x\n");
+    printf("#define NDI_GET_FLOAT_VEC_X_MG ndi_c_get_float32_vec_x_mg\n");
+    printf("#define NDI_GET_FLOAT_VEC_X_GENDIR ndi_c_get_float32_vec_x_gendir\n");
     printf("#define NDI_GET_FLOAT_VAL_H ndi_c_get_float32_val_h\n");
     printf("#define NDI_GET_FLOAT_VAL_N_H ndi_c_get_float32_val_n_h\n");
     printf("#define NDI_GET_FLOAT_VEC_H ndi_c_get_float32_vec_h\n");
@@ -88,8 +90,10 @@ int main()
     printf("#define NDI_INIT_FLOAT_VEC ndi_init_float32_vec\n");
     printf("#define GET_SIG_REAC ndi_get_sig_reac32\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs32\n");
+    printf("#define GET_FLOAT_VEC_X_MG ndi_get_float_vec32_x_mg\n");
     printf("#define GET_PROD_REAC ndi_get_prod_reac32\n");
     printf("#define GET_RPROD_MLT ndi_get_rprod_mlt32\n");
+    printf("#define GET_FLOAT_VEC_X_GENDIR ndi_get_float32_vec_x_gendir\n");
     printf("#define GET_PROD_Q ndi_get_prod_q32\n");
     printf("#define GET_PN_PROD_FULL ndi_get_pn_prod_full32\n");
     printf("#define GET_DIAG_CORR ndi_get_diag_corr32\n");
@@ -148,6 +152,8 @@ int main()
     printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float64_vec\n");
     printf("#define NDI_GET_FLOAT_VEC_N ndi_c_get_float64_vec_n\n");
     printf("#define NDI_GET_FLOAT_VEC_X ndi_c_get_float64_vec_x\n");
+    printf("#define NDI_GET_FLOAT_VEC_X_MG ndi_c_get_float64_vec_x_mg\n");
+    printf("#define NDI_GET_FLOAT_VEC_X_GENDIR ndi_c_get_float64_vec_x_gendir\n");
     printf("#define NDI_GET_FLOAT_VAL_H ndi_c_get_float64_val_h\n");
     printf("#define NDI_GET_FLOAT_VAL_N_H ndi_c_get_float64_val_n_h\n");
     printf("#define NDI_GET_FLOAT_VEC_H ndi_c_get_float64_vec_h\n");
@@ -179,8 +185,10 @@ int main()
     printf("#define PN_FULL_TRANS_CORR ndi_pn_full_trans_corr64\n");
     printf("#define GET_SIG_REAC ndi_get_sig_reac64\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs64\n");
+    printf("#define GET_FLOAT_VEC_X_MG ndi_get_float_vec64_x_mg\n");
     printf("#define GET_PROD_REAC ndi_get_prod_reac64\n");
     printf("#define GET_RPROD_MLT ndi_get_rprod_mlt64\n");
+    printf("#define GET_FLOAT_VEC_X_GENDIR ndi_get_float64_vec_x_gendir\n");
     printf("#define GET_PROD_Q ndi_get_prod_q64\n");
     printf("#define GET_PN_PROD_FULL_P ndi_get_pn_prod_full64\n");
     printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat64\n");

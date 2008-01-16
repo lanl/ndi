@@ -835,6 +835,11 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
 
   \par Valid in_key values:
        ===================
+  - gendir \a handle:
+      - \c NDI_TEMP: Array length
+      - \c NDI_SIG_0: Array length
+      - \c NDI_AT_WGT: Array length
+      - \c NDI_AWR: Array length
 
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handles:
       - \c NDI_TOT_PROD_XS: Array length
@@ -1340,6 +1345,11 @@ NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
 
   \par Valid in_key values:
        ===================
+  - gendir \a handle:
+      - \c NDI_TEMP: Temperature list
+      - \c NDI_SIG_0: Self-shielding list
+      - \c NDI_AT_WGT: Atomic weight list
+      - \c NDI_AWR: Atomic weight ratio list
 
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str
@@ -1598,6 +1608,11 @@ NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 
   \par Valid in_key values:
        ===================
+  - gendir \a handle:
+      - \c NDI_TEMP: Temperature list
+      - \c NDI_SIG_0: Self-shielding list
+      - \c NDI_AT_WGT: Atomic weight list
+      - \c NDI_AWR: Atomic weight ratio list
 
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a in_str

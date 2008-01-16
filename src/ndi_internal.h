@@ -57,7 +57,7 @@
 (((new_err) < 0) || (((curr_err) >= 0) && ((new_err) != 0))) ? \
 (new_err) : (curr_err)
 
-#define NDI_THROW(err, val) err=val; if (err<0) goto catch
+#define NDI_THROW(err, val) if (((err)=(val)) < 0) goto catch
 
 /**********************************************************************/
 
@@ -476,6 +476,8 @@ extern "C" {
 			      char **p);
     int read_dir_block(char *in_line, FILE *dir_stream,
 		       dir_entry *dir_rec);
+     int ndi_fseek_str(FILE *stream, const char *str, int wherefrom);
+     int ndi_fget_dir_block(dir_entry *rec, FILE *stream);
     int ndi_read_int_block(FILE *stream, const int num_ints,
 			   long *return_vec, const int return_size);
     void *ndi_malloc(size_t size);

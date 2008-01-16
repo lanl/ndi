@@ -1,3 +1,12 @@
+2008-01-16  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_float_vec_x.c (GET_FLOAT_VEC_X_GENDIR): Added gendir
+	routine 
+
+	* ndi_get_size_x.c (get_size_x_gendir): Added gendir routine
+
+	* ndi_internal.h (NDI_THROW): Fixed multiline macro
+
 2007-10-09  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
 	* ndi_get_float_vec_n.c (GET_TRANSFER_MAT): Removed Chi vector
