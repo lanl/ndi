@@ -464,20 +464,29 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 	    GET_DEPL_XS(state, &state->iso_stat, return_vec, return_size);
 	break;
 
-    case NDI_TEMPS:             /* Multi-temperature stub (reqt. 22) */
-         if (state->iso_stat.temp >= 0) {
-              if (return_size > 0) { /* Return single temperature */
-                   return_vec[0] = state->iso_stat.temp;
-              } else {
-                   ierr = 7;    /* Data was truncated */
-              }
+    case NDI_TEMPS:             /* Multi-temperature kludge (reqt. 22) */
+    {
+         double *vec = NULL;
+         char sza[20];
+         int i;
+
+         vec = (double *)ndi_malloc(return_size*sizeof(double));
+         if (!vec) {
+              ierr = -14;  /* Out of memory */
          } else {
-              ierr = -9;        /* Data not available */
+              sprintf(sza, "%d", atoi(state->iso_stat.zaid));
+              ierr = ndi_float_dir_block(state->ndi_dir, NDI_TEMP, 
+                                         ndi_get_section(state), 
+                                         state->library_vers, sza, 
+                                         vec, return_size);
+              for (i = 0; i < return_size; i++) 
+                   return_vec[i] = (FLOAT_TYPE) vec[i];
          }
-         break;
+         ndi_free((void **) &vec);
+    }
+    break;
 
       /**********  UNKNOWN KEYWORD  ***********/
-
 
     default:
 	ierr = -4;

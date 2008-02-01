@@ -57,7 +57,7 @@
 (((new_err) < 0) || (((curr_err) >= 0) && ((new_err) != 0))) ? \
 (new_err) : (curr_err)
 
-#define NDI_THROW(err, val) if (((err)=(val)) < 0) goto catch
+#define NDI_THROW(err, val) if (((err)=(val)?(val):(err)) < 0) goto catch
 
 /**********************************************************************/
 
@@ -474,12 +474,18 @@ extern "C" {
 			 const int data_type, int *num_prod, short mt_flag);
     int ndi_read_string_block(FILE *stream, const int num_strings,
 			      char **p);
-    int read_dir_block(char *in_line, FILE *dir_stream,
-		       dir_entry *dir_rec);
-     int ndi_fseek_str(FILE *stream, const char *str, int wherefrom);
-     int ndi_fget_dir_block(dir_entry *rec, FILE *stream);
-    int ndi_read_int_block(FILE *stream, const int num_ints,
-			   long *return_vec, const int return_size);
+    int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec);
+     int ndi_fseek_section(FILE *stream, const char *str, int wherefrom);
+     dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream);
+     dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream, 
+                                  const char *lib, const char *zaid);
+     int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
+                             const char *lib, const char *zaid);
+     int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
+                             const char *lib, const char *zaid,
+                             double *vec, int vec_size);
+     int ndi_read_int_block(FILE *stream, const int num_ints,
+                            long *return_vec, const int return_size);
     void *ndi_malloc(size_t size);
     void *ndi_calloc(size_t nmemb, size_t size);
     void ndi_free(void **p);
@@ -492,7 +498,6 @@ extern "C" {
 			    ndi_float32 * return_vec, int vec_size);
     int ndi_get_rprod_mlt64(state_struct *state, const char *rprod,
 			    ndi_float64 * return_vec, int vec_size);
-
 
    /***  Subroutines in file ndi_init_state.c ***/
     int ndi_init_state_common(state_struct *state);

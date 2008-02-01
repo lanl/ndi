@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_read_dir_block.c
+ * $Id$
  * Description:	Internal function--read the gendir entry for one ZAID.
- * Time-stamp:	<1998-12-18 18:09:41 jomc>
  *
  */
 
@@ -17,11 +16,6 @@
 
 
 static int ndi_init_dir_rec(dir_entry *dir_rec);
-
-/**********************************************************************/
-
-int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
-
 
 /**********************************************************************/
 /*  Purpose: Read a record ('line') from the gendir file for one ZAID.
@@ -39,6 +33,7 @@ int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
 
 ***********************************************************************/
 /* Handle when there is no end-of-string character. */
+int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
 {
 
     int ierr = 0;
@@ -158,120 +153,224 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
 
 /**********************************************************************/
 
-/* ndi_fseek_str sets the file position for stream; a subsequent read
+/* ndi_fseek_section sets the file position for stream; a subsequent read
  * or write will access data begining at the new position.  The
  * position is set to the line following the first line that matches
  * str.  Search from beginning of the file if wherefrom = 0, the
  * current position if wherefrom = 1.  Restores file position and
  * returns non-zero on error. */
 
-int ndi_fseek_str(FILE *stream, const char *str, int wherefrom)
+int ndi_fseek_section(FILE *stream, const char *str, int wherefrom)
 {
-     char *l;
-     char line[MAX_IN_STR_LEN];
-     long fpos;
+    char *l;
+    char line[MAX_IN_STR_LEN];
+    long fpos;
 
-     fpos = ftell(stream);      /* remember file position */
+    fpos = ftell(stream);      /* remember file position */
 
-     if (wherefrom == 0) rewind(stream); /* start from beginning */
+    if (wherefrom == 0) rewind(stream); /* start from beginning */
 
-     while ((l = fgets(line, sizeof(line), stream)) != NULL)
-          if (strncmp(line, str, strlen(str)) == 0) break;
+    while ((l = fgets(line, sizeof(line), stream)) != NULL)
+	if (strncmp(line, str, strlen(str)) == 0) break;
 
-     if (l == NULL) { 
-          fseek(stream, fpos, SEEK_SET); /* restore original file position */
-          return -1;            /* not found or file error */
-     } else {
-          return 0;             /* success */
-     }
+    if (l == NULL) { 
+	fseek(stream, fpos, SEEK_SET); /* restore original file position */
+	return -1;            /* not found or file error */
+    } else {
+	return 0;             /* success */
+    }
 }
 
 /**********************************************************************/
 
 /* ndi_fget_dir_block reads the next record in the file and attempts
- * to parse it as a dir_block.  Returns the number of fields
- * successfully parsed. */
+ * to parse it as a dir_block.  Returns rec, or NULL if end of
+ * section, end of file, or error occurs */
 
-int ndi_fget_dir_block(dir_entry *rec, FILE *stream)
+dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 {
-     long fpos;
-     char *l;
-     char s[] = " ,\t\n=";
-     char *t;
-     char line[MAX_IN_STR_LEN];
-     int n = 0;
+    char *l = NULL;
+    char s[] = " ,\t\n=";
+    char *t;
+    char line[MAX_IN_STR_LEN];
+    int n = 0;
 
-     (void) ndi_init_dir_rec(rec);
+    if (ndi_init_dir_rec(rec) != 0) goto catch;
 
-     fpos = ftell(stream);      /* remember file position */
+    while ((l=fgets(line, sizeof(line), stream)) != NULL) {
+	for (t = strtok(line, s); t != NULL; t = strtok(NULL, s)) {
+	    if (strcmp(t, "z") == 0) { /* ZAID */
+		t = strtok(NULL, s);
+		strcpy(rec->zaid, t);
+		n++;
+	    } else if (strcmp(t, "d") == 0) { /* Date */
+		t = strtok(NULL, s);
+		strcpy(rec->date, t);
+		n++;
+	    } else if (strcmp(t, "l") == 0) { /* Library */
+		t = strtok(NULL, s);
+		strcpy(rec->lib, t);
+		n++;
+	    } else if (strcmp(t, "f") == 0) { /* file path */
+		t = strtok(NULL, s);
+		strcpy(rec->path, t);
+		n++;
+	    } else if (strcmp(t, "ft") == 0) { /* File type (asc,bin) */
+		t = strtok(NULL, s);
+		strcpy(rec->lib_type, t);
+		n++;
+	    } else if (strcmp(t, "ln") == 0) { /* Start line number */
+		t = strtok(NULL, s);
+		rec->line_num = atol(t);
+		n++;
+	    } else if (strcmp(t, "o") == 0) { /* File offset */
+		t = strtok(NULL, s);
+		rec->offset = atol(t);
+		n++;
+	    } else if (strcmp(t, "ng") == 0) {/* Number of groups */
+		t = strtok(NULL, s);
+		rec->num_grps = atoi(t);
+		n++;
+	    } else if (strcmp(t, "t") == 0) {/* Temperature */
+		t = strtok(NULL, s);
+		rec->temp = atof(t);
+		n++;
+	    } else if (strcmp(t, "s0") == 0) {/* Self-shielding */
+		t = strtok(NULL, s);
+		rec->sig_0 = atof(t);
+		n++;
+	    } else if (strcmp(t, "aw") == 0) {/* Atomic weight */
+		t = strtok(NULL, s);
+		rec->at_wgt = atof(t);
+		n++;
+	    } else if (strcmp(t, "awr") == 0) {/* Atomic weight ratio */
+		t = strtok(NULL, s);
+		rec->awr = atof(t);
+		n++;
+	    } else if (strcmp(t, "eg") == 0) { /* Energy group symbol */
+		t = strtok(NULL, s);
+		strcpy(rec->egrp, t);
+		n++;
+	    } else if (strcmp(t, "end") == 0) {/* End of Record */
+		break;
+	    }
+	}
+    }
 
-     while ((l=fgets(line, sizeof(line), stream)) != NULL) {
-          for (t = strtok(line, s); t != NULL; t = strtok(NULL, s)) {
-               if (strcmp(t, "z") == 0) { /* ZAID */
-                    t = strtok(NULL, s);
-                    strcpy(rec->zaid, t);
-                    n++;
-               } else if (strcmp(t, "d") == 0) { /* Date */
-                    t = strtok(NULL, s);
-                    strcpy(rec->date, t);
-                    n++;
-               } else if (strcmp(t, "l") == 0) { /* Library */
-                    t = strtok(NULL, s);
-                    strcpy(rec->lib, t);
-                    n++;
-               } else if (strcmp(t, "f") == 0) { /* file path */
-                    t = strtok(NULL, s);
-                    strcpy(rec->path, t);
-                    n++;
-               } else if (strcmp(t, "ft") == 0) { /* File type (asc,bin) */
-                    t = strtok(NULL, s);
-                    strcpy(rec->lib_type, t);
-                    n++;
-               } else if (strcmp(t, "ln") == 0) { /* Start line number */
-                    t = strtok(NULL, s);
-                    rec->line_num = strtol(t, (char **) NULL, 10);
-                    n++;
-               } else if (strcmp(t, "o") == 0) { /* File offset */
-                    t = strtok(NULL, s);
-                    rec->offset = strtol(t, (char **) NULL, 10);
-                    n++;
-               } else if (strcmp(t, "ng") == 0) {/* Number of groups */
-                    t = strtok(NULL, s);
-                    rec->num_grps =
-                    (int) strtol(t, (char **) NULL, 10);
-                    n++;
-               } else if (strcmp(t, "t") == 0) {/* Temperature */
-                    t = strtok(NULL, s);
-                    rec->temp = strtod(t, (char **) NULL);
-                    n++;
-               } else if (strcmp(t, "s0") == 0) {/* Self-shielding */
-                    t = strtok(NULL, s);
-                    rec->sig_0 = strtod(t, (char **) NULL);
-                    n++;
-               } else if (strcmp(t, "aw") == 0) {/* Atomic weight */
-                    t = strtok(NULL, s);
-                    rec->at_wgt = strtod(t, (char **) NULL);
-                    n++;
-               } else if (strcmp(t, "awr") == 0) {/* Atomic weight ratio */
-                    t = strtok(NULL, s);
-                    rec->awr = strtod(t, (char **) NULL);
-                    n++;
-               } else if (strcmp(t, "eg") == 0) { /* Energy group symbol */
-                    t = strtok(NULL, s);
-                    strcpy(rec->egrp, t);
-                    n++;
-               } else if (strcmp(t, "end") == 0) {/* End of Record */
-                    break;
-               }
-          }
-     }
-
-     if (l == NULL) {
-          fseek(stream, fpos, SEEK_SET); /* restore file position */
-          return 0;
-     } else {
-          return n;
-     }
+ catch:
+    if (n == 0 || l == NULL) {
+	return NULL;
+    } else {
+	return rec;
+    }
 }
 
+/**********************************************************************/
+/**********************************************************************/
+
+/* ndi_fget_next_dir reads records in the file and attempts to parse
+ * it as a series of dir_blocks.  Returns rec if a record is found
+ * that matches input library and zaid, or NULL if end of section, end
+ * of file, or error occurs */  
+
+dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
+                             const char *lib, const char *zaid)
+{
+    dir_entry *d;
+
+    while ((d = ndi_fget_dir_block(rec, stream)) != NULL)
+	if ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
+	    (strncmp(d->lib, lib, strlen(lib)) == 0))
+	    break;
+     
+    return d;
+}
+
+/**********************************************************************/
+/**********************************************************************/
+int ndi_count_dir_block(FILE *stream, int in_key, const char *section, 
+                        const char *lib, const char *zaid)
+{
+    long fpos = -1;
+    dir_entry rec;
+    int count = 0;
+
+    if (section == 0) NDI_THROW(count, -16); /* Library type not set */
+
+    fpos = ftell(stream); /* remember file position */
+	
+    if (ndi_fseek_section(stream, section, 0) != 0)
+	NDI_THROW(count, -11); /* Section not found */
+    
+    while (ndi_fget_next_dir(&rec, stream, lib, zaid))
+	switch (in_key) {
+	case NDI_ZAID:
+	    count += strlen(rec.zaid) + 1;
+	    break;
+	case NDI_TEMP:
+	case NDI_SIG_0:
+	case NDI_AT_WGT:
+	case NDI_AWR:
+	    count++;
+	    break;
+	default:
+	    NDI_THROW(count, -4); /* Unrecognized input key */
+	    break;
+	}
+
+ catch:
+    if (fpos >= 0) fseek(stream, fpos, SEEK_SET);
+    return count;
+}
+
+/**********************************************************************/
+int ndi_float_dir_block(FILE *stream, int in_key, const char *section, 
+                        const char *lib, const char *zaid,
+                        double *vec, int size)
+{
+    int ierr = 0;
+    long fpos = -1;
+    dir_entry rec;
+    int i = 0;
+    double *dptr;
+
+    if (section == 0) NDI_THROW(ierr, -16); /* Library type not set */
+
+    switch(in_key) {            /* Process keyword */
+    case NDI_TEMP:
+	dptr = &rec.temp;
+	break;
+    case NDI_SIG_0:
+	dptr = &rec.sig_0;
+	break;
+    case NDI_AT_WGT:
+	dptr = &rec.at_wgt;
+	break;
+    case NDI_AWR:
+	dptr = &rec.awr;
+	break;
+    default:
+	NDI_THROW(ierr, -4);   /* Unrecognized input key */
+    }
+
+    fpos = ftell(stream); /* remember file position */
+	
+    if (ndi_fseek_section(stream, section, 0) != 0)
+	NDI_THROW(ierr, -11); /* Section not found */
+    
+    while (ndi_fget_next_dir(&rec, stream, lib, zaid)) {
+	if (i < size) {
+	    vec[i++] = *dptr;
+	} else {
+	    NDI_THROW(ierr, 7);
+	    break;
+	}
+    }
+
+ catch:
+    if (fpos >= 0) fseek(stream, fpos, SEEK_SET);
+    return ierr;
+}
+
+          
 /**********************************************************************/

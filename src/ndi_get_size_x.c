@@ -1,7 +1,8 @@
 
 /*
  * $Id$
- * Description:	User function--returns size of an element of a multi-dim array.
+ * Description: User function--returns size of the named element of a
+ * multi-dim array.
  *
  */
 
@@ -16,7 +17,6 @@
 
 static int get_size_x_gendir(state_struct *state, int in_key,
                              const char *in_str, int *ierr);
-
 static int get_mg_size_x(state_struct *state, int in_key,
 			 const char *in_str, int *ierr);
 
@@ -77,44 +77,29 @@ catch:
 static int get_size_x_gendir(state_struct *state, int in_key,
                              const char *in_str, int *ierr)
 {
-    char *section;
-    long fpos = -1;
-    dir_entry rec;
     int count = 0;
 
-    section = ndi_get_section(state);
+    switch (in_key) {
 
-    if (section == 0)
-	NDI_THROW(*ierr, -16);   /* Library type not set */
+    case NDI_ZAID:
+    case NDI_TEMP:
+    case NDI_SIG_0:
+    case NDI_AT_WGT:
+    case NDI_AWR:
+         count = ndi_count_dir_block(state->ndi_dir, in_key, 
+                                     ndi_get_section(state),
+                                     state->library_vers, in_str);
+         break;
+    default:
+         NDI_THROW(*ierr, -4);
 
-    fpos = ftell(state->ndi_dir); /* remember file position */
-	
-    if (ndi_fseek_str(state->ndi_dir, section, 0) != 0)
-         NDI_THROW(*ierr, -11);
-
-    while (ndi_fget_dir_block(&rec, state->ndi_dir) > 0) {
-         if ((strncmp(rec.lib, state->library_vers, 
-                      strlen(state->library_vers)) == 0) &&
-             (strncmp(rec.zaid, in_str, strlen(in_str)) == 0)) {
-              
-              switch(in_key) {            /* Process keyword */
-              case NDI_ZAID:
-                   count += strlen(rec.zaid) + 1;
-                   break;
-              case NDI_TEMP:
-              case NDI_SIG_0:
-              case NDI_AT_WGT:
-              case NDI_AWR:
-                   count++;
-                   break;
-              default:
-                   NDI_THROW(*ierr, -4);   /* Unrecognized input key */
-              }
-         }
     }
 
 catch:
-    if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
+    if (count < 0) {
+         *ierr = count;
+         count = 0;
+    }
     return count;
 }
 

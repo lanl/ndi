@@ -94,23 +94,20 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
 
     fpos = ftell(state->ndi_dir); /* remember file position */
 	
-    if (ndi_fseek_str(state->ndi_dir, section, 0) != 0)
+    if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
          NDI_THROW(ierr, -11);  /* Section not found */
 
-    while (ndi_fget_dir_block(rec, state->ndi_dir) > 0) {
-         if ((strncmp(rec.lib, state->library_vers, 
-                      strlen(state->library_vers)) == 0) &&
-             (strncmp(rec.zaid, in_str, strlen(in_str)) == 0)) {
-              size = strlen(rec.zaid) + 1; /* include EOS */
-              if (size > arr_size) {
-                   size = arr_size;
-                   NDI_THROW(ierr, 7); /* Data truncated */
-              }
-              strncpy(str_arr, rec.zaid, size);
-              arr_size -= size * sizeof(char);
-              str_arr += size;
-              if (arr_size == 0) break; /* Out of space */
+    while (ndi_fget_next_dir(&rec, state->ndi_dir,
+                             state->library_vers,  in_str) {
+         size = strlen(rec.zaid) + 1; /* include EOS */
+         if (size > arr_size) {
+              size = arr_size;
+              NDI_THROW(ierr, 7); /* Data truncated */
          }
+         strncpy(str_arr, rec.zaid, size);
+         arr_size -= size * sizeof(char);
+         str_arr += size;
+         if (arr_size == 0) break; /* Out of space */
     }
 
 catch:

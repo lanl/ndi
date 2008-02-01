@@ -358,8 +358,19 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 	}
 	break;
 
-    case NDI_TEMPS:             /* multi-temperature stub (Reqt. 22 */
-         return_value = 1;
+    case NDI_TEMPS:             /* multi-temperature kludge (Reqt. 22) */
+    {
+         char sza[20];
+
+         sprintf(sza, "%d", atoi(state->iso_stat.zaid));
+         return_value = ndi_count_dir_block(state->ndi_dir, NDI_TEMP, 
+                                            ndi_get_section(state), 
+                                            state->library_vers, sza);
+         if (return_value < 0) {
+              *ierr = return_value;
+              return_value = 0;
+         }
+    }
          break;
 
       /****************************/

@@ -15,14 +15,13 @@
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
 
-static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
-                                  const char *in_str,
-                                  FLOAT_TYPE *return_vec, int vec_size);
-
 static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key, 
                               const char *in_str,
                               FLOAT_TYPE *return_vec, int vec_size);
 
+static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
+                                  const char *in_str,
+                                  FLOAT_TYPE *return_vec, int vec_size);
 /**********************************************************************/
 
 int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
@@ -65,62 +64,37 @@ catch:
 /*********************************************************************/
 
 static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
-                                   const char *in_str,
-                                   FLOAT_TYPE *return_vec, int vec_size)
+                                  const char *in_str,
+                                  FLOAT_TYPE *return_vec, int vec_size)
 {
     int ierr = 0;
-    long fpos = -1;
-    dir_entry rec;
-    char *section;
-    int c = 0;
-    double *dptr;
+    double *vec = NULL;
+    int i;
 
     if (!state)                 /* check state sanity */
 	NDI_THROW(ierr, -2);
 
-    section = ndi_get_section(state);
-    if (section == 0)
-	NDI_THROW(ierr, -16);   /* Library type not set */
-
-
     switch(in_key) {            /* Process keyword */
     case NDI_TEMP:
-         dptr = &rec.temp;
-         break;
     case NDI_SIG_0:
-         dptr = &rec.sig_0;
-         break;
     case NDI_AT_WGT:
-         dptr = &rec.at_wgt;
-         break;
     case NDI_AWR:
-         dptr = &rec.awr;
+         vec = (double *)ndi_malloc(vec_size*sizeof(double));
+         if (!vec) NDI_THROW(ierr, -14); /* Out of memory */
+
+         ierr = ndi_float_dir_block(state->ndi_dir, in_key, 
+                                    ndi_get_section(state),
+                                    state->library_vers, in_str, 
+                                    vec, vec_size);
+         for(i = 0; i < vec_size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
          break;
     default:
          NDI_THROW(ierr, -4);   /* Unrecognized input key */
     }
 
-    fpos = ftell(state->ndi_dir); /* remember file position */
-	
-    if (ndi_fseek_str(state->ndi_dir, section, 0) != 0)
-         NDI_THROW(ierr, -11);  /* Section not found */
-
-    while (ndi_fget_dir_block(&rec, state->ndi_dir) > 0) {
-         if ((strncmp(rec.lib, state->library_vers, 
-                      strlen(state->library_vers)) == 0) &&
-             (strncmp(rec.zaid, in_str, strlen(in_str)) == 0)) {
-              if (c < vec_size) {
-                   return_vec[c++] = (FLOAT_TYPE) *dptr;
-              } else {
-                   NDI_THROW(ierr, 7);
-                   break;
-              }
-              
-         }
-    }
 
 catch:
-    if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
+    ndi_free((void **) &vec);
     return ierr;
 }
 
