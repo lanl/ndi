@@ -1,3 +1,9 @@
+/*
+ * $Id$
+ * Description:	User functions NDI 2.x
+ *
+ */
+
 #include <stdio.h>
 #include <assert.h>
 
@@ -347,6 +353,82 @@ NDI2_set_zaid(int handle, const char *zaid)
         return (ndimp_set_zaid(state_p, zaid ));
     } else {
         return (ndi_c_set_zaid_h(state_p, zaid));
+    }
+}
+
+/*!
+  \brief Set ZAID and temperature for \a handle.
+
+  This function associates a handle with an entry in the NDI index
+  file.  The file associated with the first matching ZAID entry and
+  closest temperature in the index file is opened, and the physical
+  data associated with that entry initializes the handle data.
+  Subsequent call to the \a NDI2_get family of functions with this
+  handle will return the requested physical data associated with this
+  ZAID and temperature.
+
+  \par Fortran example
+  \code
+  ! Set ZAID U-235 at room temperature in MeV
+  call ndi2_set_zaid(handle, "92235", 2.53e-8, ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing ZAID
+  \param temp: float32 temperature
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+*/
+int NDI2_set_zaid_float32_temp(int handle, const char *zaid, ndi_float32 temp)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    
+    if (is_gendir(state_p)) {
+        return -2;
+    } else if (is_mpmg(state_p)) {
+        return -2;
+    } else {
+        return (ndi_c_set_zaid_float32_temp_h(state_p, zaid, temp));
+    }
+}
+
+/*!
+  \brief Set ZAID and temperature for \a handle.
+
+  This function associates a handle with an entry in the NDI index
+  file.  The file associated with the first matching ZAID entry and
+  closest temperature in the index file is opened, and the physical
+  data associated with that entry initializes the handle data.
+  Subsequent call to the \a NDI2_get family of functions with this
+  handle will return the requested physical data associated with this
+  ZAID and temperature.
+
+  \par Fortran example
+  \code
+  ! Set ZAID U-235 at room temperature in MeV
+  call ndi2_set_zaid(handle, "92235", 2.53e-8, ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing ZAID
+  \param temp: float64 temperature
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+*/
+int NDI2_set_zaid_float64_temp(int handle, const char *zaid, ndi_float64 temp)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    
+    if (is_gendir(state_p)) {
+        return -2;
+    } else if (is_mpmg(state_p)) {
+        return -2;
+    } else {
+        return (ndi_c_set_zaid_float64_temp_h(state_p, zaid, temp));
     }
 }
 
@@ -777,6 +859,7 @@ NDI2_get_size(int handle, int in_key, int *ierr)
       - \c NDI_TRANSFER_MAT_TOT: Matrix length
       - \c NDI_TRANSFER_MAT_PR: Matrix length
       - \c NDI_PN_PROD_FULL_CURR_PART: Matrix length
+      - \c NDI_TEMPS: Array length
   - multigroup_multi \a handle:
       - \c NDI_PN_FULL: Array length
       - \c NDI_SIG_REAC: Array length
@@ -1363,14 +1446,8 @@ NDI2_get_float32_vec_x(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    if (is_gendir(state_p)) {
-        /* Case not handled currently */
-        (void)ndi_init_float32_vec(return_vec, vec_size);
-        return -2;
-   } else {
-        return (ndi_c_get_float32_vec_x_h(state_p, in_key, in_str, 
-                                          return_vec, vec_size));
-    }
+    return (ndi_c_get_float32_vec_x_h(state_p, in_key, in_str, 
+				      return_vec, vec_size));
 }
 
 /*!
@@ -1626,14 +1703,8 @@ NDI2_get_float64_vec_x(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    if (is_gendir(state_p)) {
-        /* Case not handled currently */
-        (void)ndi_init_float64_vec(return_vec, vec_size);
-        return -2;
-    } else {
-        return (ndi_c_get_float64_vec_x_h(state_p, in_key, in_str, 
+    return (ndi_c_get_float64_vec_x_h(state_p, in_key, in_str, 
                                           return_vec, vec_size));
-    }
 }
 
 /*!
@@ -1774,6 +1845,43 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
 
     state_p = handle_to_state_p(handle);
     return (ndi_c_get_string_vec_h(state_p, in_key, ret_val, str_size));
+}
+
+/*!
+  \brief Get the string array \a ret_val indicated by \a in_key and \a in_str 
+   from \a handle.
+
+  \param handle: integer input handle
+  \param in_key: integer input key indicating the data sought
+  \param in_str: string input key indicating the data sought
+  \param ret_val: string output array, allocated by the user, 
+  containing the values returned by NDI.
+  \param str_size: integer input indicating the allocated size of ret_val.
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+
+  \par Fortran example
+  \code
+  ! Get list of U-235 zaids available
+  call ndi2_get_string_vec_x(handle, NDI_ZAID, "92235", ret_str, size, err)
+  \endcode
+
+  \par Valid in_key values:
+       ===================
+
+  - gendir \a handle:
+      - \c NDI_ZAID: ZAID
+ 
+*/
+int 
+NDI2_get_string_vec_x(int handle, int in_key, const char *in_str, 
+		      char *ret_val, int str_size)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+    return (ndi_c_get_string_vec_x_h(state_p, in_key, in_str, 
+				     ret_val, str_size));
 }
 
 /*! @} end of handle_get */

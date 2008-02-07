@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_fortran.c
- * Description:	Source for libndi.a
- * Time-stamp:	<2000-02-02 17:12:31 jomc>
+ * $Id$
+ * Description:	Fortran interface code
  *
  */
 
@@ -43,6 +42,10 @@ void F_NDI_SET_OPTION(int *in_key, char *in_value, int *ierr, int len);
 void F_NDI_CHECK_OPTION(int *in_key, char *out_value, int *ierr, int len);
 void F_NDI_SET_ISOTOPE(char *zaid, int *ierr, int zaid_len);
 void F_NDI_SET_ZAID(char *zaid, int *ierr, int zaid_len);
+void F_NDI_SET_ZAID_FLOAT32_TEMP(char *zaid, ndi_float32 *temp, int *ierr, 
+				 int zaid_len);
+void F_NDI_SET_ZAID_FLOAT64_TEMP(char *zaid, ndi_float64 *temp, int *ierr, 
+				 int zaid_len);
 void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len);
 void F_NDI_GET_SIZE(int *in_key, int *return_val, int *ierr);
 void F_NDI_GET_SIZE_N(int *in_key, int *vec_num, int *return_val,
@@ -86,6 +89,14 @@ void F_NDI_GET_STRING_VAL(int *in_key, char *return_val, int *ierr,
 			  int char_len);
 void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
 			    int *ierr, int char_len);
+void F_NDI_GET_STRING_VEC(int *in_key, 
+			  char *return_val, int *arr_size, int *str_size, 
+			  int *ierr, 
+			  int char_len);
+void F_NDI_GET_STRING_VEC_X(int *in_key, char *in_str, 
+			    char *return_val, int *arr_size, int *str_size, 
+			    int *ierr, 
+			    int str_len, int val_len);
 
 /* NDI 2.0 user functions with handles */
 void F_NDI2_OPEN_GENDIR(int *handle, char *path, int *ierr, int path_len);
@@ -98,6 +109,10 @@ void F_NDI2_CLOSE_GENDIR(int *handle, int *ierr);
 void F_NDI2_MAKE_HANDLE(int *handle1, char *type, int *handle2, int *ierr, 
 			int len);
 void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len);
+void F_NDI2_SET_ZAID_FLOAT32_TEMP(int *handle, char *zaid, ndi_float32 *temp, 
+				  int *ierr, int zaid_len);
+void F_NDI2_SET_ZAID_FLOAT64_TEMP(int *handle, char *zaid, ndi_float64 *temp, 
+				  int *ierr, int zaid_len);
 void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_SET_REACTION(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_GET_HANDLE(int *handle0, int *handle1, int *ierr);
@@ -151,9 +166,14 @@ void F_NDI2_GET_STRING_VAL(int *handle, int *in_key, char *return_val,
                            int *ierr, int len);
 void F_NDI2_GET_STRING_VAL_N(int *handle, int *in_key, int *vec_num,
                              char *return_val, int *ierr, int len);
-void F_NDI2_GET_STRING_VEC(int *handle, int *in_key, char *str_arr,
-			   int *arr_size, int *str_size, int *ierr,
+void F_NDI2_GET_STRING_VEC(int *handle, int *in_key, 
+			   char *str_arr, int *arr_size, int *str_size, 
+			   int *ierr,
 			   int flen2);
+void F_NDI2_GET_STRING_VEC_X(int *handle, int *in_key, char *in_str, 
+			     char *return_val, int *arr_size, int *str_size, 
+			     int *ierr,
+			     int str_len, int val_len);
 
 /***************     Functions     ***************/
 
@@ -359,6 +379,30 @@ void F_NDI_SET_ZAID(char *zaid, int *ierr, int zaid_len)
 	ndi_free((void **) &c_zaid);
 }
 
+void F_NDI_SET_ZAID_FLOAT32_TEMP(char *zaid, ndi_float32 *temp, int *ierr, 
+				 int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = ndi_c_set_zaid_float32_temp(c_zaid, *temp);
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI_SET_ZAID_FLOAT64_TEMP(char *zaid, ndi_float64 *temp, int *ierr, 
+				 int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = ndi_c_set_zaid_float64_temp(c_zaid, *temp);
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
+}
+
 void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len)
 {
     char *c_zaid;
@@ -548,6 +592,94 @@ void F_NDI_GET_STRING_VAL_N(int *in_key, int *vec_num, char *return_val,
     (void) ndi_free((void **) &c_str);
 }
 
+void F_NDI_GET_STRING_VEC(int *in_key, char *str_arr,
+                           int *arr_size, int *str_size, int *ierr,
+                           int flen)
+{
+    /* Is str_size needed?  */
+
+    char *curr_zaid;
+    char *c_zaid;
+    int c_arr_num;
+    int c_arr_size;
+    int count = 0;
+    char *fstr_p;
+
+    c_arr_size = ndi_c_get_size(*in_key, ierr);
+
+    c_zaid = (char *) ndi_malloc(c_arr_size * sizeof(char));
+
+    *ierr = ndi_c_get_string_vec(*in_key, c_zaid, c_arr_size);
+
+    fstr_p = str_arr;
+
+    curr_zaid = c_zaid;
+    c_arr_num = ndi_c_get_size(NDI_AWR, ierr);
+
+    while (count < c_arr_num) {
+	if (curr_zaid != NULL) {
+	    /* ????? check we've not exceed the bounds on str_arr or c_zaid ????? */
+	    ndi_c2f_string(curr_zaid, fstr_p, *str_size);
+	    curr_zaid += strlen(curr_zaid) + 1;
+	    fstr_p += *str_size;
+	}
+	count++;
+    }
+
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI_GET_STRING_VEC_X(int *in_key, char *in_str,
+			     char *str_arr, int *arr_num, int *str_size, 
+			     int *ierr, 
+			     int in_str_len, int str_arr_len)
+{
+    char *c_in_str;
+    int jerr;
+    int c_str_arr_size;
+    char *c_str_arr;
+    int c_arr_num;
+    int i;
+    char *cstr_p;
+    char *fstr_p;
+
+    /* Allocate c_in_str and translate in_str */
+    c_in_str = (char *) ndi_malloc((in_str_len+1) * sizeof(char));
+    if (!c_in_str) NDI_THROW(*ierr, -14);
+
+    ndi_f2c_string(in_str, &c_in_str, in_str_len, in_str_len+1);
+
+    /* Find size of c_str_array and allocate */
+    c_str_arr_size = ndi_c_get_size_x(*in_key, c_in_str, &jerr);
+    NDI_THROW(*ierr, jerr);
+
+    c_str_arr = (char *) ndi_malloc(c_str_arr_size * sizeof(char));
+    if (!c_str_arr) NDI_THROW(*ierr, -14);
+
+    /* Call C function to get data */
+    jerr = ndi_c_get_string_vec_x(*in_key, c_in_str, 
+				 c_str_arr, c_str_arr_size);
+    NDI_THROW(*ierr, jerr);
+
+    /* Call C function to get number of strings */
+    c_arr_num = ndi_c_get_size_x(NDI_TEMP, c_in_str, &jerr);
+    NDI_THROW(*ierr, jerr);
+
+    /* walk C string array and map into Fortran */
+    for (i = 0, cstr_p = c_str_arr, fstr_p = str_arr; 
+	 i < ((c_arr_num <= *arr_num)? c_arr_num: *arr_num); 
+	 i++, cstr_p += strlen(cstr_p) + 1, fstr_p += *str_size) {
+	    ndi_c2f_string(cstr_p, fstr_p, *str_size);
+    }
+
+    if (c_arr_num > *arr_num) NDI_THROW(*ierr, 7);
+
+ catch:
+    ndi_free((void **) &c_str_arr);
+    ndi_free((void **) &c_in_str);
+}
+
 /***************     NDI 2.0 functions with handles     ***************/
 
 void F_NDI2_OPEN_GENDIR(int *handle, char *path, int *ierr, int path_len)
@@ -612,6 +744,32 @@ void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len)
     *ierr = NDI2_set_zaid(*handle, c_val);
     if (c_val)
         ndi_free((void **) &c_val);
+}
+
+void F_NDI2_SET_ZAID_FLOAT32_TEMP(int *handle, char *zaid, 
+				  ndi_float32 *temp, int *ierr, 
+				 int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = NDI2_set_zaid_float32_temp(*handle, c_zaid, *temp);
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI2_SET_ZAID_FLOAT64_TEMP(int *handle, char *zaid, 
+				 ndi_float64 *temp, int *ierr, 
+				 int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = NDI2_set_zaid_float64_temp(*handle, c_zaid, *temp);
+    if (c_zaid)
+	ndi_free((void **) &c_zaid);
 }
 
 void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len)
@@ -887,6 +1045,56 @@ void F_NDI2_GET_STRING_VEC(int *handle, int *in_key, char *str_arr,
 
     if (c_zaid)
 	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI2_GET_STRING_VEC_X(int *handle, int *in_key, char *in_str,
+			     char *str_arr, int *arr_num, int *str_size, 
+			     int *ierr, 
+			     int in_str_len, int str_arr_len)
+{
+    int jerr;
+    char *c_in_str;
+    int c_str_arr_size;
+    char *c_str_arr;
+    int c_arr_num;
+    int i;
+    char *cstr_p;
+    char *fstr_p;
+
+    /* Allocate c_in_str and translate in_str */
+    c_in_str = (char *) ndi_malloc((in_str_len+1) * sizeof(char));
+    if (!c_in_str) NDI_THROW(*ierr, -14);
+
+    ndi_f2c_string(in_str, &c_in_str, in_str_len, in_str_len+1);
+
+    /* Find size of c_str_array and allocate */
+    c_str_arr_size = NDI2_get_size_x(*handle, *in_key, c_in_str, &jerr);
+    NDI_THROW(*ierr, jerr);
+
+    c_str_arr = (char *) ndi_malloc(c_str_arr_size * sizeof(char));
+    if (!c_str_arr) NDI_THROW(*ierr, -14);
+
+    /* Call C function to get data */
+    jerr = NDI2_get_string_vec_x(*handle, *in_key, c_in_str, 
+				 c_str_arr, c_str_arr_size);
+    NDI_THROW(*ierr, jerr);
+
+    /* Call C function to get number of strings */
+    c_arr_num = NDI2_get_size_x(*handle, NDI_TEMP, c_in_str, &jerr);
+    NDI_THROW(*ierr, jerr);
+
+    /* walk C string array and map into Fortran */
+    for (i = 0, cstr_p = c_str_arr, fstr_p = str_arr; 
+	 i < ((c_arr_num <= *arr_num)? c_arr_num: *arr_num); 
+	 i++, cstr_p += strlen(cstr_p) + 1, fstr_p += *str_size) {
+	    ndi_c2f_string(cstr_p, fstr_p, *str_size);
+    }
+
+    if (c_arr_num > *arr_num) NDI_THROW(*ierr, 7);
+
+ catch:
+    ndi_free((void **) &c_str_arr);
+    ndi_free((void **) &c_in_str);
 }
 
 /***************     Internal functions     ***************/

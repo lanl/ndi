@@ -1,3 +1,9 @@
+/*
+ * $Id$
+ * Description:	Define 32 & 64 bit floats and declarations
+ *
+ */
+
 #include <stdio.h>
 
 void print_var_type_header(void);
@@ -50,6 +56,7 @@ int main()
     printf("#define NDI_COLLAPSE_PROD ndi_collapse_prod32\n");
     printf("#define NDI_READ_FLOAT_BLOCK ndi_read_float32_block\n");
     printf("#define NDI_VEC2MAT ndi_vec2mat32\n");
+    printf("#define NDI_SET_ZAID_FLOAT_TEMP ndi_c_set_zaid_float32_temp_h\n");
     printf("#define NDI_GET_FLOAT_VAL ndi_c_get_float32_val\n");
     printf("#define NDI_GET_FLOAT_VAL_N ndi_c_get_float32_val_n\n");
     printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float32_vec\n");
@@ -146,6 +153,7 @@ int main()
     printf("#define NDI_COLLAPSE_PROD ndi_collapse_prod64\n");
     printf("#define NDI_READ_FLOAT_BLOCK ndi_read_float64_block\n");
     printf("#define NDI_VEC2MAT ndi_vec2mat64\n");
+    printf("#define NDI_SET_ZAID_FLOAT_TEMP ndi_c_set_zaid_float64_temp_h\n");
     printf("#define NDI_GET_FLOAT_VAL ndi_c_get_float64_val\n");
     printf("#define NDI_GET_FLOAT_VAL_N ndi_c_get_float64_val_n\n");
     printf("#define NDI_GET_FLOAT_VEC ndi_c_get_float64_vec\n");

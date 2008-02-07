@@ -1,8 +1,6 @@
 /*
- * File:	ndi.h
+ * $Id$
  * Description:	User header file for NDI library.
- * Time-stamp:	<2000-02-02 15:31:03 jomc>
- *
  * This header file is included in user code and library code.
  */
 
@@ -42,6 +40,10 @@ extern "C" {
     int NDI2_make_handle(int handle0, const char *type, int *handle1);
     int NDI2_set_isotope(int handle, const char *zaid);
     int NDI2_set_zaid(int handle, const char *zaid);
+    int NDI2_set_zaid_float32_temp(int handle, const char *zaid, 
+				   ndi_float32 temp);
+    int NDI2_set_zaid_float64_temp(int handle, const char *zaid, 
+				   ndi_float64 temp);
     int NDI2_set_reaction(int handle, const char *zaid);
     int NDI2_set_option(int handle, int in_key, const char *value);
     int NDI2_check_option(int handle, int in_key, char *out_value,
@@ -52,8 +54,11 @@ extern "C" {
 			int *ierr);
     int NDI2_get_size_x(int handle, int in_key, const char *in_str,
 			int *ierr);
+    int NDI2_set_float32_vec_option(const int handle, int in_key,
+				    const ndi_float32 *option_array,
+				    const int array_size);
     int NDI2_set_float64_vec_option(const int handle, int in_key,
-				    const ndi_float64 * option_array,
+				    const ndi_float64 *option_array,
 				    const int array_size);
     int NDI2_get_int_val(int handle, int in_key, int *ret_val);
     int NDI2_get_int_val_n(int handle, int in_key, int vec_num,
@@ -69,29 +74,32 @@ extern "C" {
     int NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
 			       ndi_float32 * ret_val);
     int NDI2_get_float32_vec(int handle, int in_key,
-			     ndi_float32 * return_vec, int vec_size);
+			     ndi_float32 *return_vec, int vec_size);
     int NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
-			       ndi_float32 * return_vec, int vec_size);
+			       ndi_float32 *return_vec, int vec_size);
     int NDI2_get_float32_vec_x(int handle, int in_key,
 			       const char *in_str,
 			       ndi_float32 * return_vec, int vec_size);
     int NDI2_get_float64_val(int handle, int in_key,
-			     ndi_float64 * ret_val);
+			     ndi_float64 *ret_val);
     int NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
-			       ndi_float64 * ret_val);
+			       ndi_float64 *ret_val);
     int NDI2_get_float64_vec(int handle, int in_key,
-			     ndi_float64 * return_vec, int vec_size);
+			     ndi_float64 *return_vec, int vec_size);
     int NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
-			       ndi_float64 * return_vec, int vec_size);
+			       ndi_float64 *return_vec, int vec_size);
     int NDI2_get_float64_vec_x(int handle, int in_key,
 			       const char *in_str,
-			       ndi_float64 * return_vec, int vec_size);
+			       ndi_float64 *return_vec, int vec_size);
     int NDI2_get_string_val(int handle, int in_key, char *ret_val,
 			    int str_size);
     int NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 			      char *ret_val, int str_size);
     int NDI2_get_string_vec(int handle, int in_key, 
 			    char *ret_val, int str_size);
+    int NDI2_get_string_vec_x(int handle, int in_key, 
+			      const char *in_str, 
+			      char *ret_val, int str_size);
 
 /**********************************************************************/
     /* Backwards compatibility user functions */
@@ -110,6 +118,8 @@ extern "C" {
     int ndi_c_init(void);
     int ndi_c_set_isotope(const char *zaid);
     int ndi_c_set_zaid(const char *zaid);
+    int ndi_c_set_zaid_float32_temp(const char *zaid, ndi_float32 temp);
+    int ndi_c_set_zaid_float64_temp(const char *zaid, ndi_float64 temp);
     int ndi_c_set_reaction(const char *zaid);
     int ndi_c_get_size(int in_key, int *ierr);
     int ndi_c_get_size_n(int in_key, int vec_num, int *ierr);
@@ -144,6 +154,9 @@ extern "C" {
     int ndi_c_get_string_val(int in_key, char *ret_val, int str_size);
     int ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val,
 			       int str_size);
+    int ndi_c_get_string_vec(int in_key, char *ret_val, int str_size);
+    int ndi_c_get_string_vec_x(int in_key, const char *in_str, 
+			      char *ret_val, int str_size);
     int ndi_c_close(void);
 
     int ndi_c_c_to_mt(int c_val);
@@ -164,6 +177,8 @@ extern "C" {
 #define ndi_init() ndi_c_init()
 #define ndi_set_isotope(x) ndi_c_set_isotope(x)
 #define ndi_set_zaid(x) ndi_c_set_zaid(x)
+#define ndi_set_zaid_float32_temp(x, y) ndi_c_set_float32_temp(x, y)
+#define ndi_set_zaid_float64_temp(x, y) ndi_c_set_float64_temp(x, y)
 #define ndi_set_reaction(x) ndi_c_set_reaction(x)
 #define ndi_get_size(x, y) ndi_c_get_size(x, y)
 #define ndi_get_size_n(x, y, z) ndi_c_get_size_n(x, y, z)
@@ -187,6 +202,8 @@ extern "C" {
 #define ndi_get_float64_vec_x(w, x, y, z) ndi_c_get_float64_vec_x(w, x, y, z)
 #define ndi_get_string_val(x, y, z) ndi_c_get_string_val(x, y, z)
 #define ndi_get_string_val_n(w, x, y, z) ndi_c_get_string_val_n(w, x, y, z)
+#define ndi_get_string_vec(x, y, z) ndi_c_get_string_vec(x, y, z)
+#define ndi_get_string_vec_x(w, x, y, z) ndi_c_get_string_vec_x(w, x, y, z)
 #define ndi_close() ndi_c_close()
 #define ndi_c_to_mt(x)  ndi_c_c_to_mt(x)
 #define ndi_mt_to_c(x) ndi_c_mt_to_c(x)

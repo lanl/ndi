@@ -349,6 +349,10 @@ extern "C" {
     int ndi_c_clone_h(state_struct *parent, state_struct **child);
     int ndi_c_close_h(state_struct **curr_state);
     int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid);
+    int ndi_c_set_zaid_float32_temp_h(state_struct *state, const char *zaid, 
+				      ndi_float32 temp);
+    int ndi_c_set_zaid_float64_temp_h(state_struct *state, const char *zaid, 
+				      ndi_float64 temp);
     int ndi_c_set_isotope_h(state_struct *state, const char *in_zaid);
     int ndi_c_set_reaction_h(state_struct *state, const char *in_zaid);
     int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr);
@@ -404,6 +408,9 @@ extern "C" {
 				 char *ret_val, int str_size);
     int ndi_c_get_string_vec_h(state_struct *state, int in_key,
 			       char *str_arr, int arr_size);
+    int ndi_c_get_string_vec_x_h(state_struct *state, int in_key,
+				 const char *in_str,
+				 char *str_arr, int arr_size);
 
     int ndi_set0(state_struct *state, char l_type);
     /*    int ndi_set0_tn_sec_part ( sec_part_distr *part ); */

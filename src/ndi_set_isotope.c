@@ -1,8 +1,7 @@
 
 /*
- * File:	ndi_set_isotope.c
+ * $Id$
  * Description:	User function--set isotope for processing.
- * Time-stamp:	<2000-02-03 14:49:27 jomc>
  *
  */
 

@@ -9,7 +9,7 @@
 # Standard macros
 CC		:= /usr/bin/gcc
 FC		:= pgf95
-CFLAGS		:= -Wall -fPIC
+CFLAGS		:= -std=c99 -pedantic -Wall -fPIC
 ASFLAGS		:= $(CFLAGS)
 
 # defines

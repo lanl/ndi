@@ -22,14 +22,14 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
 
 /*  Purpose: Return a string array associated with in_str.
     
-    Parameters: 
-    in_key -- in: key to specify type of data required
-    in_str -- in: string to specify key
-    str_vec -- out: string value returned
-    arr_size -- in: tells how large the string is (how many characters)
+Parameters: 
+in_key -- in: key to specify type of data required
+in_str -- in: string to specify key
+str_vec -- out: string value returned
+arr_size -- in: tells how large the string is (how many characters)
 
-    Return values:  Returns negative value for error condition,
-    positive value for warning, and a '0' if everything's ok. 
+Return values:  Returns negative value for error condition,
+positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
 int ndi_c_get_string_vec_x_h(state_struct *state, int in_key, 
@@ -50,7 +50,7 @@ int ndi_c_get_string_vec_x_h(state_struct *state, int in_key,
     }
 
     if (is_gendir(state)) {
-	ierr = get_string_vec_gendir_x(state, in_key, in_str, 
+	ierr = get_string_vec_x_gendir(state, in_key, in_str, 
                                        str_arr, arr_size);
     } else if ((state->library_type == 'm') || 
 	       (state->library_type == 'd')) {
@@ -65,7 +65,7 @@ int ndi_c_get_string_vec_x_h(state_struct *state, int in_key,
 	NDI_THROW(ierr, -4);	/* Unrecognized library type */
     }
 
-catch:
+ catch:
     return (ierr);
 
 }
@@ -86,7 +86,6 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
     if (!state)                 /* check state sanity */
 	NDI_THROW(ierr, -2);
 
-
     section = ndi_get_section(state);
     if (section == 0)
 	NDI_THROW(ierr, -16);   /* Library type not set */
@@ -95,22 +94,29 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
     fpos = ftell(state->ndi_dir); /* remember file position */
 	
     if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
-         NDI_THROW(ierr, -11);  /* Section not found */
+	NDI_THROW(ierr, -11);  /* Section not found */
 
     while (ndi_fget_next_dir(&rec, state->ndi_dir,
-                             state->library_vers,  in_str) {
-         size = strlen(rec.zaid) + 1; /* include EOS */
-         if (size > arr_size) {
-              size = arr_size;
-              NDI_THROW(ierr, 7); /* Data truncated */
-         }
-         strncpy(str_arr, rec.zaid, size);
-         arr_size -= size * sizeof(char);
-         str_arr += size;
-         if (arr_size == 0) break; /* Out of space */
+                             state->library_vers,  in_str)) {
+	switch (in_key) {
+
+	case NDI_ZAID:
+	    size = strlen(rec.zaid) + 1; /* include EOS */
+	    if (size > arr_size) {
+		size = arr_size;
+		NDI_THROW(ierr, 7); /* Data truncated */
+	    }
+	    strncpy(str_arr, rec.zaid, size);
+	    arr_size -= size * sizeof(char);
+	    str_arr += size;
+	    if (arr_size == 0) goto catch; /* Out of space */
+	    break;
+	default:
+	    NDI_THROW(ierr, -4);
+	}
     }
 
-catch:
+ catch:
     if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
     return ierr;
 }

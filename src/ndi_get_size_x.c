@@ -21,7 +21,7 @@ static int get_mg_size_x(state_struct *state, int in_key,
 			 const char *in_str, int *ierr);
 
 static int get_reac_mt_size(state_struct *state, const char *rprod_in,
-                             int *ierr);
+			    int *ierr);
 
 /**********************************************************************/
 
@@ -49,25 +49,25 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
     *ierr = 0;			/* Default error value */
 
     if ((!state) || (!state->ndi_initialized)) {
-         NDI_THROW(*ierr, -2);  /* State not initialized */
+	NDI_THROW(*ierr, -2);  /* State not initialized */
     }
 
     if (is_gendir(state)) {
-	*ierr = get_size_x_gendir(state, in_key, in_str, ierr);
+	size = get_size_x_gendir(state, in_key, in_str, ierr);
     } else if ((state->library_type == 'm') ||
                (state->library_type == 'd')) {
 	size = get_mg_size_x(state, in_key, in_str, ierr);
     } else if (state->library_type == ' ') {
 	NDI_THROW(*ierr, -16);            /* library type not set */
     } else {
-         NDI_THROW(*ierr, -4);	/* Incompatible library type */
+	NDI_THROW(*ierr, -4);	/* Incompatible library type */
     }
 
     if (size < 0) {
 	size = 0;
     }
 
-catch:
+ catch:
     return (size);
 }
 
@@ -86,19 +86,19 @@ static int get_size_x_gendir(state_struct *state, int in_key,
     case NDI_SIG_0:
     case NDI_AT_WGT:
     case NDI_AWR:
-         count = ndi_count_dir_block(state->ndi_dir, in_key, 
-                                     ndi_get_section(state),
-                                     state->library_vers, in_str);
-         break;
+	count = ndi_count_dir_block(state->ndi_dir, in_key, 
+				    ndi_get_section(state),
+				    state->library_vers, in_str);
+	break;
     default:
-         NDI_THROW(*ierr, -4);
+	NDI_THROW(*ierr, -4);
 
     }
 
-catch:
+ catch:
     if (count < 0) {
-         *ierr = count;
-         count = 0;
+	*ierr = count;
+	count = 0;
     }
     return count;
 }
@@ -113,12 +113,12 @@ static int get_mg_size_x(state_struct *state, int in_key,
 
 
     if (!state->iso_stat.set_flag) {
-         NDI_THROW(*ierr, -7);  /* Isotope not set */
+	NDI_THROW(*ierr, -7);  /* Isotope not set */
     }
 
-   /*************************/
+    /*************************/
     /*   Process input key   */
-   /*************************/
+    /*************************/
     switch (in_key) {
 
     case NDI_TOT_PROD_XS:	/* Total production cross section */
@@ -129,19 +129,19 @@ static int get_mg_size_x(state_struct *state, int in_key,
 	}
 	break;
 
-     case NDI_REAC_MT:
-     case NDI_RPROD_MLT:
-          return_value = get_reac_mt_size(state, in_str, ierr);
-          break;
+    case NDI_REAC_MT:
+    case NDI_RPROD_MLT:
+	return_value = get_reac_mt_size(state, in_str, ierr);
+	break;
 
-     /***********  UNKNOWN KEYWORD  **************/
+	/***********  UNKNOWN KEYWORD  **************/
 
     default:
 	NDI_THROW(*ierr, -4);
 	break;
     }
 
-catch:
+ catch:
     return (return_value);
 }
 
@@ -149,43 +149,43 @@ catch:
 /*********************************************************************/
 
 static int get_reac_mt_size(state_struct *state, const char *rprod_in,
-                             int *ierr)
+			    int *ierr)
 {
-     int curr_index = -1;
-     depl_target_struct *curr_targ;
-     depl_rprod_struct *curr_prod;
+    int curr_index = -1;
+    depl_target_struct *curr_targ;
+    depl_rprod_struct *curr_prod;
 
-     *ierr = 0;
-     if (state) {
-          curr_targ = state->depl_target;
-     } else {
-          *ierr = -2;
-          return (0);
+    *ierr = 0;
+    if (state) {
+	curr_targ = state->depl_target;
+    } else {
+	*ierr = -2;
+	return (0);
     }
 
     /* CHECK ERRORS */
 
-     if (!state->ndi_depl_set) {
-          *ierr = ndi_set_default_depl(state);
-     }
-     if (state->num_target <= 0) {
-          *ierr = -7;
-          return (0);
-     }
+    if (!state->ndi_depl_set) {
+	*ierr = ndi_set_default_depl(state);
+    }
+    if (state->num_target <= 0) {
+	*ierr = -7;
+	return (0);
+    }
 
-     *ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
-     if (curr_index == -1) {
-          return (0);
-     }
+    *ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
+    if (curr_index == -1) {
+	return (0);
+    }
 
-     curr_prod = curr_targ->rprod;
-     curr_index = curr_targ->num_rprods;
-     *ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
-     if (curr_index == -1) {
-          return (0);
-     }
+    curr_prod = curr_targ->rprod;
+    curr_index = curr_targ->num_rprods;
+    *ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
+    if (curr_index == -1) {
+	return (0);
+    }
 
-     return (curr_prod->num_reac);
+    return (curr_prod->num_reac);
 
 }
 /*********************************************************************/

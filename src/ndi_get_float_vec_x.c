@@ -39,24 +39,24 @@ int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
 
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
-         NDI_THROW(ierr, -2);
+	NDI_THROW(ierr, -2);
     }
 #endif
 
     if (is_gendir(state)) {
-         ierr = GET_FLOAT_VEC_X_GENDIR(state, in_key, in_str, 
-                                       return_vec, vec_size);
+	ierr = GET_FLOAT_VEC_X_GENDIR(state, in_key, in_str, 
+				      return_vec, vec_size);
     } else if ((state->library_type == 'm') ||
                (state->library_type == 'd')) {
-         ierr = GET_FLOAT_VEC_X_MG(state, in_key, in_str, 
-                                   return_vec, vec_size);
+	ierr = GET_FLOAT_VEC_X_MG(state, in_key, in_str, 
+				  return_vec, vec_size);
     } else if (state->library_type == ' ') {
-         NDI_THROW(ierr, -16);	/* Library type was not set */
+	NDI_THROW(ierr, -16);	/* Library type was not set */
     } else {
-         NDI_THROW(ierr, -4);   /* Bad input key */
+	NDI_THROW(ierr, -4);   /* Bad input key */
     }
 
-catch:
+ catch:
     return (ierr);
 }
 
@@ -79,21 +79,22 @@ static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
     case NDI_SIG_0:
     case NDI_AT_WGT:
     case NDI_AWR:
-         vec = (double *)ndi_malloc(vec_size*sizeof(double));
-         if (!vec) NDI_THROW(ierr, -14); /* Out of memory */
+	vec = (double *)ndi_malloc(vec_size*sizeof(double));
+	if (!vec) NDI_THROW(ierr, -14); /* Out of memory */
 
-         ierr = ndi_float_dir_block(state->ndi_dir, in_key, 
-                                    ndi_get_section(state),
-                                    state->library_vers, in_str, 
-                                    vec, vec_size);
-         for(i = 0; i < vec_size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
-         break;
+	ierr = ndi_float_dir_block(state->ndi_dir, in_key, 
+				   ndi_get_section(state),
+				   state->library_vers, in_str, 
+				   vec, vec_size);
+
+	for(i = 0; i < vec_size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
+	break;
     default:
-         NDI_THROW(ierr, -4);   /* Unrecognized input key */
+	NDI_THROW(ierr, -4);   /* Unrecognized input key */
     }
 
 
-catch:
+ catch:
     ndi_free((void **) &vec);
     return ierr;
 }
@@ -105,33 +106,33 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
                               const char *in_str,
                               FLOAT_TYPE *return_vec, int vec_size)
 {
-     int ierr = 0;
+    int ierr = 0;
 
     if (!state->iso_stat.set_flag)
-         NDI_THROW(ierr, -7);   /* Isotope not set */
+	NDI_THROW(ierr, -7);   /* Isotope not set */
 
-   /*************************/
+    /*************************/
     /*   Process input key   */
-   /*************************/
+    /*************************/
 
     switch (in_key) {
 
     case NDI_TOT_PROD_XS:	/* Total production x.s. for target
 				   given by global var. 'zaid' and
 				   product given by in_str */
-         ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
-         break;
+	ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
+	break;
 
     case NDI_RPROD_MLT:		/* Reaction multiplicity */
-         ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
-         break;
+	ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
+	break;
 
     default:     /**********  UNKNOWN KEYWORD  ***********/
 	NDI_THROW(ierr, -4);
 	break;
     }
 
-catch:
+ catch:
     return ierr;
 }
 
@@ -139,7 +140,7 @@ catch:
 /*********************************************************************/
 
 int GET_PROD_REAC(state_struct *state, const char *rprod_in,
-	      FLOAT_TYPE * return_vec, int vec_size)
+		  FLOAT_TYPE * return_vec, int vec_size)
 {
     int i, j;
     int ierr = 0;
@@ -241,7 +242,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
 /*********************************************************************/
 
 int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
-		 FLOAT_TYPE *return_vec, int vec_size)
+		  FLOAT_TYPE *return_vec, int vec_size)
 {
     int i;
     int ierr = 0;

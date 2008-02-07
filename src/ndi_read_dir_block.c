@@ -127,6 +127,7 @@ int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
 
 
 /**********************************************************************/
+/**********************************************************************/
 
 static int ndi_init_dir_rec(dir_entry *dir_rec)
 {
@@ -152,13 +153,16 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
 }
 
 /**********************************************************************/
+/**********************************************************************/
 
-/* ndi_fseek_section sets the file position for stream; a subsequent read
- * or write will access data begining at the new position.  The
+/* ndi_fseek_section sets the file position for stream; a subsequent
+ * read or write will access data begining at the new position.  The
  * position is set to the line following the first line that matches
- * str.  Search from beginning of the file if wherefrom = 0, the
- * current position if wherefrom = 1.  Restores file position and
- * returns non-zero on error. */
+ * str.  Since the GENDIR file format has section headers starting on
+ * a new line, this routine provides a convenient way to find a
+ * section in a GENDIR file.  Search from beginning of the file if
+ * wherefrom = 0, the current position if wherefrom = 1.  Restores
+ * file position and returns non-zero on error. */
 
 int ndi_fseek_section(FILE *stream, const char *str, int wherefrom)
 {
@@ -173,19 +177,20 @@ int ndi_fseek_section(FILE *stream, const char *str, int wherefrom)
     while ((l = fgets(line, sizeof(line), stream)) != NULL)
 	if (strncmp(line, str, strlen(str)) == 0) break;
 
-    if (l == NULL) { 
+    if (l == NULL) { 		/* while ended by EOF */
 	fseek(stream, fpos, SEEK_SET); /* restore original file position */
 	return -1;            /* not found or file error */
-    } else {
+    } else {			/* while ended by break */
 	return 0;             /* success */
     }
 }
 
 /**********************************************************************/
+/**********************************************************************/
 
-/* ndi_fget_dir_block reads the next record in the file and attempts
- * to parse it as a dir_block.  Returns rec, or NULL if end of
- * section, end of file, or error occurs */
+/* ndi_fget_dir_block reads the next record in the GENDIR file and
+ * attempts to parse it as a dir_block.  Returns rec if successful or
+ * NULL if end of section, end of file, or error occurs. */
 
 dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 {
@@ -258,9 +263,9 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
     }
 
  catch:
-    if (n == 0 || l == NULL) {
+    if (n == 0 || l == NULL) {	/* EOF or end of section */
 	return NULL;
-    } else {
+    } else {			/* Success */
 	return rec;
     }
 }
@@ -268,10 +273,10 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 /**********************************************************************/
 /**********************************************************************/
 
-/* ndi_fget_next_dir reads records in the file and attempts to parse
- * it as a series of dir_blocks.  Returns rec if a record is found
- * that matches input library and zaid, or NULL if end of section, end
- * of file, or error occurs */  
+/* ndi_fget_next_dir reads records in the GENDIR file and attempts to
+ * parse it as a series of dir_blocks.  Returns rec if a record is
+ * found that matches input lib and zaid or NULL if end of
+ * section, end of file, or error occurs */  
 
 dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
                              const char *lib, const char *zaid)
@@ -288,6 +293,13 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 
 /**********************************************************************/
 /**********************************************************************/
+
+/* ndi_count_dir returns the size of in_key in the specified section
+ * of a GENDIR stream matching lib and zaid.  Returns the number of
+ * matches for double quantities, or the total string length,
+ * including EOS, for string quantities.  Restores original file
+ * position and returns a negative error flag if unsuccessful. */
+
 int ndi_count_dir_block(FILE *stream, int in_key, const char *section, 
                         const char *lib, const char *zaid)
 {
@@ -324,6 +336,13 @@ int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
 }
 
 /**********************************************************************/
+/**********************************************************************/
+
+/* ndi_float_dir_block fills the vec array of double in_key values
+ * read from a GENDIR stream section which match the input lib and
+ * zaid.  Restores original file position and returns zero on success,
+ * negative on error, positive on warning */
+
 int ndi_float_dir_block(FILE *stream, int in_key, const char *section, 
                         const char *lib, const char *zaid,
                         double *vec, int size)
@@ -336,7 +355,7 @@ int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
 
     if (section == 0) NDI_THROW(ierr, -16); /* Library type not set */
 
-    switch(in_key) {            /* Process keyword */
+    switch(in_key) {            /* Process keyword: select in_key result */
     case NDI_TEMP:
 	dptr = &rec.temp;
 	break;
@@ -372,5 +391,4 @@ int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
     return ierr;
 }
 
-          
 /**********************************************************************/

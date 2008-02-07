@@ -1,3 +1,9 @@
+/*
+ * $Id$
+ * Description:	User functions for NDI 1.x backwards compatability
+ * 
+ */
+
 #include <stdio.h>
 
 #include "ndi.h"
@@ -21,6 +27,20 @@ int ndi_c_init(void)
 int ndi_c_set_zaid(const char *in_zaid)
 {
     return ndi_c_set_zaid_h(default_h, in_zaid);
+}
+
+/**********************************************************************/
+
+int ndi_c_set_zaid_float32_temp(const char *in_zaid, ndi_float32 temp)
+{
+    return ndi_c_set_zaid_float32_temp_h(default_h, in_zaid, temp);
+}
+
+/**********************************************************************/
+
+int ndi_c_set_zaid_float64_temp(const char *in_zaid, ndi_float64 temp)
+{
+    return ndi_c_set_zaid_float64_temp_h(default_h, in_zaid, temp);
 }
 
 /**********************************************************************/
@@ -215,6 +235,24 @@ ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val,
 {
     return ndi_c_get_string_val_n_h(default_h, in_key, vec_num, ret_val,
 				    str_size);
+}
+
+/**********************************************************************/
+
+int
+ndi_c_get_string_vec(int in_key, char *ret_val, int str_size)
+{
+    return ndi_c_get_string_vec_h(default_h, in_key, ret_val, str_size);
+}
+
+/**********************************************************************/
+
+int
+ndi_c_get_string_vec_x(int in_key, const char *in_str, char *ret_val,
+		       int str_size)
+{
+    return ndi_c_get_string_vec_x_h(default_h, in_key, in_str,
+				    ret_val, str_size);
 }
 
 /**********************************************************************/

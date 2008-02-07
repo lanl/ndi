@@ -27,15 +27,15 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 
 /* Purpose: Return the size of the library value indicated by in_key.
 
-   Parameters:
-   in_key -- in: key to specify type of data required
-   ierr -- out: error flag, where 0=no error,pos=warning, neg=error
+Parameters:
+in_key -- in: key to specify type of data required
+ierr -- out: error flag, where 0=no error,pos=warning, neg=error
 
-   Returns: Returns the integer indicating the number of elements
-   in the array.  For single-valued data (temperature, sigma0, etc.)
-   "1" is returned.  For string data the size of the string (number of
-   characters plus the end of string character) is returned.  Returns 
-   zero as error.
+Returns: Returns the integer indicating the number of elements
+in the array.  For single-valued data (temperature, sigma0, etc.)
+"1" is returned.  For string data the size of the string (number of
+characters plus the end of string character) is returned.  Returns 
+zero as error.
 
 **********************************************************************/
 {
@@ -56,7 +56,7 @@ int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr)
 	if (is_gendir(state)) {
 	    size = get_gendir_size(state, in_key, ierr);
 	} else if ((state->library_type == 'm') || 
-	    (state->library_type == 'd')) {
+		   (state->library_type == 'd')) {
 	    size = get_mg_size(state, in_key, ierr);
 	} else if (state->library_type == 's') {
 	    size = get_tn_size(state, in_key, ierr);
@@ -116,9 +116,9 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
     if (*ierr < 0) {
 	root = NULL;
     } else {
-	 /* Build a binary tree with ZAID as key */
-	 root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
-	 fclose(ndi_dir);
+	/* Build a binary tree with ZAID as key */
+	root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
+	fclose(ndi_dir);
     }
 
     switch (in_key) {
@@ -165,9 +165,9 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 
     switch (in_key) {
 
-      /*************************/
+	/*************************/
 	/*   Single-valued data  */
-      /*************************/
+	/*************************/
 
 	/* String values--return size of string */
     case NDI_ZAID:		/*  ZAID  */
@@ -257,9 +257,9 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 	return_value = 1;
 	break;
 
-      /*************************/
+	/*************************/
 	/*  Simple array values  */
-      /*************************/
+	/*************************/
 
 
 	/*  Arrays with num_grps number of elements */
@@ -358,24 +358,24 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 	}
 	break;
 
-    case NDI_TEMPS:             /* multi-temperature kludge (Reqt. 22) */
+    case NDI_TEMPS:             /* multi-temperature (Reqt. 22) */
     {
-         char sza[20];
+	char sza[20];
 
-         sprintf(sza, "%d", atoi(state->iso_stat.zaid));
-         return_value = ndi_count_dir_block(state->ndi_dir, NDI_TEMP, 
-                                            ndi_get_section(state), 
-                                            state->library_vers, sza);
-         if (return_value < 0) {
-              *ierr = return_value;
-              return_value = 0;
-         }
+	sprintf(sza, "%d", atoi(state->iso_stat.zaid));
+	return_value = ndi_count_dir_block(state->ndi_dir, NDI_TEMP, 
+					   ndi_get_section(state), 
+					   state->library_vers, sza);
+	if (return_value < 0) {
+	    *ierr = return_value;
+	    return_value = 0;
+	}
     }
-         break;
+    break;
 
-      /****************************/
-	/*  Multi-dim array values  */
-      /****************************/
+    /****************************/
+    /*  Multi-dim array values  */
+    /****************************/
 
     case NDI_RPROD_ALL:	/* old reaction product format -- all */
 	return_value = state->iso_stat.rprod_all.num_objs;
@@ -405,7 +405,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 	break;
 
 
-     /***********  UNKNOWN KEYWORD  **************/
+	/***********  UNKNOWN KEYWORD  **************/
 
     default:
 	*ierr = -4;
@@ -441,9 +441,9 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     switch (in_key) {
 
-      /*************************/
+	/*************************/
 	/*   Single-valued data  */
-      /*************************/
+	/*************************/
 
 	/* String values--return size of string */
     case NDI_ZAID:		/*  ZAID  */
@@ -478,9 +478,9 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 	break;
 
 
-      /*************************/
+	/*************************/
 	/*  Simple array values  */
-      /*************************/
+	/*************************/
 
     case NDI_TEMPS:
 	/* temperatures */
@@ -549,98 +549,98 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     case NDI_EDIST_INTERP_REG:
     case NDI_EDIST_INTERP_TYPE:
-         /* Vector of interpolation type for current particle's temperature
-            interpolation regions */
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
+	/* Vector of interpolation type for current particle's temperature
+	   interpolation regions */
+	if (state->grp_num_new <= 0) return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
               
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   return_value = part->temp_interp.nint;
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		return_value = part->temp_interp.nint;
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
 
-         break;
+	break;
 
     case NDI_EDIST_TEMPS:
-         /* Vector of interpolation type for current particle's interpolation 
-            temperatures */
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
+	/* Vector of interpolation type for current particle's interpolation 
+	   temperatures */
+	if (state->grp_num_new <= 0) return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
               
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   return_value = part->temp_interp.npts;
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		return_value = part->temp_interp.npts;
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
 
-         break;
+	break;
 
     case NDI_EDIST_CONT_E:
     case NDI_EDIST_CONT_P:
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
+	if (state->grp_num_new <= 0) return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
               
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int hi, lo, it;
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int hi, lo, it;
 
-                   *ierr = ndi_find_temp_bound_index(state->default_temp,
-                                                    part->edist, 
-                                                    part->temp_interp.npts, 
-                                                    &hi, &lo, &it);
-                   if (*ierr < 0) return -30;
+		*ierr = ndi_find_temp_bound_index(state->default_temp,
+						  part->edist, 
+						  part->temp_interp.npts, 
+						  &hi, &lo, &it);
+		if (*ierr < 0) return -30;
 
-                   return_value = part->edist[it].interp.npts;
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+		return_value = part->edist[it].interp.npts;
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
 
-         break;
+	break;
 
     case NDI_EDIST_CONT_INTERP_REG:
     case NDI_EDIST_CONT_INTERP_TYPE:
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
+	if (state->grp_num_new <= 0) return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
               
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int hi, lo, it;
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int hi, lo, it;
 
-                   *ierr = ndi_find_temp_bound_index(state->default_temp,
-                                                    part->edist, 
-                                                    part->temp_interp.npts, 
-                                                    &hi, &lo, &it);
-                   if (*ierr < 0) return -30;
+		*ierr = ndi_find_temp_bound_index(state->default_temp,
+						  part->edist, 
+						  part->temp_interp.npts, 
+						  &hi, &lo, &it);
+		if (*ierr < 0) return -30;
 
-                   return_value = part->edist[it].interp.nint;
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+		return_value = part->edist[it].interp.nint;
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
 
-         break;
+	break;
 
     case NDI_EINBAR:
 	/* thermal-averaged total incoming energy for each temp. */
@@ -655,7 +655,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 	return_value = state->grp_num_new;
 	break;
 
-      /***********  UNKNOWN KEYWORD  **************/
+	/***********  UNKNOWN KEYWORD  **************/
 
     default:
 	*ierr = -4;
@@ -692,9 +692,9 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
 
     switch (in_key) {
 
-      /*************************/
+	/*************************/
 	/*   Single-valued data  */
-      /*************************/
+	/*************************/
 
 	/* String values--return size of string */
     case NDI_ZAID:		/*  ZAID  */
@@ -718,7 +718,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
 	return_value = 1;
 	break;
 
-      /***********  UNKNOWN KEYWORD  **************/
+	/***********  UNKNOWN KEYWORD  **************/
 
     default:
 	*ierr = -4;

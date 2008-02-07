@@ -75,6 +75,7 @@ SRC := \
 	ndi_get_string_val.c \
 	ndi_get_string_val_n.c \
 	ndi_get_string_vec.c \
+	ndi_get_string_vec_x.c \
 	ndi_handle.c \
 	ndi_init.c \
 	ndi_init_iso_state.c \
@@ -113,6 +114,7 @@ SRC := \
 	ndimp_set_zaid.c 
 
 SRC_FLOAT := \
+	ndi_set_zaid_float_temp.c \
 	ndi_collapse_float.c \
 	ndi_collapse_mat.c \
 	ndi_get_float_val.c \
