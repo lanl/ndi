@@ -89,17 +89,17 @@ static int get_size_x_gendir(state_struct *state, int in_key,
 	count = ndi_count_dir_block(state->ndi_dir, in_key, 
 				    ndi_get_section(state),
 				    state->library_vers, in_str);
+	if (count < 0) {
+	    *ierr = count;
+	    count = 0;
+	}
 	break;
     default:
-	NDI_THROW(*ierr, -4);
+	NDI_THROW(*ierr, -4);	/* Unrecognized in_key */
 
     }
 
  catch:
-    if (count < 0) {
-	*ierr = count;
-	count = 0;
-    }
     return count;
 }
 

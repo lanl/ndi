@@ -1,4 +1,4 @@
-GENDIR0 (path=../../src/test/lib/gendir.test)
+GENDIR0 (path=gendir)
   Library type:  multigroup_neutron
   Library:  mendf5
   Matrix order:  default
@@ -9,8 +9,14 @@ GENDIR0 (path=../../src/test/lib/gendir.test)
   Average group energy:  from_vel
   Kerma:  use_data
   Default fission product:  50999
+  List of U zaids
+  Size of list is 36
+           92233.500nm           92235.500nm           92238.500nm
+  List of atomic weights
+  Size of list is 3
+ 2.330400000000000e+02   2.350440000000000e+02   2.380510000000000e+02  
   Handle0
-    Gendir path:  ../../src/test/lib/gendir.test
+    Gendir path:  gendir
     Library type:  multigroup_neutron
     Library:  mendf5
     Matrix order:  default
@@ -22,7 +28,7 @@ GENDIR0 (path=../../src/test/lib/gendir.test)
     Kerma:  use_data
     Default fission product:  50999
   Handle1
-    Gendir path:  ../../src/test/lib/gendir.test
+    Gendir path:  gendir
     Library type:  multigroup_neutron
     Library:  mendf5
     Matrix order:  default
@@ -34,6 +40,6 @@ GENDIR0 (path=../../src/test/lib/gendir.test)
     Kerma:  use_data_calc
     Default fission product:  50999
 
-GENDIR1 (path=../../src/test/lib/gendir.test2)
+GENDIR1 (path=lib/gendir.test2)
   Handle0
     Zaid=4009.991nm

@@ -113,10 +113,10 @@ SRC_TESTC := \
 	transfer_mat.c \
 	transpose_scat.c \
 	za.c \
-	za_handle.c 
-#	ex_gendir_path.c \
-#	gendir_handle.c \
-#	gendir_path.c \
+	za_handle.c \
+	gendir_handle.c \
+	ex_gendir_path.c \
+	gendir_path.c
 
 SRC_TESTF := \
 	ex_avg_ef.F \
@@ -134,9 +134,9 @@ SRC_TESTF := \
 	radchemf.F\
 	symbol_translatef.F \
 	transpose_scatf.F \
-	21grp_ck.F
-#	ex_gendir_pathf.F \
-#	gendir_pathf.F \
+	21grp_ck.F \
+	ex_gendir_pathf.F \
+	gendir_pathf.F
 
 # determine the test object files
 
@@ -153,9 +153,12 @@ TESTOUT	+= $(SRC_TESTF:%.F=testf_%.out)
 
 all: $(TESTC) $(TESTF)
 
-$(TESTC): ../libndi_debug.a
+$(TESTC): ../libndi_debug.a lib
 
-$(TESTF): ../libndi_debug.a
+$(TESTF): ../libndi_debug.a lib
+
+lib:
+	ln -s ${srcdir}/lib lib
 
 check: $(TESTOUT)
 	@ for i in $(TESTOUT) ; \

@@ -257,7 +257,7 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 		strcpy(rec->egrp, t);
 		n++;
 	    } else if (strcmp(t, "end") == 0) {/* End of Record */
-		break;
+		goto catch;
 	    }
 	}
     }
@@ -283,10 +283,11 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 {
     dir_entry *d;
 
-    while ((d = ndi_fget_dir_block(rec, stream)) != NULL)
+    while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
 	if ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
-	    (strncmp(d->lib, lib, strlen(lib)) == 0))
+	    (strcmp(d->lib, lib) == 0))
 	    break;
+    }
      
     return d;
 }

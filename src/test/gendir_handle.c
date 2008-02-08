@@ -9,10 +9,8 @@
 #define GENDIR_PATH_SIZE  200
 #define ZAID_SIZE   24
 
-void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
-void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
-void print_int_vec( int *int_ptr, int num_elements );
-
+static void print_float64_vec(ndi_float64 *flt64_ptr, int num_elements);
+static void print_string_vec(char *str_arr, int num_elements);
 
 int main ()
 
@@ -24,6 +22,10 @@ int main ()
    char option[OPT_SIZE];
    char zaid[ZAID_SIZE];
  
+   int size;
+   char *str_arr;
+   ndi_float64 *flt_arr;
+   
    /* GENDIR 0 */
    ierr = NDI2_open_gendir(&gendir0, "");
    if (ierr)
@@ -68,6 +70,39 @@ int main ()
        printf("    **Error getting default fission product is %d\n", ierr);
    printf("  Default fission product:  %s\n", option);
 
+   /* Requirement 45 */
+
+   printf("  List of U zaids\n");
+   size = NDI2_get_size_x(gendir0, NDI_ZAID, "92", &ierr);
+   if (ierr != 0) {
+       printf("    **Error getting zaid size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", size);
+       str_arr = (char *) malloc(size * sizeof(char));
+       ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92", str_arr, size);
+       if (ierr != 0) 
+	   printf("    **Error getting zaids is %d\n", ierr);
+       size = NDI2_get_size_x(gendir0, NDI_TEMP, "92", &ierr);
+       if (ierr != 0)
+	   printf("    ** Error getting temp size is %d\n", ierr);
+       print_string_vec(str_arr, size);
+       free(str_arr);
+   }
+       
+   printf("  List of atomic weights\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92", &ierr);
+   if (ierr != 0) {
+       printf("    ** Error getting at_wgt size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", size);
+       flt_arr = (ndi_float64 *) malloc(size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(gendir0, NDI_AT_WGT, "92", flt_arr, size);
+       if (ierr != 0)
+	   printf("    **Error getting at_wgts is %d\n", ierr);
+       print_float64_vec(flt_arr, size);
+       free(flt_arr);
+   }
+       
    /* GET HANDLE 0 */
    ierr = NDI2_make_handle(gendir0, "multigroup_neutron", &handle0);
    if (ierr)
@@ -134,7 +169,7 @@ int main ()
 
 
    /* GENDIR 1 SETUP */
-   ierr = NDI2_open_gendir(&gendir1, "../../src/test/lib/gendir.test2");
+   ierr = NDI2_open_gendir(&gendir1, "lib/gendir.test2");
    if (ierr)
        printf("  **Error %d in NDI open gendir.\n\n", ierr );
    ierr = NDI2_set_option_gendir(gendir1, NDI_LIB_TYPE_DEFAULT, 
@@ -168,4 +203,36 @@ int main ()
 
    return(ierr);
 }
+
+/**********************************************************************/
+
+static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements )
+{
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
+	 printf("\n");
+      printf("%22.15e  ", flt64_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/
+
+/**********************************************************************/
+
+static void print_string_vec(char *str_arr, int size)
+{
+    int i;
+    char *t;
+
+    for (i = 0, t = str_arr; i < size; i++, t += strlen(t)+1) {
+	if ((i > 0) && (i%4 == 0)) printf("\n");
+	printf("%22s", t);
+    }
+    printf("\n");
+}
+
+/**********************************************************************/
 
