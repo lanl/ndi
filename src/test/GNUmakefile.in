@@ -135,6 +135,7 @@ SRC_TESTF := \
 	symbol_translatef.F \
 	transpose_scatf.F \
 	21grp_ck.F \
+	gendir_handlef.F \
 	ex_gendir_pathf.F \
 	gendir_pathf.F
 

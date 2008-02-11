@@ -1,0 +1,18 @@
+ Open gendir:
+   ok
+ Set library type:
+   ok
+ Set library:
+   ok
+ Get array size:
+  Size =     3
+ Get zaid list:
+  92233.500nm             
+  92235.500nm             
+  92238.500nm             
+ Get atomic weight ratio list:
+   231.03800
+   233.02500
+   236.00600
+ Close gendir:
+   ok
