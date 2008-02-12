@@ -1,0 +1,14 @@
+#! /bin/sh
+
+RELEASE="RELEASE_2_0_8 RELEASE_2_0_7 RELEASE_2_0_6 RELEASE_2_0_5 RELEASE_2_0_4 BETA_RELEASE_2_0_3 BETA_RELEASE_2_0_2 RELEASE_2_0_1 RELEASE_2_0_0 RELEASE_1_3_0 RELEASE_1_2_9 RELEASE_1_2_8"
+
+for i in $RELEASE
+do
+  cvs co -r $i ndi/src 2>&1 > /dev/null
+  echo -n "$i: "
+  (cd ndi/src; grep ";" *.[ch] | wc -l)
+  cvs release -d ndi 2>&1 > /dev/null <<EOF
+y
+EOF
+done | grep "RELEASE"
+
