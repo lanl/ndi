@@ -137,7 +137,8 @@ SRC_TESTF := \
 	21grp_ck.F \
 	gendir_handlef.F \
 	ex_gendir_pathf.F \
-	gendir_pathf.F
+	gendir_pathf.F \
+	zaid_tempf.F
 
 # determine the test object files
 

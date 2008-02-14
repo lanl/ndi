@@ -1,0 +1,42 @@
+ Open gendir:
+ ok.
+ Make handle:
+ ok.
+ Set library:
+ ok.
+ Set isotope:
+ ok.
+ Get zaid:
+ zaid = 92235.500nm             
+ Get temperature:
+ temperature =    2.5299999999999994E-008
+ Get temperature array size:
+ Number of temps =             1
+ Get temperature array:
+ Temperature(            1 ) =    2.5299999999999994E-008
+ Attempt to set temperature =    2.5299999999999994E-008
+ ok.
+ Get zaid:
+ zaid = 92235.500nm             
+ Actual temperature:
+ temperature =    2.5299999999999994E-008
+ Attempt to set temperature =     0.000000000000000     
+ ok.
+ Get zaid:
+ zaid = 92235.500nm             
+ Actual temperature:
+ temperature =    2.5299999999999994E-008
+ Attempt to set temperature =    2.5800000358344732E-008
+ ok.
+ Get zaid:
+ zaid = 92235.500nm             
+ Actual temperature:
+ temperature =    2.5299999999999994E-008
+ Attempt to set temperature =     100.0000000000000     
+ ok.
+ Get zaid:
+ zaid = 92235.500nm             
+ Actual temperature:
+ temperature =    2.5299999999999994E-008
+ Close gendir:
+ ok.
