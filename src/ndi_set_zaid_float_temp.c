@@ -24,8 +24,8 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     long fpos = -1;
     dir_entry rec;
     char *section;
-    char zaid[MAX_TN_REAC_LEN] = "";
-    double diff = 1.0e38;
+    char zaid[MAX_TN_REAC_LEN];
+    double diff = -1.0;
 
     if (!state) NDI_THROW(ierr, -2); /* Check state sanity */
 
@@ -37,16 +37,20 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
 	NDI_THROW(ierr, -11);	/* Section not found */
 
+    /* Find matching zaid: set if first or temperature closer than prev. */
     while (ndi_fget_next_dir(&rec, state->ndi_dir, 
 			     state->library_vers, in_zaid)) {
-	if (diff > abs(rec.temp - temp)) {
+	if (diff < 0 || abs(rec.temp - temp) < diff) {
 	    strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
 	    diff = abs(rec.temp - temp);
 	}
     }
 
-    if (strlen(zaid) > 0)
+    /* Set matching zaid with smallest temp diff */
+    if (diff >= 0.0)
 	ierr = ndi_c_set_zaid_h(state, zaid);
+    else
+	NDI_THROW(ierr, -8);	/* Isotope not found */
 
  catch:
     if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);

@@ -39,7 +39,11 @@ int main ()
 	printf("  **Error %d in setting isotope.\n\n", ierr );
 
      for ( i = 0; i < num_of_abundance_values; i++ ) {
-	 ierr = ndi_get_float64_val_n( NDI_ABUNDANCE, abundance_id[i], &return_val );
+	 ierr = ndi_get_float64_val_n( NDI_ABUNDANCE, abundance_id[i], 
+				       &return_val );
+	 if (return_val != abundance_value[i])
+	     printf("  **Error matching %d abundance: %f != %f\n", 
+		    abundance_id[i], return_val, abundance_value[i]);
 	 if ( last_Z != abundance_id[i]/1000 ) {
 	     printf("        %11.8f\n\n", abund_sum );
 	     abund_sum = 0.0;
