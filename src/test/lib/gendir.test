@@ -328,6 +328,15 @@ multigroup_neutron
   z=94239.600nm  d=12/15/2003  l=kerma_test
     f=lib/kerma_test_lib  ft=asc  ln=2749
     o=187412  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02  awr=2.37002E+02 end
+  z=92235.600nm  d=2/27/2008  l=multi_temp  f=lib/mendf6_temp
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=92235.601nm  d=2/27/2008  l=multi_temp  f=lib/mendf6_temp
+    ft=asc  ln=804  o=45309  ng=30  t=0.0  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=92235.603nm  d=2/27/2008  l=multi_temp  f=lib/mendf6_temp
+    ft=asc  ln=1608  o=90611  ng=30  t=1.0E-06  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
 end
 
 multigroup_photon

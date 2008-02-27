@@ -37,7 +37,7 @@ c     Test multi-temperature functionality (Requirement 22)
       endif
 
       print *, "Set library:"
-      call ndi2_set_option(handle,  NDI_LIBRARY, 'MENDF5', ierr)
+      call ndi2_set_option(handle,  NDI_LIBRARY, 'MULTI_TEMP', ierr)
       if (ierr .eq. 0) then
          print *, "ok."
       else

@@ -40,9 +40,9 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     /* Find matching zaid: set if first or temperature closer than prev. */
     while (ndi_fget_next_dir(&rec, state->ndi_dir, 
 			     state->library_vers, in_zaid)) {
-	if (diff < 0 || abs(rec.temp - temp) < diff) {
+	if (diff < 0 || fabs(rec.temp - temp) < diff) {
 	    strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
-	    diff = abs(rec.temp - temp);
+	    diff = fabs(rec.temp - temp);
 	}
     }
 
