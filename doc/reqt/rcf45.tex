@@ -1,0 +1,68 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Gendir Queries & Control number: 45\\ \hline
+Stakeholder: Jeff McAninch & Request date: December 04, 2006\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Return isotope information from gendir per library.\\ 
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: Necessary for Requirement 22\\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? No \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+/* Get size of zaid list string for library */
+size = NDI2_get_size_x(gendir, NDI_ZAID, "", &ierr);
+/* Get NULL separated list of zaids for library */
+ierr = NDI2_get_string_vec_x(gendir, NDI_ZAID, "", str_arr, size);
+
+/* Get number then array of available temperatures for U235 */
+size = NDI2_get_size_x(gendir, NDI_TEMP, "92235", &ierr);
+ierr = NDI2_get_float64_vec_x(gendir, NDI_TEMP, "92235", flt_arr, size);
+
+/* Get number then array of available sheilding parameters for U */
+size = NDI2_get_size_x(gendir, NDI_SIG_0, "92", &ierr);
+ierr = NDI2_get_float64_vec_x(gendir, NDI_SIG_0, "92", flt_arr, size);
+
+/* Get number then array of available atomic weights for U */
+size = NDI2_get_size_x(gendir, NDI_AT_WGT, "92", &ierr);
+ierr = NDI2_get_float64_vec_x(gendir, NDI_AT_WGT, "92", flt_arr, size);
+
+/* Get number then array of available atomic weight ratios for U238 */
+size = NDI2_get_size_x(gendir, NDI_AWR, "92238", &ierr);
+ierr = NDI2_get_float64_vec_x(gendir, NDI_AWR, "92238", flt_arr, size);
+\end{verbatim}
+\\ \hline
+
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2008/02/14 & mgg tested and released 2.0.9 pre-alpha on flash \\ \hline 
+\end{tabular}

@@ -1,0 +1,54 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Spontaneous Fission Data & Control number: 46\\ \hline
+Stakeholder: Jim Hill & Request date: February 27, 2008\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Return spontaneous fission spectra\\ 
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: Third request from 3 stakeholders \\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+
+/* Get the size of spectra array for set isotope and specified groups */
+size = NDI2_get_size_x(handle, NDI_SF_SPECTRA, "30_lanl", &ierr);
+/* Get the spectra array for set isotope and specified groups */
+ierr = NDI2_get_float64_vec_x(gendir, NDI_SF_SPECTRA, "30_lanl", flt_arr, size);
+\end{verbatim}
+\\ \hline
+
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2008/02/28 & mgg got preliminary data from drnuke \\ \hline 
+2008/03/03 & mgg got better data from jomc \\ \hline 
+\end{tabular}

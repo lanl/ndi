@@ -24,11 +24,11 @@ Urgent: No & Comment: Urgency likely to change\\ \hline
 Query:
 \begin{verbatim}
 /* Get number of available temperatures */
-num_t = NDI2_get_size(handle, NDI_TEMPS, &ierr);
+num_t = NDI2_get_size(gendir, NDI_TEMPS, &ierr);
 /* Get array of temperatures */
 ierr = NDI2_get_float64_vec(handle, NDI_TEMPS, temp_vec, num_t);
-/* Set temperature to */
-ierr = NDI2_set_option(handle, NDI_TEMP, "1.0");
+/* Set zaid and temperature */
+ierr = NDI2_set_zaid_float64_temp(handle, "92235", 1.0);
 \end{verbatim}
 \\ \hline
 
@@ -50,4 +50,6 @@ Requirement Handling:
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
 Date & Description \\ \hline
 2007/07/12 & mgg Wrote stub code \\ \hline
+2008/02/14 & mgg 2.0.9 pre-alpha on flash \\ \hline
+2008/02/27 & mgg Fixed and tested; 2.0.9 pre-alpha on flash \\ \hline
 \end{tabular}

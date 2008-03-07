@@ -1,0 +1,55 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Multi-particle Elementals & Control number: 47\\ \hline
+Stakeholder: Britt Girard & Request date: March 04, 2008\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Create multi-particle handle to isotopes in abundance proportion for
+elemental transport data.\\ 
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: Many user requests for elemental data.\\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+
+/* Create multi-particle elemental for Fe */
+ierr = NDI2_set_isotope(mp_handle, "26000");
+
+/* Get data per usual */
+...
+
+\end{verbatim}
+\\ \hline
+
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+\end{tabular}
