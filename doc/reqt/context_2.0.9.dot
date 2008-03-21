@@ -16,6 +16,7 @@ digraph ndi {
 	morgan[label="Morgan White"];
 	mcaninch1[label="Jeff McAninch"];
 	rsb[label="Randy Baker"];
+	davidp[label="David Pimentel"];
 
 	/* requirements */
 	ndi[label="NDI 2.0.9", shape="ellipse"];
@@ -34,6 +35,9 @@ digraph ndi {
 	ndi-> bag[label="47) Multi-part.\nElementals", style=dotted,
 	color=red];
 
+	ndi -> davidp[label="48) Relative\nData Libraries",
+	style=dashed, color=orange];
+
 	{rank=min; morgan; rsb; mcaninch1}
-	{rank=max; jimhill; bag}
+	{rank=max; jimhill; bag; davidp}
 }
