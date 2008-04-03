@@ -23,11 +23,13 @@ Urgent: No & Comment: Urgency likely to change\\ \hline
 \begin{tabular}{|p{433pt}|} \hline
 Query:
 \begin{verbatim}
-/* Get number of available temperatures */
-num_t = NDI2_get_size(gendir, NDI_TEMPS, &ierr);
+/* Set isotope u235 at default (room) temperature */
+ierr = NDI2_set_zaid(handle, "92235");
+/* Get number of available temperatures for u235 */
+num_t = NDI2_get_size(handle, NDI_TEMPS, &ierr);
 /* Get array of temperatures */
 ierr = NDI2_get_float64_vec(handle, NDI_TEMPS, temp_vec, num_t);
-/* Set zaid and temperature */
+/* Select u235 table closest to specified temperature */
 ierr = NDI2_set_zaid_float64_temp(handle, "92235", 1.0);
 \end{verbatim}
 \\ \hline
@@ -52,4 +54,5 @@ Date & Description \\ \hline
 2007/07/12 & mgg Wrote stub code \\ \hline
 2008/02/14 & mgg 2.0.9 pre-alpha on flash \\ \hline
 2008/02/27 & mgg Fixed and tested; 2.0.9 pre-alpha on flash \\ \hline
+2008/04/03 & mgg Reviewed code; strengthened exceptions; fixed RCF. \\ \hline
 \end{tabular}

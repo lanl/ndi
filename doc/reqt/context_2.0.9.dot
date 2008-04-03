@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 03/07/08\n\
+	label="Context Diagram 04/03/08\n\
 	solid green=completed work\n\
 	dashed organge=ongoing work\n\
 	dotted red=future work";
@@ -24,7 +24,7 @@ digraph ndi {
 	morgan -> ndi[label="22) Multi-Temp.\nMG data",
 	style=dashed, color=orange];
 	ndi -> rsb[label="22) Multi-Temp.\nMG interface",
-	style=dashed, color=orange];
+	style=solid, color=green];
 
 	ndi -> mcaninch1[label="45) Gendir\nQueries", style=solid,
 	color=green];
