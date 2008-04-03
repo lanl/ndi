@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:	Internal function--open library file and set global var.
+ * Description: Internal function--open library file and set global var.
  *
  */
 
@@ -16,7 +16,7 @@
 
 static void dir_name(const char *file, char *path);
 static FILE *fpath2(state_struct *state, const char *path, 
-		    const char *mode, char *file, int len);
+                    const char *mode, char *file, int len);
 
 /**********************************************************************
 
@@ -40,21 +40,21 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
     char name[MAX_IN_PATH_LEN];
 
     if (!state) {
-	return (NULL);
+        return (NULL);
     }
 
     temp_file_p = fpath2(state, path, "rb", name, MAX_IN_PATH_LEN);
 
     /* Set global variable 'open_lib_file' to the pathname of the open file. */
     if (state->open_lib_file)
-	ndi_free((void **) &state->open_lib_file);
+        ndi_free((void **) &state->open_lib_file);
 
     if (temp_file_p) {
-	if ((state->open_lib_file =
-	     (char *) ndi_malloc(strlen(name) + sizeof(char)))
-	    != NULL) {
-	    strcpy(state->open_lib_file, name);
-	}
+        if ((state->open_lib_file =
+             (char *) ndi_malloc(strlen(name) + sizeof(char)))
+            != NULL) {
+            strcpy(state->open_lib_file, name);
+        }
     }
 
     return (temp_file_p);
@@ -65,15 +65,15 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
 
 
 FILE *fpath2(state_struct *state, const char *path, 
-	     const char *mode, char *name, int len)
+             const char *mode, char *name, int len)
 {
     char prefix[] = "$GENDIRPATH";
 
     if (strncmp(path, prefix, strlen(prefix)) == 0) {
-	dir_name(state->open_gendir_file, name);
-	strncat(name, path+strlen(prefix), len);
+        dir_name(state->open_gendir_file, name);
+        strncat(name, path+strlen(prefix), len);
     } else {
-	strncpy(name, path, len);
+        strncpy(name, path, len);
     }
 
     return fopen(name, mode);
@@ -94,12 +94,12 @@ void dir_name(const char *file, char *path)
     while (p > path && p[-1] == '/') p--; /* remove trainling slashes */
 
     if (p == path) {
-	if (path[0] == '/')
-	    strcpy(path, "/");
-	else
-	    strcpy(path, ".");
+        if (path[0] == '/')
+            strcpy(path, "/");
+        else
+            strcpy(path, ".");
     } else {
-	*p = '\0';
+        *p = '\0';
     }
 }
 
