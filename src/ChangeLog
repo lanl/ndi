@@ -1,3 +1,11 @@
+2008-05-08  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added
+	qualified zaid override
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Added static to 78 group
+	structure definitions to indicate static duration
+
 2008-01-16  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_float_vec_x.c (GET_FLOAT_VEC_X_GENDIR): Added gendir

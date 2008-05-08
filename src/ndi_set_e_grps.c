@@ -159,7 +159,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 
     /*  NGK KLUDGE!  */
-    double _33_ngkludge[] =
+    static double _33_ngkludge[] =
     { 17.0, 15.0, 13.5, 12.0, 10.0, 7.79, 6.07, 3.68,
     2.865, 2.232, 1.738, 1.353, 0.823, 0.5, 0.303,
     0.184, 6.76e-2, 2.48e-2, 9.12e-3, 3.35e-3,
@@ -170,7 +170,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 /* =================== Neutron Group Structure Definitions =================== */
 
-    double _640_sandiia[] = {
+    static double _640_sandiia[] = {
         2.000e+01,    1.990e+01,    1.980e+01,    1.970e+01,
         1.960e+01,    1.950e+01,    1.940e+01,    1.930e+01,
         1.920e+01,    1.910e+01,    1.900e+01,    1.890e+01,
@@ -335,7 +335,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _620_sandii[] = {
+    static double _620_sandii[] = {
         1.800e+01,    1.790e+01,    1.780e+01,    1.770e+01,
         1.760e+01,    1.750e+01,    1.740e+01,    1.730e+01,
         1.720e+01,    1.710e+01,    1.700e+01,    1.690e+01,
@@ -495,7 +495,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _618_leth[] = {
+    static double _618_leth[] = {
         2.00000000000000e+01,    1.98750000000000e+01,    1.97500000000000e+01,    1.96250000000000e+01,
         1.95000000000000e+01,    1.93750000000000e+01,    1.92500000000000e+01,    1.91250000000000e+01,
         1.90000000000000e+01,    1.88750000000000e+01,    1.87500000000000e+01,    1.86250000000000e+01,
@@ -654,7 +654,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _618_leg[] = {
+    static double _618_leg[] = {
         2.00000000000000e+01,    1.98750000000000e+01,    1.97500000000000e+01,    1.96250000000000e+01,
         1.95000000000000e+01,    1.93750000000000e+01,    1.92500000000000e+01,    1.91250000000000e+01,
         1.90000000000000e+01,    1.88750000000000e+01,    1.87500000000000e+01,    1.86250000000000e+01,
@@ -813,7 +813,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _616_llnl[] = {
+    static double _616_llnl[] = {
         2.00000e+01,    1.99526e+01,    1.90546e+01,    1.81970e+01,
         1.73780e+01,    1.65959e+01,    1.58489e+01,    1.51356e+01,
         1.44544e+01,    1.38038e+01,    1.31826e+01,    1.25893e+01,
@@ -972,7 +972,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _616_group[] = {
+    static double _616_group[] = {
         2.00000000000000e+01,    1.99526231496891e+01,    1.90546071796328e+01,    1.81970085861001e+01,
         1.73780082874940e+01,    1.65958690743759e+01,    1.58489319246114e+01,    1.51356124843623e+01,
         1.44543977074595e+01,    1.38038426460291e+01,    1.31825673855643e+01,    1.25892541179419e+01,
@@ -1131,7 +1131,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _532_llnl[] = {
+    static double _532_llnl[] = {
         2.00000e+01,    1.87550e+01,    1.81340e+01,    1.75230e+01,
         1.70000e+01,    1.69230e+01,    1.63340e+01,    1.57540e+01,
         1.51860e+01,    1.50000e+01,    1.46830e+01,    1.44070e+01,
@@ -1269,7 +1269,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _299_abbn93[] = {
+    static double _299_abbn93[] = {
         2.000e+01,    1.861e+01,    1.733e+01,    1.613e+01,
         1.501e+01,    1.398e+01,    1.301e+01,    1.211e+01,
         1.127e+01,    1.050e+01,    9.693e+00,    8.948e+00,
@@ -1348,7 +1348,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _250_leg[] = {
+    static double _250_leg[] = {
         1.70000000000000e+01,    1.67500000000000e+01,    1.65000000000000e+01,    1.62500000000000e+01,
         1.60000000000000e+01,    1.57500000000000e+01,    1.55000000000000e+01,    1.52500000000000e+01,
         1.50000000000000e+01,    1.47500000000000e+01,    1.45000000000000e+01,    1.42500000000000e+01,
@@ -1415,7 +1415,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _240_csewg[] = {
+    static double _240_csewg[] = {
         1.99704781986848e+01,    1.96403297596985e+01,    1.91554082901390e+01,    1.86824595743222e+01,
         1.82211880039051e+01,    1.77713052691404e+01,    1.73325301786740e+01,    1.69045884837909e+01,
         1.64872127070013e+01,    1.60801419748578e+01,    1.56831218549017e+01,    1.52959041966338e+01,
@@ -1480,7 +1480,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _230_llnl[] = {
+    static double _230_llnl[] = {
         2.00000e+01,    1.87550e+01,    1.81340e+01,    1.75230e+01,
         1.69230e+01,    1.63340e+01,    1.57540e+01,    1.51860e+01,
         1.48471e+01,    1.46830e+01,    1.45400e+01,    1.44467e+01,
@@ -1542,7 +1542,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _188_leg[] = {
+    static double _188_leg[] = {
         2.00000000000000e+01,    1.70000000000000e+01,    1.60000000000000e+01,    1.50000000000000e+01,
         1.46400000000000e+01,    1.44200000000000e+01,    1.42000000000000e+01,    1.39400000000000e+01,
         1.37500000000000e+01,    1.35000000000000e+01,    1.30000000000000e+01,    1.20000000000000e+01,
@@ -1594,7 +1594,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _187_lanl[] = {
+    static double _187_lanl[] = {
         2.00000000000000e+01,    1.70000000000000e+01,    1.60000000000000e+01,    1.50000000000000e+01,
         1.46400000000000e+01,    1.44200000000000e+01,    1.42000000000000e+01,    1.39400000000000e+01,
         1.37500000000000e+01,    1.35000000000000e+01,    1.30000000000000e+01,    1.20000000000000e+01,
@@ -1645,7 +1645,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _175_vitaminj[] = {
+    static double _175_vitaminj[] = {
         1.9640e+01,    1.7333e+01,    1.6905e+01,    1.6487e+01,
         1.5683e+01,    1.4918e+01,    1.4550e+01,    1.4191e+01,
         1.3840e+01,    1.3499e+01,    1.2840e+01,    1.2523e+01,
@@ -1693,7 +1693,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _175_llnl[] = {
+    static double _175_llnl[] = {
         2.0000e+01,    1.8755e+01,    1.8134e+01,    1.7523e+01,
         1.6923e+01,    1.6334e+01,    1.5754e+01,    1.5186e+01,
         1.4683e+01,    1.4407e+01,    1.4134e+01,    1.3863e+01,
@@ -1741,7 +1741,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _174_vitamine[] = {
+    static double _174_vitamine[] = {
         1.9640e+01,    1.7333e+01,    1.6905e+01,    1.6487e+01,
         1.5683e+01,    1.4918e+01,    1.4550e+01,    1.4191e+01,
         1.3840e+01,    1.3499e+01,    1.2523e+01,    1.2214e+01,
@@ -1789,7 +1789,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _172_xmas[] = {
+    static double _172_xmas[] = {
         1.96403e+01,    1.73325e+01,    1.49182e+01,    1.38403e+01,
         1.16183e+01,    1.00000e+01,    8.18731e+00,    6.70320e+00,
         6.06531e+00,    5.48812e+00,    4.49329e+00,    3.67879e+00,
@@ -1837,7 +1837,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _133_leg[] = {
+    static double _133_leg[] = {
         1.70000000000000e+01,    1.65000000000000e+01,    1.60000000000000e+01,    1.55000000000000e+01,
         1.50000000000000e+01,    1.45000000000000e+01,    1.42500000000000e+01,    1.40000000000000e+01,
         1.35000000000000e+01,    1.30000000000000e+01,    1.25000000000000e+01,    1.20000000000000e+01,
@@ -1875,7 +1875,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _130_lanl[] = {
+    static double _130_lanl[] = {
         2.000e+01,    1.890e+01,    1.790e+01,    1.700e+01,
         1.500e+01,    1.350e+01,    1.200e+01,    1.000e+01,
         7.790e+00,    6.070e+00,    4.724e+00,    3.680e+00,
@@ -1912,7 +1912,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _128_llnl[] = {
+    static double _128_llnl[] = {
         2.0000e+01,    1.6923e+01,    1.4683e+01,    1.4407e+01,
         1.4134e+01,    1.3863e+01,    1.3542e+01,    1.3068e+01,
         1.2499e+01,    1.0120e+01,    8.3215e+00,    6.7367e+00,
@@ -1949,7 +1949,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _117_llnl[] = {
+    static double _117_llnl[] = {
         2.0000e+01,    1.8755e+01,    1.8134e+01,    1.7523e+01,
         1.6923e+01,    1.6334e+01,    1.5754e+01,    1.5186e+01,
         1.4683e+01,    1.4407e+01,    1.4134e+01,    1.3863e+01,
@@ -1983,7 +1983,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _105_awe[] = {
+    static double _105_awe[] = {
         2.000e+01,    1.950e+01,    1.900e+01,    1.850e+01,
         1.800e+01,    1.750e+01,    1.700e+01,    1.650e+01,
         1.600e+01,    1.575e+01,    1.550e+01,    1.525e+01,
@@ -2014,7 +2014,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _100_gamiin[] = {
+    static double _100_gamiin[] = {
         1.70000000000000e+01,    1.34985880757600e+01,    1.22140275816017e+01,    1.10517091807565e+01,
         1.00000000000000e+01,    9.04837418035959e+00,    8.18730753077982e+00,    7.40818220681718e+00,
         6.70320046035639e+00,    6.06530659712633e+00,    5.48811636094026e+00,    4.96585303791410e+00,
@@ -2044,7 +2044,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _100_gamii[] = {
+    static double _100_gamii[] = {
         1.49182469764127e+01,    1.34985880757600e+01,    1.22140275816017e+01,    1.10517091807565e+01,
         1.00000000000000e+01,    9.04837418035959e+00,    8.18730753077982e+00,    7.40818220681718e+00,
         6.70320046035639e+00,    6.06530659712633e+00,    5.48811636094026e+00,    4.96585303791410e+00,
@@ -2074,7 +2074,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _100_eurlib[] = {
+    static double _100_eurlib[] = {
         1.49182469764127e+01,    1.34985880757600e+01,    1.22140275816017e+01,    1.10517091807565e+01,
         1.00000000000000e+01,    9.04837418035959e+00,    8.18730753077982e+00,    7.40818220681718e+00,
         7.04688089718713e+00,    6.70320046035639e+00,    6.37628151621773e+00,    6.06530659712633e+00,
@@ -2104,7 +2104,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _91_leg[] = {
+    static double _91_leg[] = {
         1.70000000000000e+01,    1.65000000000000e+01,    1.60000000000000e+01,    1.55000000000000e+01,
         1.50000000000000e+01,    1.45000000000000e+01,    1.42500000000000e+01,    1.40000000000000e+01,
         1.35000000000000e+01,    1.30000000000000e+01,    1.25000000000000e+01,    1.20000000000000e+01,
@@ -2131,7 +2131,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _87_llnl[] = {
+    static double _87_llnl[] = {
         2.0000e+01,    1.8134e+01,    1.6923e+01,    1.6334e+01,
         1.5754e+01,    1.5186e+01,    1.4683e+01,    1.4407e+01,
         1.4134e+01,    1.3863e+01,    1.3542e+01,    1.3068e+01,
@@ -2157,7 +2157,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _80_lanl[] = {
+    static double _80_lanl[] = {
         2.00000000000000e+01,    1.69045884837909e+01,    1.49182469764127e+01,    1.34985880757600e+01,
         1.19124621661236e+01,    1.00000000000000e+01,    7.78800783071405e+00,    6.06530659712633e+00,
         4.72366552741015e+00,    3.67879441171442e+00,    2.86504796860190e+00,    2.23130160148430e+00,
@@ -2182,7 +2182,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _70_leg[] = {
+    static double _70_leg[] = {
         1.70000000000000e+01,    1.60000000000000e+01,    1.50000000000000e+01,    1.45000000000000e+01,
         1.42500000000000e+01,    1.40000000000000e+01,    1.35000000000000e+01,    1.30000000000000e+01,
         1.25000000000000e+01,    1.20000000000000e+01,    1.10000000000000e+01,    1.00000000000000e+01,
@@ -2204,7 +2204,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _70_group[] = {
+    static double _70_group[] = {
         2.00000e+01,    1.64872e+01,    1.28403e+01,    1.00000e+01,
         7.78801e+00,    6.06531e+00,    4.72367e+00,    3.67879e+00,
         2.86505e+00,    2.23130e+00,    1.73774e+00,    1.35335e+00,
@@ -2226,7 +2226,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _69_epri[] = {
+    static double _69_epri[] = {
         1.00000e+01,    6.06550e+00,    3.67900e+00,    2.23100e+00,
         1.35300e+00,    8.21000e-01,    5.00000e-01,    3.02500e-01,
         1.83000e-01,    1.11000e-01,    6.73400e-02,    4.08500e-02,
@@ -2248,7 +2248,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _68_gami[] = {
+    static double _68_gami[] = {
         1.00000000000000e+01,    7.78800783071405e+00,    6.06530659712633e+00,    4.72366552741015e+00,
         3.67879441171442e+00,    2.86504796860190e+00,    2.23130160148430e+00,    1.73773943450445e+00,
         1.35335283236613e+00,    1.05399224561864e+00,    8.20849986238988e-01,    6.39278612067076e-01,
@@ -2270,7 +2270,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _66_llnl[] = {
+    static double _66_llnl[] = {
         2.0000e+01,    1.6334e+01,    1.5186e+01,    1.4407e+01,
         1.4134e+01,    1.3863e+01,    1.3068e+01,    1.2499e+01,
         1.1993e+01,    1.1547e+01,    1.1012e+01,    1.0120e+01,
@@ -2291,7 +2291,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _64_llnl[] = {
+    static double _64_llnl[] = {
         2.0000e+01,    1.6923e+01,    1.4683e+01,    1.4407e+01,
         1.4134e+01,    1.3863e+01,    1.3542e+01,    1.3068e+01,
         1.2499e+01,    1.1993e+01,    1.0120e+01,    8.3215e+00,
@@ -2312,7 +2312,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _50_rrd[] = {
+    static double _50_rrd[] = {
         1.99710773220176e+01,    1.00000000000000e+01,    6.06530659712633e+00,    3.67879441171442e+00,
         2.23130160148430e+00,    1.35335283236613e+00,    8.20849986238988e-01,    4.97870683678639e-01,
         3.87742078317220e-01,    3.01973834223185e-01,    2.35177458560091e-01,    1.83156388887342e-01,
@@ -2329,7 +2329,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _49_leg[] = {
+    static double _49_leg[] = {
         1.70000000000000e+01,    1.60000000000000e+01,    1.50000000000000e+01,    1.45000000000000e+01,
         1.42500000000000e+01,    1.40000000000000e+01,    1.35000000000000e+01,    1.30000000000000e+01,
         1.25000000000000e+01,    1.20000000000000e+01,    1.10000000000000e+01,    1.00000000000000e+01,
@@ -2346,7 +2346,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _46_ornl[] = {
+    static double _46_ornl[] = {
         1.7333e+01,    1.4191e+01,    1.2214e+01,    1.0000e+01,
         8.6071e+00,    7.4082e+00,    6.0653e+00,    4.9659e+00,
         3.6788e+00,    3.0119e+00,    2.7253e+00,    2.4660e+00,
@@ -2362,7 +2362,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _35_laser[] = {
+    static double _35_laser[] = {
         1.8550e-06,    1.7262e-06,    1.5950e-06,    1.4575e-06,
         1.3079e-06,    1.1664e-06,    1.0987e-06,    1.0722e-06,
         1.0624e-06,    1.0525e-06,    1.0428e-06,    1.0137e-06,
@@ -2375,7 +2375,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _32_awe[] = {
+    static double _32_awe[] = {
         1.46e+01,    1.35e+01,    1.25e+01,    1.10e+01,
         9.50e+00,    8.00e+00,    6.50e+00,    5.00e+00,
         3.40e+00,    2.40e+00,    1.60e+00,    1.10e+00,
@@ -2388,7 +2388,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _30_lanl[] = {
+    static double _30_lanl[] = {
         1.700e+01,    1.500e+01,    1.350e+01,    1.200e+01,
         1.000e+01,    7.790e+00,    6.070e+00,    3.680e+00,
         2.865e+00,    2.232e+00,    1.738e+00,    1.353e+00,
@@ -2400,7 +2400,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _27_anl[] = {
+    static double _27_anl[] = {
         1.00000000000000e+01,    6.06530659712633e+00,    3.67879441171442e+00,    2.23130160148430e+00,
         1.35335283236613e+00,    8.20849986238988e-01,    4.97870683678639e-01,    3.01973834223185e-01,
         1.83156388887342e-01,    1.11089965382423e-01,    6.73794699908547e-02,    4.08677143846407e-02,
@@ -2411,7 +2411,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _21_lanl[] = {
+    static double _21_lanl[] = {
         1.700e+01,    1.500e+01,    1.350e+01,    1.200e+01,
         1.000e+01,    7.790e+00,    6.070e+00,    3.680e+00,
         2.865e+00,    2.232e+00,    1.738e+00,    1.353e+00,
@@ -2421,7 +2421,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _17_llnl[] = {
+    static double _17_llnl[] = {
         1.4407e+01,    1.4134e+01,    1.3863e+01,    1.2499e+01,
         1.1547e+01,    9.6648e+00,    7.9096e+00,    6.3666e+00,
         4.7044e+00,    2.5299e+00,    1.1761e+00,    6.3247e-01,
@@ -2430,7 +2430,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _16_llnl[] = {
+    static double _16_llnl[] = {
         1.4683e+01,    1.3542e+01,    1.2499e+01,
         1.1547e+01,    9.6648e+00,    7.9096e+00,    6.3666e+00,
         4.7044e+00,    2.5299e+00,    1.1761e+00,    6.3247e-01,
@@ -2439,7 +2439,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _16_awe[] = {
+    static double _16_awe[] = {
         1.46e+01,    1.35e+01,    1.25e+01,    1.15e+01,
         9.50e+00,    8.00e+00,    6.50e+00,    4.50e+00,
         2.40e+00,    1.10e+00,    6.55e-01,    2.90e-01,
@@ -2448,7 +2448,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _16_hr[] = {
+    static double _16_hr[] = {
         1.5e+01,    3.0e+00,    1.4e+00,    9.0e-01,
         4.0e-01,    1.0e-01,    1.7e-02,    3.0e-03,
         5.5e-04,    1.0e-04,    3.0e-05,    1.0e-05,
@@ -2457,7 +2457,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _16_lanl[] = {
+    static double _16_lanl[] = {
         1.700e+01,    1.350e+01,    1.200e+01,    1.000e+01,
         7.790e+00,    6.070e+00,    3.680e+00,    2.865e+00,
         1.353e+00,    5.000e-01,    3.030e-01,    1.840e-01,
@@ -2467,7 +2467,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
 
     /* The closest structure to 16_llnl using LANL energy boundaries. */
-    double _16_lanl2[] = {
+    static double _16_lanl2[] = {
         1.700e+01,    1.350e+01,    1.200e+01,    1.000e+01,
         7.790e+00,    6.070e+00,    3.680e+00,    2.865e+00,
         1.353e+00,    5.000e-01,    1.840e-01,    6.760e-02,
@@ -2476,7 +2476,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _14_lanl[] = {
+    static double _14_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    6.070e+00,
         2.865e+00,    1.353e+00,    5.000e-01,    1.840e-01,
         6.760e-02,    2.480e-02,    9.120e-03,    3.350e-03,
@@ -2484,7 +2484,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _13_lanl[] = {
+    static double _13_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    6.070e+00,
         2.865e+00,    1.353e+00,    5.000e-01,    1.840e-01,
         6.760e-02,    2.480e-02,    9.120e-03,    3.350e-03,
@@ -2492,7 +2492,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _12_lanl[] = {
+    static double _12_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    6.070e+00,
         2.865e+00,    1.353e+00,    5.000e-01,    1.840e-01,
         6.760e-02,    2.480e-02,    9.120e-03,    3.350e-03,
@@ -2500,7 +2500,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _12_lanl2[] = {
+    static double _12_lanl2[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    6.070e+00,
         2.865e+00,    1.353e+00,    5.000e-01,    1.840e-01,
         6.760e-02,    2.480e-02,    9.120e-03,    3.350e-03,
@@ -2508,67 +2508,67 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _10_lanl[] = {
+    static double _10_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    7.790e+00,
         3.680e+00,    2.232e+00,    5.000e-01,    1.840e-01,
         2.480e-02,    3.350e-03,    1.670e-04
     };
 
 
-    double _9_lanl[] = {
+    static double _9_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    3.680e+00,
         2.232e+00,    5.000e-01,    1.840e-01,    2.480e-02,
         3.350e-03,    1.670e-04
     };
 
 
-    double _8_lanl[] = {
+    static double _8_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    2.232e+00,
         5.000e-01,    1.840e-01,    2.480e-02,    3.350e-03,
         1.670e-04
     };
 
 
-    double _7_lanl[] = {
+    static double _7_lanl[] = {
         1.700e+01,    1.350e+01,    1.000e+01,    3.680e+00,
         2.232e+00,    5.000e-01,    2.480e-02,    1.670e-04
     };
 
 
-    double _6_lanl[] = {
+    static double _6_lanl[] = {
         1.700e+01,    1.000e+01,    3.680e+00,    2.232e+00,
         5.000e-01,    2.480e-02,    1.670e-04
     };
 
 
-    double _5_lanl[] = {
+    static double _5_lanl[] = {
         1.70e+01,    1.00e+01,    3.68e+00,    5.00e-01,
         2.48e-02,    1.67e-04
     };
 
 
-    double _4_lanl[] = {
+    static double _4_lanl[] = {
         1.700e+01,    7.790e+00,    2.232e+00,    1.840e-01,
         1.670e-04
     };
 
 
-    double _3_lanl[] = {
+    static double _3_lanl[] = {
         1.70e+01,    7.79e+00,    1.84e-01,    1.67e-04
     };
 
 
-    double _2_lanl[] = {
+    static double _2_lanl[] = {
         1.700e+01,    2.232e+00,    1.670e-04
     };
 
 
-    double _2_lanl2[] = {
+    static double _2_lanl2[] = {
         1.700e+01,    3.680e+00,    1.235e-03
     };
 
 
-    double _1_lanl[] = {
+    static double _1_lanl[] = {
         1.70e+01,    1.67e-04
     };
 
@@ -2577,7 +2577,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 /* =================== Photon Group Structure Definitions =================== */
 
 
-    double _175_phot[] = {
+    static double _175_phot[] = {
         3.000e+01,    2.000e+01,    1.335e+01,    1.186e+01,
         1.055e+01,    9.373e+00,    8.332e+00,    7.406e+00,
         6.583e+00,    5.852e+00,    5.202e+00,    4.624e+00,
@@ -2625,7 +2625,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _120_phot[] = {
+    static double _120_phot[] = {
         5.0000000e+01,    3.0000000e+01,    2.0000000e+01,    1.7000000e+01,
         1.4000000e+01,    1.2000000e+01,    1.0829105e+01,    1.0829095e+01,
         1.0000000e+01,    9.0000000e+00,    8.9984050e+00,    8.9983950e+00,
@@ -2660,7 +2660,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _103_phot[] = {
+    static double _103_phot[] = {
         5.000e+01,    3.000e+01,    2.000e+01,    1.700e+01,
         1.400e+01,    1.200e+01,    1.100e+01,    1.060e+01,
         1.000e+01,    9.500e+00,    9.000e+00,    8.500e+00,
@@ -2690,7 +2690,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _94_csewg[] = {
+    static double _94_csewg[] = {
         2.000e+01,    1.400e+01,    1.200e+01,    1.100e+01,
         1.060e+01,    1.000e+01,    9.500e+00,    9.000e+00,
         8.500e+00,    8.000e+00,    7.750e+00,    7.500e+00,
@@ -2718,7 +2718,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _48_phot[] = {
+    static double _48_phot[] = {
         5.000e+01,    3.000e+01,    2.000e+01,    1.700e+01,
         1.400e+01,    1.200e+01,    1.000e+01,    9.000e+00,
         8.000e+00,    7.500e+00,    7.000e+00,    6.500e+00,
@@ -2735,7 +2735,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _42_vitaminj[] = {
+    static double _42_vitaminj[] = {
         5.00e+01,    3.00e+01,    2.00e+01,    1.40e+01,
         1.20e+01,    1.00e+01,    8.00e+00,    7.50e+00,
         7.00e+00,    6.50e+00,    6.00e+00,    5.50e+00,
@@ -2750,7 +2750,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _40_llnl[] = {
+    static double _40_llnl[] = {
         2.000e+01,    1.335e+01,    1.186e+01,    1.055e+01,
         9.373e+00,    8.332e+00,    7.406e+00,    6.583e+00,
         5.852e+00,    5.202e+00,    4.624e+00,    4.110e+00,
@@ -2765,7 +2765,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _38_vitamine[] = {
+    static double _38_vitamine[] = {
         2.00e+01,    1.40e+01,    1.20e+01,    1.00e+01,
         8.00e+00,    7.50e+00,    7.00e+00,    6.50e+00,
         6.00e+00,    5.50e+00,    5.00e+00,    4.50e+00,
@@ -2779,7 +2779,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _36_vitaminc[] = {
+    static double _36_vitaminc[] = {
         1.40e+01,    1.20e+01,    1.00e+01,    8.00e+00,
         7.50e+00,    7.00e+00,    6.50e+00,    6.00e+00,
         5.50e+00,    5.00e+00,    4.50e+00,    4.00e+00,
@@ -2793,7 +2793,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _24_phot[] = {
+    static double _24_phot[] = {
         3.00e+01,    1.70e+01,    1.20e+01,    1.00e+01,
         9.00e+00,    8.00e+00,    7.00e+00,    6.00e+00,
         5.00e+00,    4.00e+00,    3.00e+00,    2.50e+00,
@@ -2804,7 +2804,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _22_straker[] = {
+    static double _22_straker[] = {
         1.40e+01,    1.00e+01,    8.00e+00,    7.00e+00,
         6.00e+00,    5.00e+00,    4.00e+00,    3.50e+00,
         3.00e+00,    2.50e+00,    2.00e+00,    1.66e+00,
@@ -2814,7 +2814,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _21_steiner[] = {
+    static double _21_steiner[] = {
         1.4e+01,    1.2e+01,    1.0e+01,    8.0e+00,
         7.5e+00,    7.0e+00,    6.5e+00,    6.0e+00,
         5.5e+00,    5.0e+00,    4.5e+00,    4.0e+00,
@@ -2824,7 +2824,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _20_ornl[] = {
+    static double _20_ornl[] = {
         1.4e+01,    1.0e+01,    8.0e+00,    7.0e+00,
         6.0e+00,    5.0e+00,    4.0e+00,    3.0e+00,
         2.0e+00,    1.5e+00,    1.0e+00,    8.0e-01,
@@ -2834,7 +2834,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     };
 
 
-    double _12_phot[] = {
+    static double _12_phot[] = {
          2e+01,     9e+00,     8e+00,     7e+00,
          6e+00,     5e+00,     4e+00,     3e+00,
          2e+00,     1e+00,     5e-01,     1e-01,

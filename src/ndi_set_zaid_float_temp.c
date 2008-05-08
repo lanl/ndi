@@ -34,25 +34,32 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     section = ndi_get_section(state);
     if (section == 0) NDI_THROW(ierr, -16); /* Lib type not set */
 
-    fpos = ftell(state->ndi_dir); /* Remember file position */
+    if (strchr(in_zaid, '.') != NULL) { /* Qualified zaid override */
 
-    if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
-        NDI_THROW(ierr, -11);   /* Section not found */
+        ierr = ndi_c_set_zaid_h(state, in_zaid);
 
-    /* Find matching zaid: set if first or temperature closer than prev. */
-    while (ndi_fget_next_dir(&rec, state->ndi_dir, 
-                             state->library_vers, in_zaid)) {
-        if (fabs(rec.temp - temp) < diff) {
-            strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
-            diff = fabs(rec.temp - temp);
+    } else {                    /* Multi-temp search */
+
+        fpos = ftell(state->ndi_dir); /* Remember file position */
+
+        if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
+            NDI_THROW(ierr, -11);   /* Section not found */
+
+        /* Find matching zaid: set if first or temperature closer than prev. */
+        while (ndi_fget_next_dir(&rec, state->ndi_dir, 
+                                 state->library_vers, in_zaid)) {
+            if (fabs(rec.temp - temp) < diff) {
+                strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
+                diff = fabs(rec.temp - temp);
+            }
         }
-    }
 
-    /* Set matching zaid with smallest temp diff */
-    if (diff < DBL_MAX)
-        ierr = ndi_c_set_zaid_h(state, zaid);
-    else
-        NDI_THROW(ierr, -8);    /* Isotope not found */
+        /* Set matching zaid with smallest temp diff */
+        if (diff < DBL_MAX)
+            ierr = ndi_c_set_zaid_h(state, zaid);
+        else
+            NDI_THROW(ierr, -8);    /* Isotope not found */
+    }
 
  catch:
     if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
