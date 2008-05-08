@@ -164,6 +164,7 @@
 #define NDI_EDIST_CONT_P              133
 #define NDI_EDIST_CONT_INTERP_REG     134
 #define NDI_EDIST_CONT_INTERP_TYPE    135
+#define NDI_SF_SPECTRA                136
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

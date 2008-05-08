@@ -111,7 +111,9 @@ SRC := \
 	ndimp_get_size_n.c \
 	ndimp_get_string_val.c \
 	ndimp_set_option.c \
-	ndimp_set_zaid.c 
+	ndimp_set_zaid.c \
+	ndi_watt.c \
+	ndi_sf.c
 
 SRC_FLOAT := \
 	ndi_set_zaid_float_temp.c \

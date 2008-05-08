@@ -15,6 +15,8 @@
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
 #include "ndi_bin_tree.h"
+#include "ndi_sf.h"
+#include "ndi_watt.h"
 
 static int GET_FLOAT_VEC_GENDIR(state_struct *state, int in_key,
                                 FLOAT_TYPE * return_vec, int return_size);
@@ -74,6 +76,9 @@ static int FLAT_ENERGY (state_struct *state, int num_grps,
                         FLOAT_TYPE *return_vec, int return_size);
 static int TD_ENERGY (state_struct *state, int num_grps, 
                       FLOAT_TYPE *return_vec, int return_size);
+
+static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
+                          int return_size);
 
 
 /**********************************************************************/
@@ -492,6 +497,10 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         ndi_free((void **) &vec);
     }
     break;
+
+    case NDI_SF_SPECTRA:        /* Spontaneous Fission Spectra (reqt. 46 */
+        ierr = GET_SF_SPECTRA(state, return_vec, return_size);
+        break;
 
     /**********  UNKNOWN KEYWORD  ***********/
 
@@ -2856,14 +2865,14 @@ static int FLAT_ENERGY(state_struct *state, int num_grps,
    Dover Publications (1972), p.916 */
 static double gl10(double (*f)(double), double a, double b)
 {
-    double z[] = {
+    static double z[] = {
         0.148874338981631, 
         0.433395394129247, 
         0.679409568299024,
         0.865063366688985,
         0.973906528517172
     };
-    double w[] = {
+    static double w[] = {
         0.295524224714753,
         0.269266719309996,
         0.219086362515982,
@@ -2893,7 +2902,7 @@ static double gl10(double (*f)(double), double a, double b)
 static double td(double x)
 {
 
-    double E[] = {              /* Energy grid (eV) */
+    static double E[] = {              /* Energy grid (eV) */
         1.000000e-05, 1.390000e-04, 5.000000e-04, 1.000000e-03, 5.000000e-03,
         1.000000e-02, 2.500000e-02, 4.000000e-02, 5.000000e-02, 1.000000e-01,
         1.400000e-01, 1.500000e-01, 4.140000e-01, 1.130000e+00, 3.060000e+00,
@@ -2905,7 +2914,7 @@ static double td(double x)
         1.400000e+07, 1.410000e+07, 1.420000e+07, 1.430000e+07, 1.460000e+07,
         1.500000e+07, 1.600000e+07, 1.700000e+07, 2.000000e+07};
 
-    double w[] = {              /* weight @ E[i] */
+    static double w[] = {              /* weight @ E[i] */
         2.239100e+05, 3.019000e+06, 1.070000e+07, 2.098000e+07, 8.939000e+07,
         1.463800e+08, 2.008000e+08, 1.763500e+08, 1.478000e+08, 4.000000e+07,
         1.130000e+07, 7.600000e+06, 2.790000e+06, 1.020000e+06, 3.770000e+05,
@@ -2917,7 +2926,7 @@ static double td(double x)
         1.140000e-01, 1.140000e-01, 1.010000e-01, 6.500000e-02, 1.490000e-02,
         4.000000e-03, 1.540000e-03, 8.500000e-04, 1.727900e-04};
 
-    double lnw[] = {            /* log (w[i+1]/w[i])/log(E[i+1]/E[i]) */
+    static double lnw[] = {            /* log (w[i+1]/w[i])/log(E[i+1]/E[i]) */
         9.884296e-01, 9.884262e-01, 9.714039e-01, 9.005872e-01, 7.115331e-01,
         3.449816e-01,-2.762505e-01,-7.914665e-01,-1.885574e+00,-3.756853e+00,
         -5.749210e+00,-9.870729e-01,-1.002123e+00,-9.991121e-01,-9.975245e-01,
@@ -2996,4 +3005,52 @@ static int TD_ENERGY(state_struct *state, int num_grps,
 
     return(ierr);
 }
+/*********************************************************************/
+/*********************************************************************/
+
+/* Spontaneous fission neutrons per sec per energy bin */
+static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
+                          int return_size) {
+
+    int ierr = 0;
+    int num_grps;
+    int i;
+    double *C = NULL;
+    spont_fiss *sf;
+
+    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+
+    num_grps = state->grp_num_new;
+    if (num_grps <= 0) NDI_THROW(ierr, -9);
+        
+    C = (double *) ndi_malloc((num_grps+1) * sizeof(double));
+    if (!C) NDI_THROW(ierr, -14); /* Out of memory */
+
+    sf = ndi_get_sf_data(state->iso_stat.zaid); /* Lookup data */
+    if (!sf) NDI_THROW(ierr, -9);
+
+    for (i = 0; i <= num_grps; i++) /* Evaluate integrated watt at ebounds */
+        C[i] = ndi_int_watt(state->collapse_ebounds[i], sf->a, sf->b);
+
+    /* Include all neutrons
+    C[0] = 1.0;
+    C[num_grps] = 0.0;
+    */
+
+    if (return_size < num_grps) {
+        num_grps = return_size;
+        ierr = 7;               /* data truncated */
+    }
+
+    /* [decay/(atom*sec)][fissions/decay][neutrons/fission][prob in dE] */
+    for (i = 0; i < num_grps; i++)
+        return_vec[i] = (FLOAT_TYPE) sf->lambda * sf->ratio * sf->nubar * 
+            (C[i] - C[i+1]); 
+
+ catch:
+    ndi_free((void **) &C);
+
+    return ierr;
+}
+
 /*********************************************************************/

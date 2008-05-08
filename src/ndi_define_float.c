@@ -130,6 +130,7 @@ int main()
     printf("#define LEGACY_E_CALC ndi_legacy_e_calc32\n");
     printf("#define FLAT_ENERGY ndi_flat_energy32\n");
     printf("#define TD_ENERGY ndi_td_energy32\n");
+    printf("#define GET_SF_SPECTRA get_sf_spectra32\n");
 
     printf("#else\n");
     printf("#define FLOAT_TYPE ndi_float64\n");
@@ -227,6 +228,7 @@ int main()
     printf("#define LEGACY_E_CALC ndi_legacy_e_calc64\n");
     printf("#define FLAT_ENERGY ndi_flat_energy64\n");
     printf("#define TD_ENERGY ndi_td_energy64\n");
+    printf("#define GET_SF_SPECTRA get_sf_spectra64\n");
 
     printf("#endif\n\n\n");
 
