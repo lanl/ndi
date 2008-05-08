@@ -79,7 +79,7 @@ static int TD_ENERGY (state_struct *state, int num_grps,
 
 static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
                           int return_size);
-
+static int is_partial_fission(int mt);
 
 /**********************************************************************/
 
@@ -1168,10 +1168,9 @@ static int NDI_CALC_E_AVAIL(state_struct *state, FLOAT_TYPE * return_vec,
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_E_AVG, eavg, num_grps);
 
     for (i = 0; i < num_reac; i++) {
-        if ( (MT[i] == 38) ||
-             ((MT[i] > 18) && (MT[i] < 22))) {
-            continue;
-        }
+
+        if (is_partial_fission(MT[i])) continue;
+
         ierr =
             NDI_GET_FLOAT_VEC_N_H(state, NDI_SIG_REAC, MT[i], rx_cross_sec,
                                   num_grps);
@@ -1192,6 +1191,12 @@ static int NDI_CALC_E_AVAIL(state_struct *state, FLOAT_TYPE * return_vec,
 }
 
 /*********************************************************************/
+
+static int is_partial_fission(int mt)
+{
+    return mt == 38 || ((mt > 18) && (mt < 22));
+}
+
 /*********************************************************************/
 static int NDI_GET_HEATING(state_struct *state, stat_flag * heating,
                            stat_flag * kerma, FLOAT_TYPE * return_vec,
@@ -1496,10 +1501,10 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     ierr = ndi_c_get_float64_vec_h(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
 
     for (i = 0; i < num_reactions; i++) {
-        if ((mt[i] > 18) && (mt[i] < 22)) {
-            /* Partial fission cross sections contained in MT = 18 */
-            continue;
-        }
+
+        /* Partial fission cross sections already contained in MT = 18 */
+        if (is_partial_fission(mt[i])) continue;
+
         ierr =
             ndi_c_get_float64_vec_n_h(state, NDI_SIG_REAC, mt[i], curr_xs,
                                       num_elements);
