@@ -285,6 +285,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_KERMA_CURR_PART:   /* Partial kerma--current particle */
     case NDI_TOT_PROD_XS:       /* Total production cross section */
     case NDI_TOT_DEPL_XS:       /* Total depletion cross section */
+    case NDI_SF_SPECTRA:        /* Spontaneous fission spectra */
 
         if (state->collapse_flag != 0) {
             return_value = state->grp_num_new;

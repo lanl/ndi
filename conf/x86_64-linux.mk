@@ -8,6 +8,7 @@
 
 # Standard macros
 CC		:= /usr/bin/gcc
+CPP		:= $(CC) -E
 FC		:= pgf95
 CFLAGS		:= -std=c99 -pedantic -Wall -Werror -fPIC
 ASFLAGS		:= $(CFLAGS)

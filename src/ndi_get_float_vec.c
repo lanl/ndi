@@ -498,7 +498,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     }
     break;
 
-    case NDI_SF_SPECTRA:        /* Spontaneous Fission Spectra (reqt. 46 */
+    case NDI_SF_SPECTRA:        /* Spontaneous Fission Spectra (reqt. 46) */
         ierr = GET_SF_SPECTRA(state, return_vec, return_size);
         break;
 
@@ -3020,41 +3020,43 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
     int ierr = 0;
     int num_grps;
     int i;
-    double *C = NULL;
+    int n;
+    double C;
+    double R;
     spont_fiss *sf;
 
     if (!state) NDI_THROW(ierr, -2); /* State not initialized */
 
-    num_grps = state->grp_num_new;
+    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
+
+    num_grps = (state->collapse_flag != 0) ? state->grp_num_new :
+        state->iso_stat.num_grps;
     if (num_grps <= 0) NDI_THROW(ierr, -9);
         
-    C = (double *) ndi_malloc((num_grps+1) * sizeof(double));
-    if (!C) NDI_THROW(ierr, -14); /* Out of memory */
-
     sf = ndi_get_sf_data(state->iso_stat.zaid); /* Lookup data */
-    if (!sf) NDI_THROW(ierr, -9);
+    if (!sf) NDI_THROW(ierr, -9); /* Data not available */
 
-    for (i = 0; i <= num_grps; i++) /* Evaluate integrated watt at ebounds */
-        C[i] = ndi_int_watt(state->collapse_ebounds[i], sf->a, sf->b);
-
-    /* Include all neutrons
-    C[0] = 1.0;
-    C[num_grps] = 0.0;
-    */
+    /* [decay/(atom*sec)][fissions/decay][neutrons/fission] */
+    R = sf->lambda * sf->ratio * sf->nubar;
 
     if (return_size < num_grps) {
-        num_grps = return_size;
-        ierr = 7;               /* data truncated */
+        n = return_size;
+        ierr = 7;               /* Data truncated */
+    } else {
+        n = num_grps;
     }
 
-    /* [decay/(atom*sec)][fissions/decay][neutrons/fission][prob in dE] */
-    for (i = 0; i < num_grps; i++)
-        return_vec[i] = (FLOAT_TYPE) sf->lambda * sf->ratio * sf->nubar * 
-            (C[i] - C[i+1]); 
+    C = 1.0;                    /* Expand boundary to include all neutrons */
+    for (i = 0; i < n; i++) {
+        return_vec[i] = (FLOAT_TYPE) R*C; /* Upper boundary */
+
+        C = (i+1 != num_grps) ? 
+            ndi_int_watt(state->collapse_ebounds[i+1], sf->a, sf->b): 0.0;
+
+        return_vec[i] -= (FLOAT_TYPE) R*C; /* Lower boundary */
+    }
 
  catch:
-    ndi_free((void **) &C);
-
     return ierr;
 }
 

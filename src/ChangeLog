@@ -1,3 +1,11 @@
+2008-05-09  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_size.c (get_mg_size): Added code for spontaneous fission
+	spectra 
+
+	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added code for
+	spontaneous fission spectra
+
 2008-05-08  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added
