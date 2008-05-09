@@ -35,9 +35,9 @@ Query:
 \begin{verbatim}
 
 /* Get the size of spectra array for set isotope and specified groups */
-size = NDI2_get_size_x(handle, NDI_SF_SPECTRA, "30_lanl", &ierr);
+size = NDI2_get_size(handle, NDI_SF_SPECTRA, &ierr);
 /* Get the spectra array for set isotope and specified groups */
-ierr = NDI2_get_float64_vec_x(gendir, NDI_SF_SPECTRA, "30_lanl", flt_arr, size);
+ierr = NDI2_get_float64_vec(gendir, NDI_SF_SPECTRA, flt_arr, size);
 \end{verbatim}
 \\ \hline
 
@@ -51,4 +51,6 @@ Requirement Handling:
 Date & Description \\ \hline
 2008/02/28 & mgg got preliminary data from drnuke \\ \hline 
 2008/03/03 & mgg got better data from jomc \\ \hline 
+2008/05/08 & mgg Wrote preliminary code \\ \hline
+2008/05/09 & mgg Refactored code \\ \hline
 \end{tabular}
