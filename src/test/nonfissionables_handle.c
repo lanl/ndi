@@ -25,7 +25,7 @@ int main ()
        "H2", "Be7", "U235", "Pu239"
    };
 
-   int num_keywords = 13;
+   int num_keywords = 14;
    int keyword_list[] = { NDI_FISS_Q,
 			  NDI_NU_TOT,
 			  NDI_NU_PR,
@@ -39,6 +39,7 @@ int main ()
 			  NDI_CHI_MAT_TOT,
 			  NDI_CHI_MAT_PR,
 			  NDI_CHI_MAT_DEL,
+                          NDI_SF_SPECTRA
    };
 
    char *keyword_label[]= { "fission_q",
@@ -53,7 +54,8 @@ int main ()
 			    "delayed chi vector",
 			    "total chi matrix",
 			    "prompt chi matrix",
-			    "delayed chi matrix"
+			    "delayed chi matrix",
+                            "spontaneous fission spectra"
    };
 
    ndi_float64 *ret_vec64 = NULL;

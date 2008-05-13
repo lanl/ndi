@@ -3023,16 +3023,19 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
     int n;
     double C;
     double R;
+    double E;
     spont_fiss *sf;
 
     if (!state) NDI_THROW(ierr, -2); /* State not initialized */
 
     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
+    if (state->iso_stat.fissionable == 0) goto catch; /* Not fissionable */
+
     num_grps = (state->collapse_flag != 0) ? state->grp_num_new :
         state->iso_stat.num_grps;
     if (num_grps <= 0) NDI_THROW(ierr, -9);
-        
+    
     sf = ndi_get_sf_data(state->iso_stat.zaid); /* Lookup data */
     if (!sf) NDI_THROW(ierr, -9); /* Data not available */
 
@@ -3050,8 +3053,9 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
     for (i = 0; i < n; i++) {
         return_vec[i] = (FLOAT_TYPE) R*C; /* Upper boundary */
 
-        C = (i+1 != num_grps) ? 
-            ndi_int_watt(state->collapse_ebounds[i+1], sf->a, sf->b): 0.0;
+        E = state->lib_ebounds[(state->collapse_flag !=0) ? 
+                               state->new_ebounds[i+1] : i+1];
+        C = (i+1 != num_grps) ? ndi_int_watt(E, sf->a, sf->b): 0.0;
 
         return_vec[i] -= (FLOAT_TYPE) R*C; /* Lower boundary */
     }

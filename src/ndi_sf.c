@@ -67,7 +67,7 @@ spont_fiss *ndi_get_sf_data(const char *zaid)
     long za;
     spont_fiss *low = &sf_data[0];
     spont_fiss *high = &sf_data[NUM_SF];
-    spont_fiss *mid;
+    spont_fiss *mid = NULL;
     long cond;
 
     za = atol(zaid);
