@@ -3037,7 +3037,10 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
     if (num_grps <= 0) NDI_THROW(ierr, -9);
     
     sf = ndi_get_sf_data(state->iso_stat.zaid); /* Lookup data */
-    if (!sf) NDI_THROW(ierr, -9); /* Data not available */
+    if (!sf) {
+        ierr = 9;               /* Data not available */
+        goto catch;
+    }
 
     /* [decay/(atom*sec)][fissions/decay][neutrons/fission] */
     R = sf->lambda * sf->ratio * sf->nubar;
