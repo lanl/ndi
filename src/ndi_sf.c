@@ -10,6 +10,11 @@
 
 #include "ndi_sf.h"
 
+
+/* "Data updates for the SOURCES-4A computer code", E.F. Shores, 
+    Nuc. Inst. and Methods in Phys. Res. B 179 (2001) 78-82
+*/
+
 /* Entries MUST be in numeric sort order */
 static spont_fiss sf_data[] = {
 /*       mza,   decay rate, branch ratio,   nu_bar,        a,        b */
