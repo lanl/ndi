@@ -1,10 +1,13 @@
 BEGIN {
      perms = "-r[-w]-r[-w]-r--|drw[xsStT]rw[xsStT]r-[xsStT]";
      group = "pdata";
+     "whoami" | getline user;
+     close("whoami");
      result = 1;
 }
 
-NF > 4 {
+
+NF > 4 && $3 ~ user {
      if (! ($1 ~ perms && $4 ~ group)) {
           print $0;
           result = 0;
