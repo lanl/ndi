@@ -80,7 +80,7 @@ c     Test multi-temperature functionality (Requirement 22)
       call ndi2_get_float64_vec(handle, NDI_TEMPS, tarr, ACTUAL, ierr)
       if (ierr .eq. 0) then
          do i = 1, size
-            print *, "Temperature(", i, ") = ", tarr(i)
+            print *, "Temperature( ", i, " ) = ", tarr(i)
          enddo
       else
          print *, "  **Error =", ierr
