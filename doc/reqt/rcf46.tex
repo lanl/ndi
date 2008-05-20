@@ -34,6 +34,8 @@ Classification: 1 \\ \hline
 Query:
 \begin{verbatim}
 
+/* Is spontaneous fission data available for this isotope? */
+ierr = NDI2_get_int_val(handle, NDI_SF_FISSIONABLE, &answer);
 /* Get the size of spectra array for set isotope and specified groups */
 size = NDI2_get_size(handle, NDI_SF_SPECTRA, &ierr);
 /* Get the spectra array for set isotope and specified groups */
@@ -54,4 +56,6 @@ Date & Description \\ \hline
 2008/05/08 & mgg Wrote preliminary code \\ \hline
 2008/05/09 & mgg Refactored code \\ \hline
 2008/05/13 & mgg Test non-collapse case \\ \hline
+2008/05/20 & mgg Add spontaneous fissionable query, change units to
+shakes \\ \hline
 \end{tabular}

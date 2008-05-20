@@ -29,7 +29,7 @@ ierr = NDI2_set_zaid(handle, "92235");
 num_t = NDI2_get_size(handle, NDI_TEMPS, &ierr);
 /* Get array of temperatures */
 ierr = NDI2_get_float64_vec(handle, NDI_TEMPS, temp_vec, num_t);
-/* Select u235 table closest to specified temperature */
+/* Select u235 table closest to specified temperature (MeV) */
 ierr = NDI2_set_zaid_float64_temp(handle, "92235", 1.0);
 \end{verbatim}
 \\ \hline

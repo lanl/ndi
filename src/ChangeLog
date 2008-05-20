@@ -1,3 +1,9 @@
+2008-05-20  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_int_val.c (get_int_val_mg): Added NDI_SF_FISSIONABLE
+
+	* ndi_sf.c: Converted decay rate from seconds to shakes (10^-8 s)
+
 2008-05-09  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_size.c (get_mg_size): Added code for spontaneous fission

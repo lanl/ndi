@@ -250,7 +250,8 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_PN_ORDER_CURR_PART:        /* number of production matrices--current particle */
     case NDI_NUM_TARGET:        /* number of chain targets */
     case NDI_LAST_GRP:          /* Kludged ngk last neutron group */
-    case NDI_FISSIONABLE:       /* Boolean value -- does this isotope have fission info */
+    case NDI_FISSIONABLE:       /* Boolean: fission data? */
+    case NDI_SF_FISSIONABLE:    /* Boolean: spontaneous fission data? */
     case NDI_ATOMIC_NUM:        /* Z of the current zaid */
     case NDI_MASS_NUM:          /* A of the current zaid */
     case NDI_NUM_PNU_PR:        /* number of P(nu) vectors available */

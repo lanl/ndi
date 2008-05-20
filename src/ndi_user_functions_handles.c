@@ -686,6 +686,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_NUM_TARGET: Scalar length
       - \c NDI_LAST_GRP: Scalar length
       - \c NDI_FISSIONABLE: Scalar length
+      - \c NDI_SF_FISSIONABLE: Scalar length
       - \c NDI_ATOMIC_NUM: Scalar length
       - \c NDI_MASS_NUM: Scalar length
       - \c NDI_NUM_PNU_PR: Scalar length
@@ -716,6 +717,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_REAC_MT: Array length
       - \c NDI_REAC_Q: Array length
       - \c NDI_E_BOUNDS_CURR_PART: Array length
+      - \c NDI_SF_SPECTRA: Array length
       - \c NDI_RPROD_ALL: Matrix length
       - \c NDI_RPROD_RMO: Matrix length
       - \c NDI_RPROD_FEW: Matrix length
@@ -1383,6 +1385,7 @@ NDI2_get_float32_vec(int handle, int in_key,
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
+      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
 
 */
 int 
@@ -1641,6 +1644,7 @@ NDI2_get_float64_vec(int handle, int in_key,
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
+      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
 
 */
 int 

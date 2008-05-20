@@ -14,6 +14,7 @@
 
 #include "ndi.h"
 #include "ndi_internal.h"
+#include "ndi_sf.h"
 
 static int get_int_val_mg(state_struct *state, int in_key, int *ret_val);
 static int get_int_val_tn(state_struct *state, int in_key, int *ret_val);
@@ -116,6 +117,10 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
     case NDI_FISSIONABLE:	/* Does this isotope have fission data?  */
 	*ret_val = state->iso_stat.fissionable;
 	break;
+
+    case NDI_SF_FISSIONABLE:    /* Does this isotope have sf data? */
+        *ret_val = ndi_get_sf_data(state->iso_stat.zaid)? 1: 0;
+        break;
 
     case NDI_UP_GRPS:		/* Number of upscatter groups  */
 	if (state->iso_stat.up_grps >= 0) {
