@@ -415,6 +415,18 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	if (label_size <  7) ierr = 6;
 	strncpy(label, "(n,Xf)", label_size);
 	break;
+    case 19:                    /* (n,f) - 1st chance fission */
+        if (label_size < strlen("(n,f)") + 1) ierr = 6;
+        strncpy(label, "(n,f)", label_size);
+        break;
+    case 20:                    /* (n,n'f) - 2nd chance fission */
+        if (label_size < strlen("(n,n'f)") + 1) ierr = 6;
+        strncpy(label, "(n,n'f)", label_size);
+        break;
+    case 21:                    /* (n,2nf) - 3rd chance fission */
+        if (label_size < strlen("(n,2nf)") + 1) ierr = 6;
+        strncpy(label, "(n,2nf)", label_size);
+        break;
     case 22:			/* (n,n'a) */
 	if (label_size <  12) ierr = 6;
 	strncpy(label, "(n,n'alpha)", label_size);
@@ -455,6 +467,10 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	if (label_size <  7) ierr = 6;
 	strncpy(label, "(n,4n)", label_size);
 	break;
+    case 38:                    /* (n,3nf) - 4th chance fission */
+        if (label_size < strlen("(n,3nf)") + 1) ierr = 6;
+        strncpy(label, "(n,3nf)", label_size);
+        break;
     case 41:			/* (n,2np) */
 	if (label_size <  8) ierr = 6;
 	strncpy(label, "(n,2np)", label_size);

@@ -1,3 +1,8 @@
+2008-05-21  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_string_val_n.c (ndi_mt_to_label): Added partial fission
+	reactions to list
+
 2008-05-20  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_int_val.c (get_int_val_mg): Added NDI_SF_FISSIONABLE
