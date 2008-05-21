@@ -118,7 +118,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 	*ret_val = state->iso_stat.fissionable;
 	break;
 
-    case NDI_SF_FISSIONABLE:    /* Does this isotope have sf data? */
+    case NDI_SPONTANEOUS_FISSIONABLE:    /* Does this isotope have sf data? */
         *ret_val = ndi_get_sf_data(state->iso_stat.zaid)? 1: 0;
         break;
 

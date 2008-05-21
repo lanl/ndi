@@ -686,7 +686,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_NUM_TARGET: Scalar length
       - \c NDI_LAST_GRP: Scalar length
       - \c NDI_FISSIONABLE: Scalar length
-      - \c NDI_SF_FISSIONABLE: Scalar length
+      - \c NDI_SPONTANEOUS_FISSIONABLE: Scalar length
       - \c NDI_ATOMIC_NUM: Scalar length
       - \c NDI_MASS_NUM: Scalar length
       - \c NDI_NUM_PNU_PR: Scalar length

@@ -1,6 +1,9 @@
 
 Zaid = 1002.600nm
 
+
+Spontaneous Fissionable? = 0
+
 Fission_q:
   **Error 0 in fission_q -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -816,6 +819,8 @@ Total fission:
 
 Zaid = 
 
+
+  **Error -7 checking spontaneous fissionable.
 Fission_q:
 
   **Error -7 fission_q array size.
@@ -908,6 +913,9 @@ Total fission:
 
 
 Zaid = 92235.600nm
+
+
+Spontaneous Fissionable? = 1
 
 Fission_q:
   **Error 0 in fission_q -- returned value is:
@@ -1699,14 +1707,14 @@ Delayed chi matrix:
 
 Spontaneous fission spectra:
   **Error 0 in spontaneous fission spectra -- returned value is:
- 1.161887602599571e-40   4.109446646900281e-40   1.811137022958439e-39   1.400085757511168e-38  
- 1.140281257721461e-37   4.815948432190371e-37   3.889601550771137e-36   3.863359340446445e-36  
- 4.749453610927965e-36   5.053958768579446e-36   4.804551775417105e-36   7.598857389601635e-36  
- 4.756425923403360e-36   2.639905197694070e-36   1.356931841503357e-36   1.007012008478314e-36  
- 2.339194314022015e-37   5.270321204225586e-38   1.182243394330738e-38   2.633068080555792e-39  
- 5.905298235314522e-40   1.316206883279249e-40   2.937294946760476e-41   6.545318354476358e-42  
- 1.461552312873472e-42   3.266017133997035e-43   7.272035633270586e-44   1.637462401929644e-44  
- 3.627935913945874e-45   1.038020188322501e-45  
+ 2.207184664206205e-01   7.806527582460037e-01   3.440534052438494e+00   2.659678789616272e+01  
+ 2.166140080411855e+02   9.148636666193853e+02   7.388897922248903e+03   7.339046797188320e+03  
+ 9.022319499704476e+03   9.600774001358774e+03   9.126986959288561e+03   1.443520135535778e+04  
+ 9.035564482382071e+03   5.014906996401370e+03   2.577701271825587e+03   1.912974591356265e+03  
+ 4.443660303248039e+02   1.001178781095619e+02   2.245853629462642e+01   5.001918838113750e+00  
+ 1.121802459496782e+00   2.500337933890335e-01   5.579844682252315e-02   1.243384150241810e-02  
+ 2.776443989669805e-03   6.204303165869430e-04   1.381435303329213e-04   3.110612329167736e-05  
+ 6.891823696258119e-06   1.971879410431630e-06  
 
 Total fission:
   **Error 0 in total_fission -- returned value is:
@@ -1721,6 +1729,9 @@ Total fission:
 
 
 Zaid = 94239.600nm
+
+
+Spontaneous Fissionable? = 1
 
 Fission_q:
   **Error 0 in fission_q -- returned value is:
@@ -2512,14 +2523,14 @@ Delayed chi matrix:
 
 Spontaneous fission spectra:
   **Error 0 in spontaneous fission spectra -- returned value is:
- 8.310849837720651e-37   2.282344505567438e-36   8.322982847449182e-36   5.104338481291868e-35  
- 3.208979553229347e-34   1.097386989612646e-33   7.004451141328066e-33   6.121966095146360e-33  
- 7.074202840850558e-33   7.206300860780267e-33   6.647118595841390e-33   1.024043974958946e-32  
- 6.294640687967639e-33   3.469436314464765e-33   1.779425854305117e-33   1.320073610403340e-33  
- 3.067600324054728e-34   6.913603769817876e-35   1.551080062589704e-35   3.454720204768128e-36  
- 7.748211026178624e-37   1.726978934893943e-37   3.853999457034989e-38   8.588064760642012e-39  
- 1.917692918525660e-39   4.285319630394367e-40   9.541590759380250e-41   2.148503885580096e-41  
- 4.760189042619569e-42   1.361980054164840e-42  
+ 1.578774079979535e+03   4.335665325848106e+03   1.581078932268480e+04   9.696478034207720e+04  
+ 6.095951486006252e+05   2.084655803843018e+06   1.330603502931865e+07   1.162961860490238e+07  
+ 1.343853913827370e+07   1.368947969664485e+07   1.262722675848820e+07   1.945329438015458e+07  
+ 1.195764062038862e+07   6.590729266405511e+06   3.380293797719303e+06   2.507683378311868e+06  
+ 5.827379839511926e+05   1.313345643847036e+05   2.946515755434793e+04   6.562773746812634e+03  
+ 1.471892161836653e+03   3.280662786982805e+02   7.321266255354236e+01   1.631435329242559e+01  
+ 3.642953406987528e+00   8.140625434221107e-01   1.812572296073788e-01   4.081414429958549e-02  
+ 9.042713107606244e-03   2.587291130210465e-03  
 
 Total fission:
   **Error 0 in total_fission -- returned value is:
@@ -2531,4 +2542,302 @@ Total fission:
  7.883560000000000e+00   1.380200000000000e+01   3.720080000000000e+01   2.568150000000000e+01  
  8.933669999999999e+01   2.824610000000000e+01   1.753750000000000e+01   1.232620000000000e+02  
  1.486530000000000e+03   7.065470000000000e+02  
+
+
+Zaid = 1002.600nm
+
+
+Spontaneous Fissionable? = 0
+
+Fission_q:
+  **Error 0 in fission_q -- returned value is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00  
+
+Nu total:
+  **Error 0 in nu total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu prompt:
+  **Error 0 in nu prompt -- returned value is:
+ 0.000000000000000e+00  
+
+Nu delayed:
+  **Error 0 in nu delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f total:
+  **Error 0 in nu_sig_f total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f prompt:
+  **Error 0 in nu_sig_f prompt -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f delayed:
+  **Error 0 in nu_sig_f delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi vector:
+  **Error 0 in total chi vector -- returned value is:
+ 0.000000000000000e+00  
+
+Prompt chi vector:
+  **Error 0 in prompt chi vector -- returned value is:
+ 0.000000000000000e+00  
+
+Delayed chi vector:
+  **Error 0 in delayed chi vector -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi matrix:
+  **Error 0 in total chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Prompt chi matrix:
+  **Error 0 in prompt chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Delayed chi matrix:
+  **Error 0 in delayed chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Spontaneous fission spectra:
+  **Error 0 in spontaneous fission spectra -- returned value is:
+ 0.000000000000000e+00  
+
+Total fission:
+  **Error 0 in total_fission -- returned value is:
+ 0.000000000000000e+00  
+
+
+  **Error -8 in setting isotope Be7.
+
+Zaid = 
+
+
+  **Error -7 checking spontaneous fissionable.
+Fission_q:
+
+  **Error -7 fission_q array size.
+  **Error -7 in fission_q -- returned value is:
+
+
+Nu total:
+
+  **Error -7 nu total array size.
+  **Error -7 in nu total -- returned value is:
+
+
+Nu prompt:
+
+  **Error -7 nu prompt array size.
+  **Error -7 in nu prompt -- returned value is:
+
+
+Nu delayed:
+
+  **Error -7 nu delayed array size.
+  **Error -7 in nu delayed -- returned value is:
+
+
+Nu_sig_f total:
+
+  **Error -7 nu_sig_f total array size.
+  **Error -7 in nu_sig_f total -- returned value is:
+
+
+Nu_sig_f prompt:
+
+  **Error -7 nu_sig_f prompt array size.
+  **Error -7 in nu_sig_f prompt -- returned value is:
+
+
+Nu_sig_f delayed:
+
+  **Error -7 nu_sig_f delayed array size.
+  **Error -7 in nu_sig_f delayed -- returned value is:
+
+
+Total chi vector:
+
+  **Error -7 total chi vector array size.
+  **Error -7 in total chi vector -- returned value is:
+
+
+Prompt chi vector:
+
+  **Error -7 prompt chi vector array size.
+  **Error -7 in prompt chi vector -- returned value is:
+
+
+Delayed chi vector:
+
+  **Error -7 delayed chi vector array size.
+  **Error -7 in delayed chi vector -- returned value is:
+
+
+Total chi matrix:
+
+  **Error -7 total chi matrix array size.
+  **Error -7 in total chi matrix -- returned value is:
+
+
+Prompt chi matrix:
+
+  **Error -7 prompt chi matrix array size.
+  **Error -7 in prompt chi matrix -- returned value is:
+
+
+Delayed chi matrix:
+
+  **Error -7 delayed chi matrix array size.
+  **Error -7 in delayed chi matrix -- returned value is:
+
+
+Spontaneous fission spectra:
+
+  **Error -7 spontaneous fission spectra array size.
+  **Error -7 in spontaneous fission spectra -- returned value is:
+
+
+Total fission:
+
+  **Error -7 total_fission array size.
+  **Error -7 in total_fission -- returned value is:
+
+
+
+Zaid = 92235.600nm
+
+
+Spontaneous Fissionable? = 1
+
+Fission_q:
+  **Error 0 in fission_q -- returned value is:
+ 1.808800000000000e+02   2.024700000000000e+02   6.500000000000000e+00   6.970000000000000e+00  
+ 1.691200000000000e+02   4.790000000000000e+00  
+
+Nu total:
+  **Error 9 in nu total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu prompt:
+  **Error 0 in nu prompt -- returned value is:
+ 2.439117350927914e+00  
+
+Nu delayed:
+  **Error 9 in nu delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f total:
+  **Error 9 in nu_sig_f total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f prompt:
+  **Error 0 in nu_sig_f prompt -- returned value is:
+ 1.030780532292589e+01  
+
+Nu_sig_f delayed:
+  **Error 9 in nu_sig_f delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi vector:
+  **Error 0 in total chi vector -- returned value is:
+ 1.000000000000000e+00  
+
+Prompt chi vector:
+  **Error 0 in prompt chi vector -- returned value is:
+ 1.000000000000000e+00  
+
+Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi matrix:
+  **Error 9 in total chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Prompt chi matrix:
+  **Error 10 in prompt chi matrix -- returned value is:
+ 1.000000000000000e+00  
+
+Delayed chi matrix:
+  **Error 9 in delayed chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Spontaneous fission spectra:
+  **Error 0 in spontaneous fission spectra -- returned value is:
+ 7.719027825204193e+04  
+
+Total fission:
+  **Error 0 in total_fission -- returned value is:
+ 4.226039111650159e+00  
+
+
+Zaid = 94239.600nm
+
+
+Spontaneous Fissionable? = 1
+
+Fission_q:
+  **Error 0 in fission_q -- returned value is:
+ 1.894400000000000e+02   2.070600000000000e+02   5.310000000000000e+00   7.760000000000000e+00  
+ 1.757800000000000e+02   5.900000000000000e+00  
+
+Nu total:
+  **Error 9 in nu total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu prompt:
+  **Error 0 in nu prompt -- returned value is:
+ 2.926089216689967e+00  
+
+Nu delayed:
+  **Error 9 in nu delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f total:
+  **Error 9 in nu_sig_f total -- returned value is:
+ 0.000000000000000e+00  
+
+Nu_sig_f prompt:
+  **Error 0 in nu_sig_f prompt -- returned value is:
+ 1.021133632310002e+01  
+
+Nu_sig_f delayed:
+  **Error 9 in nu_sig_f delayed -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi vector:
+  **Error 0 in total chi vector -- returned value is:
+ 1.000000000000000e+00  
+
+Prompt chi vector:
+  **Error 0 in prompt chi vector -- returned value is:
+ 1.000000000000000e+00  
+
+Delayed chi vector:
+  **Error -9 in delayed chi vector -- returned value is:
+ 0.000000000000000e+00  
+
+Total chi matrix:
+  **Error 9 in total chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Prompt chi matrix:
+  **Error 10 in prompt chi matrix -- returned value is:
+ 1.000000000000000e+00  
+
+Delayed chi matrix:
+  **Error 9 in delayed chi matrix -- returned value is:
+ 0.000000000000000e+00  
+
+Spontaneous fission spectra:
+  **Error 0 in spontaneous fission spectra -- returned value is:
+ 1.121454762879326e+08  
+
+Total fission:
+  **Error 0 in total_fission -- returned value is:
+ 3.489755631802378e+00  
 

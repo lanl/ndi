@@ -14,7 +14,7 @@ int main ()
 
 {
    int ierr;
-   int i,j;
+   int i,j, k, l;
    int array_size;
    int num_zaids = 4;
    int gendir_h = -1;
@@ -69,53 +69,74 @@ int main ()
    if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
 
-   for ( i = 0; i < num_zaids; i++ ) {
+   for (l = 0; l < 2; l++) {
+       for ( i = 0; i < num_zaids; i++ ) {
 
-     /* Set isotope */
-     ierr = NDI2_set_isotope(handle, zaid_list[i]);
-     if (ierr) 
-       printf("\n  **Error %d in setting isotope %s.\n", ierr, zaid_list[i] );
+           /* Set isotope */
+           ierr = NDI2_set_isotope(handle, zaid_list[i]);
+           if (ierr) 
+               printf("\n  **Error %d in setting isotope %s.\n", 
+                      ierr, zaid_list[i] );
 
+           if (l == 1)
+               ierr = NDI2_set_option(handle, NDI_COLLAPSE, "1_lanl");
 
-     ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 25 );
-     printf("\nZaid = %s\n\n", zaid );
+           ierr = NDI2_get_string_val(handle, NDI_ZAID, zaid, 25 );
+           printf("\nZaid = %s\n\n", zaid );
+
+           /* Requirement 46 */
+           ierr = NDI2_get_int_val(handle, NDI_SPONTANEOUS_FISSIONABLE, &j);
+           if (ierr)
+               printf("\n  **Error %d checking spontaneous fissionable.\n", 
+                      ierr);
+           else
+               printf("\nSpontaneous Fissionable? = %d\n\n", j);
+
+           /*  Loop over keywords */
+           for ( j = 0; j < num_keywords; j++ ) {
+
+               /* Stupid, messy print to get capitalized string */
+               str_ptr = keyword_label[j];
+               str_ptr++;
+               printf( "%c%s:\n", toupper(*(keyword_label[j])), str_ptr );
+
+               array_size = NDI2_get_size(handle, keyword_list[j], &ierr );
+               if (ierr) 
+                   printf("\n  **Error %d %s array size.\n", 
+                          ierr, keyword_label[j] );
+               ret_vec64 = (ndi_float64 *)malloc(array_size * 
+                                                 sizeof(ndi_float64) );
+               ierr = NDI2_get_float64_vec(handle, keyword_list[j], ret_vec64, 
+                                           array_size);
+               printf("  **Error %d in %s -- returned value is:\n", 
+                      ierr, keyword_label[j] );
+
+               if (keyword_list[j] == NDI_SF_SPECTRA)  /* rescale data */
+                   for (k = 0; k < array_size; k++) 
+                       ret_vec64[k] *= 6.023e23*1.0e8*3.154e7; /* #/mole/yr */
+               print_float64_vec( ret_vec64, array_size );	 
+               printf("\n");
+               if (ret_vec64) { free(ret_vec64); }
+
+           }   /* for j */
+
+           /* Total fission cross section */
+           printf ( "Total fission:\n");
+           array_size = NDI2_get_size_n(handle, NDI_SIG_REAC, 18, &ierr );
+           if (ierr) 
+               printf("\n  **Error %d total_fission array size.\n", ierr );
+           ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64));
+           ierr = NDI2_get_float64_vec_n(handle, NDI_SIG_REAC, 18, ret_vec64, 
+                                         array_size);
+           printf("  **Error %d in total_fission -- returned value is:\n", 
+                  ierr );
+           print_float64_vec( ret_vec64, array_size );	 
+           printf("\n");
+           if (ret_vec64) { free(ret_vec64); }
      
 
-     /*  Loop over keywords */
-     for ( j = 0; j < num_keywords; j++ ) {
-
-       /* Stupid, messy print to get capitalized string */
-       str_ptr = keyword_label[j];
-       str_ptr++;
-       printf( "%c%s:\n", toupper(*(keyword_label[j])), str_ptr );
-
-
-       array_size = NDI2_get_size(handle, keyword_list[j], &ierr );
-       if (ierr) 
-	 printf("\n  **Error %d %s array size.\n", ierr, keyword_label[j] );
-       ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
-       ierr = NDI2_get_float64_vec(handle, keyword_list[j], ret_vec64, array_size);
-       printf("  **Error %d in %s -- returned value is:\n", ierr, keyword_label[j] );
-       print_float64_vec( ret_vec64, array_size );	 
-       printf("\n");
-       if (ret_vec64) { free(ret_vec64); }
-
-     }   /* for j */
-
-     /* Total fission cross section */
-     printf ( "Total fission:\n");
-     array_size = NDI2_get_size_n(handle, NDI_SIG_REAC, 18, &ierr );
-     if (ierr) 
-	 printf("\n  **Error %d total_fission array size.\n", ierr );
-     ret_vec64 = (ndi_float64 *)malloc(array_size * sizeof(ndi_float64) );
-     ierr = NDI2_get_float64_vec_n(handle, NDI_SIG_REAC, 18, ret_vec64, array_size);
-     printf("  **Error %d in total_fission -- returned value is:\n", ierr );
-     print_float64_vec( ret_vec64, array_size );	 
-     printf("\n");
-     if (ret_vec64) { free(ret_vec64); }
-     
-
-   }  /* for i */
+       }  /* for i */
+   }
 
    ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
