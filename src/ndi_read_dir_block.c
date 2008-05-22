@@ -285,7 +285,8 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 
     while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
         if ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
-            (strcmp(d->lib, lib) == 0))
+            ((strcmp("", lib) == 0) ||
+             (strcmp(d->lib, lib) == 0)))
             break;
     }
      
