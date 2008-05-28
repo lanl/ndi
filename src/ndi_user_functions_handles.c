@@ -672,6 +672,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_SEC_PART_ZAIDS: String size
       - \c NDI_NUM_GRPS: Scalar length
       - \c NDI_TEMP: Scalar length
+      - \c NDI_TEMPS: Array length
       - \c NDI_SIG_0: Scalar length
       - \c NDI_UP_GRPS: Scalar length
       - \c NDI_DOWN_GRPS: Scalar length
@@ -921,6 +922,7 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
   \par Valid in_key values:
        ===================
   - gendir \a handle:
+      - \c NDI_ZAID: String length
       - \c NDI_TEMP: Array length
       - \c NDI_SIG_0: Array length
       - \c NDI_AT_WGT: Array length
@@ -963,6 +965,7 @@ NDI2_get_size_x(int handle, int in_key, const char *in_str,
   - multigroup_neutron, multigroup_photon, or dosimetry_neutron \a handle:
       - \c NDI_NUM_GRPS: Number of groups
       - \c NDI_FISSIONABLE: Fission data flag
+      - \c NDI_SPONTANEOUS_FISSIONABLE: Spontaneous fission data flag
       - \c NDI_UP_GRPS: Number of upscatter groups
       - \c NDI_DOWN_GRPS: Number of downscatter groups
       - \c NDI_LAST_GRP: Last neutron group
@@ -1331,6 +1334,8 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
       - \c NDI_REAC_Q: Reaction Q
       - \c NDI_E_BOUNDS_CURR_PART: Secondary particle energy boundaries
       - \c NDI_TOT_DEPL_XS: Total depletion cross section
+      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
+      - \c NDI_TEMPS: Temperature list
   - tn \a handle:
       - \c NDI_TEMPS: Temperatures
       - \c NDI_SIGVBARS: Sigma Vbars
@@ -1385,7 +1390,6 @@ NDI2_get_float32_vec(int handle, int in_key,
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
-      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
 
 */
 int 
@@ -1590,6 +1594,8 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
       - \c NDI_REAC_Q: Reaction Q
       - \c NDI_E_BOUNDS_CURR_PART: Secondary particle energy boundaries
       - \c NDI_TOT_DEPL_XS: Total depletion cross section
+      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
+      - \c NDI_TEMPS: Temperature list
   - tn \a handle:
       - \c NDI_TEMPS: Temperatures
       - \c NDI_SIGVBARS: Sigma Vbars
@@ -1644,7 +1650,6 @@ NDI2_get_float64_vec(int handle, int in_key,
       - \c NDI_CORR_DIAG: Diagonal transport correction
       - \c NDI_CORR_BHS: Bell-Hansen-Sandmeier transport correction
       - \c NDI_TOT_PROD_XS: Total production cross section for product \a vec_num
-      - \c NDI_SF_SPECTRA: Spontaneous fission spectra
 
 */
 int 
@@ -1874,7 +1879,7 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
        ===================
 
   - gendir \a handle:
-      - \c NDI_ZAID: ZAID
+      - \c NDI_ZAID: ZAID list
  
 */
 int 

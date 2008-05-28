@@ -1,3 +1,8 @@
+2008-05-28  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_user_functions_handles.c: Updated documentation with new
+	keywords and functions
+
 2008-05-21  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_string_val_n.c (ndi_mt_to_label): Added partial fission
