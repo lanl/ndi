@@ -17,20 +17,20 @@ logical modules.
 Prior to the development of the Nuclear Data Interface (NDI), users
 were responsible for obtaining and accessing their own nuclear data.
 This resulted in a proliferation of data files in incompatible formats
-and made the update of data a major, cross-project undertaking.  Worse
-still, some codes embedded nuclear data in the executable, confounding
-data updates with code modifications.  As a result several FTEs were
+and made the update of data a major, cross-project undertaking.  Some
+codes even embedded nuclear data in the executable, confounding data
+updates with code modifications.  As a result several FTEs were
 devoted, in parallel efforts, to the maintenance and update of nuclear
 data.
 
-NDI was developed in 1998 to provide a single source interface to the
-best, most modern, thoroughly tested nuclear data evaluations.  It was
-written in portable C, provided an interface to Fortran 77, Fortran
-90, C, and C++, was ported to a number of production platforms, and
-eventually supplied nuclear data to a variety of user codes.  NDI
-provided more than a simple database access to nuclear data.  It
-augmented access to tabulated data with a variety of user selectable
-transformations and calculations.
+NDI was developed in 1998 to provide a single code library interface
+to the best, most modern, thoroughly tested nuclear data evaluations.
+It was written in portable C, provided an interface to Fortran 77,
+Fortran 90, C, and C++, was ported to a number of production
+platforms, and eventually supplied nuclear data to a variety of user
+codes.  NDI provided more than a simple database access to nuclear
+data.  It augmented access to tabulated data with a variety of user
+selectable transformations and calculations.
 
 NDI was rewritten in 2004 and released as major version 2, in response
 to its growing acceptance in the user community and a desire to let
@@ -68,11 +68,12 @@ user's logical lexical representation of the data Y2, which may
 require several NDI returns of physical lexical data (NDI!Y2),
 correspond to the logical lexical representation of nuclear data Y1,
 which may require several NDI reads of nuclear physical lexical data
-(NDI!Y2).  NDI may satisfy its requirement by reading tabulated data
-NDI!Y1 that corresponds directly to the requested user data NDI!Y2, by
-calculating user requested data NDI!Y2 from other read tabulated data
-with models, by transforming read or calculated data into NDI!Y2, or
-by some combination of these steps.
+(NDI!Y2) and report the status of that correspondence.  NDI may
+satisfy its requirement by reading tabulated data NDI!Y1 that
+corresponds directly to the requested user data NDI!Y2, by calculating
+user requested data NDI!Y2 from other read tabulated data with models,
+by transforming read or calculated data into NDI!Y2, or by some
+combination of these steps.
 
 \image latex problem.jpg "The Commanded Information Frame" width=\textwidth
 \image html problem.jpg "Figure 1.1: The Commanded Information Frame"
@@ -145,10 +146,11 @@ Each NDI version 2 function name begins with the prefix \c NDI2_ in
 the C and C++ interface, and \c ndi2_ in the Fortran77 and Fortran 90
 interface, and is followed by a description of its function (open,
 close, set, check, get) and its data value return type.  For example,
-NDI's interface language requirement limits the user's data format to
-that of the least common denominator: integers, reals, strings, and
-simple arrays of these basic types, so the user's data return type is
-incorporated in NDI's workhorse \c get family of functions, thus in C:
+NDI's multi-language interface requirements limit its data formats to
+that of the lowest common denominator: integers, reals, strings, and
+simple arrays of these basic types; the user's data return type is
+incorporated in name of NDI's workhorse \c get family of functions.
+Thus in C the function names match the pattern:
 
 - \c NDI2_get_int_val* 
 - \c NDI2_get_int_vec*
@@ -159,7 +161,7 @@ incorporated in NDI's workhorse \c get family of functions, thus in C:
 - \c NDI2_get_string_val*
 - \c NDI2_get_string_vec*
 
-The first parameter of every NDI version 2 function call is the gendir
+The first parameter of every NDI version 2 function call is a gendir
 or data handle, which is created and assigned by the \c
 NDI2_open_gendir and \c NDI2_make_handle routines respectively and
 destroyed by the \c NDI2_close_gendir routine.  In the \c set routines
@@ -189,8 +191,8 @@ family of functions.
 Since NDI is required to do the user's bidding, it is required to deal
 with user calls gracefully, regardless of their nature.  To meet this
 requirement, every NDI C call returns an integer status variable, and
-every NDI Fortran call modifies its integer status variable \c ndi_err
-with the following values:
+every NDI Fortran call modifies its integer status variable \c
+ndi_err.  Typical status values include:
 
 -  +7: Bounds test failed: array terminated. 
 -  +6: Unexpected data (too many data items).
