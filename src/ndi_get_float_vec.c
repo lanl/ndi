@@ -485,7 +485,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         if (!vec) {
             ierr = -14;  /* Out of memory */
         } else {
-            sprintf(sza, "%d", atoi(state->iso_stat.zaid));
+            sprintf(sza, "%d.", atoi(state->iso_stat.zaid));
             ierr = ndi_float_dir_block(state->ndi_dir, NDI_TEMP, 
                                        ndi_get_section(state), 
                                        state->library_vers, sza, 

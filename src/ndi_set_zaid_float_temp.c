@@ -25,6 +25,7 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     long fpos = -1;
     dir_entry rec;
     char *section;
+    char fza[MAX_TN_REAC_LEN];
     char zaid[MAX_TN_REAC_LEN];
     double diff = DBL_MAX;
 
@@ -46,8 +47,9 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
             NDI_THROW(ierr, -11);   /* Section not found */
 
         /* Find matching zaid: set if first or temperature closer than prev. */
+        sprintf(fza, "%s.", in_zaid); /* add . to ZA */
         while (ndi_fget_next_dir(&rec, state->ndi_dir, 
-                                 state->library_vers, in_zaid)) {
+                                 state->library_vers, fza)) {
             if (fabs(rec.temp - temp) < diff) {
                 strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
                 diff = fabs(rec.temp - temp);

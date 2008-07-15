@@ -1,3 +1,14 @@
+2008-07-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added . to
+	ensure full ZA match
+
+	* ndi_get_size.c (get_mg_size): Added . to NDI_TEMPS to ensure
+	full ZA match
+
+	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added . to NDI_TEMPS to
+	ensure full ZA match
+
 2008-05-28  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_user_functions_handles.c: Updated documentation with new

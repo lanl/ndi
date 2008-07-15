@@ -369,7 +369,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
             return (0);
         }
 
-        sprintf(sza, "%d", atoi(state->iso_stat.zaid));
+        sprintf(sza, "%d.", atoi(state->iso_stat.zaid));
         return_value = ndi_count_dir_block(state->ndi_dir, NDI_TEMP, 
                                            ndi_get_section(state), 
                                            state->library_vers, sza);
