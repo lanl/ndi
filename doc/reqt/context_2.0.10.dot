@@ -1,0 +1,38 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="Context Diagram 01/30/09\n\
+	solid green=completed work\n\
+	dashed organge=ongoing work\n\
+	dotted red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	bag[label="Britt Girard"];
+	morgan[label="Morgan White"];
+	rsb[label="Randy Baker"];
+	caw[label="Chuck Wingate"];
+	ldrd[label="LDRD"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.10", shape="ellipse"];
+	
+	morgan -> ndi[label="22) Multi-Temp.\nMG data",
+	style=dashed, color=green];
+	ndi -> rsb[label="22) Multi-Temp.\nMG interface",
+	style=solid, color=green];
+
+	ndi-> bag[label="47) Multi-part.\nElementals", style=dotted,
+	color=green];
+
+	ndi -> ldrd[label="50) As LDRD", style=solid,
+	color=green];
+
+        ndi -> caw[label="51) Cl35 Fix",style=solid, color=green];
+
+	{rank=min; morgan; rsb}
+	{rank=max; bag; ldrd; caw}
+}
