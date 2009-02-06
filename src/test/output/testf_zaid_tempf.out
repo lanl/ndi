@@ -13,21 +13,21 @@
  Get temperature array size:
  Number of temps =             3
  Get temperature array:
- Temperature(            1 ) =    2.5299999999999994E-008
- Temperature(            2 ) =     0.000000000000000     
- Temperature(            3 ) =    1.0000000000000000E-006
- Attempt to set temperature =    2.5299999999999994E-008
- ok.
- Get zaid:
- zaid = 92235.670nm             
- Actual temperature:
- temperature =    2.5299999999999994E-008
+ Temperature(             1  ) =     0.000000000000000     
+ Temperature(             2  ) =    2.5299999999999994E-008
+ Temperature(             3  ) =    1.0000000000000000E-006
  Attempt to set temperature =     0.000000000000000     
  ok.
  Get zaid:
  zaid = 92235.671nm             
  Actual temperature:
  temperature =     0.000000000000000     
+ Attempt to set temperature =    2.5299999999999994E-008
+ ok.
+ Get zaid:
+ zaid = 92235.670nm             
+ Actual temperature:
+ temperature =    2.5299999999999994E-008
  Attempt to set temperature =    1.0000000000000000E-006
  ok.
  Get zaid:

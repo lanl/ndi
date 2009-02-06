@@ -474,7 +474,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         double *vec = NULL;
         char sza[MAX_TN_REAC_LEN];
         int i;
-
+        int size = return_size;
         if (!state->ndi_dir) {
             ierr = -2;
             return (ierr);
@@ -489,10 +489,21 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
             ierr = ndi_float_dir_block(state->ndi_dir, NDI_TEMP, 
                                        ndi_get_section(state), 
                                        state->library_vers, sza, 
-                                       vec, return_size);
+                                       vec, &size);
 
-            for (i = 0; i < return_size; i++) /* convert */
-                return_vec[i] = (FLOAT_TYPE) vec[i];
+            /* insertion sort with type conversion (Dahl 02/02/09)*/
+            for (i = 0; i < size; i++) {
+                FLOAT_TYPE x;
+                int j;
+
+                x = (FLOAT_TYPE) vec[i];
+                j = i;
+                while ((j > 0) && (return_vec[j-1] > x)) {
+                    return_vec[j] = return_vec[j-1]; /* shift up */
+                    j = j - 1;
+                }
+                return_vec[j] = x; /* insert */
+            }
         }
         ndi_free((void **) &vec);
     }

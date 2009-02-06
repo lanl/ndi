@@ -70,6 +70,7 @@ static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
     int ierr = 0;
     double *vec = NULL;
     int i;
+    int size = vec_size;
 
     if (!state && !state->ndi_dir) /* check state sanity */
         NDI_THROW(ierr, -2);
@@ -85,9 +86,9 @@ static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
         ierr = ndi_float_dir_block(state->ndi_dir, in_key, 
                                    ndi_get_section(state),
                                    state->library_vers, in_str, 
-                                   vec, vec_size);
+                                   vec, &size);
 
-        for(i = 0; i < vec_size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
+        for(i = 0; i < size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
         break;
     default:
         NDI_THROW(ierr, -4);   /* Unrecognized input key */

@@ -490,7 +490,7 @@ extern "C" {
                              const char *lib, const char *zaid);
      int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
                              const char *lib, const char *zaid,
-                             double *vec, int vec_size);
+                             double *vec, int *vec_size);
      int ndi_read_int_block(FILE *stream, const int num_ints,
                             long *return_vec, const int return_size);
     void *ndi_malloc(size_t size);

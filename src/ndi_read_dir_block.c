@@ -347,7 +347,7 @@ int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
 
 int ndi_float_dir_block(FILE *stream, int in_key, const char *section, 
                         const char *lib, const char *zaid,
-                        double *vec, int size)
+                        double *vec, int *size)
 {
     int ierr = 0;
     long fpos = -1;
@@ -380,7 +380,7 @@ int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
         NDI_THROW(ierr, -11); /* Section not found */
     
     while (ndi_fget_next_dir(&rec, stream, lib, zaid)) {
-        if (i < size) {
+        if (i < *size) {
             vec[i++] = *dptr;
         } else {
             NDI_THROW(ierr, 7);
@@ -389,6 +389,7 @@ int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
     }
 
  catch:
+    *size = i;
     if (fpos >= 0) fseek(stream, fpos, SEEK_SET);
     return ierr;
 }
