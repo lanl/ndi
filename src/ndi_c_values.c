@@ -268,7 +268,7 @@ int ndi_c_mt_to_c(int mt)
 
 /**********************************************************************/
 
-#ifdef COMMENT_OUT 
+#ifdef COMMENT_OUT
 /**********************************************************************/
 
 static int ndi_mt_to_label(int mt, char *label)

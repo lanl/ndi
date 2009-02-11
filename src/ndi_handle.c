@@ -4,7 +4,8 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL }; /* gendir array */
+static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL };	/* gendir array */
+
 /*!
   \fn is_gendir
   \brief determine if handle is gendir
@@ -13,7 +14,7 @@ static state_struct *handle_map[MAX_HANDLE_NUM] = { NULL }; /* gendir array */
 */
 int is_gendir(state_struct *state)
 {
-    return state && state->ndi_initialized && 
+    return state && state->ndi_initialized &&
 	0 <= state->handle && state->handle < MAX_HANDLE_NUM;
 }
 
@@ -38,29 +39,29 @@ state_struct *handle_to_state_p(int handle)
     m2 = m1 * m1;
     m3 = m1 * m2;
 
-    if (0 <= handle && handle < m1) { 
-				/* handle = k */
+    if (0 <= handle && handle < m1) {
+	/* handle = k */
 	k = handle;
 	state_p = handle_map[k];
 
-    } else if (m1 <= handle && handle < m1 + m2) { 
-                                /* handle = (1+j)m1 + k */
-	 handle -= m1;		/* handle =    j*m1 + k */
-	 j = handle / m1;
-	 handle -= j * m1;	/* handle = k */
-	 k = handle;
-	 state_p = handle_map[j] -> handle_map[k];
+    } else if (m1 <= handle && handle < m1 + m2) {
+	/* handle = (1+j)m1 + k */
+	handle -= m1;		/* handle =    j*m1 + k */
+	j = handle / m1;
+	handle -= j * m1;	/* handle = k */
+	k = handle;
+	state_p = handle_map[j]->handle_map[k];
 
     } else if (m1 + m2 <= handle && handle < m1 + m2 + m3) {
-				/* handle = (1+i)m2 + (1+j)m1 + k */
-	 handle -= (m1 + m2);	/* handle =    i*m2 +    j*m1 + k */
-	 i = handle / m2;
-	 handle -= i * m2;	/* handle =              j*m1 + k */
-	 j = handle / m1;
-	 handle -= j * m1;	/* handle =                     k */
-	 k = handle;
-	state_p = handle_map[i] -> handle_map[j] -> handle_map[k];
-    }	
+	/* handle = (1+i)m2 + (1+j)m1 + k */
+	handle -= (m1 + m2);	/* handle =    i*m2 +    j*m1 + k */
+	i = handle / m2;
+	handle -= i * m2;	/* handle =              j*m1 + k */
+	j = handle / m1;
+	handle -= j * m1;	/* handle =                     k */
+	k = handle;
+	state_p = handle_map[i]->handle_map[j]->handle_map[k];
+    }
     return (state_p);
 }
 
@@ -77,16 +78,16 @@ int set_handle(state_struct *state)
     int handle = -1;
 
     if (state) {
-        for (i = 0; i < MAX_HANDLE_NUM; i++) {
-            if (!handle_map[i]) {
-                handle = i;
-                handle_map[handle] = state;
-                if (state) {
-                    state->handle = handle;
-                }
-                break;
-            }
-        }
+	for (i = 0; i < MAX_HANDLE_NUM; i++) {
+	    if (!handle_map[i]) {
+		handle = i;
+		handle_map[handle] = state;
+		if (state) {
+		    state->handle = handle;
+		}
+		break;
+	    }
+	}
     }
 
     return (handle);
@@ -105,11 +106,11 @@ int __ndi_close_handle(int handle)
 
     if (0 <= handle && handle < MAX_HANDLE_NUM &&
 	(state_p = handle_to_state_p(handle))) {
-	 ret_val = ndi_c_close_h(&state_p);
-	 handle_map[handle] = NULL;
-	 return (ret_val);
+	ret_val = ndi_c_close_h(&state_p);
+	handle_map[handle] = NULL;
+	return (ret_val);
     } else {
-	 return (-2);
+	return (-2);
     }
 }
 
@@ -118,8 +119,8 @@ int __ndi_add_child_handle(state_struct *parent)
     int h;
     state_struct *child = NULL;
 
-    if (! parent) 
-        return(-2);
+    if (!parent)
+	return (-2);
 
     h = parent->handle_free;	/* get next child handle */
     if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
@@ -132,20 +133,21 @@ int __ndi_add_child_handle(state_struct *parent)
     } else {
 	return -1;		/* handle array exhausted */
     }
-    
+
     return 0;
 }
 
 char *ndi_get_section(state_struct *state)
 {
-    static char *in_value[] = {"multigroup_neutron", 
-			       "neutron_depletion", 
-			       "multigroup_photon", 
-			       "tndata", 
-			       "tn_reactions", 
-			       "dosimetry_neutron",
-			       "radchem_chain",
-			       "" };
+    static char *in_value[] = { "multigroup_neutron",
+	"neutron_depletion",
+	"multigroup_photon",
+	"tndata",
+	"tn_reactions",
+	"dosimetry_neutron",
+	"radchem_chain",
+	""
+    };
     int sec;
 
     /* Find library section */
@@ -163,7 +165,7 @@ char *ndi_get_section(state_struct *state)
     } else if (state->library_type == 'd') {
 	if (state->ndi_depl_set != 1)
 	    sec = 5;
-	else 
+	else
 	    sec = 6;
     } else {
 	sec = 7;
@@ -189,6 +191,6 @@ int ndi_is_library_type(state_struct *state, const char *type)
 	return (state->library_type == 'd' && state->particle_type == 1);
     else if (strcmp(type, "multigroup_multi") == 0)
 	return (state->library_type == 'p');
-    else 
+    else
 	return (0);
 }

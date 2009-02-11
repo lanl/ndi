@@ -4,11 +4,13 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int get_comb_reac_mt_n(state_struct *h, int vec_num, int *return_val);
+static int get_comb_reac_mt_n(state_struct *h, int vec_num,
+			      int *return_val);
 static int get_last_group_n(state_struct *h, int vec_num, int *return_val);
 
 /**********************************************************************/
-int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num, int *ret_val)
+int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
+			int *ret_val)
 {
 
     int ierr = 0;
@@ -33,13 +35,12 @@ int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num, int *ret_val)
 	break;
 
     case NDI_PARTICLE_N:
-        if ((vec_num < num_parts) &&
-            (vec_num >= 0 )) {
-            *ret_val = handle[vec_num]->handle;
-        } else {
-            ierr = -6;
-        }
-        break;
+	if ((vec_num < num_parts) && (vec_num >= 0)) {
+	    *ret_val = handle[vec_num]->handle;
+	} else {
+	    ierr = -6;
+	}
+	break;
 
     default:
 	ierr = -4;
@@ -57,13 +58,12 @@ static int get_comb_reac_mt_n(state_struct *h,
     int ierr = 0;
     int vec_size = 0;
     int *mt_arr;
-    
+
     *return_val = 0;
 
     vec_size = ndimp_get_size(h, NDI_REAC_MT, &ierr);
     mt_arr = (int *) ndi_malloc(vec_size * sizeof(int));
-    ierr = ndimp_get_int_vec(h, NDI_REAC_MT,
-			     mt_arr, vec_size);
+    ierr = ndimp_get_int_vec(h, NDI_REAC_MT, mt_arr, vec_size);
 
     if (vec_num < vec_size) {
 	*return_val = mt_arr[vec_num];

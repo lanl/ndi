@@ -34,8 +34,7 @@ static int ndi_get_kerma_calc(state_struct *state, char *value,
 			      int string_size);
 
 /**********************************************************************/
-int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
-			 int string_size)
+
 /*  Purpose: Check options/defaults.
 
     Parameters:
@@ -47,6 +46,8 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
     positive value for warning, and a '0' if everything's ok.
 
 ***********************************************************************/
+int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
+			 int string_size)
 {
     int ierr = 0;		/* Error flag: 0=no error, pos=warning, neg=error */
 
@@ -192,8 +193,6 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 
-static int ndi_get_lib_type(state_struct *state, char *value,
-			    int string_size)
 
 /* Valid library type values:
    multigroup_neutron, tn, multigroup_photon
@@ -203,6 +202,8 @@ static int ndi_get_lib_type(state_struct *state, char *value,
    library_type -- m, s(tn)
    
 -------------------------------------------------------------------------*/
+static int ndi_get_lib_type(state_struct *state, char *value,
+			    int string_size)
 {
     int ierr = 0;
 
@@ -212,18 +213,21 @@ static int ndi_get_lib_type(state_struct *state, char *value,
 
     if ((state->particle_type == 1) && (state->library_type == 'm')) {
 	strncpy(value, "multigroup_neutron", string_size);
-    } else if ((state->particle_type == -1) && (state->library_type == 's')) {
+    } else if ((state->particle_type == -1)
+	       && (state->library_type == 's')) {
 	strncpy(value, "tn", string_size);
-    } else if ((state->particle_type == -1) && (state->library_type == 'r')) {
+    } else if ((state->particle_type == -1)
+	       && (state->library_type == 'r')) {
 	strncpy(value, "tnreactions", string_size);
     } else if ((state->particle_type == 0) && (state->library_type == 'm')) {
 	strncpy(value, "multigroup_photon", string_size);
     } else if ((state->particle_type == 1) && (state->library_type == 'd')) {
 	strncpy(value, "dosimetry_neutron", string_size);
-    } else if ((state->particle_type == -1) && (state->library_type == 'p')) {
+    } else if ((state->particle_type == -1)
+	       && (state->library_type == 'p')) {
 	strncpy(value, "multigroup_multi", string_size);
     } else {
-         strncpy(value, "", string_size);
+	strncpy(value, "", string_size);
 	ierr = 9;
     }
 
@@ -233,8 +237,6 @@ static int ndi_get_lib_type(state_struct *state, char *value,
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_library(state_struct *state, char *value,
-			   int string_size)
 
 /* Valid library values:
    mendf5, mendf6, rmoxsct, default
@@ -243,6 +245,8 @@ static int ndi_get_library(state_struct *state, char *value,
    library_vers --  mendf5, mendf6, rmoxsct, ""
 
 -------------------------------------------------------------------------*/
+static int ndi_get_library(state_struct *state, char *value,
+			   int string_size)
 {
     int ierr = 0;
 
@@ -250,9 +254,9 @@ static int ndi_get_library(state_struct *state, char *value,
 	return (-2);
     }
 
-   if (state->library_vers) {
-       strncpy( value, state->library_vers, string_size );
-   } 
+    if (state->library_vers) {
+	strncpy(value, state->library_vers, string_size);
+    }
 
     if (strncmp(value, "", string_size) == 0) {
 	strncpy(value, "default", string_size);
@@ -264,8 +268,6 @@ static int ndi_get_library(state_struct *state, char *value,
 /**********************************************************************/
 /**********************************************************************/
 
-static int
-ndi_get_mat_order(state_struct *state, char *value, int string_size)
 
 /* Valid mat_order values:
    default, transpose
@@ -274,6 +276,7 @@ ndi_get_mat_order(state_struct *state, char *value, int string_size)
    mat_order -- d, t
 
 ------------------------------------------------*/
+static int ndi_get_mat_order(state_struct *state, char *value, int string_size)
 {
     int ierr = 0;
 
@@ -296,8 +299,6 @@ ndi_get_mat_order(state_struct *state, char *value, int string_size)
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_collapse(state_struct *state, char *value,
-			    int string_size)
 
 /* Valid collapse values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -312,6 +313,8 @@ static int ndi_get_collapse(state_struct *state, char *value,
    n_group -- (same as valid input values)
 
 -------------------------------------------------------------------------*/
+static int ndi_get_collapse(state_struct *state, char *value,
+			    int string_size)
 {
     int ierr = 0;
 
@@ -330,8 +333,6 @@ static int ndi_get_collapse(state_struct *state, char *value,
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_trans_corr_diag(state_struct *state, char *value,
-				   int string_size)
 
 /* Valid  values:
    none, diag_n, bhs_n 
@@ -342,6 +343,8 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
    trans_corr_order -- integer giving transport correction order
 
 -------------------------------------------------------------------------*/
+static int ndi_get_trans_corr_diag(state_struct *state, char *value,
+				   int string_size)
 {
     int ierr = 0;
     char order_str[5];
@@ -377,7 +380,6 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_norm(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
    norm, no_norm
@@ -386,6 +388,7 @@ static int ndi_get_norm(state_struct *state, char *value, int string_size)
    no_norm -- 0=normalize, -1=do not normalize
 
 -------------------------------------------------------------------------*/
+static int ndi_get_norm(state_struct *state, char *value, int string_size)
 {
     int ierr = 0;
 
@@ -409,8 +412,6 @@ static int ndi_get_norm(state_struct *state, char *value, int string_size)
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_reac_id(state_struct *state, char *value,
-			   int string_size)
 
 /* Valid  values:
    mt, c
@@ -419,6 +420,8 @@ static int ndi_get_reac_id(state_struct *state, char *value,
    reac_id --  Reaction identifier: m=MT (default), c=c-value
 
 -------------------------------------------------------------------------*/
+static int ndi_get_reac_id(state_struct *state, char *value,
+			   int string_size)
 {
     int ierr = 0;
 
@@ -442,7 +445,6 @@ static int ndi_get_reac_id(state_struct *state, char *value,
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 
 /* Valid  values:
   "from_vel", "from_e"
@@ -451,6 +453,7 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
    enum e_avg_calc --  VEL_CALC, E_MEAN, SGNDF
 
 -------------------------------------------------------------------------*/
+static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 {
     int ierr = 0;
 
@@ -460,12 +463,12 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 	strncpy(value, "from_e", string_size);
     } else if (state->e_avg_calc == SGNDF) {
 	strncpy(value, "from_sgndf", string_size);
-    } else if ( state->e_avg_calc == LEGACY_VEL_CALC ) {
-        strncpy( value, "legacy_calc", string_size );
-    } else if ( state->e_avg_calc == FLAT_CALC ) {
-        strncpy( value, "from_flat", string_size );
-    } else if ( state->e_avg_calc == TD_CALC ) {
-        strncpy( value, "from_td", string_size );
+    } else if (state->e_avg_calc == LEGACY_VEL_CALC) {
+	strncpy(value, "legacy_calc", string_size);
+    } else if (state->e_avg_calc == FLAT_CALC) {
+	strncpy(value, "from_flat", string_size);
+    } else if (state->e_avg_calc == TD_CALC) {
+	strncpy(value, "from_td", string_size);
     } else {
 	strncpy(value, "", string_size);
 	ierr = -27;
@@ -479,8 +482,6 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_get_kerma_calc(state_struct *state, char *value,
-			      int string_size)
 
 /* Valid  values:
   "use_calc", "no_calc"
@@ -489,6 +490,8 @@ static int ndi_get_kerma_calc(state_struct *state, char *value,
    enum kerma_calc_type kerma_calc -- DATA, CALC, DATA_CALC
 
 -------------------------------------------------------------------------*/
+static int ndi_get_kerma_calc(state_struct *state, char *value,
+			      int string_size)
 {
     int ierr = 0;
 

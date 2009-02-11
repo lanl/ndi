@@ -38,9 +38,9 @@ int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 
 /*********************************************************************/
 int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
-                         long int f_ptr, int collapse_type,
-                         int library_grp_num, FLOAT_TYPE * return_vec,
-                         int return_size)
+			 long int f_ptr, int collapse_type,
+			 int library_grp_num, FLOAT_TYPE * return_vec,
+			 int return_size)
 
      /* Reads data from stream begining at f_ptr.  If collapse_flag
         is set (and collapse_type != 0), then collapse into the
@@ -128,7 +128,7 @@ int NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
 /*********************************************************************/
 
 int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
-                FLOAT_TYPE * return_mat, int num_mat, int mat_size)
+		FLOAT_TYPE * return_mat, int num_mat, int mat_size)
 {
 
     int ierr = 0;
@@ -164,7 +164,7 @@ int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
 /*********************************************************************/
 
 int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
-                 FLOAT_TYPE * return_vec, int *return_size)
+		 FLOAT_TYPE * return_vec, int *return_size)
 
 /*  Purpose:  Returns the cross-section for particle 'mg' for the 
     reaction indicated by the mt corresponding to 'vec_num'.
@@ -209,8 +209,9 @@ int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 	   set temp_size and temp_vec */
 
 	ierr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
-                                    mg->sig_reac.stat[reac_index].file_ptr, 0,
-                                    mg->num_grps, return_vec, *return_size);
+				    mg->sig_reac.stat[reac_index].file_ptr,
+				    0, mg->num_grps, return_vec,
+				    *return_size);
 
     } else {			/* ierr >= 0 ... */
 	/* Error: no data for this isotope */
@@ -244,8 +245,8 @@ int COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
 /*********************************************************************/
 
 int MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
-                   const ndi_float64 * vec2, int num_elements,
-                   int collapse, FLOAT_TYPE * return_vec, int return_size)
+		   const ndi_float64 * vec2, int num_elements,
+		   int collapse, FLOAT_TYPE * return_vec, int return_size)
 {
     /*  collapse < 0 means that this vector should not be collapsed */
 
@@ -299,8 +300,9 @@ int MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 
 /*********************************************************************/
 int DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
-                     const ndi_float64 * vec2, int num_elements,
-                     int collapse, FLOAT_TYPE * return_vec, int return_size)
+		     const ndi_float64 * vec2, int num_elements,
+		     int collapse, FLOAT_TYPE * return_vec,
+		     int return_size)
 {
 
 
@@ -361,7 +363,7 @@ int DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 
 /*********************************************************************/
 int NORM_FLOAT_VEC(FLOAT_TYPE * vec_p, int num_elements,
-                   const FLOAT_TYPE norm_val)
+		   const FLOAT_TYPE norm_val)
 {
 
     /* Assumes that the numbers will be non-negative */
@@ -438,10 +440,10 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 }
 
 /*********************************************************************/
-int CHI_MAT_TO_VEC(state_struct *state, FILE *stream, 
-                   long int chi_mat_ptr, FLOAT_TYPE *nu_sig_f,
-                   FLOAT_TYPE * return_vec, int return_size,
-                   int collapse_type, int lib_num_grp)
+int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
+		   long int chi_mat_ptr, FLOAT_TYPE * nu_sig_f,
+		   FLOAT_TYPE * return_vec, int return_size,
+		   int collapse_type, int lib_num_grp)
 
      /*  NOTE: lib_num_grp is the number of groups on the library */
 {
@@ -489,22 +491,22 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 	temp_vec =
 	    (FLOAT_TYPE *) ndi_malloc(lib_num_grp * sizeof(FLOAT_TYPE));
 	/* Check returned value */
-        norm = 0.0;
+	norm = 0.0;
 	for (out = 0; out < lib_num_grp; out++) {
 	    temp_vec[out] = 0.0;
 	    for (in = 0; in < lib_num_grp; in++) {
-		temp_vec[out] += nu_sig_f[in] * weights[in] * 
-                     chi_matrix[in * lib_num_grp + out];
+		temp_vec[out] += nu_sig_f[in] * weights[in] *
+		    chi_matrix[in * lib_num_grp + out];
 	    }
-            norm += temp_vec[out];
+	    norm += temp_vec[out];
 	}
 
-        /* normalize */
-        if (norm != 0.0) {
-             for (out = 0; out < lib_num_grp; out++) {
-                  temp_vec[out] /= norm;
-             }
-        }
+	/* normalize */
+	if (norm != 0.0) {
+	    for (out = 0; out < lib_num_grp; out++) {
+		temp_vec[out] /= norm;
+	    }
+	}
 
 	/* Collapse vector, if necessary */
 	/* Check this call */

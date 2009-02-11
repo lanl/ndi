@@ -1534,13 +1534,13 @@ static int set_depl_array(state_struct *state, FILE *stream,
 		    /* Read reaction product multiplicities */
 		    target_p->rprod[i].mult =
 			(double *) ndi_malloc(target_p->rprod[i].num_reac *
-					   sizeof(double));
+					      sizeof(double));
 		    ierr =
 			ndi_read_rx_prod2(stream, tmp_fptr,
-					 &(target_p->rprod[i].mult),
-					 MULT_PARAM,
-					 &(target_p->rprod[i].num_reac),
-					 NO_MT);
+					  &(target_p->rprod[i].mult),
+					  MULT_PARAM,
+					  &(target_p->rprod[i].num_reac),
+					  NO_MT);
 		}
 	    }
 
@@ -1642,13 +1642,14 @@ static int set_chain_array(state_struct *state, FILE *stream,
 			/* Read reaction product multiplicities */
 			target_p->rprod[i].mult =
 			    (double *) ndi_malloc(target_p->rprod[i].
-					       num_reac * sizeof(double));
+						  num_reac *
+						  sizeof(double));
 			ierr =
 			    ndi_read_rx_prod2(stream, tmp_fptr,
-					     &(target_p->rprod[i].mult),
-					     MULT_PARAM,
-					     &(target_p->rprod[i].
-					       num_reac), NO_MT);
+					      &(target_p->rprod[i].mult),
+					      MULT_PARAM,
+					      &(target_p->rprod[i].
+						num_reac), NO_MT);
 
 			/*  COMMENTED OUT
 			   fscanf( stream, "%d\n",  &(target_p->rprod[i].num_reac));

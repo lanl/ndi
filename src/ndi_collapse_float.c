@@ -56,13 +56,11 @@
 
 ***********************************************************************/
 #ifdef FLOAT32
-int
-ndi_collapse_float32(state_struct *state, const FLOAT_TYPE * old_vec,
+int ndi_collapse_float32(state_struct *state, const FLOAT_TYPE * old_vec,
 		     int old_grp_num, int recip_flag,
 		     FLOAT_TYPE * return_vec, int return_size)
 #else
-int
-ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
+int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 		     int old_grp_num, int recip_flag,
 		     FLOAT_TYPE * return_vec, int return_size)
 #endif
@@ -90,10 +88,10 @@ ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	    break;
 	}
 
-        low_bound = state->new_ebounds[i];
-        up_bound = state->new_ebounds[i + 1];
+	low_bound = state->new_ebounds[i];
+	up_bound = state->new_ebounds[i + 1];
 
-	if (recip_flag == 2) { /* case 2: flooring */
+	if (recip_flag == 2) {	/* case 2: flooring */
 	    if (i == 0) {
 		low_bound = 0;
 	    } else if (i == (state->grp_num_new - 1)) {
@@ -123,32 +121,32 @@ ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	    wt_sum += state->lib_weight[j];
 	}
 
-   /* Divide by weighting factor */
-    switch (recip_flag) {
-	
-    case 0:
-       if ( wt_sum > fabs((double) return_vec[i] * FLOAT_EPSILON) ) {
-	  return_vec[i] /= wt_sum;
-       } else {
-	  ierr = -12;
-       }
-       break;
-	
-    case 1:
-       if ( return_vec[i] > fabs((double) wt_sum * FLOAT_EPSILON) ) {
-	  return_vec[i] = wt_sum / return_vec[i];
-       } else {
-	  return_vec[i] = 0;
-	  ierr = 5;
-       }
-       break;
-	
-    case 2:
-    case 3:
-       break;
+	/* Divide by weighting factor */
+	switch (recip_flag) {
+
+	case 0:
+	    if (wt_sum > fabs((double) return_vec[i] * FLOAT_EPSILON)) {
+		return_vec[i] /= wt_sum;
+	    } else {
+		ierr = -12;
+	    }
+	    break;
+
+	case 1:
+	    if (return_vec[i] > fabs((double) wt_sum * FLOAT_EPSILON)) {
+		return_vec[i] = wt_sum / return_vec[i];
+	    } else {
+		return_vec[i] = 0;
+		ierr = 5;
+	    }
+	    break;
+
+	case 2:
+	case 3:
+	    break;
+	}
+
     }
-    
-  }
-  
-  return(ierr);
+
+    return (ierr);
 }

@@ -125,8 +125,8 @@ ndi_c_get_int_vec_n(int in_key, int vec_num, int *return_vec, int vec_size)
 /**********************************************************************/
 
 int
-ndi_c_get_int_vec_x(int in_key, const char *in_str, int *return_vec, 
-                    int vec_size)
+ndi_c_get_int_vec_x(int in_key, const char *in_str, int *return_vec,
+		    int vec_size)
 {
     return ndi_c_get_int_vec_x_h(default_h, in_key, in_str, return_vec,
 				 vec_size);

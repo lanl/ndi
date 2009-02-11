@@ -28,8 +28,8 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
 	return (7);
     }
 
-    if (ndi_special_sza(sza, sym_str, str_size) ) {
-        return(0);
+    if (ndi_special_sza(sza, sym_str, str_size)) {
+	return (0);
     }
 
     ierr = ndi_parse_int_zaid(sza, &Z, &A, &S);

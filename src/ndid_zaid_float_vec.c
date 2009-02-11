@@ -45,13 +45,13 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
-        ndi_free((void **) &path);
+	ndi_free((void **) &path);
 
     if (ierr < 0) {
 	root = NULL;
     } else {
-	 root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
-	 fclose(ndi_dir);
+	root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
+	fclose(ndi_dir);
     }
 
     /* Collect the strings into the return vec */
@@ -158,4 +158,5 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
     }
     return (root);
 }
+
 /***********************************************************************/

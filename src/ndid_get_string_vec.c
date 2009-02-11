@@ -42,13 +42,13 @@ ndid_c_get_string_vec(int in_key, const char *in_value,
     /* Open gendir */
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
-        ndi_free((void **) &path);
+	ndi_free((void **) &path);
 
     if (ierr < 0) {
 	root = NULL;
     } else {
-	 root = ndi_build_tree(ndi_dir, in_key, in_value);
-	 fclose(ndi_dir);
+	root = ndi_build_tree(ndi_dir, in_key, in_value);
+	fclose(ndi_dir);
     }
 
     /* Collect the strings into the return vec */

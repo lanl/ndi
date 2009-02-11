@@ -48,7 +48,7 @@ int ndi_close_lib_file(state_struct *state)
 
     /* Deinitialize state */
     if (state->open_lib_file)
-        ndi_free((void **) &state->open_lib_file);
+	ndi_free((void **) &state->open_lib_file);
 
     return (ret_code);
 

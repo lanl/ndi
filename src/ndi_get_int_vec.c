@@ -38,7 +38,7 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
 
-    ierr = ndi_init_int_vec(return_vec, vec_size); /* zero return vector */
+    ierr = ndi_init_int_vec(return_vec, vec_size);	/* zero return vector */
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
@@ -47,7 +47,7 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
 
     if (is_gendir(state)) {
 	ierr = -2;		/* case not handled currently */
-    } else if ((state->library_type == 'm') || 
+    } else if ((state->library_type == 'm') ||
 	       (state->library_type == 'd')) {
 	ierr = get_int_vec_mg(state, in_key, return_vec, vec_size);
     } else if (state->library_type == 's') {
@@ -161,14 +161,14 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 	if ((state->iso_stat.num_reac > 0) && (state->iso_stat.reac_mt)) {
 	    source_ptr = state->iso_stat.reac_mt;
 	    for (n = 0; n < state->iso_stat.num_reac; n++) {
-                if (state->reac_id == 'c') {
-                    *curr_int = ndi_c_mt_to_c(*source_ptr);
-                    if (*curr_int <= 0) {
-                        ierr = -24;
-                    }
-                } else {
- 		*curr_int = *source_ptr;
-                }
+		if (state->reac_id == 'c') {
+		    *curr_int = ndi_c_mt_to_c(*source_ptr);
+		    if (*curr_int <= 0) {
+			ierr = -24;
+		    }
+		} else {
+		    *curr_int = *source_ptr;
+		}
 		curr_int++;
 		source_ptr++;
 	    }
@@ -346,110 +346,116 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	break;
 
     case NDI_EDIST_INTERP_REG:
-         /* Vector of interpolation type for current particle's temperature
-            interpolation regions */
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
-              
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int i;
+	/* Vector of interpolation type for current particle's temperature
+	   interpolation regions */
+	if (state->grp_num_new <= 0)
+	    return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
 
-                   for (i = 0; i < part->temp_interp.nint; i++)
-                        return_vec[i] = part->temp_interp.nbt[i];
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int i;
 
-         break;
+		for (i = 0; i < part->temp_interp.nint; i++)
+		    return_vec[i] = part->temp_interp.nbt[i];
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
+
+	break;
 
     case NDI_EDIST_INTERP_TYPE:
-         /* Vector of endpoints for current particle's temperature 
-            interpolation regions*/
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
-              
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int i;
+	/* Vector of endpoints for current particle's temperature 
+	   interpolation regions */
+	if (state->grp_num_new <= 0)
+	    return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
 
-                   for (i = 0; i < part->temp_interp.nint; i++)
-                        return_vec[i] = part->temp_interp.int_type[i];
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int i;
 
-         break;
+		for (i = 0; i < part->temp_interp.nint; i++)
+		    return_vec[i] = part->temp_interp.int_type[i];
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
+
+	break;
 
     case NDI_EDIST_CONT_INTERP_REG:
-         /* Vector of interpolation type for current particle's temperature
-            interpolation regions */
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
-              
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int hi, lo, it;
-                   int i;
+	/* Vector of interpolation type for current particle's temperature
+	   interpolation regions */
+	if (state->grp_num_new <= 0)
+	    return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
 
-                   ierr = ndi_find_temp_bound_index(state->default_temp,
-                                                    part->edist, 
-                                                    part->temp_interp.npts, 
-                                                    &hi, &lo, &it);
-                   if (ierr < 0) return -30;
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int hi, lo, it;
+		int i;
 
-                   for (i = 0; i < part->edist[it].interp.nint; i++)
-                        return_vec[i] = part->edist[it].interp.nbt[i];
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+		ierr = ndi_find_temp_bound_index(state->default_temp,
+						 part->edist,
+						 part->temp_interp.npts,
+						 &hi, &lo, &it);
+		if (ierr < 0)
+		    return -30;
 
-         break;
+		for (i = 0; i < part->edist[it].interp.nint; i++)
+		    return_vec[i] = part->edist[it].interp.nbt[i];
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
+
+	break;
 
     case NDI_EDIST_CONT_INTERP_TYPE:
-         /* Vector of endpoints for current particle's temperature 
-            interpolation regions*/
-         if (state->grp_num_new <= 0) return (-21);
-         if ((state->curr_part_index >= 0) ||
-             (state->curr_part_index < state->sec_part_filled)) {
-              sec_part_distr *part;
-              
-              part = &(state->tn_stat.sec_part[state->curr_part_index]);
-              if (part) {
-                   int hi, lo, it;
-                   int i;
+	/* Vector of endpoints for current particle's temperature 
+	   interpolation regions */
+	if (state->grp_num_new <= 0)
+	    return (-21);
+	if ((state->curr_part_index >= 0) ||
+	    (state->curr_part_index < state->sec_part_filled)) {
+	    sec_part_distr *part;
 
-                   ierr = ndi_find_temp_bound_index(state->default_temp,
-                                                    part->edist, 
-                                                    part->temp_interp.npts, 
-                                                    &hi, &lo, &it);
-                   if (ierr < 0) return -30;
+	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
+	    if (part) {
+		int hi, lo, it;
+		int i;
 
-                   for (i = 0; i < part->edist[it].interp.nint; i++)
-                        return_vec[i] = part->edist[it].interp.int_type[i];
-              } else {
-                   return (-30);
-              }
-         } else {
-              return (-30);
-         }
+		ierr = ndi_find_temp_bound_index(state->default_temp,
+						 part->edist,
+						 part->temp_interp.npts,
+						 &hi, &lo, &it);
+		if (ierr < 0)
+		    return -30;
 
-         break;
+		for (i = 0; i < part->edist[it].interp.nint; i++)
+		    return_vec[i] = part->edist[it].interp.int_type[i];
+	    } else {
+		return (-30);
+	    }
+	} else {
+	    return (-30);
+	}
+
+	break;
 
       /**********  UNKNOWN KEYWORD  ***********/
 

@@ -6,13 +6,13 @@
 #include "ndi_state.h"
 
 /**********************************************************************/
-int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val, 
+int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val,
 			 int str_size)
 {
 
     int ierr = 0;
 
-    if (!h) 
+    if (!h)
 	return -2;
 
     if ((ret_val) && (str_size > 0))

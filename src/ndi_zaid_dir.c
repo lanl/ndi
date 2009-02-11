@@ -27,11 +27,6 @@ static void ndi_find_first_string( char *in_line, int in_size,
 
 /**********************************************************************/
 
-int
-ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
-	     const char *in_zaid, char *real_zaid, char *library,
-	     char *lib_path, char *lib_file_type, long int *iso_start,
-	     double *at_wgt, int reaction_flag)
 
 /*  Purpose: 
     
@@ -57,6 +52,10 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
     THIS SHOULD BE FIXED.  It is fixed in the next release.
 
 ***********************************************************************/
+int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
+	     const char *in_zaid, char *real_zaid, char *library,
+	     char *lib_path, char *lib_file_type, long int *iso_start,
+	     double *at_wgt, int reaction_flag)
 {
 
     char section[30];		/* Gendir section (e.g. neutron_multigroup) */
@@ -99,7 +98,7 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	}
     } else if ((pt_type == 0) && (l_type == 'm')) {
 	if (reaction_flag == 0) {
-            strcpy(section, "multigroup_photon");
+	    strcpy(section, "multigroup_photon");
 	} else {
 	    strcpy(section, "photon_depletion");
 	}
@@ -141,9 +140,12 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 							zaid_string,
 							MAX_IN_STR_LEN,
 							seps);
-			    if (strncmp(zaid_string, in_zaid, strlen(in_zaid)) == 0) {
-				ierr = read_dir_block(in_line, state->ndi_dir,
-                                                      &dir_rec);
+			    if (strncmp
+				(zaid_string, in_zaid,
+				 strlen(in_zaid)) == 0) {
+				ierr =
+				    read_dir_block(in_line, state->ndi_dir,
+						   &dir_rec);
 				strcpy(tmp_zaid, dir_rec.zaid);
 				strcpy(library, dir_rec.lib);
 				strcpy(lib_path, dir_rec.path);
@@ -152,16 +154,21 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 				*at_wgt = dir_rec.at_wgt;
 
 				/*  Check current library against user-default library */
-   /* Chain libraries currently are undefined */
-				if ( (reaction_flag != 0 && l_type != 'd') ||
-                                     ( (strchr(in_zaid, '.') != NULL) &&
-                                       (isalnum (* (strchr (in_zaid, '.') + 1))))) {
+				/* Chain libraries currently are undefined */
+				if ((reaction_flag != 0 && l_type != 'd')
+				    || ((strchr(in_zaid, '.') != NULL)
+					&&
+					(isalnum
+					 (*(strchr(in_zaid, '.') + 1))))) {
 				    /* A library is implied in the ZAID */
 				    done = -1;
 				} else {
-				    if (( ! state->library_vers) ||
-                                        (strcmp(state->library_vers, "") != 0)) {
-					if (strcmp(state->library_vers, library) == 0) {
+				    if ((!state->library_vers) ||
+					(strcmp(state->library_vers, "") !=
+					 0)) {
+					if (strcmp
+					    (state->library_vers,
+					     library) == 0) {
 					    /* Current library matches user-specified default */
 					    done = -1;
 					}
@@ -203,8 +210,7 @@ ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 
-static void
-ndi_find_zaid_string(char *in_line, int in_size,
+static void ndi_find_zaid_string(char *in_line, int in_size,
 		     char *zaid_string, int string_size, char *seps)
 {
 

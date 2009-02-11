@@ -31,8 +31,7 @@
     May change the value of extern variable lib_stream.
 
 ***********************************************************************/
-int 
-ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
+int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 {
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
     int tmp_err = 0;
@@ -64,13 +63,13 @@ ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     /* Convert input zaid to standard zaid and read data from gendir */
     strcpy(tmp_zaid, in_zaid);
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
-       if ( ! (strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
-            if (state->particle_type == 0)
-                 ierr = ndi_std_z0id(state, tmp_zaid, sizeof(tmp_zaid));
-            else
-                 ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
-       }
-      /* printf("tmp_zaid = %s \n", tmp_zaid ); */
+	if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
+	    if (state->particle_type == 0)
+		ierr = ndi_std_z0id(state, tmp_zaid, sizeof(tmp_zaid));
+	    else
+		ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
+	}
+	/* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/
 	if (ierr < 0)
 	    return (ierr);
@@ -97,23 +96,23 @@ ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 
     /* Open library file if needed */
     if (state->open_lib_file) {
-        if (strcmp(lib_path, state->open_lib_file) != 0) {
-            /* Close current lib file and open new one */
-            if (state->lib_stream)
-                ierr = ndi_close_lib_file(state);
-            if ((state->lib_stream =
-                 ndi_open_lib_file(state, lib_path)) == NULL) {
-                /* Error opening library file */
-                ierr = -1;
-            }
-        }
+	if (strcmp(lib_path, state->open_lib_file) != 0) {
+	    /* Close current lib file and open new one */
+	    if (state->lib_stream)
+		ierr = ndi_close_lib_file(state);
+	    if ((state->lib_stream =
+		 ndi_open_lib_file(state, lib_path)) == NULL) {
+		/* Error opening library file */
+		ierr = -1;
+	    }
+	}
     } else {
-        /* No library file is currently open */
-        if ((state->lib_stream =
-             ndi_open_lib_file(state, lib_path)) == NULL) {
-            /* Error opening library file */
-            ierr = -1;
-        }
+	/* No library file is currently open */
+	if ((state->lib_stream =
+	     ndi_open_lib_file(state, lib_path)) == NULL) {
+	    /* Error opening library file */
+	    ierr = -1;
+	}
     }
 
    /*** check returned error value ****/
@@ -161,8 +160,7 @@ ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     May change the value of extern variable lib_stream.
 
 ***********************************************************************/
-int 
-ndi_c_set_isotope_h(state_struct *state, const char *in_zaid)
+int ndi_c_set_isotope_h(state_struct *state, const char *in_zaid)
 {
 
     int ierr = 0;
@@ -189,8 +187,7 @@ ndi_c_set_isotope_h(state_struct *state, const char *in_zaid)
     May change the value of extern variable lib_stream.
 
 ***********************************************************************/
-int 
-ndi_c_set_reaction_h(state_struct *state, const char *in_zaid)
+int ndi_c_set_reaction_h(state_struct *state, const char *in_zaid)
 {
 
     int ierr = 0;

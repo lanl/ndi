@@ -333,7 +333,7 @@ int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
     int ierr = 0;
     int izaid;
     int tmpz;
-/* int s = 0; *//* State */
+    /* int s = 0; *//* State */
 
     /* Find integer ZAID part */
     /* Convert string to integer */
@@ -516,7 +516,8 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
 
 
     if ((num_grps == 16) || (num_grps == 30)) {
-	(void)ndi_c_get_float64_vec_h(state, NDI_E_BOUNDS, egrp_bounds, 31);
+	(void) ndi_c_get_float64_vec_h(state, NDI_E_BOUNDS, egrp_bounds,
+				       31);
 	if (num_grps == 16) {
 	    bound_p = _16_LLNL;
 	} else if (num_grps == 30) {
@@ -530,51 +531,52 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
 	    bound_p++;
 	}
     } else {
-        ret_val = 0;
+	ret_val = 0;
     }
 
     return (ret_val);
 }
 
 /**********************************************************************/
-int ndi_special_sza( int sza, char *sym_str, int str_size ) {
+int ndi_special_sza(int sza, char *sym_str, int str_size)
+{
 
     char tmp_str[50];
-    int ret_val = 0;  /* False: not special character */
+    int ret_val = 0;		/* False: not special character */
 
     switch (sza) {
 
     case -999:
-        strncpy(tmp_str, "Generic Destruction", 20);
-        ret_val = 1;
-        break;
+	strncpy(tmp_str, "Generic Destruction", 20);
+	ret_val = 1;
+	break;
 
     case 99999:
-        strncpy(tmp_str, "Fission Product", 16);
-        ret_val = 1;
-        break;
+	strncpy(tmp_str, "Fission Product", 16);
+	ret_val = 1;
+	break;
 
     case 45117:
-        strncpy(tmp_str, "Fission Product", 16);
-        ret_val = 1;
-        break;
+	strncpy(tmp_str, "Fission Product", 16);
+	ret_val = 1;
+	break;
 
     case 50998:
-        strncpy(tmp_str, "Fission Product", 16);
-        ret_val = 1;
-        break;
+	strncpy(tmp_str, "Fission Product", 16);
+	ret_val = 1;
+	break;
 
     case 50999:
-        strncpy(tmp_str, "Fission Product", 16);
-        ret_val = 1;
-        break;
+	strncpy(tmp_str, "Fission Product", 16);
+	ret_val = 1;
+	break;
     }
 
     if ((ret_val) && (str_size > 0) && (sym_str)) {
-        strncpy(sym_str, tmp_str, str_size);
+	strncpy(sym_str, tmp_str, str_size);
     }
 
-    return(ret_val);
+    return (ret_val);
 }
 
 /**********************************************************************/
@@ -621,59 +623,57 @@ int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
  *
  */
 
-char *
-ndi_error_string(int n)
+char *ndi_error_string(int n)
 {
-     static char *warning[] = {
-          "Call successfully executed.",
-          "NDI already initialized; no action taken.",
-          "NDI not initialized before NDI2_close_gendir; no action taken.",
-          "Unable to close NDI gendir file.",
-          "Attempt to close NULL stream.", 
-          "Unexpected zero quantity.",
-          "Unexpected data: too many data items.",
-          "Bounds test failed: array terminated." 
-     };
+    static char *warning[] = {
+	"Call successfully executed.",
+	"NDI already initialized; no action taken.",
+	"NDI not initialized before NDI2_close_gendir; no action taken.",
+	"Unable to close NDI gendir file.",
+	"Attempt to close NULL stream.",
+	"Unexpected zero quantity.",
+	"Unexpected data: too many data items.",
+	"Bounds test failed: array terminated."
+    };
 
-     static char *error[] = {
-          "Invalid warning/error number.",
-          "Error opening file.",
-          "NDI not initialized before NDI library call.",
-          "Error closing file.",
-          "Invalid input key to NDI user function.",
-          "Invalid key argument to NDI user function.",
-          "Index parameter out of range.",
-          "Isotope not set.",
-          "Isotope not found in gendir.",
-          "Data not available in current library for current zaid.",
-          "32-bit function is not implemented on current platform.",
-          "Error reading file.",
-          "Unexpected library data.",
-          "Invalid input parameter.",
-          "No memory available.",
-          "Invalid data in file.",
-          "Library type not set.",
-          "Isotope not found in library.",
-          "Library error: incorrect data order.",
-          "Error setting file pointer.",
-          "NDI_LIB TYPE not set.",
-          "Collapsing attempted but no energy structure chosen by user.",
-          "Bad zaid input.", 
-          "Incompatible collapse group structure.",
-          "Bad reaction identifier (MT or C number)."
-     };
+    static char *error[] = {
+	"Invalid warning/error number.",
+	"Error opening file.",
+	"NDI not initialized before NDI library call.",
+	"Error closing file.",
+	"Invalid input key to NDI user function.",
+	"Invalid key argument to NDI user function.",
+	"Index parameter out of range.",
+	"Isotope not set.",
+	"Isotope not found in gendir.",
+	"Data not available in current library for current zaid.",
+	"32-bit function is not implemented on current platform.",
+	"Error reading file.",
+	"Unexpected library data.",
+	"Invalid input parameter.",
+	"No memory available.",
+	"Invalid data in file.",
+	"Library type not set.",
+	"Isotope not found in library.",
+	"Library error: incorrect data order.",
+	"Error setting file pointer.",
+	"NDI_LIB TYPE not set.",
+	"Collapsing attempted but no energy structure chosen by user.",
+	"Bad zaid input.",
+	"Incompatible collapse group structure.",
+	"Bad reaction identifier (MT or C number)."
+    };
 
-     int num_warnings = sizeof(warning)/sizeof(warning[0]);
-     int num_errors = sizeof(error)/sizeof(error[0]);
+    int num_warnings = sizeof(warning) / sizeof(warning[0]);
+    int num_errors = sizeof(error) / sizeof(error[0]);
 
-     if (-num_errors < n && n < 0) { /* error */
-          return error[-n];
-     } else if ( 0 <= n && n < num_warnings) {
-          return warning[n];
-     } else {
-          return error[0];
-     }
+    if (-num_errors < n && n < 0) {	/* error */
+	return error[-n];
+    } else if (0 <= n && n < num_warnings) {
+	return warning[n];
+    } else {
+	return error[0];
+    }
 }
 
 /**********************************************************************/
-

@@ -46,19 +46,19 @@ int ndi_c_close_h(state_struct **curr_state)
 	return (-2);
     }
 
-    for (i = 0; i < MAX_HANDLE_NUM; i++) /* close children */
-	if (state->handle_map[i] != NULL) 
+    for (i = 0; i < MAX_HANDLE_NUM; i++)	/* close children */
+	if (state->handle_map[i] != NULL)
 	    ierr = ndi_c_close_h(&(state->handle_map[i]));
     state->handle_free = 0;
 
     /* Close directory file and library file */
     if (state->ndi_dir) {
-        if (fclose(state->ndi_dir) != 0) {
-	ret_code = 3;
-        } else {
-            state->ndi_dir = NULL;
-            strcpy(state->open_gendir_file, "");
-        }
+	if (fclose(state->ndi_dir) != 0) {
+	    ret_code = 3;
+	} else {
+	    state->ndi_dir = NULL;
+	    strcpy(state->open_gendir_file, "");
+	}
     }
 
     ierr = ndi_close_lib_file(state);
@@ -97,4 +97,5 @@ int ndi_c_close_h(state_struct **curr_state)
     return (ret_code);
 
 }
+
 /**********************************************************************/

@@ -50,7 +50,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     }
 
     /* Special case--library type need not be set if asking for version. */
-    if (in_key == NDI_ABUNDANCE) { /* Natural abundance for isotope vec_num */
+    if (in_key == NDI_ABUNDANCE) {	/* Natural abundance for isotope vec_num */
 	ierr = GET_ABUNDANCE(vec_num, ret_val);
 	return (ierr);
     }
@@ -87,32 +87,32 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 	/*           This section looks at non-standard isotope data           */
       /***********************************************************************/
 
-   case NDI_REAC_Q:      /* Reaction Q for reaction vec_num */
-      /* Change this test */
-      if ( state->reac_id == 'c' ) {
-	 mt = ndi_c_c_to_mt( vec_num );
-	 if ( mt <= 0 ) {
-	    ierr = -24;
-	    return(ierr);   /* Invalid MT or reaction identifier */
-	 }
-      } else {
-	 mt = vec_num;
-      }
+    case NDI_REAC_Q:		/* Reaction Q for reaction vec_num */
+	/* Change this test */
+	if (state->reac_id == 'c') {
+	    mt = ndi_c_c_to_mt(vec_num);
+	    if (mt <= 0) {
+		ierr = -24;
+		return (ierr);	/* Invalid MT or reaction identifier */
+	    }
+	} else {
+	    mt = vec_num;
+	}
 
-      ierr = ndi_find_reac_index( state->iso_stat.reac_mt, &reac_index, 
-				  mt, state->iso_stat.num_reac );
-      if ( ( ierr >= 0 ) && ( state->iso_stat.reac_q ) ){
-	if ( reac_index <state-> iso_stat.num_reac ) {
-	  *ret_val = (FLOAT_TYPE) state->iso_stat.reac_q[reac_index];
-        } else {
-            ierr = ndi_check_array_err(state->iso_stat.num_reac);
-        }
-      } else {
-          /* Data not in library. */
-          *ret_val = 0.0;
-          ierr = 9;
-      }
-      break;
+	ierr = ndi_find_reac_index(state->iso_stat.reac_mt, &reac_index,
+				   mt, state->iso_stat.num_reac);
+	if ((ierr >= 0) && (state->iso_stat.reac_q)) {
+	    if (reac_index < state->iso_stat.num_reac) {
+		*ret_val = (FLOAT_TYPE) state->iso_stat.reac_q[reac_index];
+	    } else {
+		ierr = ndi_check_array_err(state->iso_stat.num_reac);
+	    }
+	} else {
+	    /* Data not in library. */
+	    *ret_val = 0.0;
+	    ierr = 9;
+	}
+	break;
 
 /*
    case NDI_ABUNDANCE:
@@ -120,12 +120,12 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
      break;
 */
 
-    case NDI_TOT_PROD_Q:        /* Total Production Q  */
+    case NDI_TOT_PROD_Q:	/* Total Production Q  */
 	if (!state->ndi_depl_set) {
 	    ierr = ndi_set_default_depl(state);
 	}
 
-        ierr = GET_PROD_Q(state, vec_num, ret_val);
+	ierr = GET_PROD_Q(state, vec_num, ret_val);
 	break;
 
 

@@ -34,13 +34,13 @@ int ndi_init_state_common(state_struct *state)
     state->collapse_ebounds = NULL;
 
     state->curr_part_index = -1;
-    strcpy( state->n_group, "default" );
+    strcpy(state->n_group, "default");
     state->grp_num_new = 0;
     if (state->library_vers) {
-        strncpy(state->library_vers, "", 2);
+	strncpy(state->library_vers, "", 2);
     }
 
-    return( ierr );
+    return (ierr);
 }
 
 /**********************************************************************/

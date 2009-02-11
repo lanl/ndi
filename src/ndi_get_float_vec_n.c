@@ -38,10 +38,10 @@ static int PN_FULL_TRANS_CORR(state_struct *state,
 static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 			    sec_part_mg *sec_part, int vec_num,
 			    FLOAT_TYPE * return_vec, int return_size);
-static int GET_DIAG_CORR(state_struct *state, int vec_num, 
-                         FLOAT_TYPE * return_vec, int vec_size);
+static int GET_DIAG_CORR(state_struct *state, int vec_num,
+			 FLOAT_TYPE * return_vec, int vec_size);
 static int GET_BHS_CORR(state_struct *state, int vec_num,
-                        FLOAT_TYPE * return_vec, int vec_size);
+			FLOAT_TYPE * return_vec, int vec_size);
 static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 			    FLOAT_TYPE * return_vec, int vec_size);
 static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
@@ -205,7 +205,8 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     case NDI_TRANSFER_MAT_TOT:	/* Transfer matrix -- total */
     case NDI_TRANSFER_MAT_PR:	/* Transfer matrix -- prompt */
 	ierr =
-	    GET_TRANSFER_MAT(state, in_key, vec_num, return_vec, return_size);
+	    GET_TRANSFER_MAT(state, in_key, vec_num, return_vec,
+			     return_size);
 
 	/* Transpose result, if necessary */
 	if (state->collapse_flag != 0) {
@@ -827,7 +828,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 /*********************************************************************/
 
 static int GET_DIAG_CORR(state_struct *state, int vec_num,
-                         FLOAT_TYPE * return_vec, int vec_size)
+			 FLOAT_TYPE * return_vec, int vec_size)
 {
     char transpose_state;
     char corr_state;
@@ -872,13 +873,13 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
        where index(0) = 0
      */
     for (i = 0; i < num; i++) {
-        if ( i < vec_size) {
-            *(return_vec + i) = *(temp_vec + curr_index);
-            curr_index += num - i;
-        } else {
-            ierr = 7;
-            break;
-        }
+	if (i < vec_size) {
+	    *(return_vec + i) = *(temp_vec + curr_index);
+	    curr_index += num - i;
+	} else {
+	    ierr = 7;
+	    break;
+	}
     }
 
     if (temp_vec)
@@ -889,8 +890,8 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
 
 /*********************************************************************/
 
-static int GET_BHS_CORR(state_struct *state, int vec_num, 
-                        FLOAT_TYPE * return_vec, int vec_size)
+static int GET_BHS_CORR(state_struct *state, int vec_num,
+			FLOAT_TYPE * return_vec, int vec_size)
 {
     char transpose_state = ' ';
     char corr_state = ' ';
@@ -914,8 +915,8 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
     }
 
     /*
-       **** array_size must be wrong ****
-       for now just use array_size = num**2
+     **** array_size must be wrong ****
+     for now just use array_size = num**2
      */
     array_size = num * num;
 
@@ -944,12 +945,12 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
 	for (j = 0; j < num; j++) {
 	    scat_sum += *(temp_vec + (i * num) + j);
 	}
-        if (i < vec_size) {
-            *(return_vec + i) = scat_sum;
-        } else {
-            ierr = 7;
-            break;
-        }
+	if (i < vec_size) {
+	    *(return_vec + i) = scat_sum;
+	} else {
+	    ierr = 7;
+	    break;
+	}
     }
 
     if (temp_vec)
@@ -1000,8 +1001,8 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
     if (ierr < 0)
 	return (ierr);
 
-    transpose_state = state->mat_order; /* remember user transpose */
-    state->mat_order = 'd';     /* turn transpose off */
+    transpose_state = state->mat_order;	/* remember user transpose */
+    state->mat_order = 'd';	/* turn transpose off */
 
     if (vec_num == 0) {
 	/* Corrections are only applied to 0th order matrix */
@@ -1011,19 +1012,22 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 	ierr = NDI_GET_FLOAT_VEC_H(state, chi_type, chi, array_size);
 
 	array_size = ndi_c_get_size_h(state, nusigf_type, &ierr);
-	nusigf = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
+	nusigf =
+	    (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
 	/* Check for error */
 	ierr = NDI_GET_FLOAT_VEC_H(state, nusigf_type, nusigf, array_size);
 
-	array_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, vec_num, &ierr);
-	scat_mat = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
+	array_size =
+	    ndi_c_get_size_n_h(state, NDI_PN_FULL, vec_num, &ierr);
+	scat_mat =
+	    (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
 	/* Check for error */
 	pn_ptr = scat_mat;
     }
 
     ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_FULL, vec_num, pn_ptr,
-                                 array_size);
-    state->mat_order = transpose_state; /* restore user transpose */
+				 array_size);
+    state->mat_order = transpose_state;	/* restore user transpose */
 
     if (state->collapse_flag) {
 	num_grps = state->grp_num_new;
@@ -1038,7 +1042,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 		if (((i * num_grps) + j) < vec_size) {
 		    return_vec[i * num_grps + j] =
 			scat_mat[i * num_grps + j]
-                     + nusigf[i] * chi[i * num_grps + j];
+			+ nusigf[i] * chi[i * num_grps + j];
 		} else {
 		    ierr = 7;
 		}
@@ -1110,10 +1114,10 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     if (!state) {
 	return (-2);
     }
-    if ( (vec_num < 0) || (vec_num >= MAX_NU ) ) {
-        return (-6);
+    if ((vec_num < 0) || (vec_num >= MAX_NU)) {
+	return (-6);
     }
- 
+
     /* get number of groups */
     if (state->collapse_flag)
 	num_grps = state->grp_num_new;
@@ -1132,15 +1136,16 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     sigma = sqrt(2.0) * 1.08;	/* Terrell's fit value */
 
     for (g = 0; g < num_grps; g++) {
-	if (nu[g] > 0.0) { /* fissionable */
+	if (nu[g] > 0.0) {	/* fissionable */
 	    b = 0.5 * (1.0 - ndi_erf((nu[g] + 0.5) / sigma));
-	    return_vec[g] = 0.5 * (1.0 + ndi_erf((vec_num - nu[g] + 0.5 + b) /
-						 sigma));
+	    return_vec[g] =
+		0.5 * (1.0 + ndi_erf((vec_num - nu[g] + 0.5 + b) / sigma));
 	    if (0 < vec_num)
 		return_vec[g] -=
-		    0.5 * (1.0 + ndi_erf((vec_num - nu[g] - 0.5 + b) / sigma));
+		    0.5 * (1.0 +
+			   ndi_erf((vec_num - nu[g] - 0.5 + b) / sigma));
 	} else {		/* non-fissionable */
-	    return_vec[g] = vec_num ? 0.0: 1.0;
+	    return_vec[g] = vec_num ? 0.0 : 1.0;
 	}
     }
 
@@ -1226,8 +1231,8 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     if (!state) {
 	return (-2);
     }
-    if ( (i < 0) || (i >= MAX_NU ) ) {
-        return (-6);
+    if ((i < 0) || (i >= MAX_NU)) {
+	return (-6);
     }
 
     /* get number of groups */
@@ -1269,9 +1274,9 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     }
 
     for (k = 0; k < num_grps; k++)	/* normalize */
-        if (nu[k] > 0.0) {
-            sig_pnu[k] *= nu_sig_f[k] / (ndi_fact(i) * nu[k]);
-        } else {
+	if (nu[k] > 0.0) {
+	    sig_pnu[k] *= nu_sig_f[k] / (ndi_fact(i) * nu[k]);
+	} else {
 	    sig_pnu[k] *= nu_sig_f[k];
 	}
 

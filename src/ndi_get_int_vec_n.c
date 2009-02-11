@@ -52,10 +52,11 @@ int ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
     if (is_gendir(state)) {
 	ierr = -2;		/* case not handled currently */
     } else if (state->library_type == 'm') {
-	ierr = get_int_vec_n_mg(state, in_key, vec_num, return_vec, vec_size);
+	ierr =
+	    get_int_vec_n_mg(state, in_key, vec_num, return_vec, vec_size);
     } else if (state->library_type == 'r') {
 	ierr = get_int_vec_n_tnreac(state, in_key, vec_num, return_vec,
-				 vec_size);
+				    vec_size);
     } else if (state->library_type == 'p') {
 	ierr = -4;
     } else if (state->library_type == ' ') {
@@ -106,26 +107,29 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = vec_num;
 	}
 
-        ierr = ndi_find_rprod_index(state->lib_stream,
-                                    &state->iso_stat.rprod_all, &rprod_index,
-                                    vec_num);
-        if (ierr >= 0) {
-            if (rprod_index < state->iso_stat.rprod_all.num_objs) {
-                curr_state = state->iso_stat.rprod_all.stat[rprod_index];
-                num_elements = curr_state.length;
-                if (curr_state.file_ptr) {
-                    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            ID_PARAM, &num_elements, READ_MT);
-                    (void) ndi_translate_fiss_prod(state, return_vec,
-                                                   num_elements);
-                    
+	ierr = ndi_find_rprod_index(state->lib_stream,
+				    &state->iso_stat.rprod_all,
+				    &rprod_index, vec_num);
+	if (ierr >= 0) {
+	    if (rprod_index < state->iso_stat.rprod_all.num_objs) {
+		curr_state = state->iso_stat.rprod_all.stat[rprod_index];
+		num_elements = curr_state.length;
+		if (curr_state.file_ptr) {
+		    ierr = ndi_read_rx_prod(state->lib_stream,
+					    curr_state.file_ptr,
+					    &return_vec, ID_PARAM,
+					    &num_elements, READ_MT);
+		    (void) ndi_translate_fiss_prod(state, return_vec,
+						   num_elements);
+
 		} else {
 		    /* Error: data not available for this isotope */
 		    ierr = -9;
 		}
 	    } else {
-		ierr = ndi_check_array_err(state->iso_stat.rprod_all.num_objs);
+		ierr =
+		    ndi_check_array_err(state->iso_stat.rprod_all.
+					num_objs);
 	    }
 	} else {
 	    /* Error: data not available for this isotope */
@@ -146,29 +150,31 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	}
 
 	ierr = ndi_find_rprod_index(state->lib_stream,
-                                    &state->iso_stat.rprod_all, &rprod_index,
-                                    vec_num);
+				    &state->iso_stat.rprod_all,
+				    &rprod_index, vec_num);
 	if (ierr >= 0) {
 	    if (rprod_index < state->iso_stat.rprod_all.num_objs) {
 		curr_state = state->iso_stat.rprod_all.stat[rprod_index];
 		num_elements = curr_state.length;
 		if (curr_state.file_ptr) {
 		    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            MULT_PARAM, &num_elements,
-                                            READ_MT);
+					    curr_state.file_ptr,
+					    &return_vec, MULT_PARAM,
+					    &num_elements, READ_MT);
 		} else {
 		    /* Error: data not available for this isotope */
 		    ierr = -9;
 		}
 	    } else {
-		ierr = ndi_check_array_err(state->iso_stat.rprod_all.num_objs);
+		ierr =
+		    ndi_check_array_err(state->iso_stat.rprod_all.
+					num_objs);
 	    }
-        } else {
-            /* Error: data not available for this isotope */
-            ierr = -9;
-        }
-        break;
+	} else {
+	    /* Error: data not available for this isotope */
+	    ierr = -9;
+	}
+	break;
 
 
     case NDI_RPROD_ID_RMO:
@@ -184,16 +190,17 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	}
 
 	ierr = ndi_find_rprod_index(state->lib_stream,
-                                    &state->iso_stat.rprod_rmo, &rprod_index,
-                                    vec_num);
+				    &state->iso_stat.rprod_rmo,
+				    &rprod_index, vec_num);
 	if (ierr >= 0) {
 	    if (rprod_index < state->iso_stat.rprod_rmo.num_objs) {
 		curr_state = state->iso_stat.rprod_rmo.stat[rprod_index];
 		num_elements = curr_state.length;
 		if (curr_state.file_ptr) {
 		    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            ID_PARAM, &num_elements, READ_MT);
+					    curr_state.file_ptr,
+					    &return_vec, ID_PARAM,
+					    &num_elements, READ_MT);
 		    (void) ndi_translate_fiss_prod(state, return_vec,
 						   num_elements);
 		} else {
@@ -202,16 +209,18 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 		    memset(return_vec, 0, num_elements * sizeof(int));
 		}
 	    } else {
-		ierr = ndi_check_array_err(state->iso_stat.rprod_rmo.num_objs);
+		ierr =
+		    ndi_check_array_err(state->iso_stat.rprod_rmo.
+					num_objs);
 	    }
 	} else {
 	    /* Error: data not available for this isotope */
 	    ierr = -9;
-        }
-        
-        break;
-      
- 
+	}
+
+	break;
+
+
     case NDI_RPROD_MLT_RMO:
 	/* Reac. prod. mults for products of reaction indicated by vec_num -- rmo */
 	if (state->reac_id == 'c') {
@@ -223,26 +232,28 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	} else {
 	    mt = vec_num;
 	}
-        
+
 	ierr = ndi_find_rprod_index(state->lib_stream,
-                                    &state->iso_stat.rprod_rmo, &rprod_index,
-                                    vec_num);
+				    &state->iso_stat.rprod_rmo,
+				    &rprod_index, vec_num);
 	if (ierr >= 0) {
 	    if (rprod_index < state->iso_stat.rprod_rmo.num_objs) {
 		curr_state = state->iso_stat.rprod_rmo.stat[rprod_index];
 		num_elements = curr_state.length;
 		if (curr_state.file_ptr) {
 		    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            MULT_PARAM, &num_elements,
-                                            READ_MT);
+					    curr_state.file_ptr,
+					    &return_vec, MULT_PARAM,
+					    &num_elements, READ_MT);
 		} else {
 		    /* Error: data not available for this isotope */
 		    ierr = -9;
 		    memset(return_vec, 0, num_elements * sizeof(int));
 		}
 	    } else {
-		ierr = ndi_check_array_err(state->iso_stat.rprod_rmo.num_objs);
+		ierr =
+		    ndi_check_array_err(state->iso_stat.rprod_rmo.
+					num_objs);
 	    }
 	} else {
 	    /* Error: data not available for this isotope */
@@ -263,22 +274,23 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	} else {
 	    mt = vec_num;
 	}
-  
 
-       ierr = ndi_find_rprod_index(state->lib_stream,
-                                  &state->iso_stat.rprod_few, &rprod_index,
-                                  vec_num);
+
+	ierr = ndi_find_rprod_index(state->lib_stream,
+				    &state->iso_stat.rprod_few,
+				    &rprod_index, vec_num);
 	if (ierr >= 0) {
 	    if (rprod_index < state->iso_stat.rprod_few.num_objs) {
 		curr_state = state->iso_stat.rprod_few.stat[rprod_index];
 		num_elements = curr_state.length;
 		if (curr_state.file_ptr) {
 		    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            ID_PARAM, &num_elements, READ_MT);
+					    curr_state.file_ptr,
+					    &return_vec, ID_PARAM,
+					    &num_elements, READ_MT);
 		    (void) ndi_translate_fiss_prod(state, return_vec,
 						   num_elements);
-                    
+
 		} else {
 		    /* Error: data not available for this isotope */
 		    ierr = -9;
@@ -310,17 +322,17 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	}
 
 	ierr = ndi_find_rprod_index(state->lib_stream,
-                                    &state->iso_stat.rprod_few, &rprod_index,
-                                    vec_num);
+				    &state->iso_stat.rprod_few,
+				    &rprod_index, vec_num);
 	if (ierr >= 0) {
 	    if (rprod_index < state->iso_stat.rprod_few.num_objs) {
 		curr_state = state->iso_stat.rprod_few.stat[rprod_index];
 		num_elements = curr_state.length;
 		if (curr_state.file_ptr) {
 		    ierr = ndi_read_rx_prod(state->lib_stream,
-                                            curr_state.file_ptr, &return_vec,
-                                            MULT_PARAM, &num_elements,
-                                            READ_MT);
+					    curr_state.file_ptr,
+					    &return_vec, MULT_PARAM,
+					    &num_elements, READ_MT);
 		} else {
 		    /* Error: data not available for this isotope */
 		    ierr = -9;

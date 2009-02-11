@@ -66,7 +66,8 @@ int ndi_nusigf_avail(state_struct *state, char nu_type)
 
     }				/* switch */
 
-    if (state->iso_stat.fissionable == 0) return -1;
+    if (state->iso_stat.fissionable == 0)
+	return -1;
 
     if (nusigf_ptr) {
 	/* Nu_sigf is contained in library */

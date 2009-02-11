@@ -45,7 +45,7 @@ static void ndi_find_zaid_string(char *in_line, int in_size,
     positive value for warning, and a '0' if everything's ok.
 
 ***********************************************************************/
-int 
+int
 ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 {
     int ierr = 0;		/* Error flag */
@@ -69,23 +69,23 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
    /*************************/
     switch (in_key) {
 
-    case NDI_LIB_TYPE:          /* Library type  */
+    case NDI_LIB_TYPE:		/* Library type  */
 	ierr = ndi_set_lib_type(state, value);
 	break;
 
-    case NDI_LIBRARY:           /* Library name */
+    case NDI_LIBRARY:		/* Library name */
 	ierr = ndi_set_library(state, value);
 	break;
 
-    case NDI_MAT_ORDER:         /* Matrix transpose order */
+    case NDI_MAT_ORDER:	/* Matrix transpose order */
 	ierr = ndi_set_mat_order(state, value);
 	break;
 
-    case NDI_COLLAPSE:          /* Energy group structure */
+    case NDI_COLLAPSE:		/* Energy group structure */
 	ierr = ndi_set_collapse(state, value);
 	break;
 
-    case NDI_E_BOUNDS_CURR_PART: /* Current particle energy group structure */
+    case NDI_E_BOUNDS_CURR_PART:	/* Current particle energy group structure */
 	ierr = ndi_set_ebounds_curr_part(state, value);
 	break;
 
@@ -93,18 +93,18 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	ierr = ndi_set_trans_corr_diag(state, value);
 	break;
 
-    case NDI_NORM:	/* Normalize chi and e_dist */
+    case NDI_NORM:		/* Normalize chi and e_dist */
 	ierr = ndi_set_norm(state, value);
 	break;
 
-    case NDI_REAC_ID:	/* Specify reaction identifiers as MT or C values */
+    case NDI_REAC_ID:		/* Specify reaction identifiers as MT or C values */
 	ierr = ndi_set_reac_id(state, value);
 	break;
-    case NDI_E_AVG:	/* Specify average bin energy calculation */
+    case NDI_E_AVG:		/* Specify average bin energy calculation */
 	ierr = ndi_set_e_avg(state, value);
 	break;
 
-    case NDI_KERMA:	/* Specify kerma/heating calculation */
+    case NDI_KERMA:		/* Specify kerma/heating calculation */
 	ierr = ndi_set_kerma_calc(state, value);
 	break;
 
@@ -112,7 +112,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	ierr = ndi_depletion(state, value);
 	break;
 
-    case NDI_CHAIN:	/* Set radiochemistry chain */
+    case NDI_CHAIN:		/* Set radiochemistry chain */
 	ierr = ndi_radchem(state, value);
 	break;
 
@@ -124,20 +124,20 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 				       state->tn_stat.sec_part,
 				       state->sec_part_filled);
 	} else if (state->library_type == 'm') {
-            /* Check that isotope is set */
-            if (!state->iso_stat.set_flag) {
-                return (-7);
-            }
+	    /* Check that isotope is set */
+	    if (!state->iso_stat.set_flag) {
+		return (-7);
+	    }
 	    pindex =
 		ndi_find_mg_part_index(atoi(value),
 				       state->iso_stat.sec_part,
 				       state->iso_stat.num_sec_parts);
 	} else if (state->library_type == ' ') {
 	    ierr = -16;
-            return(ierr);
+	    return (ierr);
 	} else {
 	    ierr = -4;
-            return(ierr);
+	    return (ierr);
 	}
 
 	state->curr_part_index = pindex;
@@ -148,7 +148,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 
 	break;
 
-    case NDI_TEMP:	/* Set default temperature  */
+    case NDI_TEMP:		/* Set default temperature  */
 	state->default_temp = strtod(value, (char **) NULL);
 	break;
 
@@ -156,14 +156,14 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	if (strncmp(value, "default", 8) == 0) {
 	    strncpy(state->def_fiss_prod_id, DEF_FISSION_PROD,
 		    sizeof(state->def_fiss_prod_id));
-	} else { 
-            strncpy(state->def_fiss_prod_id, value,
+	} else {
+	    strncpy(state->def_fiss_prod_id, value,
 		    sizeof(state->def_fiss_prod_id));
-        /*  Shouldn't need this--no one should be inputting symbols
-	    ierr =
-		ndi_std_zaid(state, state->def_fiss_prod_id,
-			     sizeof(state->def_fiss_prod_id));
-        */
+	    /*  Shouldn't need this--no one should be inputting symbols
+	       ierr =
+	       ndi_std_zaid(state, state->def_fiss_prod_id,
+	       sizeof(state->def_fiss_prod_id));
+	     */
 	}
 	break;
 
@@ -272,12 +272,15 @@ static int ndi_set_library(state_struct *state, const char *value)
     if (strncmp(value, "default", 8) == 0) {
 	strncpy(state->library_vers, "", sizeof(state->library_vers));
     } else {
-	if (ndi_lib_dir(state, state->particle_type, state->library_type, "l", value, 0) == 1) {
+	if (ndi_lib_dir
+	    (state, state->particle_type, state->library_type, "l", value,
+	     0) == 1) {
 	    if ((val_length + 1) < MAX_LIB_VERS_LEN) {	/* Size of library_vers is 13 in ndi_init */
 		strncpy(state->library_vers, value,
 			(val_length + 1) * sizeof(char));
 	    } else {
-		strncpy(state->library_vers, value, (MAX_LIB_VERS_LEN * sizeof(char)));
+		strncpy(state->library_vers, value,
+			(MAX_LIB_VERS_LEN * sizeof(char)));
 	    }
 	} else {
 	    ierr = 54;
@@ -451,14 +454,14 @@ static int ndi_set_norm(state_struct *state, const char *value)
 	return (-2);
     }
 
-   if ( strstr( value, "default" ) != NULL ) {
-      state->no_norm = 0;
-   } else if ( strstr( value, "no_norm" ) ) {
-      state->no_norm = -1;
-   } else {
-      state->no_norm = 0;
-      ierr = -5;
-   }
+    if (strstr(value, "default") != NULL) {
+	state->no_norm = 0;
+    } else if (strstr(value, "no_norm")) {
+	state->no_norm = -1;
+    } else {
+	state->no_norm = 0;
+	ierr = -5;
+    }
 
     return (ierr);
 }
@@ -544,12 +547,12 @@ static int ndi_set_e_avg(state_struct *state, const char *value)
 	state->e_avg_calc = E_MEAN;
     } else if (strncmp(value, "from_sgndf", 11) == 0) {
 	state->e_avg_calc = SGNDF;
-   } else if ( strncmp( value, "legacy_calc", 12 ) == 0 ) {
-      state->e_avg_calc = LEGACY_VEL_CALC;
-   } else if ( strncmp( value, "from_flat", 10 ) == 0 ) {
-      state->e_avg_calc = FLAT_CALC;
-   } else if ( strncmp( value, "from_td", 8 ) == 0 ) {
-      state->e_avg_calc = TD_CALC;
+    } else if (strncmp(value, "legacy_calc", 12) == 0) {
+	state->e_avg_calc = LEGACY_VEL_CALC;
+    } else if (strncmp(value, "from_flat", 10) == 0) {
+	state->e_avg_calc = FLAT_CALC;
+    } else if (strncmp(value, "from_td", 8) == 0) {
+	state->e_avg_calc = TD_CALC;
     } else {
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;

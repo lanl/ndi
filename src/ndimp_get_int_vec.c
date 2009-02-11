@@ -4,12 +4,13 @@
 #include "ndi_internal.h"
 #include "ndi_state.h"
 
-static int get_comb_reac_mt(state_struct *handle[], 
+static int get_comb_reac_mt(state_struct *handle[],
 			    const int num_parts,
 			    int *return_vec, const int vec_size);
 
 /**********************************************************************/
-int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec, int vec_size)
+int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec,
+		      int vec_size)
 {
 
     int ierr = 0;
@@ -39,7 +40,7 @@ int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec, int vec_size)
 }
 
 /**********************************************************************/
-static int get_comb_reac_mt(state_struct *handle[], 
+static int get_comb_reac_mt(state_struct *handle[],
 			    const int num_parts,
 			    int *return_vec, const int vec_size)
 {

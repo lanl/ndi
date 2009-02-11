@@ -5,8 +5,7 @@
 
 /**********************************************************************/
 
-int
-ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr)
+int ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr)
 {
 
     int return_val = 0;
@@ -28,8 +27,8 @@ ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr)
     case NDI_SIG_PNU_PR:
     case NDI_CORR_DIAG:
     case NDI_CORR_BHS:
-        *ierr = ndimp_get_int_val(h, NDI_NUM_GRPS, &return_val);
-        break;
+	*ierr = ndimp_get_int_val(h, NDI_NUM_GRPS, &return_val);
+	break;
 
     default:
 	*ierr = -4;

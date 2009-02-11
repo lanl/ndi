@@ -87,21 +87,24 @@ static int set0_mg(state_struct *state)
 	if ((state->iso_stat.num_sec_parts > 0)
 	    && (state->iso_stat.sec_part != NULL)) {
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
-		ierr = ndi_set0_mg_sec_part(&(state->iso_stat.sec_part[i]));
-		}
+		ierr =
+		    ndi_set0_mg_sec_part(&(state->iso_stat.sec_part[i]));
 	    }
+	}
 
 
 	/* Free and set to null secondary particle info, if present */
 	if (state->iso_stat.sec_part) {
 	    ndi_free((void **) &state->iso_stat.sec_part);
 	    state->iso_stat.sec_part = NULL;
-	    }
+	}
 	state->iso_stat.num_sec_parts = -1;
 
 
-	(void) strncpy(state->iso_stat.zaid, "", sizeof(state->iso_stat.zaid));
-	(void) strncpy(state->iso_stat.info, "", sizeof(state->iso_stat.info));
+	(void) strncpy(state->iso_stat.zaid, "",
+		       sizeof(state->iso_stat.zaid));
+	(void) strncpy(state->iso_stat.info, "",
+		       sizeof(state->iso_stat.info));
 	(void) strncpy(state->iso_stat.date_processed, "",
 		       sizeof(state->iso_stat.date_processed));
 	(void) strncpy(state->iso_stat.date_source, "",
@@ -109,7 +112,7 @@ static int set0_mg(state_struct *state)
 	(void) strncpy(state->iso_stat.library_name, "",
 		       sizeof(state->iso_stat.library_name));
 
-        state->curr_part_index = -1; /* Reset current part index */
+	state->curr_part_index = -1;	/* Reset current part index */
 	state->iso_stat.set_flag = 0;
 	state->iso_stat.fissionable = 0;
 	state->iso_stat.num_grps = -1;
@@ -254,8 +257,10 @@ static int set0_tn(state_struct *state)
 	state->tn_stat.set_flag = 0;
 	state->tn_stat.q_set = 0;
 	state->tn_stat.q_value = 0.0;
-	(void) strncpy(state->tn_stat.zaid, "", sizeof(state->tn_stat.zaid));
-	(void) strncpy(state->tn_stat.info, "", sizeof(state->tn_stat.info));
+	(void) strncpy(state->tn_stat.zaid, "",
+		       sizeof(state->tn_stat.zaid));
+	(void) strncpy(state->tn_stat.info, "",
+		       sizeof(state->tn_stat.info));
 	(void) strncpy(state->tn_stat.date_processed, "",
 		       sizeof(state->tn_stat.date_processed));
 	(void) strncpy(state->tn_stat.date_source, "",
@@ -285,14 +290,14 @@ static int set0_tn(state_struct *state)
 		if ((i < state->sec_part_filled)
 		    && (state->sec_part_filled > 0)) {
 		    ndi_set0_tn_sec_part(&(state->tn_stat.sec_part[i]), 1);
-		    }
-
 		}
+
+	    }
 	    if (state->tn_stat.sec_part)
 		ndi_free((void **) &(state->tn_stat.sec_part));
 	    if (state->tn_stat.sec_part_types)
 		ndi_free((void **) &state->tn_stat.sec_part_types);
-	    }
+	}
 
 	state->tn_stat.sec_part = NULL;
 	state->tn_stat.sec_part_types = NULL;
@@ -338,7 +343,7 @@ static int set0_tnreac(state_struct *state)
 	    state->tnreac_stat.rprods[i].length = 0;
 	    state->tnreac_stat.reactants[i].file_ptr = 0;
 	    state->tnreac_stat.rprods[i].file_ptr = 0;
-	    }
+	}
 	if (state->tnreac_stat.reactants)
 	    ndi_free((void **) &state->tnreac_stat.reactants);
 	if (state->tnreac_stat.rprods)
@@ -349,8 +354,8 @@ static int set0_tnreac(state_struct *state)
 	    if (state->tnreac_stat.list_reac[i]) {
 		ndi_free((void **) &state->tnreac_stat.list_reac[i]);
 		state->tnreac_stat.list_reac[i] = NULL;
-		}
 	    }
+	}
     }
     return (ierr);
 

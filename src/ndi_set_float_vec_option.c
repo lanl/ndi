@@ -17,8 +17,8 @@
 #include "ndi_internal.h"
 
 static int ndi_set_collapse_vec(state_struct *state,
-                                const ndi_float64 * ebound_array,
-                                const int new_num_grps);
+				const ndi_float64 * ebound_array,
+				const int new_num_grps);
 static int ndi_set_ebounds_curr_part(state_struct *state,
 				     const ndi_float64 * ebound_array,
 				     const int new_num_grps);
@@ -81,8 +81,8 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 /**********************************************************************/
 
 static int ndi_set_collapse_vec(state_struct *state,
-                                const ndi_float64 * ebound_array,
-                                const int new_num_grps)
+				const ndi_float64 * ebound_array,
+				const int new_num_grps)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,

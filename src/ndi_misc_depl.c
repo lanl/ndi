@@ -55,9 +55,9 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
 		     &iso_start, &at_wgt, -1);
 
     /* Check validity of data read from gendir */
-    if (strcmp(lib_path, "") == 0 ) {
-        ierr = -8;
-        return(-8);
+    if (strcmp(lib_path, "") == 0) {
+	ierr = -8;
+	return (-8);
     }
 
     /* Set global variable to indicate the name of the new depl dataset */
@@ -121,7 +121,7 @@ int ndi_set_default_depl(state_struct *state)
 /**********************************************************************/
 
 int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
-                        int *target_index)
+			int *target_index)
 
      /* Set *targ_p to point at the target struct whose zaid is given by the global
         var 'zaid'.  The param target_index will be the index of the desired target in
@@ -207,7 +207,7 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
    On exit, it will be the index of the desired rprod.
 */
 int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
-                       const char *rprod, int *prod_index)
+		       const char *rprod, int *prod_index)
 {
     int i;
     int ierr = 0;
@@ -220,7 +220,7 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
     *prod_index = -1;
 
     /* Check input */
-    if (!state) {               /* State uninitialized error */
+    if (!state) {		/* State uninitialized error */
 	return (-2);
     }
 
@@ -233,14 +233,14 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
 
     /* Search for iprod (or 99999 if fission product) in depletion set */
     for (i = 0; i < num_rprods; i++) {
-	if (curr_prod[i].izaid == iprod  ||
-             (atoi(state->def_fiss_prod_id) == iprod && 
-              curr_prod[i].izaid == 99999)) {
+	if (curr_prod[i].izaid == iprod ||
+	    (atoi(state->def_fiss_prod_id) == iprod &&
+	     curr_prod[i].izaid == 99999)) {
 	    break;
 	}
     }
 
-    if (i == num_rprods) { /* Reaction product not in depletion set error */
+    if (i == num_rprods) {	/* Reaction product not in depletion set error */
 	return (-32);
     }
 

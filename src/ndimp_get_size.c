@@ -6,7 +6,8 @@
 #include "ndi_state.h"
 
 static int get_num_unique_reac(state_struct *h, int *ierr);
-static int get_sum_of_particle_sizes(state_struct *h, int in_key, int *ierr);
+static int get_sum_of_particle_sizes(state_struct *h, int in_key,
+				     int *ierr);
 
 /**********************************************************************/
 
@@ -41,33 +42,32 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
     case NDI_CHI_VEC_PR:
     case NDI_CHI_VEC_DEL:
 	/* Sum of individual particle sizes */
-	return_val =
-	    get_sum_of_particle_sizes(h, in_key, ierr);
+	return_val = get_sum_of_particle_sizes(h, in_key, ierr);
 	break;
 
     case NDI_REAC_MT:
 	return_val = get_num_unique_reac(h, ierr);
 	break;
 
-        /* Matrix values */
+	/* Matrix values */
     case NDI_CHI_MAT_TOT:
     case NDI_CHI_MAT_PR:
     case NDI_CHI_MAT_DEL:
-         return_val = get_sum_of_particle_sizes(h, in_key, ierr);
-         return_val *= return_val;
-         break;
+	return_val = get_sum_of_particle_sizes(h, in_key, ierr);
+	return_val *= return_val;
+	break;
 
-    /* All single values */
+	/* All single values */
     case NDI_ZAID:		/*  ZAID  */
 	return_val = strlen(handle[0]->iso_stat.zaid) + 1;
 	break;
-    case  NDI_NUM_GRPS:
+    case NDI_NUM_GRPS:
     case NDI_PN_ORDER:
     case NDI_NUM_PNU_PR:
     case NDI_NUM_REAC:
     case NDI_FISSIONABLE:
-        return_val = 1;
-        break;
+	return_val = 1;
+	break;
 
     default:
 	*ierr = -4;
@@ -134,8 +134,7 @@ static int get_num_unique_reac(state_struct *h, int *ierr)
 
     unique_mts = (int *) ndi_calloc(max_size, sizeof(int));
 
-    *ierr = ndimp_get_int_vec(h, NDI_REAC_MT,
-			      unique_mts, max_size);
+    *ierr = ndimp_get_int_vec(h, NDI_REAC_MT, unique_mts, max_size);
     for (i = 0; i < max_size; i++) {
 	if (unique_mts[i] > 0) {
 	    num_unique_mts++;

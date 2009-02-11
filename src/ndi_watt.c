@@ -34,7 +34,7 @@ double ndi_int_watt(double E, double a, double b)
         (erf(sqrt(E/a) - c) + erf(sqrt(E/a) + c)) - 
         K * a * exp(-E/a) * sinh(sqrt(b*E));
 }
-
+
 #ifdef TEST_NDI_WATT
 
 #include <stdio.h>

@@ -208,33 +208,38 @@ int
 ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
 		  const int data_type, int *num_prod, short mt_flag)
 {
-    char in_line[MAX_IN_STR_LEN]; /* Line of input data (132-char maximum) */
-    char *tok_str;              /* String being parsed (input line) */
-    char *token;                /* Current value from string being parsed */
-    char seps[] = " ,\t\n";     /* Data delimiters--space,comma,tab,newline */
+    char in_line[MAX_IN_STR_LEN];	/* Line of input data (132-char maximum) */
+    char *tok_str;		/* String being parsed (input line) */
+    char *token;		/* Current value from string being parsed */
+    char seps[] = " ,\t\n";	/* Data delimiters--space,comma,tab,newline */
 
-    int count;   		/* Count of integer values found from input */
+    int count;			/* Count of integer values found from input */
     int curr_mt;		/* MT of current reaction */
     int num_prod_in;		/* Number of products for current reaction */
-    double *curr_ptr = *vec;    /* Return data */
+    double *curr_ptr = *vec;	/* Return data */
 
     /* Check input parameters */
-    if (data_type != MULT_PARAM) return (-13);
+    if (data_type != MULT_PARAM)
+	return (-13);
 
     /* Go to data block */
     fseek(stream, file_pos, SEEK_SET);
 
     /* Read optional MT ID */
     if (mt_flag) {
-	if (fscanf(stream, "%d\n", &curr_mt) == EOF) return (-11);
+	if (fscanf(stream, "%d\n", &curr_mt) == EOF)
+	    return (-11);
     }
 
     /* Read number of reaction products */
-    if (fscanf(stream, "%d\n", &num_prod_in) == EOF) return (-11);
+    if (fscanf(stream, "%d\n", &num_prod_in) == EOF)
+	return (-11);
 
     /* if num_prod_in <= 0 then there's no data */
-    if (num_prod_in < 0) return (9); /* Warn: bad data on file */
-    if (num_prod_in == 0) return (0);
+    if (num_prod_in < 0)
+	return (9);		/* Warn: bad data on file */
+    if (num_prod_in == 0)
+	return (0);
 
     /* allocate return vector (bad style!) */
     *num_prod = num_prod_in;
@@ -244,21 +249,22 @@ ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
     count = 0;
     do {
 
-         /* read line */
-         if (fgets(in_line, sizeof(in_line), stream) == NULL) return (-11);
-         tok_str = in_line;
+	/* read line */
+	if (fgets(in_line, sizeof(in_line), stream) == NULL)
+	    return (-11);
+	tok_str = in_line;
 
-         /* parse line */
-         for (token = strtok(tok_str, seps); token != NULL; 
-              token = strtok(NULL, seps)) { /* first of pair */
+	/* parse line */
+	for (token = strtok(tok_str, seps); token != NULL; token = strtok(NULL, seps)) {	/* first of pair */
 
-              if ((token = strtok(NULL, seps)) != NULL) { /* second of pair */
-                   *curr_ptr++ = strtod(token, NULL);
-                   if (++count == num_prod_in) break;
-              } else {
-                   return (-12);/* Error: second of pair not found. */
-              }		
-         }
+	    if ((token = strtok(NULL, seps)) != NULL) {	/* second of pair */
+		*curr_ptr++ = strtod(token, NULL);
+		if (++count == num_prod_in)
+		    break;
+	    } else {
+		return (-12);	/* Error: second of pair not found. */
+	    }
+	}
 
     } while (count < num_prod_in);
 

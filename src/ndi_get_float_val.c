@@ -112,7 +112,7 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
    /*************************/
     switch (in_key) {
 
-    case NDI_TEMP:	/*  Temperature  */
+    case NDI_TEMP:		/*  Temperature  */
 	if (state->iso_stat.temp >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
 	} else {
@@ -121,7 +121,7 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_SIG_0:	/* Sigma zero  */
+    case NDI_SIG_0:		/* Sigma zero  */
 	if (state->iso_stat.sig_0 >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
 	} else {
@@ -130,7 +130,7 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_AT_WGT:	/* Atomic weight  */
+    case NDI_AT_WGT:		/* Atomic weight  */
 	if (state->iso_stat.at_wgt >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
 	} else {
@@ -139,7 +139,7 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_AWR:	/* Atomic weight ratio  */
+    case NDI_AWR:		/* Atomic weight ratio  */
 	if (state->iso_stat.awr >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
 	} else {
@@ -181,15 +181,15 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
    /*************************/
     switch (in_key) {
 
-    case NDI_REAC_Q:	/* Reaction Q-value */
+    case NDI_REAC_Q:		/* Reaction Q-value */
 	*ret_val = (FLOAT_TYPE) state->tn_stat.q_value;
 	if (state->tn_stat.q_set == 0) {
 	    ierr = -9;
 	}
 	break;
 
-    case NDI_EAVG_OUT:          /* Average outgoing energy */
-    case NDI_EOUTBAR:          /* Average outgoing energy */
+    case NDI_EAVG_OUT:		/* Average outgoing energy */
+    case NDI_EOUTBAR:		/* Average outgoing energy */
 	ierr = CALC_EAVG_OUT(state, state->lib_stream, ret_val);
 	break;
 
@@ -239,7 +239,7 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 	   break;
 	 */
 
-    case NDI_TEMP:	/*  Temperature  */
+    case NDI_TEMP:		/*  Temperature  */
 	if (state->iso_stat.temp >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
 	} else {
@@ -248,7 +248,7 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_SIG_0:	/* Sigma zero  */
+    case NDI_SIG_0:		/* Sigma zero  */
 	if (state->iso_stat.sig_0 >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
 	} else {
@@ -257,7 +257,7 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 	}
 	break;
 
-    case NDI_AT_WGT:	/* Atomic weight  */
+    case NDI_AT_WGT:		/* Atomic weight  */
 	if (state->iso_stat.at_wgt >= 0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
 	} else {

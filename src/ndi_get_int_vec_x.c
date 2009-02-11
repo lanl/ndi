@@ -14,16 +14,18 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 
-static int get_int_vec_x_mg(state_struct *state, int in_key, 
-                            const char *in_str, int *return_vec, int vec_size);
+static int get_int_vec_x_mg(state_struct *state, int in_key,
+			    const char *in_str, int *return_vec,
+			    int vec_size);
 
 static int get_reac_mt(state_struct *state, const char *rprod_in,
-                       int *return_vec, int vec_size);
+		       int *return_vec, int vec_size);
 
 /**********************************************************************/
 
-int ndi_c_get_int_vec_x_h(state_struct *state, int in_key, 
-                          const char *in_str, int *return_vec, int vec_size)
+int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
+			  const char *in_str, int *return_vec,
+			  int vec_size)
 
 /*  Purpose: Return an integer array which is a named element
     
@@ -49,7 +51,8 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
     if (is_gendir(state)) {
 	ierr = -2;		/* case not handled currently */
     } else if (state->library_type == 'm') {
-	ierr = get_int_vec_x_mg(state, in_key, in_str, return_vec, vec_size);
+	ierr =
+	    get_int_vec_x_mg(state, in_key, in_str, return_vec, vec_size);
     } else if (state->library_type == 'r') {
 	ierr = -2;
     } else if (state->library_type == 'p') {
@@ -66,8 +69,9 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
 
 /**********************************************************************/
 /**********************************************************************/
-static int get_int_vec_x_mg(state_struct *state, int in_key, 
-                            const char *in_str, int *return_vec, int vec_size)
+static int get_int_vec_x_mg(state_struct *state, int in_key,
+			    const char *in_str, int *return_vec,
+			    int vec_size)
 {
     int ierr = 0;
 
@@ -86,8 +90,8 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
     switch (in_key) {
 
     case NDI_REAC_MT:
-         ierr = get_reac_mt(state, in_str, return_vec, vec_size);
-         break;
+	ierr = get_reac_mt(state, in_str, return_vec, vec_size);
+	break;
 
       /***********  UNKNOWN KEYWORD  **************/
 
@@ -102,7 +106,7 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 static int get_reac_mt(state_struct *state, const char *rprod_in,
-		 int *return_vec, int vec_size)
+		       int *return_vec, int vec_size)
 {
     int i;
     int ierr = 0;

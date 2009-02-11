@@ -5,18 +5,17 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
-static int GET_COMB_FLOAT_VEC(state_struct *handle[], 
+static int GET_COMB_FLOAT_VEC(state_struct *handle[],
 			      const int num_parts,
 			      const int in_key, FLOAT_TYPE * return_vec,
 			      const int vec_size);
 static int GET_MPMG_CHI_MAT(state_struct *h,
-                            int in_key, FLOAT_TYPE * return_vec,
-                            int vec_size);
+			    int in_key, FLOAT_TYPE * return_vec,
+			    int vec_size);
 
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
-                        FLOAT_TYPE * ret_vec,
-			int vec_size)
+			FLOAT_TYPE * ret_vec, int vec_size)
 {
     int ierr = 0;
     int num_parts;
@@ -62,17 +61,15 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
     case NDI_CHI_MAT_TOT:
     case NDI_CHI_MAT_PR:
     case NDI_CHI_MAT_DEL:
-        ierr = GET_MPMG_CHI_MAT(h, in_key, ret_vec, vec_size);
-        if ((mat_order == 't') && (ierr >= 0)) {
-            int num_grps, tmp_err;
-            tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS,
-                                        &num_grps);
-            if ( (tmp_err != 0) &&
-                 ((ierr >= 0) || (tmp_err < 0 )))
-                ierr = tmp_err;
-            (void)NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps );
-        }
-        break;
+	ierr = GET_MPMG_CHI_MAT(h, in_key, ret_vec, vec_size);
+	if ((mat_order == 't') && (ierr >= 0)) {
+	    int num_grps, tmp_err;
+	    tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &num_grps);
+	    if ((tmp_err != 0) && ((ierr >= 0) || (tmp_err < 0)))
+		ierr = tmp_err;
+	    (void) NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps);
+	}
+	break;
 
 
     default:
@@ -84,9 +81,9 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
 }
 
 /**********************************************************************/
-static int GET_COMB_FLOAT_VEC(state_struct *handle[], 
+static int GET_COMB_FLOAT_VEC(state_struct *handle[],
 			      const int num_parts,
-			      const int in_key, FLOAT_TYPE *return_vec,
+			      const int in_key, FLOAT_TYPE * return_vec,
 			      const int vec_size)
 {
 
@@ -116,10 +113,11 @@ static int GET_COMB_FLOAT_VEC(state_struct *handle[],
 
     return (ierr);
 }
+
 /**********************************************************************/
 static int GET_MPMG_CHI_MAT(state_struct *h,
-                            int in_key, FLOAT_TYPE * return_vec,
-                            int ret_size)
+			    int in_key, FLOAT_TYPE * return_vec,
+			    int ret_size)
 
 /*  For now the mpmg chi matrix is the chi matrix returned from each
     particle and placed "on the diagonal", the rest of the vector is
@@ -152,52 +150,50 @@ static int GET_MPMG_CHI_MAT(state_struct *h,
     handle = h->handle_map;
     num_parts = h->handle_free;
 
-    tmp_err =
-	ndimp_get_int_val(h, NDI_NUM_GRPS, &tot_num_grps);
+    tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &tot_num_grps);
 
     for (in = 0; in < num_parts; in++) {
 	if (!(in_part = (handle[in]))) {
 	    return (-99);
 	}
-        /* NO TRANSPOSE */
-        transpose_state = in_part->mat_order;
-        in_part->mat_order = 'd';
-        
+	/* NO TRANSPOSE */
+	transpose_state = in_part->mat_order;
+	in_part->mat_order = 'd';
+
 	tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps);
 	row_end = row_start + num_grps;
-        col_end = col_start + num_grps;
+	col_end = col_start + num_grps;
 
-        temp_size = ndi_c_get_size_h(in_part, in_key, &tmp_err);
-        temp_mat =
-            (FLOAT_TYPE *) ndi_malloc(temp_size * sizeof(ndi_float64));
+	temp_size = ndi_c_get_size_h(in_part, in_key, &tmp_err);
+	temp_mat =
+	    (FLOAT_TYPE *) ndi_malloc(temp_size * sizeof(ndi_float64));
 	tmp_err =
-            NDI_GET_FLOAT_VEC_H(in_part, in_key, temp_mat, temp_size);
+	    NDI_GET_FLOAT_VEC_H(in_part, in_key, temp_mat, temp_size);
 
-	    /* Place values from temp_mat into appropriate place in the return_vec */
-	    /* Indexing nightmare:  
-	       rows represent incident particles; 
-	       columns represent outgoing particles  */
-        temp_mat_count = 0;
-        curr_p = temp_mat;
-        for (row = row_start; row < row_end; row++) {
-            for (col = col_start; col < col_end; col++) {
-		    ret_index = (row * tot_num_grps) + col;
-		    if ((ret_index < ret_size) &&
-			(temp_mat_count < temp_size)) {
-			return_vec[ret_index] = *curr_p;
-			temp_mat_count++;
-			curr_p++;
-		    } else {
-			ierr = 7;
-			break;
-		    }
-            }
-        }
-        if (temp_mat)
-            ndi_free((void **) &temp_mat);
-        col_start = col_end;
-        row_start = row_end;
-        in_part->mat_order = transpose_state;
+	/* Place values from temp_mat into appropriate place in the return_vec */
+	/* Indexing nightmare:  
+	   rows represent incident particles; 
+	   columns represent outgoing particles  */
+	temp_mat_count = 0;
+	curr_p = temp_mat;
+	for (row = row_start; row < row_end; row++) {
+	    for (col = col_start; col < col_end; col++) {
+		ret_index = (row * tot_num_grps) + col;
+		if ((ret_index < ret_size) && (temp_mat_count < temp_size)) {
+		    return_vec[ret_index] = *curr_p;
+		    temp_mat_count++;
+		    curr_p++;
+		} else {
+		    ierr = 7;
+		    break;
+		}
+	    }
+	}
+	if (temp_mat)
+	    ndi_free((void **) &temp_mat);
+	col_start = col_end;
+	row_start = row_end;
+	in_part->mat_order = transpose_state;
     }				/* in loop */
 
     return (ierr);

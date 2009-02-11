@@ -16,7 +16,7 @@
 #include "ndi_internal.h"
 #include "ndi_bin_tree.h"
 
-static int get_string_vec_gendir(state_struct *state, int in_key, 
+static int get_string_vec_gendir(state_struct *state, int in_key,
 				 char *str_arr, int arr_size);
 
 /**********************************************************************/
@@ -50,7 +50,7 @@ int ndi_c_get_string_vec_h(state_struct *state, int in_key, char *str_arr,
     }
     if (is_gendir(state)) {
 	ierr = get_string_vec_gendir(state, in_key, str_arr, arr_size);
-    } else if ((state->library_type == 'm') || 
+    } else if ((state->library_type == 'm') ||
 	       (state->library_type == 'd')) {
 	ierr = -2;
     } else if (state->library_type == 's') {
@@ -85,19 +85,19 @@ static int get_string_vec_gendir(state_struct *state, int in_key,
 
     in_value = ndi_get_section(state);
     if (in_value == 0) {
-	return(-16);		/* Library type not set */
+	return (-16);		/* Library type not set */
     }
-	
+
     /* Open gendir */
     ierr = ndi_open_gendir(&ndi_dir, state->open_gendir_file, &path);
     if (path)
-        ndi_free((void **) &path);
+	ndi_free((void **) &path);
 
     if (ierr < 0) {
 	root = NULL;
     } else {
-	 root = ndi_build_tree(ndi_dir, in_key, in_value);
-	 fclose(ndi_dir);
+	root = ndi_build_tree(ndi_dir, in_key, in_value);
+	fclose(ndi_dir);
     }
     /* Collect the floats into the return vec */
     if (ierr >= 0) {

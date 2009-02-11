@@ -9,9 +9,8 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 			   int in_key, FLOAT_TYPE * return_vec,
 			   int vec_size);
 static int GET_COMB_FLOAT_VEC_N(state_struct *h,
-                                int in_key, int vec_num,
-                                FLOAT_TYPE * return_vec,
-                                int vec_size);
+				int in_key, int vec_num,
+				FLOAT_TYPE * return_vec, int vec_size);
 
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
@@ -31,18 +30,14 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
     switch (in_key) {
 
     case NDI_PN_FULL:
-	ierr =
-	    GET_MP_SCAT_MAT(h, vec_num, ret_vec,
-			    vec_size);
-        if ((mat_order == 't') && (ierr >= 0)) {
-            int num_grps, tmp_err;
-            tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS,
-                                        &num_grps);
-            if ( (tmp_err != 0) &&
-                 ((ierr >= 0) || (tmp_err < 0 )))
-                ierr = tmp_err;
-            (void)NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps );
-        }
+	ierr = GET_MP_SCAT_MAT(h, vec_num, ret_vec, vec_size);
+	if ((mat_order == 't') && (ierr >= 0)) {
+	    int num_grps, tmp_err;
+	    tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &num_grps);
+	    if ((tmp_err != 0) && ((ierr >= 0) || (tmp_err < 0)))
+		ierr = tmp_err;
+	    (void) NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps);
+	}
 	break;
 
     case NDI_SIG_REAC:
@@ -50,11 +45,9 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
     case NDI_SIG_PNU_PR:
     case NDI_CORR_DIAG:
     case NDI_CORR_BHS:
-        ierr = 
-            GET_COMB_FLOAT_VEC_N(h, in_key,
-                                 vec_num, ret_vec, vec_size);
-        break;
-        
+	ierr = GET_COMB_FLOAT_VEC_N(h, in_key, vec_num, ret_vec, vec_size);
+	break;
+
     default:
 	ierr = -4;
 	break;
@@ -97,18 +90,16 @@ static int GET_MP_SCAT_MAT(state_struct *h,
     handle = h->handle_map;
     num_parts = h->handle_free;
 
-    tmp_err =
-	ndimp_get_int_val(h, NDI_NUM_GRPS,
-			  &tot_num_grps);
+    tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &tot_num_grps);
 
     for (in = 0; in < num_parts; in++) {
 	if (!(in_part = (handle[in]))) {
 	    return (-99);
 	}
-        /* NO TRANSPOSE */
-        transpose_state = in_part->mat_order;
-        in_part->mat_order = 'd';
-        
+	/* NO TRANSPOSE */
+	transpose_state = in_part->mat_order;
+	in_part->mat_order = 'd';
+
 	tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps_in);
 	row_end = row_start + num_grps_in;
 	col_start = 0;
@@ -123,12 +114,12 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 	}
 	for (out = 0; out < num_parts; out++) {
 	    if (!(out_part = (handle[out]))) {
-                in_part->mat_order = transpose_state;
+		in_part->mat_order = transpose_state;
 		return (-99);
 	    }
 	    /* Check that each particle is multigroup */
 	    if (out_part->library_type != 'm') {
-                in_part->mat_order = transpose_state;
+		in_part->mat_order = transpose_state;
 		return (-99);
 	    }
 	    tmp_err =
@@ -156,7 +147,7 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 					       sizeof(ndi_float64));
 
 		tmp_err =
-		    ndi_c_get_float64_vec_h(out_part, NDI_E_BOUNDS, 
+		    ndi_c_get_float64_vec_h(out_part, NDI_E_BOUNDS,
 					    ebounds_out, temp_size);
 		/* Save e_bounds_curr_part state for later reset? */
 		tmp_err =
@@ -223,7 +214,7 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 				   out_part_type_state);
 	}
 	row_start = row_end;
-        in_part->mat_order = transpose_state;
+	in_part->mat_order = transpose_state;
     }				/* in loop */
 
     return (ierr);
@@ -231,10 +222,8 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 
 /**********************************************************************/
 static int GET_COMB_FLOAT_VEC_N(state_struct *h,
-                                int in_key, int vec_num,
-                                FLOAT_TYPE * return_vec,
-                                int vec_size)
-
+				int in_key, int vec_num,
+				FLOAT_TYPE * return_vec, int vec_size)
 {
     int ierr = 0;
     int i;
@@ -255,9 +244,11 @@ static int GET_COMB_FLOAT_VEC_N(state_struct *h,
 	    break;
 	}
 	if ((statep = (handle[i]))) {
-	    last_size = ndi_c_get_size_n_h(statep, in_key, vec_num, &tmp_err);
+	    last_size =
+		ndi_c_get_size_n_h(statep, in_key, vec_num, &tmp_err);
 	    tmp_err =
-		NDI_GET_FLOAT_VEC_N_H(statep, in_key, vec_num, curr_p, curr_size);
+		NDI_GET_FLOAT_VEC_N_H(statep, in_key, vec_num, curr_p,
+				      curr_size);
 	    /* Check return error */
 	    curr_size -= last_size;
 	    curr_p += last_size;

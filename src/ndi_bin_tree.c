@@ -21,7 +21,7 @@
 
 /***********************************************************************/
 
-struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key, 
+struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
 					 const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
@@ -162,8 +162,7 @@ struct ndi_bin_tree_node *ndi_create_f64node(char *instr,
 
 }
 
-void
-ndi_insert_node(struct ndi_bin_tree_node **root_p,
+void ndi_insert_node(struct ndi_bin_tree_node **root_p,
 		struct ndi_bin_tree_node *new_node)
 {
 
@@ -190,8 +189,7 @@ ndi_insert_node(struct ndi_bin_tree_node **root_p,
     }
 }
 
-int
-ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
+int ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
 		 int arr_size_p)
 {
     /* Top level for collect keys, so that input parameters from top-level are not changed */
@@ -204,8 +202,7 @@ ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
     return (ierr);
 }
 
-int
-_ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
+int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
 		  int *arr_size_p)
 {
 
@@ -233,8 +230,7 @@ _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
 }
 
 
-int
-ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
+int ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
 		 int arr_size)
 {
     /* Top level for collect ivals, so that input parameters from top-level are not changed */
@@ -247,8 +243,7 @@ ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
     return (ierr);
 }
 
-int
-_ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
+int _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
 		  int *arr_size_p)
 {
 
@@ -276,8 +271,7 @@ _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
 }
 
 
-int
-ndi_collect_f32val(struct ndi_bin_tree_node *root,
+int ndi_collect_f32val(struct ndi_bin_tree_node *root,
 		   ndi_float32 * float32_array_p, int arr_size)
 {
     /* Top level for collect f32vals, so that input parameters from top-level are not changed */
@@ -290,8 +284,7 @@ ndi_collect_f32val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int
-_ndi_collect_f32val(struct ndi_bin_tree_node *root,
+int _ndi_collect_f32val(struct ndi_bin_tree_node *root,
 		    ndi_float32 ** float32_array_p, int *arr_size_p)
 {
 
@@ -321,8 +314,7 @@ _ndi_collect_f32val(struct ndi_bin_tree_node *root,
 }
 
 
-int
-ndi_collect_f64val(struct ndi_bin_tree_node *root,
+int ndi_collect_f64val(struct ndi_bin_tree_node *root,
 		   ndi_float64 * float64_array_p, int arr_size)
 {
     /* Top level for collect f64vals, so that input parameters from top-level are not changed */
@@ -335,8 +327,7 @@ ndi_collect_f64val(struct ndi_bin_tree_node *root,
     return (ierr);
 }
 
-int
-_ndi_collect_f64val(struct ndi_bin_tree_node *root,
+int _ndi_collect_f64val(struct ndi_bin_tree_node *root,
 		    ndi_float64 ** float64_array_p, int *arr_size_p)
 {
 

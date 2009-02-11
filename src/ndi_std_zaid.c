@@ -37,8 +37,7 @@ static void ndi_process_extension(char *in_str, char **ext_p);
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-int 
-ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
+int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 {
     int ierr = 0;
     int Z;
@@ -87,10 +86,9 @@ ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
     positive value for warning, and a '0' if everything's ok. 
 
 ***********************************************************************/
-int 
-ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size)
+int ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size)
 {
-     int ierr = 0;
+    int ierr = 0;
     int Z;
     int A;
     int S;
@@ -98,7 +96,8 @@ ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size)
     char real_zaid[MAX_IN_STR_LEN];
 
     real_zaid[0] = '\0';
-    if (!state) return -2;
+    if (!state)
+	return -2;
 
     ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
 
@@ -110,7 +109,7 @@ ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size)
 	strcat(real_zaid, zaid_extension_p);
 	strcpy(in_zaid, real_zaid);
     } else {
-         ierr = -22;
+	ierr = -22;
     }
     return ierr;
 }
