@@ -1835,9 +1835,17 @@ NDI2_get_string_val_n(int handle, int in_key, int vec_num,
   \param in_key: integer input key indicating the data sought
   \param ret_val: string output array, allocated by the user, 
   containing the values returned by NDI.
-  \param str_size: integer input indicating the allocated size of ret_val.
+  \param str_size: integer input indicating allocated size of ret_val (C only).
+  \param lvec: integer input indicating length of string array (Fortran only)
+  \param lstr: integer input indicating characters per string (Fortran only)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
+
+  \par Fortran example
+  \code
+  ! Get list of U-235 zaids available
+  call ndi2_get_string_vec_x(handle, NDI_ZAID, "92235", ret_str, lvec, ltr, size, err)
+  \endcode
 
   \par Valid in_key values:
        ===================
@@ -1865,14 +1873,16 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
   \param in_str: string input key indicating the data sought
   \param ret_val: string output array, allocated by the user, 
   containing the values returned by NDI.
-  \param str_size: integer input indicating the allocated size of ret_val.
+  \param str_size: integer input indicating allocated size of ret_val (C only).
+  \param lvec: integer input indicating length of string array (Fortran only)
+  \param lstr: integer input indicating characters per string (Fortran only)
   \param ndi_err: integer output error code (Fortran only)
   \return integer output error code (C only)
 
   \par Fortran example
   \code
   ! Get list of U-235 zaids available
-  call ndi2_get_string_vec_x(handle, NDI_ZAID, "92235", ret_str, size, err)
+  call ndi2_get_string_vec_x(handle, NDI_ZAID, "92235", ret_str, lvec, ltr, size, err)
   \endcode
 
   \par Valid in_key values:
