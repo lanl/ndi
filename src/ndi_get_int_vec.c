@@ -404,7 +404,8 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 
 	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
 	    if (part) {
-		int hi, lo, it;
+		int hi, lo;
+                int it = -1;
 		int i;
 
 		ierr = ndi_find_temp_bound_index(state->default_temp,
@@ -436,7 +437,8 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 
 	    part = &(state->tn_stat.sec_part[state->curr_part_index]);
 	    if (part) {
-		int hi, lo, it;
+		int hi, lo;
+                int it = -1;
 		int i;
 
 		ierr = ndi_find_temp_bound_index(state->default_temp,

@@ -1,3 +1,11 @@
+2009-06-11  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_float_vec.c (GET_EDIST_CONT): initialize current
+	temperature index for successful EDIST_CONT search
+
+	* ndi_get_int_vec.c (get_int_vec_tn): initialize current
+	temperature index for successful EDIST_CONT search
+
 2008-07-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added . to

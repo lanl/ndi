@@ -2130,7 +2130,8 @@ static int GET_EDIST_CONT(state_struct *state, char var,
 {
     int ierr=0;
     int i, n;
-    int lo, hi, it;
+    int lo, hi;
+    int it = -1;
     double *E;
     double *P;
     interp_params interp;
