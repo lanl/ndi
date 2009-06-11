@@ -89,7 +89,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     if (strcmp(lib_file_type, "asc") != 0) {
 	/* Only ASCII library files are currently handled. */
 	if (ierr >= 0) {
-	    ierr = 15;
+	    ierr = -15;
 	}
 	return (ierr);
     }

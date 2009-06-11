@@ -1,5 +1,8 @@
 2009-06-11  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
+	* ndi_set_isotope.c (ndi_c_set_zaid_h): missing file type in
+	gendir now returns error
+
 	* ndi_get_float_vec.c (GET_EDIST_CONT): initialize current
 	temperature index for successful EDIST_CONT search
 
