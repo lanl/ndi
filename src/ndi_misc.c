@@ -627,20 +627,23 @@ char *ndi_error_string(int n)
 {
     static char *warning[] = {
 	"Call successfully executed.",
-	"NDI already initialized; no action taken.",
-	"NDI not initialized before NDI2_close_gendir; no action taken.",
-	"Unable to close NDI gendir file.",
+	"NDI already initialized.",
+	"NDI not initialized before NDI2_close_gendir.",
+	"Cannot close NDI gendir file.",
 	"Attempt to close NULL stream.",
 	"Unexpected zero quantity.",
-	"Unexpected data: too many data items.",
-	"Bounds test failed: array terminated."
+	"Unexpected extra data.",
+	"Bounds test failed: array terminated.",
+        "Invalid warning number."
+	"Data not available in current library for current zaid.",
+        "Data is constructed"
     };
 
     static char *error[] = {
 	"Invalid warning/error number.",
-	"Error opening file.",
+	"Cannot opening file.",
 	"NDI not initialized before NDI library call.",
-	"Error closing file.",
+	"Cannot close file.",
 	"Invalid input key to NDI user function.",
 	"Invalid key argument to NDI user function.",
 	"Index parameter out of range.",
@@ -648,20 +651,21 @@ char *ndi_error_string(int n)
 	"Isotope not found in gendir.",
 	"Data not available in current library for current zaid.",
 	"32-bit function is not implemented on current platform.",
-	"Error reading file.",
+	"Cannot read file.",
 	"Unexpected library data.",
 	"Invalid input parameter.",
-	"No memory available.",
+	"Cannot allocate memory.",
 	"Invalid data in file.",
 	"Library type not set.",
 	"Isotope not found in library.",
 	"Library error: incorrect data order.",
-	"Error setting file pointer.",
+	"Cannot set file pointer.",
 	"NDI_LIB TYPE not set.",
-	"Collapsing attempted but no energy structure chosen by user.",
+	"Collapse requested without set energy structure.",
 	"Bad zaid input.",
 	"Incompatible collapse group structure.",
-	"Bad reaction identifier (MT or C number)."
+	"Bad reaction MT or C identifier.",
+        "Null vector input by user."
     };
 
     int num_warnings = sizeof(warning) / sizeof(warning[0]);
