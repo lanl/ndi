@@ -636,7 +636,12 @@ char *ndi_error_string(int n)
 	"Bounds test failed: array terminated.",
         "Invalid warning number."
 	"Data not available in current library for current zaid.",
-        "Data is constructed"
+        "Data is constructed",
+        "Cannot open gendir specified by user path.",
+        "Cannot open gendir specified by NDI_GENDIR_PATH.",
+        "Invalid warning number.",
+        "Invalid warning number.",
+        "Unknown keyword in library."
     };
 
     static char *error[] = {
@@ -665,7 +670,13 @@ char *ndi_error_string(int n)
 	"Bad zaid input.",
 	"Incompatible collapse group structure.",
 	"Bad reaction MT or C identifier.",
-        "Null vector input by user."
+        "Null vector input by user.",
+        "Invalid error number.",
+        "Bad handle data.",
+        "Invalid error number.",
+        "Invalid error number.",
+        "NDI_DEPLETION not set.",
+        "Current zaid not in target set."
     };
 
     int num_warnings = sizeof(warning) / sizeof(warning[0]);

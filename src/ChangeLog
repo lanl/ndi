@@ -1,3 +1,8 @@
+2009-06-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_misc.c (ndi_error_string): Added warnings 11, 12, 15; errors
+	-27, -30, -31
+
 2009-06-12  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_misc.c (ndi_error_string): Added warnings 9, 10; error -25
