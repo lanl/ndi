@@ -1,0 +1,54 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="Context Diagram 06/15/09\n\
+	solid green=completed work\n\
+	dashed organge=ongoing work\n\
+	dotted red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        jomc[label="Joann Campbell"];
+        cms[label="Charlie Snell"];
+        caw[label="Chuck Wingate"];
+        dkp[label="Kent Parsons"];
+        dahl[label="Jon Dahl"];
+        frankles[label="Stephanie Frankle"];
+	morgan[label="Morgan White"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.11", shape="ellipse"];
+
+        ndi -> jomc[label="21) Error\nmessages",
+        style=solid, color=green];
+
+        ndi -> dkp[label="27) NDI man\npages",
+        style=solid, color=green];
+
+        ndi -> cms[label="29) EDIST_CONT\ndefault temp",
+        style=solid, color=green];
+
+        ndi -> jomc[label="52) ndicl\n2.0",
+        style=solid, color=green];
+
+        ndi -> caw[label="53) Gendir\nkeyword error",
+        style=solid, color=green];
+
+        ndi -> Users[label="54) mendf7\nactinides",
+        style=dotted, color=red];
+
+        ndi -> dahl[label="55) U235.080nm\ndisambiguation",
+        style=dotted, color=red];
+
+	morgan -> ndi[label="56) PD libs",
+	style=dotted, color=red];
+	ndi -> frankles[label="56) PD libs",
+	style=dotted, color=red];
+
+
+	{rank=min; frankles; morgan; dahl; Users}
+	{rank=max; jomc; cms; caw; dkp}
+}
