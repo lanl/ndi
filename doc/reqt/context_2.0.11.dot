@@ -48,6 +48,8 @@ digraph ndi {
 	ndi -> frankles[label="56) PD libs",
 	style=dotted, color=red];
 
+        ndi -> morgan[label="57) Fix NDI_CHAIN",
+        style=solid, color=green];
 
 	{rank=min; frankles; morgan; dahl; Users}
 	{rank=max; jomc; cms; caw; dkp}

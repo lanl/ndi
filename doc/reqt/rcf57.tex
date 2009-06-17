@@ -1,0 +1,52 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Fix \texttt{check\_option h1 NDI\_CHAIN} & Control number: 57\\ \hline
+Stakeholder: Morgan White & Request date: June 16, 2009\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+\texttt{check\_option h1 NDI\_CHAIN} never succeeds.\\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: Data available through \texttt{NDI\_CHAIN\_ZAID}
+\\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+make\_handle handle0 "dosimetry\_neutron"
+set\_option handle1 NDI\_CHAIN "ir"
+check\_option handle1 NDI\_CHAIN   # successfully return chain just set
+\end{verbatim}
+\\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? No \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2009/06/16 & mgg Spoke to jomc, discovered history of inoperative
+code. \\ \hline
+2009/06/17 & mgg Added NDI_CHAIN, NDI_DEPLETION to check_option,
+get_size \\ \hline
+\end{tabular}
