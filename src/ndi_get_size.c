@@ -186,6 +186,8 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         return_value = (int) strlen(state->iso_stat.library_name) + 1;
         break;
     case NDI_DEPL_ZAID: /*  Depletion ZAID  */
+    case NDI_CHAIN:
+    case NDI_DEPLETION:
         if (!state->ndi_depl_set) {
             *ierr = ndi_set_default_depl(state);
         }

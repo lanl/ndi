@@ -108,23 +108,25 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 	break;
 
     case NDI_CHAIN:
-	/* case NDI_DEPLETION:
-	   case NDI_RADCHEM: */
-	/*  Set chain data -- (depl for MG/radchem for dos) */
-	if (state->library_type == 'm') {
-	    if (state->chain_stat.set_flag) {
-		strncpy(out_value, state->chain_stat.dataset, string_size);
-	    } else {
-		ierr = 9;
-	    }
-	} else {
-	    /* Incompatible library type */
-	    if (state->library_type == ' ') {
-		ierr = -16;
-	    } else {
-		ierr = -4;
-	    }
-	}
+    case NDI_DEPLETION:
+        switch (state->library_type) {
+        case 'm':               /* multigroup neutron with production depl */
+        case 'd':               /* dosimetry neytron with with radchem */
+            if (!state->ndi_depl_set) {
+                ierr = ndi_set_default_depl(state);
+            }
+
+            if (state->num_target <= 0) {
+                return -7;
+            }
+            strncpy(out_value, state->depl_dataset, string_size);
+            break;
+        case ' ':
+            ierr = -16;
+            break;
+        default:
+            ierr = -4;
+        }
 	break;
 
     case NDI_CURR_PART:

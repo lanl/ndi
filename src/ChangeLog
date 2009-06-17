@@ -1,3 +1,10 @@
+2009-06-17  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_get_size.c (get_mg_size): Added NDI_DEPLETION, NDI_CHAIN
+
+	* ndi_check_option.c (ndi_c_check_option_h): Fixed NDI_CHAIN,
+	NDI_DEPLETION, NDI_RADCHEM
+
 2009-06-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_misc.c (ndi_error_string): Added warnings 11, 12, 15; errors
