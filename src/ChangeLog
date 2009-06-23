@@ -1,3 +1,7 @@
+2009-06-23  Mark G. Gray  <mgg@ffe1.lanl.gov>
+
+	* ndi_zaid_dir.c (ndi_zaid_dir): Match libraries for chains
+
 2009-06-17  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* ndi_get_size.c (get_mg_size): Added NDI_DEPLETION, NDI_CHAIN

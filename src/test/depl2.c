@@ -23,7 +23,7 @@ int main ()
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
-   ierr = ndi_set_option( NDI_DEPLETION, "test2" );
+   ierr = ndi_set_option( NDI_DEPLETION, "test2.002zpd" );
 
       
    /* Set isotope, no collapsing */

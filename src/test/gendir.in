@@ -559,7 +559,7 @@ multigroup_photon
 end
 
 neutron_depletion
-  z=test2  d=4/30/2003  l=testlib_depl
+  z=test2.002zpd  d=4/30/2003  l=mendf6
     f=@top_srcdir@/src/test/lib/testlib_depl2  ft=asc  ln=1  o=0 end
 end
 

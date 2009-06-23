@@ -27,7 +27,7 @@ int main ()
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
    if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2" );
+   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2.002zpd" );
 
       
    /* Set isotope, no collapsing */

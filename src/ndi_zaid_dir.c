@@ -153,15 +153,11 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 				*iso_start = dir_rec.offset;
 				*at_wgt = dir_rec.at_wgt;
 
-				/*  Check current library against user-default library */
-				/* Chain libraries currently are undefined */
-				if ((reaction_flag != 0 && l_type != 'd')
-				    || ((strchr(in_zaid, '.') != NULL)
-					&&
-					(isalnum
-					 (*(strchr(in_zaid, '.') + 1))))) {
-				    /* A library is implied in the ZAID */
-				    done = -1;
+
+				if ((strchr(in_zaid, '.') != NULL) &&
+                                    (isalnum(*(strchr(in_zaid, '.') + 1)))) {
+                                    /* Partially qualified zaid */
+                                    done = -1;
 				} else {
 				    if ((!state->library_vers) ||
 					(strcmp(state->library_vers, "") !=

@@ -40,7 +40,7 @@ int test_depl_zaid(void)
    if ( ierr != 0 ) printf("    Error setting lib type is %d.\n", ierr );
    ierr = ndi_set_option( NDI_LIBRARY, "mendf6" );
    if ( ierr != 0 ) printf("    Error setting library is %d.\n", ierr );
-   ierr = ndi_set_option( NDI_DEPLETION, "test2" );
+   ierr = ndi_set_option( NDI_DEPLETION, "test2.002zpd" );
    if ( ierr != 0 ) printf("    Error setting depletion is %d.\n", ierr );
    ierr = ndi_set_option( NDI_COLLAPSE, "30_group" );
    if ( ierr != 0 ) printf("    Error setting collapse groups is %d.\n", ierr );
