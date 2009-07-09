@@ -4,9 +4,9 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 06/15/09\n\
+	label="Context Diagram 07/09/09\n\
 	solid green=completed work\n\
-	dashed organge=ongoing work\n\
+	dashed orange=ongoing work\n\
 	dotted red=future work";
 	node[shape="box"];
 
@@ -37,7 +37,7 @@ digraph ndi {
         ndi -> caw[label="53) Gendir\nkeyword error",
         style=solid, color=green];
 
-        ndi -> Users[label="54) mendf7\nactinides",
+        ndi -> Users[label="54) mendf7\nactinides\nand/or\nT-2 updates",
         style=dotted, color=red];
 
         ndi -> dahl[label="55) U235.080nm\ndisambiguation",
@@ -46,9 +46,9 @@ digraph ndi {
 	morgan -> ndi[label="56) PD libs",
 	style=dotted, color=red];
 	ndi -> frankles[label="56) PD libs",
-	style=dotted, color=red];
+	style=solid, color=green];
 
-        ndi -> morgan[label="57) Fix NDI_CHAIN",
+        ndi -> morgan[label="57) Fix\nNDI_CHAIN",
         style=solid, color=green];
 
 	{rank=min; frankles; morgan; dahl; Users}
