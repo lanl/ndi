@@ -646,7 +646,7 @@ char *ndi_error_string(int n)
 
     static char *error[] = {
 	"Invalid warning/error number.",
-	"Cannot opening file.",
+	"Cannot open file.",
 	"NDI not initialized before NDI library call.",
 	"Cannot close file.",
 	"Invalid input key to NDI user function.",
