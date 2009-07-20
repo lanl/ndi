@@ -194,38 +194,47 @@ requirement, every NDI C call returns an integer status variable, and
 every NDI Fortran call modifies its integer status variable \c
 ndi_err.  Typical status values include:
 
+- +15: Unknown keyword in library.
+- +12: Cannot open gendir specified by NDI_GENDIR_PATH.
+- +11: Cannot open gendir specified by user path.
+- +10: Data is constructed.
+-  +9: Data not available in current library for current zaid.
 -  +7: Bounds test failed: array terminated. 
--  +6: Unexpected data (too many data items).
+-  +6: Unexpected extra data.
 -  +5: Unexpected zero quantity.
--  +4: Trying to close NULL stream. 
--  +3: Unable to close NDI directory file.
--  +2: NDI not initialized before NDI_close. No action taken.
--  +1: NDI already initialized. No action taken.
+-  +4: Attempt to close NULL stream. 
+-  +3: Cannot close NDI gendir file.
+-  +2: NDI not initialized before NDI2_close_gendir.
+-  +1: NDI already initialized.
 -  +0: Call successfully executed
--  -1: Error opening file.
+-  -1: Cannot open file file.
 -  -2: NDI not initialized before NDI library call.
--  -3: Error closing file.
+-  -3: Cannot close file.
 -  -4: Invalid input key to NDI user function.
 -  -5: Invalid key argument to NDI user function.
--  -6: Index parameter sent to NDI user function out of range.
+-  -6: Index parameter out of range.
 -  -7: Isotope not set.
 -  -8: Isotope not found in gendir.
 -  -9: Data not available in current library for current zaid.
 - -10: 32-bit function is not implemented on current platform.
-- -11: Error reading file.
+- -11: Cannot read file.
 - -12: Unexpected library data.
 - -13: Invalid input parameter.
-- -14: No memory available.
-- -15: Invalid data in library/directory file.
+- -14: Cannot allocate memory.
+- -15: Invalid data in file.
 - -16: Library type not set.
 - -17: Isotope not found in library.
 - -18: Library error: incorrect data order.
-- -19: Error setting file pointer.
-- -20: Data type not set (i.e. NDI_LIB_TYPE).
-- -21: Collapsing attempted but no energy structure chosen by user.
+- -19: Cannot set file pointer.
+- -20: NDI_LIB_TYPE not set.
+- -21: Collapse requested without set energy structure.
 - -22: Bad zaid input.
 - -23: Incompatible collapse group structure.
-- -24: Bad reaction identifier (MT or C number).
+- -24: Bad reaction MT or C identifier.
+- -25: Null vector input by user.
+- -27: Bad handle data.
+- -30: NDI_DEPLETION not set.
+- -31: Current zaid not in target set.
 
 In general, a value of zero indicates success, a positive value
 indicates a warning, and a negative value indicates an error.  In the
