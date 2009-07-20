@@ -596,17 +596,17 @@ NDI2_set_float64_vec_option(int handle, int in_key,
        - \c NDI_LIBRARY:            Library name 
        - \c NDI_MAT_ORDER:          Matrix transpose order 
        - \c NDI_COLLAPSE:           Energy group structure 
-       - \c NDI_E_BOUNDS_CURR_PART:  Current particle energy group structure 
-       - \c NDI_TRANS_CORR:     Use transport corrections 
-       - \c NDI_NORM:   Normalize chi and e_dist 
-       - \c NDI_REAC_ID:        Specify reaction identifiers as MT or C values 
-       - \c NDI_E_AVG:  Specify average bin energy calculation 
-       - \c NDI_KERMA:  Specify kerma/heating calculation 
-       - \c NDI_DEPLETION:      Set depletion chain 
-       - \c NDI_CHAIN:  Set radiochemistry chain 
-       - \c NDI_CURR_PART:      Specify current particle 
-       - \c NDI_TEMP:   Set default temperature  
-       - \c NDI_FISS_PROD:      Set default fission product ZAID 
+       - \c NDI_E_BOUNDS_CURR_PART: Current particle energy group structure 
+       - \c NDI_TRANS_CORR:         Use transport corrections 
+       - \c NDI_NORM:               Normalize chi and e_dist 
+       - \c NDI_REAC_ID:            Reaction identifiers as MT or C values 
+       - \c NDI_E_AVG:              Average bin energy calculation 
+       - \c NDI_KERMA:              Kerma/heating calculation 
+       - \c NDI_DEPLETION:          Check depletion chain 
+       - \c NDI_CHAIN:              Check radiochemistry chain 
+       - \c NDI_CURR_PART:          Check current particle 
+       - \c NDI_TEMP:               Check default temperature  
+       - \c NDI_FISS_PROD:          Check default fission product ZAID 
 */
 int 
 NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
@@ -666,6 +666,8 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
       - \c NDI_DATE_PROCESSED: String size
       - \c NDI_DATE_SOURCE: String size
       - \c NDI_LIBRARY_NAME: String size
+      - \c NDI_DEPLETION: String size
+      - \c NDI_CHAIN: String size
       - \c NDI_DEPL_ZAID: String size
       - \c NDI_DEPL_INFO: String size
       - \c NDI_SEC_PART_TYPES: String size
