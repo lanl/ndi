@@ -1263,7 +1263,7 @@ static int NDI_GET_HEATING(state_struct *state, stat_flag * heating,
                                                num_elements);
                 ierr =
                     DIVIDE_FLOAT_VEC(state, temp_kerma, temp_tot_sigma,
-                                     num_elements, -1, return_vec,
+                                     num_elements, 0, return_vec,
                                      return_size);
             }
         }
@@ -1346,7 +1346,7 @@ static int NDI_GET_KERMA(state_struct *state, stat_flag * kerma,
                                                num_elements);
                 ierr =
                     MULT_FLOAT_VEC(state, temp_tot_sigma, temp_heat,
-                                   num_elements, -1, return_vec,
+                                   num_elements, 0, return_vec,
                                    return_size);
             }
         }
