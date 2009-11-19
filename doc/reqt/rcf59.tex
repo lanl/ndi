@@ -1,0 +1,42 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Fix heating != kerma/sigtot & Control number: 59\\ \hline
+Stakeholder: Rob Ward & Request date: November 18, 2009\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Heating from mtmg08 does not equal kerma/sigtot.
+\\ \hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: Yes & Comment: 
+\\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2009/11/18 & mgg Examined code, found NDI_GET_HEATING and
+NDI_GET_KERMA lacked collapse \\ \hline
+2009/11/19 & mgg Confirmed return of truncated data for heating from
+mtmg08. \\ \hline 
+2009/11/19 & mgg Fixed routines, tests. \\ \hline
+\end{tabular}
