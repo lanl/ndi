@@ -1,3 +1,8 @@
+2009-12-11  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Convert
+	input zaid to standard zaid
+
 2009-11-19  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_GET_HEATING): Fixed collapse after
