@@ -1,0 +1,47 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="Context Diagram 12/11/09\n\
+	solid green=completed work\n\
+	dashed orange=ongoing work\n\
+	dotted red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        wardr[label="Rob Ward"];
+        caw[label="Chuck Wingate"];
+        frankles[label="Stephanie Frankle"];
+	morgan[label="Morgan White"];
+        rrcc[label="Ryan Clement"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.12", shape="ellipse"];
+
+        ndi -> wardr[label="59) kerma/heating\ncalc",
+        style=solid, color=green];
+
+        ndi -> caw[label="62) Low Temp\nTN",
+        style=solid, color=red];
+
+	morgan -> ndi[label="54) E70ACT",
+	style=solid, color=red];
+
+        morgan -> ndi[label="61) T2_2009",
+        style=solid, color=red];
+
+        rrcc -> ndi[label="62) Low Temp\TN",
+        style=solid, color=red];   
+
+	ndi -> frankles[label="61) T2_2009",
+	style=solid, color=red];
+
+        ndi -> morgan[label="61) Zaid\ntranslation",
+        style=solid, color=green];
+
+        
+	{rank=min; morgan;rrcc}
+	{rank=max; frankles; caw; wardr}
+}
