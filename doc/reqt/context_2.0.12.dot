@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 12/11/09\n\
+	label="Context Diagram 12/15/09\n\
 	solid green=completed work\n\
 	dashed orange=ongoing work\n\
 	dotted red=future work";
@@ -16,32 +16,36 @@ digraph ndi {
         frankles[label="Stephanie Frankle"];
 	morgan[label="Morgan White"];
         rrcc[label="Ryan Clement"];
+        rsb[label="Randy Baker"];
 
 	/* requirements */
 	ndi[label="NDI 2.0.12", shape="ellipse"];
 
-        ndi -> wardr[label="59) kerma/heating\ncalc",
+        ndi -> wardr[label="59) Kerma\nheating\ncalc",
         style=solid, color=green];
 
-        ndi -> caw[label="62) Low Temp\nTN",
-        style=solid, color=red];
+        ndi -> caw[label="62) lanl04e",
+        style=dotted, color=red];
 
-	morgan -> ndi[label="54) E70ACT",
-	style=solid, color=red];
+	morgan -> ndi[label="54) e70act",
+	style=dotted, color=red];
 
-        morgan -> ndi[label="61) T2_2009",
-        style=solid, color=red];
+        morgan -> ndi[label="61) t2_2009",
+        style=dotted, color=red];
 
-        rrcc -> ndi[label="62) Low Temp\TN",
-        style=solid, color=red];   
+        rrcc -> ndi[label="62) lanl04e",
+        style=dotted, color=red];   
 
-	ndi -> frankles[label="61) T2_2009",
-	style=solid, color=red];
+	ndi -> frankles[label="61) t2_2009",
+	style=dotted, color=red];
 
         ndi -> morgan[label="61) Zaid\ntranslation",
         style=solid, color=green];
 
+        ndi -> rsb[label="63) Fission\ntransfer\nmatrix",
+        style=dashed, color=orange]; 
+
         
 	{rank=min; morgan;rrcc}
-	{rank=max; frankles; caw; wardr}
+	{rank=max; frankles; caw; wardr; rsb}
 }
