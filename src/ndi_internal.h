@@ -579,10 +579,10 @@ extern "C" {
     int ndi_get_sig_reac64(state_struct *state, isotope_status * mg,
 			   int mt, ndi_float64 * return_vec,
 			   int *return_size);
-    int ndi_copy_matrix32(ndi_float32 * dest, FLOAT_TYPE * source,
-			  int num);
-    int ndi_copy_matrix64(ndi_float64 * dest, FLOAT_TYPE * source,
-			  int num);
+    int ndi_copy_matrix32(ndi_float32 *dest, int d, 
+                          FLOAT_TYPE *source, int s);
+    int ndi_copy_matrix64(ndi_float64 *dest, int d, 
+                          FLOAT_TYPE *source, int num);
     int ndi_mult_float32_vec(state_struct *state,
 			     const ndi_float64 * vec1,
 			     const ndi_float64 * vec2, int num_elements,

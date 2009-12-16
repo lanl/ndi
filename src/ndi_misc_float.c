@@ -115,7 +115,8 @@ int NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
 	    }
 	}
 
-	ierr = COPY_MATRIX(in_mat, temp_flt, (row_num * col_num));
+	ierr = COPY_MATRIX(in_mat, row_num*col_num, 
+                           temp_flt, row_num*col_num);
 	ndi_free((void **) &temp_flt);
     } else {
 	/*Out of memory */
@@ -229,13 +230,19 @@ int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 /*********************************************************************/
 /*********************************************************************/
 
-int COPY_MATRIX(FLOAT_TYPE * dest, FLOAT_TYPE * source, int num)
+int COPY_MATRIX(FLOAT_TYPE *dest, int d_size, FLOAT_TYPE *source, int s_size)
 {
     int ierr = 0;
-    int i;
+    int i, n;
 
-   /*** Check size of matrices ***/
-    for (i = 0; i < num; i++) {
+    if (d_size < s_size) {
+        n = d_size;
+        ierr = 7;               /* Data truncated */
+    } else {
+        n = s_size;
+    }
+   
+    for (i = 0; i < n; i++) {
 	dest[i] = source[i];
     }
 

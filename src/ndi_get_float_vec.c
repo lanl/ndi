@@ -1157,18 +1157,22 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
  
     /* Decide which calculation to perform */
 
-    if (mat_ptr && ndi_nusigf_avail(state, sig_xf_type))
+    if (mat_ptr && ndi_nusigf_avail(state, sig_xf_type)) {
         calc_type = MAT;
-    else if (sig_xf_sum && ndi_nusigf_avail(state, sig_xf_type1) &&
-             ndi_nusigf_avail(state, sig_xf_type2))
+        ierr = 10;              /* Calculated value */
+    } else if (sig_xf_sum && ndi_nusigf_avail(state, sig_xf_type1) &&
+               ndi_nusigf_avail(state, sig_xf_type2)) {
         calc_type = SUM;
-    else if (vec_ptr && ndi_nusigf_avail(state, sig_xf_type))
+    } else if (vec_ptr && ndi_nusigf_avail(state, sig_xf_type)) {
         calc_type = VEC;
-    else if (sig_xf_mix && ndi_nusigf_avail(state, sig_xf_type1) &&
-             ndi_nusigf_avail(state, sig_xf_type2))
+        ierr = 10;              /* Calculated value */
+    } else if (sig_xf_mix && ndi_nusigf_avail(state, sig_xf_type1) &&
+               ndi_nusigf_avail(state, sig_xf_type2)) {
         calc_type = MIX;
-    else
+        ierr = 10;              /* Calculated value */
+    } else {
         NDI_THROW(ierr, -9);
+    }
 
     /* Get matrix data */
     switch(calc_type) {
@@ -1191,7 +1195,6 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
         /* Get sig_xf__mat1 */
         jerr = GET_SIG_XF_MAT(state, sig_xf_type1, sig_xf1, n);
         if (jerr) NDI_THROW(ierr, jerr);
-        if (jerr == 10) ierr = jerr; /* Calculated matrix */
 
         /* Allocate sig_xf2 */
         sig_xf2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
@@ -1200,7 +1203,6 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
         /* Get sig_xf_mat2 */
         jerr = GET_SIG_XF_MAT(state, sig_xf_type2, sig_xf2, n);
         if (jerr) NDI_THROW(ierr, jerr);
-        if (jerr == 10) ierr = jerr; /* Calculated matrix */
 
         break;
         
@@ -1264,17 +1266,9 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
 
     } else {                   /* Copy required */
 
-        coll_num_grps = lib_num_grps;
-        if (num_full_mat > return_size) {
-            ierr = 7;        /*  Data truncated*/
-            n = return_size;
-        } else {
-            n = num_full_mat;
-        }
-
-        for (in = 0; in < n; in++) {
-            return_mat[in] = tmp_mat[in];
-        }
+        jerr = COPY_MATRIX(return_mat, return_size, 
+                           tmp_mat, lib_num_grps*lib_num_grps);
+        if (jerr) NDI_THROW(ierr, jerr);
     }
 
     /*   Transpose matrix */
