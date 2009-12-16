@@ -26,6 +26,8 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
                             FLOAT_TYPE * return_vec, int return_size);
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
                        FLOAT_TYPE *return_mat, int return_size);
+static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type, 
+                          FLOAT_TYPE *return_mat, int return_size);
 static int GET_E_BOUNDS_CURR_PART(state_struct *state,
                                   FLOAT_TYPE * return_vec,
                                   int return_size);
@@ -1032,6 +1034,274 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
     return (ierr);
 }
 
+/*********************************************************************/
+
+static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type, 
+                       FLOAT_TYPE *return_mat, int return_size)
+{
+    int ierr = 0;
+
+    int collapse_flag = 0;
+    char mat_order = 'd';
+    int no_norm = 1;
+
+    long int mat_ptr;
+    char sig_xf_type1;
+    FLOAT_TYPE s;
+    char sig_xf_type2;
+    int sig_xf_sum;
+    long int vec_ptr;
+    int sig_xf_mix;
+
+    int lib_num_grps;
+    int num_full_mat = 0;
+    FLOAT_TYPE *tmp_mat = NULL;
+
+    enum calc {MAT, SUM, VEC, MIX};
+    enum calc calc_type;
+
+    int jerr = 0;
+
+    FLOAT_TYPE *sig_xf1 = NULL;
+    FLOAT_TYPE *sig_xf2 = NULL;
+    FLOAT_TYPE *chi_vec = NULL;
+    FLOAT_TYPE *nusigf = NULL;
+    int coll_num_grps = 0;
+
+    int n;
+    int in, out;
+
+    (void) NDI_INIT_FLOAT_VEC(return_mat, return_size);
+
+    if (!state) NDI_THROW(ierr, -2);    /* State not initialized */
+
+    /* Remember user settings: collapse, order, normalization */
+    collapse_flag = state->collapse_flag;
+    mat_order = state->mat_order;
+    no_norm = state->no_norm;
+
+    /* Setup possible calculation parameters */
+    switch(sig_xf_type) {
+
+    case 't':                  /* total neutrons */
+        mat_ptr = state->iso_stat.chi_mat_tot.file_ptr;
+
+        sig_xf_type1 = 'p';
+        s = +1.0;
+        sig_xf_type2 = 'd';
+        sig_xf_sum = (state->iso_stat.chi_mat_pr.file_ptr &&  
+                      state->iso_stat.chi_mat_del.file_ptr);
+
+        vec_ptr = state->iso_stat.chi_vec_tot.file_ptr;
+
+        sig_xf_mix = ((state->iso_stat.chi_mat_pr.file_ptr ||
+                       state->iso_stat.chi_vec_pr.file_ptr) &&
+                      (state->iso_stat.chi_mat_del.file_ptr ||
+                       state->iso_stat.chi_vec_del.file_ptr));
+        break;
+
+    case 'p':                  /* prompt neutrons */
+        mat_ptr = state->iso_stat.chi_mat_pr.file_ptr;
+
+        sig_xf_type1 = 't';
+        s = -1.0;
+        sig_xf_type2 = 'd';
+        sig_xf_sum = (state->iso_stat.chi_mat_tot.file_ptr &&
+                      state->iso_stat.chi_mat_del.file_ptr);
+
+        vec_ptr = state->iso_stat.chi_vec_pr.file_ptr;
+
+        sig_xf_mix = ((state->iso_stat.chi_mat_tot.file_ptr ||
+                      state->iso_stat.chi_vec_tot.file_ptr) &&
+                      (state->iso_stat.chi_mat_del.file_ptr ||
+                       state->iso_stat.chi_vec_del.file_ptr));
+        break;
+
+    case 'd':                  /* delayed neutrons */
+        mat_ptr = state->iso_stat.chi_mat_del.file_ptr;
+
+        sig_xf_type1 = 't';
+        s = -1.0;
+        sig_xf_type2 = 'p';
+        sig_xf_sum = (state->iso_stat.chi_mat_tot.file_ptr &&
+                      state->iso_stat.chi_mat_pr.file_ptr);
+
+        vec_ptr = state->iso_stat.chi_vec_del.file_ptr;
+
+        sig_xf_mix = ((state->iso_stat.chi_mat_tot.file_ptr ||
+                       state->iso_stat.chi_vec_tot.file_ptr) &&
+                      (state->iso_stat.chi_mat_pr.file_ptr ||
+                       state->iso_stat.chi_vec_pr.file_ptr));
+        break;
+
+    default:
+        NDI_THROW(ierr, -13);            /* Invalid input parameter */
+    }
+
+    if (state->iso_stat.fissionable == 0) goto catch; /* Not fissionable */
+
+    lib_num_grps = state->iso_stat.num_grps;
+    if (lib_num_grps <= 0 || state->collapse_flag) 
+        NDI_THROW(ierr, -9); /* Data not available */
+
+    /* Turn off collapse; select "C" matrix order; no normalization */
+    state->collapse_flag = 0;
+    state->mat_order = 'd';
+    state->no_norm = 1;
+
+    /* Allocate matrix */
+    num_full_mat = lib_num_grps * lib_num_grps;
+    tmp_mat = (FLOAT_TYPE *) ndi_malloc(num_full_mat*sizeof(FLOAT_TYPE));
+    if (!tmp_mat) NDI_THROW(ierr, -14);    /* Out of memory */
+    
+ 
+    /* Decide which calculation to perform */
+
+    if (mat_ptr && ndi_nusigf_avail(state, sig_xf_type))
+        calc_type = MAT;
+    else if (sig_xf_sum && ndi_nusigf_avail(state, sig_xf_type1) &&
+             ndi_nusigf_avail(state, sig_xf_type2))
+        calc_type = SUM;
+    else if (vec_ptr && ndi_nusigf_avail(state, sig_xf_type))
+        calc_type = VEC;
+    else if (sig_xf_mix && ndi_nusigf_avail(state, sig_xf_type1) &&
+             ndi_nusigf_avail(state, sig_xf_type2))
+        calc_type = MIX;
+    else
+        NDI_THROW(ierr, -9);
+
+    /* Get matrix data */
+    switch(calc_type) {
+
+    case MAT:                   /* Read chi matrix */
+
+        jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, mat_ptr, num_full_mat,
+                                    tmp_mat, num_full_mat);
+        if (jerr) NDI_THROW(ierr, jerr);
+        break;
+
+    case SUM:                   /* Get other two sig_xf matrices */
+    case MIX:
+
+        n = lib_num_grps * lib_num_grps;
+        /* Allocate sig_xf1 */
+        sig_xf1 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+        if (!sig_xf1) NDI_THROW(ierr, -14); /* Out of memory */
+
+        /* Get sig_xf__mat1 */
+        jerr = GET_SIG_XF_MAT(state, sig_xf_type1, sig_xf1, n);
+        if (jerr) NDI_THROW(ierr, jerr);
+        if (jerr == 10) ierr = jerr; /* Calculated matrix */
+
+        /* Allocate sig_xf2 */
+        sig_xf2 = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
+        if (!sig_xf2) NDI_THROW(ierr, -14); /* Out of memory */
+
+        /* Get sig_xf_mat2 */
+        jerr = GET_SIG_XF_MAT(state, sig_xf_type2, sig_xf2, n);
+        if (jerr) NDI_THROW(ierr, jerr);
+        if (jerr == 10) ierr = jerr; /* Calculated matrix */
+
+        break;
+        
+    case VEC:                   /* Calculate chi matrix from vector */
+
+        chi_vec = (FLOAT_TYPE *) ndi_malloc(lib_num_grps * 
+                                            sizeof(FLOAT_TYPE));
+        if (!chi_vec) NDI_THROW(ierr, -14); /* Out of memory */
+     
+        jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_ptr, lib_num_grps,
+                                    chi_vec, lib_num_grps);
+        if (jerr) NDI_THROW(ierr, jerr);
+
+        jerr = NDI_VEC2MAT(chi_vec, lib_num_grps, tmp_mat,
+                           num_full_mat, num_full_mat);
+        if (jerr) NDI_THROW(ierr, jerr);
+        ierr = 10;            /* Matrix has been constructed */
+        break;
+
+    }
+
+    n = lib_num_grps;
+    /* Calculate fission transfer matrix */
+    switch (calc_type) {
+        
+    case MAT:                   /* from nusigf * chi */
+    case VEC:
+
+        nusigf = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
+        if (!nusigf) NDI_THROW(ierr, -14); /* Out of memory */
+
+        jerr = NDI_GET_NUSIGF(state, sig_xf_type, nusigf, &n);
+        if (jerr) NDI_THROW(ierr, jerr);
+
+        n = lib_num_grps;
+        for (in = 0; in < n; in++)
+            for (out = 0; out < n; out++)
+                tmp_mat[in*n+out] *= nusigf[in];
+        break;
+
+    case SUM:                   /* from t = p+d */
+    case MIX:
+
+        for (in = 0; in < n; in++)
+            for (out = 0; out < n; out++) {
+                tmp_mat[in*n+out] = sig_xf1[in*n+out] + 
+                    s * sig_xf2[in*n+out];
+                if (tmp_mat[in*n+out] < 0.0) tmp_mat[in*n+out] = 0.0;
+            }
+        break;
+    }
+
+    if (collapse_flag) {        /* Collapsing required */
+        coll_num_grps = state->grp_num_new;
+        jerr = NDI_COLLAPSE_MAT(tmp_mat, lib_num_grps, lib_num_grps,
+                                coll_num_grps, coll_num_grps,
+                                state->new_ebounds, state->new_ebounds,
+                                state->lib_weight, return_mat,
+                                return_size);
+        if (jerr) NDI_THROW(ierr, jerr);
+
+    } else {                   /* Copy required */
+
+        coll_num_grps = lib_num_grps;
+        if (num_full_mat > return_size) {
+            ierr = 7;        /*  Data truncated*/
+            n = return_size;
+        } else {
+            n = num_full_mat;
+        }
+
+        for (in = 0; in < n; in++) {
+            return_mat[in] = tmp_mat[in];
+        }
+    }
+
+    /*   Transpose matrix */
+    if ((mat_order == 't') && (ierr >= 0) && (ierr != 7)) {
+        jerr = NDI_TRANSPOSE_FLOAT(return_mat, coll_num_grps, coll_num_grps);
+        if (jerr) NDI_THROW(ierr, jerr);
+    }
+
+ catch:
+    /* Restore user settings */
+    if (state) {
+        state->collapse_flag = collapse_flag;
+        state->mat_order = mat_order;
+        state->no_norm = no_norm;
+    }
+
+    /* Free resources */
+    ndi_free((void **) &sig_xf2);
+    ndi_free((void **) &sig_xf1);
+    ndi_free((void **) &chi_vec);
+    ndi_free((void **) &nusigf);
+    ndi_free((void **) &tmp_mat);
+
+    return (ierr);
+}
+
+/*********************************************************************/
 /*********************************************************************/
 
 static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE *return_vec,

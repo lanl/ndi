@@ -1,13 +1,18 @@
+2009-12-16  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (GET_SIG_XF_MAT): Calculate fission transfer
+	matrix (Reqt. 63).
+
 2009-12-11  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Convert
-	input zaid to standard zaid
+	input zaid to standard zaid (Reqt. 60).
 
 2009-11-19  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_GET_HEATING): Fixed collapse after
-	calculation bug
-	(NDI_GET_KERMA): Fixed collapse after calculation bug
+	calculation bug (Reqt. 59).
+	(NDI_GET_KERMA): Fixed collapse after calculation bug (Reqt. 59).
 
 2009-06-23  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
