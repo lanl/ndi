@@ -402,8 +402,10 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_CHI_MAT_TOT:       /* chi total matrix */
     case NDI_CHI_MAT_PR:        /* chi prompt matrix */
     case NDI_CHI_MAT_DEL:       /* chi delayed matrix */
+    case NDI_FISS_XFER_MAT_TOT:
+    case NDI_FISS_XFER_MAT_PR:
+    case NDI_FISS_XFER_MAT_DEL:
 
-/*       if((state->iso_stat.chi_mat_tot.length) || (state->iso_stat.chi_vec_tot.length)){ */
         if (state->collapse_flag != 0) {
             return_value = state->grp_num_new * state->grp_num_new;
         } else {

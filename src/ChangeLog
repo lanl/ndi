@@ -1,3 +1,13 @@
+2009-12-17  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added fission transfer
+	matrix keywords to switch
+
+	* ndi_get_size.c (get_mg_size): Added fission transfer matrix size 
+
+	* ndi_keywords.h (NDI_FISS_XFER_MAT_DEL): Added fission transfer
+	matrix keywords
+
 2009-12-16  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (GET_SIG_XF_MAT): Calculate fission transfer

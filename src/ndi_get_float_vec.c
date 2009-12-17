@@ -409,6 +409,18 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         }
         break;
 
+    case NDI_FISS_XFER_MAT_TOT:
+        ierr = GET_SIG_XF_MAT(state, 't', return_vec, return_size);
+        break;
+
+    case NDI_FISS_XFER_MAT_PR:
+        ierr = GET_SIG_XF_MAT(state, 'p', return_vec, return_size);
+        break;
+
+    case NDI_FISS_XFER_MAT_DEL:
+        ierr = GET_SIG_XF_MAT(state, 'd', return_vec, return_size);
+        break;
+
     case NDI_NORM:              /* Normalization factors */
         num_elements = NUM_NORM;
         /*  Check bounds */
@@ -1262,14 +1274,11 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
                                 state->new_ebounds, state->new_ebounds,
                                 state->lib_weight, return_mat,
                                 return_size);
-        if (jerr) NDI_THROW(ierr, jerr);
-
     } else {                   /* Copy required */
-
         jerr = COPY_MATRIX(return_mat, return_size, 
                            tmp_mat, lib_num_grps*lib_num_grps);
-        if (jerr) NDI_THROW(ierr, jerr);
     }
+    if (jerr) NDI_THROW(ierr, jerr);
 
     /*   Transpose matrix */
     if ((mat_order == 't') && (ierr >= 0) && (ierr != 7)) {

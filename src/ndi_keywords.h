@@ -166,6 +166,9 @@
 #define NDI_EDIST_CONT_INTERP_TYPE    135
 #define NDI_SF_SPECTRA                136
 #define NDI_SPONTANEOUS_FISSIONABLE   137
+#define NDI_FISS_XFER_MAT_TOT         138
+#define NDI_FISS_XFER_MAT_PR          139
+#define NDI_FISS_XFER_MAT_DEL         140 
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046
