@@ -15,6 +15,8 @@
       real*8 scat_trans(MAXVEC)
       real*8 scat_no_trans(MAXVEC)
       real*8 pbounds(NUMPG + 1)
+      logical xpose
+      integer num_grps
 
       pgrps = NUMPG
       data pbounds  / 20.0, 4.0, 0.1 /
@@ -63,6 +65,41 @@ c     Single particle test
       write(*,*) " "
       write(*,*) "  Transpose:"
       print 10, (scat_trans(i), i = 1, vec_size)
+
+c     Does matrix == (matrix')'?
+      call ndi2_get_int_val(single_part_handle, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
+
+c     Fission transfer matrix (Reqt. 63)
+      call ndi2_set_option(single_part_handle, NDI_MAT_ORDER,
+     $     'default', ierr)
+      call check_err(ierr, "setting mat order transpose")
+      call ndi2_get_float64_vec(single_part_handle,
+     $      NDI_FISS_XFER_MAT_PR, scat_no_trans, MAXVEC, ierr)
+      call check_err(ierr, "getting fiss xfer mat")
+      write(*,*) "  No transpose:"
+      print 10, (scat_no_trans(i), i = 1, vec_size)
+
+      call ndi2_set_option(single_part_handle, NDI_MAT_ORDER,
+     $     'transpose', ierr)
+      call check_err(ierr, "setting mat order transpose")
+      call ndi2_get_float64_vec(single_part_handle, 
+     $     NDI_FISS_XFER_MAT_PR, scat_trans, MAXVEC, ierr)
+      call check_err(ierr, "getting transposed fiss xfer mat")
+      write(*,*) " "
+      write(*,*) " "
+      write(*,*) "  Transpose:"
+      print 10, (scat_trans(i), i = 1, vec_size)
+
+c     Does matrix == (matrix')'?
+      call ndi2_get_int_val(single_part_handle, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
       
 c     Multiparticle test
       write(*,*) " "
@@ -117,6 +154,13 @@ c     Get data
       write(*,*) "  Transpose:"
       print 10, (scat_trans(i), i = 1, vec_size)
 
+c     Does matrix == (matrix')'?
+      call ndi2_get_int_val(mpmg_handle, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
+
       call ndi2_close_gendir(gendir, ierr)
       call check_err(ierr, "closing gendir")
 
@@ -156,7 +200,6 @@ c     Single particle test
       print 10, (scat_no_trans(i), i = 1, vec_size)
 
 
-
 c     Get another data handle after setting transpose
       call ndi2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
      $     'transpose', ierr)
@@ -182,6 +225,12 @@ c     Get another data handle after setting transpose
       write(*,*) "  Transpose:"
       print 10, (scat_trans(i), i = 1, vec_size)
       
+      call ndi2_get_int_val(single_part_handle2, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
+
 c     Multiparticle test
       write(*,*) " "
       write(*,*) " "
@@ -265,6 +314,13 @@ c     Get data
       write(*,*) "  Transpose:"
       print 10, (scat_trans(i), i = 1, vec_size)
 
+c     Does matrix == (matrix')'?
+      call ndi2_get_int_val(mpmg_handle2, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
+
       call ndi2_close_gendir(gendir2, ierr)
       call check_err(ierr, "closing gendir2")
 
@@ -284,4 +340,28 @@ c     Get data
       endif
 
       return
+      end
+
+      function xpose(mat, row_num, col_num, mat_t)
+      real*8 mat(*)
+      integer row_num
+      integer col_num
+      real*8 mat_t(*)
+      logical xpose
+
+      integer row, col
+      
+      xpose = .true.
+      do row = 0, row_num-1
+         do col = 0, col_num-1
+            if (mat(row*col_num+col+1) .ne.
+     $           mat_t(col*row_num+row+1)) then
+               xpose = .false.
+               goto 10
+            end if
+         end do
+      end do
+
+ 10   continue
+      return 
       end

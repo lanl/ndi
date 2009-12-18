@@ -92,9 +92,26 @@ c     Test multi-temperature functionality (Requirement 22)
          call ndi2_set_zaid_float64_temp(handle, "92235", tarr(i),
      $        ierr)
          if (ierr .eq. 0) then
-            print *, "ok."
+            print *, "ok setting 92235."
          else
             print *, "  **Error =", ierr
+         endif
+
+         print *, "Get zaid:"
+         call ndi2_get_string_val(handle, NDI_ZAID, zaid, ierr)
+         if (ierr .eq. 0) then
+            print *, "zaid = ", zaid
+         else
+            print *, "  **Error =", ierr
+         endif
+
+c     Test zaid translation (Reqt. 60)
+         call ndi2_set_zaid_float64_temp(handle, "U-235", tarr(i),
+     $        ierr)
+         if (ierr .eq. 0) then
+            print *, "ok setting U-235."
+         else
+            print *, "  **Error = testing zaid translation", ierr
          endif
 
          print *, "Get zaid:"
@@ -121,9 +138,26 @@ c     Test multi-temperature functionality (Requirement 22)
          call ndi2_set_zaid_float64_temp(handle, "92235", text(i),
      $        ierr)
          if (ierr .eq. 0) then
-            print *, "ok."
+            print *, "ok setting zaid 92235."
          else
             print *, "  **Error =", ierr
+         endif
+
+         print *, "Get zaid:"
+         call ndi2_get_string_val(handle, NDI_ZAID, zaid, ierr)
+         if (ierr .eq. 0) then
+            print *, "zaid = ", zaid
+         else
+            print *, "  **Error =", ierr
+         endif
+
+c     Test zaid translation (Reqt. 60)
+         call ndi2_set_zaid_float64_temp(handle, "u235", text(i),
+     $        ierr)
+         if (ierr .eq. 0) then
+            print *, "ok setting zaid u235."
+         else
+            print *, "  **Error testing zaid translation =", ierr
          endif
 
          print *, "Get zaid:"

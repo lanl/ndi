@@ -40,7 +40,7 @@ int main ()
 			 "92236.634nm", "92236.635nm", "92236.632nm" 
    };
 
-   int num_keywords = 12;
+   int num_keywords = 15;
    int keyword_list[] = { NDI_NU_TOT,
 			  NDI_NU_PR,
 			  NDI_NU_DEL,
@@ -53,6 +53,9 @@ int main ()
 			  NDI_CHI_MAT_TOT,
 			  NDI_CHI_MAT_PR,
 			  NDI_CHI_MAT_DEL,
+                          NDI_FISS_XFER_MAT_TOT,
+                          NDI_FISS_XFER_MAT_PR,
+                          NDI_FISS_XFER_MAT_DEL,
    };
 
    char *keyword_label[]= { "nu total",
@@ -66,7 +69,10 @@ int main ()
 			    "delayed chi vector",
 			    "total chi matrix",
 			    "prompt chi matrix",
-			    "delayed chi matrix"
+			    "delayed chi matrix",
+                            "total fission transfer matrix",
+                            "prompt fission transfer matrix",
+                            "delayed fission transfer matrix",
    };
 
    ndi_float64 *ret_vec64 = NULL;

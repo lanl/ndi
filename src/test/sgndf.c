@@ -132,6 +132,20 @@ int main ()
 
             free((void **)return_vec);
 
+            /* Prompt fission transfer matrix (Reqt. 63) */
+            arr_size = ndi_get_size (NDI_FISS_XFER_MAT_PR, &ierr );
+            if (ierr)
+                printf("\n  **Error %d getting prompt fission transfer matrix size.\n", ierr);
+            return_vec = (ndi_float64 *)malloc( arr_size * sizeof(ndi_float64) );
+            ierr = ndi_get_float64_vec(NDI_FISS_XFER_MAT_PR, return_vec, arr_size);
+            if (ierr)
+                printf("\n  **Error %d getting fission prompt transfer matrix.\n", ierr);
+
+            printf(" Prompt fission transfer matrix:\n");
+            print_float64_vec(return_vec, arr_size);
+
+            free((void **)return_vec);
+
         }
     }
     ierr = ndi_close();

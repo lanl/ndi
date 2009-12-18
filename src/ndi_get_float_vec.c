@@ -1153,7 +1153,7 @@ static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type,
     if (state->iso_stat.fissionable == 0) goto catch; /* Not fissionable */
 
     lib_num_grps = state->iso_stat.num_grps;
-    if (lib_num_grps <= 0 || state->collapse_flag) 
+    if (lib_num_grps <= 0)
         NDI_THROW(ierr, -9); /* Data not available */
 
     /* Turn off collapse; select "C" matrix order; no normalization */

@@ -17,37 +17,55 @@
  Temperature(             2  ) =    2.5299999999999994E-008
  Temperature(             3  ) =    1.0000000000000000E-006
  Attempt to set temperature =     0.000000000000000     
- ok.
+ ok setting 92235.
+ Get zaid:
+ zaid = 92235.671nm             
+ ok setting U-235.
  Get zaid:
  zaid = 92235.671nm             
  Actual temperature:
  temperature =     0.000000000000000     
  Attempt to set temperature =    2.5299999999999994E-008
- ok.
+ ok setting 92235.
+ Get zaid:
+ zaid = 92235.670nm             
+ ok setting U-235.
  Get zaid:
  zaid = 92235.670nm             
  Actual temperature:
  temperature =    2.5299999999999994E-008
  Attempt to set temperature =    1.0000000000000000E-006
- ok.
+ ok setting 92235.
+ Get zaid:
+ zaid = 92235.673nm             
+ ok setting U-235.
  Get zaid:
  zaid = 92235.673nm             
  Actual temperature:
  temperature =    1.0000000000000000E-006
  Attempt to set temperature =     0.000000000000000     
- ok.
+ ok setting zaid 92235.
+ Get zaid:
+ zaid = 92235.671nm             
+ ok setting zaid u235.
  Get zaid:
  zaid = 92235.671nm             
  Actual temperature:
  temperature =     0.000000000000000     
  Attempt to set temperature =    2.5800000358344732E-008
- ok.
+ ok setting zaid 92235.
+ Get zaid:
+ zaid = 92235.670nm             
+ ok setting zaid u235.
  Get zaid:
  zaid = 92235.670nm             
  Actual temperature:
  temperature =    2.5299999999999994E-008
  Attempt to set temperature =     100.0000000000000     
- ok.
+ ok setting zaid 92235.
+ Get zaid:
+ zaid = 92235.673nm             
+ ok setting zaid u235.
  Get zaid:
  zaid = 92235.673nm             
  Actual temperature:
