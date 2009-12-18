@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 12/15/09\n\
+	label="Context Diagram 12/18/09\n\
 	solid green=completed work\n\
 	dashed orange=ongoing work\n\
 	dotted red=future work";
@@ -34,7 +34,7 @@ digraph ndi {
         style=dotted, color=red];
 
         rrcc -> ndi[label="62) lanl04e",
-        style=dotted, color=red];   
+        style=solid, color=green];   
 
 	ndi -> frankles[label="61) t2_2009",
 	style=dotted, color=red];
@@ -43,7 +43,7 @@ digraph ndi {
         style=solid, color=green];
 
         ndi -> rsb[label="63) Fission\ntransfer\nmatrix",
-        style=dashed, color=orange]; 
+        style=solid, color=green]; 
 
         
 	{rank=min; morgan;rrcc}
