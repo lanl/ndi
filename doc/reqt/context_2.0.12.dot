@@ -39,7 +39,7 @@ digraph ndi {
 	ndi -> frankles[label="61) t2_2009",
 	style=dotted, color=red];
 
-        ndi -> morgan[label="61) Zaid\ntranslation",
+        ndi -> morgan[label="60) Zaid\ntranslation",
         style=solid, color=green];
 
         ndi -> rsb[label="63) Fission\ntransfer\nmatrix",
