@@ -1655,14 +1655,18 @@ static int GET_E_BOUNDS_CURR_PART(state_struct *state,
     int ierr = 0;
     sec_part_mg *part;
 
-    if ((state->curr_part_index >= 0) &&
-        (state->iso_stat.num_sec_parts > state->curr_part_index)) {
+    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
+
+    if ((state->iso_stat.sec_part) &&
+        (0 <= state->curr_part_index) &&
+        (state->curr_part_index < state->iso_stat.num_sec_parts)) {
         part = &state->iso_stat.sec_part[state->curr_part_index];
         if (part->collapse_flag) {
             /* User-specified collapse-group structure */
             for (i = 0; i <= part->grp_num_new; i++) {
                 if (i < return_size) {
-                    return_vec[i] = (FLOAT_TYPE) part->collapse_ebounds[i];
+                    return_vec[i] = 
+                        (FLOAT_TYPE) part->e_bounds[part->new_ebounds[i]];
                 } else {
                     return (7);
                 }

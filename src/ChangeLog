@@ -1,6 +1,7 @@
 2009-12-23  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c: Negative value fixup
+	* ndi_get_float_vec.c: Negative value fixup in NDI_SF_SPECTRA
+	(GET_E_BOUNDS_CURR_PART): Fixed segfault for collapse
 
 2009-12-17  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
