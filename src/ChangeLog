@@ -1,3 +1,7 @@
+2009-12-23  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c: Negative value fixup
+
 2009-12-17  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added fission transfer

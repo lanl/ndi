@@ -3346,6 +3346,7 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
         C = (i+1 != num_grps) ? ndi_int_watt(E, sf->a, sf->b): 0.0;
 
         return_vec[i] -= (FLOAT_TYPE) R*C; /* Lower boundary */
+        if (return_vec[i] < 0.0) return_vec[i] = 0.0; /* negative fixup */
     }
 
  catch:
