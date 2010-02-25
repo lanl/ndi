@@ -634,7 +634,7 @@ char *ndi_error_string(int n)
 	"Unexpected zero quantity.",
 	"Unexpected extra data.",
 	"Bounds test failed: array terminated.",
-        "Invalid warning number."
+        "Invalid warning number.",
 	"Data not available in current library for current zaid.",
         "Data is constructed",
         "Cannot open gendir specified by user path.",

@@ -1,3 +1,8 @@
+2010-02-25  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_misc.c (ndi_error_string): Added comma to warnings list to
+	fix off by one error
+
 2009-12-23  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c: Negative value fixup in NDI_SF_SPECTRA
