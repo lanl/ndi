@@ -1741,7 +1741,8 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
 int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
                       int return_size)
 {
-
+    char transpose_state;
+    char corr_state;
     int ierr = 0;
     int i, j;
     int num_elements;
@@ -1758,7 +1759,6 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     ndi_float64 *scat_mat = NULL;
     ndi_float64 *elastic_scat = NULL;
     ndi_float64 *inelastic_scat = NULL;
-
 
     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
@@ -1810,7 +1810,17 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     /* Handle energy from scattering */
     mat_size = ndi_c_get_size_n_h(state, NDI_PN_FULL, 0, &ierr);
     scat_mat = (ndi_float64 *) ndi_malloc(mat_size * sizeof(ndi_float64));
+
+    /* Don't transpose or correct matrix,
+       but save user-defined transpose & trans. cor. state */
+    transpose_state = state->mat_order;
+    state->mat_order = 'd';
+    corr_state = state->trans_corr;
+    state->trans_corr = ' ';
     ierr = ndi_c_get_float64_vec_n_h(state, NDI_PN_FULL, 0, scat_mat, mat_size);
+    state->mat_order = transpose_state;
+    state->trans_corr = corr_state;
+
     for (i = 0; i < num_elements; i++) {        /* i = incident energy */
         for (j = 0; j < num_elements; j++) {    /* j = outgoing energy */
             tmp_vec[i] -= scat_mat[j + (i * num_elements)] * eavg[j];

@@ -1,3 +1,8 @@
+2010-03-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (NDI_GET_OLD_KERMA): Turn off transpose and
+	corrections before getting scattering matrix
+
 2010-02-25  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_misc.c (ndi_error_string): Added comma to warnings list to
