@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 12/23/09\n\
+	label="Context Diagram 01/04/10\n\
 	solid green=completed work\n\
 	dashed orange=ongoing work\n\
 	dotted red=future work";
@@ -24,10 +24,10 @@ digraph ndi {
         style=solid, color=green];
 
         ndi -> caw[label="62) lanl04e",
-        style=dashed, color=orange];
+        style=solid, color=green];
 
         rrcc -> ndi[label="62) lanl04e",
-        style=dashed, color=orange];   
+        style=solid, color=green];   
 
         ndi -> morgan[label="60) Zaid\ntranslation",
         style=solid, color=green];

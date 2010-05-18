@@ -1,0 +1,62 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="Context Diagram 05/24/10\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        dkp[label="Kent Parsons"];
+        rrcc[label="Ryan Clement"];
+        mbl[label="Beth Lee"];
+        wardr[label="Rob Ward"];
+        rsb[label="Randy Baker"];
+        caw[label="Chuck Wingate"];
+        jomc[label="Joann Campbell"];
+        frankles[label="Stephanie Frankle"];
+        rcl[label="Bob Little"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.13", shape="ellipse"];
+
+        rcl -> ndi[label="70) be9", style=solid, color=green];
+        ndi -> wardr[label="70) be9", style=solid, color=green];
+
+        ndi -> jomc[label="62) lanl04e",
+        style=solid, color=red];
+
+        rrcc -> ndi[label="62) lanl04e",
+        style=solid, color=red];   
+
+        ndi -> wardr[label="65) NDI_ERROR",
+        style=solid, color=green];
+
+        ndi -> wardr[label="66) kerma\nuse_calc",
+        style=solid, color=green];
+
+        ndi -> rsb[label="67) NDI_AVG_V",
+        style=solid, color=orange];
+
+        dkp -> ndi[label="68) e66_618\nkerma",
+        style= solid, color=orange];
+
+        ndi -> caw[label="68) e66_618\nkerma",
+        style=solid, color=red];
+
+        mbl -> ndi[label="69) PD\nlibraries",
+        style=solid, color=red];
+
+        ndi -> frankles[label="69) PD\nlibraries",
+        style=solid, color=red];
+
+        dkp -> ndi[label="70) 618 Ar",
+        style=dashed, color=orange];
+
+	{rank=min; dkp; rrcc; mbl; rcl}
+	{rank=max; wardr; rsb; caw; jomc; frankles}
+}
