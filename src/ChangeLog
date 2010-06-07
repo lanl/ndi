@@ -1,3 +1,15 @@
+2010-06-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_internal.h (M_NEUT_KG): updated physical constants (Reqt. 67)
+
+2010-06-04  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (tdv): Added v*td function (Reqt. 67)
+	(TD_MOMENT): Generalized TD_ENERGY to calculate velocity
+	(NDI_CALC_V_AVG): Provide average v for photons, neutrons
+
+	* ndi_keywords.h (NDI_V_AVG): Added keyword (Reqt. 67)
+
 2010-03-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_GET_OLD_KERMA): Turn off transpose and

@@ -169,6 +169,7 @@
 #define NDI_FISS_XFER_MAT_TOT         138
 #define NDI_FISS_XFER_MAT_PR          139
 #define NDI_FISS_XFER_MAT_DEL         140 
+#define NDI_V_AVG                     141
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

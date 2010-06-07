@@ -35,6 +35,8 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
                               FLOAT_TYPE * return_vec, int return_size);
 static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE * return_vec,
                           int return_size);
+static int NDI_CALC_V_AVG(state_struct *state, FLOAT_TYPE *return_vec,
+                          int return_size);
 static int NDI_CALC_E_N(state_struct *state, FLOAT_TYPE * return_vec,
                         int return_size);
 static int NDI_CALC_E_AVAIL(state_struct *state, FLOAT_TYPE * return_vec,
@@ -76,8 +78,8 @@ static int LEGACY_E_CALC(state_struct *state, int num_grps,
                          FLOAT_TYPE *return_vec, int return_size);
 static int FLAT_ENERGY (state_struct *state, int num_grps, 
                         FLOAT_TYPE *return_vec, int return_size);
-static int TD_ENERGY (state_struct *state, int num_grps, 
-                      FLOAT_TYPE *return_vec, int return_size);
+static int TD_MOMENT(state_struct *state, char m, int num_grps, 
+                     FLOAT_TYPE *return_vec, int return_size);
 
 static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
                           int return_size);
@@ -222,6 +224,10 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     case NDI_E_AVG:             /* Average group energies */
         /*  Check bounds */
         ierr = NDI_CALC_E_AVG(state, return_vec, return_size);
+        break;
+
+    case NDI_V_AVG:             /* Average group velocity (Reqt. 67) */
+        ierr = NDI_CALC_V_AVG(state, return_vec, return_size);
         break;
 
     case NDI_ENERGY_N:          /* Energy given to neutrons */
@@ -1353,6 +1359,58 @@ static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE *return_vec,
     return(ierr);
 }
 
+static int NDI_CALC_V_AVG(state_struct *state, FLOAT_TYPE *return_vec,
+                          int return_size)
+{
+
+    int num_grps;
+    int ierr = 0;
+    int i;
+
+    NDI_INIT_FLOAT_VEC(return_vec, return_size);
+
+    if (state) {
+        num_grps = state->iso_stat.num_grps;
+        
+        if ( num_grps <= 0 ) {
+            ierr = 9;
+            return(ierr);
+        }
+        
+        if (state->collapse_flag) {
+            num_grps = state->grp_num_new;
+        }
+        
+        switch (state->particle_type) {
+
+        case 0:                 /* Photon */
+
+            for (i=0; i < return_size; i++)
+                /*                 m/s     * cm/m* s/sh */ 
+                return_vec[i] = V_PHOT_MPS * 100 * 1e-8; /* cm/sh */
+            if (num_grps > return_size)
+                ierr = 7;       /* bounds failed */
+            else
+                ierr = 0;
+
+            break;
+            
+        case 1:        /* Neutron */
+            ierr = TD_MOMENT(state, 'v', num_grps, return_vec, return_size);
+            break;
+            
+        default:       /* Other particle */
+            ierr = 9;
+            break;
+            
+        }
+        
+    } else {
+        ierr = -2;
+    }
+
+    return(ierr);
+}
 /*********************************************************************/
 
 static int NDI_CALC_E_N(state_struct *state, FLOAT_TYPE * return_vec,
@@ -2970,7 +3028,7 @@ static int NEUTRON_E_AVG (state_struct *state, int num_grps, FLOAT_TYPE *return_
         ierr = FLAT_ENERGY(state, num_grps, return_vec, return_size);
         
     } else if (state->e_avg_calc == TD_CALC) {
-        ierr = TD_ENERGY(state, num_grps, return_vec, return_size);
+        ierr = TD_MOMENT(state, 'e', num_grps, return_vec, return_size);
         
     } else {
         ierr = -13;
@@ -3272,39 +3330,69 @@ static double td(double x)
     return w[l] * pow(x/E[l], lnw[l]);
 }
 
-static double tdx(double x)
+static double tde(double x)
 {
     return x * td(x);
 }
 
-/* TD weighted average energy */
-static int TD_ENERGY(state_struct *state, int num_grps, 
+static double tdv(double x)
+{
+    double vc;
+
+    /* Since x in MeV, conversion is:
+          J/MeV    *  (m/s)^2/J  * (cm/m)^2 * (s/sh)^2 */
+    vc = J_TO_MEV  * 2/M_NEUT_KG *    1e4   *   1e-16; 
+    /* to (cm/sh)^2 */
+
+    return sqrt(vc * x) * td(x);
+}
+
+/* TD weighted average moment */
+static int TD_MOMENT(state_struct *state, char m,  int num_grps, 
                      FLOAT_TYPE *return_vec, int return_size) 
 {
     int ierr = 0;
     int i, j;
-    double ebar, wt_sum, e_sum;
+    double fbar, wt_sum, f_sum;
+
+    double (*f)(double);
+
+    switch (m) {
+    case 'e':
+        f = tde;
+        break;
+    case 'v':
+        f = tdv;
+        break;
+    default:
+        return -5;              /* unrecognized key */
+        break;
+    }
     
     for ( i = 0; i < num_grps; i++ ) {
         wt_sum = 0.0;
-        e_sum = 0.0;
+        f_sum = 0.0;
         if ( state->collapse_flag ) {
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
-                ebar = gl10(tdx, state->lib_ebounds[j+1], 
+                fbar = gl10(f, state->lib_ebounds[j+1], 
                             state->lib_ebounds[j]) /
                     gl10(td, state->lib_ebounds[j+1], 
                          state->lib_ebounds[j]);
 
-                e_sum += ebar * state->lib_weight[j];
+                f_sum += fbar * state->lib_weight[j];
                 wt_sum += state->lib_weight[j];
             }
         } else {
-            e_sum = gl10(tdx, state->lib_ebounds[i+1], state->lib_ebounds[i]) /
+            f_sum = gl10(f, state->lib_ebounds[i+1], state->lib_ebounds[i]) /
                 gl10(td, state->lib_ebounds[i+1], state->lib_ebounds[i]);
             wt_sum = 1;
         }
-        return_vec[i] = (FLOAT_TYPE) e_sum / wt_sum;
+        if (i < return_size) {
+            return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
+        } else {
+            return 7;          /* array bounds exceeded */
+        }
     }
 
     return(ierr);
