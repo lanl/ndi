@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 05/24/10\n\
+	label="Context Diagram 06/08/10\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -24,14 +24,8 @@ digraph ndi {
 	/* requirements */
 	ndi[label="NDI 2.0.13", shape="ellipse"];
 
-        rcl -> ndi[label="70) be9", style=solid, color=green];
-        ndi -> wardr[label="70) be9", style=solid, color=green];
-
-        ndi -> jomc[label="62) lanl04e",
-        style=solid, color=red];
-
-        rrcc -> ndi[label="62) lanl04e",
-        style=solid, color=red];   
+        rcl -> ndi[label="71) be9", style=solid, color=green];
+        ndi -> wardr[label="71) be9", style=solid, color=green];
 
         ndi -> wardr[label="65) NDI_ERROR",
         style=solid, color=green];
@@ -40,10 +34,10 @@ digraph ndi {
         style=solid, color=green];
 
         ndi -> rsb[label="67) NDI_AVG_V",
-        style=solid, color=orange];
+        style=solid, color=green];
 
         dkp -> ndi[label="68) e66_618\nkerma",
-        style= solid, color=orange];
+        style= solid, color=green];
 
         ndi -> caw[label="68) e66_618\nkerma",
         style=solid, color=red];
@@ -55,8 +49,8 @@ digraph ndi {
         style=solid, color=red];
 
         dkp -> ndi[label="70) 618 Ar",
-        style=dashed, color=orange];
+        style=dashed, color=green];
 
-	{rank=min; dkp; rrcc; mbl; rcl}
-	{rank=max; wardr; rsb; caw; jomc; frankles}
+	{rank=min; dkp; mbl; rcl}
+	{rank=max; wardr; rsb; caw; frankles}
 }
