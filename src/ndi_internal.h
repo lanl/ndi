@@ -556,6 +556,10 @@ extern "C" {
     int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
 
     /***  Subroutines in file ndi_misc_float.c ***/
+    int ndi_const_float32_vec(ndi_float32 val, int num_vals, 
+                              ndi_float32 *vec, int num_elements);
+    int ndi_const_float64_vec(ndi_float64 val, int num_vals,
+                              ndi_float64 *vec, int num_elements);
     int ndi_init_float32_vec(ndi_float32 * vec, int num_elements);
     int ndi_init_float64_vec(ndi_float64 * vec, int num_elements);
     int ndi_get_simple_float32_vec(state_struct *state, FILE *stream,

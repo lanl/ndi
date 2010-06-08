@@ -1,3 +1,8 @@
+2010-06-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_misc_float.c (NDI_CONST_FLOAT_VEC): Initialize vector to
+	constant (Reqt. 67)
+
 2010-06-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_internal.h (M_NEUT_KG): updated physical constants (Reqt. 67)

@@ -94,6 +94,7 @@ int main()
     printf("#define PN_FULL_TRANS_CORR ndi_pn_full_trans_corr32\n");
     printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat32\n");
     printf("#define NDI_INIT_FLOAT_VEC ndi_init_float32_vec\n");
+    printf("#define NDI_CONST_FLOAT_VEC ndi_const_float32_vec\n");
     printf("#define GET_SIG_REAC ndi_get_sig_reac32\n");
     printf("#define GET_DEPL_XS ndi_get_depl_xs32\n");
     printf("#define GET_FLOAT_VEC_X_MG ndi_get_float_vec32_x_mg\n");
@@ -200,6 +201,7 @@ int main()
     printf("#define GET_PN_PROD_FULL_P ndi_get_pn_prod_full64\n");
     printf("#define GET_TRANSFER_MAT ndi_get_transfer_mat64\n");
     printf("#define NDI_INIT_FLOAT_VEC ndi_init_float64_vec\n");
+    printf("#define NDI_CONST_FLOAT_VEC ndi_const_float64_vec\n");
     printf("#define GET_DIAG_CORR ndi_get_diag_corr64\n");
     printf("#define COPY_MATRIX ndi_copy_matrix64\n");
     printf("#define NDI_GET_CHI_VEC  ndi_get_chi_vec64\n");

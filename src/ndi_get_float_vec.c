@@ -1362,10 +1362,8 @@ static int NDI_CALC_E_AVG(state_struct *state, FLOAT_TYPE *return_vec,
 static int NDI_CALC_V_AVG(state_struct *state, FLOAT_TYPE *return_vec,
                           int return_size)
 {
-
     int num_grps;
     int ierr = 0;
-    int i;
 
     NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
@@ -1384,15 +1382,9 @@ static int NDI_CALC_V_AVG(state_struct *state, FLOAT_TYPE *return_vec,
         switch (state->particle_type) {
 
         case 0:                 /* Photon */
-
-            for (i=0; i < return_size; i++)
-                /*                 m/s     * cm/m* s/sh */ 
-                return_vec[i] = V_PHOT_MPS * 100 * 1e-8; /* cm/sh */
-            if (num_grps > return_size)
-                ierr = 7;       /* bounds failed */
-            else
-                ierr = 0;
-
+            /*                            m/s     * cm/m * s/sh */ 
+            ierr = NDI_CONST_FLOAT_VEC(V_PHOT_MPS * 100  * 1e-8, num_grps,
+                                       return_vec, return_size);
             break;
             
         case 1:        /* Neutron */
@@ -1402,7 +1394,6 @@ static int NDI_CALC_V_AVG(state_struct *state, FLOAT_TYPE *return_vec,
         default:       /* Other particle */
             ierr = 9;
             break;
-            
         }
         
     } else {
@@ -3289,15 +3280,15 @@ static double td(double x)
         4.000000e-03, 1.540000e-03, 8.500000e-04, 1.727900e-04};
 
     static double lnw[] = {            /* log (w[i+1]/w[i])/log(E[i+1]/E[i]) */
-        9.884296e-01, 9.884262e-01, 9.714039e-01, 9.005872e-01, 7.115331e-01,
-        3.449816e-01,-2.762505e-01,-7.914665e-01,-1.885574e+00,-3.756853e+00,
+         9.884296e-01, 9.884262e-01, 9.714039e-01, 9.005872e-01, 7.115331e-01,
+         3.449816e-01,-2.762505e-01,-7.914665e-01,-1.885574e+00,-3.756853e+00,
         -5.749210e+00,-9.870729e-01,-1.002123e+00,-9.991121e-01,-9.975245e-01,
         -1.001403e+00,-1.000468e+00,-1.000303e+00,-1.000702e+00,-9.986448e-01,
         -9.991109e-01,-1.001001e+00,-1.001206e+00,-9.976161e-01,-1.001972e+00,
         -9.621974e-01,-1.495408e-01,-4.547460e-01,-9.951175e-01,-1.746723e+00,
         -1.746575e+00,-2.409498e+00,-2.670140e+00,-3.315940e+00,-3.496828e+00,
-        -3.681218e+00, 8.575293e-01, 6.014927e+00, 2.023736e+01,        4.022351e+01,
-        0.000000e+00,-1.713246e+01,-6.280423e+01,-7.094821e+01,-4.865451e+01,
+        -3.681218e+00, 8.575293e-01, 6.014927e+00, 2.023736e+01, 4.022351e+01,
+         0.000000e+00,-1.713246e+01,-6.280423e+01,-7.094821e+01,-4.865451e+01,
         -1.478980e+01,-9.802970e+00,-9.802916e+00,-9.802916e+00};
 
     int l, u, m;
@@ -3358,21 +3349,21 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
     double (*f)(double);
 
     switch (m) {
-    case 'e':
+    case 'e':                   /* Energy average */
         f = tde;
         break;
-    case 'v':
+    case 'v':                   /* Velocity average */
         f = tdv;
         break;
-    default:
-        return -5;              /* unrecognized key */
+    default:                    /* Unrecognized average */
+        return -5;
         break;
     }
     
-    for ( i = 0; i < num_grps; i++ ) {
+    for (i = 0; i < num_grps; i++) {
         wt_sum = 0.0;
         f_sum = 0.0;
-        if ( state->collapse_flag ) {
+        if (state->collapse_flag) {
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
                 fbar = gl10(f, state->lib_ebounds[j+1], 
@@ -3391,7 +3382,8 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
         if (i < return_size) {
             return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
         } else {
-            return 7;          /* array bounds exceeded */
+            ierr = 7;          /* array bounds exceeded */
+            break;
         }
     }
 
@@ -3400,7 +3392,7 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
 /*********************************************************************/
 /*********************************************************************/
 
-/* Spontaneous fission neutrons per sec per energy bin */
+/* Spontaneous fission neutrons per sh per energy bin */
 static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
                           int return_size) {
 
@@ -3429,7 +3421,7 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
         goto catch;
     }
 
-    /* [decay/(atom*sec)][fissions/decay][neutrons/fission] */
+    /* [decay/(atom*sh)][fissions/decay][neutrons/fission] */
     R = sf->lambda * sf->ratio * sf->nubar;
 
     if (return_size < num_grps) {

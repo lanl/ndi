@@ -421,10 +421,22 @@ int main ()
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
    if (ierr) {
-       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+       printf("  Error %d getting average energy (TD) for isotope u235.\n",
+              ierr );
    }
 
    printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD average velocities (reqt 67) */
+   ierr = ndi_get_float64_vec(NDI_V_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average velocity (TD) for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
@@ -440,10 +452,22 @@ int main ()
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
    if (ierr) {
-       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+       printf("  Error %d getting average energy (TD) for isotope u235.\n",
+              ierr );
    }
 
    printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD average velocities (reqt 67) */
+   ierr = ndi_get_float64_vec(NDI_V_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average velocity (TD) for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
@@ -460,10 +484,22 @@ int main ()
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
    if (ierr) {
-       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+       printf("  Error %d getting average energy (TD) for isotope u235.\n",
+              ierr );
    }
 
    printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD average velocities (reqt 67) */
+   ierr = ndi_get_float64_vec(NDI_V_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average velocity (TD) for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
@@ -479,10 +515,22 @@ int main ()
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec(NDI_E_AVG, ret_vec64, vec_size);
    if (ierr) {
-       printf("  Error %d getting average energy (TD) for isotope u235.\n", ierr );
+       printf("  Error %d getting average energy (TD) for isotope u235.\n",
+              ierr );
    }
 
    printf("Average energy: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD average velocities (reqt 67) */
+   ierr = ndi_get_float64_vec(NDI_V_AVG, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting average velocity (TD) for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 

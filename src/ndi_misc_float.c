@@ -21,6 +21,32 @@
 
 /**********************************************************************/
 
+/* Fill vec with num_vals copies of val.
+
+   Return 0 if sucessful
+          7 if vec_len < num_val
+*/
+int NDI_CONST_FLOAT_VEC(FLOAT_TYPE val, int num_vals, 
+                        FLOAT_TYPE *vec, int vec_len) 
+{
+    int i;
+    int n;
+    int ierr = 0;
+
+    if (vec_len < num_vals) {
+        n = vec_len;
+        ierr = 7;
+    } else {
+        n = num_vals;
+    }
+
+    for (i=0; i < n; i++)
+        vec[i] = val;
+
+    return ierr;
+}
+
+/**********************************************************************/
 
 int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 {
