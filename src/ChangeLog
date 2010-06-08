@@ -1,5 +1,7 @@
 2010-06-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
+	* ndi_get_size.c (get_mg_size): Added NDI_V_AVG 
+
 	* ndi_misc_float.c (NDI_CONST_FLOAT_VEC): Initialize vector to
 	constant (Reqt. 67)
 
