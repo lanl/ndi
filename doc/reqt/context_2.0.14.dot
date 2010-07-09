@@ -1,0 +1,43 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+	label="Context Diagram 07/07/10\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        dkp[label="Kent Parsons"];
+        mbl[label="Beth Lee"];
+        rrcc[label="Ryan Clement"];
+        rcl[label="Bob Little"];
+        caw[label="Chuck Wingate"];
+        frankles[label="Stephanie Frankle"];
+        wardr[label="Rob Ward"];
+        jomc[label="Joann Campbell"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.14", shape="ellipse"];
+
+        
+        dkp -> ndi[label="54) SN\nlanl2010", style=solid, color=orange];
+        ndi -> rcl[label="54) SN\nlanl2010", style=solid, color=red];
+
+        mbl -> ndi[label="69) PD\nlibs", style=solid, color=red];
+        ndi -> frankles[label="69) PD\nlibs", style=solid, color=red];
+
+        mbl -> ndi[label="73) RC\ncrsdata", style=solid, color=orange];
+        ndi -> wardr[label="69) RC\ncrsdata", style=solid, color=red];
+
+        rrcc -> ndi[label="62) TN\nlanl10e", style=solid, color=green];
+        ndi -> jomc[label="62) TN\nlanl10e", style=solid, color=red];
+
+        ndi -> caw[label="72) Q_SIG_F", style=solid, color=orange];
+
+	{rank=min; dkp; mbl; rrcc}
+	{rank=max; rcl; caw; frankles; wardr; jomc}
+}

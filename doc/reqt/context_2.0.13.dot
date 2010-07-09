@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 06/08/10\n\
+	label="Context Diagram 06/10/10\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -12,12 +12,10 @@ digraph ndi {
 
 	/* stakeholders */
         dkp[label="Kent Parsons"];
-        rrcc[label="Ryan Clement"];
         mbl[label="Beth Lee"];
         wardr[label="Rob Ward"];
         rsb[label="Randy Baker"];
         caw[label="Chuck Wingate"];
-        jomc[label="Joann Campbell"];
         frankles[label="Stephanie Frankle"];
         rcl[label="Bob Little"];
 
@@ -40,16 +38,16 @@ digraph ndi {
         style= solid, color=green];
 
         ndi -> caw[label="68) e66_618\nkerma",
-        style=solid, color=red];
+        style=solid, color=green];
 
         mbl -> ndi[label="69) PD\nlibraries",
-        style=solid, color=red];
+        style=solid, color=green];
 
         ndi -> frankles[label="69) PD\nlibraries",
-        style=solid, color=red];
+        style=solid, color=green];
 
         dkp -> ndi[label="70) 618 Ar",
-        style=dashed, color=green];
+        style=solid, color=green];
 
 	{rank=min; dkp; mbl; rcl}
 	{rank=max; wardr; rsb; caw; frankles}
