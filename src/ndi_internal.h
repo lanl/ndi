@@ -75,7 +75,7 @@ typedef char tn_zaid[64];
 
 enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC, FLAT_CALC, TD_CALC};
 enum kerma_calc_type {DATA, CALC, DATA_CALC, LEGACY};  
-enum qsigf_calc_type {Q_CALC, BAD_CALC};
+enum qsigf_calc_type {Q_CALC, P_CALC, Q_LEGACY};
 
 typedef struct _dir_entry {
     char zaid[MAX_IN_STR_LEN];

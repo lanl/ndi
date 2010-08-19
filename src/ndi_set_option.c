@@ -601,7 +601,9 @@ static int ndi_set_qsigf_calc(state_struct *state, const char *value)
     if (strcmp(value, "use_calc") == 0) {
 	state->qsigf_calc = Q_CALC;
     } else if (strcmp(value, "use_bad_calc") == 0) {
-	state->qsigf_calc = BAD_CALC;
+	state->qsigf_calc = P_CALC;
+    } else if (strcmp(value, "use_legacy") == 0) {
+	state->qsigf_calc = Q_LEGACY;
     } else {
 	ierr = -5;	/* "Error:  invalid NDI input argument. */
     }

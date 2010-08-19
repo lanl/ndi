@@ -3543,12 +3543,17 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
 
     switch(state->qsigf_calc) {
         
-    case BAD_CALC:
+    case Q_LEGACY:              /* Constant Q fission prompt */
+        a = 0.0;
+        b = 0.0;
+        break;
+
+    case P_CALC:                /* Q fission prompt in NJOY99 R0 */
         a = 8.07;
         b = 0.043;
         break;
 
-    case Q_CALC:
+    case Q_CALC:                /* Q fission prompt in NJOY99 R336 */
         a = 8.07;
         b = -0.307;
         break;
