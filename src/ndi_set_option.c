@@ -24,6 +24,7 @@ static int ndi_set_trans_corr_diag(state_struct *state, const char *value);
 static int ndi_set_reac_id(state_struct *state, const char *value);
 static int ndi_set_e_avg(state_struct *state, const char *value);
 static int ndi_set_kerma_calc(state_struct *state, const char *value);
+static int ndi_set_qsigf_calc(state_struct *state, const char *value);
 
 static int get_order(const char *value);
 static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
@@ -106,6 +107,10 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 
     case NDI_KERMA:		/* Specify kerma/heating calculation */
 	ierr = ndi_set_kerma_calc(state, value);
+	break;
+
+    case NDI_Q_SIG_F_PR:	/* Specify Q*sigma_f calculation */
+	ierr = ndi_set_qsigf_calc(state, value);
 	break;
 
     case NDI_DEPLETION:	/* Set depletion chain */
@@ -569,20 +574,39 @@ static int ndi_set_kerma_calc(state_struct *state, const char *value)
 {
     int ierr = 0;
 
-    if (strncmp(value, "use_data", 9) == 0) {
+    if (strcmp(value, "use_data") == 0) {
 	/* If kerma/heating not available on library, use calculation */
 	state->kerma_calc = DATA;
-    } else if (strncmp(value, "use_calc", 9) == 0) {
+    } else if (strcmp(value, "use_calc") == 0) {
 	state->kerma_calc = CALC;
-    } else if (strncmp(value, "use_data_calc", 14) == 0) {
+    } else if (strcmp(value, "use_data_calc") == 0) {
 	state->kerma_calc = DATA_CALC;
+    } else if (strcmp(value, "use_legacy_calc") == 0) {
+        state->kerma_calc = LEGACY;
     } else {
-	/* "Error:  invalid NDI input argument. */
-	ierr = -5;
+	ierr = -5;	/* "Error:  invalid NDI input argument. */
     }
 
     return (ierr);
 
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int ndi_set_qsigf_calc(state_struct *state, const char *value)
+{
+    int ierr = 0;
+
+    if (strcmp(value, "use_calc") == 0) {
+	state->qsigf_calc = Q_CALC;
+    } else if (strcmp(value, "use_bad_calc") == 0) {
+	state->qsigf_calc = BAD_CALC;
+    } else {
+	ierr = -5;	/* "Error:  invalid NDI input argument. */
+    }
+
+    return (ierr);
 }
 
 /**********************************************************************/

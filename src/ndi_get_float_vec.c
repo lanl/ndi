@@ -83,6 +83,10 @@ static int TD_MOMENT(state_struct *state, char m, int num_grps,
 
 static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec, 
                           int return_size);
+
+static int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size);
+static int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size);
+
 static int is_partial_fission(int mt);
 
 /**********************************************************************/
@@ -531,6 +535,10 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_SF_SPECTRA:        /* Spontaneous Fission Spectra (reqt. 46) */
         ierr = GET_SF_SPECTRA(state, return_vec, return_size);
+        break;
+
+    case NDI_Q_SIG_F_PR:        /* Q*sigma_f for prompt neutrons (reqt 72) */
+        ierr = GET_QSIGF(state, return_vec, return_size);
         break;
 
     /**********  UNKNOWN KEYWORD  ***********/
@@ -3447,4 +3455,158 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
     return ierr;
 }
 
+/**********************************************************************/
+int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
+{
+    int ierr = 0;
+    int jerr = 0;
+    int n;
+    int i;
+    int collapse_flag = 0;
+
+    FLOAT_TYPE *qsf = NULL;
+    FLOAT_TYPE *sigf = NULL;
+
+    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+    (void) NDI_INIT_FLOAT_VEC(vec, size); /* Zero vector */
+
+    if (state->iso_stat.fissionable == 0) goto catch;
+
+    if (!ndi_sigf_avail(state)) NDI_THROW(ierr, -9);
+    n = state->iso_stat.num_grps;
+
+    /* Turn of collapsing */
+    collapse_flag = state->collapse_flag;
+    state->collapse_flag = 0;
+
+    /* Get fission Q */
+    qsf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+    if (!qsf) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = GET_QF(state, qsf, n);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    /* Get fission cross section */
+    sigf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+    if (!sigf) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &n);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    /* Restore collapsing */
+    state->collapse_flag = collapse_flag;
+    collapse_flag = 0;
+
+    /* Calculate qsf */
+    n = state->iso_stat.num_grps; /* May have been changed above */
+    for (i = 0; i < n; i++) {
+        qsf[i] *= sigf[i];
+    }
+
+    if (state->collapse_flag) {
+        jerr = NDI_COLLAPSE_FLOAT(state, qsf, n, 0, vec, size);
+        if (jerr) NDI_THROW(ierr, jerr);
+    } else {
+        if (n > size) ierr = 7;
+        for (i = 0; i < ((n < size) ? n: size); i++) {
+            vec[i] = qsf[i];
+        }
+    }
+
+ catch:
+    if (collapse_flag) state->collapse_flag = collapse_flag;
+    ndi_free((void **)&sigf);
+    ndi_free((void **)&qsf);
+    return ierr;
+}
+
+/**********************************************************************/
+int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
+{
+    int ierr = 0;
+    int jerr = 0;
+    int n;
+    int i;
+    FLOAT_TYPE *nu = NULL;
+    FLOAT_TYPE *eavg = NULL;
+    FLOAT_TYPE fissq[NUM_FISSION_Q];
+    ndi_float64 a;
+    ndi_float64 b;
+    int collapse_flag = 0;
+    FLOAT_TYPE *q = NULL;
+
+    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+
+    (void) NDI_INIT_FLOAT_VEC(vec, size);
+
+    if (state->iso_stat.fissionable == 0) goto catch;
+
+    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9);
+
+    switch(state->qsigf_calc) {
+        
+    case BAD_CALC:
+        a = 8.07;
+        b = 0.043;
+        break;
+
+    case Q_CALC:
+        a = 8.07;
+        b = -0.307;
+        break;
+
+    default:
+        NDI_THROW(ierr, -13);   /* Invalid flag */
+    }
+
+    /* Get fission Q */
+
+    jerr = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    n = state->iso_stat.num_grps;
+    /* Turn of collapsing */
+    collapse_flag = state->collapse_flag;
+    state->collapse_flag = 0;
+
+    /* Allocate result */
+    q = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+    if (!q) NDI_THROW(ierr, -14); /* Out of memory */
+
+    /* Get average energy per group */
+    eavg = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+    if (!eavg) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, n);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    /* Get average number of prompt neutrons emitted per group */
+    nu = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
+    if (!nu) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, n);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    /* Calculate prompt fission Q */
+    for (i = 0; i < n; i++)
+        q[i] = fissq[0] - a * (nu[i] - nu[n-1]) - b * eavg[i];
+
+    /* Restore collapsing */
+    state->collapse_flag = collapse_flag;
+    collapse_flag = 0;
+
+    if (state->collapse_flag) {
+        jerr = NDI_COLLAPSE_FLOAT(state, q, n, 0, vec, size);
+        if (jerr) NDI_THROW(ierr, jerr);
+    } else {
+        if (n > size) ierr = 7;
+        for (i = 0; i < ((n < size) ? n: size); i++) {
+            vec[i] = q[i];
+        }
+    }
+
+ catch:
+    if (collapse_flag) state->collapse_flag = collapse_flag;
+    ndi_free((void **)&nu);
+    ndi_free((void **)&eavg);
+    ndi_free((void **)&q);
+    return ierr;
+}
+/**********************************************************************/
 /*********************************************************************/

@@ -1,3 +1,24 @@
+2010-08-18  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (NDI_GET_QSIGF): Added code
+	(NDI_GET_QF): Added code
+
+	* ndi_define_float.c (main): Added NDI_GET_QF, NDI_GET_QSIGF
+
+	* ndi_set_option.c (ndi_set_qsigf_calc): Added set option code
+	(ndi_set_kerma_calc): Added option set for new option
+
+	* ndi_check_option.c (ndi_get_qsigf_calc): Added check option code
+	(ndi_get_kerma_calc): Added option check for new option
+
+	* ndi_internal.h: Add LEGACY option to kerma_calc_type enum
+
+	* ndi_get_size.c (get_mg_size): Added NDI_Q_SIG_F_PR
+
+	* ndi_keywords.h (NDI_Q_SIG_F_PR): Add new keyword
+
+	* ndi_internal.h: add qsigf_calc_type, qsigf_calc variable
+
 2010-06-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_size.c (get_mg_size): Added NDI_V_AVG 

@@ -74,7 +74,8 @@ typedef char mg_zaid[64];
 typedef char tn_zaid[64];
 
 enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC, FLAT_CALC, TD_CALC};
-enum kerma_calc_type {DATA, CALC, DATA_CALC};  
+enum kerma_calc_type {DATA, CALC, DATA_CALC, LEGACY};  
+enum qsigf_calc_type {Q_CALC, BAD_CALC};
 
 typedef struct _dir_entry {
     char zaid[MAX_IN_STR_LEN];
@@ -281,6 +282,7 @@ typedef struct _state_struct {
     enum e_avg_type e_avg_calc;	/* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
     enum kerma_calc_type kerma_calc;	/* CALC=>calculate kerma; DATA=>get data from library
 					   DATA_CALC=> get data from lib; use calc if not avail */
+    enum qsigf_calc_type qsigf_calc; /* CALC=>correct calc; BAD_CALC=>bad calc */
     int curr_reac_index;	/*  Obsolete? */
     char nuc_data_type[2];	/*  Obsolete? */
 

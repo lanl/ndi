@@ -32,6 +32,8 @@ static int ndi_get_e_avg(state_struct *state, char *value,
 			 int string_size);
 static int ndi_get_kerma_calc(state_struct *state, char *value,
 			      int string_size);
+static int ndi_get_qsigf_calc(state_struct *state, char *value,
+			      int string_size);
 
 /**********************************************************************/
 
@@ -106,6 +108,11 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 	/* Kerma and heating calculated if not found on library? */
 	ierr = ndi_get_kerma_calc(state, out_value, string_size);
 	break;
+
+    case NDI_Q_SIG_F_PR:
+        /* Q*sigma_f calculated */
+        ierr = ndi_get_qsigf_calc(state, out_value, string_size);
+        break;
 
     case NDI_CHAIN:
     case NDI_DEPLETION:
@@ -497,19 +504,46 @@ static int ndi_get_kerma_calc(state_struct *state, char *value,
 {
     int ierr = 0;
 
-    if (state->kerma_calc == CALC) {
+    switch(state->kerma_calc) {
+    case CALC:
 	strncpy(value, "use_calc", string_size);
-    } else if (state->kerma_calc == DATA_CALC) {
+        break;
+    case DATA_CALC:
 	strncpy(value, "use_data_calc", string_size);
-    } else if (state->kerma_calc == DATA) {
+        break;
+    case DATA:
 	strncpy(value, "use_data", string_size);
-    } else {
+        break;
+    case LEGACY:
+        strncpy(value, "use_legacy_calc", string_size);
+        break;
+    default:
 	strncpy(value, "", string_size);
 	ierr = -27;
     }
 
     return (ierr);
+}
 
+/**********************************************************************/
+static int ndi_get_qsigf_calc(state_struct *state, char *value,
+                                int string_size)
+{
+    int ierr = 0;
+
+    switch (state->qsigf_calc) {
+    case Q_CALC:
+	strncpy(value, "use_calc", string_size);
+        break;
+    case BAD_CALC:
+	strncpy(value, "use_bad_calc", string_size);
+        break;
+    default:
+	strncpy(value, "", string_size);
+	ierr = -27;
+    }
+
+    return (ierr);
 }
 
 /**********************************************************************/

@@ -290,6 +290,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_TOT_DEPL_XS:       /* Total depletion cross section */
     case NDI_SF_SPECTRA:        /* Spontaneous fission spectra */
     case NDI_V_AVG:             /* Average group velocities */
+    case NDI_Q_SIG_F_PR:        /* Energy prompt sigma fission */
 
         if (state->collapse_flag != 0) {
             return_value = state->grp_num_new;
