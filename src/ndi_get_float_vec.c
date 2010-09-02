@@ -3468,24 +3468,31 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
     FLOAT_TYPE *sigf = NULL;
 
     if (!state) NDI_THROW(ierr, -2); /* State not initialized */
-    (void) NDI_INIT_FLOAT_VEC(vec, size); /* Zero vector */
 
+    if (state->collapse_flag) {
+        n = state->grp_num_new;
+    } else {
+        n = state->iso_stat.num_grps;
+    }
+    ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
     if (state->iso_stat.fissionable == 0) goto catch;
 
     if (!ndi_sigf_avail(state)) NDI_THROW(ierr, -9);
-    n = state->iso_stat.num_grps;
 
-    /* Turn of collapsing */
+    /* Turn off collapsing 
+       for best approximation of continuous product 
+       with multigroup quantities */
     collapse_flag = state->collapse_flag;
     state->collapse_flag = 0;
+    n = state->iso_stat.num_grps;
 
-    /* Get fission Q */
+    /* Allocate and get fission Q */
     qsf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!qsf) NDI_THROW(ierr, -14); /* Out of memory */
     jerr = GET_QF(state, qsf, n);
     if (jerr) NDI_THROW(ierr, jerr);
 
-    /* Get fission cross section */
+    /* Allocate and get fission cross section */
     sigf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!sigf) NDI_THROW(ierr, -14); /* Out of memory */
     jerr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &n);
@@ -3505,10 +3512,10 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
         jerr = NDI_COLLAPSE_FLOAT(state, qsf, n, 0, vec, size);
         if (jerr) NDI_THROW(ierr, jerr);
     } else {
-        if (n > size) ierr = 7;
         for (i = 0; i < ((n < size) ? n: size); i++) {
             vec[i] = qsf[i];
         }
+        if (n > size) NDI_THROW(ierr, 7);
     }
 
  catch:
@@ -3525,28 +3532,34 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     int jerr = 0;
     int n;
     int i;
+    int collapse_flag = 0;
+
+    FLOAT_TYPE fissq[NUM_FISSION_Q];
+    FLOAT_TYPE a;
+    FLOAT_TYPE b;
     FLOAT_TYPE *nu = NULL;
     FLOAT_TYPE *eavg = NULL;
-    FLOAT_TYPE fissq[NUM_FISSION_Q];
-    ndi_float64 a;
-    ndi_float64 b;
-    int collapse_flag = 0;
     FLOAT_TYPE *q = NULL;
 
     if (!state) NDI_THROW(ierr, -2); /* State not initialized */
 
-    (void) NDI_INIT_FLOAT_VEC(vec, size);
-
+    if (state->collapse_flag) {
+        n = state->grp_num_new;
+    } else {
+        n = state->iso_stat.num_grps;
+    }
+    ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
     if (state->iso_stat.fissionable == 0) goto catch;
 
-    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9);
+    /* Get (constant) fission Q */
+    jerr = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
+    if (jerr) NDI_THROW(ierr, jerr);
 
     switch(state->qsigf_calc) {
         
     case Q_LEGACY:              /* Constant Q fission prompt */
-        a = 0.0;
-        b = 0.0;
-        break;
+        ierr = NDI_CONST_FLOAT_VEC(fissq[0], n, vec, size);
+        goto catch;
 
     case P_CALC:                /* Q fission prompt in NJOY99 R0 */
         a = 8.07;
@@ -3562,33 +3575,36 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         NDI_THROW(ierr, -13);   /* Invalid flag */
     }
 
-    /* Get fission Q */
+    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9);
 
-    jerr = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
-    if (jerr) NDI_THROW(ierr, jerr);
-
-    n = state->iso_stat.num_grps;
-    /* Turn of collapsing */
+    /* Turn off collapsing
+       for best approximation of continuous nubar(0) 
+       by multigroup nu[n-1] */
     collapse_flag = state->collapse_flag;
     state->collapse_flag = 0;
+
+    n = state->iso_stat.num_grps;
 
     /* Allocate result */
     q = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!q) NDI_THROW(ierr, -14); /* Out of memory */
 
-    /* Get average energy per group */
+    /* Allocate and get average neutron incident energy per group */
     eavg = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!eavg) NDI_THROW(ierr, -14); /* Out of memory */
+    /* NB: Values returned depend on NDI_E_AVG option setting */
     jerr = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, n);
     if (jerr) NDI_THROW(ierr, jerr);
 
-    /* Get average number of prompt neutrons emitted per group */
+    /* Allocate and get average number of prompt neutrons emitted per group */
     nu = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!nu) NDI_THROW(ierr, -14); /* Out of memory */
     jerr = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, n);
     if (jerr) NDI_THROW(ierr, jerr);
 
-    /* Calculate prompt fission Q */
+    /* Calculate incident neutron energy dependent prompt fission Q */
+    /* See: "Incident Neutron Energy Dependent Fission Data in NDI"
+       XCP-5:10-021(U), July 2010 */
     for (i = 0; i < n; i++)
         q[i] = fissq[0] - a * (nu[i] - nu[n-1]) - b * eavg[i];
 
@@ -3600,10 +3616,10 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         jerr = NDI_COLLAPSE_FLOAT(state, q, n, 0, vec, size);
         if (jerr) NDI_THROW(ierr, jerr);
     } else {
-        if (n > size) ierr = 7;
         for (i = 0; i < ((n < size) ? n: size); i++) {
             vec[i] = q[i];
         }
+        if (n > size) NDI_THROW(ierr, 7); /* Data truncated */
     }
 
  catch:
