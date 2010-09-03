@@ -49,6 +49,10 @@ static int NDI_GET_KERMA(state_struct *state, stat_flag * kerma,
                          int return_size);
 static int NDI_GET_OLD_HEATING(state_struct *state,
                                FLOAT_TYPE * return_vec, int return_size);
+static int NDI_GET_OLD_KERMA(state_struct *state,
+                               FLOAT_TYPE * return_vec, int return_size);
+static int NDI_GET_NEW_KERMA(state_struct *state,
+                               FLOAT_TYPE * return_vec, int return_size);
 static int NDI_GET_CHI_VEC(state_struct *state, char chi_type, 
                            FLOAT_TYPE *return_vec, int *return_size);
 static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
@@ -277,6 +281,8 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         /* Units are MeV*barn -- this is just heating * tot_sigma */
         if (state->kerma_calc == CALC) {
             ierr = NDI_GET_OLD_KERMA(state, return_vec, return_size);
+        } else if(state->kerma_calc == LEGACY) {
+            ierr = NDI_GET_NEW_KERMA(state, return_vec, return_size);
         } else {
             ierr =
                 NDI_GET_KERMA(state, &state->iso_stat.kerma,
@@ -1754,20 +1760,20 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
     int i;
     int ierr;
     int num_grps;
-    ndi_float64 *tot_sig;
-    ndi_float64 *vec;
+    FLOAT_TYPE *tot_sig;
+    FLOAT_TYPE *vec;
 
     ierr = ndi_c_get_int_val_h(state, NDI_NUM_GRPS, &num_grps);
     if (num_grps > 0) {
         tot_sig =
-            (ndi_float64 *) ndi_malloc(num_grps * sizeof(ndi_float64));
-        vec = (ndi_float64 *) ndi_malloc(num_grps * sizeof(ndi_float64));
+            (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+        vec = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     } else {
         ierr = 5;
         return (ierr);
     }
-    ierr = ndi_c_get_float64_vec_h(state, NDI_SIG_TOT, tot_sig, num_grps);
-    ierr = ndi_get_old_kerma64(state, vec, num_grps);
+    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_SIG_TOT, tot_sig, num_grps);
+    ierr = NDI_GET_OLD_KERMA(state, vec, num_grps);
 
     for (i = 0; i < num_grps; i++) {
         if ( fabs(tot_sig[i]) > (vec[i] * DBL_EPSILON) ) {
@@ -1795,7 +1801,167 @@ static int NDI_GET_OLD_HEATING(state_struct *state,
 
 /*********************************************************************/
 /*********************************************************************/
-int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
+static int NDI_GET_NEW_KERMA(state_struct *state, 
+                             FLOAT_TYPE *return_vec, int return_size)
+{
+    int collapse_flag = 0;
+    char reac_id = 'm';
+    char mat_order = 'd';
+    char trans_corr = ' ';
+
+    int ierr = 0;
+    int jerr = 0;
+    int i, j;
+    int num_elements;
+    int num_reactions;
+    int mat_size;
+    FLOAT_TYPE q;
+
+    FLOAT_TYPE *tmp_vec = NULL;
+    FLOAT_TYPE *eavg = NULL;
+    FLOAT_TYPE *curr_xs = NULL;
+    int *mt = NULL;
+    FLOAT_TYPE *qf = NULL;
+    FLOAT_TYPE *xfer_mat = NULL;
+
+    (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
+    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+
+    num_elements = state->iso_stat.num_grps;
+    if (num_elements <= 0) NDI_THROW(ierr, -9); /* Bounds not initialized */
+
+    /* Turn off collapsing
+       for best approzimation of continuous products
+       with multigroup quantities */
+    collapse_flag = state->collapse_flag;
+    state->collapse_flag = 0;
+
+    /* Remember user setting and get reactions by mt */
+    reac_id = state->reac_id;
+    state->reac_id = 'm';
+
+    /* Remember user settings and set matrix default order */
+    mat_order = state->mat_order;
+    state->mat_order = 'd';
+
+    /* Remember user settings and turn transport corrections off */
+    trans_corr = state->trans_corr;
+    state->trans_corr = ' ';
+
+    /* Allocate and zero result vector */
+    tmp_vec = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+    if (!tmp_vec) NDI_THROW(ierr, -14); /* Out of memory */
+    (void) NDI_INIT_FLOAT_VEC(tmp_vec, num_elements);
+
+    /* Allocate and get average energy */
+    eavg = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+    if (!eavg) NDI_THROW(ierr, -14); /* Out of memory */
+    /* NB: Values returned depend on NDI_E_AVG option setting */
+    jerr = GET_FLOAT_VEC_MG(state, NDI_E_AVG, eavg, num_elements);
+    if (jerr) NDI_THROW(ierr, jerr);
+    
+    /* Allocate cross section */
+    curr_xs = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+    if (!curr_xs) NDI_THROW(ierr, -14); /* Out of memory */
+
+    /* Allocate and get reaction list */
+    jerr = ndi_c_get_int_val_h(state, NDI_NUM_REAC, &num_reactions);
+    if (jerr) NDI_THROW(ierr, jerr);
+    mt = (int *) ndi_malloc(num_reactions * sizeof(int));
+    if (!mt) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = ndi_c_get_int_vec_h(state, NDI_REAC_MT, mt, num_reactions);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    for (i = 0; i < num_reactions; i++) {
+
+        /* Skip partial fission cross sections already in MT = 18 */
+        if (is_partial_fission(mt[i])) continue;
+
+        /* Get cross section */
+        jerr = NDI_GET_FLOAT_VEC_N_H(state, NDI_SIG_REAC, mt[i], 
+                                     curr_xs, num_elements);
+        if (jerr) NDI_THROW(ierr, jerr);
+        
+        if (mt[i] == 18) {
+            /* Allocage and get fission Q */
+            qf = (FLOAT_TYPE *)ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
+            if (!qf) NDI_THROW(ierr, -14); /* Out of memory */
+            jerr = GET_QF(state, qf, num_elements);
+            if (jerr) NDI_THROW(ierr, jerr);
+
+            /* Add incident neutron and fission Q contribution to kerma */
+            for (j = 0; j < num_elements; j++)
+                tmp_vec[j] += curr_xs[j] * (eavg[j] + qf[j]); 
+        } else {
+            /* Get constant reaction Q */
+            jerr = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, mt[i], &q);
+            if (jerr) NDI_THROW(ierr, jerr);
+
+            /* Add incident neutron and reaction Q contribution to kerma */
+            for (j = 0; j < num_elements; j++)
+                tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
+        }
+    }
+
+    /* Allocate and get transfer matrix */
+    mat_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &jerr);
+    if (jerr) NDI_THROW(ierr, jerr);
+    xfer_mat = (FLOAT_TYPE *) ndi_malloc(mat_size * sizeof(FLOAT_TYPE));
+    if (!xfer_mat) NDI_THROW(ierr, -14); /* Out of memory */
+    jerr = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0,
+                                 xfer_mat, mat_size);
+    if (jerr) NDI_THROW(ierr, jerr);
+
+    /* Subtract outgoing neutron energies */
+    for (i = 0; i < num_elements; i++) {        /* i = incident energy */
+        for (j = 0; j < num_elements; j++) {    /* j = outgoing energy */
+            tmp_vec[i] -= xfer_mat[j + (i * num_elements)] * eavg[j];
+        }
+    }
+
+    /* Restore transport correction */
+    state->trans_corr = trans_corr;
+    trans_corr = ' ';
+
+    /* Restore matrix order */
+    state->mat_order = mat_order;
+    mat_order = 'd';
+
+    /* Restore reaction id */
+    state-> reac_id = reac_id;
+    reac_id = 'm';
+
+    /* Restore collapsing */
+    state->collapse_flag = collapse_flag;
+    collapse_flag = 0;
+
+    if (state->collapse_flag) {
+        jerr = NDI_COLLAPSE_FLOAT(state, tmp_vec, num_elements, 0, 
+                            return_vec, return_size);
+        if (jerr) NDI_THROW(ierr, jerr);
+    } else {
+        jerr = COPY_MATRIX(return_vec, return_size, tmp_vec, num_elements);
+        if (jerr) NDI_THROW(ierr, jerr);
+    }
+
+ catch:                         /* Restore settings and free memory */
+    if (trans_corr != ' ') state->trans_corr = trans_corr;
+    if (mat_order != 'd') state->mat_order = mat_order;
+    if (reac_id != 'm') state->reac_id = reac_id;
+    if (collapse_flag) state->collapse_flag = collapse_flag;
+
+    ndi_free((void **) &xfer_mat);
+    ndi_free((void **) &qf);
+    ndi_free((void **) &mt);
+    ndi_free((void **) &curr_xs);
+    ndi_free((void **) &eavg);
+    ndi_free((void **) &tmp_vec);
+
+    return ierr;
+}
+/*********************************************************************/
+/*********************************************************************/
+static int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
                       int return_size)
 {
     char transpose_state;
@@ -1804,18 +1970,17 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
     int i, j;
     int num_elements;
     int num_reactions;
-    int *mt;
     int mat_size;
     int old_reac_size = 3;
     char old_reac_id[3];
+    ndi_float64 fissq[NUM_FISSION_Q];
+    ndi_float64 q;
+
+    int *mt = NULL;
     ndi_float64 *tmp_vec = NULL;
     ndi_float64 *curr_xs = NULL;
-    ndi_float64 fissq[NUM_FISSION_Q];
     ndi_float64 *eavg = NULL;
-    ndi_float64 q;
     ndi_float64 *scat_mat = NULL;
-    ndi_float64 *elastic_scat = NULL;
-    ndi_float64 *inelastic_scat = NULL;
 
     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
@@ -1892,23 +2057,20 @@ int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
         }
     }
 
-    if (tmp_vec) {
-        ndi_free((void **) &tmp_vec);
-    }
-    if (curr_xs) {
-        ndi_free((void **) &curr_xs);
+    if (scat_mat) {
+        ndi_free((void **) &scat_mat);
     }
     if (eavg) {
         ndi_free((void **) &eavg);
     }
-    if (scat_mat) {
-        ndi_free((void **) &scat_mat);
+    if (curr_xs) {
+        ndi_free((void **) &curr_xs);
     }
-    if (elastic_scat) {
-        ndi_free((void **) &scat_mat);
+    if (tmp_vec) {
+        ndi_free((void **) &tmp_vec);
     }
-    if (inelastic_scat) {
-        ndi_free((void **) &scat_mat);
+    if (mt) {
+        ndi_free((void **) &mt);
     }
 
     ndi_c_set_option_h(state, NDI_REAC_ID, old_reac_id);

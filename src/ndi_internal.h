@@ -445,10 +445,11 @@ extern "C" {
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
 		       int old_grp, short *c_flag);
 */
-    int ndi_get_old_kerma64(state_struct *state, ndi_float64 * return_vec,
+/*    int ndi_get_old_kerma64(state_struct *state, ndi_float64 * return_vec,
 			    int return_size);
     int ndi_get_old_kerma32(state_struct *state, ndi_float32 * return_vec,
 			    int return_size);
+*/
     int ndi_collapse_float32(state_struct *state,
 			     const ndi_float32 * old_vec, int old_grp_num,
 			     int recip_flag, ndi_float32 * return_vec,
