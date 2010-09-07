@@ -1808,7 +1808,6 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     char reac_id = 'm';
     char mat_order = 'd';
     char trans_corr = ' ';
-
     int ierr = 0;
     int jerr = 0;
     int i, j;
@@ -1935,14 +1934,14 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     state->collapse_flag = collapse_flag;
     collapse_flag = 0;
 
+    /* Collapse or copy result */
     if (state->collapse_flag) {
         jerr = NDI_COLLAPSE_FLOAT(state, tmp_vec, num_elements, 0, 
                             return_vec, return_size);
-        if (jerr) NDI_THROW(ierr, jerr);
     } else {
         jerr = COPY_MATRIX(return_vec, return_size, tmp_vec, num_elements);
-        if (jerr) NDI_THROW(ierr, jerr);
     }
+    if (jerr) NDI_THROW(ierr, jerr);
 
  catch:                         /* Restore settings and free memory */
     if (trans_corr != ' ') state->trans_corr = trans_corr;
@@ -3637,17 +3636,17 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
         n = state->iso_stat.num_grps;
     }
     ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
-    if (state->iso_stat.fissionable == 0) goto catch;
+    if (state->iso_stat.fissionable == 0) goto catch; /* We're done */
 
-    if (!ndi_sigf_avail(state)) NDI_THROW(ierr, -9);
+    if (!ndi_sigf_avail(state)) NDI_THROW(ierr, -9); /* Data not available */
 
     /* Turn off collapsing 
        for best approximation of continuous product 
        with multigroup quantities */
     collapse_flag = state->collapse_flag;
     state->collapse_flag = 0;
-    n = state->iso_stat.num_grps;
 
+    n = state->iso_stat.num_grps;
     /* Allocate and get fission Q */
     qsf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
     if (!qsf) NDI_THROW(ierr, -14); /* Out of memory */
@@ -3660,30 +3659,30 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
     jerr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &n);
     if (jerr) NDI_THROW(ierr, jerr);
 
-    /* Restore collapsing */
-    state->collapse_flag = collapse_flag;
-    collapse_flag = 0;
-
     /* Calculate qsf */
     n = state->iso_stat.num_grps; /* May have been changed above */
     for (i = 0; i < n; i++) {
         qsf[i] *= sigf[i];
     }
 
+    /* Restore collapsing */
+    state->collapse_flag = collapse_flag;
+    collapse_flag = 0;
+
+    /* Collapse or copy result */
     if (state->collapse_flag) {
         jerr = NDI_COLLAPSE_FLOAT(state, qsf, n, 0, vec, size);
-        if (jerr) NDI_THROW(ierr, jerr);
     } else {
-        for (i = 0; i < ((n < size) ? n: size); i++) {
-            vec[i] = qsf[i];
-        }
-        if (n > size) NDI_THROW(ierr, 7);
+        jerr = COPY_MATRIX(vec, size, qsf, n);
     }
+    if (jerr) NDI_THROW(ierr, jerr);
 
  catch:
     if (collapse_flag) state->collapse_flag = collapse_flag;
+
     ndi_free((void **)&sigf);
     ndi_free((void **)&qsf);
+
     return ierr;
 }
 
@@ -3695,10 +3694,10 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     int n;
     int i;
     int collapse_flag = 0;
-
     FLOAT_TYPE fissq[NUM_FISSION_Q];
     FLOAT_TYPE a;
     FLOAT_TYPE b;
+
     FLOAT_TYPE *nu = NULL;
     FLOAT_TYPE *eavg = NULL;
     FLOAT_TYPE *q = NULL;
@@ -3711,7 +3710,7 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         n = state->iso_stat.num_grps;
     }
     ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
-    if (state->iso_stat.fissionable == 0) goto catch;
+    if (state->iso_stat.fissionable == 0) goto catch; /* We're done */
 
     /* Get (constant) fission Q */
     jerr = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
@@ -3737,7 +3736,7 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         NDI_THROW(ierr, -13);   /* Invalid flag */
     }
 
-    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9);
+    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9); /* Data not avail */
 
     /* Turn off collapsing
        for best approximation of continuous nubar(0) 
@@ -3774,21 +3773,21 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     state->collapse_flag = collapse_flag;
     collapse_flag = 0;
 
+    /* Collapse or copy result */
     if (state->collapse_flag) {
         jerr = NDI_COLLAPSE_FLOAT(state, q, n, 0, vec, size);
-        if (jerr) NDI_THROW(ierr, jerr);
     } else {
-        for (i = 0; i < ((n < size) ? n: size); i++) {
-            vec[i] = q[i];
-        }
-        if (n > size) NDI_THROW(ierr, 7); /* Data truncated */
+        jerr = COPY_MATRIX(vec, size, q, n);
     }
+    if (jerr) NDI_THROW(ierr, jerr);
 
  catch:
     if (collapse_flag) state->collapse_flag = collapse_flag;
+
     ndi_free((void **)&nu);
     ndi_free((void **)&eavg);
     ndi_free((void **)&q);
+
     return ierr;
 }
 /**********************************************************************/
