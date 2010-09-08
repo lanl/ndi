@@ -60,6 +60,9 @@
 (((new_err) < 0) || (((curr_err) >= 0) && ((new_err) != 0))) ? \
 (new_err) : (curr_err)
 
+/* Update err with nonzero val or leave unchanged;
+   jump to catch label if err negative;
+   assumes previous errors have already been caught */
 #define NDI_THROW(err, val) if (((err)=(val)?(val):(err)) < 0) goto catch
 
 /**********************************************************************/

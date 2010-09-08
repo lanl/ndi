@@ -1808,10 +1808,10 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     char reac_id = 'm';
     char mat_order = 'd';
     char trans_corr = ' ';
-    int ierr = 0;
-    int jerr = 0;
+    int exit_status = 0;
+    int status = 0;
     int i, j;
-    int num_elements;
+    int num_groups;
     int num_reactions;
     int mat_size;
     FLOAT_TYPE q;
@@ -1824,10 +1824,12 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     FLOAT_TYPE *xfer_mat = NULL;
 
     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
-    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+    if (!state)
+        NDI_THROW(exit_status, -2); /* State not initialized */
 
-    num_elements = state->iso_stat.num_grps;
-    if (num_elements <= 0) NDI_THROW(ierr, -9); /* Bounds not initialized */
+    num_groups = state->iso_stat.num_grps;
+    if (num_groups <= 0)
+        NDI_THROW(exit_status, -9); /* Bounds not set */
 
     /* Turn off collapsing
        for best approzimation of continuous products
@@ -1848,28 +1850,32 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     state->trans_corr = ' ';
 
     /* Allocate and zero result vector */
-    tmp_vec = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-    if (!tmp_vec) NDI_THROW(ierr, -14); /* Out of memory */
-    (void) NDI_INIT_FLOAT_VEC(tmp_vec, num_elements);
+    tmp_vec = (FLOAT_TYPE *) ndi_malloc(num_groups * sizeof(FLOAT_TYPE));
+    if (!tmp_vec)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    (void) NDI_INIT_FLOAT_VEC(tmp_vec, num_groups);
 
     /* Allocate and get average energy */
-    eavg = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-    if (!eavg) NDI_THROW(ierr, -14); /* Out of memory */
+    eavg = (FLOAT_TYPE *) ndi_malloc(num_groups * sizeof(FLOAT_TYPE));
+    if (!eavg)
+        NDI_THROW(exit_status, -14); /* Out of memory */
     /* NB: Values returned depend on NDI_E_AVG option setting */
-    jerr = GET_FLOAT_VEC_MG(state, NDI_E_AVG, eavg, num_elements);
-    if (jerr) NDI_THROW(ierr, jerr);
+    status = GET_FLOAT_VEC_MG(state, NDI_E_AVG, eavg, num_groups);
+    NDI_THROW(exit_status, status);
     
     /* Allocate cross section */
-    curr_xs = (FLOAT_TYPE *) ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-    if (!curr_xs) NDI_THROW(ierr, -14); /* Out of memory */
+    curr_xs = (FLOAT_TYPE *) ndi_malloc(num_groups * sizeof(FLOAT_TYPE));
+    if (!curr_xs)
+        NDI_THROW(exit_status, -14); /* Out of memory */
 
     /* Allocate and get reaction list */
-    jerr = ndi_c_get_int_val_h(state, NDI_NUM_REAC, &num_reactions);
-    if (jerr) NDI_THROW(ierr, jerr);
+    status = ndi_c_get_int_val_h(state, NDI_NUM_REAC, &num_reactions);
+    NDI_THROW(exit_status, status);
     mt = (int *) ndi_malloc(num_reactions * sizeof(int));
-    if (!mt) NDI_THROW(ierr, -14); /* Out of memory */
-    jerr = ndi_c_get_int_vec_h(state, NDI_REAC_MT, mt, num_reactions);
-    if (jerr) NDI_THROW(ierr, jerr);
+    if (!mt)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = ndi_c_get_int_vec_h(state, NDI_REAC_MT, mt, num_reactions);
+    NDI_THROW(exit_status, status);
 
     for (i = 0; i < num_reactions; i++) {
 
@@ -1877,46 +1883,46 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
         if (is_partial_fission(mt[i])) continue;
 
         /* Get cross section */
-        jerr = NDI_GET_FLOAT_VEC_N_H(state, NDI_SIG_REAC, mt[i], 
-                                     curr_xs, num_elements);
-        if (jerr) NDI_THROW(ierr, jerr);
+        status = NDI_GET_FLOAT_VEC_N_H(state, NDI_SIG_REAC, mt[i], 
+                                     curr_xs, num_groups);
+        NDI_THROW(exit_status, status);
         
         if (mt[i] == 18) {
             /* Allocage and get fission Q */
-            qf = (FLOAT_TYPE *)ndi_malloc(num_elements * sizeof(FLOAT_TYPE));
-            if (!qf) NDI_THROW(ierr, -14); /* Out of memory */
-            jerr = GET_QF(state, qf, num_elements);
-            if (jerr) NDI_THROW(ierr, jerr);
+            qf = (FLOAT_TYPE *)ndi_malloc(num_groups * sizeof(FLOAT_TYPE));
+            if (!qf)
+                NDI_THROW(exit_status, -14); /* Out of memory */
+            status = GET_QF(state, qf, num_groups);
+            NDI_THROW(exit_status, status);
 
             /* Add incident neutron and fission Q contribution to kerma */
-            for (j = 0; j < num_elements; j++)
+            for (j = 0; j < num_groups; j++)
                 tmp_vec[j] += curr_xs[j] * (eavg[j] + qf[j]); 
         } else {
             /* Get constant reaction Q */
-            jerr = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, mt[i], &q);
-            if (jerr) NDI_THROW(ierr, jerr);
+            status = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, mt[i], &q);
+            NDI_THROW(exit_status, status);
 
             /* Add incident neutron and reaction Q contribution to kerma */
-            for (j = 0; j < num_elements; j++)
+            for (j = 0; j < num_groups; j++)
                 tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
         }
     }
 
     /* Allocate and get transfer matrix */
-    mat_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &jerr);
-    if (jerr) NDI_THROW(ierr, jerr);
+    mat_size = ndi_c_get_size_n_h(state, NDI_TRANSFER_MAT_PR, 0, &status);
+    NDI_THROW(exit_status, status);
     xfer_mat = (FLOAT_TYPE *) ndi_malloc(mat_size * sizeof(FLOAT_TYPE));
-    if (!xfer_mat) NDI_THROW(ierr, -14); /* Out of memory */
-    jerr = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0,
+    if (!xfer_mat)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = NDI_GET_FLOAT_VEC_N_H(state, NDI_TRANSFER_MAT_PR, 0,
                                  xfer_mat, mat_size);
-    if (jerr) NDI_THROW(ierr, jerr);
+    NDI_THROW(exit_status, status);
 
     /* Subtract outgoing neutron energies */
-    for (i = 0; i < num_elements; i++) {        /* i = incident energy */
-        for (j = 0; j < num_elements; j++) {    /* j = outgoing energy */
-            tmp_vec[i] -= xfer_mat[j + (i * num_elements)] * eavg[j];
-        }
-    }
+    for (i = 0; i < num_groups; i++)        /* i = incident energy */
+        for (j = 0; j < num_groups; j++)    /* j = outgoing energy */
+            tmp_vec[i] -= xfer_mat[j + (i * num_groups)] * eavg[j];
 
     /* Restore transport correction */
     state->trans_corr = trans_corr;
@@ -1935,19 +1941,22 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     collapse_flag = 0;
 
     /* Collapse or copy result */
-    if (state->collapse_flag) {
-        jerr = NDI_COLLAPSE_FLOAT(state, tmp_vec, num_elements, 0, 
+    if (state->collapse_flag)
+        status = NDI_COLLAPSE_FLOAT(state, tmp_vec, num_groups, 0, 
                             return_vec, return_size);
-    } else {
-        jerr = COPY_MATRIX(return_vec, return_size, tmp_vec, num_elements);
-    }
-    if (jerr) NDI_THROW(ierr, jerr);
+    else
+        status = COPY_MATRIX(return_vec, return_size, tmp_vec, num_groups);
+    NDI_THROW(exit_status, status);
 
  catch:                         /* Restore settings and free memory */
-    if (trans_corr != ' ') state->trans_corr = trans_corr;
-    if (mat_order != 'd') state->mat_order = mat_order;
-    if (reac_id != 'm') state->reac_id = reac_id;
-    if (collapse_flag) state->collapse_flag = collapse_flag;
+    if (trans_corr != ' ')
+        state->trans_corr = trans_corr;
+    if (mat_order != 'd')
+        state->mat_order = mat_order;
+    if (reac_id != 'm')
+        state->reac_id = reac_id;
+    if (collapse_flag)
+        state->collapse_flag = collapse_flag;
 
     ndi_free((void **) &xfer_mat);
     ndi_free((void **) &qf);
@@ -1956,7 +1965,7 @@ static int NDI_GET_NEW_KERMA(state_struct *state,
     ndi_free((void **) &eavg);
     ndi_free((void **) &tmp_vec);
 
-    return ierr;
+    return exit_status;
 }
 /*********************************************************************/
 /*********************************************************************/
@@ -3619,26 +3628,29 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
 /**********************************************************************/
 int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
 {
-    int ierr = 0;
-    int jerr = 0;
-    int n;
+    int exit_status = 0;
+    int status = 0;
+    int num_groups;
     int i;
     int collapse_flag = 0;
 
     FLOAT_TYPE *qsf = NULL;
     FLOAT_TYPE *sigf = NULL;
 
-    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+    if (!state) 
+        NDI_THROW(exit_status, -2); /* State not initialized */
 
-    if (state->collapse_flag) {
-        n = state->grp_num_new;
-    } else {
-        n = state->iso_stat.num_grps;
-    }
-    ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
-    if (state->iso_stat.fissionable == 0) goto catch; /* We're done */
+    if (state->collapse_flag)
+        num_groups = state->grp_num_new;
+    else
+        num_groups = state->iso_stat.num_grps;
+    
+    exit_status = NDI_CONST_FLOAT_VEC(0.0, num_groups, vec, size);
+    if (state->iso_stat.fissionable == 0) 
+        goto catch; /* We're done */
 
-    if (!ndi_sigf_avail(state)) NDI_THROW(ierr, -9); /* Data not available */
+    if (!ndi_sigf_avail(state)) 
+        NDI_THROW(exit_status, -9); /* Data not available */
 
     /* Turn off collapsing 
        for best approximation of continuous product 
@@ -3646,52 +3658,53 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
     collapse_flag = state->collapse_flag;
     state->collapse_flag = 0;
 
-    n = state->iso_stat.num_grps;
+    num_groups = state->iso_stat.num_grps;
     /* Allocate and get fission Q */
-    qsf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-    if (!qsf) NDI_THROW(ierr, -14); /* Out of memory */
-    jerr = GET_QF(state, qsf, n);
-    if (jerr) NDI_THROW(ierr, jerr);
+    qsf = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+    if (!qsf) 
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = GET_QF(state, qsf, num_groups);
+    NDI_THROW(exit_status, status);
 
     /* Allocate and get fission cross section */
-    sigf = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-    if (!sigf) NDI_THROW(ierr, -14); /* Out of memory */
-    jerr = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &n);
-    if (jerr) NDI_THROW(ierr, jerr);
+    sigf = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+    if (!sigf) 
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = GET_SIG_REAC(state, &state->iso_stat, 18, sigf, &num_groups);
+    NDI_THROW(exit_status, status);
 
     /* Calculate qsf */
-    n = state->iso_stat.num_grps; /* May have been changed above */
-    for (i = 0; i < n; i++) {
+    num_groups = state->iso_stat.num_grps; /* May have been changed above */
+    for (i = 0; i < num_groups; i++)
         qsf[i] *= sigf[i];
-    }
 
     /* Restore collapsing */
     state->collapse_flag = collapse_flag;
     collapse_flag = 0;
 
     /* Collapse or copy result */
-    if (state->collapse_flag) {
-        jerr = NDI_COLLAPSE_FLOAT(state, qsf, n, 0, vec, size);
-    } else {
-        jerr = COPY_MATRIX(vec, size, qsf, n);
-    }
-    if (jerr) NDI_THROW(ierr, jerr);
+    if (state->collapse_flag)
+        status = NDI_COLLAPSE_FLOAT(state, qsf, num_groups, 0, vec, size);
+    else
+        status = COPY_MATRIX(vec, size, qsf, num_groups);
+    NDI_THROW(exit_status, status);
 
  catch:
-    if (collapse_flag) state->collapse_flag = collapse_flag;
+    if (collapse_flag) 
+        state->collapse_flag = collapse_flag;
 
     ndi_free((void **)&sigf);
     ndi_free((void **)&qsf);
 
-    return ierr;
+    return exit_status;
 }
 
 /**********************************************************************/
 int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
 {
-    int ierr = 0;
-    int jerr = 0;
-    int n;
+    int exit_status = 0;
+    int status = 0;
+    int num_groups;
     int i;
     int collapse_flag = 0;
     FLOAT_TYPE fissq[NUM_FISSION_Q];
@@ -3702,24 +3715,26 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     FLOAT_TYPE *eavg = NULL;
     FLOAT_TYPE *q = NULL;
 
-    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+    if (!state) 
+        NDI_THROW(exit_status, -2); /* State not initialized */
 
-    if (state->collapse_flag) {
-        n = state->grp_num_new;
-    } else {
-        n = state->iso_stat.num_grps;
-    }
-    ierr = NDI_CONST_FLOAT_VEC(0.0, n, vec, size);
-    if (state->iso_stat.fissionable == 0) goto catch; /* We're done */
+    if (state->collapse_flag)
+        num_groups = state->grp_num_new;
+    else
+        num_groups = state->iso_stat.num_grps;
+    
+    exit_status = NDI_CONST_FLOAT_VEC(0.0, num_groups, vec, size);
+    if (state->iso_stat.fissionable == 0) 
+        goto catch; /* We're done */
 
     /* Get (constant) fission Q */
-    jerr = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
-    if (jerr) NDI_THROW(ierr, jerr);
+    status = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
+    NDI_THROW(exit_status, status);
 
     switch(state->qsigf_calc) {
         
     case Q_LEGACY:              /* Constant Q fission prompt */
-        ierr = NDI_CONST_FLOAT_VEC(fissq[0], n, vec, size);
+        exit_status = NDI_CONST_FLOAT_VEC(fissq[0], num_groups, vec, size);
         goto catch;
 
     case P_CALC:                /* Q fission prompt in NJOY99 R0 */
@@ -3733,10 +3748,11 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         break;
 
     default:
-        NDI_THROW(ierr, -13);   /* Invalid flag */
+        NDI_THROW(exit_status, -13);   /* Invalid flag */
     }
 
-    if (!ndi_nu_avail(state, 'p')) NDI_THROW(ierr, -9); /* Data not avail */
+    if (!ndi_nu_avail(state, 'p')) 
+        NDI_THROW(exit_status, -9); /* Data not avail */
 
     /* Turn off collapsing
        for best approximation of continuous nubar(0) 
@@ -3744,51 +3760,54 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     collapse_flag = state->collapse_flag;
     state->collapse_flag = 0;
 
-    n = state->iso_stat.num_grps;
+    num_groups = state->iso_stat.num_grps;
 
     /* Allocate result */
-    q = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-    if (!q) NDI_THROW(ierr, -14); /* Out of memory */
+    q = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+    if (!q) 
+        NDI_THROW(exit_status, -14); /* Out of memory */
 
     /* Allocate and get average neutron incident energy per group */
-    eavg = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-    if (!eavg) NDI_THROW(ierr, -14); /* Out of memory */
+    eavg = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+    if (!eavg)
+        NDI_THROW(exit_status, -14); /* Out of memory */
     /* NB: Values returned depend on NDI_E_AVG option setting */
-    jerr = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, n);
-    if (jerr) NDI_THROW(ierr, jerr);
+    status = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, num_groups);
+    NDI_THROW(exit_status, status);
 
     /* Allocate and get average number of prompt neutrons emitted per group */
-    nu = (FLOAT_TYPE *)ndi_malloc(n*sizeof(FLOAT_TYPE));
-    if (!nu) NDI_THROW(ierr, -14); /* Out of memory */
-    jerr = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, n);
-    if (jerr) NDI_THROW(ierr, jerr);
+    nu = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+    if (!nu)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, num_groups);
+    NDI_THROW(exit_status, status);
 
     /* Calculate incident neutron energy dependent prompt fission Q */
     /* See: "Incident Neutron Energy Dependent Fission Data in NDI"
        XCP-5:10-021(U), July 2010 */
-    for (i = 0; i < n; i++)
-        q[i] = fissq[0] - a * (nu[i] - nu[n-1]) - b * eavg[i];
+    for (i = 0; i < num_groups; i++)
+        q[i] = fissq[0] - a * (nu[i] - nu[num_groups-1]) - b * eavg[i];
 
     /* Restore collapsing */
     state->collapse_flag = collapse_flag;
     collapse_flag = 0;
 
     /* Collapse or copy result */
-    if (state->collapse_flag) {
-        jerr = NDI_COLLAPSE_FLOAT(state, q, n, 0, vec, size);
-    } else {
-        jerr = COPY_MATRIX(vec, size, q, n);
-    }
-    if (jerr) NDI_THROW(ierr, jerr);
+    if (state->collapse_flag)
+        status = NDI_COLLAPSE_FLOAT(state, q, num_groups, 0, vec, size);
+    else
+        status = COPY_MATRIX(vec, size, q, num_groups);
+    NDI_THROW(exit_status, status);
 
  catch:
-    if (collapse_flag) state->collapse_flag = collapse_flag;
+    if (collapse_flag)
+        state->collapse_flag = collapse_flag;
 
     ndi_free((void **)&nu);
     ndi_free((void **)&eavg);
     ndi_free((void **)&q);
 
-    return ierr;
+    return exit_status;
 }
 /**********************************************************************/
 /*********************************************************************/
