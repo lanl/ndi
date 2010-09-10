@@ -10,6 +10,10 @@ AC_MSG_CHECKING([makefile configuration include])
 if test "${with_config:=no}" = "no" || test "${with_config:=yes}" = yes
 then
 	case "${host}" in   
+	powerpc64-*-linux*)
+		CONFIG=powerpc64
+		NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
+			;;
 	*-ibm-aix*)
 		CONFIG=aix
 		NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
