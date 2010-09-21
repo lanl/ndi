@@ -169,7 +169,7 @@ int main ()
         }
 
         /* Find calculated kerma */
-        ierr = ndi_set_option(NDI_KERMA, "use_calc");
+        ierr = ndi_set_option(NDI_KERMA, "use_legacy_calc");
         for (i = 0; i < num_zaids; i++) {
 
             printf("\n\n **************************** KERMA TEST %d: %s "

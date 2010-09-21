@@ -539,7 +539,7 @@ static int ndi_get_qsigf_calc(state_struct *state, char *value,
 	strncpy(value, "use_bad_calc", string_size);
         break;
     case Q_LEGACY:
-	strncpy(value, "use_legacy", string_size);
+	strncpy(value, "use_legacy_calc", string_size);
         break;
     default:
 	strncpy(value, "", string_size);

@@ -84,7 +84,7 @@
 
 
       ! Use calculated kerma/heating only 
-      call ndi_set_option(NDI_KERMA, "use_calc", ierr)
+      call ndi_set_option(NDI_KERMA, "use_legacy_calc", ierr)
       call ndi_get_float64_vec(NDI_HEATING, heating, vec_size, ierr)
       print *, "Calculated heating:"
       call print_float64_vec(heating, heating_size)
@@ -104,7 +104,7 @@
 
       ! See how average energy option affects calculated kerma/heating values 
       call ndi_set_option( NDI_E_AVG, "from_sgndf" , ierr)
-      call ndi_set_option(NDI_KERMA, "use_calc", ierr)
+      call ndi_set_option(NDI_KERMA, "use_legacy_calc", ierr)
       call ndi_get_float64_vec(NDI_HEATING, heating, vec_size, ierr)
       print *, "Calculated heating (SGNDF energy):"
       call print_float64_vec(heating, heating_size)

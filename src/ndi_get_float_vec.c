@@ -49,6 +49,8 @@ static int NDI_GET_KERMA(state_struct *state, stat_flag * kerma,
                          int return_size);
 static int NDI_GET_OLD_HEATING(state_struct *state,
                                FLOAT_TYPE * return_vec, int return_size);
+static int NDI_GET_NEW_HEATING(state_struct *state,
+                               FLOAT_TYPE * return_vec, int return_size);
 static int NDI_GET_OLD_KERMA(state_struct *state,
                                FLOAT_TYPE * return_vec, int return_size);
 static int NDI_GET_NEW_KERMA(state_struct *state,
@@ -267,8 +269,10 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         break;
 
     case NDI_HEATING:           /* Heating */
-        if (state->kerma_calc == CALC) {
+        if (state->kerma_calc == LEGACY) {
             ierr = NDI_GET_OLD_HEATING(state, return_vec, return_size);
+        } else if (state->kerma_calc == CALC) {
+            ierr = NDI_GET_NEW_HEATING(state, return_vec, return_size);
         } else {
             ierr =
                 NDI_GET_HEATING(state, &state->iso_stat.heat,
@@ -279,9 +283,9 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_KERMA:             /* kerma */
         /* Units are MeV*barn -- this is just heating * tot_sigma */
-        if (state->kerma_calc == CALC) {
+        if (state->kerma_calc == LEGACY) {
             ierr = NDI_GET_OLD_KERMA(state, return_vec, return_size);
-        } else if(state->kerma_calc == LEGACY) {
+        } else if(state->kerma_calc == CALC) {
             ierr = NDI_GET_NEW_KERMA(state, return_vec, return_size);
         } else {
             ierr =
@@ -1611,7 +1615,7 @@ static int NDI_GET_HEATING(state_struct *state, stat_flag * heating,
         }
     } else if ((state->kerma_calc == DATA_CALC)
                && (state->iso_stat.num_reac > 0)) {
-        ierr = NDI_GET_OLD_HEATING(state, return_vec, return_size);
+        ierr = NDI_GET_NEW_HEATING(state, return_vec, return_size);
         if (ierr >= 0) {
             ierr = 10;
         }
@@ -1694,7 +1698,7 @@ static int NDI_GET_KERMA(state_struct *state, stat_flag * kerma,
         }
     } else if ((state->kerma_calc == DATA_CALC)
                && (state->iso_stat.num_reac > 0)) {
-        ierr = NDI_GET_OLD_KERMA(state, return_vec, return_size);
+        ierr = NDI_GET_NEW_KERMA(state, return_vec, return_size);
         if (ierr >= 0) {
             ierr = 10;
         }
@@ -1753,6 +1757,73 @@ static int GET_E_BOUNDS_CURR_PART(state_struct *state,
 }
 
 /*********************************************************************/
+/*********************************************************************/
+static int NDI_GET_NEW_HEATING(state_struct *state,
+                               FLOAT_TYPE *vec, int size)
+{
+    int exit_status = 0;
+    int status = 0;
+    int collapse_flag = 0;
+
+    int i;
+    int num_grps;
+
+    FLOAT_TYPE *s = NULL;
+    FLOAT_TYPE *k = NULL;
+
+    (void) NDI_INIT_FLOAT_VEC(vec, size);
+
+    if (!state) 
+        NDI_THROW(exit_status, -2); /* State not initialized */
+
+    num_grps = state->iso_stat.num_grps;
+    if (num_grps <= 0)
+        NDI_THROW(exit_status, -9); /* Bounds not set */
+    
+    /* Turn of collapsing 
+       for best approximation of continuous products
+       with discrete quantities */
+    collapse_flag = state->collapse_flag;
+    state->collapse_flag = 0;
+
+    /* Allocate and get sigma total */
+    s = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!s)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = NDI_GET_FLOAT_VEC_H(state, NDI_SIG_TOT, s, num_grps);
+    NDI_THROW(exit_status, status);
+
+    /* Allocate and get kerma */
+    k = (FLOAT_TYPE *)ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!k)
+        NDI_THROW(exit_status, -14); /* Out of memory */
+    status = NDI_GET_NEW_KERMA(state, k, num_grps);
+    NDI_THROW(exit_status, status);
+
+    /* Heating = Kerma/Sig_tot */
+    for (i = 0; i < num_grps; i++)
+        k[i] /= s[i];
+
+    /* Restore collapsing */
+    state->collapse_flag = collapse_flag;
+    collapse_flag = 0;
+
+    /* Collapse or copy result */
+    if (state->collapse_flag)
+        status = NDI_COLLAPSE_FLOAT(state, k, num_grps, 0, vec, size);
+    else
+        status = COPY_MATRIX(vec, size, k, num_grps);
+    NDI_THROW(exit_status, status);
+
+ catch:
+    if (collapse_flag)
+        state->collapse_flag = collapse_flag;
+
+    ndi_free((void **) &k);
+    ndi_free((void **) &s);
+    
+    return exit_status;
+}
 /*********************************************************************/
 static int NDI_GET_OLD_HEATING(state_struct *state,
                                FLOAT_TYPE * return_vec, int return_size)

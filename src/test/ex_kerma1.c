@@ -66,7 +66,7 @@ int main () {
 
 
     /* Use calculated kerma/heating only */
-    ierr = ndi_set_option(NDI_KERMA, "use_calc");
+    ierr = ndi_set_option(NDI_KERMA, "use_legacy_calc");
     ierr = ndi_get_float64_vec(NDI_HEATING, heating, heating_size);
     printf("\n\nCalculated heating:\n");
     print_float64_vec(heating, heating_size);
@@ -81,7 +81,7 @@ int main () {
 
     /* See how average energy option affects calculated kerma/heating values */
     ierr = ndi_set_option( NDI_E_AVG, "from_sgndf" );
-    ierr = ndi_set_option(NDI_KERMA, "use_calc");
+    ierr = ndi_set_option(NDI_KERMA, "use_legacy_calc");
     ierr = ndi_get_float64_vec(NDI_HEATING, heating, heating_size);
     printf("\n\nCalculated heating (SGNDF energy):\n");
     print_float64_vec(heating, heating_size);

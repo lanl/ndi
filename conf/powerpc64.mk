@@ -7,10 +7,12 @@
 # CONFIG = aix
 
 # Standard macros
-CC		:= c99
-FC		:= xlf
+CC		:= mpixlc_r
+FC		:= mpixlf95
 CFLAGS		:= -qcheck=all -qarch=auto
 CFLAGS		+= -qspill=10000 -qmaxmem=15000
+CFLAGS		+= -qlanglvl=stdc99
+
 #CFLAGS		+= -q32
 #CFLAGS		+= -qwarn64
 #CFLAGS		+= -qinfo
@@ -21,7 +23,6 @@ CFLAGS		+= -qspill=10000 -qmaxmem=15000
 #CFLAGS		+= -qflag-i:i
 #CFLAGS		+= -qsuppress=1501-510:1518-099
 #CFLAGS		+= -qlanglvl=90pure
-FC		= xlf
 FFLAGS		:= -qfixed=132
 ASFLAGS		:= $(CFLAGS)
 

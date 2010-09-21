@@ -51,7 +51,7 @@
 
 
       ! Get energy_avail and calculated kerma
-      call ndi_set_option(NDI_KERMA, "use_calc", ierr)
+      call ndi_set_option(NDI_KERMA, "use_legacy", ierr)
       call ndi_get_size(NDI_KERMA, ret_size, ierr)
       call ndi_get_float64_vec(NDI_KERMA, ret_vec64, vec_size, ierr)
       if (ierr.ne.0) then

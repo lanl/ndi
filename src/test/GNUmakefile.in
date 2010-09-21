@@ -116,7 +116,8 @@ SRC_TESTC := \
 	za_handle.c \
 	gendir_handle.c \
 	ex_gendir_path.c \
-	gendir_path.c
+	gendir_path.c \
+	qsf_kerma.c
 
 SRC_TESTF := \
 	ex_avg_ef.F \

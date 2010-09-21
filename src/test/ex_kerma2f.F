@@ -95,14 +95,15 @@
 
 
       ! Use calculated kerma/heating only 
-      call ndi_set_option(NDI_KERMA, "use_calc", ierr)
+      call ndi_set_option(NDI_KERMA, "use_legacy_calc", ierr)
       call ndi_get_float64_vec(NDI_HEATING, heating, heating_size, ierr)
       write (*, 19)
    19 format("Calculated heating:")
       call print_float64_vec(heating, heating_size)
       if (ierr.ne.0) then 
          write (*, 20) ierr
-   20    format("  Error getting heating (calc) for isotope u235.")
+   20    format("  Error ", i3,
+     $        "getting heating (calc) for isotope u235.")
       endif
       call ndi_get_float64_vec(NDI_KERMA, kerma, vec_size, ierr)
       write (*, 21)
@@ -110,7 +111,8 @@
       call print_float64_vec(kerma, kerma_size)
       if (ierr.ne.0) then 
          write (*, 22) ierr
-   22    format("  Error getting kerma (calc) for isotope u235.")
+   22    format("  Error ", i3,
+     $        "getting kerma (calc) for isotope u235.")
       endif
       write (*, 23)
    23 format(/)
@@ -118,14 +120,14 @@
 
       ! See how average energy option affects calculated kerma/heating values 
       call ndi_set_option( NDI_E_AVG, "from_sgndf" , ierr)
-      call ndi_set_option(NDI_KERMA, "use_calc", ierr)
+      call ndi_set_option(NDI_KERMA, "use_legacy_calc", ierr)
       call ndi_get_float64_vec(NDI_HEATING, heating, heating_size, ierr)
       write (*, 24)
    24 format("Calculated heating (SGNDF energy):")
       call print_float64_vec(heating, heating_size)
       if (ierr.ne.0) then 
          write (*, 25) ierr
-   25    format("  Error getting heating (calc/sgndf energy)",
+   25    format("  Error ", i3, "getting heating (calc/sgndf energy)",
      $        "for isotope u235.")
       endif
       call ndi_get_float64_vec(NDI_KERMA, kerma, vec_size, ierr)
@@ -134,7 +136,7 @@
       call print_float64_vec(kerma, kerma_size)
       if (ierr.ne.0) then 
          write (*, 27) ierr
-   27    format("  Error getting kerma (calc/sgndf energy)",
+   27    format("  Error ", i3, "getting kerma (calc/sgndf energy)",
      $        "for isotope u235.")
       endif
       write (*, 28)

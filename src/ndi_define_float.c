@@ -84,6 +84,7 @@ int main()
     printf("#define NDI_GET_HEATING ndi_get_heating32\n");
     printf("#define NDI_GET_KERMA ndi_get_kerma32\n");
     printf("#define NDI_GET_OLD_HEATING ndi_get_old_heating32\n");
+    printf("#define NDI_GET_NEW_HEATING ndi_get_new_heating32\n");
     printf("#define NDI_GET_OLD_KERMA ndi_get_old_kerma32\n");
     printf("#define NDI_GET_NEW_KERMA ndi_get_new_kerma32\n");
     printf("#define MULT_FLOAT_VEC ndi_mult_float32_vec\n");
@@ -186,6 +187,7 @@ int main()
     printf("#define NDI_GET_HEATING ndi_get_heating64\n");
     printf("#define NDI_GET_KERMA ndi_get_kerma64\n");
     printf("#define NDI_GET_OLD_HEATING ndi_get_old_heating64\n");
+    printf("#define NDI_GET_NEW_HEATING ndi_get_new_heating64\n");
     printf("#define NDI_GET_OLD_KERMA ndi_get_old_kerma64\n");
     printf("#define NDI_GET_NEW_KERMA ndi_get_new_kerma64\n");
     printf("#define MULT_FLOAT_VEC ndi_mult_float64_vec\n");

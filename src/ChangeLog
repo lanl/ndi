@@ -1,3 +1,9 @@
+2010-09-21  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Swap CALC and LEGACY
+	options
+	
+
 2010-08-18  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec.c (NDI_GET_QSIGF): Added code
