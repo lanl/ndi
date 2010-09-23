@@ -11,7 +11,7 @@ if test "${with_config:=no}" = "no" || test "${with_config:=yes}" = yes
 then
 	case "${host}" in   
 	powerpc64-*-linux*)
-		CONFIG=powerpc64
+		CONFIG=ppc-linux
 		NDI_ROOT=/usr/gapps/lanl-data/nuclear/ndi
 			;;
 	*-ibm-aix*)

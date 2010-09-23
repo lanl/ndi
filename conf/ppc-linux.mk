@@ -4,7 +4,7 @@
 #
 ######################################################################
 
-# CONFIG = aix
+# CONFIG = ppc-linux
 
 # Standard macros
 CC		:= mpixlc_r
@@ -27,7 +27,7 @@ FFLAGS		:= -qfixed=132
 ASFLAGS		:= $(CFLAGS)
 
 # defines
-CPPFLAGS	+= -DAIX
+CPPFLAGS	+= -DLINUX
 FLOAT32FLAGS	:= -DFLOAT32
 FLOAT64FLAGS	:= -DFLOAT64
 NO_NAME_SUB_FLAG:= -D__NDI_NO_NAME_SUB
