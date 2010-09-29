@@ -3708,15 +3708,12 @@ int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size)
     FLOAT_TYPE *qsf = NULL;
     FLOAT_TYPE *sigf = NULL;
 
+    /* Fill return vector with zeros */
+    (void) NDI_INIT_FLOAT_VEC(vec, size);
+
     if (!state) 
         NDI_THROW(exit_status, -2); /* State not initialized */
 
-    if (state->collapse_flag)
-        num_groups = state->grp_num_new;
-    else
-        num_groups = state->iso_stat.num_grps;
-    
-    exit_status = NDI_CONST_FLOAT_VEC(0.0, num_groups, vec, size);
     if (state->iso_stat.fissionable == 0) 
         goto catch; /* We're done */
 
@@ -3786,24 +3783,24 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     FLOAT_TYPE *eavg = NULL;
     FLOAT_TYPE *q = NULL;
 
+    /* Fill return vector with zeros */
+    (void) NDI_INIT_FLOAT_VEC(vec, size);
+
     if (!state) 
         NDI_THROW(exit_status, -2); /* State not initialized */
 
-    if (state->collapse_flag)
-        num_groups = state->grp_num_new;
-    else
-        num_groups = state->iso_stat.num_grps;
-    
-    exit_status = NDI_CONST_FLOAT_VEC(0.0, num_groups, vec, size);
     if (state->iso_stat.fissionable == 0) 
         goto catch; /* We're done */
 
-    /* Get (constant) fission Q */
+    /* Get (constant) fission Q (could also use NDI_FISS_Q) */
     status = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, 18, &fissq);
     NDI_THROW(exit_status, status);
 
     /* Make it the default result */
-    status = NDI_CONST_FLOAT_VEC(fissq, num_groups, vec, size);
+    status = NDI_CONST_FLOAT_VEC(fissq, 
+                                 state->collapse_flag?
+                                 state->grp_num_new:
+                                 state->iso_stat.num_grps, vec, size);
     NDI_THROW(exit_status, status);
 
     switch(state->qsigf_calc) {
@@ -3825,53 +3822,55 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         NDI_THROW(exit_status, -13);   /* Invalid flag */
     }
 
-    /* Turn off collapsing
-       for best approximation of continuous nubar(0) 
-       by multigroup nu[n-1] */
-    collapse_flag = state->collapse_flag;
-    state->collapse_flag = 0;
+    if (ndi_nu_avail(state, 'p')) {
 
-    num_groups = state->iso_stat.num_grps;
+        /* Turn off collapsing
+           for best approximation of continuous nubar(0) 
+           by multigroup nu[n-1] */
+        collapse_flag = state->collapse_flag;
+        state->collapse_flag = 0;
 
-    /* Allocate result */
-    q = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
-    if (!q) 
-        NDI_THROW(exit_status, -14); /* Out of memory */
+        num_groups = state->iso_stat.num_grps;
 
-    /* Allocate and get average neutron incident energy per group */
-    eavg = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
-    if (!eavg)
-        NDI_THROW(exit_status, -14); /* Out of memory */
-    /* NB: Values returned depend on NDI_E_AVG option setting */
-    status = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, num_groups);
-    NDI_THROW(exit_status, status);
+        /* Allocate result */
+        q = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+        if (!q) 
+            NDI_THROW(exit_status, -14); /* Out of memory */
 
-    /* Allocate and get average number of prompt neutrons emitted per group */
-    nu = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
-    if (!nu)
-        NDI_THROW(exit_status, -14); /* Out of memory */
-    status = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, num_groups);
-    if (status == 9) {          /* Data not available */
+        /* Allocate and get average neutron incident energy per group */
+        eavg = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+        if (!eavg)
+            NDI_THROW(exit_status, -14); /* Out of memory */
+        /* NB: Values returned depend on NDI_E_AVG option setting */
+        status = GET_FLOAT_VEC_MG(state,  NDI_E_AVG, eavg, num_groups);
+        NDI_THROW(exit_status, status);
+
+        /* Allocate and get average number of prompt neutrons per group */
+        nu = (FLOAT_TYPE *)ndi_malloc(num_groups*sizeof(FLOAT_TYPE));
+        if (!nu)
+            NDI_THROW(exit_status, -14); /* Out of memory */
+        status = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, num_groups);
+        NDI_THROW(exit_status, status);
+
+        /* Calculate incident neutron energy dependent prompt fission Q */
+        /* See: "Incident Neutron Energy Dependent Fission Data in NDI"
+           XCP-5:10-021(U), July 2010 */
+        for (i = 0; i < num_groups; i++)
+            q[i] = fissq - a * (nu[i] - nu[num_groups-1]) - b * eavg[i];
+
+        /* Restore collapsing */
+        state->collapse_flag = collapse_flag;
+        collapse_flag = 0;
+
+        /* Collapse or copy result */
+        if (state->collapse_flag)
+            status = NDI_COLLAPSE_FLOAT(state, q, num_groups, 0, vec, size);
+        else
+            status = COPY_MATRIX(vec, size, q, num_groups);
+        NDI_THROW(exit_status, status);
+    } else {
         exit_status = 10;
-        goto catch;             /* Return with legacy Q */
     }
-
-    /* Calculate incident neutron energy dependent prompt fission Q */
-    /* See: "Incident Neutron Energy Dependent Fission Data in NDI"
-       XCP-5:10-021(U), July 2010 */
-    for (i = 0; i < num_groups; i++)
-        q[i] = fissq - a * (nu[i] - nu[num_groups-1]) - b * eavg[i];
-
-    /* Restore collapsing */
-    state->collapse_flag = collapse_flag;
-    collapse_flag = 0;
-
-    /* Collapse or copy result */
-    if (state->collapse_flag)
-        status = NDI_COLLAPSE_FLOAT(state, q, num_groups, 0, vec, size);
-    else
-        status = COPY_MATRIX(vec, size, q, num_groups);
-    NDI_THROW(exit_status, status);
 
  catch:
     if (collapse_flag)
