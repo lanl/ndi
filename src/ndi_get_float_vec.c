@@ -3792,6 +3792,9 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     if (state->iso_stat.fissionable == 0) 
         goto catch; /* We're done */
 
+    if (!ndi_sigf_avail(state)) 
+        NDI_THROW(exit_status, -9); /* Data not available */
+
     /* Get (constant) fission Q (could also use NDI_FISS_Q) */
     status = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, 18, &fissq);
     NDI_THROW(exit_status, status);
