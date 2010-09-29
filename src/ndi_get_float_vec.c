@@ -3778,7 +3778,7 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     int num_groups;
     int i;
     int collapse_flag = 0;
-    FLOAT_TYPE fissq[NUM_FISSION_Q];
+    FLOAT_TYPE fissq;
     FLOAT_TYPE a;
     FLOAT_TYPE b;
 
@@ -3799,13 +3799,16 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
         goto catch; /* We're done */
 
     /* Get (constant) fission Q */
-    status = GET_FLOAT_VEC_MG(state, NDI_FISS_Q, fissq, NUM_FISSION_Q);
+    status = NDI_GET_FLOAT_VAL_N_H(state, NDI_REAC_Q, 18, &fissq);
+    NDI_THROW(exit_status, status);
+
+    /* Make it the default result */
+    status = NDI_CONST_FLOAT_VEC(fissq, num_groups, vec, size);
     NDI_THROW(exit_status, status);
 
     switch(state->qsigf_calc) {
         
     case Q_LEGACY:              /* Constant Q fission prompt */
-        exit_status = NDI_CONST_FLOAT_VEC(fissq[0], num_groups, vec, size);
         goto catch;
 
     case P_CALC:                /* Q fission prompt in NJOY99 R0 */
@@ -3821,9 +3824,6 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     default:
         NDI_THROW(exit_status, -13);   /* Invalid flag */
     }
-
-    if (!ndi_nu_avail(state, 'p')) 
-        NDI_THROW(exit_status, -9); /* Data not avail */
 
     /* Turn off collapsing
        for best approximation of continuous nubar(0) 
@@ -3851,13 +3851,16 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     if (!nu)
         NDI_THROW(exit_status, -14); /* Out of memory */
     status = GET_FLOAT_VEC_MG(state, NDI_NU_PR, nu, num_groups);
-    NDI_THROW(exit_status, status);
+    if (status == 9) {          /* Data not available */
+        exit_status = 10;
+        goto catch;             /* Return with legacy Q */
+    }
 
     /* Calculate incident neutron energy dependent prompt fission Q */
     /* See: "Incident Neutron Energy Dependent Fission Data in NDI"
        XCP-5:10-021(U), July 2010 */
     for (i = 0; i < num_groups; i++)
-        q[i] = fissq[0] - a * (nu[i] - nu[num_groups-1]) - b * eavg[i];
+        q[i] = fissq - a * (nu[i] - nu[num_groups-1]) - b * eavg[i];
 
     /* Restore collapsing */
     state->collapse_flag = collapse_flag;
