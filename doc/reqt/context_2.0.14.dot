@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-	label="Context Diagram 09/07/10\n\
+        label="Context Diagram 10/27/10\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -20,19 +20,19 @@ digraph ndi {
 	/* requirements */
 	ndi[label="NDI 2.0.14", shape="ellipse"];
         
-        dkp -> ndi[label="54) SN\nlanl2010", style=solid, color=orange];
-        ndi -> rcl[label="54) SN\nlanl2010", style=solid, color=red];
+        dkp -> ndi[label="54) SN\nendf7act", style=solid, color=green];
+        ndi -> rcl[label="54) SN\nendf7act", style=solid, color=green];
 
         dkp -> ndi[label="68) SN\nkerma", style=solid, color=green];
         ndi -> caw[label="68) SN\nkerma", style=solid, color=green];
 
-        ndi -> caw[label="72) Q_SIG_F", style=solid, color=orange];
+        ndi -> caw[label="72) Q_SIG_F", style=solid, color=green];
 
         mbl -> ndi[label="73) RC\ncrsdata", style=solid, color=green];
-        ndi -> wardr[label="73) RC\ncrsdata", style=solid, color=red];
+        ndi -> wardr[label="73) RC\ncrsdata", style=solid, color=green];
 
         dkp -> ndi[label="74) RC\ntests", style=solid, color=green];
-        ndi -> wardr[label="74) RC\ntests", style=solid, color=red];
+        ndi -> wardr[label="74) RC\ntests", style=solid, color=green];
 
 	{rank=min; dkp; mbl}
 	{rank=max; rcl; caw; wardr}

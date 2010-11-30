@@ -1,0 +1,54 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Multi-temperature multi-particle & Control number: 75\\ \hline
+Stakeholder: Mark Chadwick & Request date: October 04, 2010\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Extend multi-temperature interface to multi-particle
+\\ \hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: yes & Comment: Consult Jon Dahl on details
+\\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? Yes \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 1 \\ \hline
+\end{tabular}
+
+\vspace{12pt}
+
+\begin{tabular}{|p{433pt}|} \hline
+Query:
+\begin{verbatim}
+
+/* Set multi-particle zaid at temperature */
+ierr = NDI2_set_zaid_float64_temp(mp_handle, "92235", 1.0);
+/* Get data per usual */
+...
+
+\end{verbatim}
+\\ \hline
+
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2010/10/22 & mgg Design code mods.\\ \hline
+\end{tabular}
