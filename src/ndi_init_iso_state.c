@@ -297,16 +297,6 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		return (-11);
 	    }
 	}
-	/* number of secondary particles */
-
-	/*
-	   else if ( strncmp(in_keyword, "num_sec_parts", 14) == 0 ) {
-	   if ( fscanf(stream, "%d\n", &state->iso_stat.num_sec_parts ) == EOF ) {
-	   * Error reading file *
-	   return(-11);
-	   }    
-	   }
-	 */
 
       /*** Simple array data  ***/
 
@@ -505,12 +495,11 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		EOF) {
 		/* Error reading file */
 		return (-11);
-	    } else {
-		ierr =
-		    ndi_create_mg_sec_part(state,
-					   state->iso_stat.num_sec_parts,
-					   &state->iso_stat.sec_part);
 	    }
+            ierr = ndi_create_mg_sec_part(state,
+                                          state->iso_stat.num_sec_parts,
+                                          &state->iso_stat.sec_part);
+
 	}
 
 
@@ -537,12 +526,11 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	/* secondary particle zaids */
 	else if (strncmp(in_keyword, "sec_part_zaids", 15) == 0) {
 	    char **temp_part_zaids = NULL;
-	    int min_len;
 	    int i;
 
 	    temp_part_zaids =
 		(char **) ndi_calloc(state->iso_stat.num_sec_parts,
-				     sizeof(mg_zaid *));
+				     sizeof(char *));
 	    ierr =
 		set_string_array(stream, temp_part_zaids,
 				 state->iso_stat.num_sec_parts);
@@ -550,19 +538,12 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
 		/* CHECK THAT ZAID MATCHES PART TYPE */
 
-		if ((strlen(state->iso_stat.sec_part[i].zaid) *
-		     sizeof(mg_zaid))
-		    < (strlen(temp_part_zaids[i]) + 1)) {
-		    min_len =
-			(int) strlen(state->iso_stat.sec_part[i].zaid);
-		} else {
-		    min_len = (int) strlen(temp_part_zaids[i]) + 1;
-		}
 		strncpy(state->iso_stat.sec_part[i].zaid,
-			temp_part_zaids[i], min_len);
+			temp_part_zaids[i], sizeof(mg_zaid)-1);
 		if (temp_part_zaids[i]) {
 		    ndi_free((void **) &(temp_part_zaids[i]));
 		}
+
 	    }
 	    if (temp_part_zaids) {
 		ndi_free((void **) &temp_part_zaids);

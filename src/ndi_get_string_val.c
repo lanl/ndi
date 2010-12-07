@@ -166,9 +166,9 @@ static int get_string_mg(state_struct *state, int in_key,
 
     case NDI_SEC_PART_TYPES:	/* Type of current particle */
 	/* Check also curr_part_index < num_parts?  */
-	if (state->curr_part_index >= 0) {
-	    if (sprintf
-		(ret_val, "%d",
+	if (0 <= state->curr_part_index &&
+            state->curr_part_index < state->iso_stat.num_sec_parts) {
+	    if (sprintf(ret_val, "%d",
 		 state->iso_stat.sec_part[state->curr_part_index].
 		 part_type) > str_size) {
 	     /** ??? **/
@@ -180,7 +180,8 @@ static int get_string_mg(state_struct *state, int in_key,
 	break;
 
     case NDI_SEC_PART_ZAIDS:	/* ZAID of current particle */
-	if (state->curr_part_index >= 0) {
+	if (0 <= state->curr_part_index &&
+            state->curr_part_index < state->iso_stat.num_sec_parts) {
 	    strncpy(ret_val,
 		    state->iso_stat.sec_part[state->curr_part_index].zaid,
 		    str_size);

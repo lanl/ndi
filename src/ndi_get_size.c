@@ -201,38 +201,36 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         break;
 
     case NDI_SEC_PART_TYPES:    /* Secondary particle types  */
-        if ((state->iso_stat.sec_part) &&
-            (state->curr_part_index < state->iso_stat.num_sec_parts) &&
-            (state->curr_part_index >= 0)) {
-            sprintf(tmp_str, "%d",
-                    state->iso_stat.sec_part[state->curr_part_index].
-                    part_type);
-            return_value = (int) strlen(tmp_str) + 1;
-        } else {
-            if (state->iso_stat.num_sec_parts >= state->curr_part_index) {
-                /* Invalid state->curr_part_index */
-                *ierr = -5;
+        if (state->iso_stat.sec_part) {
+            if (0 <= state->curr_part_index &&
+                state->curr_part_index < state->iso_stat.num_sec_parts) {
+                sprintf(tmp_str, "%d",
+                        state->iso_stat.sec_part[state->curr_part_index].
+                        part_type);
+                return_value = (int) strlen(tmp_str) + 1;
             } else {
+                *ierr = -5;     /* Invalid current particle index */
+            } 
+        } else {
                 /* No secondary particle data for this particle */
-                *ierr = 9;
-            }
+            *ierr = 9;
         }
+        
         break;
     case NDI_SEC_PART_ZAIDS:    /* Secondary particle ZAIDs  */
-        if ((state->iso_stat.sec_part) &&
-            (state->curr_part_index < state->iso_stat.num_sec_parts) &&
-            (state->curr_part_index >= 0)) {
-            return_value =
-                (int) strlen(state->iso_stat.
-                             sec_part[state->curr_part_index].zaid) + 1;
-        } else {
-            if (state->iso_stat.num_sec_parts >= state->curr_part_index) {
+        if (state->iso_stat.sec_part) {
+            if (0 <= state->curr_part_index && 
+                state->curr_part_index < state->iso_stat.num_sec_parts) {
+                return_value =
+                    (int) strlen(state->iso_stat.
+                                 sec_part[state->curr_part_index].zaid) + 1;
+            } else {
                 /* Invalid curr_part_index  */
                 *ierr = -5;
-            } else {
-                /* No secondary particle data for this particle */
-                *ierr = 9;
             }
+        } else {
+            /* No secondary particle data for this particle */
+            *ierr = 9;
         }
         break;
 

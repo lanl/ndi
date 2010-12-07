@@ -126,34 +126,39 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	break;
 
     case NDI_SEC_PART_TYPES:	/* Secondary particle types  */
-	if ((state->iso_stat.num_sec_parts > vec_num)
-	    && (state->iso_stat.sec_part)
-	    && (state->iso_stat.sec_part[vec_num].part_type >= 0)) {
-	    if (sprintf
-		(ret_val, "%d",
-		 state->iso_stat.sec_part[vec_num].part_type) > str_size);
-	} else {
-	    if (state->iso_stat.num_sec_parts > vec_num) {
-		ierr = ndi_check_array_err(state->iso_stat.num_sec_parts);
-	    } else {
-		ierr = -9;
-	    }
-	}
+        if (state->iso_stat.sec_part) {
+            if (0 <= vec_num && 
+                vec_num < state->iso_stat.num_sec_parts) {
+                if (state->iso_stat.sec_part[vec_num].part_type >= 0) {
+                    sprintf(ret_val, "%d",
+                            state->iso_stat.sec_part[vec_num].part_type);
+                } else {
+                    ierr = -9;  /* This data not set */
+                }
+            } else {
+                ierr = -6;      /* Index out of range */
+            }
+        } else {
+            ierr = -9;          /* Secondary data not set */
+        }
 	break;
 
     case NDI_SEC_PART_ZAIDS:	/* Secondary particle ZAIDs  */
-	if ((state->iso_stat.num_sec_parts > vec_num)
-	    && (state->iso_stat.sec_part)
-	    && (strcmp(state->iso_stat.sec_part[vec_num].zaid, "") != 0)) {
-	    strncpy(ret_val, state->iso_stat.sec_part[vec_num].zaid,
-		    str_size);
-	} else {
-	    if (state->iso_stat.num_sec_parts > vec_num) {
-		ierr = ndi_check_array_err(state->iso_stat.num_sec_parts);
-	    } else {
-		ierr = 9;
-	    }
-	}
+        if (state->iso_stat.sec_part) {
+            if (0 <= vec_num &&
+                vec_num < state->iso_stat.num_sec_parts) {
+                if (strcmp(state->iso_stat.sec_part[vec_num].zaid, "") != 0) {
+                    strncpy(ret_val, state->iso_stat.sec_part[vec_num].zaid,
+                            str_size);
+                } else {
+                    ierr = 9;   /* This data not set */
+                }
+            } else {
+                ierr = -6;      /* Index out of range */
+            }
+        } else {
+            ierr = 9;           /* Secondary data not set */
+        }
 	break;
 
     case NDI_TARGET:		/* Zaid of target specified by vec_num */

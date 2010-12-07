@@ -64,10 +64,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
     strcpy(tmp_zaid, in_zaid);
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
 	if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
-	    if (state->particle_type == 0)
-		ierr = ndi_std_z0id(state, tmp_zaid, sizeof(tmp_zaid));
-	    else
-		ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
+            ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
 	}
 	/* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/

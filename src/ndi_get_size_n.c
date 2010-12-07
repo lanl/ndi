@@ -138,35 +138,35 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 
      /****    String values ****/
     case NDI_SEC_PART_TYPES:	/* Secondary particle types  */
-	if ((state->iso_stat.sec_part)
-	    && (vec_num < state->iso_stat.num_sec_parts)) {
-	    sprintf(tmp_str, "%d",
-		    state->iso_stat.sec_part[vec_num].part_type);
-	    return_value = (int) strlen(tmp_str) + 1;
-	} else {
-	    if (state->iso_stat.num_sec_parts <= vec_num) {
+	if (state->iso_stat.sec_part) {
+            if (0 <= vec_num && 
+                vec_num < state->iso_stat.num_sec_parts) {
+                sprintf(tmp_str, "%d",
+                        state->iso_stat.sec_part[vec_num].part_type);
+                return_value = (int) strlen(tmp_str) + 1;
+            } else {
 		/* Invalid vec_num */
 		*ierr = -5;
-	    } else {
-		/* No secondary particle data for this particle */
-		*ierr = 9;
-	    }
-	}
+            }
+        } else {
+            /* No secondary particle data for this particle */
+            *ierr = 9;
+        }
 	break;
 
     case NDI_SEC_PART_ZAIDS:	/* Secondary particle ZAIDs  */
-	if ((state->iso_stat.sec_part)
-	    && (vec_num < state->iso_stat.num_sec_parts)) {
-	    return_value =
-		(int) strlen(state->iso_stat.sec_part[vec_num].zaid) + 1;
-	} else {
-	    if (state->iso_stat.num_sec_parts <= vec_num) {
+	if (state->iso_stat.sec_part) {
+            if (0 <= vec_num &&
+                vec_num < state->iso_stat.num_sec_parts) {
+                return_value =
+                    (int) strlen(state->iso_stat.sec_part[vec_num].zaid) + 1;
+            } else {
 		/* Invalid vec_num */
 		*ierr = -5;
-	    } else {
+            }
+        } else {
 		/* No secondary particle data for this particle */
 		*ierr = 9;
-	    }
 	}
 	break;
 

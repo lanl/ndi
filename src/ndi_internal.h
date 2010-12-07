@@ -436,7 +436,6 @@ extern "C" {
 			   char lib_type, long int iso_start,
 			   const char *zaid);
     int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size);
-    int ndi_std_z0id(state_struct *state, char *in_zaid, int zaid_size);
     int ndi_fill_elements(state_struct *state);
     int element_index(const char *el_symbol);
     int ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
