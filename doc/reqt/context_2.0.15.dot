@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 12/01/10\n\
+        label="Context Diagram 12/08/10\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -29,7 +29,11 @@ digraph ndi {
         ndi -> dahl[label="76) e_bounds\nresolution", style=solid,
         color=orange]; 
 
-        ndi -> morgan[label="42) Chi\ncalculations", style=solid, color=orange];
+        ndi -> morgan[label="42) Chi\ncalculations", style=solid,
+        color=orange];
+	ndi -> morgan[label="77) NDI_SEC_PART_ZAIDS", style=solid,
+        color=green]; 
+
 	{rank=min; mbl}
 	{rank=max; mbchadwick; frankles; dahl; morgan}
 }
