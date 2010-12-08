@@ -90,6 +90,9 @@ int main()
     printf("#define MULT_FLOAT_VEC ndi_mult_float32_vec\n");
     printf("#define DIVIDE_FLOAT_VEC ndi_divide_float32_vec\n");
     printf("#define GET_CHI_MAT ndi_get_chi_mat32\n");
+    printf("#define GET_SIG_XF_MAT ndi_get_sig_xf_mat32\n");
+    printf("#define READ_SIG_XF_MAT ndi_read_sig_xf_mat32\n");
+    printf("#define CALC_SIG_XF_MAT ndi_calc_sig_xf_mat32\n");
     printf("#define SIG_TOT_TRANS_CORR ndi_sig_tot_trans_corr32\n");
     printf("#define GET_E_BOUNDS_CURR_PART ndi_e_bounds32_curr_part\n");
     printf("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr32\n");
@@ -193,6 +196,9 @@ int main()
     printf("#define MULT_FLOAT_VEC ndi_mult_float64_vec\n");
     printf("#define DIVIDE_FLOAT_VEC ndi_divide_float64_vec\n");
     printf("#define GET_CHI_MAT ndi_get_chi_mat64\n");
+    printf("#define GET_SIG_XF_MAT ndi_get_sig_xf_mat64\n");
+    printf("#define READ_SIG_XF_MAT ndi_read_sig_xf_mat64\n");
+    printf("#define CALC_SIG_XF_MAT ndi_calc_sig_xf_mat64\n");
     printf("#define SIG_TOT_TRANS_CORR ndi_sig_tot_trans_corr64\n");
     printf("#define GET_E_BOUNDS_CURR_PART ndi_e_bounds64_curr_part\n");
     printf("#define PN_DOWN_FULL_TRANS_CORR ndi_pn_down_full_trans_corr64\n");
