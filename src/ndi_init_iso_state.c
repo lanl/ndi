@@ -703,6 +703,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    ierr = 15;
 	}
     }
+        
 }
 
 /*************************************************************************/

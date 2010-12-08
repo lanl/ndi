@@ -10,8 +10,8 @@
 
 ZAID 92235.600nm     (size = 12; error = 0,0).
   No. sec parts =  1     (size = 1; error = 0,0).
-  Particle 0: Type is 0 (size = 2; error = 0);  Zaid is  (size = 1; error = -6).
-  Particle type is size 2;  Particle zaid is size 1.
+  Particle 0: Type is 0 (size = 2; error = 0);  Zaid is 92000.020pm (size = 12; error = 0).
+  Particle type is size 2;  Particle zaid is size 12.
   Ebounds for particle 0 is of size 13     (errors = 0,0):
     2.00000e+01    9.00000e+00    8.00000e+00    7.00000e+00    6.00000e+00    5.00000e+00    4.00000e+00
     3.00000e+00    2.00000e+00    1.00000e+00    5.00000e-01    1.00000e-01    1.00000e-02

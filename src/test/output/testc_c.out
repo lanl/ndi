@@ -4465,11 +4465,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -9489,7 +9488,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -25377,11 +25376,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -27198,7 +27196,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -56226,11 +56224,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -61250,7 +61247,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -77134,11 +77131,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -82158,7 +82154,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -98042,11 +98038,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -103066,7 +103061,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -118954,11 +118949,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -123978,7 +123972,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -140962,11 +140956,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -145986,7 +145979,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 
@@ -161874,11 +161867,10 @@ AWR:   2.330250e+02
 STRING VALUES (N):
 Sec. particle type (0):  0
 Sec. particle type (999):  
-  **Error -9 in Sec. particle type -- returned value is ''.
-Sec. particle zaid (0):  
-  **Error -6 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle type -- returned value is ''.
+Sec. particle zaid (0):  92000.020pm
 Sec. particle zaid (999):  
-  **Error 9 in Sec. particle zaid -- returned value is ''.
+  **Error -6 in Sec. particle zaid -- returned value is ''.
 Target (0):  1002
 Target (999):  
   **Error 9 in Target -- returned value is ''.
@@ -166898,7 +166890,7 @@ Total-production cross section (99):
 
 SECONDARY PARTICLE DATA:
 0
-  PARTICLE 0 ():
+  PARTICLE 0 (92000.020pm):
   Number of energy groups:    12
   Maximum PN order:    1
 

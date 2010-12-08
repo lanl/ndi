@@ -12136,6 +12136,8 @@ num_sec_parts
      1
 sec_part_types                                                                  
      0                                                                          
+sec_part_zaids
+    92000.020pm
 num_grps_0                                                                      
     12
 e_bounds_0                                                                      

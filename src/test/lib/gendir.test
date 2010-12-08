@@ -60,19 +60,19 @@ multigroup_neutron
     ft=asc  ln=11431  o=699637  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
     awr=2.33025E+02 end
   z=94238.600nm  d=5/2/2003  l=mendf6  f=lib/mendf6_gen
-    ft=asc  ln=12234  o=747228  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02
+    ft=asc  ln=12236  o=747259  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02
     awr=2.36005E+02 end
   z=94239.600nm  d=5/2/2003  l=mendf6  f=lib/mendf6_gen
-    ft=asc  ln=12910  o=787250  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02
+    ft=asc  ln=12912  o=787281  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02
     awr=2.37002E+02 end
   z=94240.600nm  d=5/2/2003  l=mendf6  f=lib/mendf6_gen
-    ft=asc  ln=13602  o=827805  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
+    ft=asc  ln=13604  o=827836  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
     awr=2.37992E+02 end
   z=94241.600nm  d=5/2/2003  l=mendf6  f=lib/mendf6_gen
-    ft=asc  ln=14295  o=868385  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41049E+02
+    ft=asc  ln=14297  o=868416  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41049E+02
     awr=2.38978E+02 end
   z=94242.600nm  d=5/2/2003  l=mendf6  f=lib/mendf6_gen
-    ft=asc  ln=14956  o=907899  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42058E+02
+    ft=asc  ln=14958  o=907930  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42058E+02
     awr=2.39979E+02 end
   z=1001.500nm  d=5/1/2003  l=mendf5  f=lib/mendf5_gen
     ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00782E+00
