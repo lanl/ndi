@@ -1077,7 +1077,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 /*********************************************************************/
 
 /* Attempt to calculate the fission transfer matrix using
-   chi data on file 
+   chi matrix data on file 
 */
 static int READ_SIG_XF_MAT(state_struct *state, char type,
                            FLOAT_TYPE *mat, int size)
@@ -1099,7 +1099,7 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
     int out;
 
     if (!ndi_nusigf_avail(state, type))
-        NDI_THROW(ierr, -9);
+        NDI_THROW(ierr, -9);    /* Data not available */
         
     switch(type) {
 
@@ -1139,7 +1139,7 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
         if (!nusigf) NDI_THROW(ierr, -14); /*  Out of memory */
 
         jerr = NDI_GET_NUSIGF(state, type, nusigf, &n);
-        if (jerr) NDI_THROW(ierr, jerr);
+        NDI_THROW(ierr, jerr);
         n = state->iso_stat.num_grps;
 
         /* Calculate fission transfer matrix */
@@ -1160,20 +1160,21 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
         jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_off, 
                                     n, chi, n);
         NDI_THROW(ierr, jerr);
-        ierr = 10;
 
         /* Allocate and get nu_sigf */
         nusigf = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
         if (!nusigf) NDI_THROW(ierr, -14); /*  Out of memory */
 
         jerr = NDI_GET_NUSIGF(state, type, nusigf, &n);
-        if (jerr) NDI_THROW(ierr, jerr);
+        NDI_THROW(ierr, jerr);
         n = state->iso_stat.num_grps;
 
         /* Calculate fission transfer matrix */
         for (in = 0; in < n; in++)
             for (out = 0; out < n; out++)
                 xf[in*n+out] = nusigf[in] * chi[out];
+        NDI_THROW(ierr, 10);    /* Matrix was constructed */
+
     } else {                    /* Data not available */
 
         NDI_THROW(ierr, -9);
@@ -1215,21 +1216,21 @@ static int CALC_SIG_XF_MAT(state_struct *state, char type,
 
     switch(type) {
         
-    case 't':                  /* total neutrons */
+    case 't':                  /* total = prompt + delayed */
 
         xf1_type = 'p';
         s = +1.0;
         xf2_type = 'd';
         break;
 
-    case 'p':                  /* prompt neutrons */
+    case 'p':                  /* prompt = total - delayed */
 
         xf1_type = 't';
         s = -1.0;
         xf2_type = 'd';
         break;
 
-    case 'd':                  /* delayed neutrons */
+    case 'd':                  /* delayed = total - prompt */
 
         xf1_type = 't';
         s = -1.0;
@@ -1322,13 +1323,20 @@ static int GET_SIG_XF_MAT(state_struct *state, char type,
     tmp_mat = (FLOAT_TYPE *) ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!tmp_mat) NDI_THROW(ierr, -14);    /* Out of memory */
     
-    if ((jerr = READ_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0)
-        ierr = jerr;            /* Successfuly read matrix */
-    else if ((jerr = CALC_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0)
-        ierr = jerr;            /* Successfully calculated matrix */
-    else
+    if ((jerr = READ_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0) {
+     
+        NDI_THROW(ierr, jerr);            /* Successfuly read matrix */
+
+    } else if ((jerr = CALC_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0) {
+
+        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+
+    } else {
+
         NDI_THROW(ierr, -9);    /* Data not available */
- 
+
+    }
+
     if (collapse_flag) {        /* Collapsing required */
         jerr = NDI_COLLAPSE_MAT(tmp_mat, n, n,
                                 coll_num_grps, coll_num_grps,
@@ -1337,24 +1345,22 @@ static int GET_SIG_XF_MAT(state_struct *state, char type,
     } else {                   /* Copy required */
         jerr = COPY_MATRIX(mat, size, tmp_mat, nsqrd);
     }
-    if (jerr) NDI_THROW(ierr, jerr);
+    NDI_THROW(ierr, jerr);
 
     /*   Transpose matrix */
     if ((mat_order == 't') && (ierr >= 0) && (ierr != 7)) {
         jerr = NDI_TRANSPOSE_FLOAT(mat, coll_num_grps, coll_num_grps);
-        if (jerr) NDI_THROW(ierr, jerr);
+        NDI_THROW(ierr, jerr);
     }
 
  catch:
     /* Restore user settings */
-    if (state && state->iso_stat.fissionable) {
-        state->collapse_flag = collapse_flag;
-        state->mat_order = mat_order;
-        state->no_norm = no_norm;
-    }
+    if (collapse_flag != 0) state->collapse_flag = collapse_flag;
+    if (mat_order != 'd') state->mat_order = mat_order;
+    if (no_norm != 1) state->no_norm = no_norm;
 
     /* Free resources */
-    ndi_free((void **) &tmp_mat);
+    ndi_free((void **)&tmp_mat);
 
     return (ierr);
 }
