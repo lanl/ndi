@@ -27,9 +27,9 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
                        FLOAT_TYPE *return_mat, int return_size);
 static int READ_SIG_XF_MAT(state_struct *state, char sig_xf_type, 
-                          FLOAT_TYPE *return_mat, int return_size);
+                          FLOAT_TYPE *return_mat, int return_size, char f);
 static int CALC_SIG_XF_MAT(state_struct *state, char sig_xf_type, 
-                          FLOAT_TYPE *return_mat, int return_size);
+                          FLOAT_TYPE *return_mat, int return_size, char f);
 static int GET_SIG_XF_MAT(state_struct *state, char sig_xf_type, 
                           FLOAT_TYPE *return_mat, int return_size);
 static int GET_E_BOUNDS_CURR_PART(state_struct *state,
@@ -1076,11 +1076,19 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
 /*********************************************************************/
 
+/* Bit constants for SIG_XF calculations */ 
+#define SIG_XF_VEC 01
+#define SIG_XF_MAT 02
+
 /* Attempt to calculate the fission transfer matrix using
-   chi matrix data on file 
+   chi data on file.
+
+    Assumes collapse turned off,
+            matrix order default,
+        and norm set to one.
 */
 static int READ_SIG_XF_MAT(state_struct *state, char type,
-                           FLOAT_TYPE *mat, int size)
+                           FLOAT_TYPE *mat, int size, char flag)
 {
     int ierr = 0;
     int jerr;
@@ -1124,7 +1132,7 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
     n = state->iso_stat.num_grps;
     nsqrd = n*n;
 
-    if (mat_off) {              /* Calculate from matrix */
+    if (mat_off && (flag & SIG_XF_MAT)) { /* Read matrix */
 
         /* Allocate and read chi matrix */
         xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
@@ -1147,7 +1155,7 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
             for (out = 0; out < n; out++)
                 xf[in*n+out] *= nusigf[in];
 
-    } else if (vec_off) {         /* Calculate from vector */
+    } else if (vec_off && (flag & SIG_XF_VEC)) { /* Read vector */
 
         /* Allocate fission transfer matrix */
         xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
@@ -1194,10 +1202,15 @@ static int READ_SIG_XF_MAT(state_struct *state, char type,
 }
 
 /* Attempt to calculate fission transfer matrix from
-   sig_xf_t = sig_xf_p + sig_xf_d
+   sig_xf_t = sig_xf_p + sig_xf_d.
+
+    Assumes collapse turned off,
+            matrix order default,
+        and norm set to one.
+
 */
 static int CALC_SIG_XF_MAT(state_struct *state, char type,
-                           FLOAT_TYPE *mat, int size)
+                           FLOAT_TYPE *mat, int size, char flag)
 {
 
     int ierr = 0;
@@ -1247,14 +1260,14 @@ static int CALC_SIG_XF_MAT(state_struct *state, char type,
     xf1 = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!xf1) NDI_THROW(ierr, -14);
 
-    jerr = READ_SIG_XF_MAT(state, xf1_type, xf1, nsqrd);
+    jerr = READ_SIG_XF_MAT(state, xf1_type, xf1, nsqrd, flag);
     NDI_THROW(ierr, jerr);
 
     /* Allocate and retrieve second fission transfer matrix */
     xf2 = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!xf2) NDI_THROW(ierr, -14);
 
-    jerr = READ_SIG_XF_MAT(state, xf2_type, xf2, nsqrd);
+    jerr = READ_SIG_XF_MAT(state, xf2_type, xf2, nsqrd, flag);
     NDI_THROW(ierr, jerr);
 
     /* Allocate and calculate third fission transfer matrix */
@@ -1323,11 +1336,24 @@ static int GET_SIG_XF_MAT(state_struct *state, char type,
     tmp_mat = (FLOAT_TYPE *) ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!tmp_mat) NDI_THROW(ierr, -14);    /* Out of memory */
     
-    if ((jerr = READ_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0) {
+    if ((jerr = READ_SIG_XF_MAT(state, type, 
+                                tmp_mat, nsqrd, SIG_XF_MAT)) >= 0) {
      
         NDI_THROW(ierr, jerr);            /* Successfuly read matrix */
 
-    } else if ((jerr = CALC_SIG_XF_MAT(state, type, tmp_mat, nsqrd)) >= 0) {
+    } else if ((jerr = CALC_SIG_XF_MAT(state, type, 
+                                       tmp_mat, nsqrd, SIG_XF_MAT)) >= 0) {
+
+        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+
+    } else if ((jerr = READ_SIG_XF_MAT(state, type, 
+                                       tmp_mat, nsqrd, SIG_XF_VEC)) >= 0) {
+
+        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+
+    } else if ((jerr = CALC_SIG_XF_MAT(state, type, 
+                                       tmp_mat, nsqrd, 
+                                       SIG_XF_MAT | SIG_XF_VEC)) >= 0) {
 
         NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
 
