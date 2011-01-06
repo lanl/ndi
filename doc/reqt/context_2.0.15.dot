@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 12/08/10\n\
+        label="Context Diagram 01/06/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -14,7 +14,6 @@ digraph ndi {
         mbl[label="Beth Lee"];
         mbchadwick[label="Mark Chadwick"];
         frankles[label="Stephanie Frankle"];
-        dahl[label="Jon Dahl"];
         morgan[label="Morgan White"];
 
 	/* requirements */
@@ -26,14 +25,9 @@ digraph ndi {
         mbl -> ndi[label="69) PD\nchains", style=solid, color=orange];
         ndi -> frankles[label="69) PD\nchains", style=solid, color=red];
 
-        ndi -> dahl[label="76) e_bounds\nresolution", style=solid,
-        color=orange]; 
-
-        ndi -> morgan[label="42) Chi\ncalculations", style=solid,
-        color=orange];
 	ndi -> morgan[label="77) NDI_SEC_PART_ZAIDS", style=solid,
         color=green]; 
 
 	{rank=min; mbl}
-	{rank=max; mbchadwick; frankles; dahl; morgan}
+	{rank=max; mbchadwick; frankles; morgan}
 }
