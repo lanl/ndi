@@ -10,7 +10,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include <stdbool.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -28,11 +27,11 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
                        FLOAT_TYPE *return_mat, int return_size);
 static int read_sig_xf_mat(state_struct *state, char sig_xf_type, 
-                          FLOAT_TYPE *return_mat, int return_size);
+                           FLOAT_TYPE *return_mat, int return_size);
 static int read_sig_xf_vec(state_struct *state, char sig_xf_type, 
-                          FLOAT_TYPE *return_mat, int return_size);
-static int calc_sig_xf_mat(state_struct *state, char sig_xf_type, 
-                           FLOAT_TYPE *return_mat, int return_size, bool mix);
+                           FLOAT_TYPE *return_mat, int return_size);
+static int calc_sig_xf(state_struct *state, char sig_xf_type, 
+                       FLOAT_TYPE *return_mat, int return_size, unsigned flag);
 static int get_sig_xf_mat(state_struct *state, char sig_xf_type, 
                           FLOAT_TYPE *return_mat, int return_size);
 static int GET_E_BOUNDS_CURR_PART(state_struct *state,
@@ -71,7 +70,7 @@ static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
 static int GET_EDIST_CONT(state_struct *state, char var,
                           FLOAT_TYPE *return_vec, int return_size);
 static int CALC_CHI_WGT(state_struct *state, char nu_type,
-                        FLOAT_TYPE * nu_avg);
+   FLOAT_TYPE * nu_avg);
 static int NDI_GET_NUSIGF(state_struct *state, char nu_type,
                           FLOAT_TYPE * return_vec, int *return_size);
 static int NDI_GET_NU(state_struct *state, isotope_status * mg,
@@ -1079,8 +1078,91 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
 
 /*********************************************************************/
 
+
 /* Attempt to calculate the fission transfer matrix using
-   chi matrix data on file.
+   chi vector data from file.
+
+    Assumes collapse turned off,
+            matrix order default,
+        and norm set to one.
+*/
+static int read_sig_xf_vec(state_struct *state, char type,
+                           FLOAT_TYPE *mat, int size)
+{
+    int ierr = 0;
+    int jerr;
+
+    long int vec_off;
+
+    FLOAT_TYPE *xf = NULL;
+    FLOAT_TYPE *nusigf = NULL;
+    FLOAT_TYPE *chi = NULL;
+
+    int n;
+    int nsqrd;
+
+    int in;
+    int out;
+
+    if (type == 't') {          /* Total */
+        vec_off = state->iso_stat.chi_vec_tot.file_ptr;
+    } else if (type == 'p') {   /* Prompt */
+        vec_off = state->iso_stat.chi_vec_pr.file_ptr;
+    } else if (type == 'd') {   /* Delayed */
+        vec_off = state->iso_stat.chi_vec_del.file_ptr;
+    } else {
+        NDI_THROW(ierr, -13);   /* Invalid input parameter */
+    }
+
+    n = state->iso_stat.num_grps;
+    nsqrd = n*n;
+
+    if (vec_off && ndi_nusigf_avail(state, type)) {
+
+        /* Allocate fission transfer matrix */
+        xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
+        if (!xf) NDI_THROW(ierr, -14); /* Out of memory */
+        
+        /* Allocate and get nu_sigf */
+        nusigf = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
+        if (!nusigf) NDI_THROW(ierr, -14); /*  Out of memory */
+        jerr = NDI_GET_NUSIGF(state, type, nusigf, &n);
+        NDI_THROW(ierr, jerr);
+        n = state->iso_stat.num_grps;
+
+        /* Allocate and read chi vector */
+        chi = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
+        if (!chi) NDI_THROW(ierr, -14); /* Out of memory */
+        jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_off, 
+                                    n, chi, n);
+        NDI_THROW(ierr, jerr);
+
+        /* Calculate fission transfer matrix */
+        for (in = 0; in < n; in++)
+            for (out = 0; out < n; out++)
+                xf[in*n+out] = nusigf[in] * chi[out];
+        NDI_THROW(ierr, 10);    /* Matrix was constructed */
+
+    } else {                    /* Data not available */
+
+        NDI_THROW(ierr, -9);
+    }
+
+    /* Copy into return mat */
+    jerr = COPY_MATRIX(mat, size, xf, nsqrd);
+    NDI_THROW(ierr, jerr);
+
+ catch:
+    /* Free resources */
+    ndi_free((void **)&chi);
+    ndi_free((void **)&nusigf);
+    ndi_free((void **)&xf);
+
+    return ierr;
+}
+
+/* Attempt to calculate the fission transfer matrix using
+   chi matrix data from file.
 
     Assumes collapse turned off,
             matrix order default,
@@ -1121,7 +1203,6 @@ static int read_sig_xf_mat(state_struct *state, char type,
         /* Allocate and read chi matrix */
         xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
         if (!xf) NDI_THROW(ierr, -14); /* Out of memory */
-        
         jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, mat_off, 
                                     nsqrd, xf, nsqrd);
         NDI_THROW(ierr, jerr);
@@ -1129,7 +1210,6 @@ static int read_sig_xf_mat(state_struct *state, char type,
         /* Allocate and get nu_sigf */
         nusigf = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
         if (!nusigf) NDI_THROW(ierr, -14); /*  Out of memory */
-
         jerr = NDI_GET_NUSIGF(state, type, nusigf, &n);
         NDI_THROW(ierr, jerr);
         n = state->iso_stat.num_grps;
@@ -1150,100 +1230,12 @@ static int read_sig_xf_mat(state_struct *state, char type,
 
  catch:
     /* Free resources */
-    ndi_free((void **)&xf);
     ndi_free((void **)&nusigf);
+    ndi_free((void **)&xf);
 
     return ierr;
 }
 
-/* Attempt to calculate the fission transfer matrix using
-   chi vector data on file.
-
-    Assumes collapse turned off,
-            matrix order default,
-        and norm set to one.
-*/
-static int read_sig_xf_vec(state_struct *state, char type,
-                           FLOAT_TYPE *mat, int size)
-{
-    int ierr = 0;
-    int jerr;
-
-    long int vec_off;
-
-    FLOAT_TYPE *xf = NULL;
-    FLOAT_TYPE *chi = NULL;
-    FLOAT_TYPE *nusigf = NULL;
-
-    int n;
-    int nsqrd;
-
-    int in;
-    int out;
-
-    if (type == 't') {          /* Total */
-        vec_off = state->iso_stat.chi_vec_tot.file_ptr;
-    } else if (type == 'p') {   /* Prompt */
-        vec_off = state->iso_stat.chi_vec_pr.file_ptr;
-    } else if (type == 'd') {   /* Delayed */
-        vec_off = state->iso_stat.chi_vec_del.file_ptr;
-    } else {
-        NDI_THROW(ierr, -13);   /* Invalid input parameter */
-    }
-
-    n = state->iso_stat.num_grps;
-    nsqrd = n*n;
-
-    if (vec_off && ndi_nusigf_avail(state, type)) {
-
-        /* Allocate fission transfer matrix */
-        xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
-        if (!xf) NDI_THROW(ierr, -14); /* Out of memory */
-        
-        /* Allocate and read chi vector */
-        chi = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
-        if (!chi) NDI_THROW(ierr, -14); /* Out of memory */
-
-        jerr = NDI_READ_FLOAT_BLOCK(state->lib_stream, vec_off, 
-                                    n, chi, n);
-        NDI_THROW(ierr, jerr);
-
-        /* Allocate and get nu_sigf */
-        nusigf = (FLOAT_TYPE *)ndi_malloc(n * sizeof(FLOAT_TYPE));
-        if (!nusigf) NDI_THROW(ierr, -14); /*  Out of memory */
-
-        jerr = NDI_GET_NUSIGF(state, type, nusigf, &n);
-        NDI_THROW(ierr, jerr);
-        n = state->iso_stat.num_grps;
-
-        /* Calculate fission transfer matrix */
-        for (in = 0; in < n; in++)
-            for (out = 0; out < n; out++)
-                xf[in*n+out] = nusigf[in] * chi[out];
-        NDI_THROW(ierr, 10);    /* Matrix was constructed */
-
-    } else {                    /* Data not available */
-
-        NDI_THROW(ierr, -9);
-    }
-
-    /* Copy into return mat */
-    jerr = COPY_MATRIX(mat, size, xf, nsqrd);
-    NDI_THROW(ierr, jerr);
-
- catch:
-    /* Free resources */
-    ndi_free((void **)&xf);
-    ndi_free((void **)&nusigf);
-    ndi_free((void **)&chi);
-
-    return ierr;
-}
-
-/* Bit constants for SIG_XF calculation */
-
-#define SIG_XF_VEC 01
-#define SIG_XF_MAT 02
 
 /* Attempt to calculate fission transfer matrix from
    sig_xf_t = sig_xf_p + sig_xf_d.
@@ -1253,8 +1245,8 @@ static int read_sig_xf_vec(state_struct *state, char type,
         and norm set to one.
 
 */
-static int calc_sig_xf_mat(state_struct *state, char type,
-                           FLOAT_TYPE *mat, int size, bool mix)
+static int calc_sig_xf(state_struct *state, char type,
+                           FLOAT_TYPE *mat, int size, unsigned flag)
 {
 
     int ierr = 0;
@@ -1267,6 +1259,7 @@ static int calc_sig_xf_mat(state_struct *state, char type,
     FLOAT_TYPE *xf1 = NULL;
     FLOAT_TYPE *xf2 = NULL;
     FLOAT_TYPE *xf = NULL;
+
     FLOAT_TYPE s;
 
     int i;
@@ -1289,23 +1282,45 @@ static int calc_sig_xf_mat(state_struct *state, char type,
 
     nsqrd = state->iso_stat.num_grps*state->iso_stat.num_grps;
 
-    /* Allocate and retrieve first fission transfer matrix */
+    /* Allocate first fission transfer matrix */
     xf1 = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!xf1) NDI_THROW(ierr, -14);
 
-    jerr = read_sig_xf_mat(state, xf1_type, xf1, nsqrd);
-    if (jerr < 0 && mix)
-        jerr = read_sig_xf_vec(state, xf1_type, xf1, nsqrd);
-    NDI_THROW(ierr, jerr);
-
-    /* Allocate and retrieve second fission transfer matrix */
+    /* Allocate second fission transfer matrix */
     xf2 = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
     if (!xf2) NDI_THROW(ierr, -14);
 
-    jerr = read_sig_xf_mat(state, xf2_type, xf2, nsqrd);
-    if (jerr < 0 && mix)
+    /* There are three ways to calculate one of the three 
+       transfer matrices from data which can construct the other two...
+    */
+    if (flag == SIG_XF_MMC) {   /* 1) from the other chi matricies  */
+
+        jerr = read_sig_xf_mat(state, xf1_type, xf1, nsqrd);
+        NDI_THROW(ierr, jerr);
+        jerr = read_sig_xf_mat(state, xf2_type, xf2, nsqrd);
+        NDI_THROW(ierr, jerr);
+
+    } else if (flag == SIG_XF_VVC) { /* 2) from the other chi vectors */
+
+        jerr = read_sig_xf_vec(state, xf1_type, xf1, nsqrd);
+        NDI_THROW(ierr, jerr);
         jerr = read_sig_xf_vec(state, xf2_type, xf2, nsqrd);
-    NDI_THROW(ierr, jerr);
+        NDI_THROW(ierr, jerr);
+
+    } else if (flag == SIG_XF_MIX) { /* 3) from a vector matrix mix */
+
+        if ((jerr = read_sig_xf_mat(state, xf1_type, xf1, nsqrd)) < 0)
+            jerr = read_sig_xf_vec(state, xf1_type, xf1, nsqrd);
+        NDI_THROW(ierr, jerr);
+        if ((jerr = read_sig_xf_mat(state, xf2_type, xf2, nsqrd)) < 0)
+            jerr = read_sig_xf_vec(state, xf2_type, xf2, nsqrd);
+        NDI_THROW(ierr, jerr);
+
+    } else {
+
+        NDI_THROW(ierr, -13);   /* Invalid parameter */
+
+    }
 
     /* Allocate and calculate third fission transfer matrix */
     xf = (FLOAT_TYPE *)ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
@@ -1314,7 +1329,7 @@ static int calc_sig_xf_mat(state_struct *state, char type,
     /* Calculate fission transfer matrix with negative fixups */
     for (i = 0; i < nsqrd; i++) {
         xf[i] = xf1[i] + s*xf2[i];
-        if (xf[i] < 0) xf[i] = 0.0;
+        if (xf[i] < 0.0) xf[i] = 0.0;
     }
 
     /* Copy into return mat */
@@ -1338,6 +1353,7 @@ static int get_sig_xf_mat(state_struct *state, char type,
 {
     int ierr = 0;
     int jerr;
+    unsigned flag;
 
     int collapse_flag = 0;
     char mat_order = 'd';
@@ -1347,13 +1363,16 @@ static int get_sig_xf_mat(state_struct *state, char type,
     int nsqrd;
     int coll_num_grps;
 
-
     FLOAT_TYPE *tmp_mat = NULL;
 
     (void) NDI_INIT_FLOAT_VEC(mat, size);
 
     if (!state) NDI_THROW(ierr, -2);    /* State not initialized */
     if (state->iso_stat.fissionable == 0) goto catch; /* Not fissionable */
+
+    if (!strchr("tpd", type)) NDI_THROW(ierr, -13); /* Invalid input */
+    flag = ndi_sigxf_avail(state, type);
+    if (flag == 0) NDI_THROW(ierr, -9); /* Data not available */
 
     n = state->iso_stat.num_grps;
     nsqrd = n*n;
@@ -1371,26 +1390,28 @@ static int get_sig_xf_mat(state_struct *state, char type,
 
     /* Allocate matrix */
     tmp_mat = (FLOAT_TYPE *) ndi_malloc(nsqrd * sizeof(FLOAT_TYPE));
-    if (!tmp_mat) NDI_THROW(ierr, -14);    /* Out of memory */
+    if (!tmp_mat) NDI_THROW(ierr, -14); /* Out of memory */
     
-    if ((jerr = read_sig_xf_mat(state, type, tmp_mat, nsqrd)) >= 0) {
-     
-        NDI_THROW(ierr, jerr);            /* Successfuly read matrix */
+    /* There are four ways to obtain transfer matrix... */
+    if (flag & SIG_XF_MAT) { /* 1) read from matrix */
+        
+        jerr = read_sig_xf_mat(state, type, tmp_mat, nsqrd);
+        NDI_THROW(ierr, jerr);
 
-    } else if ((jerr = calc_sig_xf_mat(state, type, 
-                                       tmp_mat, nsqrd, false)) >= 0) {
+    } else if (flag & SIG_XF_MMC) { /* 2) calculate from matrices */
 
-        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+        jerr = calc_sig_xf(state, type, tmp_mat, nsqrd, SIG_XF_MMC);
+        NDI_THROW(ierr, jerr); 
 
-    } else if ((jerr = read_sig_xf_vec(state, type, 
-                                       tmp_mat, nsqrd)) >= 0) {
+    } else if (flag & SIG_XF_VEC) { /* 3) read from vector */
 
-        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+        jerr = read_sig_xf_vec(state, type, tmp_mat, nsqrd);
+        NDI_THROW(ierr, jerr);
 
-    } else if ((jerr = calc_sig_xf_mat(state, type, 
-                                       tmp_mat, nsqrd, true)) >= 0) {
+    } else if (flag & SIG_XF_MIX) { /* 4) calculate from mix */
 
-        NDI_THROW(ierr, jerr);            /* Successfully calculated matrix */
+        jerr = calc_sig_xf(state, type, tmp_mat, nsqrd, SIG_XF_MIX);
+        NDI_THROW(ierr, jerr);
 
     } else {
 
@@ -1409,7 +1430,7 @@ static int get_sig_xf_mat(state_struct *state, char type,
     NDI_THROW(ierr, jerr);
 
     /*   Transpose matrix */
-    if ((mat_order == 't') && (ierr >= 0) && (ierr != 7)) {
+    if ((mat_order == 't') && (ierr != 7)) {
         jerr = NDI_TRANSPOSE_FLOAT(mat, coll_num_grps, coll_num_grps);
         NDI_THROW(ierr, jerr);
     }

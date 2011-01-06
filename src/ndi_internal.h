@@ -50,6 +50,18 @@
 #define MAX_NGROUP_STR_LEN     20
 #define MAX_Z                 103
 
+/* Bit fields for fission transfer matrix introspection 
+
+   Use bit manipulation of unsigned instead of bitfields
+   so value can indicate if data is available by some means.
+   Individual bits indicate how available according to:
+*/
+#define SIG_XF_MAT 1
+#define SIG_XF_MMC 2
+#define SIG_XF_VEC 4
+#define SIG_XF_MIX 8
+#define SIG_XF_VVC 16
+
 /**********************************************************************/
 
 /*
@@ -649,9 +661,10 @@ extern "C" {
 
 
   /*** Subroutines in file ndi_avail.c ***/
-    int ndi_nusigf_avail(state_struct *state, char nu_type);
-    int ndi_nu_avail(state_struct *state, char nu_type);
-    int ndi_sigf_avail(state_struct *state);
+    int ndi_nusigf_avail(const state_struct *state, char nu_type);
+    int ndi_nu_avail(const state_struct *state, char nu_type);
+    int ndi_sigf_avail(const state_struct *state);
+    unsigned ndi_sigxf_avail(const state_struct *state, char type);
 
     /*** Subroutines in file ndi_parse_zaid.c ***/
     int ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,

@@ -9,6 +9,7 @@
 /**********************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
@@ -18,7 +19,7 @@
 
 /*********************************************************************/
 
-int ndi_nusigf_avail(state_struct *state, char nu_type)
+int ndi_nusigf_avail(const state_struct *state, char nu_type)
 {
 
     /*  Purpose:  Determines if the indicated nusigf value for the current
@@ -91,7 +92,7 @@ int ndi_nusigf_avail(state_struct *state, char nu_type)
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_nu_avail(state_struct *state, char nu_type)
+int ndi_nu_avail(const state_struct *state, char nu_type)
 {
 
     /*  Purpose:  Determines if the indicated nu value 
@@ -172,7 +173,7 @@ int ndi_nu_avail(state_struct *state, char nu_type)
 /*********************************************************************/
 /*********************************************************************/
 
-int ndi_sigf_avail(state_struct *state)
+int ndi_sigf_avail(const state_struct *state)
 {
 
     /*  Purpose:  Determines if the indicated fission cross-section is 
@@ -204,4 +205,73 @@ int ndi_sigf_avail(state_struct *state)
 }
 
 /*********************************************************************/
+/*********************************************************************/
+/* Introspection routine: Does table have sig_xf data either
+   explicitly or implicitly?
+
+   Returns flag > 0 if available, 
+   where bits indicate how available;
+           SIG_XF_MAT: Through type chi matrix and nu_sig_f
+           SIG_XF_MMC: Through other chi matricies and nu_sig_f's
+           SIG_XF_VEC: Through type chi vector and nu_sig_f
+           SIG_XF_MIX: Through other chi matrix/vector and nu_sig_f's
+           SIG_XF_VVC: Through other chi vectors and nu_sig_f's
+           flag = 0 if unavailable.
+*/
+unsigned ndi_sigxf_avail(const state_struct *state, char type)
+{
+    unsigned flag = 0;
+    long int mat_off[3];
+    long int vec_off[3];
+    int has_nusigf[3];
+    char option[] = "tpd";
+    char *p;
+    int i, j, k;
+
+    /* Register all the pertinent data */
+    mat_off[0] = state->iso_stat.chi_mat_tot.file_ptr;
+    mat_off[1] = state->iso_stat.chi_mat_pr.file_ptr;
+    mat_off[2] = state->iso_stat.chi_mat_del.file_ptr;
+
+    vec_off[0] = state->iso_stat.chi_vec_tot.file_ptr;
+    vec_off[1] = state->iso_stat.chi_vec_pr.file_ptr;
+    vec_off[2] = state->iso_stat.chi_vec_del.file_ptr;
+
+    has_nusigf[0] = ndi_nusigf_avail(state, 't');
+    has_nusigf[1] = ndi_nusigf_avail(state, 'p');
+    has_nusigf[2] = ndi_nusigf_avail(state, 'd');
+
+    /* Index type using option set */
+    p = strchr(option, type);
+    if (!p) return 0;           /* Illegal option */
+    i = p - option;             /* Index of type in option */
+    j = (i==0) ? 1 : 0;         /* Index of other in option */
+    k = (i==2) ? 1 : 2;         /* Index of other in option */
+
+    /* Matrix? */
+    if (mat_off[i] && has_nusigf[i])
+        flag |= SIG_XF_MAT;
+
+    /* Matrix calculation? */
+    if (mat_off[j] && has_nusigf[j] && mat_off[k] && has_nusigf[k])
+        flag |= SIG_XF_MMC;
+
+    /* Vector? */
+    if (vec_off[i] && has_nusigf[i])
+        flag |= SIG_XF_VEC;
+
+    /* Mixed calculation? */
+    if ((mat_off[j] || vec_off[j]) && has_nusigf[j] && 
+        (mat_off[k] || vec_off[k]) && has_nusigf[k])
+        flag |= SIG_XF_MIX;
+
+    /* Vector calculation? */
+    if (vec_off[j] && has_nusigf[j] && 
+        vec_off[k] && has_nusigf[k])
+        flag |= SIG_XF_VVC;
+
+
+    return flag;
+}
+
 /*********************************************************************/
