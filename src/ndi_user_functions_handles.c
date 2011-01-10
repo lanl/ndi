@@ -388,7 +388,7 @@ int NDI2_set_zaid_float32_temp(int handle, const char *zaid, ndi_float32 temp)
     if (is_gendir(state_p)) {
         return -2;
     } else if (is_mpmg(state_p)) {
-        return -2;
+        return ndimp_set_zaid_float32_temp(state_p, zaid, temp);
     } else {
         return (ndi_c_set_zaid_float32_temp_h(state_p, zaid, temp));
     }
@@ -426,7 +426,7 @@ int NDI2_set_zaid_float64_temp(int handle, const char *zaid, ndi_float64 temp)
     if (is_gendir(state_p)) {
         return -2;
     } else if (is_mpmg(state_p)) {
-        return -2;
+        return ndimp_set_zaid_float64_temp(state_p, zaid, temp);
     } else {
         return (ndi_c_set_zaid_float64_temp_h(state_p, zaid, temp));
     }

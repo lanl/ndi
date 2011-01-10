@@ -749,6 +749,10 @@ extern "C" {
     int ndimp_set_option(state_struct *mpmg_handle, 
                          int in_key, const char *value );
     int ndimp_set_zaid(state_struct *h, const char *zaid );
+    int ndimp_set_zaid_float32_temp(state_struct *h, const char *zaid,
+                                    ndi_float32 temp);
+    int ndimp_set_zaid_float64_temp(state_struct *h, const char *zaid,
+                                    ndi_float64 temp);
     int ndimp_get_float32_vec(state_struct *h,
 			      int in_key,
                               ndi_float32 * ret_vec,

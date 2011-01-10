@@ -1,3 +1,8 @@
+2011-01-10  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_set_zaid_float_temp.c (NDIMP_SET_ZAID_FLOAT_TEMP): Added
+	code for multitemperature multiparticle
+
 2010-12-14  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_avail.c (ndi_sigxf_avail): Added introspection code for
