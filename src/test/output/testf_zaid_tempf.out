@@ -16,10 +16,26 @@
  Temperature(             1  ) =     0.000000000000000     
  Temperature(             2  ) =    2.5299999999999994E-008
  Temperature(             3  ) =    1.0000000000000000E-006
+ Create multigroup multiparticle
+ ok.
+ Initialize neutron
+ ok.
+ Set neutron library
+ ok.
+ Initialize gamma
+ ok.
+ Set gamma library
+ ok.
  Attempt to set temperature =     0.000000000000000     
  ok setting 92235.
  Get zaid:
  zaid = 92235.671nm             
+ Attempt to set temperature =     0.000000000000000     
+ ok setting 92235.
+ Get neutron zaid:
+ neutron zaid = 92235.671nm             
+ Get gamma zaid:
+ gamma zaid = 92000.020pm             
  ok setting U-235.
  Get zaid:
  zaid = 92235.671nm             
@@ -29,6 +45,12 @@
  ok setting 92235.
  Get zaid:
  zaid = 92235.670nm             
+ Attempt to set temperature =    2.5299999999999994E-008
+ ok setting 92235.
+ Get neutron zaid:
+ neutron zaid = 92235.670nm             
+ Get gamma zaid:
+ gamma zaid = 92000.020pm             
  ok setting U-235.
  Get zaid:
  zaid = 92235.670nm             
@@ -38,6 +60,12 @@
  ok setting 92235.
  Get zaid:
  zaid = 92235.673nm             
+ Attempt to set temperature =    1.0000000000000000E-006
+ ok setting 92235.
+ Get neutron zaid:
+ neutron zaid = 92235.673nm             
+ Get gamma zaid:
+ gamma zaid = 92000.020pm             
  ok setting U-235.
  Get zaid:
  zaid = 92235.673nm             
