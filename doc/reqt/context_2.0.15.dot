@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 01/06/11\n\
+        label="Context Diagram 01/12/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -20,7 +20,7 @@ digraph ndi {
 	ndi[label="NDI 2.0.15", shape="ellipse"];
         
         ndi -> mbchadwick[label="75) Multitemp\nmultiparticle", 
-               style=solid, color=orange];
+               style=solid, color=green];
 
         mbl -> ndi[label="69) PD\nchains", style=solid, color=orange];
         ndi -> frankles[label="69) PD\nchains", style=solid, color=red];
