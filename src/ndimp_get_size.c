@@ -16,8 +16,11 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
 
     int return_val = 0;
     state_struct **handle;
+    int n;
 
     handle = h->handle_map;
+    n = h->handle_free;
+    int i;
 
     /* Check each particle is multigroup */
     /* Check num_parts <= MAX_HANDLE_NUM */
@@ -68,6 +71,14 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
     case NDI_FISSIONABLE:
 	return_val = 1;
 	break;
+
+        /* Multi-temperature (Reqt. 75) */
+    case NDI_TEMPS:
+        *ierr = -9;             /* Data not available */
+        for (i = 0; i < n; i++)
+            if (handle[i]->particle_type == 1) /* neutron */
+                return_val = ndi_c_get_size_h(handle[i], in_key, ierr);
+        break;
 
     default:
 	*ierr = -4;

@@ -21,6 +21,7 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
     int num_parts;
     char mat_order;
     state_struct **handle;
+    int i;
 
     handle = h->handle_map;
     num_parts = h->handle_free;
@@ -71,6 +72,14 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
 	}
 	break;
 
+        /* Multi-temperature (Reqt. 75) */
+    case NDI_TEMPS:
+        ierr = -9;              /* Data not available */
+        for (i = 0; i < num_parts; i++)
+            if (handle[i]->particle_type == 1) /* neutron */
+                ierr = NDI_GET_FLOAT_VEC_H(handle[i], in_key, 
+                                           ret_vec, vec_size);
+        break;
 
     default:
 	ierr = -4;

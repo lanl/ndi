@@ -56,24 +56,6 @@ c     Test multi-temperature functionality (Requirement 22)
          print *, "  **Error =", ierr
       endif
 
-      print *, "Get temperature array size:"
-      call ndi2_get_size(handle, NDI_TEMPS, size, ierr)
-      if (ierr .eq. 0) then
-         print *, "Number of temps = ", size
-      else
-         print *, "  **Error = ", ierr
-      endif
-
-      print *, "Get temperature array:"
-      call ndi2_get_float64_vec(handle, NDI_TEMPS, tarr, ACTUAL, ierr)
-      if (ierr .eq. 0) then
-         do i = 1, size
-            print *, "Temperature( ", i, " ) = ", tarr(i)
-         enddo
-      else
-         print *, "  **Error =", ierr
-      endif
-
       print *, "Create multigroup multiparticle"
       call ndi2_make_handle(gendir, "multigroup_multi", mp, ierr)
       call check_err(ierr)
@@ -93,6 +75,30 @@ c     Test multi-temperature functionality (Requirement 22)
       print *, "Set gamma library"
       call ndi2_set_option(mpg, NDI_LIBRARY, "mendf6g", ierr)
       call check_err(ierr)
+
+c     Test multitemperature multiparticle (Reqt. 75)
+
+      print *, "Set multi-particle isotope"
+      call ndi2_set_zaid(mp, "92235", ierr)
+      call check_err(ierr)
+
+      print *, "Get multi-particle temperature array size:"
+      call ndi2_get_size(mp, NDI_TEMPS, size, ierr)
+      if (ierr .eq. 0) then
+         print *, "Number of temps = ", size
+      else
+         print *, "  **Error = ", ierr
+      endif
+
+      print *, "Get multi-particle temperature array:"
+      call ndi2_get_float64_vec(mp, NDI_TEMPS, tarr, ACTUAL, ierr)
+      if (ierr .eq. 0) then
+         do i = 1, size
+            print *, "Temperature( ", i, " ) = ", tarr(i)
+         enddo
+      else
+         print *, "  **Error =", ierr
+      endif
 
       do i = 1, size
 

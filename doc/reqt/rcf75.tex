@@ -34,9 +34,14 @@ Classification: 1 \\ \hline
 \begin{tabular}{|p{433pt}|} \hline
 Query:
 \begin{verbatim}
-
-/* Set multi-particle zaid at temperature */
-ierr = NDI2_set_zaid_float64_temp(mp_handle, "92235", 1.0);
+/* Set multi-particle zaid at room temperature */
+ierr = NDI2_set_zaid(mp_handle, "92235");
+/* Get number of temperatures available */
+num_temps = NDI2_get_size(mp_handle, NDI_TEMPS, &ierr);
+/* Get array of temperatures available */
+ierr = NDI2_get_float64_vec(mp_handle, NDI_TEMPS, temps, num_temps);
+/* Set multi-particle zaid at 1 eV */
+ierr = NDI2_set_zaid_float64_temp(mp_handle, "92235", 1.e-6);
 /* Get data per usual */
 ...
 
@@ -53,4 +58,5 @@ Date & Description \\ \hline
 2010/10/22 & mgg Design code mods.\\ \hline
 2011/01/11 & mgg Implement code mods. \\ \hline
 2011/01/11 & mgg Added test in zaid_tempf.F. \\ \hline 
+2011/01/12 & mgg Implement code and test for NDI_TEMPS support. \\ \hline
 \end{tabular}

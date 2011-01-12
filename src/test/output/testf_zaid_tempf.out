@@ -10,12 +10,6 @@
  zaid = 92235.670nm             
  Get temperature:
  temperature =    2.5299999999999994E-008
- Get temperature array size:
- Number of temps =             3
- Get temperature array:
- Temperature(             1  ) =     0.000000000000000     
- Temperature(             2  ) =    2.5299999999999994E-008
- Temperature(             3  ) =    1.0000000000000000E-006
  Create multigroup multiparticle
  ok.
  Initialize neutron
@@ -26,6 +20,14 @@
  ok.
  Set gamma library
  ok.
+ Set multi-particle isotope
+ ok.
+ Get multi-particle temperature array size:
+ Number of temps =             3
+ Get multi-particle temperature array:
+ Temperature(             1  ) =     0.000000000000000     
+ Temperature(             2  ) =    2.5299999999999994E-008
+ Temperature(             3  ) =    1.0000000000000000E-006
  Attempt to set temperature =     0.000000000000000     
  ok setting 92235.
  Get zaid:

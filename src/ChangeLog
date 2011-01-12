@@ -1,3 +1,9 @@
+2011-01-12  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): Added NDI_TEMPS
+
+	* ndimp_get_size.c (ndimp_get_size): Added NDI_TEMPS
+
 2011-01-10  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_set_zaid_float_temp.c (NDIMP_SET_ZAID_FLOAT_TEMP): Added
