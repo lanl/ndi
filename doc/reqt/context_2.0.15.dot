@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 01/12/11\n\
+        label="Context Diagram 01/24/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -26,6 +26,8 @@ digraph ndi {
         ndi -> frankles[label="69) PD\nchains", style=solid, color=red];
 
 	ndi -> morgan[label="77) NDI_SEC_PART_ZAIDS", style=solid,
+        color=green]; 
+	ndi -> morgan[label="42) Chi\ncalculations", style=solid,
         color=green]; 
 
 	{rank=min; mbl}
