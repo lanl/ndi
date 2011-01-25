@@ -22,7 +22,7 @@ digraph ndi {
         ndi -> mbchadwick[label="75) Multitemp\nmultiparticle", 
                style=solid, color=green];
 
-        mbl -> ndi[label="69) PD\nchains", style=solid, color=orange];
+        mbl -> ndi[label="69) PD\nchains", style=solid, color=green];
         ndi -> frankles[label="69) PD\nchains", style=solid, color=red];
 
 	ndi -> morgan[label="77) NDI_SEC_PART_ZAIDS", style=solid,
