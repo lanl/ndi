@@ -414,6 +414,11 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	    ierr = 6;
 	strncpy(label, "inelastic", label_size);
 	break;
+    case 11:                    /* (n,2nd) */
+        if (label_size < 8)
+            ierr = 6;
+        strncpy(label, "(n,2nd)", label_size);
+        break;
     case 16:			/* (n,2n) */
 	if (label_size < 7)
 	    ierr = 6;
@@ -451,6 +456,16 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	    ierr = 6;
 	strncpy(label, "(n,n'3alpha)", label_size);
 	break;
+    case 24:			/* (n,2na) */
+	if (label_size < 12)
+	    ierr = 6;
+	strncpy(label, "(n,2nalpha)", label_size);
+	break;
+    case 25:			/* (n,3na) */
+	if (label_size < 12)
+	    ierr = 6;
+	strncpy(label, "(n,3nalpha)", label_size);
+	break;
     case 28:			/* (n,n'p) */
 	if (label_size < 8)
 	    ierr = 6;
@@ -477,14 +492,14 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	strncpy(label, "(n,n'He3)", label_size);
 	break;
     case 35:			/* (n,n'd2a) */
-	if (label_size < 10)
+	if (label_size < 14)
 	    ierr = 6;
-	strncpy(label, "(n,n'd2a)", label_size);
+	strncpy(label, "(n,n'd2alpha)", label_size);
 	break;
     case 36:			/* (n,n't2a) */
-	if (label_size < 10)
+	if (label_size < 14)
 	    ierr = 6;
-	strncpy(label, "(n,n't2a)", label_size);
+	strncpy(label, "(n,n't2alpha)", label_size);
 	break;
     case 37:			/* (n,4n) */
 	if (label_size < 7)
@@ -499,6 +514,21 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	if (label_size < 8)
 	    ierr = 6;
 	strncpy(label, "(n,2np)", label_size);
+	break;
+    case 42:			/* (n,3np) */
+	if (label_size < 8)
+	    ierr = 6;
+	strncpy(label, "(n,3np)", label_size);
+	break;
+    case 44:			/* (n,n'2p) */
+	if (label_size < 9)
+	    ierr = 6;
+	strncpy(label, "(n,n'2p)", label_size);
+	break;
+    case 45:			/* (n,npa) */
+	if (label_size < 12)
+	    ierr = 6;
+	strncpy(label, "(n,npalpha)", label_size);
 	break;
     case 102:			/* (n,g) */
 	if (label_size < 10)
@@ -530,15 +560,50 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
 	    ierr = 6;
 	strncpy(label, "(n,alpha)", label_size);
 	break;
+    case 108:			/* (n,2a) */
+	if (label_size < 11)
+	    ierr = 6;
+	strncpy(label, "(n,2alpha)", label_size);
+	break;
     case 109:			/* (n,3a) */
 	if (label_size < 11)
 	    ierr = 6;
 	strncpy(label, "(n,3alpha)", label_size);
 	break;
+    case 111:			/* (n,2p) */
+	if (label_size < 7)
+	    ierr = 6;
+	strncpy(label, "(n,2p)", label_size);
+	break;
+    case 112:			/* (n,pa) */
+	if (label_size < 11)
+	    ierr = 6;
+	strncpy(label, "(n,palpha)", label_size);
+	break;
     case 113:			/* (n,t2a) */
 	if (label_size < 12)
 	    ierr = 6;
 	strncpy(label, "(n,t2alpha)", label_size);
+	break;
+    case 114:			/* (n,d2a) */
+	if (label_size < 12)
+	    ierr = 6;
+	strncpy(label, "(n,d2alpha)", label_size);
+	break;
+    case 115:			/* (n,pd) */
+	if (label_size < 7)
+	    ierr = 6;
+	strncpy(label, "(n,pd)", label_size);
+	break;
+    case 116:			/* (n,pt) */
+	if (label_size < 7)
+	    ierr = 6;
+	strncpy(label, "(n,pt)", label_size);
+	break;
+    case 117:			/* (n,da) */
+	if (label_size < 11)
+	    ierr = 6;
+	strncpy(label, "(n,dalpha)", label_size);
 	break;
     case 201:			/* (n,Xn) */
 	if (label_size < 7)

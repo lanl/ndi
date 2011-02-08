@@ -1,3 +1,8 @@
+2011-02-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_string_val_n.c: Added mt=11, 24, 25, 42, 44, 45, 108,
+	111, 112, 114, 115, 116, and 117 to list.
+
 2011-01-12  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): Added NDI_TEMPS
