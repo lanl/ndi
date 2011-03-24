@@ -1,0 +1,41 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 03/24/11\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        mbl[label="Beth Lee"];
+        mgg[label="Mark Gray"];
+        dkp[label="Kent Parsons\nJeremy Conlin"];
+        rcl[label="Bob Little"];
+        caw[label="Chuck Wingate"];
+        wardr[label="Rob Ward"]
+        morgan[label="Morgan White"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.16", shape="ellipse"];
+        
+        dkp -> ndi[label="78) mendf70\nlanl70\nSN", color=orange];
+        mbl -> ndi[label="78) mendf70\nlanl70\nPD", color=red];
+        mgg -> ndi[label="78) mendf70\nlanl70\nelementals", color=red];
+        mbl -> ndi[label="62) lanl10e", color=red];
+
+        ndi -> rcl[label="78) mendf70\nlanl70", color=red];
+
+        ndi -> caw[label="62) lanl10e", color=red];
+
+        ndi -> wardr[label="19) MT\nlabels", color=orange]; 
+
+	ndi -> morgan[label="42) chi\ncalculations", style=solid,
+        color=orange]; 
+
+	{rank=min; dkp; mbl; mgg}
+	{rank=max; rcl; caw; wardr; morgan}
+}
