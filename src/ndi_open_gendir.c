@@ -116,7 +116,8 @@ static int local_isblank(const char *str)
  */
 FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
 {
-    char *abs_path[] = { "/usr/local/codes/data/nuclear/ndi/",
+    char *abs_path[] = { "/opt/local/codes/data/nuclear/ndi/",
+    "/usr/local/codes/data/nuclear/ndi/",
 	"/usr/projects/data/nuclear/ndi/",
 	"/usr/gapps/lanl-data/nuclear/ndi/",
 	"/projects/lanl-data/nuclear/ndi/",
