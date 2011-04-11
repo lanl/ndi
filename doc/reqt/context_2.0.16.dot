@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 03/24/11\n\
+        label="Context Diagram 04/11/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -15,7 +15,7 @@ digraph ndi {
         mgg[label="Mark Gray"];
         dkp[label="Kent Parsons\nJeremy Conlin"];
         rcl[label="Bob Little"];
-        caw[label="Chuck Wingate"];
+        jomc[label="Joann Campbell"];
         wardr[label="Rob Ward"]
         morgan[label="Morgan White"];
 
@@ -27,15 +27,14 @@ digraph ndi {
         mgg -> ndi[label="78) mendf70\nlanl70\nelementals", color=red];
         mbl -> ndi[label="62) lanl10e", color=red];
 
+        ndi -> dkp[label="80) Initialization\nfail", color=orange];
         ndi -> rcl[label="78) mendf70\nlanl70", color=red];
-
-        ndi -> caw[label="62) lanl10e", color=red];
-
+        ndi -> jomc[label="62) lanl10e", color=red];
         ndi -> wardr[label="19) MT\nlabels", color=orange]; 
-
 	ndi -> morgan[label="42) chi\ncalculations", style=solid,
         color=orange]; 
+        ndi -> morgan[label="79) at_wgt\ncalculation", color=green];
 
 	{rank=min; dkp; mbl; mgg}
-	{rank=max; rcl; caw; wardr; morgan}
+	{rank=max; rcl; jomc; wardr; morgan}
 }

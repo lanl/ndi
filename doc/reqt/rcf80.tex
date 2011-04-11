@@ -1,0 +1,40 @@
+\begin{center}\Large\bf
+Requirement Control Form
+\end{center}
+\vspace{24pt}
+
+Requirement Elicitation:
+
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Short name: Initialization failure & Control number: 80\\ \hline
+Stakeholder: D. Kent Parsons & Request date: April 5, 2011\\
+\end{tabular}
+\begin{tabular}{|p{433pt}|} \hline
+Description: \\ 
+Missing \texttt{at\_wgt} data should return $\mathrm{ierr}=-9$ instead
+returns 0.\\
+\hline
+\end{tabular} 
+\begin{tabular}{|p{211pt}|p{211pt}|} \hline
+Urgent: No & Comment: \\ \hline
+\end{tabular}
+
+\vspace{24pt}
+
+Requirement Analysis:
+
+\begin{tabular}{|p{433pt}|} \hline
+Important user? No \\ \hline
+Important Aspiration? Yes \\ \hline
+Classification: 2 \\ \hline
+\end{tabular}
+\vspace{24pt}
+
+Requirement Handling:
+
+\begin{tabular}{|p{72pt}|p{351pt}|} \hline
+Date & Description \\ \hline
+2011/04/07 & mgg Traced failure to initialization fault for newly
+maked handles.  Forcing initialization causes many multi-particle
+errors where gamma tables have no data. \\ \hline 
+\end{tabular}
