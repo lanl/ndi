@@ -1398,6 +1398,10 @@ then
 		CONFIG=sun
 		NDI_ROOT=/usr/local/codes/data/nuclear/ndi
 		;;
+	i?86-*-darwin*)
+		CONFIG=pgi-darwin
+		NDI_ROOT=/opt/local/codes/data/nuclear/ndi
+		;;
 	i?86-*-linux*)
 		CONFIG=intel-linux
 		NDI_ROOT=/usr/projects/data/nuclear/ndi
