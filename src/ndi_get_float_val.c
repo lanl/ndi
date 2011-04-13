@@ -131,8 +131,10 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	break;
 
     case NDI_AT_WGT:		/* Atomic weight  */
-	if (state->iso_stat.at_wgt >= 0) {
+	if (state->iso_stat.at_wgt > 0.0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
+        } else if (state->iso_stat.awr > 0.0) {
+            *ret_val = (FLOAT_TYPE) (state->iso_stat.awr * M_NEUT_AMU);
 	} else {
 	    ierr = -9;
 	    *ret_val = 0.0;
@@ -140,8 +142,10 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	break;
 
     case NDI_AWR:		/* Atomic weight ratio  */
-	if (state->iso_stat.awr >= 0) {
+	if (state->iso_stat.awr > 0.0) {
 	    *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
+        } else if (state->iso_stat.at_wgt > 0.0) {
+            *ret_val = (FLOAT_TYPE) (state->iso_stat.at_wgt / M_NEUT_AMU);
 	} else {
 	    ierr = -9;
 	    *ret_val = 0.0;

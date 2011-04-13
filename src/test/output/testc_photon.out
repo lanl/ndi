@@ -616,13 +616,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:   0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:   0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -21170,15 +21170,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   1.007800000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   9.991425142562568e-01
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   1.007800e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   9.991425e-01
 
 
 STRING VALUES (N):
@@ -21693,15 +21691,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -42249,15 +42245,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   6.015100000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   5.963427403753532e+00
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   6.015100e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   5.963428e+00
 
 
 STRING VALUES (N):
@@ -42771,15 +42765,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   2.360458000000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.340180532760761e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   2.360458e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.340181e+02
 
 
 STRING VALUES (N):
@@ -43876,13 +43868,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:   0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:   0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -44369,15 +44361,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   1.007800000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   9.991425142562568e-01
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   1.007800e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   9.991425e-01
 
 
 STRING VALUES (N):
@@ -44892,15 +44882,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -45387,15 +45375,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   6.015100000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   5.963427403753532e+00
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   6.015100e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   5.963428e+00
 
 
 STRING VALUES (N):
@@ -45909,15 +45895,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   2.360458000000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.340180532760761e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   2.360458e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.340181e+02
 
 
 STRING VALUES (N):
@@ -47587,13 +47571,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   2.320333000000000e+02
-AWR:   0.000000000000000e+00
+AWR:   2.300400225770751e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   2.320333e+02
-AWR:   0.000000e+00
+AWR:   2.300400e+02
 
 
 STRING VALUES (N):
@@ -48107,15 +48091,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   1.007800000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   9.991425142562568e-01
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   1.007800e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   9.991425e-01
 
 
 STRING VALUES (N):
@@ -48630,15 +48612,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -69186,15 +69166,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   6.015100000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   5.963427403753532e+00
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   6.015100e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   5.963428e+00
 
 
 STRING VALUES (N):
@@ -69708,15 +69686,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   2.360458000000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.340180532760761e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   2.360458e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.340181e+02
 
 
 STRING VALUES (N):
@@ -71386,13 +71362,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:   0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:   0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -91940,15 +91916,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   1.007800000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   9.991425142562568e-01
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   1.007800e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   9.991425e-01
 
 
 STRING VALUES (N):
@@ -92463,15 +92437,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+10
 Atomic weight:   2.380287800000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.359839985260462e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+10
 Atomic weight:   2.380288e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.359840e+02
 
 
 STRING VALUES (N):
@@ -113019,15 +112991,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   6.015100000000000e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   5.963427403753532e+00
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   6.015100e+00
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   5.963428e+00
 
 
 STRING VALUES (N):
@@ -113541,15 +113511,13 @@ FLOAT64 VALUES:
 Temperature:   0.000000000000000e+00
 Sigma zero:   1.000000000000000e+30
 Atomic weight:   2.360458000000000e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000000000000e+00
+AWR:   2.340180532760761e+02
 
 FLOAT32 VALUES:
 Temperature:   0.000000e+00
 Sigma zero:   1.000000e+30
 Atomic weight:   2.360458e+02
-AWR:  
-  **Error -9 in AWR -- returned value is  0.000000e+00
+AWR:   2.340181e+02
 
 
 STRING VALUES (N):

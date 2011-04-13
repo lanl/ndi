@@ -94,6 +94,7 @@ AC_TYPE_SIZE_T
 dnl Checks for library functions.
 AC_CHECK_FUNCS(strstr strtod strtol)
 
+AC_OUTPUT_COMMANDS([rm -f ${srcdir}/src/fmangle.h ${srcdir}/src/ndi_var_type.h])
 AC_OUTPUT(GNUmakefile src/GNUmakefile test/GNUmakefile
 		      src/test/GNUmakefile src/test/gendir)
 

@@ -26,6 +26,7 @@
 /* "Nuclides and Isotopes", 16ed endpage */
 #define V_PHOT_MPS      2.99792458e+8
 #define M_NEUT_KG       1.67492716e-27
+#define M_NEUT_AMU      1.0086649157855
 #define Q_ELEC_C        1.602176462e-19
 #define J_TO_MEV        (Q_ELEC_C*1e+6)
 

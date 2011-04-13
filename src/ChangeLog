@@ -1,3 +1,8 @@
+2011-04-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_val.c (GET_FLOAT_VAL_MG): Add calculation for
+	atomic weight from atomic weight ratio and vice versa
+
 2011-02-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_string_val_n.c: Added mt=11, 24, 25, 42, 44, 45, 108,

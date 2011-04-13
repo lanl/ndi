@@ -3392,6 +3392,8 @@ fi
 done
 
 
+          ac_config_commands="$ac_config_commands default-1"
+
                                                   ac_config_files="$ac_config_files GNUmakefile src/GNUmakefile test/GNUmakefile src/test/GNUmakefile src/test/gendir"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3836,6 +3838,9 @@ Usage: $0 [OPTIONS] [FILE]...
 Configuration files:
 $config_files
 
+Configuration commands:
+$config_commands
+
 Report bugs to <bug-autoconf@gnu.org>."
 _ACEOF
 
@@ -3935,7 +3940,14 @@ fi
 
 _ACEOF
 
+cat >>$CONFIG_STATUS <<_ACEOF
+#
+# INIT-COMMANDS section.
+#
 
+
+
+_ACEOF
 
 
 
@@ -3949,6 +3961,7 @@ do
   "test/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES test/GNUmakefile" ;;
   "src/test/GNUmakefile" ) CONFIG_FILES="$CONFIG_FILES src/test/GNUmakefile" ;;
   "src/test/gendir" ) CONFIG_FILES="$CONFIG_FILES src/test/gendir" ;;
+  "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
@@ -3961,6 +3974,7 @@ done
 # bizarre bug on SunOS 4.1.3.
 if $ac_need_defaults; then
   test "${CONFIG_FILES+set}" = set || CONFIG_FILES=$config_files
+  test "${CONFIG_COMMANDS+set}" = set || CONFIG_COMMANDS=$config_commands
 fi
 
 # Have a temporary directory for convenience.  Make it in the build tree
@@ -4295,6 +4309,124 @@ s,@INSTALL@,$ac_INSTALL,;t t
     rm -f $tmp/out
   fi
 
+done
+_ACEOF
+cat >>$CONFIG_STATUS <<\_ACEOF
+
+#
+# CONFIG_COMMANDS section.
+#
+for ac_file in : $CONFIG_COMMANDS; do test "x$ac_file" = x: && continue
+  ac_dest=`echo "$ac_file" | sed 's,:.*,,'`
+  ac_source=`echo "$ac_file" | sed 's,[^:]*:,,'`
+  ac_dir=`(dirname "$ac_dest") 2>/dev/null ||
+$as_expr X"$ac_dest" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
+	 X"$ac_dest" : 'X\(//\)[^/]' \| \
+	 X"$ac_dest" : 'X\(//\)$' \| \
+	 X"$ac_dest" : 'X\(/\)' \| \
+	 .     : '\(.\)' 2>/dev/null ||
+echo X"$ac_dest" |
+    sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
+  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+  	  /^X\(\/\/\)$/{ s//\1/; q; }
+  	  /^X\(\/\).*/{ s//\1/; q; }
+  	  s/.*/./; q'`
+  { if $as_mkdir_p; then
+    mkdir -p "$ac_dir"
+  else
+    as_dir="$ac_dir"
+    as_dirs=
+    while test ! -d "$as_dir"; do
+      as_dirs="$as_dir $as_dirs"
+      as_dir=`(dirname "$as_dir") 2>/dev/null ||
+$as_expr X"$as_dir" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
+	 X"$as_dir" : 'X\(//\)[^/]' \| \
+	 X"$as_dir" : 'X\(//\)$' \| \
+	 X"$as_dir" : 'X\(/\)' \| \
+	 .     : '\(.\)' 2>/dev/null ||
+echo X"$as_dir" |
+    sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
+  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+  	  /^X\(\/\/\)$/{ s//\1/; q; }
+  	  /^X\(\/\).*/{ s//\1/; q; }
+  	  s/.*/./; q'`
+    done
+    test ! -n "$as_dirs" || mkdir $as_dirs
+  fi || { { echo "$as_me:$LINENO: error: cannot create directory \"$ac_dir\"" >&5
+echo "$as_me: error: cannot create directory \"$ac_dir\"" >&2;}
+   { (exit 1); exit 1; }; }; }
+
+  ac_builddir=.
+
+if test "$ac_dir" != .; then
+  ac_dir_suffix=/`echo "$ac_dir" | sed 's,^\.[\\/],,'`
+  # A "../" for each directory in $ac_dir_suffix.
+  ac_top_builddir=`echo "$ac_dir_suffix" | sed 's,/[^\\/]*,../,g'`
+else
+  ac_dir_suffix= ac_top_builddir=
+fi
+
+case $srcdir in
+  .)  # No --srcdir option.  We are building in place.
+    ac_srcdir=.
+    if test -z "$ac_top_builddir"; then
+       ac_top_srcdir=.
+    else
+       ac_top_srcdir=`echo $ac_top_builddir | sed 's,/$,,'`
+    fi ;;
+  [\\/]* | ?:[\\/]* )  # Absolute path.
+    ac_srcdir=$srcdir$ac_dir_suffix;
+    ac_top_srcdir=$srcdir ;;
+  *) # Relative path.
+    ac_srcdir=$ac_top_builddir$srcdir$ac_dir_suffix
+    ac_top_srcdir=$ac_top_builddir$srcdir ;;
+esac
+
+# Do not use `cd foo && pwd` to compute absolute paths, because
+# the directories may not exist.
+case `pwd` in
+.) ac_abs_builddir="$ac_dir";;
+*)
+  case "$ac_dir" in
+  .) ac_abs_builddir=`pwd`;;
+  [\\/]* | ?:[\\/]* ) ac_abs_builddir="$ac_dir";;
+  *) ac_abs_builddir=`pwd`/"$ac_dir";;
+  esac;;
+esac
+case $ac_abs_builddir in
+.) ac_abs_top_builddir=${ac_top_builddir}.;;
+*)
+  case ${ac_top_builddir}. in
+  .) ac_abs_top_builddir=$ac_abs_builddir;;
+  [\\/]* | ?:[\\/]* ) ac_abs_top_builddir=${ac_top_builddir}.;;
+  *) ac_abs_top_builddir=$ac_abs_builddir/${ac_top_builddir}.;;
+  esac;;
+esac
+case $ac_abs_builddir in
+.) ac_abs_srcdir=$ac_srcdir;;
+*)
+  case $ac_srcdir in
+  .) ac_abs_srcdir=$ac_abs_builddir;;
+  [\\/]* | ?:[\\/]* ) ac_abs_srcdir=$ac_srcdir;;
+  *) ac_abs_srcdir=$ac_abs_builddir/$ac_srcdir;;
+  esac;;
+esac
+case $ac_abs_builddir in
+.) ac_abs_top_srcdir=$ac_top_srcdir;;
+*)
+  case $ac_top_srcdir in
+  .) ac_abs_top_srcdir=$ac_abs_builddir;;
+  [\\/]* | ?:[\\/]* ) ac_abs_top_srcdir=$ac_top_srcdir;;
+  *) ac_abs_top_srcdir=$ac_abs_builddir/$ac_top_srcdir;;
+  esac;;
+esac
+
+
+  { echo "$as_me:$LINENO: executing $ac_dest commands" >&5
+echo "$as_me: executing $ac_dest commands" >&6;}
+  case $ac_dest in
+    default-1 ) rm -f ${srcdir}/src/fmangle.h ${srcdir}/src/ndi_var_type.h ;;
+  esac
 done
 _ACEOF
 
