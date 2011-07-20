@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 04/11/11\n\
+        label="Context Diagram 07/20/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -15,26 +15,22 @@ digraph ndi {
         mgg[label="Mark Gray"];
         dkp[label="Kent Parsons\nJeremy Conlin"];
         rcl[label="Bob Little"];
-        jomc[label="Joann Campbell"];
-        wardr[label="Rob Ward"]
+        wardr[label="Rob Ward\nJoann Campbell"]
         morgan[label="Morgan White"];
+        jomc[label="Joann Campbell"];
 
 	/* requirements */
 	ndi[label="NDI 2.0.16", shape="ellipse"];
         
-        dkp -> ndi[label="78) mendf70\nlanl70\nSN", color=orange];
-        mbl -> ndi[label="78) mendf70\nlanl70\nPD", color=red];
-        mgg -> ndi[label="78) mendf70\nlanl70\nelementals", color=red];
-        mbl -> ndi[label="62) lanl10e", color=red];
+        dkp -> ndi[label="78) mendf70x\nSN", color=orange];
+        mbl -> ndi[label="78) mendf70x\nPD", color=orange];
+        mgg -> ndi[label="78) mendf70x\nelementals", color=green];
 
-        ndi -> dkp[label="80) Initialization\nfail", color=orange];
-        ndi -> rcl[label="78) mendf70\nlanl70", color=red];
-        ndi -> jomc[label="62) lanl10e", color=red];
-        ndi -> wardr[label="19) MT\nlabels", color=orange]; 
-	ndi -> morgan[label="42) chi\ncalculations", style=solid,
-        color=orange]; 
+        ndi -> rcl[label="78) mendf70x", color=red];
+        ndi -> wardr[label="19) MT\nlabels", color=green]; 
         ndi -> morgan[label="79) at_wgt\ncalculation", color=green];
+        ndi -> jomc[label="81) Reduced\ngendir", color=orange];
 
 	{rank=min; dkp; mbl; mgg}
-	{rank=max; rcl; jomc; wardr; morgan}
+	{rank=max; rcl; wardr; morgan}
 }

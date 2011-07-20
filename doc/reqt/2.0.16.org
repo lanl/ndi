@@ -1,0 +1,68 @@
+#+TAGS: code(c) data(d)
+
+* 2.0.16 alpha
+
+** Requirement 19: Provide MT Labels [0%]                              :code:
+
+   - [-] Add mts_to_mt_lfs to ndi_get_string_val_n.c [2/3]
+     - [X] Implement code to decode extended MTs.
+     - [X] Test code on radchem MTs.
+     - [ ] Add code
+
+   - [ ] Update ndi_mt_to_label in ndi_get_string_val_n.c [0/4]
+     - [-] Update MT list
+     - [ ] Add call through mts_to_mt_lfs
+     - [ ] Add product state information
+     - [ ] Replace incident particle label
+
+** Requirement 42: Chi calculations [0%]                                :code:
+
+** Requirement 78: mendf70 [0%]                                         :data:
+
+   - [ ] Elementals [1/2]
+     - [X] List missing elementals
+           18000
+           24000
+           26000
+           28000
+           29000
+           47000
+           48000
+           54000
+           63000
+           64000
+           72000
+           82000
+
+     - [X] Generate missing elemental scripts
+
+     - [ ] Generate missing elementals
+
+     - [ ] Copy c.ndi to c12.ndi
+
+   - [ ] Production Depletion [1/12]
+     - [X] Update chain.py
+     - [ ] Update make_nosub
+     - [ ] Make nosub.701
+     - [ ] Validate nosub.701
+     - [ ] Verify nosub.701
+     - [ ] Give nosub.701 from mbl
+     - [ ] Receive full.701 from mbl
+     - [ ] Validate full.701
+     - [ ] Verify full.701
+     - [ ] Receive basic.701 from mbl
+     - [ ] Validate basic.701
+     - [ ] Verify basic.701
+
+** Requirement 79: at_wgt calculations [100%]                             :code:
+
+   - [X] add M_NEUT_AMU to ndi_internal.h 
+   - [X] add at_wgt from awr
+   - [X] add awr from at_wgt
+   - [X] test in photon.c
+
+** Requirement 80: Initialization failure [0%]                          :code:
+
+* 2.0.16 beta
+
+* 2.0.16 final
