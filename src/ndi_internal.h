@@ -559,7 +559,7 @@ extern "C" {
     int ndi_use_sgndf_values(state_struct *state, int num_grps);
     int ndi_special_sza( int sza, char *sym_str, int str_size );
     char *ndi_error_string(int ierr);
-
+    char *ndi_mt_label(int mt);
 
   /***  Subroutines in file ndi_misc_depl.c ***/
     int ndi_depletion(state_struct *state, const char *in_zaid);

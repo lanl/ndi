@@ -36,8 +36,8 @@ Total depl cross section:
     3.25132e-04    9.20312e-04
 Reaction MTs:
             16           102
-MT:16 = (n,2n)
-MT:102 = (n,gamma)
+MT:16 = (z,2n)
+MT:102 = (n,g)
 Reaction product multiplicities:
     1.00000e+00    2.00000e+00
 
@@ -56,8 +56,8 @@ Reaction product multiplicities:
   Error getting production cross section = 9.
 Reaction MTs:
            102            17
-MT:102 = (n,gamma)
-MT:17 = (n,3n)
+MT:102 = (n,g)
+MT:17 = (z,3n)
 Reaction product multiplicities:
     1.00000e+00    1.00000e+00
 
@@ -77,8 +77,8 @@ Reaction product multiplicities:
   Error getting production cross section = 9.
 Reaction MTs:
             17            18
-MT:17 = (n,3n)
-MT:18 = (n,Xf)
+MT:17 = (z,3n)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     1.00000e+00    1.00000e+00
 
@@ -110,7 +110,7 @@ Total depl cross section:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             16
-MT:16 = (n,2n)
+MT:16 = (z,2n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -142,7 +142,7 @@ Total depl cross section:
     8.16852e+01    4.91400e+02
 Reaction MTs:
            102
-MT:102 = (n,gamma)
+MT:102 = (n,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -159,7 +159,7 @@ Reaction product multiplicities:
     4.97326e+00    2.98016e+01
 Reaction MTs:
             18
-MT:18 = (n,Xf)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     2.00000e+00
 
@@ -192,7 +192,7 @@ Total depl cross section:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             16
-MT:16 = (n,2n)
+MT:16 = (z,2n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -209,7 +209,7 @@ Reaction product multiplicities:
     9.79387e+02    2.72932e+02
 Reaction MTs:
            102
-MT:102 = (n,gamma)
+MT:102 = (n,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -226,7 +226,7 @@ Reaction product multiplicities:
     2.97306e+03    1.41309e+03
 Reaction MTs:
             18
-MT:18 = (n,Xf)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     2.00000e+00
 
@@ -260,7 +260,7 @@ Total depl cross section:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             17
-MT:17 = (n,3n)
+MT:17 = (z,3n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -277,7 +277,7 @@ Reaction product multiplicities:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             16
-MT:16 = (n,2n)
+MT:16 = (z,2n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -294,7 +294,7 @@ Reaction product multiplicities:
     1.54563e+02    2.67543e+02
 Reaction MTs:
            102
-MT:102 = (n,gamma)
+MT:102 = (n,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -311,7 +311,7 @@ Reaction product multiplicities:
     6.55516e-02    1.18864e-01
 Reaction MTs:
             18
-MT:18 = (n,Xf)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     2.00000e+00
 
@@ -345,7 +345,7 @@ Total depl cross section:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             17
-MT:17 = (n,3n)
+MT:17 = (z,3n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -362,7 +362,7 @@ Reaction product multiplicities:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             16
-MT:16 = (n,2n)
+MT:16 = (z,2n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -379,7 +379,7 @@ Reaction product multiplicities:
     3.83973e+02    3.31779e+02
 Reaction MTs:
            102
-MT:102 = (n,gamma)
+MT:102 = (n,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -396,7 +396,7 @@ Reaction product multiplicities:
     1.83865e+03    1.90183e+03
 Reaction MTs:
             18
-MT:18 = (n,Xf)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     2.00000e+00
 
@@ -429,7 +429,7 @@ Total depl cross section:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             17
-MT:17 = (n,3n)
+MT:17 = (z,3n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -446,7 +446,7 @@ Reaction product multiplicities:
     0.00000e+00    0.00000e+00
 Reaction MTs:
             16
-MT:16 = (n,2n)
+MT:16 = (z,2n)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -463,7 +463,7 @@ Reaction product multiplicities:
     6.73018e-04    1.89685e-03
 Reaction MTs:
             18
-MT:18 = (n,Xf)
+MT:18 = (z,fission)
 Reaction product multiplicities:
     2.00000e+00
 

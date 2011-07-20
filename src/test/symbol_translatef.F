@@ -15,6 +15,9 @@
       integer num_zaid
       character*24 zaid_list(17)
 
+      integer num_imt
+      integer imt(15)
+
       num_izaid = 14
       data izaid / 1001,
      $  0,
@@ -49,6 +52,24 @@
      $                 "pu-240.6",
      $                 " h-1.50 ",
      $                 "Fl-19" /
+
+      num_imt = 15
+      data imt / 1017,
+     $           1102,
+     $           2017,
+     $           2102,
+     $           3017,
+     $           3102,
+     $           16000,
+     $           16001,
+     $           16002,
+     $           16003,
+     $           17000,
+     $           17001,
+     $           102000,
+     $           102001,
+     $           102002 /
+
       write(*, 2)
  2    format(/,/,
      $     "  ****************************************************",/,
@@ -118,7 +139,7 @@ c     Test Requirement 19
        write(*, 12)
  12    format(/, "Check translation of MT to Label.")
        call ndi_set_isotope("92235", ierr)
-       do 400 i = 1, 522
+       do 400 i = 1, 999
           call ndi_get_string_val_n(NDI_REAC_LABEL, i, zaid_str, ierr)
           if (ierr .eq. -24) then
 c     skip invalid MTs
@@ -130,6 +151,21 @@ c     skip invalid MTs
  13          format("  MT=", i4, ": ", a16)
           endif
  400   continue
+c     Test Requirement 19 extended MTs
+       write(*, 14)
+ 14    format(/, "Check translation of extended MT to label.")
+       do 500 i = 1, num_imt
+          call ndi_get_string_val_n(NDI_REAC_LABEL, imt(i),
+     $         zaid_str, ierr)
+          if (ierr .eq. -24) then
+             continue
+          else if (ierr .lt. 0) then
+             write(*, 4) ierr
+          else
+             write(*, 15) imt(i), zaid_str
+ 15          format("  MT=", i7, ": ", a16)
+          endif
+ 500   continue
 
       call ndi_close(ierr)
 

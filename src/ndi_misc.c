@@ -692,3 +692,169 @@ char *ndi_error_string(int n)
 }
 
 /**********************************************************************/
+/* Decode (possibly extended) mt into mt and state, return mt.
+   See ENDF-102, June 2009, Appendix B
+*/ 
+static int ndi_decode_mt(int mt)
+{
+    int a, b;
+    int m, s;
+
+    /* Assume s=0 for MT <= 10 and s<10 for MT > 10 
+       to decode old and new extended MT formats */ 
+
+    a = mt/1000;
+    b = mt%1000;
+    if (a == 0) {               /* decode as MMM */
+        /* Decode partial states and overwrite any state from above */
+        if (b == 2) {
+            s = 0;                  /* elastic implies ground */
+            m = b;
+        } else if (50 <= b && b < 91) {
+            s = b-50;               /* inelastic to discrete */
+            m = 4;
+        } else if (b == 91) {
+            s = 98;                 /* inelastic to continuum */
+            m = 4;
+        } else if (600 <= b && b < 649) {
+            s = b-600;              /* proton production to discrete */
+            m = 103;
+        } else if (b == 649) {
+            s = 98;                 /* proton production to continuum */
+            m = 103;
+        } else if (650 <= b && b < 699) {
+            s = b - 650;            /* deuteron production to discrete */
+            m = 104;
+        } else if (b == 699) {
+            s = 98;                 /* deuteron production to continuum */
+            m = 104;
+        } else if (700 <= b && b < 749) {
+            s = b - 700;            /* triton production to discrete */
+            m = 105;
+        } else if (b == 749) {
+            s = 98;                 /* triton production to continuum */
+            m = 105;
+        } else if (750 <= b && b < 799) {
+            s = b - 750;            /* He3 production to discrete */
+            m = 106;
+        } else if (b == 799) {
+            s = 98;                 /* He3 production to continuum */
+            m = 106;
+        } else if (800 <= b && b < 849) {
+            s = b - 800;            /* alpha production to discrete */
+            m = 107;
+        } else if (b == 849) {
+            s = 98;                 /* alpha production to continuum */
+            m = 107;
+        } else if (875 <= b && b < 891) {
+            s = b - 875;             /* neutron production to discrete */
+            m = 16;
+        } else if (b == 891) {
+            s = 98;                 /* neutron production to continuum */
+            m = 16;
+        } else {
+            s = 99;                 /* summation */
+            m = b;
+        }
+    } else if (a > b) {         /* decode as MMMSSS (new) */
+        s = b;
+        m = a;
+    } else {                    /* decode as SMMM (old) */
+        s = a;
+        m = b;
+    }
+
+    return m;
+}
+    
+/**********************************************************************/
+/* Return label corresponding to 0<= mt <=999
+   See ENDF-102, June 2009, Appendix B
+*/
+char *ndi_mt_label(int mt)
+{
+    /* pieces of label arrays */
+    static char *MT0[] = {
+        "",                     /* 0 */
+        "(n,total)",            /* 1 */
+        "elastic",              /* 2 */
+        "nonelastic",           /* 3 */
+        "(z,n)",                /* 4 */
+        "anything",             /* 5 */
+        "",                     /* 6 */
+        "",                     /* 7 */
+        "",                     /* 8 */
+        "",                     /* 9 */
+        "continuum",            /* 10 */
+        "(z,2nd)",              /* 11 */
+        "",                     /* 12 */
+        "",                     /* 13 */
+        "",                     /* 14 */
+        "",                     /* 15 */
+        "(z,2n)",               /* 16 */
+        "(z,3n)",               /* 17 */
+        "(z,fission)",          /* 18 */
+        "(n,f)",                /* 19 */
+        "(n,nf)",               /* 20 */
+        "(n,2nf)",              /* 21 */
+        "(z,na)",               /* 22 */
+        "(n,n3a)",              /* 23 */
+        "(z,2na)",              /* 24 */
+        "(z,3na)",              /* 25 */
+        "",                     /* 26 */
+        "(n,absorption)",       /* 27 */
+        "(z,np)",               /* 28 */
+        "(z,n2a)",              /* 29 */
+        "(z,2n2a)",             /* 30 */
+        "",                     /* 31 */
+        "(z,nd)",               /* 32 */
+        "(z,nt)",               /* 33 */
+        "(z,nHe3)",             /* 34 */
+        "(z,nd2a)",             /* 35 */
+        "(z,nt2a)",             /* 36 */
+        "(z,4n)",               /* 37 */
+        "(n,3nf)",              /* 38 */
+        "",                     /* 39 */
+        "",                     /* 40 */
+        "(z,2np)",              /* 41 */
+        "(z,3np)",              /* 42 */
+        "",                     /* 43 */
+        "(z,n2p)",              /* 44 */
+        "(z,npa)"               /* 45 */
+    };
+
+    static char *MT1[] = {
+        "(n,disappear)",        /* 101 */
+        "(n,g)",                /* 102 */
+        "(z,p)",                /* 103 */
+        "(z,d)",                /* 104 */
+        "(z,t)",                /* 105 */
+        "(z,He3)",              /* 106 */
+        "(z,a)",                /* 107 */
+        "(z,2a)",               /* 108 */
+        "(z,3a)",               /* 109 */
+        "",                     /* 110 */
+        "(z,2p)",               /* 111 */
+        "(z,pa)",               /* 112 */
+        "(z,t2a)",              /* 113 */
+        "(z,d2a)",              /* 114 */
+        "(z,pd)",               /* 115 */
+        "(z,pt)",               /* 116 */
+        "(z,da)"                /* 117 */
+    };
+
+    char **MT[] = {MT0, MT1};     /* piecewise mt array */
+    int mt_start[] = {0, 101};  /* start indicies in array */
+    int mt_end[] = {sizeof(MT0)/sizeof(MT0[0]), 
+                    sizeof(MT1)/sizeof(MT1[0])}; /* length of pieces */
+
+    int m;
+    int i;
+
+    m = ndi_decode_mt(mt);            /* Decode mt */
+    for (i = 0; i < sizeof(mt_start)/sizeof(mt_start[0]); i++)
+        if (mt_start[i] <= m && m < mt_start[i]+mt_end[i])
+            return MT[i][m-mt_start[i]]; /* mt found in piece */
+    return MT0[0];                          /* mt not found */
+}
+/**********************************************************************/

@@ -381,10 +381,6 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 
-static int ndi_mt_to_label(state_struct *state, int mt, char *label,
-			   int label_size)
-{
-
 /*  Sources:  MT-values: ENDF Format Manual, NNDC, Brookhaven, Appendix B
 	      What to do when ENDF LR flags should be used?  as in c=20,21
 
@@ -394,280 +390,27 @@ static int ndi_mt_to_label(state_struct *state, int mt, char *label,
     Returned value:  A pointer to a string containing a reaction label.
 
 ***********************************************************************/
-
+static int ndi_mt_to_label(state_struct *state, int mt,
+                           char *label, int size)
+{
     int ierr = 0;
+    char x[MAX_IN_STR_LEN];
 
-    switch (mt) {
-
-    case 1:			/* (n, total) */
-	if (label_size < 10)
-	    ierr = 6;
-	strncpy(label, "(n,total)", label_size);
-	break;
-    case 2:			/* elastic */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "elastic", label_size);
-	break;
-    case 4:			/* (n,n') - inelastic */
-	if (label_size < 10)
-	    ierr = 6;
-	strncpy(label, "inelastic", label_size);
-	break;
-    case 11:                    /* (n,2nd) */
-        if (label_size < 8)
-            ierr = 6;
-        strncpy(label, "(n,2nd)", label_size);
-        break;
-    case 16:			/* (n,2n) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,2n)", label_size);
-	break;
-    case 17:			/* (n,3n) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,3n)", label_size);
-	break;
-    case 18:			/* (n,fission) - total fission */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,Xf)", label_size);
-	break;
-    case 19:                    /* (n,f) - 1st chance fission */
-        if (label_size < strlen("(n,f)") + 1) ierr = 6;
-        strncpy(label, "(n,f)", label_size);
-        break;
-    case 20:                    /* (n,n'f) - 2nd chance fission */
-        if (label_size < strlen("(n,n'f)") + 1) ierr = 6;
-        strncpy(label, "(n,n'f)", label_size);
-        break;
-    case 21:                    /* (n,2nf) - 3rd chance fission */
-        if (label_size < strlen("(n,2nf)") + 1) ierr = 6;
-        strncpy(label, "(n,2nf)", label_size);
-        break;
-    case 22:			/* (n,n'a) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,n'alpha)", label_size);
-	break;
-    case 23:			/* (n,n'3a) */
-	if (label_size < 13)
-	    ierr = 6;
-	strncpy(label, "(n,n'3alpha)", label_size);
-	break;
-    case 24:			/* (n,2na) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,2nalpha)", label_size);
-	break;
-    case 25:			/* (n,3na) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,3nalpha)", label_size);
-	break;
-    case 28:			/* (n,n'p) */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "(n,n'p)", label_size);
-	break;
-    case 30:			/* (n,2n2a) */
-	if (label_size < 13)
-	    ierr = 6;
-	strncpy(label, "(n,2n2alpha)", label_size);
-	break;
-    case 32:			/* (n,n'd) */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "(n,n'd)", label_size);
-	break;
-    case 33:			/* (n,n't) */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "(n,n't)", label_size);
-	break;
-    case 34:			/* (n,n'3^He) */
-	if (label_size < 10)
-	    ierr = 6;
-	strncpy(label, "(n,n'He3)", label_size);
-	break;
-    case 35:			/* (n,n'd2a) */
-	if (label_size < 14)
-	    ierr = 6;
-	strncpy(label, "(n,n'd2alpha)", label_size);
-	break;
-    case 36:			/* (n,n't2a) */
-	if (label_size < 14)
-	    ierr = 6;
-	strncpy(label, "(n,n't2alpha)", label_size);
-	break;
-    case 37:			/* (n,4n) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,4n)", label_size);
-	break;
-    case 38:                    /* (n,3nf) - 4th chance fission */
-        if (label_size < strlen("(n,3nf)") + 1) ierr = 6;
-        strncpy(label, "(n,3nf)", label_size);
-        break;
-    case 41:			/* (n,2np) */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "(n,2np)", label_size);
-	break;
-    case 42:			/* (n,3np) */
-	if (label_size < 8)
-	    ierr = 6;
-	strncpy(label, "(n,3np)", label_size);
-	break;
-    case 44:			/* (n,n'2p) */
-	if (label_size < 9)
-	    ierr = 6;
-	strncpy(label, "(n,n'2p)", label_size);
-	break;
-    case 45:			/* (n,npa) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,npalpha)", label_size);
-	break;
-    case 102:			/* (n,g) */
-	if (label_size < 10)
-	    ierr = 6;
-	strncpy(label, "(n,gamma)", label_size);
-	break;
-    case 103:			/* (n,p) */
-	if (label_size < 6)
-	    ierr = 6;
-	strncpy(label, "(n,p)", label_size);
-	break;
-    case 104:			/* (n,d) */
-	if (label_size < 6)
-	    ierr = 6;
-	strncpy(label, "(n,d)", label_size);
-	break;
-    case 105:			/* (n,t) */
-	if (label_size < 6)
-	    ierr = 6;
-	strncpy(label, "(n,t)", label_size);
-	break;
-    case 106:			/* (n,3^He) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,He3)", label_size);
-	break;
-    case 107:			/* (n,a) */
-	if (label_size < 10)
-	    ierr = 6;
-	strncpy(label, "(n,alpha)", label_size);
-	break;
-    case 108:			/* (n,2a) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,2alpha)", label_size);
-	break;
-    case 109:			/* (n,3a) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,3alpha)", label_size);
-	break;
-    case 111:			/* (n,2p) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,2p)", label_size);
-	break;
-    case 112:			/* (n,pa) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,palpha)", label_size);
-	break;
-    case 113:			/* (n,t2a) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,t2alpha)", label_size);
-	break;
-    case 114:			/* (n,d2a) */
-	if (label_size < 12)
-	    ierr = 6;
-	strncpy(label, "(n,d2alpha)", label_size);
-	break;
-    case 115:			/* (n,pd) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,pd)", label_size);
-	break;
-    case 116:			/* (n,pt) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,pt)", label_size);
-	break;
-    case 117:			/* (n,da) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,dalpha)", label_size);
-	break;
-    case 201:			/* (n,Xn) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,Xn)", label_size);
-	break;
-    case 202:			/* (n,Xg) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,Xgamma)", label_size);
-	break;
-    case 203:			/* (n,Xp) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,Xp)", label_size);
-	break;
-    case 204:			/* (n,Xd) */
-	if (label_size < 7)
-	    ierr = 6;
-	strncpy(label, "(n,Xd)", label_size);
-	break;
-    case 206:			/* (n,X3^He) */
-	if (label_size < 9)
-	    ierr = 6;
-	strncpy(label, "(n,XHe3)", label_size);
-	break;
-    case 207:			/* (n,Xa) */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "(n,Xalpha)", label_size);
-	break;
-    case 501:			/* Total photon interaction */
-	if (label_size < 13)
-	    ierr = 6;
-	strncpy(label, "Total photon", label_size);
-	break;
-    case 502:			/* Coherent scattering */
-	if (label_size < 9)
-	    ierr = 6;
-	strncpy(label, "Coherent", label_size);
-	break;
-    case 504:			/* Incoherent scattering */
-	if (label_size < 11)
-	    ierr = 6;
-	strncpy(label, "Incoherent", label_size);
-	break;
-    case 522:			/* Photoelectric */
-	if (label_size < 14)
-	    ierr = 6;
-	strncpy(label, "Photoelectric", label_size);
-	break;
-    case 516:			/* Pair production */
-	if (label_size < 16)
-	    ierr = 6;
-	strncpy(label, "Pair production", label_size);
-	break;
-    default:
-	ierr = -24;
-	*label = '\0';
-	break;
+    if (size < 1) {
+        return -25;             /* Null vector input by user. */
+    } else {
+        *label = '\0';          /* Initialize label */
+        strcpy(x, ndi_mt_label(mt)); /* Get MT label */
     }
 
-    return (ierr);
-}
+    if (strcmp(x, "") == 0)     /* MT label unrecognized */
+        return -24;             /* Bad reaction MT or C identifier. */
 
+    if (strlen(x) + 1 > size)   /* MT label too big  */
+        ierr = 6;               /* Unexpected extra data. */
+
+    strncat(label, x, size-1);  /* Safely copy MT label with terminator */
+    return ierr;
+}
 /**********************************************************************/
 /**********************************************************************/
