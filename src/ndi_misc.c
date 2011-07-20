@@ -777,15 +777,15 @@ char *ndi_mt_label(int mt)
     static char *MT0[] = {
         "",                     /* 0 */
         "(n,total)",            /* 1 */
-        "elastic",              /* 2 */
-        "nonelastic",           /* 3 */
+        "(z,z)",                /* 2 */
+        "(z,nonelastic)",       /* 3 */
         "(z,n)",                /* 4 */
-        "anything",             /* 5 */
+        "(z,anything)",         /* 5 */
         "",                     /* 6 */
         "",                     /* 7 */
         "",                     /* 8 */
         "",                     /* 9 */
-        "continuum",            /* 10 */
+        "(z,continuum)",        /* 10 */
         "(z,2nd)",              /* 11 */
         "",                     /* 12 */
         "",                     /* 13 */
@@ -824,7 +824,7 @@ char *ndi_mt_label(int mt)
     };
 
     static char *MT1[] = {
-        "(n,disappear)",        /* 101 */
+        "(n,disappearance)",    /* 101 */
         "(n,g)",                /* 102 */
         "(z,p)",                /* 103 */
         "(z,d)",                /* 104 */

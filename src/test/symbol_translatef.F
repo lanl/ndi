@@ -148,7 +148,7 @@ c     skip invalid MTs
              write(*, 4) ierr
           else 
              write(*, 13) i, zaid_str
- 13          format("  MT=", i4, ": ", a16)
+ 13          format("  MT=", i4, ": ", a20)
           endif
  400   continue
 c     Test Requirement 19 extended MTs
@@ -163,7 +163,7 @@ c     Test Requirement 19 extended MTs
              write(*, 4) ierr
           else
              write(*, 15) imt(i), zaid_str
- 15          format("  MT=", i7, ": ", a16)
+ 15          format("  MT=", i7, ": ", a20)
           endif
  500   continue
 
