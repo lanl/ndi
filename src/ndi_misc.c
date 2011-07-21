@@ -695,7 +695,7 @@ char *ndi_error_string(int n)
 /* Decode (possibly extended) mt into mt and state, return mt.
    See ENDF-102, June 2009, Appendix B
 */ 
-static int ndi_decode_mt(int mt)
+static int ndi_decode_mt(int mt, int *state)
 {
     int a, b;
     int m, s;
@@ -764,6 +764,7 @@ static int ndi_decode_mt(int mt)
         m = b;
     }
 
+    *state = s;
     return m;
 }
     
@@ -843,18 +844,25 @@ char *ndi_mt_label(int mt)
         "(z,da)"                /* 117 */
     };
 
+    static char label[MAX_IN_STR_LEN];
     char **MT[] = {MT0, MT1};     /* piecewise mt array */
     int mt_start[] = {0, 101};  /* start indicies in array */
     int mt_end[] = {sizeof(MT0)/sizeof(MT0[0]), 
                     sizeof(MT1)/sizeof(MT1[0])}; /* length of pieces */
 
-    int m;
+    int m, s;
     int i;
 
-    m = ndi_decode_mt(mt);            /* Decode mt */
+
+    m = ndi_decode_mt(mt, &s);            /* Decode mt and state */
+    *label = '\0';
     for (i = 0; i < sizeof(mt_start)/sizeof(mt_start[0]); i++)
         if (mt_start[i] <= m && m < mt_start[i]+mt_end[i])
-            return MT[i][m-mt_start[i]]; /* mt found in piece */
-    return MT0[0];                          /* mt not found */
+            strcpy(label, MT[i][m-mt_start[i]]); /* mt found in piece */
+
+    if (*label != '\0' && s != 99) /* add state information */
+        sprintf(label+strlen(label), "m%d", s);
+
+    return label;                          /* mt not found */
 }
 /**********************************************************************/
