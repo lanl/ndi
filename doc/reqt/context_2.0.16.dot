@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 07/20/11\n\
+        label="Context Diagram 08/08/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -22,7 +22,7 @@ digraph ndi {
 	/* requirements */
 	ndi[label="NDI 2.0.16", shape="ellipse"];
         
-        dkp -> ndi[label="78) mendf70x\nSN", color=orange];
+        dkp -> ndi[label="78) mendf70x\nSN", color=green];
         mbl -> ndi[label="78) mendf70x\nPD", color=orange];
         mgg -> ndi[label="78) mendf70x\nelementals", color=green];
 

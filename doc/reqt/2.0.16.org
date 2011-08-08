@@ -10,7 +10,8 @@
      - [X] Update MT list
      - [X] Add call through mts_to_mt_lfs
 
-** Requirement 78: mendf70 [50%]                                         :data:
+** Requirement 78: mendf70 [66%]                                         :data:
+   - [X] SN
    - [X] Elementals [4/4]
      - [X] List missing elementals
            18000
@@ -19,7 +20,6 @@
            28000
            29000
            47000
-           48000
            54000
            63000
            64000
@@ -28,17 +28,17 @@
      - [X] Generate missing elemental scripts
      - [X] Generate missing elementals
      - [X] Copy c.ndi to c12.ndi
-   - [-] Production Depletion [6/12]
+   - [-] PD [6/12]
      - [X] Update chain.py
      - [X] Update make_nosub
      - [X] Make nosub.701
-     - [ ] Validate nosub.701
-     - [ ] Verify nosub.701
-     - [X] Give nosub.701 from mbl
-     - [X] Receive full.701 from mbl
+     - [X] Validate nosub.701
+     - [X] Verify nosub.701
+     - [X] Give nosub.701 to mbl
+     - [ ] Receive full.701 from mbl
      - [ ] Validate full.701
      - [ ] Verify full.701
-     - [X] Receive basic.701 from mbl
+     - [ ] Receive basic.701 from mbl
      - [ ] Validate basic.701
      - [ ] Verify basic.701
 
@@ -48,10 +48,11 @@
    - [X] add awr from at_wgt
    - [X] test in photon.c
 
-** Requirement 81: Reduced gendir [50%]                                   :data:
+** Requirement 81: Reduced gendir [80%]                                   :data:
    - [X] List libraries in current gendir
    - [X] Generate reduced library list
-   - [ ] Socialize reduced library list
+   - [X] Socialize reduced library list
+   - [X] Build script to produce reduced gendir
    - [ ] Build reduced gendir
 
 * 2.0.16 beta
