@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 08/08/11\n\
+        label="Context Diagram 08/18/11\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -23,13 +23,13 @@ digraph ndi {
 	ndi[label="NDI 2.0.16", shape="ellipse"];
         
         dkp -> ndi[label="78) mendf70x\nSN", color=green];
-        mbl -> ndi[label="78) mendf70x\nPD", color=orange];
+        mbl -> ndi[label="78) mendf70x\nPD", color=green];
         mgg -> ndi[label="78) mendf70x\nelementals", color=green];
 
-        ndi -> rcl[label="78) mendf70x", color=red];
+        ndi -> rcl[label="78) mendf70x", color=green];
         ndi -> wardr[label="19) MT\nlabels", color=green]; 
         ndi -> morgan[label="79) at_wgt\ncalculation", color=green];
-        ndi -> jomc[label="81) Reduced\ngendir", color=orange];
+        ndi -> jomc[label="81) Reduced\ngendir", color=green];
 
 	{rank=min; dkp; mbl; mgg}
 	{rank=max; rcl; wardr; morgan}

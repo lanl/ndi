@@ -35,12 +35,12 @@
      - [X] Validate nosub.701
      - [X] Verify nosub.701
      - [X] Give nosub.701 to mbl
-     - [ ] Receive full.701 from mbl
-     - [ ] Validate full.701
-     - [ ] Verify full.701
-     - [ ] Receive basic.701 from mbl
-     - [ ] Validate basic.701
-     - [ ] Verify basic.701
+     - [X] Receive full.701 from mbl
+     - [X] Validate full.701
+     - [X] Verify full.701
+     - [X] Receive basic.701 from mbl
+     - [X] Validate basic.701
+     - [X] Verify basic.701
 
 ** Requirement 79: at_wgt calculations [100%]                             :code:
    - [X] add M_NEUT_AMU to ndi_internal.h 
