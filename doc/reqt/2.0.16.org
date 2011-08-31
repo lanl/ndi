@@ -48,12 +48,12 @@
    - [X] add awr from at_wgt
    - [X] test in photon.c
 
-** Requirement 81: Reduced gendir [80%]                                   :data:
+** Requirement 81: Reduced gendir [100%]                                   :data:
    - [X] List libraries in current gendir
    - [X] Generate reduced library list
    - [X] Socialize reduced library list
    - [X] Build script to produce reduced gendir
-   - [ ] Build reduced gendir
+   - [X] Build reduced gendir
 
 * 2.0.16 beta
 
