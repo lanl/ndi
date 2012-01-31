@@ -3579,119 +3579,9 @@ static int FLAT_ENERGY(state_struct *state, int num_grps,
     return(ierr);
 }
 /*********************************************************************/
-/*********************************************************************/
-/* 10 point Gauss-Legendre Quadrature
-   See: M. Abramowitz and I. A. Stegun,
-   Handbook of Mathematical Functions
-   Dover Publications (1972), p.916 */
-static double gl10(double (*f)(double), double a, double b)
-{
-    static double z[] = {
-        0.148874338981631, 
-        0.433395394129247, 
-        0.679409568299024,
-        0.865063366688985,
-        0.973906528517172
-    };
-    static double w[] = {
-        0.295524224714753,
-        0.269266719309996,
-        0.219086362515982,
-        0.149451349150581,
-        0.066671344108688
-    };
-
-    int i;
-    double xmid, xrange, dx, sum;
-
-    xmid = (b+a)/2.0;
-    xrange = (b-a)/2.0;
-    sum = 0.0;
-
-    for (i = 0; i < sizeof(z)/sizeof(z[0]); i++) {
-        dx = xrange * z[i];
-        sum += ((*f)(xmid+dx) + (*f)(xmid-dx)) * w[i];
-    }
-    return sum *= xrange;
-}
-
-/* The TD weight function.
-   See: M. C. White
-   The TD Weight Function Revisited 
-   X-5:MCW-05-24(u)
-   March 2005 */
-static double td(double x)
-{
-
-    static double E[] = {              /* Energy grid (eV) */
-        1.000000e-05, 1.390000e-04, 5.000000e-04, 1.000000e-03, 5.000000e-03,
-        1.000000e-02, 2.500000e-02, 4.000000e-02, 5.000000e-02, 1.000000e-01,
-        1.400000e-01, 1.500000e-01, 4.140000e-01, 1.130000e+00, 3.060000e+00,
-        8.320000e+00, 2.260000e+01, 6.140000e+01, 1.670000e+02, 4.540000e+02,
-        1.235000e+03, 3.350000e+03, 9.120000e+03, 2.480000e+04, 6.760000e+04,
-        1.840000e+05, 3.030000e+05, 5.000000e+05, 8.230000e+05, 1.353000e+06,
-        1.738000e+06, 2.232000e+06, 2.865000e+06, 3.680000e+06, 6.070000e+06,
-        7.790000e+06, 1.000000e+07, 1.200000e+07, 1.300000e+07, 1.350000e+07,
-        1.400000e+07, 1.410000e+07, 1.420000e+07, 1.430000e+07, 1.460000e+07,
-        1.500000e+07, 1.600000e+07, 1.700000e+07, 2.000000e+07};
-
-    static double w[] = {              /* weight @ E[i] */
-        2.239100e+05, 3.019000e+06, 1.070000e+07, 2.098000e+07, 8.939000e+07,
-        1.463800e+08, 2.008000e+08, 1.763500e+08, 1.478000e+08, 4.000000e+07,
-        1.130000e+07, 7.600000e+06, 2.790000e+06, 1.020000e+06, 3.770000e+05,
-        1.390000e+05, 5.110000e+04, 1.880000e+04, 6.910000e+03, 2.540000e+03,
-        9.350000e+02, 3.450000e+02, 1.266000e+02, 4.650000e+01, 1.710000e+01,
-        6.270000e+00, 3.880000e+00, 3.600000e+00, 2.870000e+00, 1.750000e+00,
-        1.130000e+00, 7.300000e-01, 4.000000e-01, 2.050000e-01, 3.900000e-02,
-        1.630000e-02, 6.500000e-03, 7.600000e-03, 1.230000e-02, 2.640000e-02,
-        1.140000e-01, 1.140000e-01, 1.010000e-01, 6.500000e-02, 1.490000e-02,
-        4.000000e-03, 1.540000e-03, 8.500000e-04, 1.727900e-04};
-
-    static double lnw[] = {            /* log (w[i+1]/w[i])/log(E[i+1]/E[i]) */
-         9.884296e-01, 9.884262e-01, 9.714039e-01, 9.005872e-01, 7.115331e-01,
-         3.449816e-01,-2.762505e-01,-7.914665e-01,-1.885574e+00,-3.756853e+00,
-        -5.749210e+00,-9.870729e-01,-1.002123e+00,-9.991121e-01,-9.975245e-01,
-        -1.001403e+00,-1.000468e+00,-1.000303e+00,-1.000702e+00,-9.986448e-01,
-        -9.991109e-01,-1.001001e+00,-1.001206e+00,-9.976161e-01,-1.001972e+00,
-        -9.621974e-01,-1.495408e-01,-4.547460e-01,-9.951175e-01,-1.746723e+00,
-        -1.746575e+00,-2.409498e+00,-2.670140e+00,-3.315940e+00,-3.496828e+00,
-        -3.681218e+00, 8.575293e-01, 6.014927e+00, 2.023736e+01, 4.022351e+01,
-         0.000000e+00,-1.713246e+01,-6.280423e+01,-7.094821e+01,-4.865451e+01,
-        -1.478980e+01,-9.802970e+00,-9.802916e+00,-9.802916e+00};
-
-    int l, u, m;
-
-    x = x * 1.0e6;              /* convert MeV to eV */
-
-    /* find x in E grid using binary search */
-
-    l = 0;
-    u = sizeof(E)/sizeof(E[0]) - 1;
-
-    if (x < E[l]) {             /* off lower end */
-        u = l;
-    } else if (E[u] < x) {      /* off upper end */
-        l = u;
-    }
-    while ((u-l) > 1) {         /* find x in table */
-        m = (l+u)/2;
-        if (E[m] < x) {
-            l = m;
-        } else if (E[m] == x) {
-            l = m;
-            u = m+1;
-        } else if (E[m] > x) {
-            u = m;
-        }
-    }
-
-    /* return log-log interpolation */
-    return w[l] * pow(x/E[l], lnw[l]);
-}
-
 static double tde(double x)
 {
-    return x * td(x);
+    return x * ndi_td(x);
 }
 
 static double tdv(double x)
@@ -3703,7 +3593,7 @@ static double tdv(double x)
     vc = J_TO_MEV  * 2/M_NEUT_KG *    1e4   *   1e-16; 
     /* to (cm/sh)^2 */
 
-    return sqrt(vc * x) * td(x);
+    return sqrt(vc * x) * ndi_td(x);
 }
 
 /* TD weighted average moment */
@@ -3734,17 +3624,19 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
         if (state->collapse_flag) {
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
-                fbar = gl10(f, state->lib_ebounds[j+1], 
+                fbar = ndi_gl10(f, state->lib_ebounds[j+1], 
                             state->lib_ebounds[j]) /
-                    gl10(td, state->lib_ebounds[j+1], 
+                    ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
                          state->lib_ebounds[j]);
 
                 f_sum += fbar * state->lib_weight[j];
                 wt_sum += state->lib_weight[j];
             }
         } else {
-            f_sum = gl10(f, state->lib_ebounds[i+1], state->lib_ebounds[i]) /
-                gl10(td, state->lib_ebounds[i+1], state->lib_ebounds[i]);
+            f_sum = ndi_gl10(f, state->lib_ebounds[i+1], 
+                             state->lib_ebounds[i]) /
+                ndi_gl10(ndi_td, state->lib_ebounds[i+1], 
+                         state->lib_ebounds[i]);
             wt_sum = 1;
         }
         if (i < return_size) {

@@ -51,17 +51,21 @@
 #define MAX_NGROUP_STR_LEN     20
 #define MAX_Z                 103
 
-/* Bit fields for fission transfer matrix introspection 
-
-   Use bit manipulation of unsigned instead of bitfields
-   so value can indicate if data is available by some means.
-   Individual bits indicate how available according to:
-*/
+/* Bit fields for fission transfer matrix: */
 #define SIG_XF_MAT 1
 #define SIG_XF_MMC 2
 #define SIG_XF_VEC 4
 #define SIG_XF_MIX 8
 #define SIG_XF_VVC 16
+
+
+/* Bit fields for nu and nusigf: */
+#define NU             32
+#define NU1_NU2        16
+#define NUSIGF          8
+#define NU1_NUSIGF2     4
+#define NUSIGF1_NU2     2
+#define NUSIGF1_NUSIGF2 1
 
 /**********************************************************************/
 
@@ -560,6 +564,8 @@ extern "C" {
     int ndi_special_sza( int sza, char *sym_str, int str_size );
     char *ndi_error_string(int ierr);
     char *ndi_mt_label(int mt);
+    double ndi_gl10(double (*f)(double), double a, double b);
+    double ndi_td(double x);
 
   /***  Subroutines in file ndi_misc_depl.c ***/
     int ndi_depletion(state_struct *state, const char *in_zaid);
@@ -644,7 +650,7 @@ extern "C" {
                              ndi_float64 * return_vec,
 			     int return_size, int collapse_type,
 			     int num_grp);
-
+    
    /*** Subroutines in file ndi_find_index.c ***/
     int ndi_find_rprod_index(FILE *stream, multi_stat * rprod,
 			     int *ret_index, int mt);
@@ -662,8 +668,8 @@ extern "C" {
 
 
   /*** Subroutines in file ndi_avail.c ***/
-    int ndi_nusigf_avail(const state_struct *state, char nu_type);
-    int ndi_nu_avail(const state_struct *state, char nu_type);
+    unsigned ndi_nusigf_avail(const state_struct *state, char nu_type);
+    unsigned ndi_nu_avail(const state_struct *state, char nu_type);
     int ndi_sigf_avail(const state_struct *state);
     unsigned ndi_sigxf_avail(const state_struct *state, char type);
 
