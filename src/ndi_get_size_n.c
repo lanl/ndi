@@ -229,6 +229,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
     case NDI_CORR_BHS:		/* Bell-Hansen-Sandmeier transport correction */
     case NDI_PNU_PR:		/* fission neutron mult. probabilities */
     case NDI_SIG_PNU_PR:	/* fission neutron mult. cross sections */
+    case NDI_TD_HALF_MOMENT:
 	if (state->collapse_flag != 0) {
 	    return_value = state->grp_num_new;
 	} else {

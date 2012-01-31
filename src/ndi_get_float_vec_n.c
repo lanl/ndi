@@ -49,6 +49,9 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 			  int vec_num);
 
+static int TD_HALF_MOMENT(state_struct *state, int half_moment, 
+                          FLOAT_TYPE *return_vec, int return_size);
+ 
 /**********************************************************************/
 
 int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
@@ -238,6 +241,9 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 	ierr = GET_PROD_REAC(state, in_str, return_vec, return_size);
 	break;
 
+    case NDI_TD_HALF_MOMENT:
+        ierr = TD_HALF_MOMENT(state, vec_num, return_vec, return_size);
+        break;
 
       /**********  UNKNOWN KEYWORD  ***********/
 
@@ -1291,5 +1297,61 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     return (ierr);
 }
 
+/*********************************************************************/
+
+double MOMENT;
+static double td_half_moment(double x)
+{
+    return pow(x, MOMENT) * ndi_td(x);
+} 
+
+/* TD weighted half moment */
+static int TD_HALF_MOMENT(state_struct *state, int half_moment,
+                     FLOAT_TYPE *return_vec, int return_size) 
+{
+    int ierr = 0;
+    int i, j;
+    int num_grps;
+    double fbar, wt_sum, f_sum;
+    
+
+    MOMENT = half_moment/2.0;
+
+    if (state->collapse_flag)
+        num_grps = state->grp_num_new;
+    else
+        num_grps = state->iso_stat.num_grps;
+
+    for (i = 0; i < num_grps; i++) {
+        wt_sum = 0.0;
+        f_sum = 0.0;
+        if (state->collapse_flag) {
+            for ( j = state->new_ebounds[i]; 
+                  j < state->new_ebounds[i+1] ; j++ ) {
+                fbar = ndi_gl10(td_half_moment, state->lib_ebounds[j+1], 
+                            state->lib_ebounds[j]) /
+                    ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
+                         state->lib_ebounds[j]);
+
+                f_sum += fbar * state->lib_weight[j];
+                wt_sum += state->lib_weight[j];
+            }
+        } else {
+            f_sum = ndi_gl10(td_half_moment, state->lib_ebounds[i+1], 
+                             state->lib_ebounds[i]) /
+                ndi_gl10(ndi_td, state->lib_ebounds[i+1], 
+                         state->lib_ebounds[i]);
+            wt_sum = 1;
+        }
+        if (i < return_size) {
+            return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
+        } else {
+            ierr = 7;          /* array bounds exceeded */
+            break;
+        }
+    }
+
+    return(ierr);
+}
 /*********************************************************************/
 /*********************************************************************/
