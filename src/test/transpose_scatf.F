@@ -77,6 +77,9 @@ c     Fission transfer matrix (Reqt. 63)
       call ndi2_set_option(single_part_handle, NDI_MAT_ORDER,
      $     'default', ierr)
       call check_err(ierr, "setting mat order transpose")
+      call ndi2_get_size(single_part_handle, NDI_FISS_XFER_MAT_PR,
+     $     vec_size, ierr)
+      call check_err(ierr, "getting fission transfer matrix size")
       call ndi2_get_float64_vec(single_part_handle,
      $      NDI_FISS_XFER_MAT_PR, scat_no_trans, MAXVEC, ierr)
       call check_err(ierr, "getting fiss xfer mat")
@@ -100,6 +103,45 @@ c     Does matrix == (matrix')'?
       call check_err(ierr, "getting number of groups")
       print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
      $     num_grps, scat_trans)
+
+c     Fission transfer matrix (Reqt. 63) without collapse
+      call ndi2_set_option(single_part_handle, NDI_COLLAPSE, 
+     $     "default", ierr)
+      call check_err(ierr, "setting default group structure")
+      call ndi2_set_option(single_part_handle, NDI_MAT_ORDER,
+     $     'default', ierr)
+      call check_err(ierr, "setting mat order transpose")
+      call ndi2_get_size(single_part_handle, NDI_FISS_XFER_MAT_PR,
+     $     vec_size, ierr)
+      call check_err(ierr, "getting fission transfer matrix size")
+      call ndi2_get_float64_vec(single_part_handle,
+     $      NDI_FISS_XFER_MAT_PR, scat_no_trans, MAXVEC, ierr)
+      call check_err(ierr, "getting fiss xfer mat")
+      write(*,*) "  No transpose:"
+      print 10, (scat_no_trans(i), i = 1, vec_size)
+
+      call ndi2_set_option(single_part_handle, NDI_MAT_ORDER,
+     $     'transpose', ierr)
+      call check_err(ierr, "setting mat order transpose")
+      call ndi2_get_float64_vec(single_part_handle, 
+     $     NDI_FISS_XFER_MAT_PR, scat_trans, MAXVEC, ierr)
+      call check_err(ierr, "getting transposed fiss xfer mat")
+      write(*,*) " "
+      write(*,*) " "
+      write(*,*) "  Transpose:"
+      print 10, (scat_trans(i), i = 1, vec_size)
+
+c     Does matrix == (matrix')'?
+      call ndi2_get_int_val(single_part_handle, NDI_NUM_GRPS,
+     $     num_grps, ierr)
+      call check_err(ierr, "getting number of groups")
+      print *, "matrix == (matrix')' = ", xpose(scat_no_trans, num_grps,
+     $     num_grps, scat_trans)
+
+c     Revert to smaller group structure
+      call ndi2_set_option(single_part_handle, NDI_COLLAPSE, 
+     $     "6_lanl", ierr)
+      call check_err(ierr, "setting 6_lanl group structure")
       
 c     Multiparticle test
       write(*,*) " "

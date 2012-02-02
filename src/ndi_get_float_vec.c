@@ -1414,9 +1414,7 @@ static int get_sig_xf_mat(state_struct *state, char type,
         NDI_THROW(ierr, jerr);
 
     } else {
-
         NDI_THROW(ierr, -9);    /* Data not available */
-
     }
 
     if (collapse_flag) {        /* Collapsing required */
@@ -1424,16 +1422,15 @@ static int get_sig_xf_mat(state_struct *state, char type,
                                 coll_num_grps, coll_num_grps,
                                 state->new_ebounds, state->new_ebounds,
                                 state->lib_weight, mat, size);
+        n = coll_num_grps;
     } else {                   /* Copy required */
         jerr = COPY_MATRIX(mat, size, tmp_mat, nsqrd);
     }
     NDI_THROW(ierr, jerr);
 
-    /*   Transpose matrix */
-    if ((mat_order == 't') && (ierr != 7)) {
-        jerr = NDI_TRANSPOSE_FLOAT(mat, coll_num_grps, coll_num_grps);
-        NDI_THROW(ierr, jerr);
-    }
+    if (mat_order == 't' && ierr != 7) /* transposing required */
+        jerr = NDI_TRANSPOSE_FLOAT(mat, n, n);
+    NDI_THROW(ierr, jerr);
 
  catch:
     /* Restore user settings */
