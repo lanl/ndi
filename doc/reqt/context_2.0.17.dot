@@ -1,0 +1,29 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 02/02/12\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+	jzerr[label="Joe Zerr"];
+	rsb[label="Randy Baker"];
+        morgan[label="Morgan White"];
+        jomc[label="Joann Campbell"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.17", shape="ellipse"];
+        
+	ndi -> jzerr[label="63) Fission\ntransfer\nmatrix", color=green];
+        ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
+        ndi -> morgan[label="42) Chi\nmatrix\ncalculations", color=green];
+        ndi -> jomc[label="82) TN\nsecondary\nenergies", color=red];
+
+	{rank=min; jomc; morgan}
+	{rank=max; rsb; jzerr}
+}
