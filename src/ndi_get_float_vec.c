@@ -65,7 +65,7 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
                            FLOAT_TYPE *return_vec, int *return_size);
 static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
                        FLOAT_TYPE * return_vec, int return_size);
-static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
+static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream, int moment,
                          FLOAT_TYPE * return_vec, int return_size);
 static int GET_EDIST_CONT(state_struct *state, char var,
                           FLOAT_TYPE *return_vec, int return_size);
@@ -620,7 +620,7 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
 
     case NDI_EDIST:             /* Curr. particle's energy distribution at current temp. */
         ierr =
-            GET_EDIST_VEC(state, state->lib_stream, return_vec,
+            GET_EDIST_VEC(state, state->lib_stream, 0, return_vec,
                           return_size);
         break;
 
@@ -669,15 +669,20 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
         break;
 
     case NDI_E_AVG:
-        /* For TN this is just the mean of the two energy boundaries -- no flux to weight with */
-        for (i = 0; i < state->grp_num_new; i++) {
-            if (i < return_size) {
-                return_vec[i] =
-                    (FLOAT_TYPE) ((state->collapse_ebounds[i] +
-                                   state->collapse_ebounds[i + 1]) / 2.0);
-            } else {
-                ierr = 7;
-                break;
+        if (state->e_avg_calc == TD_CALC) {
+            ierr = GET_EDIST_VEC(state, state->lib_stream, 1, 
+                                 return_vec, return_size);
+        } else {
+            /* the mean of the two energy boundaries */
+            for (i = 0; i < state->grp_num_new; i++) {
+                if (i < return_size) {
+                    return_vec[i] =
+                        (FLOAT_TYPE) ((state->collapse_ebounds[i] +
+                                       state->collapse_ebounds[i + 1]) / 2.0);
+                } else {
+                    ierr = 7;
+                    break;
+                }
             }
         }
         break;
@@ -2711,7 +2716,7 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
 }
 
 /*********************************************************************/
-static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
+static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream, int moment,
                          FLOAT_TYPE * return_vec, int return_size)
 {
     /* It is assumed that the temperature data will be given in ASCENDING order!!!! */
@@ -2787,7 +2792,7 @@ static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
     ierr =
         ndi_integrate_bins(distr_E, distr_prob, &curr_interp,
                            state->collapse_ebounds, state->grp_num_new,
-                           edist_array, state->grp_num_new);
+                           moment, edist_array, state->grp_num_new);
     if (distr_E)
         ndi_free((void **) &distr_E);
     if (distr_prob)
@@ -2815,7 +2820,7 @@ static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream,
     /**************************** NORMALIZE  ****************************/
     /********************************************************************/
     /* !!ADD!!!!! Special normalize for discrete energies */
-    if (state->grp_num_new <= return_size) {
+    if (state->grp_num_new <= return_size && moment == 0) {
         ierr = NORM_FLOAT_VEC(return_vec, state->grp_num_new, 1.0);
     } else {
         /* Error */

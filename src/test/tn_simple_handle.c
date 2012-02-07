@@ -109,6 +109,10 @@ int tn_simple(void)
       ierr = NDI2_set_option(handle,NDI_TEMP, "2.0e-4" );
       if ( ierr != 0 ) printf("  Error setting temperature is %d.\n\n", ierr );
 
+      ierr = NDI2_set_option(handle, NDI_E_AVG, "from_td" );
+      if ( ierr != 0 ) 
+          printf("  Error setting e average calc is %d.\n\n", ierr );
+
       for ( j = 0; j < num_sec_parts; j++ ) {
 	 ierr = NDI2_get_string_val_n(handle,NDI_SEC_PART_TYPES, j, part_type, 10 );
 	 printf("Particle %d is a %s.  (err=%d)\n", j, part_type, ierr );
@@ -122,6 +126,18 @@ int tn_simple(void)
 	   }
 	 }
 	 printf("\n");
+         /* Get particle dependent E_AVG (Reqt. 82) */
+         ierr = NDI2_get_float64_vec(handle,NDI_E_AVG, eavg, 200 );
+         if ( ierr != 0 ) 
+             printf( "    avg. incident energy err = %d.\n", ierr );
+	 for ( k = 0; k <= num_grps; k++ ) {
+	   printf ("%11.6f   ", eavg[k]);
+	   if ( ( (k + 1) % 6 ) == 0 ) {
+	     printf("\n");
+	   }
+	 }
+	 printf("\n");
+
       }
  
    ierr = NDI2_close_gendir(gendir_h);

@@ -26,7 +26,8 @@ static double erfn(double sign, double x);
 int
 ndi_integrate_bins(double *distr_x, double *distr_y,
 		   interp_params *interp, double *bin_bound,
-		   int num_bins, double *return_vec, int return_size)
+		   int num_bins, int moment, 
+                   double *return_vec, int return_size)
 
      /*  The x, y points are assumed to be monotonically increasing in 
         x.  The bin boundaries are assumed to be monotonically decreasing.
@@ -104,10 +105,18 @@ ndi_integrate_bins(double *distr_x, double *distr_y,
 */
 
 	/*  For discrete, hi_integr_limit is always the current point */
-	ierr = new_integrate(distr_x, distr_y, num_pts, interp_type,
-			     curr_distr_index,
-			     lo_integr_limit, hi_integr_limit,
-			     &integral_val);
+        if (moment == 0)
+            ierr = new_integrate(distr_x, distr_y, num_pts, interp_type,
+                                 curr_distr_index,
+                                 lo_integr_limit, hi_integr_limit,
+                                 &integral_val);
+        else if (moment == 1)
+            ierr = new_integrate_xy(distr_x, distr_y, num_pts, interp_type,
+                                    curr_distr_index,
+                                    lo_integr_limit, hi_integr_limit,
+                                    &integral_val);
+        else
+            ierr = -5;          /* Invalid key */
 
 	if ((ierr >= 0) && (curr_bin_index < return_size) && (curr_bin_index >= 0)) {	/* Redundant check? */
 

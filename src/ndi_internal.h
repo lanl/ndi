@@ -694,8 +694,8 @@ extern "C" {
    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,
 			   interp_params *interp, double *bin_bound,
-			   int num_bins, double *return_vec,
-			   int return_size);
+			   int num_bins, int moment, 
+                           double *return_vec, int return_size);
     int find_average_E(double *x, double *y, interp_params *iparm,
 		       double *ret_val);
     int new_integrate(double *x, double *y, int npts, int interp_type,
