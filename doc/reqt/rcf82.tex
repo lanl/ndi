@@ -7,19 +7,18 @@ Requirement Elicitation:
 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
 Short name: TN secondary energies & Control number: 82\\ \hline
-Stakeholder: Joann Campbell & Request date: January 27, 2012\\
+Stakeholder: Joann Campbell & Request date: October 31, 2005\\
 \end{tabular}
 \begin{tabular}{|p{433pt}|} \hline
 Description: \\ 
 Calculate multigroup average energies for TN secondary particles.
 \begin{displaymath}
-\left<E^{n/2}\right>_i = \frac{\int_{E_{i+1/2}}^{E_{i-1/2}}\, E^{n/2}
-  TD(E)\,dE}{\int_{E_{i+1/2}}^{E_{i-1/2}}\, E^{n/2} TD(E)\,dE} 
+\left<E>_i = \int_{E_{i+1/2}}^{E_{i-1/2}}\, E P(E)\,dE
 \end{displaymath}\\
 \hline
 \end{tabular} 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Urgent: Yes & Comment: Additions to NDI_E_AVG, NDI_V_AVG, NDI_VEL. \\ \hline
+Urgent: No & Comment: Address long term request \\ \hline
 \end{tabular}
 
 \vspace{12pt} 
@@ -27,13 +26,13 @@ Urgent: Yes & Comment: Additions to NDI_E_AVG, NDI_V_AVG, NDI_VEL. \\ \hline
 Example Use: 
 \begin{verbatim}
 open_gendir ""
-make_handle handle0 "multigroup_neutron"
-set_option handle1 NDI_LIBRARY "mendf6"
-set_zaid handle1 "92235"
-get_size handle1float_val handle1 NDI_SIG_0
-get_size_n handle1 NDI_TD_HALF_MOMENT 1
-get_float_vec_n handle1 NDI_TD_HALF_MOMENT 1
-get_float_vec handle1 NDI_V_AVG	 # same as <E^1/2>*13.83159*cm/(sh*MeV^1/2)
+make_handle handle0 "tn"
+set_option handle1 NDI_LIBRARY "lanl04"
+set_zaid handle1 "d+t->n+a"
+set_option handle1 NDI_TEMP "2.0e-4"
+set_option handle1 NDI_CURR_PART "1"
+set_option handle1 NDI_E_AVG "from_td"
+get_float_vec handle1 NDI_E_AVG
 close_gendir
 \end{verbatim}
 \\ \hline
@@ -44,16 +43,18 @@ Requirement Analysis:
 
 \begin{tabular}{|p{433pt}|} \hline
 Important user? Yes \\ \hline
-Important Aspiration? Yes \\ \hline
-Classification: 1 \\ \hline
+Important Aspiration? No \\ \hline
+Classification: 2 \\ \hline
 \end{tabular}
 \vspace{24pt}
 
 Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
-Date & Description \\ \hline 2012/01/31 & mgg Added calculation of
-room temperature TD half moments to
-\texttt{ndi\_get\_float64\_vec\_n(handle,
-NDI\_TD\_HALF\_MOMENT\ldots}; added test in \texttt{avg\_e.c}.
+Date & Description \\ \hline 
+
+2012/02/07 & mgg Added moment flag to \texttt{ndi\_integrate\_bins} in
+\texttt{ndi\_interp\_integ.c}, \texttt{GET\_EDIST\_VEC} in
+\texttt{ndi\_get\_float\_vec.c}.  Added test in
+\texttt{tn\_simple\_handle.c}.
 \end{tabular}

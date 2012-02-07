@@ -6,13 +6,17 @@ Requirement Control Form
 Requirement Elicitation:
 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Short name: Treat monoenergetic TN neutrons appropriately & Control number: 36\\ \hline
+Short name: Treat monoenergetic TN neutrons appropriately & Control
+number: 36\\ \hline 
 Stakeholder: Joann Campbell & Request date: October 31, 2005\\
 \end{tabular}
 \begin{tabular}{|p{433pt}|} \hline
 Description: \\ 
-Distribute monoenergetic TN neutrons among groups to conserve energy.\\
-\hline
+Distribute monoenergetic TN neutrons among groups to conserve energy.
+Calculate multigroup average energies for TN secondary particles.
+\begin{displaymath}
+\left<E\right>_i = \int_{E_{i+1/2}}^{E_{i-1/2}}\, E P(E)\,dE
+\end{displaymath}
 \end{tabular} 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
 Urgent: Yes & Comment: Energy conservation issue\\ \hline
@@ -23,8 +27,17 @@ Urgent: Yes & Comment: Energy conservation issue\\ \hline
 \begin{tabular}{|p{433pt}|} \hline
 Query: 
 \begin{verbatim}
-/* Select monoenergetic neutron treatment */
-ierr = NDI2_set_option(handle, NDI_MONO_ENERGY, "average");
+Example Use: 
+\begin{verbatim}
+open_gendir ""
+make_handle handle0 "tn"
+set_option handle1 NDI_LIBRARY "lanl04"
+set_zaid handle1 "d+t->n+a"
+set_option handle1 NDI_TEMP "2.0e-4"
+set_option handle1 NDI_CURR_PART "1"
+set_option handle1 NDI_E_AVG "from_td"
+get_float_vec handle1 NDI_E_AVG
+close_gendir
 \end{verbatim}
 \\ \hline
 \end{tabular}
@@ -41,7 +54,17 @@ Classification: 2 \\ \hline
 Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
-Date & Description \\ \hline
+Date & Description \\ \hline 
+
 2006/12/01 & mgg released \textbf{A Conservative Continuous to
-  Discrete Energy Distribution Collapse Algorithm} \\ \hline
+Discrete Energy Distribution Collapse Algorithm} \\ \hline
+
+2010/07/07 & mgg released \textbf{Monoenergetic TN neutrons in NDI} \\
+\hline
+
+2012/02/07 & mgg Added moment flag to \texttt{ndi\_integrate\_bins} in
+\texttt{ndi\_interp\_integ.c} and \texttt{GET\_EDIST\_VEC} in
+\texttt{ndi\_get\_float\_vec.c}, wired \texttt{GET\_FLOAT\_VEC\_TN} up
+to use them.  Added test in \texttt{tn\_simple\_handle.c}.
+
 \end{tabular}

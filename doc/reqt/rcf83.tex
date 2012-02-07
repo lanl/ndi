@@ -19,7 +19,8 @@ Calculate TD half-moment:
 \hline
 \end{tabular} 
 \begin{tabular}{|p{211pt}|p{211pt}|} \hline
-Urgent: Yes & Comment: Additions to NDI_E_AVG, NDI_V_AVG, NDI_VEL. \\ \hline
+Urgent: Yes & Comment: Additions to \texttt{NDI\_E\_AVG},
+\texttt{NDI\_V\_AVG}, and \texttt{NDI\_VEL}. \\ \hline
 \end{tabular}
 
 \vspace{12pt} 
@@ -36,7 +37,7 @@ get_float_vec_n handle1 NDI_TD_HALF_MOMENT 1
 get_float_vec handle1 NDI_V_AVG	 # same as <E^1/2>*13.83159*cm/(sh*MeV^1/2)
 close_gendir
 \end{verbatim}
-\\ \hline
+\end{tabular}
 
 \vspace{24pt}
 
@@ -52,7 +53,8 @@ Classification: 1 \\ \hline
 Requirement Handling:
 
 \begin{tabular}{|p{72pt}|p{351pt}|} \hline
-Date & Description \\ \hline 2012/01/31 & mgg Added calculation of
+Date & Description \\ \hline 
+2012/01/31 & mgg Added calculation of
 room temperature TD half moments to
 \texttt{ndi\_get\_float64\_vec\_n(handle,
 NDI\_TD\_HALF\_MOMENT\ldots}; added test in \texttt{avg\_e.c}.

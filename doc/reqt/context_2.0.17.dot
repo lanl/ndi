@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 02/02/12\n\
+        label="Context Diagram 02/07/12\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -22,7 +22,7 @@ digraph ndi {
 	ndi -> jzerr[label="63) Fission\ntransfer\nmatrix", color=green];
         ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
         ndi -> morgan[label="42) Chi\nmatrix\ncalculations", color=green];
-        ndi -> jomc[label="82) TN\nsecondary\nenergies", color=red];
+        ndi -> jomc[label="36) TN\nsecondary\nenergies", color=green];
 
 	{rank=min; jomc; morgan}
 	{rank=max; rsb; jzerr}
