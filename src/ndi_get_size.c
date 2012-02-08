@@ -301,6 +301,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         /* Arrays with element number not equal to number of groups */
 
 
+    case NDI_TD_VAL:
     case NDI_E_BOUNDS:
         /* energy boundaries */
         if (state->collapse_flag != 0) {

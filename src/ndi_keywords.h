@@ -172,6 +172,7 @@
 #define NDI_V_AVG                     141
 #define NDI_Q_SIG_F_PR                142
 #define NDI_TD_HALF_MOMENT            143
+#define NDI_TD_VAL                    144
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046

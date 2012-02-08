@@ -98,7 +98,7 @@ static int GET_SF_SPECTRA(state_struct *state, FLOAT_TYPE *return_vec,
 
 static int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size);
 static int GET_QSIGF(state_struct *state, FLOAT_TYPE *vec, int size);
-
+static int GET_TD_VAL(state_struct *state, FLOAT_TYPE *vec, int size);
 static int is_partial_fission(int mt);
 
 /**********************************************************************/
@@ -557,6 +557,9 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
         ierr = GET_QSIGF(state, return_vec, return_size);
         break;
 
+    case NDI_TD_VAL:            /* TD weight function values (reqt 83) */
+        ierr = GET_TD_VAL(state, return_vec, return_size);
+        break;
     /**********  UNKNOWN KEYWORD  ***********/
 
     default:
@@ -3906,4 +3909,30 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     return exit_status;
 }
 /**********************************************************************/
+
+int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
+{
+    int ierr = 0;
+    int num_grps;
+    int i;
+    double e;
+
+    if (!state) NDI_THROW(ierr, -2); /* State not initialized */
+
+    num_grps = (state->collapse_flag != 0) ? state->grp_num_new: 
+        state->iso_stat.num_grps;
+
+    for (i = 0; i <= num_grps; i++) {
+        if (i >= return_size) {
+            NDI_THROW(ierr, 7);
+            break;
+        }
+        e = state->lib_ebounds[(state->collapse_flag !=0) ?
+                              state->new_ebounds[i]: i];
+        return_vec[i] = ndi_td(e);
+    }
+ catch:
+    return ierr;
+    
+}
 /*********************************************************************/
