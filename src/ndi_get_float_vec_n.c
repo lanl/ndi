@@ -1312,7 +1312,7 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
     int ierr = 0;
     int i, j;
     int num_grps;
-    double fbar, wt_sum, f_sum;
+    double fbar, wbar, wt_sum, f_sum;
     
 
     MOMENT = half_moment/2.0;
@@ -1328,23 +1328,33 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
         if (state->collapse_flag) {
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
-                fbar = ndi_gl10(td_half_moment, state->lib_ebounds[j+1], 
-                            state->lib_ebounds[j]) /
-                    ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
-                         state->lib_ebounds[j]);
-
-                f_sum += fbar * state->lib_weight[j];
-                wt_sum += state->lib_weight[j];
+                wbar = ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
+                                state->lib_ebounds[j]);
+                wt_sum += wbar;
+                if (MOMENT != 0) {
+                    fbar = ndi_gl10(td_half_moment, state->lib_ebounds[j+1], 
+                                    state->lib_ebounds[j]);
+                    f_sum += fbar;
+                }
             }
         } else {
-            f_sum = ndi_gl10(td_half_moment, state->lib_ebounds[i+1], 
-                             state->lib_ebounds[i]) /
-                ndi_gl10(ndi_td, state->lib_ebounds[i+1], 
-                         state->lib_ebounds[i]);
-            wt_sum = 1;
+            wbar = ndi_gl10(ndi_td, state->lib_ebounds[i+1], 
+                            state->lib_ebounds[i]);
+            wt_sum = wbar;
+            if (MOMENT != 0) {
+                fbar = ndi_gl10(td_half_moment, state->lib_ebounds[i+1], 
+                                state->lib_ebounds[i]);
+                f_sum = fbar;
+            }
         }
         if (i < return_size) {
-            return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
+            if (MOMENT != 0)
+                if (wt_sum != 0.0)
+                    return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
+                else
+                    return_vec[i] = 0.0;
+            else
+                return_vec[i] = (FLOAT_TYPE) wt_sum;
         } else {
             ierr = 7;          /* array bounds exceeded */
             break;

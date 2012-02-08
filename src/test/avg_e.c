@@ -443,7 +443,7 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]/ret_vec64[i] - 1;
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -473,7 +473,37 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]/ret_vec64[i] - 1/13.83159325;
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
+   printf("Relative %% difference:\n");
+   print_float64_vec(ret_vec, vec_size);
+   printf("\n");
+
+   /* TD weights */
+   ierr = ndi_get_float64_vec(NDI_WGTS, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting TD weights for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Weights: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD half moment (m = 0/2) (reqt 83) */
+   ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
+                                ret_vec, vec_size);
+   
+   if (ierr) {
+       printf("  Error %d getting zeroth half moment for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average zeroth half moment: \n");
+   print_float64_vec( ret_vec, vec_size );	 
+   printf("\n");
+   for (int i = 0; i < vec_size; i++) 
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -503,7 +533,7 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]*ret_vec64[i] - 13.83159325;
+       ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -546,7 +576,7 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]/ret_vec64[i] - 1;
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -577,7 +607,37 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]/ret_vec64[i] - 1/13.83159325;
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
+   printf("Relative %% difference:\n");
+   print_float64_vec(ret_vec, vec_size);
+   printf("\n");
+
+   /* TD weights */
+   ierr = ndi_get_float64_vec(NDI_WGTS, ret_vec64, vec_size);
+   if (ierr) {
+       printf("  Error %d getting TD weights for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Weights: \n");
+   print_float64_vec( ret_vec64, vec_size );	 
+   printf("\n");
+
+   /* TD half moment (m = 0/2) (reqt 83) */
+   ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
+   ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
+                                ret_vec, vec_size);
+   
+   if (ierr) {
+       printf("  Error %d getting zeroth half moment for isotope u235.\n",
+              ierr );
+   }
+
+   printf("Average zeroth half moment: \n");
+   print_float64_vec( ret_vec, vec_size );	 
+   printf("\n");
+   for (int i = 0; i < vec_size; i++) 
+       ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -607,7 +667,7 @@ int main ()
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
    for (int i = 0; i < vec_size; i++) 
-       ret_vec[i] = ret_vec[i]*ret_vec64[i] - 13.83159325;
+       ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
