@@ -2723,109 +2723,116 @@ static int GET_EDIST_VEC(state_struct *state, FILE *lib_stream, int moment,
 
 
     int ierr = 0;
+    int jerr = 0;
     int i;
+    int n;
     int num_temps;
     int curr_temp_index = -1;
     int hi, lo;
     long int curr_file_p;
     double *distr_E = NULL;
     double *distr_prob = NULL;
+    double *wdist_array = NULL;
+    double norm;
     double *edist_array = NULL;
     interp_params curr_interp;
     sec_part_distr *part;
-
 
     /**************************** INITIALIZE ****************************/
     /********************************************************************/
     (void) NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
-    if (!state) {
-        return (-2);
-    }
+    if (!state)
+        NDI_THROW(ierr, -2);    /* NDI not initialized */
 
     /* Check that collapse flag is set */
-    if (state->grp_num_new <= 0) {
-        return (-21);
-    }
+    if (state->grp_num_new <= 0)
+        NDI_THROW(ierr, -21);   /* Collapse requested w/o set */
 
     /* Set current particle */
     if ((state->curr_part_index < 0) ||
         (state->curr_part_index >= state->sec_part_filled))
-        return (-30);
+        NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
 
     part = &(state->tn_stat.sec_part[state->curr_part_index]);
     if (!part)
-        return (-30);
+        NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
 
     /* Find closest temperature */
     num_temps = part->temp_interp.npts;
-    ierr =
-        ndi_find_temp_bound_index(state->default_temp, part->edist,
-                                  num_temps, &hi, &lo, &curr_temp_index);
+    ierr = ndi_find_temp_bound_index(state->default_temp, part->edist,
+                                     num_temps, &hi, &lo, &curr_temp_index);
     if (ierr < 0)
-        return (-30);
-
+        NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
 
     /* Initialize distribution variables */
     curr_interp = part->edist[curr_temp_index].interp;
     curr_file_p = part->edist[curr_temp_index].file_ptr;
     distr_E = (double *) ndi_malloc(curr_interp.npts * sizeof(double));
     distr_prob = (double *) ndi_malloc(curr_interp.npts * sizeof(double));
-    ierr = ndi_read_float_pair(lib_stream, curr_file_p,
+    jerr = ndi_read_float_pair(lib_stream, curr_file_p,
                                curr_interp.npts, distr_E, distr_prob,
                                curr_interp.npts);
     /* Check error */
-    if (ierr < 0) {
-        if (distr_E)
-            ndi_free((void **) &distr_E);
-        if (distr_prob)
-            ndi_free((void **) &distr_prob);
-        return (-30);
-    }
+    if (jerr < 0)
+        NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
 
     /**************************** INTEGRATE  ****************************/
     /********************************************************************/
 
-    /* Integrate into bins  -- Note: function returns only array of double */
-    edist_array =
-        (double *) ndi_malloc(state->grp_num_new * sizeof(double));
-    ierr =
-        ndi_integrate_bins(distr_E, distr_prob, &curr_interp,
-                           state->collapse_ebounds, state->grp_num_new,
-                           moment, edist_array, state->grp_num_new);
-    if (distr_E)
-        ndi_free((void **) &distr_E);
-    if (distr_prob)
-        ndi_free((void **) &distr_prob);
+    /* Calculate int P(E) dE in bins */
+    wdist_array = (double *)ndi_malloc(state->grp_num_new * sizeof(double));
+    jerr = ndi_integrate_bins(distr_E, distr_prob, &curr_interp,
+                              state->collapse_ebounds, state->grp_num_new,
+                              0, wdist_array, state->grp_num_new);
+    if (jerr < 0)
+        NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
+    norm = 0.0;
+    for(i = 0; i < state->grp_num_new; i++)
+        norm += wdist_array[i];
+    if (norm != 0.0)
+        for(i = 0; i < state->grp_num_new; i++)
+            wdist_array[i] /= norm;
 
-    /* Check error */
-    if (ierr < 0) {
-        if (edist_array)
-            ndi_free((void **) &edist_array);
-        return (-30);
+    if (moment == 1) {          /* Calculate int E*P(E) dE in bins */
+        edist_array =
+            (double *)ndi_malloc(state->grp_num_new * sizeof(double));
+        ierr = ndi_integrate_bins(distr_E, distr_prob, &curr_interp,
+                                  state->collapse_ebounds, state->grp_num_new,
+                                  1, edist_array, state->grp_num_new);
+        if (jerr < 0)
+            NDI_THROW(ierr, -30);   /* NDI_DEPLETION not set */
     }
 
-    /* Transfer integrals to return_vec */
-    /* Copy here */
+
+    /***************************** TRANSFER  ****************************/
+    /********************************************************************/
+
     if (state->grp_num_new <= return_size) {
-        for (i = 0; i < state->grp_num_new; i++) {
-            return_vec[i] = (FLOAT_TYPE) edist_array[i];
+        n = state->grp_num_new;
+    } else {
+        n = return_size;
+        NDI_THROW(ierr, 7);     /* Array terminated */
+    }
+    if (moment == 0) {
+        for(i = 0; i < n; i++)
+            return_vec[i] = (FLOAT_TYPE)wdist_array[i];
+    } else if (moment == 1) {
+        for (i = 0; i < n; i++) {
+            if (wdist_array[i] != 0.0)
+                return_vec[i] = (FLOAT_TYPE)(edist_array[i]/wdist_array[i]);
+            else
+                return_vec[i] = 0.0;
         }
     } else {
-        /* Error */
-    }
-    if (edist_array)
-        ndi_free((void **) &edist_array);
-
-    /**************************** NORMALIZE  ****************************/
-    /********************************************************************/
-    /* !!ADD!!!!! Special normalize for discrete energies */
-    if (state->grp_num_new <= return_size && moment == 0) {
-        ierr = NORM_FLOAT_VEC(return_vec, state->grp_num_new, 1.0);
-    } else {
-        /* Error */
+        NDI_THROW(ierr, -5);    /* Invalid input key */
     }
 
+ catch:
+    ndi_free((void **) &distr_E);
+    ndi_free((void **) &distr_prob);
+    ndi_free((void **) &wdist_array);
+    ndi_free((void **) &edist_array);
 
     return (ierr);
 }
