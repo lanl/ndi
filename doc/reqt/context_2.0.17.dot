@@ -4,13 +4,14 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 02/07/12\n\
+        label="Context Diagram 02/15/12\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
 	node[shape="box"];
 
 	/* stakeholders */
+        hutchins[label="Greg Hutchins"];
 	jzerr[label="Joe Zerr"];
 	rsb[label="Randy Baker"];
         morgan[label="Morgan White"];
@@ -20,10 +21,11 @@ digraph ndi {
 	ndi[label="NDI 2.0.17", shape="ellipse"];
         
 	ndi -> jzerr[label="63) Fission\ntransfer\nmatrix", color=green];
-        ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
+        ndi -> rsb[label="83) TD\nhalf\nmoments", color=orange]; 
         ndi -> morgan[label="42) Chi\nmatrix\ncalculations", color=green];
         ndi -> jomc[label="36) TN\nsecondary\nenergies", color=green];
+        ndi -> hutchins[label="78)SN\nmendf7", color=green];
 
 	{rank=min; jomc; morgan}
-	{rank=max; rsb; jzerr}
+	{rank=max; rsb; hutchins; jzerr}
 }
