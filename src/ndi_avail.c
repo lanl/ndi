@@ -24,7 +24,7 @@ unsigned ndi_nusigf_avail(const state_struct *state, char nu_type)
     /* Introspection: Can ndi get nusigf? 
 
     Return: nusigf | nusigf1 & nusigf2 | sig_reac_18 & (nu | 
-    nu1 & nusigf2 | nusigf1 & nu2 | | nu1 & nu2) */
+    nu1 & nusigf2 | nusigf1 & nu2 | nu1 & nu2) */
 
     unsigned flag = 0;
 
@@ -76,8 +76,8 @@ unsigned ndi_nusigf_avail(const state_struct *state, char nu_type)
     if (nusigf1_ptr && nusigf2_ptr)
         flag |= NUSIGF1_NUSIGF2;
     if (ndi_sigf_avail(state)) {
-        if (nusigf_ptr)
-            flag |= NUSIGF;
+        if (nu_ptr)
+            flag |= NU;
         if (nu1_ptr && nusigf2_ptr)
             flag |= NU1_NUSIGF2;
         if (nusigf1_ptr && nu2_ptr)
@@ -95,7 +95,7 @@ unsigned ndi_nu_avail(const state_struct *state, char nu_type)
 {
     /* Introspection: Can ndi get nu?
 
-    Return: nu | nu1 & nu2 | sig_reac_18 & (nusigf | nu1 & nu2
+    Return: nu | nu1 & nu2 | sig_reac_18 & (nusigf |
     | nu1 & nusigf2 | nusigf1 & nu2 | nusigf1 & nusigf2) */
 
     unsigned flag = 0;		/* Default is false */

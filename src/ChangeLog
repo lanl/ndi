@@ -1,3 +1,8 @@
+2012-03-20  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_avail.c (ndi_nusigf_avail): Reqt. 42 Fault! Test for
+	sig_reac_18 & nusigf changed to sig_reac_18 & nu.
+
 2011-04-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_val.c (GET_FLOAT_VAL_MG): Add calculation for
