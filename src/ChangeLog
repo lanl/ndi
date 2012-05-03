@@ -1,3 +1,10 @@
+2012-05-03  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_keywords.h (NDI_SF_RATE): Reqt. 46. Add NDI_SF_RATE keyword.
+
+	* ndi_get_float_val.c (GET_FLOAT_VAL_MG): Reqt. 46.  Add
+	calculation of spontaneous fission rate.
+
 2012-03-20  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_avail.c (ndi_nusigf_avail): Reqt. 42 Fault! Test for

@@ -4,6 +4,9 @@ Zaid = 1002.600nm
 
 Spontaneous Fissionable? = 0
 
+
+Spontaneous Fission Rate = 0.000000e+00
+
 Fission_q:
   **Error 0 in fission_q -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -821,6 +824,8 @@ Zaid =
 
 
   **Error -7 checking spontaneous fissionable.
+
+  **Error -7 getting spontaneous fission rate. 
 Fission_q:
 
   **Error -7 fission_q array size.
@@ -916,6 +921,9 @@ Zaid = 92235.600nm
 
 
 Spontaneous Fissionable? = 1
+
+
+Spontaneous Fission Rate = 2.184616e-35
 
 Fission_q:
   **Error 0 in fission_q -- returned value is:
@@ -1733,6 +1741,9 @@ Zaid = 94239.600nm
 
 Spontaneous Fissionable? = 1
 
+
+Spontaneous Fission Rate = 2.733087e-32
+
 Fission_q:
   **Error 0 in fission_q -- returned value is:
  1.894400000000000e+02   2.070600000000000e+02   5.310000000000000e+00   7.760000000000000e+00  
@@ -2549,6 +2560,9 @@ Zaid = 1002.600nm
 
 Spontaneous Fissionable? = 0
 
+
+Spontaneous Fission Rate = 0.000000e+00
+
 Fission_q:
   **Error 0 in fission_q -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -2617,6 +2631,8 @@ Zaid =
 
 
   **Error -7 checking spontaneous fissionable.
+
+  **Error -7 getting spontaneous fission rate. 
 Fission_q:
 
   **Error -7 fission_q array size.
@@ -2713,6 +2729,9 @@ Zaid = 92235.600nm
 
 Spontaneous Fissionable? = 1
 
+
+Spontaneous Fission Rate = 2.184616e-35
+
 Fission_q:
   **Error 0 in fission_q -- returned value is:
  1.808800000000000e+02   2.024700000000000e+02   6.500000000000000e+00   6.970000000000000e+00  
@@ -2779,6 +2798,9 @@ Zaid = 94239.600nm
 
 
 Spontaneous Fissionable? = 1
+
+
+Spontaneous Fission Rate = 2.733087e-32
 
 Fission_q:
   **Error 0 in fission_q -- returned value is:

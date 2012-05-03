@@ -15,6 +15,7 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
+#include "ndi_sf.h"
 
 static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 			    FLOAT_TYPE * ret_val);
@@ -151,6 +152,25 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	    *ret_val = 0.0;
 	}
 	break;
+
+    case NDI_SF_RATE:           /* Spontaneous Fission Rate (Reqt 46) */
+        if (state-> iso_stat.fissionable == 0) { /* Not fissionable */
+            *ret_val = 0.0;
+            ierr = 0;
+        } else {
+            spont_fiss *sf;     /* Pointer to static data */
+
+            sf = ndi_get_sf_data(state->iso_stat.zaid); /* Lookup data */
+            if (!sf) {
+                *ret_val = 0.0;
+                ierr = 9;       /* Data not available */
+            } else {            /* Data found */
+                /* [decay/(atom*sh)][fissions/decay] */
+                *ret_val = sf->lambda * sf->ratio;
+                ierr = 0;
+            }
+        }
+        break;
 
       /*******************  UNKNOWN KEYWORD  ********************/
 

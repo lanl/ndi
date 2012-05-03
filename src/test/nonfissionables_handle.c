@@ -59,6 +59,7 @@ int main ()
    };
 
    ndi_float64 *ret_vec64 = NULL;
+   ndi_float64 rate;
 
 
    /*  Initialize */
@@ -91,6 +92,12 @@ int main ()
                       ierr);
            else
                printf("\nSpontaneous Fissionable? = %d\n\n", j);
+           ierr = NDI2_get_float64_val(handle, NDI_SF_RATE, &rate);
+           if (ierr)
+               printf("\n  **Error %d getting spontaneous fission rate. \n",
+                      ierr);
+           else
+               printf("\nSpontaneous Fission Rate = %e\n\n", rate);
 
            /*  Loop over keywords */
            for ( j = 0; j < num_keywords; j++ ) {

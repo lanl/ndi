@@ -173,6 +173,7 @@
 #define NDI_Q_SIG_F_PR                142
 #define NDI_TD_HALF_MOMENT            143
 #define NDI_TD_VAL                    144
+#define NDI_SF_RATE                   145
 
 /* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046
