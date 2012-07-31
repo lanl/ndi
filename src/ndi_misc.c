@@ -977,3 +977,26 @@ double ndi_td(double x)
     return w[l] * pow(x/E[l], lnw[l]);
 }
 /*********************************************************************/
+/* The TD Weight Function at Temperature.
+   See: NJOY 99:groupr.f:getwtf - iwt==10
+        make-input.pl:print_gendf
+*/
+double ndi_ttd(double E, double T)
+{
+    const double wt10a = 0.15;
+    const double wt10b = 300.0;
+    const double wt10c = 1.15e6;
+    const double bk = 8.617385e-5;    /* Boltzmann's Constant (eV/K) */
+    double x;
+    double ea;
+    double eb;
+
+    x = E * 1.0e-6;             /* Convert MeV to eV */
+    ea = T * 1.0e-6;            /* Convert MeV to eV */
+    eb = wt10a * (ea/bk)/wt10b; /* Energy @ thermal upper bound */
+    if (x < eb)
+        return wt10c * (x/(eb*eb)) * exp(-(x-eb)/ea);
+    else
+        return ndi_td(E);
+}
+/*********************************************************************/
