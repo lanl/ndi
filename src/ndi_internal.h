@@ -566,6 +566,7 @@ extern "C" {
     char *ndi_mt_label(int mt);
     double ndi_gl10(double (*f)(double), double a, double b);
     double ndi_td(double x);
+    double ndi_ttd(double E, double T);
 
   /***  Subroutines in file ndi_misc_depl.c ***/
     int ndi_depletion(state_struct *state, const char *in_zaid);

@@ -1,3 +1,9 @@
+2012-07-31  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_get_float_vec_n.c (TD_HALF_MOMENT): Added temperature dependence
+
+	* ndi_get_float_vec.c (GET_TD_VAL): Added temperature dependence
+
 2012-05-03  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_keywords.h (NDI_SF_RATE): Reqt. 46. Add NDI_SF_RATE keyword.

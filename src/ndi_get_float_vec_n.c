@@ -1299,11 +1299,28 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
 
 /*********************************************************************/
 
-double MOMENT;
+/* Reqt. 83
+
+Return Moments of TD Weight Function at Temperature. */
+
+double MOMENT;                  /* Requested half moment */
+double TEMP;                    /* Neutron Beam Temperature */
+int UP_GRPS;                    /* Up Scatter temperature indicator */
 static double td_half_moment(double x)
 {
-    return pow(x, MOMENT) * ndi_td(x);
-} 
+    if (UP_GRPS == 0)           /* iwt = 9 */
+        return pow(x, MOMENT) * ndi_td(x);
+    else                        /* iwt = 10 */
+        return pow(x, MOMENT) * ndi_ttd(x, TEMP);
+}
+
+static double td_wgt(double x)
+{
+    if (UP_GRPS == 0)           /* iwt = 9 */
+        return ndi_td(x);
+    else                        /* iwt = 10 */
+        return ndi_ttd(x, TEMP);
+}
 
 /* TD weighted half moment */
 static int TD_HALF_MOMENT(state_struct *state, int half_moment,
@@ -1313,7 +1330,6 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
     int i, j;
     int num_grps;
     double fbar, wbar, wt_sum, f_sum;
-    
 
     MOMENT = half_moment/2.0;
 
@@ -1322,14 +1338,19 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
     else
         num_grps = state->iso_stat.num_grps;
 
+    TEMP = state->iso_stat.temp; /* Doppler Broadened Temperature */
+    UP_GRPS = state->iso_stat.up_grps;
+    if (TEMP == 0)              /* T_db == 0 => */
+        TEMP = 2.53e-8;         /* T_n = room temperature */
+
     for (i = 0; i < num_grps; i++) {
         wt_sum = 0.0;
         f_sum = 0.0;
         if (state->collapse_flag) {
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
-                wbar = ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
-                                state->lib_ebounds[j]);
+                wbar = ndi_gl10(td_wgt, state->lib_ebounds[j+1], 
+                                    state->lib_ebounds[j]);
                 wt_sum += wbar;
                 if (MOMENT != 0) {
                     fbar = ndi_gl10(td_half_moment, state->lib_ebounds[j+1], 
@@ -1338,7 +1359,7 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
                 }
             }
         } else {
-            wbar = ndi_gl10(ndi_td, state->lib_ebounds[i+1], 
+            wbar = ndi_gl10(td_wgt, state->lib_ebounds[i+1], 
                             state->lib_ebounds[i]);
             wt_sum = wbar;
             if (MOMENT != 0) {

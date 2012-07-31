@@ -3909,6 +3909,9 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     return exit_status;
 }
 /**********************************************************************/
+/* Reqt. 83
+
+Return TD Weight Function at Temperature. */
 
 int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
 {
@@ -3916,11 +3919,16 @@ int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
     int num_grps;
     int i;
     double e;
+    double t;
 
     if (!state) NDI_THROW(ierr, -2); /* State not initialized */
 
     num_grps = (state->collapse_flag != 0) ? state->grp_num_new: 
         state->iso_stat.num_grps;
+
+    t = state->iso_stat.temp;   /* Doppler Broadened Temperature */
+    if (t == 0.0)               /* T_db == 0 => */
+        t = 2.53e-8;            /* T_n = room temperature */
 
     for (i = 0; i <= num_grps; i++) {
         if (i >= return_size) {
@@ -3929,7 +3937,10 @@ int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
         }
         e = state->lib_ebounds[(state->collapse_flag !=0) ?
                               state->new_ebounds[i]: i];
-        return_vec[i] = ndi_td(e);
+        if (state->iso_stat.up_grps == 0) /* iwt = 9 */
+            return_vec[i] = ndi_td(e);
+        else                    /* iwt = 10 */
+            return_vec[i] = ndi_ttd(e, t);
     }
  catch:
     return ierr;
