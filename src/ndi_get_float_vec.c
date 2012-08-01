@@ -3909,9 +3909,7 @@ int GET_QF(state_struct *state, FLOAT_TYPE *vec, int size)
     return exit_status;
 }
 /**********************************************************************/
-/* Reqt. 83
-
-Return TD Weight Function at Temperature. */
+/* Reqt. 83: TD weight function at table temperature. */
 
 int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
 {
@@ -3926,9 +3924,10 @@ int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
     num_grps = (state->collapse_flag != 0) ? state->grp_num_new: 
         state->iso_stat.num_grps;
 
-    t = state->iso_stat.temp;   /* Doppler Broadened Temperature */
-    if (t == 0.0)               /* T_db == 0 => */
-        t = 2.53e-8;            /* T_n = room temperature */
+    /* Use doppler broadened temperature as neutron beam temperature */
+    t = state->iso_stat.temp;   
+    if (t == 0.0)               /* if db temperature zero */
+        t = ROOM_TEMP_MEV;      /* then nb temperature = room */
 
     for (i = 0; i <= num_grps; i++) {
         if (i >= return_size) {
@@ -3937,7 +3936,9 @@ int GET_TD_VAL(state_struct *state, FLOAT_TYPE *return_vec, int return_size)
         }
         e = state->lib_ebounds[(state->collapse_flag !=0) ?
                               state->new_ebounds[i]: i];
-        if (state->iso_stat.up_grps == 0) /* iwt = 9 */
+        /* Choose TD weight function based on upscatter and nb temperature */
+        if (state->iso_stat.up_grps == 0 &&
+            ndi_approx_equal(t, ROOM_TEMP_MEV, 0.0001, 0.0)) /* iwt = 9 */
             return_vec[i] = ndi_td(e);
         else                    /* iwt = 10 */
             return_vec[i] = ndi_ttd(e, t);

@@ -1298,28 +1298,30 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
 }
 
 /*********************************************************************/
+/* Reqt. 83: Moments of TD weight function at table temperature. */
 
-/* Reqt. 83
+static double Moment;           /* Requested half moment */
+static double Temp;             /* Neutron Beam Temperature */
+static int Up_grps;             /* Up Scatter indicator */
 
-Return Moments of TD Weight Function at Temperature. */
-
-double MOMENT;                  /* Requested half moment */
-double TEMP;                    /* Neutron Beam Temperature */
-int UP_GRPS;                    /* Up Scatter temperature indicator */
 static double td_half_moment(double x)
 {
-    if (UP_GRPS == 0)           /* iwt = 9 */
-        return pow(x, MOMENT) * ndi_td(x);
+    /* Choose TD weight function based on upscatter and nb temperature */
+    if (Up_grps == 0 &&
+        ndi_approx_equal(Temp, ROOM_TEMP_MEV, 0.0001, 0.0)) /* iwt = 9 */
+        return pow(x, Moment) * ndi_td(x);
     else                        /* iwt = 10 */
-        return pow(x, MOMENT) * ndi_ttd(x, TEMP);
+        return pow(x, Moment) * ndi_ttd(x, Temp);
 }
 
 static double td_wgt(double x)
 {
-    if (UP_GRPS == 0)           /* iwt = 9 */
+    /* Choose TD weight function based on upscatter and nb temperature */
+    if (Up_grps == 0 &&
+        ndi_approx_equal(Temp, ROOM_TEMP_MEV, 0.0001, 0.0)) /* iwt = 9 */
         return ndi_td(x);
     else                        /* iwt = 10 */
-        return ndi_ttd(x, TEMP);
+        return ndi_ttd(x, Temp);
 }
 
 /* TD weighted half moment */
@@ -1331,17 +1333,18 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
     int num_grps;
     double fbar, wbar, wt_sum, f_sum;
 
-    MOMENT = half_moment/2.0;
+    Moment = half_moment/2.0;
 
     if (state->collapse_flag)
         num_grps = state->grp_num_new;
     else
         num_grps = state->iso_stat.num_grps;
 
-    TEMP = state->iso_stat.temp; /* Doppler Broadened Temperature */
-    UP_GRPS = state->iso_stat.up_grps;
-    if (TEMP == 0)              /* T_db == 0 => */
-        TEMP = 2.53e-8;         /* T_n = room temperature */
+    /* Use doppler broadened temperature as neutron beam temperature */
+    Temp = state->iso_stat.temp;
+    Up_grps = state->iso_stat.up_grps;
+    if (Temp == 0.0)            /* if db temperature zero */
+        Temp = ROOM_TEMP_MEV;   /* then nb temperature = room */
 
     for (i = 0; i < num_grps; i++) {
         wt_sum = 0.0;
@@ -1352,7 +1355,7 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
                 wbar = ndi_gl10(td_wgt, state->lib_ebounds[j+1], 
                                     state->lib_ebounds[j]);
                 wt_sum += wbar;
-                if (MOMENT != 0) {
+                if (Moment != 0) {
                     fbar = ndi_gl10(td_half_moment, state->lib_ebounds[j+1], 
                                     state->lib_ebounds[j]);
                     f_sum += fbar;
@@ -1362,14 +1365,14 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
             wbar = ndi_gl10(td_wgt, state->lib_ebounds[i+1], 
                             state->lib_ebounds[i]);
             wt_sum = wbar;
-            if (MOMENT != 0) {
+            if (Moment != 0) {
                 fbar = ndi_gl10(td_half_moment, state->lib_ebounds[i+1], 
                                 state->lib_ebounds[i]);
                 f_sum = fbar;
             }
         }
         if (i < return_size) {
-            if (MOMENT != 0)
+            if (Moment != 0)
                 if (wt_sum != 0.0)
                     return_vec[i] = (FLOAT_TYPE) f_sum / wt_sum;
                 else

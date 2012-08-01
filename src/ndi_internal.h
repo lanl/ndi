@@ -29,7 +29,8 @@
 #define M_NEUT_AMU      1.0086649157855
 #define Q_ELEC_C        1.602176462e-19
 #define J_TO_MEV        (Q_ELEC_C*1e+6)
-
+#define ROOM_TEMP_MEV   2.53e-8
+       
 #define NUM_FISSION_Q		6
 #define NUM_NORM		4
 
@@ -556,6 +557,7 @@ extern "C" {
 				int num_zaids);
     int ndi_parse_mg_zaid(char *zaid, int *z, int *a);
     int double_compare(const double a, const double b);
+    int ndi_approx_equal(double a, double b, double relerr, double abserr);
     int ndi_empty_string(char *in_str);
     void check_fissionable_err(int *curr_err, int fission_flag);
     int ndi_get_nth_inc_part_type(state_struct *state, int vec_num,

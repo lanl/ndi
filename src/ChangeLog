@@ -1,3 +1,8 @@
+2012-08-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
+
+	* ndi_misc.c (ndi_ttd): Added provenance comments
+	(ndi_approx_equal): Added approximate equal
+
 2012-07-31  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_get_float_vec_n.c (TD_HALF_MOMENT): Added temperature dependence

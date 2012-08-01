@@ -391,6 +391,19 @@ int double_compare(const double a, const double b)
 }
 
 /**********************************************************************/
+/* Approximate equal
+
+   See: Knuth V2 pg. 234 
+*/
+int ndi_approx_equal(double a, double b, double relerr, double abserr)
+{
+    double absa = fabs(a);
+    double absb = fabs(b);
+
+    return fabs(a-b) < (relerr * ((absa > absb) ? absa : absb) + abserr);
+}
+        
+/**********************************************************************/
 int ndi_empty_string(char *in_str)
 
      /* Empty string returns true (-1) if the input character array
@@ -904,10 +917,13 @@ double ndi_gl10(double (*f)(double), double a, double b)
 }
 
 /* The TD weight function at room temperature.
+
    See: M. C. White
    The TD Weight Function Revisited 
    X-5:MCW-05-24(u)
-   March 2005 */
+   March 2005; 
+   NJOY-99: groupr.f: genwtf: data w9 (iwt = 9)
+   make-input.pl: print_gendf: @td_ergs; @td_wgts*/
 double ndi_td(double x)
 {
 
@@ -977,8 +993,9 @@ double ndi_td(double x)
     return w[l] * pow(x/E[l], lnw[l]);
 }
 /*********************************************************************/
-/* The TD Weight Function at Temperature.
-   See: NJOY 99:groupr.f:getwtf - iwt==10
+/* The TD Weight Function at specified temperature.
+
+   See: NJOY 99:groupr.f:getwtf: data wt10a, wt10b, wt10c (iwt = 10)
         make-input.pl:print_gendf
 */
 double ndi_ttd(double E, double T)
@@ -987,6 +1004,7 @@ double ndi_ttd(double E, double T)
     const double wt10b = 300.0;
     const double wt10c = 1.15e6;
     const double bk = 8.617385e-5;    /* Boltzmann's Constant (eV/K) */
+
     double x;
     double ea;
     double eb;
