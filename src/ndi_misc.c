@@ -1009,8 +1009,8 @@ double ndi_ttd(double E, double T)
     double ea;
     double eb;
 
-    x = E * 1.0e-6;             /* Convert MeV to eV */
-    ea = T * 1.0e-6;            /* Convert MeV to eV */
+    x = E * 1.0e6;              /* Convert MeV to eV */
+    ea = T * 1.0e6;             /* Convert MeV to eV */
     eb = wt10a * (ea/bk)/wt10b; /* Energy @ thermal upper bound */
     if (x < eb)
         return wt10c * (x/(eb*eb)) * exp(-(x-eb)/ea);
