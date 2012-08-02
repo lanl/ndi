@@ -340,6 +340,21 @@ multigroup_neutron
     f=@top_srcdir@/src/test/lib/mendf6_temp
     ft=asc  ln=1608  o=90611  ng=30  t=1.0E-06  s0=1.00000E+30  aw=2.35044E+02
     awr=2.33025E+02 end
+  z=92235.091nm  d=06/10/10  l=MGMT30
+    f=@top_srcdir@/src/test/lib/mtmg30b
+    ft=asc  ln=1  o=0
+    ng=30  t=2.53006423600000E-08  s0=1.00000000000000E+10
+    aw=2.35044139254600E+02  awr=2.33025000000000E+02  end
+  z=92235.094nm  d=06/10/10  l=MGMT30
+    f=@top_srcdir@/src/test/lib/mtmg30b
+    ft=asc  ln=1227  o=148247
+    ng=30  t=1.00000013363250E-06  s0=1.00000000000000E+10
+    aw=2.35044139254600E+02  awr=2.33025000000000E+02  end
+  z=92235.098nm  d=06/10/10  l=MGMT30
+    f=@top_srcdir@/src/test/lib/mtmg30b
+    ft=asc  ln=2453  o=296494
+    ng=30  t=1.00000013363250E-03  s0=1.00000000000000E+10
+    aw=2.35044139254600E+02  awr=2.33025000000000E+02  end
 end
 
 multigroup_photon
