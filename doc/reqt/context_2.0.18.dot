@@ -1,0 +1,32 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 08/03/12\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+
+	/* stakeholders */
+        mbl[label="Beth Lee\nMark Gray"];
+        morgan[label="Morgan White\nKent Parsons"];
+        boom[label="John Vandenkieboom"];
+	rsb[label="Randy Baker"];
+        jomc[label="Joann Campbell"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.18", shape="ellipse"];
+        
+        mbl -> ndi[label="85) Hoffman2009\nRC", color=yellow];
+        morgan -> ndi[label="86) mtmg01", color=yellow];
+        ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
+        ndi -> jomc[label="46) NDI_SF_RATE", color=green];
+        ndi -> jomc[label="85) Hoffman2009\nRC", color=red];
+        ndi -> boom[label="86) mtmg01", color=red];
+
+	{rank=min; mbl; morgan}
+	{rank=max; rsb; jomc; boom}
+}

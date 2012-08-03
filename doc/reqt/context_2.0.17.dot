@@ -21,7 +21,7 @@ digraph ndi {
 	ndi[label="NDI 2.0.17", shape="ellipse"];
         
 	ndi -> jzerr[label="63) Fission\ntransfer\nmatrix", color=green];
-        ndi -> rsb[label="83) TD\nhalf\nmoments", color=orange]; 
+        ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
         ndi -> morgan[label="42) Chi\nmatrix\ncalculations", color=green];
         ndi -> jomc[label="36) TN\nsecondary\nenergies", color=green];
         ndi -> hutchins[label="78)SN\nmendf7", color=green];
