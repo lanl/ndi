@@ -364,23 +364,13 @@ int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
 /**********************************************************************/
 
 int double_compare(const double a, const double b)
-     /*  Return =  0, if a == b
-        =  1, if a > b
-        = -1, if a < b
+     /*  Return =  0, if a ~ b
+                =  1, if a > b
+                = -1, if a < b
       */
 {
 
-    double absa = fabs(a);
-    double absb = fabs(b);
-    double max;
-
-    if (absa > absb) {
-	max = absa;
-    } else {
-	max = absb;
-    }
-
-    if (fabs(a - b) <= DBL_EPSILON * max) {
+    if (ndi_approx_equal(a, b, DBL_EPSILON, 0.0)) {
 	return (0);
     } else if (a < b) {
 	return (-1);
@@ -393,14 +383,15 @@ int double_compare(const double a, const double b)
 /**********************************************************************/
 /* Approximate equal
 
-   See: Knuth V2 pg. 234 
+   See: Knuth V2 pg. 234
+   |u-v| <= eps*|u| or |u-v| <= eps*|v| ==> u~v
 */
-int ndi_approx_equal(double a, double b, double relerr, double abserr)
+int ndi_approx_equal(double u, double v, double relerr, double abserr)
 {
-    double absa = fabs(a);
-    double absb = fabs(b);
+    double absu = fabs(u);
+    double absv = fabs(v);
 
-    return fabs(a-b) < (relerr * ((absa > absb) ? absa : absb) + abserr);
+    return fabs(u-v) <= (relerr * ((absu > absv) ? absu : absv) + abserr);
 }
         
 /**********************************************************************/
