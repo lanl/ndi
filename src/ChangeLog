@@ -1,3 +1,10 @@
+2012-11-26  Mark G. Gray  <mgg@ml-fey.lanl.gov>
+
+	* ndi_open_gendir.c (fpath): Reqt. 87 - $NDIHOME
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Reqt. 88 - added 32_llnl
+	group boundaries
+
 2012-08-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
 	* ndi_misc.c (ndi_ttd): Added provenance comments

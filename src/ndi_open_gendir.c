@@ -124,7 +124,8 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
 	""
     };
 
-    char prefix[] = "$NDIROOT/";
+    char prefix[] = "$NDIROOT/"; /* Abbrev for abs_path */
+    char prefix2[] = "$NDIHOME/"; /* "$NDIROOT/" NDI_VERSION_DATA "share/" */
 
     FILE *f;
     int i;
@@ -136,6 +137,15 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
 	    if ((f = fopen(file, mode)))
 		return f;	/* success */
 	}
+        /* Reqt. 87*/
+    } else if (strncmp(rel_path, prefix2, strlen(prefix2)) == 0) {
+        for (i = 0; strcmp(abs_path[i], ""); i++) {
+            strncpy(file, abs_path[i], len);
+            strncat(file, NDI_VERSION_DATA "/share/", len);
+            strncat(file, rel_path + strlen(prefix2), len);
+	    if ((f = fopen(file, mode)))
+		return f;	/* success */
+        }
     } else {
 	strncpy(file, rel_path, len);
 	if ((f = fopen(file, mode)))

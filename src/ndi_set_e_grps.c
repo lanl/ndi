@@ -2387,6 +2387,17 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         1.00e-09
     };
 
+    static double _32_llnl[] = {
+        2.0000e+01,    1.6923e+01,    1.4683e+01,    1.4407e+01,
+        1.4134e+01,    1.3863e+01,    1.3542e+01,    1.3068e+01,
+        1.2499e+01,    1.0120e+01,    8.3215e+00,    6.7367e+00,
+        5.3525e+00,    4.0688e+00,    3.5335e+00,    3.0108e+00,
+        2.5299e+00,    2.0908e+00,    1.6936e+00,    1.3381e+00,
+        1.0245e+00,    7.5270e-01,    5.1230e-01,    3.3453e-01,
+        1.8195e-01,    9.8909e-02,    4.7044e-02,    2.0908e-02,
+        2.9402e-03,    3.8105e-04,    2.0746e-05,    1.1761e-06,
+        1.3068e-09
+    };
 
     static double _30_lanl[] = {
         1.700e+01,    1.500e+01,    1.350e+01,    1.200e+01,
@@ -3055,6 +3066,10 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
 
     } else if (strcmp("32_awe", grp_struc) == 0) {
         new_grp_ptr = _32_awe;
+        *new_grp = 32;
+
+    } else if (strcmp("32_llnl", grp_struc) == 0) {
+        new_grp_ptr = _32_llnl;
         *new_grp = 32;
 
     } else if ((strcmp("30_lanl", grp_struc) == 0) ||
