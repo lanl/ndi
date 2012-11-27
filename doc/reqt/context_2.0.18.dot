@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 08/06/12\n\
+        label="Context Diagram 10/05/12\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -21,11 +21,11 @@ digraph ndi {
 	ndi[label="NDI 2.0.18", shape="ellipse"];
         
         mbl -> ndi[label="85) Hoffman2009\nRC", color=green];
-        morgan -> ndi[label="86) mtmg01\nSN", color=yellow];
+        morgan -> ndi[label="86) mtmg01\nSN", color=green];
         ndi -> rsb[label="83) TD\nhalf\nmoments", color=green]; 
         ndi -> jomc[label="46) NDI_SF_RATE", color=green];
         ndi -> jomc[label="85) Hoffman2009\nRC", color=green];
-        ndi -> boom[label="86) mtmg01\nSN", color=red];
+        ndi -> boom[label="86) mtmg01\nSN", color=green];
 
 	{rank=min; mbl; morgan}
 	{rank=max; rsb; jomc; boom}

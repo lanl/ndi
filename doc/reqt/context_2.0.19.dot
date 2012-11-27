@@ -1,0 +1,26 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 11/27/12\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+	/* stakeholders */
+        mgg[label="Mark Gray\nKent Parsons"];
+        boom[label="John Vandenkieboom"];
+	lmdm[label="Mike McKay"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.19", shape="ellipse"];
+        
+        mgg -> ndi[label="86) mtmg01ex\nSN", color=orange];
+        ndi -> lmdm[label="87) NDIHOME", color=green]; 
+        ndi -> boom[label="86) mtmg01ex\nSN", color=red];
+
+	{rank=min; mgg}
+	{rank=max; lmdm; boom}
+}
