@@ -13,6 +13,10 @@
 
 /* This method of defining abundances should be replaced as soon as 
    possible.  This information should be read from a standalone file.
+
+   IUPAC Recommended Isotopic Abundances
+   P. De Bievre and P.D.P. Taylor, Int. J. Mass Spectrom. Ion Phys.
+   129, 149 (1993)
 */
 
 #include "ndi_var_type.h"
