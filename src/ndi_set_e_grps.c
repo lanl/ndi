@@ -109,8 +109,9 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     64_llnl     - LLNL BDFLS ID 77 '64 group added by TSH for RMWHITE 12/10/02'
     50_rrd      - RRD 50-group structure (NJOY IGN 5)
     46_ornl     - ORNL 46-group structure used by the BUGLE96 and SAILOR libraries
-    32_awe      - AWE standard 32-group structure
     35_laser    - 35-group structure for cold neutrons (NJOY IGN 8)
+    32_awe      - AWE standard 32-group structure
+    32_llnl     - LLNL standard 32-group structure
     30_lanl     - LANL standard 30-group structure (NJOY IGN 3)
     27_anl      - ANL standard 27-group structure (NJOY IGN 4)
     21_lanl     - LANL standard 21-group structure
@@ -2845,12 +2846,14 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         1.0e-02
     };
 
+
     static double _19_scale[] = {
         20., 10., 8., 6.5, 5., 4., 3., 2.5, 2., 1.66,
         1.33, 1., 0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.045,
         0.01
     };
  
+
     static double _12_phot[] = {
          2e+01,     9e+00,     8e+00,     7e+00,
          6e+00,     5e+00,     4e+00,     3e+00,
