@@ -841,7 +841,6 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
     int ierr = 0;
     int i;
     int num = 0;
-    int curr_index = 0;
     int array_size;
     FLOAT_TYPE *temp_vec = NULL;
 
@@ -854,34 +853,31 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
     } else {
 	num = state->iso_stat.num_grps;
     }
+
     array_size = num * num;
     ierr = NDI_INIT_FLOAT_VEC(return_vec, vec_size);
     temp_vec = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
     if (!temp_vec) {
-	/* Out of memory */
-	return (-14);
+	return (-14);           /* Out of memory */
     }
 
-    /* Don't transpose matrix, but save user-defined transpose & trans. cor. state */
+    /* Don't transpose or correct matrix, 
+       but save user-defined transpose & correction state */
     transpose_state = state->mat_order;
     state->mat_order = 'd';
     corr_state = state->trans_corr;
     state->trans_corr = ' ';
 
-    ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_DOWN_FULL, vec_num + 1,
+    /* Reqt 91 - Use PN_FULL matrix for correct diagonal with upscatter */
+    ierr = NDI_GET_FLOAT_VEC_N_H(state, NDI_PN_FULL, vec_num + 1,
 				 temp_vec, array_size);
+    /* Restore transport & correction state */
     state->mat_order = transpose_state;
     state->trans_corr = corr_state;
 
-    /* Traverse the diagonal elements of the triangular 'matrix' using
-       the recurrance relation:
-       index(i) = index(i-1) + (num_grps - i - 1),
-       where index(0) = 0
-     */
     for (i = 0; i < num; i++) {
 	if (i < vec_size) {
-	    *(return_vec + i) = *(temp_vec + curr_index);
-	    curr_index += num - i;
+            return_vec[i] = temp_vec[i*num + i];
 	} else {
 	    ierr = 7;
 	    break;

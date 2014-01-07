@@ -1,3 +1,8 @@
+2014-01-07  Mark G. Gray  <mgg@ml-fey.lanl.gov>
+
+	* ndi_get_float_vec_n.c (GET_DIAG_CORR): Use PN_FULL for correct
+	diagonal with upscatter.
+
 2013-01-23  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
 	* ndi_abundance.h: Document abundance origins
