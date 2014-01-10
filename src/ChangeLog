@@ -1,3 +1,22 @@
+2014-01-10  Mark G. Gray  <mgg@ml-fey.lanl.gov>
+
+	* ndi_set_float_vec_option.c (ndi_set_collapse_vec): Added TN to
+	user set collapse groups.
+
+2014-01-08  Mark G. Gray  <mgg@ml-fey.lanl.gov>
+
+	* ndi_zaid_dir.c (ndi_zaid_dir): Added dosimetry_proton.
+
+	* ndi_handle.c (ndi_get_section): Added dosimetry_proton
+	(ndi_is_library_type): Added dosimetry_proton
+
+	* ndi_set_option.c (ndi_set_lib_type): Added dosimetry_proton to
+	lib_type 
+	(ndi_lib_dir): Added dosimetry_proton to lib_type
+
+	* ndi_check_option.c (ndi_get_lib_type): Added dosimetry_proton to
+	lib_type. 
+
 2014-01-07  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
 	* ndi_get_float_vec_n.c (GET_DIAG_CORR): Use PN_FULL for correct

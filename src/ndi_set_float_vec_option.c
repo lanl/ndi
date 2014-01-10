@@ -158,6 +158,15 @@ static int ndi_set_collapse_vec(state_struct *state,
 			   "user", state->library_type,
 			   &state->new_ebounds, &state->collapse_flag);
 
+    } else if (state->library_type == 's') { /* Reqt 92 */
+	/* TN */
+	if (state->new_ebounds)
+	    ndi_free((void **) &state->new_ebounds);
+	ierr =
+	    ndi_set_e_grps(0, NULL, &state->grp_num_new,
+			   &state->collapse_ebounds, "user",
+			   state->library_type, NULL,
+			   &state->collapse_flag);
     }
 
     if (ierr >= 0) {

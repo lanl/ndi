@@ -140,13 +140,14 @@ int __ndi_add_child_handle(state_struct *parent)
 char *ndi_get_section(state_struct *state)
 {
     static char *in_value[] = { "multigroup_neutron",
-	"neutron_depletion",
-	"multigroup_photon",
-	"tndata",
-	"tn_reactions",
-	"dosimetry_neutron",
-	"radchem_chain",
-	""
+                                "neutron_depletion",
+                                "multigroup_photon",
+                                "tndata",
+                                "tn_reactions",
+                                "dosimetry_neutron",
+                                "radchem_chain",
+                                "dosimetry_proton",
+                                ""
     };
     int sec;
 
@@ -162,13 +163,18 @@ char *ndi_get_section(state_struct *state)
 	sec = 3;
     } else if (state->library_type == 'r') {
 	sec = 4;
-    } else if (state->library_type == 'd') {
+    } else if (state->library_type == 'd'&& state->particle_type == 1) {
 	if (state->ndi_depl_set != 1)
 	    sec = 5;
 	else
 	    sec = 6;
+    } else if (state->library_type == 'd'&& state->particle_type == 1001) {
+	if (state->ndi_depl_set != 1)
+	    sec = 7;
+	else
+	    sec = 6;
     } else {
-	sec = 7;
+	sec = 8;
     }
 
     return (in_value[sec]);
@@ -189,6 +195,8 @@ int ndi_is_library_type(state_struct *state, const char *type)
 	return (state->library_type == 'r');
     else if (strcmp(type, "dosimetry_neutron") == 0)
 	return (state->library_type == 'd' && state->particle_type == 1);
+    else if (strcmp(type, "dosimetry_proton") == 0)
+	return (state->library_type == 'd' && state->particle_type == 1001);
     else if (strcmp(type, "multigroup_multi") == 0)
 	return (state->library_type == 'p');
     else

@@ -207,28 +207,30 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 	return (-2);
     }
 
-    if (strncmp(value, "multigroup_neutron", (19 * sizeof(char))) == 0) {
+    if (strncmp(value, "multigroup_neutron", 19) == 0) {
       /**** make section a global variable = multigroup_neutron? ****/
 
 	state->particle_type = 1;
 	state->library_type = 'm';
-    } else if (strncmp(value, "tn", (3 * sizeof(char))) == 0) {
+    } else if (strncmp(value, "tn", 3) == 0) {
 	state->particle_type = -1;
 	state->library_type = 's';
-    } else if (strncmp(value, "tnreactions", (12 * sizeof(char))) == 0) {
+    } else if (strncmp(value, "tnreactions", 12) == 0) {
 	state->particle_type = -1;
 	state->library_type = 'r';
-    } else if (strncmp(value, "multigroup_photon", (18 * sizeof(char))) ==
-	       0) {
+    } else if (strncmp(value, "multigroup_photon", 18) == 0) {
 	state->particle_type = 0;
 	state->library_type = 'm';
 
-    } else if (strncmp(value, "dosimetry_neutron", (18 * sizeof(char))) ==
-	       0) {
+    } else if (strncmp(value, "dosimetry_neutron", 18) == 0) {
 	state->particle_type = 1;
 	state->library_type = 'd';
+        /* Reqt 93: dosimetry proton */
+    } else if (strncmp(value, "dosimetry_proton", 17) == 0) {
+	state->particle_type = 1001;
+	state->library_type = 'd';
 
-    } else if (strncmp(value, "multigroup_multi", (17 * sizeof(char))) ==
+    } else if (strncmp(value, "multigroup_multi", 17) ==
 	       0) {
 	state->particle_type = -1;
 	state->library_type = 'p';
@@ -670,6 +672,12 @@ static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
     } else if ((pt_type == 1) && (l_type == 'd')) {
 	if (reaction_flag == 0) {
 	    strcpy(section, "dosimetry_neutron");
+	} else {
+	    strcpy(section, "radchem_chain");
+	}
+    } else if ((pt_type == 1001) && (l_type == 'd')) { /* Reqt 93 */
+	if (reaction_flag == 0) {
+	    strcpy(section, "dosimetry_proton");
 	} else {
 	    strcpy(section, "radchem_chain");
 	}

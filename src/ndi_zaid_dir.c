@@ -96,6 +96,12 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	} else {
 	    strcpy(section, "radchem_chain");
 	}
+    } else if ((pt_type == 1001) && (l_type == 'd')) { /* Reqt 93 */
+	if (reaction_flag == 0) {
+	    strcpy(section, "dosimetry_proton");
+	} else {
+	    strcpy(section, "radchem_chain");
+	}
     } else if ((pt_type == 0) && (l_type == 'm')) {
 	if (reaction_flag == 0) {
 	    strcpy(section, "multigroup_photon");

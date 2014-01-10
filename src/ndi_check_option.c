@@ -232,6 +232,10 @@ static int ndi_get_lib_type(state_struct *state, char *value,
 	strncpy(value, "multigroup_photon", string_size);
     } else if ((state->particle_type == 1) && (state->library_type == 'd')) {
 	strncpy(value, "dosimetry_neutron", string_size);
+        /* Reqt. 93: dosimetry proton */
+    } else if ((state->particle_type == 1001) && 
+               (state->library_type == 'd')) {
+	strncpy(value, "dosimetry_proton", string_size);
     } else if ((state->particle_type == -1)
 	       && (state->library_type == 'p')) {
 	strncpy(value, "multigroup_multi", string_size);
