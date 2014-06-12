@@ -1,3 +1,8 @@
+2014-06-12  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Added 264_lanl, 141_lanl,
+	75_lanl, 42_lanl, 37_lanl, and 34_lanl group boundaries.
+
 2014-05-22  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
 	* ndi_set_e_grps.c (ndi_set_e_grps): Added 460_awe, 35_awe group
