@@ -1,3 +1,12 @@
+2014-09-16  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Added user defined group
+	option to TN
+
+2014-08-27  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
+
+	* ndi_set_e_grps.c (ndi_set_e_grps): Added 301_lanl, 47_lanl group boundaries.
+
 2014-06-12  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
 	* ndi_set_e_grps.c (ndi_set_e_grps): Added 264_lanl, 141_lanl,
