@@ -1,0 +1,36 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 02/04/14\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+	/* stakeholders */
+        dkp[label="Mark Gray\nKent Parsons"];
+        mgg[label="Mark Gray"]
+        mbl[label="Beth Lee\nMark Gray"];
+        dahl[label="Jon Dahl"];
+	rcl[label="Bob Little"];
+        jomc[label="Joann Campbell"];
+
+	/* requirements */
+	ndi[label="NDI 2.1.0", shape="ellipse"];
+        
+        dkp -> ndi[label="90) mendf71x\nSN", color=green];
+        ndi -> rcl[label="90) mendf71x\nSN", color=green];
+        mbl -> ndi[label="90) mendf71x\nPD", color=red];
+        ndi -> rcl[label="90) mendf71x\nPD", color=red];
+        mgg -> ndi[label="91) xport\ncorr.", color=green];
+        ndi -> dahl[label="91) xport\ncorr.", color=green];
+        mgg -> ndi[label="92) user gs\nTN", color=orange];
+        ndi -> jomc[label="92) user gs\nTN", color=red];
+        mgg -> ndi[label="93) Dosimetry\nProton", color=green];
+        ndi -> jomc[label="93) Dosimetry\nProton", color=orange];
+
+	{rank=min; dkp; mgg; mbl}
+	{rank=max; rcl; dahl; jomc}
+}

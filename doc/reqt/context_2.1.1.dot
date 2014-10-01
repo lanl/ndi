@@ -1,0 +1,30 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 10/01/14\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+	/* stakeholders */
+        dkp[label="Morgan White\nKent Parsons"];
+        jlc[label="Jeremy Conlin\nMark Gray"];
+        mgg[label="Mark Gray"]
+	rcl[label="Bob Little"];
+        jomc[label="Joann Campbell"];
+
+	/* requirements */
+	ndi[label="NDI 2.1.1", shape="ellipse"];
+        
+        jlc -> ndi[label="94) group\nstructures", color=green];
+        dkp -> ndi[label="90) mendf71x\nSN", color=orange];
+        ndi -> rcl[label="90) mendf71x\nSN", color=orange];
+        mgg -> ndi[label="92) user gs\nTN", color=green];
+        ndi -> jomc[label="92) user gs\nTN", color=green];
+        ndi -> jomc[label="94) group\nstructures", color=green];
+	{rank=min; dkp; mgg; jlc}
+	{rank=max; rcl; jomc}
+}

@@ -4,7 +4,7 @@ digraph ndi {
 	size="9, 6.5";
 	center=1;
 	ratio=fill;	
-        label="Context Diagram 11/27/12\n\
+        label="Context Diagram 01/14/13\n\
 	green=completed work\n\
 	orange=ongoing work\n\
 	red=future work";
@@ -13,14 +13,20 @@ digraph ndi {
         mgg[label="Mark Gray\nKent Parsons"];
         boom[label="John Vandenkieboom"];
 	lmdm[label="Mike McKay"];
+        mbl[label="Beth Lee\nMark Gray"];
+        jomc[label="Joann Campbell"];
 
 	/* requirements */
 	ndi[label="NDI 2.0.19", shape="ellipse"];
         
-        mgg -> ndi[label="86) mtmg01ex\nSN", color=orange];
+        mgg -> ndi[label="86) mtmg01ex\nSN", color=green];
         ndi -> lmdm[label="87) NDIHOME", color=green]; 
-        ndi -> boom[label="86) mtmg01ex\nSN", color=red];
+        ndi -> boom[label="86) mtmg01ex\nSN", color=green];
+        mbl -> ndi[label="88) as_2008\nRC", color=green];
+        ndi -> jomc[label="88) as_2008\nRC", color=green];
+        mbl -> ndi[label="89) u_2006\nRC", color=green];
+        ndi -> jomc[label="89) u_2006\nRC", color=green];
 
-	{rank=min; mgg}
+	{rank=min; mgg; mbl}
 	{rank=max; lmdm; boom}
 }

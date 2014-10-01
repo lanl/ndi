@@ -1,0 +1,27 @@
+digraph ndi {
+	rotate=90;
+	page="8.5, 11";
+	size="9, 6.5";
+	center=1;
+	ratio=fill;	
+        label="Context Diagram 11/21/13\n\
+	green=completed work\n\
+	orange=ongoing work\n\
+	red=future work";
+	node[shape="box"];
+	/* stakeholders */
+        jlc[label="Jeremy Conlin\nKent Parsons"];
+        mbl[label="Beth Lee\nMark Gray"];
+	rcl[label="Bob Little"];
+
+	/* requirements */
+	ndi[label="NDI 2.0.19", shape="ellipse"];
+        
+        jlc -> ndi[label="90) mendf71x\nSN", color=green];
+        ndi -> rcl[label="90) mendf71x\nSN", color=green];
+        mbl -> ndi[label="90) mendf71x\nPD", color=green];
+        ndi -> rcl[label="90) mendf71x\nPD", color=green];
+
+	{rank=min; jlc; mbl}
+	{rank=max; rcl}
+}
