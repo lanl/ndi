@@ -566,6 +566,7 @@ extern "C" {
     int ndi_special_sza( int sza, char *sym_str, int str_size );
     char *ndi_error_string(int ierr);
     char *ndi_mt_label(int mt);
+    int ndi_has_mt(state_struct *state, int mt);
     double ndi_gl10(double (*f)(double), double a, double b);
     double ndi_td(double x);
     double ndi_ttd(double E, double T);

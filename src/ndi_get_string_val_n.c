@@ -400,11 +400,15 @@ static int ndi_mt_to_label(state_struct *state, int mt,
         return -25;             /* Null vector input by user. */
     } else {
         *label = '\0';          /* Initialize label */
+        /* Reqt. 19: handle old extended zaid notation */
+        if ((mt == 102 || mt == 16) && ndi_has_mt(state, 1000+mt)) {
+            mt *= 1000;
+        }
         strcpy(x, ndi_mt_label(mt)); /* Get MT label */
     }
 
     if (strcmp(x, "") == 0)     /* MT label unrecognized */
-        return -24;             /* Bad reaction MT or C identifier. */
+        return -24;             /* Bad reaction MT identifier. */
 
     if (strlen(x) + 1 > size)   /* MT label too big  */
         ierr = 6;               /* Unexpected extra data. */

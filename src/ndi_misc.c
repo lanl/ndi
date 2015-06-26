@@ -872,6 +872,24 @@ char *ndi_mt_label(int mt)
 
 /**********************************************************************/
 
+/* Does isotope table contain reaction mt? Reqt. 19*/
+int ndi_has_mt(state_struct *state, int mt)
+{
+    int *reac;
+
+    if (state && (state->iso_stat.num_reac > 0) && (state->iso_stat.reac_mt)) {
+        reac = state->iso_stat.reac_mt;
+        for (int i = 0; i < state->iso_stat.num_reac; i++) {
+            if (mt == reac[i]) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+/**********************************************************************/
+
 /* 10 point Gauss-Legendre Quadrature
    See: M. Abramowitz and I. A. Stegun,
    Handbook of Mathematical Functions
