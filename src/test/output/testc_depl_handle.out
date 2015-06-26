@@ -37,7 +37,7 @@ Total depl cross section:
 Reaction MTs:
             16           102
 MT:16 = (z,2n)
-MT:102 = (n,g)
+MT:102 = (z,g)
 Reaction product multiplicities:
     1.00000e+00    2.00000e+00
 
@@ -56,7 +56,7 @@ Reaction product multiplicities:
   Error getting production cross section = 9.
 Reaction MTs:
            102            17
-MT:102 = (n,g)
+MT:102 = (z,g)
 MT:17 = (z,3n)
 Reaction product multiplicities:
     1.00000e+00    1.00000e+00
@@ -142,7 +142,7 @@ Total depl cross section:
     8.16852e+01    4.91400e+02
 Reaction MTs:
            102
-MT:102 = (n,g)
+MT:102 = (z,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -209,7 +209,7 @@ Reaction product multiplicities:
     9.79387e+02    2.72932e+02
 Reaction MTs:
            102
-MT:102 = (n,g)
+MT:102 = (z,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -294,7 +294,7 @@ Reaction product multiplicities:
     1.54563e+02    2.67543e+02
 Reaction MTs:
            102
-MT:102 = (n,g)
+MT:102 = (z,g)
 Reaction product multiplicities:
     1.00000e+00
 
@@ -379,7 +379,7 @@ Reaction product multiplicities:
     3.83973e+02    3.31779e+02
 Reaction MTs:
            102
-MT:102 = (n,g)
+MT:102 = (z,g)
 Reaction product multiplicities:
     1.00000e+00
 

@@ -93,14 +93,14 @@ Check translation of MT to Label.
   MT=  16: (z,2n)              
   MT=  17: (z,3n)              
   MT=  18: (z,fission)         
-  MT=  19: (n,f)               
-  MT=  20: (n,nf)              
-  MT=  21: (n,2nf)             
+  MT=  19: (z,f)               
+  MT=  20: (z,nf)              
+  MT=  21: (z,2nf)             
   MT=  22: (z,na)              
-  MT=  23: (n,n3a)             
+  MT=  23: (z,n3a)             
   MT=  24: (z,2na)             
   MT=  25: (z,3na)             
-  MT=  27: (n,absorption)      
+  MT=  27: (z,abs)             
   MT=  28: (z,np)              
   MT=  29: (z,n2a)             
   MT=  30: (z,2n2a)            
@@ -110,7 +110,7 @@ Check translation of MT to Label.
   MT=  35: (z,nd2a)            
   MT=  36: (z,nt2a)            
   MT=  37: (z,4n)              
-  MT=  38: (n,3nf)             
+  MT=  38: (z,3nf)             
   MT=  41: (z,2np)             
   MT=  42: (z,3np)             
   MT=  44: (z,n2p)             
@@ -157,8 +157,8 @@ Check translation of MT to Label.
   MT=  89: (z,n)m39            
   MT=  90: (z,n)m40            
   MT=  91: (z,n)m98            
-  MT= 101: (n,disappearance)   
-  MT= 102: (n,g)               
+  MT= 101: (z,disap)           
+  MT= 102: (z,g)               
   MT= 103: (z,p)               
   MT= 104: (z,d)               
   MT= 105: (z,t)               
@@ -443,17 +443,17 @@ Check translation of MT to Label.
 
 Check translation of extended MT to label.
   MT=   1017: (z,3n)m1            
-  MT=   1102: (n,g)m1             
+  MT=   1102: (z,g)m1             
   MT=   2017: (z,3n)m2            
-  MT=   2102: (n,g)m2             
+  MT=   2102: (z,g)m2             
   MT=   3017: (z,3n)m3            
-  MT=   3102: (n,g)m3             
+  MT=   3102: (z,g)m3             
   MT=  16000: (z,2n)m0            
   MT=  16001: (z,2n)m1            
   MT=  16002: (z,2n)m2            
   MT=  16003: (z,2n)m3            
   MT=  17000: (z,3n)m0            
   MT=  17001: (z,3n)m1            
-  MT= 102000: (n,g)m0             
-  MT= 102001: (n,g)m1             
-  MT= 102002: (n,g)m2             
+  MT= 102000: (z,g)m0             
+  MT= 102001: (z,g)m1             
+  MT= 102002: (z,g)m2             

@@ -1,5 +1,8 @@
 2015-06-26  Mark Girard Gray  <mgg@ml-fey2.lanl.gov>
 
+	* ndi_misc.c (ndi_mt_label): Update labels to be more consistent
+	with standard.
+
 	* ndi_get_string_val_n.c (ndi_mt_to_label): Interpret mt=16 or 102
 	as 16000 or 102000 if 1016 or 1102 in table.
 
