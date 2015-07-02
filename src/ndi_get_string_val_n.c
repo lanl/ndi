@@ -99,6 +99,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 {
 
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
+    char c;                     /* Reqt. 19: incident particle name */
 
     if (!state) {
 	return (-2);
@@ -202,6 +203,15 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 
     case NDI_REAC_LABEL:	/* Reaction label by MT */
 	ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
+        /* get incident particle name */
+        c = ndi_get_incident_name(state->particle_type); 
+        /* substitue incident particle name */
+        for (int i = 0; i < str_size; i++) {
+            if (ret_val[i] == 'z') 
+                ret_val[i] = c;
+            else if (ret_val[i] ==  '\0')
+                break;
+        }
 	break;
 
      /**************  UNKNOWN KEYWORD  *****************/

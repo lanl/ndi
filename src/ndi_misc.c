@@ -889,6 +889,38 @@ int ndi_has_mt(state_struct *state, int mt)
 }
 
 /**********************************************************************/
+/* Reqt. 19: return incident particle name from zaid */
+
+char ndi_get_incident_name(int sza)
+{
+    char c;
+
+    /* get appropriate incident particle name */
+    switch (sza) {
+    case 0:                     /* photon */
+        c = 'g';
+        break;
+    case 1:                     /* neutron */
+        c = 'n';
+        break;
+    case 1001:                  /* proton */
+        c = 'p';
+        break;
+    case 1002:                  /* deuteron */
+        c = 'd';
+        break;
+    case 1003:                  /* triton */
+        c = 't';
+    case 2004:                  /* alpha */
+        c = 'a';
+    default:                    /* others */
+        c = 'z';
+        break;
+    }
+    return c;
+}
+
+/**********************************************************************/
 
 /* 10 point Gauss-Legendre Quadrature
    See: M. Abramowitz and I. A. Stegun,

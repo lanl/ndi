@@ -1,3 +1,11 @@
+2015-07-02  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
+
+	* ndi_get_string_val_n.c (get_string_n_mg): Add code to substitute
+	incident particle name for z in reaction label. 
+
+	* ndi_misc.c (ndi_get_incident_name): Add code to return incident
+	particle name by zaid. 
+
 2015-06-26  Mark Girard Gray  <mgg@ml-fey2.lanl.gov>
 
 	* ndi_misc.c (ndi_mt_label): Update labels to be more consistent
