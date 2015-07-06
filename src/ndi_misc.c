@@ -889,7 +889,10 @@ int ndi_has_mt(state_struct *state, int mt)
 }
 
 /**********************************************************************/
-/* Reqt. 19: return incident particle name from zaid */
+/* Reqt. 19: return incident particle name from zaid 
+ *
+ * See "General NDI Library Conventions", X-5:MCW-02-82, Table 2 
+*/
 
 char ndi_get_incident_name(int sza)
 {
