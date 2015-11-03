@@ -1,5 +1,5 @@
 BEGIN {
-     perms = "-r[-w]-r--r--|drw[xsStT]r-[xsStT]r-[xsStT]";
+     perms = "-r[-w]-r[-w]-r--|drw[xsStT]r-[xsStT]r-[xsStT]";
      group = "pdata";
      "whoami" | getline user;
      close("whoami");

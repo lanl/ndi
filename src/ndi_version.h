@@ -1,1 +1,1 @@
-#define NDI_VERSION_DATA "2.1.2alpha"
+#define NDI_VERSION_DATA "2.1.2"
