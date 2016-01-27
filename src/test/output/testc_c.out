@@ -184167,7 +184167,7 @@ Returned ZAID = 53129.600nm.
 Returned ZAID = 94239.600nm.
 
 ***********************ISOTOPE=u235500nm***********************
-  **Error -8 in setting isotope u235500nm.
+  **Error -22 in setting isotope u235500nm.
 
   **Error -7 in getting ZAID --  returned value is ''
 
@@ -184262,7 +184262,7 @@ Returned ZAID = 53129.600nm.
 Returned ZAID = 94239.600nm.
 
 ***********************ISOTOPE=u235500nm***********************
-  **Error -8 in setting isotope u235500nm.
+  **Error -22 in setting isotope u235500nm.
 
   **Error -7 in getting ZAID --  returned value is ''
 
@@ -184358,7 +184358,7 @@ Returned ZAID = 53129.600nm.
 Returned ZAID = 94239.600nm.
 
 ***********************ISOTOPE=u235500nm***********************
-  **Error -8 in setting isotope u235500nm.
+  **Error -22 in setting isotope u235500nm.
 
   **Error -7 in getting ZAID --  returned value is ''
 

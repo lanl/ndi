@@ -57,9 +57,15 @@ ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
 }
 
 /**********************************************************************/
-int
-ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, int *Z,
-			int *A, int *S)
+/* Name or Serpent naming convention:
+
+   symbolic_sza = E, ['-'], A, S;
+              E = ? case insensitive element symbol ?;
+              A = {digit}
+              S = ('g'|'G') | (('m'|'M'), {digit}), eos; 
+*/
+int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, 
+                            int *Z, int *A, int *S)
 {
     /* Parse a symbolic zaid, i.e. of the form U235 or Pu-239.  
        The zaid may have an ending extension, i.e. H1.600nm.
@@ -76,7 +82,7 @@ ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, int *Z,
 	return (-2);
     }
 
-  /** Find Z **/
+    /* Find Z = alpha, [alpha]; */
     element_symbol[0] = tolower(*curr_char);
     curr_char++;
 
@@ -87,40 +93,45 @@ ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid, int *Z,
 
     *Z = state->ndi_elements[element_index(element_symbol)];
 
-  /** Find A **/
+    /* Skip optional dash */
     if (*curr_char == '-') {
 	curr_char = curr_char + 1;
     }
 
+    /* Find A = {digit} */
     if (isdigit(*curr_char)) {
-	*A = (int) strtol(curr_char, (char **) NULL, 10);
+	*A = (int) strtol(curr_char, &curr_char, 10);
     } else {
 	*A = 0;
     }
 
+    /* Find S */
     *S = ndi_find_symbolic_state(curr_char);
     return (ierr);
 
 }
 
 /**********************************************************************/
-int ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S)
+/* SZA naming convention:
+
+   sza = (S * 1000 + Z) * 1000 + A 
+
+   Reqt. 20: Simplify math */
+int ndi_parse_int_zaid(int sza, int *Z, int *A, int *S)
 {
-
-    int ierr = 0;
-    double zaid_part = (double) izaid;
-
-    *A = (int) fmod(zaid_part, 1000);
-    zaid_part = (izaid - *A) / 1000;
-    *Z = (int) fmod(zaid_part, 1000);
-    *S = (int) (zaid_part / 1000);
-
-    return (ierr);
-
+    *S = sza / 1000000;
+    *Z = (sza / 1000) % 1000;
+    *A = sza % 1000;
+    return 0;
 }
 
 /**********************************************************************/
+/* symbolic_state = [body] | eos;
+             body = ('g'|'G') | (('m'|'M'), {digit});
+              eos = '.' | ({ \t\f\n}), '\0');
 
+   Reqt. 20: refactor
+*/
 static int ndi_find_symbolic_state(char *in_str)
 {
 
@@ -140,25 +151,32 @@ static int ndi_find_symbolic_state(char *in_str)
        terminating character '\0'.  
      */
 
-    int istate = 0;
-    char *curr_char = in_str;
+    int s = 0;
+    char *c = in_str;
 
-    while ((*curr_char != '\0') &&
-	   (!isspace(*curr_char)) && (*curr_char != '.')) {
-
-	if (tolower(*curr_char) == 'm') {
-	    if (isdigit(*(curr_char + 1))) {
-		istate = (int) strtol((curr_char + 1), (char **) NULL, 10);
-	    } else {
-		istate = 1;
-	    }
-	    break;
-	} else {
-	    curr_char++;
-	}
+    /* body */
+    switch (tolower(*c)) {
+    case 'g':                   /* Explicit ground state */
+        c++;
+        break;
+    case 'm':                   /* Explicit iso-state */
+        c++;
+        if (isdigit(*c))
+            s = (int) strtol(c, &c, 10);
+        else
+            s = 1;
+        break;
     }
 
-    return (istate);
+    /* eos */
+    if (*c == '.')
+        return s;
+    while (isspace(*c))
+        c++;                    /* skip whitespace */
+    if (*c == '\0')
+        return s;
+    else
+        return -1;              /* Error! */
 }
 
 /**********************************************************************/

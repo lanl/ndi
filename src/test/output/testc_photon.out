@@ -115276,6 +115276,12 @@ Returned ZAID = 92000.620pm.
 ***********************ISOTOPE=11000.020pm***********************
 Returned ZAID = 11000.020pm.
 
+***********************ISOTOPE=1092235***********************
+Returned ZAID = 92000.620pm.
+
+***********************ISOTOPE=U235m2***********************
+Returned ZAID = 92000.620pm.
+
 ***********************ISOTOPE=C.***********************
 Returned ZAID = 6000.020pm.
 
@@ -115286,7 +115292,7 @@ Returned ZAID = 2000.020pm.
 Returned ZAID = 94000.020pm.
 
 ***********************ISOTOPE=u620pm***********************
-  **Error -8 in setting isotope u620pm.
+  **Error -22 in setting isotope u620pm.
 
   **Error -7 in getting ZAID --  returned value is ''
 
@@ -115358,6 +115364,12 @@ Returned ZAID = 92000.620pm.
 ***********************ISOTOPE=11000.020pm***********************
 Returned ZAID = 11000.020pm.
 
+***********************ISOTOPE=1092235***********************
+Returned ZAID = 92000.020pm.
+
+***********************ISOTOPE=U235m2***********************
+Returned ZAID = 92000.020pm.
+
 ***********************ISOTOPE=C.***********************
 Returned ZAID = 6000.020pm.
 
@@ -115368,7 +115380,7 @@ Returned ZAID = 2000.020pm.
 Returned ZAID = 94000.020pm.
 
 ***********************ISOTOPE=u620pm***********************
-  **Error -8 in setting isotope u620pm.
+  **Error -22 in setting isotope u620pm.
 
   **Error -7 in getting ZAID --  returned value is ''
 
@@ -115443,6 +115455,12 @@ Returned ZAID = 92000.620pm.
 ***********************ISOTOPE=11000.020pm***********************
 Returned ZAID = 11000.020pm.
 
+***********************ISOTOPE=1092235***********************
+Returned ZAID = 92000.620pm.
+
+***********************ISOTOPE=U235m2***********************
+Returned ZAID = 92000.620pm.
+
 ***********************ISOTOPE=C.***********************
   **Error -8 in setting isotope C..
 
@@ -115455,7 +115473,7 @@ Returned ZAID = 2000.020pm.
 Returned ZAID = 94000.020pm.
 
 ***********************ISOTOPE=u620pm***********************
-  **Error -8 in setting isotope u620pm.
+  **Error -22 in setting isotope u620pm.
 
   **Error -7 in getting ZAID --  returned value is ''
 

@@ -1,3 +1,8 @@
+2016-01-27  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
+
+	* photon.c (test_photon): Added test for meta state zaid for
+	Requirement 20
+
 2008-05-14  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
 	* zaid_tempf.F (main): added space around parens in temperature

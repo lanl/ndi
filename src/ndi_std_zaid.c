@@ -51,13 +51,18 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 	return (-2);
     }
     ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
+    if (S == -1 || Z == -1 || A == -1)
+        return -22;             /* Invalid SZA */
+
+    /* Reqt. 20 */ 
+    if (state->particle_type == 0) { /* Photon */
+        S = 0;                       /* Ignore isostate number*/
+        A = 0;                       /* Ignore mass number  */
+    }
 
     /* Check errors */
     if ((Z <= MAX_Z) && (Z > 0)) {
-        if (state->particle_type == 0)
-            sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000));
-        else
-            sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000 + A));
+        sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000 + A));
 
 	(void) ndi_process_extension(in_zaid, &zaid_extension_p);
 	strcat(real_zaid, zaid_extension_p);

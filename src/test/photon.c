@@ -36,17 +36,21 @@ int test_photon (void)
    int ierr = 0;
    int i;
    int num_zaid = 6;
-   int ext_num_zaid = 21;
+   int ext_num_zaid = 23;
    char test_zaid[133] = "";
 
    /* Requirement 20: 1001 is now a valid photon zaid (returns 1000) */
-   char *zaid_list[] = { "92000.", "1001.020pm", "92000.620", "3000", "pu", "10020"  };
-   char *extend_zaid_list[] = { "U", "Pu", "92000", "92000.0", "U.62", "11000.020pm",
+   char *zaid_list[] = { "92000.", "1001.020pm", "92000.620", "3000", 
+                         "pu", "10020"};
+   /* Requirement 20: 1092235 is a valid photon zaid (returns 92000) 
+                      U-235m2 is a valid photon zaid (returns 92000) */
+   char *extend_zaid_list[] = { "U", "Pu", "92000", "92000.0", "U.62", 
+                                "11000.020pm", "1092235", "U235m2", 
 				"C.", "He.02", "pu.020pm", "u620pm",
 				"24000", "1000.", "77700.6", 
 				"3000.020p", "92000.020pr", "10020.",
-				"92000020nm", "1000pm", "100o.pm", "1000.0.pm",
-				"h.0.pm"};
+				"92000020nm", "1000pm", "100o.pm", 
+                                "1000.0.pm", "h.0.pm" };
  
    printf("  NDI TEST SUITE -- test_photon \n");
 

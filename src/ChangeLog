@@ -1,3 +1,12 @@
+2016-01-27  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
+
+	* ndi_std_zaid.c (ndi_std_zaid): Set isostate, mass number to zero
+	for photons
+
+	* ndi_parse_zaid.c (ndi_parse_int_zaid): Simplify math
+	(ndi_parse_symbolic_zaid): Advance pointer after parsing A
+	(ndi_find_symbolic_state): Refactor parser
+
 2015-07-02  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
 
 	* ndi_get_string_val_n.c (get_string_n_mg): Add code to substitute
