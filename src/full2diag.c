@@ -1,3 +1,4 @@
+#include "ndi_var_type.h"
 
 /*  Purpose:  Takes a square scattering matrix and forms a "downscatter
     diagonal".  It will take the upscatter and add this into the 

@@ -1,10 +1,21 @@
 target_include_directories(ndi_C PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
   $<INSTALL_INTERFACE:"include/ndi">)
+
+target_include_directories(ndi_F PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
+  $<INSTALL_INTERFACE:"include/ndi">)
+
+target_sources(ndi_F PRIVATE
+  $<BUILD_INTERFACE:
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c>)
+
+target_sources(ndi_F PUBLIC
+  $<BUILD_INTERFACE:
+    ${CMAKE_BINARY_DIR}/fmangle.h>)
 
 target_sources(ndi_C PRIVATE
   $<BUILD_INTERFACE:
-    ${CMAKE_CURRENT_LIST_DIR}/fcallscc.c
     ${CMAKE_CURRENT_LIST_DIR}/full2diag.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_avail.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.c
@@ -18,10 +29,8 @@ target_sources(ndi_C PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/ndi_element_index.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_fill_element.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_find_index.c
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_find_part_index.c
+    #${CMAKE_CURRENT_LIST_DIR}/ndi_find_part_index.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_find_reaction_index.c
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran_cray.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_free.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val_n.c
