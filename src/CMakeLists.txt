@@ -1,5 +1,18 @@
+add_executable(ndi_define_float 
+  ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
+
+add_custom_command(
+  OUTPUT ndi_var_type.h
+  COMMAND ndi_define_float > ndi_var_type.h)
+
+add_custom_target(generate_ndi_var_type 
+  DEPENDS ndi_var_type.h)
+
+add_dependencies(ndi_C generate_ndi_var_type)
+
 target_include_directories(ndi_C PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
   $<INSTALL_INTERFACE:"include/ndi">)
 
 target_include_directories(ndi_F PUBLIC
@@ -8,14 +21,23 @@ target_include_directories(ndi_F PUBLIC
 
 target_sources(ndi_F PRIVATE
   $<BUILD_INTERFACE:
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c>)
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.f90>)
 
-target_sources(ndi_F PUBLIC
-  $<BUILD_INTERFACE:
-    ${CMAKE_BINARY_DIR}/fmangle.h>)
+#target_sources(ndi_F PUBLIC
+#  $<BUILD_INTERFACE:
+#    ${CMAKE_BINARY_DIR}/fmangle.h>)
+
+
+#target_sources(ndi_C PUBLIC
+#  $<BUILD_INTERFACE:
+#    #${CMAKE_CURRENT_LIST_DIR}/ndi_var_type.h
+#    #${CMAKE_BINARY_DIR}/fmangle.h>)
+
 
 target_sources(ndi_C PRIVATE
   $<BUILD_INTERFACE:
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
     ${CMAKE_CURRENT_LIST_DIR}/full2diag.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_avail.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.c
@@ -25,12 +47,13 @@ target_sources(ndi_C PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/ndi_close_lib_file.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_float.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_mat.c
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_element_index.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_fill_element.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_find_index.c
     #${CMAKE_CURRENT_LIST_DIR}/ndi_find_part_index.c
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_find_reaction_index.c
+    #${CMAKE_CURRENT_LIST_DIR}/ndi_find_reaction_index.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_free.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val.c
     ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val_n.c
@@ -99,14 +122,19 @@ target_sources(ndi_C PRIVATE
 target_sources(ndi_C PUBLIC
   $<BUILD_INTERFACE:
     ${CMAKE_CURRENT_LIST_DIR}/ndi.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_abundance.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_symbols.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_abundance.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_symbols.h
     ${CMAKE_CURRENT_LIST_DIR}/ndi_internal.h
     ${CMAKE_CURRENT_LIST_DIR}/ndi_keywords.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_version.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.h>)
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_keywords.i
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_version.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_var_type.h
+>)
 
-
+if(ndi_tests)
+  include(${CMAKE_CURRENT_LIST_DIR}/test/CMakeLists.txt)
+endif()

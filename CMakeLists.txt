@@ -31,6 +31,7 @@ else()
 endif()
 
 target_link_libraries(ndi_F PUBLIC ndi_C)
+target_link_libraries(ndi_C PUBLIC m)
 
 add_library(ndi::ndi_C ALIAS ndi_C)
 add_library(ndi::ndi_F ALIAS ndi_F)
@@ -44,15 +45,15 @@ set_target_properties(ndi_F PROPERTIES
 target_compile_features(ndi_C PUBLIC c_std_99)
 set_target_properties(ndi_C PROPERTIES C_EXTENSIONS OFF)
 
+#target_compile_definitions(ndi_C PUBLIC FLOAT64 FLOAT32)
+#target_compile_definitions(ndi_F PUBLIC FLOAT32 FLOAT64)
 target_compile_definitions(ndi_C PUBLIC FLOAT32)
+target_compile_definitions(ndi_F PUBLIC FLOAT32)
+
 
 include(src/CMakeLists.txt)
-#include(src/test/CMakeLists.txt)
 
-#add_subdirectory(src)
-#add_subdirectory(
-
-
+#[===[
 FortranCInterface_HEADER(fmangle.h SYMBOL_NAMESPACE "F_" SYMBOLS
   NDI_INIT 
   NDID_GET_SIZE
@@ -127,4 +128,4 @@ FortranCInterface_HEADER(fmangle.h SYMBOL_NAMESPACE "F_" SYMBOLS
   NDI2_GET_STRING_VAL_N
   NDI2_GET_STRING_VEC
   NDI2_GET_STRING_VEC_X)
-
+#]===]
