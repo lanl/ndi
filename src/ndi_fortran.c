@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//#include "fmangle.h"
+#include "fmangle.h"
 
 #include "ndi.h"
 #include "ndi_internal.h"
