@@ -6,6 +6,11 @@ include(CTest)
 include(CMakeDependentOption)
 include(FortranCInterface)
 
+set(ENV{NDIROOT} "/usr/projects/data/nuclear/ndi")
+set(ENV{NDI_VERSION_DATA}  "2.1.3beta")
+#set(ENV{SRCDIR} ".")
+set(ENV{TOP_SRCDIR} "/usr/projects/lindet/tgsaller/ndi/clean/ndi")
+
 option(ndi_shared_library
    "Build the ndi unit tests and integrate with ctest"
    "${BUILD_SHARED_LIBS}")
@@ -23,35 +28,49 @@ set(ndi_data_path "$ENV{NDI_DATA_PATH}" CACHE PATH
   "Path to the installation of the NDI-format nuclear data libraries")
 
 if(ndi_shared_library)
-  add_library(ndi_C SHARED "")
+  add_library(ndi_C_32 SHARED "")
+  add_library(ndi_C_64 SHARED "")
   add_library(ndi_F SHARED "")
 else()
-  add_library(ndi_C STATIC "")
+  add_library(ndi_C_32 STATIC "")
+  add_library(ndi_C_64 STATIC "")
   add_library(ndi_F STATIC "")
 endif()
 
-target_link_libraries(ndi_F PUBLIC ndi_C)
-target_link_libraries(ndi_C PUBLIC m)
+target_link_libraries(ndi_F PUBLIC ndi_C_32 ndi_C_64)
+target_link_libraries(ndi_C_32 PUBLIC m)
+target_link_libraries(ndi_C_64 PUBLIC m)
 
-add_library(ndi::ndi_C ALIAS ndi_C)
+add_library(ndi::ndi_C_32 ALIAS ndi_C_32)
+add_library(ndi::ndi_C_64 ALIAS ndi_C_64)
 add_library(ndi::ndi_F ALIAS ndi_F)
 
-set_target_properties(ndi_C PROPERTIES
+set_target_properties(ndi_C_32 PROPERTIES
+  POSITION_INDEPENDENT_CODE "${ndi_position_independent_code}")
+
+set_target_properties(ndi_C_64 PROPERTIES
   POSITION_INDEPENDENT_CODE "${ndi_position_independent_code}")
 
 set_target_properties(ndi_F PROPERTIES
   POSITION_INDEPENDENT_CODE "${ndi_position_independent_code}")
 
-target_compile_features(ndi_C PUBLIC c_std_99)
-set_target_properties(ndi_C PROPERTIES C_EXTENSIONS OFF)
+target_compile_features(ndi_C_32 PUBLIC c_std_99)
+target_compile_features(ndi_C_64 PUBLIC c_std_99)
 
-#target_compile_definitions(ndi_C PUBLIC FLOAT64 FLOAT32)
-#target_compile_definitions(ndi_F PUBLIC FLOAT32 FLOAT64)
-target_compile_definitions(ndi_C PUBLIC FLOAT32)
-target_compile_definitions(ndi_F PUBLIC FLOAT32)
+set_target_properties(ndi_C_32 PROPERTIES C_EXTENSIONS OFF)
+set_target_properties(ndi_C_64 PROPERTIES C_EXTENSIONS OFF)
 
+target_compile_definitions(ndi_C_32 PUBLIC __STANDALONE)
+target_compile_definitions(ndi_C_64 PUBLIC __STANDALONE)
+target_compile_definitions(ndi_F PUBLIC __STANDALONE)
+target_compile_definitions(ndi_C_32 PUBLIC FLOAT32)
+target_compile_definitions(ndi_C_64 PUBLIC FLOAT64)
+target_compile_definitions(ndi_F PUBLIC FLOAT32 FLOAT64)
 
 include(src/CMakeLists.txt)
+
+get_target_property(NDI_SOURCES ndi_C_32 SOURCES)
+set_target_properties(ndi_C_64 PROPERTIES SOURCES "${NDI_SOURCES}")
 
 #[===[
 FortranCInterface_HEADER(fmangle.h SYMBOL_NAMESPACE "F_" SYMBOLS

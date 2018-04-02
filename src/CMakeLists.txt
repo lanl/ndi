@@ -1,3 +1,11 @@
+add_custom_command(
+  OUTPUT ndi_keywords.i
+  COMMAND ${CMAKE_COMMAND} -P ${ndi_SOURCE_DIR}/cmake/split.cmake
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+
+add_custom_target(generate_ndi_keywords
+  DEPENDS ndi_keywords.i)
+
 add_executable(ndi_define_float 
   ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
 
@@ -8,9 +16,28 @@ add_custom_command(
 add_custom_target(generate_ndi_var_type 
   DEPENDS ndi_var_type.h)
 
-add_dependencies(ndi_C generate_ndi_var_type)
+add_executable(ndi_define_fmangle
+  ${CMAKE_CURRENT_LIST_DIR}/fcallscc.c
+  ${CMAKE_CURRENT_LIST_DIR}/fcallscf.f)
 
-target_include_directories(ndi_C PUBLIC
+add_custom_command(
+  OUTPUT fmangle.h
+  COMMAND ndi_define_fmangle > fmangle.h)
+
+add_custom_target(generate_fmangle 
+  DEPENDS fmangle.h)
+
+add_dependencies(generate_fmangle generate_ndi_keywords)
+add_dependencies(ndi_C_32 generate_ndi_var_type)
+add_dependencies(ndi_C_32 generate_fmangle)
+
+
+target_include_directories(ndi_C_32 PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
+  $<INSTALL_INTERFACE:"include/ndi">)
+
+target_include_directories(ndi_C_64 PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
   $<INSTALL_INTERFACE:"include/ndi">)
@@ -35,7 +62,7 @@ target_sources(ndi_F PRIVATE
 #    #${CMAKE_BINARY_DIR}/fmangle.h>)
 
 
-target_sources(ndi_C PRIVATE
+target_sources(ndi_C_32 PRIVATE
   $<BUILD_INTERFACE:
     ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
     ${CMAKE_CURRENT_LIST_DIR}/full2diag.c
@@ -119,21 +146,120 @@ target_sources(ndi_C PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/ndimp_set_option.c
     ${CMAKE_CURRENT_LIST_DIR}/ndimp_set_zaid.c> )
 
-target_sources(ndi_C PUBLIC
+target_sources(ndi_C_32 PUBLIC
   $<BUILD_INTERFACE:
     ${CMAKE_CURRENT_LIST_DIR}/ndi.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_abundance.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_symbols.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_abundance.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_symbols.h
     ${CMAKE_CURRENT_LIST_DIR}/ndi_internal.h
     ${CMAKE_CURRENT_LIST_DIR}/ndi_keywords.h
-    ${CMAKE_CURRENT_LIST_DIR}/ndi_keywords.i
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_version.h
-#    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_version.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.h
 #    ${CMAKE_CURRENT_LIST_DIR}/ndi_var_type.h
 >)
+
+target_sources(ndi_C_64 PRIVATE
+  $<BUILD_INTERFACE:
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
+    ${CMAKE_CURRENT_LIST_DIR}/full2diag.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_avail.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_c_values.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_check_option.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_close.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_close_lib_file.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_float.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_mat.c
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_index.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fill_element.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_find_index.c
+    #${CMAKE_CURRENT_LIST_DIR}/ndi_find_part_index.c
+    #${CMAKE_CURRENT_LIST_DIR}/ndi_find_reaction_index.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_free.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec_x.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_int_val.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_int_val_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_int_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_int_vec_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_int_vec_x.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_size.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_size_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_size_x.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_string_val.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_string_val_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_string_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_get_string_vec_x.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_handle.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_init.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_init_iso_state.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_init_state.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_interp_integ.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_malloc.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_misc.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_misc_depl.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_misc_float.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_open_gendir.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_open_lib_file.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_parse_zaid.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_read_dir_block.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_read_float_block.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_read_int_block.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_read_rx_prod.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_read_string_block.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set0.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set_e_grps.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set_float_vec_option.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set_isotope.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set_option.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_set_zaid_float_temp.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_skip_float_block.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_skip_rx_prod.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_std_zaid.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_sza_symbol_translation.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_user_functions_handles.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_user_functions_no_h.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_zaid_dir.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndid_get_size.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndid_get_string_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndid_zaid_float_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_float_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_float_vec_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_int_val.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_int_val_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_int_vec.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_size.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_size_n.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_string_val.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_set_option.c
+    ${CMAKE_CURRENT_LIST_DIR}/ndimp_set_zaid.c> )
+
+target_sources(ndi_C_64 PUBLIC
+  $<BUILD_INTERFACE:
+    ${CMAKE_CURRENT_LIST_DIR}/ndi.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_abundance.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_bin_tree.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_element_symbols.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_internal.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_keywords.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_sf.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_state.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_version.h
+    ${CMAKE_CURRENT_LIST_DIR}/ndi_watt.h
+#    ${CMAKE_CURRENT_LIST_DIR}/ndi_var_type.h
+>)
+
 
 if(ndi_tests)
   include(${CMAKE_CURRENT_LIST_DIR}/test/CMakeLists.txt)

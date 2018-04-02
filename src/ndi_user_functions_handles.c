@@ -12,6 +12,7 @@
 #include "ndi_state.h"
 #include "ndi_var_type.h"
 
+
 /*! \defgroup open_gendir Gendir Handle Open and Close
  *  These functions open and close gendir handles.  The first call made 
  *  to NDI should be \a NDI2_open_gendir; the last call made 
