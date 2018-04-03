@@ -1,10 +1,12 @@
 find_package(Perl REQUIRED)
 
 execute_process(
-  COMMAND ${exe} 1> ${output} 2>&1
+  COMMAND ${exe}
   OUTPUT_VARIABLE stdout
   ERROR_VARIABLE stderr
   RESULT_VARIABLE result)
+
+file(WRITE ${output} "${stdout}")
 
 if(NOT ${result} EQUAL "0")
   message(STATUS "return code: ${result}")
