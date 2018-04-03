@@ -4,6 +4,7 @@ get_directory_property(is_subproject PARENT_DIRECTORY)
 project(ndi VERSION 1.1.0 LANGUAGES C Fortran)
 include(CTest)
 include(CMakeDependentOption)
+include(CMakePackageConfigHelpers)
 
 option(ndi_shared_library
    "Build the ndi unit tests and integrate with ctest"
@@ -56,3 +57,24 @@ target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
 target_compile_definitions(ndi_float64 PRIVATE FLOAT64)
 
 include(src/CMakeLists.txt)
+
+install(TARGETS ndi
+  EXPORT ndiConfig
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin 
+  PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
+
+install(EXPORT ndiConfig
+  FILE ndiConfig.cmake
+  NAMESPACE ndi::
+  DESTINATION share
+  PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
+
+install(DIRECTORY src/ DESTINATION include/ndi
+  FILES_MATCHING PATTERN "*.hpp" 
+  PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
+
+write_basic_package_version_file("ndiConfigVersion.cmake"
+  VERSION ${ndi_VERSION}
+  COMPATIBILITY SameMajorVersion)
