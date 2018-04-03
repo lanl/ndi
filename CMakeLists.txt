@@ -73,6 +73,7 @@ install(EXPORT ndiConfig
 
 install(DIRECTORY src/ DESTINATION include/ndi
   FILES_MATCHING PATTERN "*.h" 
+  PATTERN "test" EXCLUDE
   PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
 
 write_basic_package_version_file("ndiConfigVersion.cmake"
