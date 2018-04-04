@@ -1,6 +1,6 @@
 
 /*
- * $Id$
+ * $Id: ndi_get_float_vec_n.c,v 1.29 2014/01/07 16:36:05 mgg Exp $
  * File:	ndi_get_float_vec_n.c
  *
  */
@@ -379,11 +379,12 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 	    (FLOAT_TYPE *) ndi_malloc(state->grp_num_new *
 				      state->grp_num_new *
 				      sizeof(FLOAT_TYPE));
+        ndi_float64 * weights = *(state->weights_ptr);
 	ierr =
 	    NDI_COLLAPSE_MAT(temp_mat, num_grps, num_grps,
 			     state->grp_num_new, state->grp_num_new,
 			     state->new_ebounds, state->new_ebounds,
-			     state->lib_weight, temp_vec,
+			     weights, temp_vec,
 			     state->grp_num_new * state->grp_num_new);
 /*      ierr = NDI_COLLAPSE_MAT( temp_mat, full_mat_size, temp_vec ); */
 	num_grps = state->grp_num_new;
@@ -511,11 +512,12 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
     /*   COLLAPSING REQUIRED   */
     if (state->collapse_flag) {
 	if (ierr >= 0) {
+          ndi_float64 * weights = *(state->weights_ptr);
 	    tmp_err =
 		NDI_COLLAPSE_MAT(temp_mat, num_grps, num_grps,
 				 state->grp_num_new, state->grp_num_new,
 				 state->new_ebounds, state->new_ebounds,
-				 state->lib_weight, return_mat,
+				 weights, return_mat,
 				 return_size);
 /* 	 tmp_err = NDI_COLLAPSE_MAT( temp_mat, num_full_mat, return_mat ); */
 	    num_grps = state->grp_num_new;
@@ -793,6 +795,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 				new_grp_num_out = sec_part->num_grps;
 				new_ebounds_out = NULL;
 			    }
+                            ndi_float64 * weights = *(state->weights_ptr);
 			    ierr =
 				NDI_COLLAPSE_MAT(temp_vec,
 						 state->iso_stat.num_grps,
@@ -801,7 +804,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 						 new_grp_num_out,
 						 new_ebounds_in,
 						 new_ebounds_out,
-						 state->lib_weight,
+						 weights,
 						 return_vec, return_size);
 			}
 			if (temp_vec)

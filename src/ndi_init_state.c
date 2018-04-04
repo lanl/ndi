@@ -59,9 +59,16 @@ int ndi_init_state_iso_state(state_struct *state)
 	ndi_free((void **) &(state->new_ebounds));
     state->new_ebounds = NULL;
     state->collapse_flag = 0;	/* No collapse */
+
+    /* configure the default weight scheme */
     if (state->lib_weight)
 	ndi_free((void **) &(state->lib_weight));
     state->lib_weight = NULL;
+    if (state->user_weight)
+	ndi_free((void **) &(state->user_weight));
+    state->user_weight = NULL;
+    state->weights_ptr = &(state->lib_weight);
+ 
     if (state->lib_ebounds)
 	ndi_free((void **) &(state->lib_ebounds));
     state->lib_ebounds = NULL;

@@ -1,6 +1,6 @@
 
 /*
- * $Id$
+ * $Id: ndi_collapse_float.c,v 1.10 2009/02/11 16:54:22 mgg Exp $
  * Description:	Internal function--collapse vector using weighting function.
  *
  */
@@ -80,6 +80,7 @@ int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	return (-21);
     }
 
+    ndi_float64 *weight_array = *(state->weights_ptr);
     for (i = 0; i < state->grp_num_new; i++) {
 
 	/* Bounds check */
@@ -107,10 +108,10 @@ int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 	    switch (recip_flag) {
 
 	    case 0:		/* Use normal flux-weighted averaging */
-		return_vec[i] += old_vec[j] * state->lib_weight[j];
+		return_vec[i] += old_vec[j] * weight_array[j];
 		break;
 	    case 1:		/* Use reciprocal averaging */
-		return_vec[i] += state->lib_weight[j] / old_vec[j];
+		return_vec[i] += weight_array[j] / old_vec[j];
 		break;
 	    case 2:		/* Simply sum */
 	    case 3:
@@ -118,7 +119,7 @@ int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 		break;
 	    }
 
-	    wt_sum += state->lib_weight[j];
+	    wt_sum += weight_array[j];
 	}
 
 	/* Divide by weighting factor */

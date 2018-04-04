@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: ndi_get_float_vec.c,v 1.96 2012/08/01 16:06:25 mgg Exp $
  * Description: Source for libndi.a
  *
  */
@@ -259,10 +259,28 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
     case NDI_WGTS:              /* Weights */
         num_elements = state->iso_stat.num_grps;
         /*  Check bounds */
-        ierr =
+        
+        if ( state->grp_num_new ){
+          ndi_float64* weights_array = *(state->weights_ptr);
+          for ( int groupIndex = 0; groupIndex < state->grp_num_new; ++groupIndex ){
+            return_vec[groupIndex] = 0;
+            for ( int componentGroupIndex = state->new_ebounds[groupIndex];
+                  componentGroupIndex < state->new_ebounds[groupIndex + 1];
+                  ++componentGroupIndex ){
+              return_vec[groupIndex] += weights_array[componentGroupIndex];
+            }
+          }          
+        } else if ( *(state->weights_ptr) ) {
+          ndi_float64* weights_array = *(state->weights_ptr);
+          for ( int groupIndex = 0; groupIndex < state->iso_stat.wgts.length; ++groupIndex ){
+            return_vec[groupIndex] += weights_array[groupIndex];
+          }
+        } else {
+          ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->iso_stat.wgts.file_ptr, 3,
                                  num_elements, return_vec, return_size);
+        }
         break;
 
     case NDI_VEL:               /* Velocities */
@@ -1012,7 +1030,7 @@ static int GET_CHI_MAT(state_struct *state, char chi_type,
         jerr = NDI_COLLAPSE_MAT(chi_mat, lib_num_grps, lib_num_grps,
                                 state->grp_num_new, state->grp_num_new,
                                 state->new_ebounds, state->new_ebounds,
-                                state->lib_weight, return_mat,
+                                *(state->weights_ptr), return_mat,
                                 return_size);
         if (jerr) NDI_THROW(ierr, jerr);
 
@@ -1429,7 +1447,7 @@ static int get_sig_xf_mat(state_struct *state, char type,
         jerr = NDI_COLLAPSE_MAT(tmp_mat, n, n,
                                 coll_num_grps, coll_num_grps,
                                 state->new_ebounds, state->new_ebounds,
-                                state->lib_weight, mat, size);
+                                *(state->weights_ptr), mat, size);
         n = coll_num_grps;
     } else {                   /* Copy required */
         jerr = COPY_MATRIX(mat, size, tmp_mat, nsqrd);
@@ -3427,6 +3445,7 @@ static int MIDPT_ENERGY (state_struct *state, int num_grps,
     int i, j;
     double wt_sum, e_sum;
     
+    ndi_float64 *weights = *(state->weights_ptr);
     for ( i = 0; i < num_grps; i++ ) {
         wt_sum = 0;
         e_sum = 0;
@@ -3435,8 +3454,8 @@ static int MIDPT_ENERGY (state_struct *state, int num_grps,
                 e_sum += (ndi_float64) fabs( (double) 
                                              state->lib_ebounds[j+1] * state->lib_ebounds[j+1] 
                                              - state->lib_ebounds[j] * state->lib_ebounds[j] ) 
-                    * state->lib_weight[j];
-                wt_sum += state->lib_weight[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
+                    * weights[j];
+                wt_sum += weights[j] * fabs( state->lib_ebounds[j+1] - state->lib_ebounds[j] );
             }
         } else {
             e_sum = state->lib_ebounds[i+1] + state->lib_ebounds[i];
@@ -3473,6 +3492,7 @@ static int VELOCITY_CALC(state_struct *state, int num_grps, FLOAT_TYPE *return_v
     ierr = ndi_get_simple_float64_vec(state, state->lib_stream,
                                       state->iso_stat.vel.file_ptr, -1,
                                       state->iso_stat.num_grps, vel, state->iso_stat.num_grps);
+    ndi_float64 * weights = *(state->weights_ptr);
     for (i = 0; i < num_grps; i++) {
         if (i < return_size) {
             numer = 0.0;
@@ -3485,8 +3505,8 @@ static int VELOCITY_CALC(state_struct *state, int num_grps, FLOAT_TYPE *return_v
                 up_bound = i + 1;
             }
             for (j = low_bound; j < up_bound; j++) {
-                numer += vel[j] * vel[j] * state->lib_weight[j];
-                denom += state->lib_weight[j];
+                numer += vel[j] * vel[j] * weights[j];
+                denom += weights[j];
             }
             if (denom > (FLOAT_EPSILON * numer)) {
                 return_vec[i] = (FLOAT_TYPE)v2_to_e_factor * (numer / denom);
@@ -3526,6 +3546,7 @@ static int LEGACY_E_CALC(state_struct *state, int num_grps, FLOAT_TYPE *return_v
                                        state->iso_stat.vel.file_ptr,
                                        -1, state->iso_stat.num_grps,
                                        vel, state->iso_stat.num_grps );
+    ndi_float64 * weights = *(state->weights_ptr);
     for (i = 0; i < num_grps; i++ ) {
         if (i < return_size) {
             numer = 0.0;
@@ -3538,9 +3559,9 @@ static int LEGACY_E_CALC(state_struct *state, int num_grps, FLOAT_TYPE *return_v
                 up_bound = i + 1;
             }
             for (j = low_bound; j < up_bound; j++) {
-                numer += vel[j] * state->lib_weight[j];
-                if (vel[j] > (DBL_EPSILON * state->lib_weight[j])) {
-                    denom += state->lib_weight[j] / vel[j];
+                numer += vel[j] * weights[j];
+                if (vel[j] > (DBL_EPSILON * weights[j])) {
+                    denom += weights[j] / vel[j];
                 } else {
                     ierr = 5;
                     return(ierr);
@@ -3571,6 +3592,7 @@ static int FLAT_ENERGY(state_struct *state, int num_grps,
     int i, j;
     double ebar, wt_sum, e_sum;
     
+    ndi_float64 * weights = *(state->weights_ptr);
     for ( i = 0; i < num_grps; i++ ) {
         wt_sum = 0.0;
         e_sum = 0.0;
@@ -3578,8 +3600,8 @@ static int FLAT_ENERGY(state_struct *state, int num_grps,
             for ( j = state->new_ebounds[i]; 
                   j < state->new_ebounds[i+1] ; j++ ) {
                 ebar = (state->lib_ebounds[j+1] + state->lib_ebounds[j])/2.0;
-                e_sum += ebar * state->lib_weight[j];
-                wt_sum += state->lib_weight[j];
+                e_sum += ebar * weights[j];
+                wt_sum += weights[j];
             }
         } else {
             e_sum = (state->lib_ebounds[i+1] + state->lib_ebounds[i])/2.0;
@@ -3630,6 +3652,7 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
         break;
     }
     
+    ndi_float64 * weights = *(state->weights_ptr);
     for (i = 0; i < num_grps; i++) {
         wt_sum = 0.0;
         f_sum = 0.0;
@@ -3641,8 +3664,8 @@ static int TD_MOMENT(state_struct *state, char m,  int num_grps,
                     ndi_gl10(ndi_td, state->lib_ebounds[j+1], 
                          state->lib_ebounds[j]);
 
-                f_sum += fbar * state->lib_weight[j];
-                wt_sum += state->lib_weight[j];
+                f_sum += fbar * weights[j];
+                wt_sum += weights[j];
             }
         } else {
             f_sum = ndi_gl10(f, state->lib_ebounds[i+1], 

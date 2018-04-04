@@ -22,6 +22,9 @@ static int ndi_set_collapse_vec(state_struct *state,
 static int ndi_set_ebounds_curr_part(state_struct *state,
 				     const ndi_float64 * ebound_array,
 				     const int new_num_grps);
+static int ndi_set_user_weights(state_struct *state,
+                                const ndi_float64 * weight_array,
+                                const int array_size);
 
 /**********************************************************************/
 int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
@@ -64,6 +67,10 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 	ierr =
 	    ndi_set_ebounds_curr_part(state, option_array, array_size - 1);
 	break;
+
+    case NDI_WGTS:
+        ierr = ndi_set_user_weights(state, option_array, array_size);
+        break;
 
 	/**********  UNKNOWN KEYWORD  ***********/
 
@@ -272,6 +279,44 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
     }
 
     return (ierr);
+}
+
+static int ndi_set_user_weights(state_struct *state,
+                                const ndi_float64 * weight_array,
+                                const int array_size){
+    if (!state) {
+	return (-2);
+    }
+
+    /* Check that array length is same as library weight array length */
+    if (array_size != state->iso_stat.wgts.length) {
+	return (-13);
+    }
+
+    /* Check appropriate library type */
+    if ((state->library_type != 'm') &&
+	(state->library_type != 'd') && (state->library_type != 's')) {
+	return (-23);
+    }
+
+    if (state->user_weight){
+	ndi_free((void **) &state->user_weight);
+    }
+
+    state->user_weight =
+	(ndi_float64 *) ndi_calloc(array_size, sizeof(double));
+
+    ndi_float64 weight;
+    for ( int i = 0; i < array_size; ++i ) {
+        weight = weight_array[i];
+        if ( !(weight > 0) ){
+          return (-13);
+        }
+        state->user_weight[i] = weight;
+    }
+
+    state->weights_ptr = &(state->user_weight);
+    return 0;
 }
 
 /**********************************************************************/
