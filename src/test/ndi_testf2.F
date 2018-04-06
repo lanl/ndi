@@ -161,7 +161,8 @@ c     Test error on initialization before close
 
 c      call ndi_set_option( NDI_COLLAPSE, num_grp_str, ierr) 
 
-      call ndid_get_size( NDI_ZAID, "multigroup_neutron", arr_size, ierr )
+      call ndid_get_size( NDI_ZAID, "multigroup_neutron", arr_size,
+     $  ierr )
       write(*, 299)  arr_size
  299  format("String array size is", i6)
 c      call ndid_zaid_float64_vec( NDI_AWR, "multigroup_neutron", str_arr, STRS, 
