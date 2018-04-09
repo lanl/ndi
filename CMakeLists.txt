@@ -6,21 +6,18 @@ include(CTest)
 include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
 
-option(ndi_shared_library
+option(ndi.shared_library
   "Build the ndi unit tests and integrate with ctest"
   "${BUILD_SHARED_LIBS}")
 
-CMAKE_DEPENDENT_OPTION(ndi_position_independent_code
+CMAKE_DEPENDENT_OPTION(ndi.position_independent_code
   "Build the ndi library with position independent code"
   "${position_independent_code}"
-  "NOT ndi_shared_library" ON)
+  "NOT ndi.shared_library" ON)
 
-CMAKE_DEPENDENT_OPTION(ndi_tests
+CMAKE_DEPENDENT_OPTION(ndi.tests
   "Build the ndi tests and integrate with ctest"
   ON "BUILD_TESTING; NOT is_subproject" OFF)
-
-set(ndi_data_path "$ENV{NDI_DATA_PATH}" CACHE PATH
-  "Path to the installation of the NDI-format nuclear data libraries")
 
 add_library(ndi_float32 OBJECT "")
 add_library(ndi_float64 OBJECT "")
@@ -45,7 +42,7 @@ add_library(ndi::ndi ALIAS ndi)
 target_link_libraries(ndi PUBLIC m)
 
 set_propertY(TARGET ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTY
-  POSITION_INDEPENDENT_CODE "${ndi_position_independent_code}")
+  POSITION_INDEPENDENT_CODE "${ndi.position_independent_code}")
 
 set_property(TARGET ndi ndi_C ndi_C ndi_F ndi_float32 ndi_float64 PROPERTY
   C_STANDARD 99)

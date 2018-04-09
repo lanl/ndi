@@ -4,7 +4,9 @@ add_custom_command(
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 
 add_custom_target(generate_ndi_keywords DEPENDS ndi_keywords.i)
-add_executable(ndi_define_float ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
+
+add_executable(ndi_define_float
+  ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
 
 add_custom_command(
   OUTPUT ndi_var_type.h
@@ -139,6 +141,6 @@ target_sources(ndi_C PUBLIC
 target_sources(ndi_F PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c>)
 
-if(ndi_tests)
+if(ndi.tests)
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/test)
 endif()

@@ -3,14 +3,15 @@ list(APPEND f_tests ex_avg_ef ex_kerma1f ex_kerma2f f_handlef f_handlef2 library
 
 set(top_srcdir ${ndi_SOURCE_DIR})
 configure_file(gendir.in gendir @ONLY)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 foreach(test_name IN LISTS c_tests)
   add_executable(ndi.${test_name} ${CMAKE_CURRENT_LIST_DIR}/${test_name}.c)
   target_compile_definitions(ndi.${test_name} PUBLIC __STANDALONE)
   target_link_libraries(ndi.${test_name} PUBLIC ndi)
   get_property(location TARGET ndi.${test_name} PROPERTY OUTPUT_NAME)
-  add_test(NAME ndi.${test_name} COMMAND ${CMAKE_COMMAND} 
+  add_test(NAME ndi.${test_name} COMMAND ${CMAKE_COMMAND}
     -D exe=${CMAKE_CURRENT_BINARY_DIR}/ndi.${test_name}
     -D output=${CMAKE_CURRENT_BINARY_DIR}/ndi.${test_name}.output
     -D reference=${CMAKE_CURRENT_SOURCE_DIR}/output/testc_${test_name}.out
@@ -22,7 +23,7 @@ foreach(test_name IN LISTS f_tests)
   add_executable(ndi.${test_name} ${CMAKE_CURRENT_LIST_DIR}/${test_name}.F)
   target_link_libraries(ndi.${test_name} PUBLIC ndi)
   get_property(location TARGET ndi.${test_name} PROPERTY OUTPUT_NAME)
-  add_test(NAME ndi.${test_name} COMMAND ${CMAKE_COMMAND} 
+  add_test(NAME ndi.${test_name} COMMAND ${CMAKE_COMMAND}
     -D exe=${CMAKE_CURRENT_BINARY_DIR}/ndi.${test_name}
     -D output=${CMAKE_CURRENT_BINARY_DIR}/ndi.${test_name}.output
     -D reference=${CMAKE_CURRENT_SOURCE_DIR}/output/testf_${test_name}.out

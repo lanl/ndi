@@ -1,18 +1,20 @@
-This directory contains the source code for NDI, a nuclear data interface.
-
 BUILDING NDI
 ====
 
-## Prerequisite
+Prerequisite
+---
 
-+ CMake 3.9
++ Git
 + A C compiler
 + A Fortran compiler
++ CMake 3.9
 
-## Instructions
+Instructions
+---
 
 1. Acquire the source code
-
+    On LANL systems, those with access to the XCP bitbucket server can acquire the NDI source code using the Git version control system.
+   
     ```
     git clone ssh://git@xcp-stash.lanl.gov:7999/ndt/ndi.git
     ```
