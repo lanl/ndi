@@ -7,17 +7,17 @@ include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
 
 option(ndi_shared_library
-   "Build the ndi unit tests and integrate with ctest"
-   "${BUILD_SHARED_LIBS}")
+  "Build the ndi unit tests and integrate with ctest"
+  "${BUILD_SHARED_LIBS}")
 
 CMAKE_DEPENDENT_OPTION(ndi_position_independent_code
-   "Build the ndi library with position independent code"
-   "${position_independent_code}"
-   "NOT ndi_shared_library" ON)
+  "Build the ndi library with position independent code"
+  "${position_independent_code}"
+  "NOT ndi_shared_library" ON)
 
 CMAKE_DEPENDENT_OPTION(ndi_tests
-   "Build the ndi tests and integrate with ctest"
-   ON "BUILD_TESTING; NOT is_subproject" OFF)
+  "Build the ndi tests and integrate with ctest"
+  ON "BUILD_TESTING; NOT is_subproject" OFF)
 
 set(ndi_data_path "$ENV{NDI_DATA_PATH}" CACHE PATH
   "Path to the installation of the NDI-format nuclear data libraries")
@@ -28,7 +28,7 @@ add_library(ndi_C OBJECT "")
 add_library(ndi_F OBJECT "")
 
 if(ndi_shared_library)
-  add_library(ndi SHARED 
+  add_library(ndi SHARED
     $<TARGET_OBJECTS:ndi_float32>
     $<TARGET_OBJECTS:ndi_float64>
     $<TARGET_OBJECTS:ndi_C>
@@ -62,7 +62,7 @@ install(TARGETS ndi
   EXPORT ndiConfig
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin 
+  RUNTIME DESTINATION bin
   PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
 
 install(EXPORT ndiConfig
@@ -71,9 +71,12 @@ install(EXPORT ndiConfig
   DESTINATION share
   PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
 
-install(DIRECTORY src/ DESTINATION include/ndi
-  FILES_MATCHING PATTERN "*.h" 
-  PATTERN "test" EXCLUDE
+install(FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h
+  ${CMAKE_CURRENT_BINARY_DIR}/src/ndi_keywords.i
+  ${CMAKE_CURRENT_BINARY_DIR}/src/ndi_var_type.h
+  DESTINATION include/ndi
   PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
 
 write_basic_package_version_file("ndiConfigVersion.cmake"

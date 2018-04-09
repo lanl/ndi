@@ -3,18 +3,14 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -P ${ndi_SOURCE_DIR}/cmake/split.cmake
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 
-add_custom_target(generate_ndi_keywords
-  DEPENDS ndi_keywords.i)
-
-add_executable(ndi_define_float 
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
+add_custom_target(generate_ndi_keywords DEPENDS ndi_keywords.i)
+add_executable(ndi_define_float ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
 
 add_custom_command(
   OUTPUT ndi_var_type.h
   COMMAND ndi_define_float > ndi_var_type.h)
 
-add_custom_target(generate_ndi_var_type 
-  DEPENDS ndi_var_type.h)
+add_custom_target(generate_ndi_var_type DEPENDS ndi_var_type.h)
 
 add_executable(ndi_define_fmangle
   ${CMAKE_CURRENT_LIST_DIR}/fcallscc.c
@@ -24,7 +20,7 @@ add_custom_command(
   OUTPUT fmangle.h
   COMMAND ndi_define_fmangle > fmangle.h)
 
-add_custom_target(generate_fmangle 
+add_custom_target(generate_fmangle
   DEPENDS fmangle.h)
 
 add_dependencies(ndi_float32 generate_ndi_var_type)
@@ -33,7 +29,7 @@ add_dependencies(ndi_C generate_ndi_var_type)
 add_dependencies(ndi_F generate_fmangle)
 
 set_property(TARGET ndi ndi_F ndi_C ndi_float64 ndi_float32 PROPERTY
-  INCLUDE_DIRECTORIES 
+  INCLUDE_DIRECTORIES
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
   $<INSTALL_INTERFACE:include/ndi>)
