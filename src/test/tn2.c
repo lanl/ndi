@@ -11,16 +11,6 @@ typedef double float64;
 
 static int setup_integ( void );
 
-#ifdef __STANDALONE
-int main (void)
-{
-  int ierr = 0;
-
-  ierr = testtn2();
-  return(ierr);
-}
-#endif  /* __STANDALONE */
-
 int testtn2(void)
 {
    typedef char tn_zaid[30];
@@ -800,3 +790,14 @@ static int setup_integ( void  )
 
    return(ierr);
 }
+
+#ifdef __STANDALONE
+int main (void)
+{
+  int ierr = 0;
+
+  ierr = testtn2();
+  return(ierr);
+}
+#endif  /* __STANDALONE */
+

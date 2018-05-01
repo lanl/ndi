@@ -168,7 +168,8 @@ c      call ndi2_set_option(handle,  NDI_COLLAPSE, num_grp_str, ierr)
       do 100, zd_cnt = 1, 8
 
           if (zd_cnt.eq.8) then
-              call ndi2_set_option(handle,  NDI_LIBRARY, 'default', ierr)
+              call ndi2_set_option(handle,  NDI_LIBRARY, 'default',
+     $                             ierr)
           endif
 
 c     Set new zaid
