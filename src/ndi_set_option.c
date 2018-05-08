@@ -277,7 +277,7 @@ static int ndi_set_library(state_struct *state, const char *value)
     }
 
     if (strncmp(value, "default", 8) == 0) {
-	strncpy(state->library_vers, "", sizeof(state->library_vers));
+	strcpy(state->library_vers, "");
     } else {
 	if (ndi_lib_dir
 	    (state, state->particle_type, state->library_type, "l", value,

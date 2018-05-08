@@ -229,12 +229,12 @@ find_average_E(double *x, double *y, interp_params *iparm, double *ret_val)
 	}
 
 	xend = x[pt_index];
-	ierr = fabs(new_integrate_xy(x, y, npts, int_type,
-				     pt_index, xstart, xend, &tmp_val));
+	ierr = abs(new_integrate_xy(x, y, npts, int_type,
+                                    pt_index, xstart, xend, &tmp_val));
 	/* Check for error else */
 	xy_integr += tmp_val;
-	ierr = fabs(new_integrate(x, y, npts, int_type,
-				  pt_index, xstart, xend, &tmp_val));
+	ierr = abs(new_integrate(x, y, npts, int_type,
+                                 pt_index, xstart, xend, &tmp_val));
 	/* Check for error else */
 	y_integr += tmp_val;
 

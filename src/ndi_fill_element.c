@@ -50,8 +50,7 @@ int ndi_fill_elements(state_struct *state)
     if (state->ndi_elements)
 	ndi_free((void **) &(state->ndi_elements));
     state->ndi_elements =
-	(short *) ndi_malloc((rows * cols + 1) * sizeof(short));
-    memset(state->ndi_elements, 0, sizeof(state->ndi_elements));
+      (short *) ndi_calloc((rows * cols + 1), sizeof(short));
     for (i = 0; i < 702; i++) {
 	state->ndi_elements[i] = 0;
     }

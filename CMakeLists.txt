@@ -24,7 +24,7 @@ add_library(ndi_float64 OBJECT "")
 add_library(ndi_C OBJECT "")
 add_library(ndi_F OBJECT "")
 
-if(ndi_shared_library)
+if(ndi.shared_library)
   add_library(ndi SHARED
     $<TARGET_OBJECTS:ndi_float32>
     $<TARGET_OBJECTS:ndi_float64>
@@ -49,6 +49,16 @@ set_property(TARGET ndi ndi_C ndi_C ndi_F ndi_float32 ndi_float64 PROPERTY
 
 set_property(TARGET ndi ndi_C ndi_C ndi_F ndi_float32 ndi_float64 PROPERTY
   C_EXTENSIONS OFF)
+
+include(CheckCCompilerFlag)
+
+list(APPEND ndi.warning_flags "-pedantic" "-Wall" "-Werror" "-Wno-error=strict-overflow")
+foreach(flag IN LISTS ndi.warning_flags)
+  check_c_compiler_flag("${flag}" flag_available)
+  if(${flag_available})
+    set_property(TARGET ndi ndi_C ndi_F ndi_float32 ndi_float64 APPEND PROPERTY COMPILE_OPTIONS ${flag})
+  endif()
+endforeach()
 
 target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
 target_compile_definitions(ndi_float64 PRIVATE FLOAT64)

@@ -168,7 +168,7 @@
 #define NDI_SPONTANEOUS_FISSIONABLE   137
 #define NDI_FISS_XFER_MAT_TOT         138
 #define NDI_FISS_XFER_MAT_PR          139
-#define NDI_FISS_XFER_MAT_DEL         140 
+#define NDI_FISS_XFER_MAT_DEL         140
 #define NDI_V_AVG                     141
 #define NDI_Q_SIG_F_PR                142
 #define NDI_TD_HALF_MOMENT            143

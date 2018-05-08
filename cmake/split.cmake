@@ -1,20 +1,23 @@
-FILE(READ "ndi_keywords.h" contents)
+FILE(READ "${source_dir}/ndi_keywords.h" contents)
 string(REGEX REPLACE "\n" ";" lines "${contents}")
 
 set(output "
-      integer, parameter :: NDI_REAL = c_double
-      integer, parameter :: NDI_INT  = c_int32_t")
+      integer, parameter :: NDI_REAL = 8
+      integer, parameter :: NDI_INT  = 4")
 
-foreach( line IN LISTS lines )                               
-  string(REGEX REPLACE "s+" ";" elements "${line}")            
-  list(LENGTH elements size)                                 
-  list(GET 0 elements first)                                 
-  if(size EQUAL '3' AND first STREQUAL "#define")            
-    list(GET 1 elements second)                              
-    list(GET 2 elements third)                               
-    set(output "${output}
+foreach(line IN LISTS lines)
+  if(line)
+    string(REGEX REPLACE "[ \t]+" ";" elements "${line}")
+    list(LENGTH elements size)
+    list(GET elements 0 first)
+    if(size EQUAL "3" AND first STREQUAL "#define")
+      list(GET elements 1 second)
+      list(GET elements 2 third)
+      set(output "${output}
       integer(NDI_INT), parameter :: ${second} = ${third}")
+    endif()
   endif()
-endforeach()                                                 
+endforeach()
+set(output "${output}\n")
 
-FILE(WRITE "ndi_keywords.i" "${output}")
+FILE(WRITE "${binary_dir}/ndi_keywords.i" "${output}")

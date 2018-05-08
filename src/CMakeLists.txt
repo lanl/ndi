@@ -1,9 +1,12 @@
 add_custom_command(
   OUTPUT ndi_keywords.i
-  COMMAND ${CMAKE_COMMAND} -P ${ndi_SOURCE_DIR}/cmake/split.cmake
+  COMMAND ${CMAKE_COMMAND}
+    -D source_dir="${ndi_SOURCE_DIR}/src"
+    -D binary_dir="${ndi_BINARY_DIR}"
+    -P ${ndi_SOURCE_DIR}/cmake/split.cmake
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 
-add_custom_target(generate_ndi_keywords DEPENDS ndi_keywords.i)
+add_custom_target(generate_ndi_keywords ALL DEPENDS ndi_keywords.i)
 
 add_executable(ndi_define_float
   ${CMAKE_CURRENT_LIST_DIR}/ndi_define_float.c)
@@ -33,12 +36,12 @@ add_dependencies(ndi_F generate_fmangle)
 set_property(TARGET ndi ndi_F ndi_C ndi_float64 ndi_float32 PROPERTY
   INCLUDE_DIRECTORIES
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
+  $<BUILD_INTERFACE:${ndi_BINARY_DIR}>
   $<INSTALL_INTERFACE:include/ndi>)
 
 target_include_directories(ndi INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
+  $<BUILD_INTERFACE:${ndi_BINARY_DIR}>
   $<INSTALL_INTERFACE:include/ndi>)
 
 target_sources(ndi_float32 PUBLIC

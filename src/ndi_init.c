@@ -70,7 +70,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 	ndi_free((void **) &state->library_vers);
     state->library_vers =
 	(char *) ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
-    strncpy(state->library_vers, "", sizeof(state->library_vers));
+    strcpy(state->library_vers, "");
     state->particle_type = -1;
     state->library_type = ' ';
     state->mat_order = 'd';	/* No transpose */
@@ -144,7 +144,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 	ndi_free((void **) &state->library_vers);
     state->library_vers =
 	(char *) ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
-    strncpy(state->library_vers, "", sizeof(state->library_vers));
+    strcpy(state->library_vers, "");
     state->particle_type = -1;
     state->library_type = ' ';
     state->mat_order = 'd';	/* No transpose */

@@ -498,13 +498,11 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 
       /**** String values ****/
     case NDI_LIST_REAC:	/* List of reactions */
-	if ((state->tnreac_stat.reac_num > vec_num)
-	    && (state->tnreac_stat.list_reac)) {
+	if ((state->tnreac_stat.reac_num > vec_num)) {
 	    return_value =
 		(int) strlen(state->tnreac_stat.list_reac[vec_num]) + 1;
 	} else {
-	    if ((state->tnreac_stat.reac_num <= 0)
-		|| !(state->tnreac_stat.list_reac)) {
+	    if (state->tnreac_stat.reac_num <= 0) {
 		/* No data */
 		*ierr = 9;
 	    } else {

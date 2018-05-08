@@ -1100,7 +1100,7 @@ static int read_sig_xf_vec(state_struct *state, char type,
     int ierr = 0;
     int jerr;
 
-    long int vec_off;
+    long int vec_off = 0;
 
     FLOAT_TYPE *xf = NULL;
     FLOAT_TYPE *nusigf = NULL;
@@ -1182,7 +1182,7 @@ static int read_sig_xf_mat(state_struct *state, char type,
     int ierr = 0;
     int jerr;
 
-    long int mat_off;
+    long int mat_off = 0;
 
     FLOAT_TYPE *xf = NULL;
     FLOAT_TYPE *nusigf = NULL;
