@@ -81,8 +81,8 @@ install(EXPORT ndiConfig
 install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h
-  ${CMAKE_CURRENT_BINARY_DIR}/src/ndi_keywords.i
-  ${CMAKE_CURRENT_BINARY_DIR}/src/ndi_var_type.h
+  ${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i
+  ${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h
   DESTINATION include/ndi
   PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE WORLD_READ)
 
