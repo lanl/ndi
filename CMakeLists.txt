@@ -6,7 +6,11 @@ else()
   set( subproject OFF )
 endif()
 
-project(ndi VERSION 1.1.0 LANGUAGES C Fortran)
+project(ndi 
+  VERSION 1.1.0 
+  DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
+  LANGUAGES C Fortran)
+
 include(CTest)
 include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
@@ -51,8 +55,9 @@ target_link_libraries(ndi PUBLIC m)
 
 set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   POSITION_INDEPENDENT_CODE "${ndi.position_independent_code}"
-  C_STANDARD 99
   C_EXTENSIONS OFF
+  C_STANDARD 99
+  INTERFACE_C_STANDARD 99
   WARN_ALL ON
   WARN_ERROR ON
   LLVM_DISABLED_WARNINGS "unused-parameter"
@@ -81,7 +86,9 @@ install(TARGETS ndi
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  PERMISSIONS OWNER_READ OWNER_EXECUTE 
+              GROUP_READ GROUP_EXECUTE
+              WORLD_READ WORLD_EXECUTE)
 
 install(EXPORT ndiConfig
   FILE ndiConfig.cmake
@@ -103,5 +110,6 @@ if(NOT subproject)
   set( CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory" )
   set( CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE" )
   set( CMAKE_PROJECT_HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi/browse" )
+  set( CPACK_PACKAGE_CONTACT "amccartney@lanl.gov" )
   include( CPack )
 endif()
