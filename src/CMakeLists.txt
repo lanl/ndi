@@ -61,20 +61,7 @@ target_sources(ndi_float32 PUBLIC
   ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_float_vec_n.c>)
 
 target_sources(ndi_float64 PUBLIC
-  $<BUILD_INTERFACE:
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_set_zaid_float_temp.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_float.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_mat.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val_n.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec_n.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_vec_x.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_misc_float.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndi_read_float_block.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndid_zaid_float_vec.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_float_vec.c
-  ${CMAKE_CURRENT_LIST_DIR}/ndimp_get_float_vec_n.c>)
+  $<TARGET_PROPERTY:ndi_float32,SOURCES>)
 
 target_sources(ndi_C PUBLIC
   $<BUILD_INTERFACE:

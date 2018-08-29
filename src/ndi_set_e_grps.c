@@ -3839,7 +3839,7 @@ static int doublecmp(double a, double b)
 static int is_default_str(const char *grp_struct) {
 
     int return_val = 0;
-    int char_count = 0;
+    unsigned long char_count = 0;
     int int_flag = 0;
     const char *int_p = NULL;
     const char *curr_char = grp_struct;
