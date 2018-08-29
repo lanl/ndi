@@ -25,7 +25,7 @@ CMAKE_DEPENDENT_OPTION(ndi.position_independent_code
 
 CMAKE_DEPENDENT_OPTION(ndi.tests
   "Build the ndi tests and integrate with ctest"
-  ON "BUILD_TESTING; NOT is_subproject" OFF)
+  ON "BUILD_TESTING; NOT subproject" OFF)
 
 add_library(ndi_float32 OBJECT "")
 add_library(ndi_float64 OBJECT "")
