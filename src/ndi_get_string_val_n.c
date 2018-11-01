@@ -417,7 +417,7 @@ static int ndi_mt_to_label(state_struct *state, int mt,
     if (strcmp(x, "") == 0)     /* MT label unrecognized */
         return -24;             /* Bad reaction MT identifier. */
 
-    if (strlen(x) + 1 > size)   /* MT label too big  */
+    if (strlen(x) + 1 > (unsigned long) size)   /* MT label too big  */
         ierr = 6;               /* Unexpected extra data. */
 
     strncat(label, x, size-1);  /* Safely copy MT label with terminator */

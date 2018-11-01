@@ -474,7 +474,7 @@ ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
 	}
     }
 
-    if ((strlen(tmp_str) + 1) <= str_size) {
+    if ((strlen(tmp_str) + 1) <= (unsigned long) str_size) {
 	strcpy(ret_str, tmp_str);
     } else {
 	strncpy(ret_str, tmp_str, str_size * sizeof(char));
@@ -860,7 +860,7 @@ char *ndi_mt_label(int mt)
 
     m = ndi_decode_mt(mt, &s);            /* Decode mt and state */
     *label = '\0';
-    for (i = 0; i < sizeof(mt_start)/sizeof(mt_start[0]); i++)
+    for (i = 0; (unsigned long) i < sizeof(mt_start)/sizeof(mt_start[0]); i++)
         if (mt_start[i] <= m && m < mt_start[i]+mt_end[i])
             strcpy(label, MT[i][m-mt_start[i]]); /* mt found in piece */
 
@@ -953,7 +953,7 @@ double ndi_gl10(double (*f)(double), double a, double b)
     xrange = (b-a)/2.0;
     sum = 0.0;
 
-    for (i = 0; i < sizeof(z)/sizeof(z[0]); i++) {
+    for (i = 0; (unsigned long) i < sizeof(z)/sizeof(z[0]); i++) {
         dx = xrange * z[i];
         sum += ((*f)(xmid+dx) + (*f)(xmid-dx)) * w[i];
     }

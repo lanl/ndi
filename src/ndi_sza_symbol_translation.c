@@ -60,7 +60,7 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
 	}
     }
 
-    if ((strlen(tmp_sym_str) + 1) <= str_size) {
+    if ((strlen(tmp_sym_str) + 1) <= (unsigned long) str_size) {
 	strncpy(sym_str, tmp_sym_str,
 		(sizeof(char) * (strlen(tmp_sym_str) + 1)));
     } else {
