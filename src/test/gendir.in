@@ -355,6 +355,38 @@ multigroup_neutron
     ft=asc  ln=2453  o=296494
     ng=30  t=1.00000013363250E-03  s0=1.00000000000000E+10
     aw=2.35044139254600E+02  awr=2.33025000000000E+02  end
+  z=92235.101nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss101  ft=asc  ln=1  o=0
+    ng=2  t=2.58521550000000E-08  s0=1.00000000000000E-01  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.001nm  d=03/21/17  l=ss_test 
+    f=@top_srcdir@/src/test/lib/testlib_ss001  ft=asc  ln=1  o=0
+    ng=2  t=2.5852155E-08  s0=1.000E+01  aw=2.35043937521619E+02
+    awr=2.33024800E+02 end
+  z=92235.003nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss003  ft=asc  ln=1  o=0
+    ng=2  t=2.58521550000000E-08  s0=1.00000000000000E+03  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.010nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss010  ft=asc  ln=1  o=0
+    ng=2  t=2.58521550000000E-08  s0=1.00000000000000E+10  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.701nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss701  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E-01  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.602nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss601 ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+01  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.603nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss603  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+03  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.610nm  d=03/21/17  l=ss_test
+    f=@top_srcdir@/src/test/lib/testlib_ss610  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+10  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
 end
 
 multigroup_photon

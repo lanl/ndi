@@ -47,6 +47,7 @@ target_include_directories(ndi INTERFACE
 target_sources(ndi_float32 PUBLIC
   $<BUILD_INTERFACE:
   ${CMAKE_CURRENT_LIST_DIR}/ndi_set_zaid_float_temp.c
+  ${CMAKE_CURRENT_LIST_DIR}/ndi_set_zaid_float_temp_sig_0.c
   ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_float.c
   ${CMAKE_CURRENT_LIST_DIR}/ndi_collapse_mat.c
   ${CMAKE_CURRENT_LIST_DIR}/ndi_get_float_val.c
