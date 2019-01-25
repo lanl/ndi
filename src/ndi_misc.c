@@ -914,8 +914,10 @@ char ndi_get_incident_name(int sza)
         break;
     case 1003:                  /* triton */
         c = 't';
+        break;
     case 2004:                  /* alpha */
         c = 'a';
+        break;
     default:                    /* others */
         c = 'z';
         break;

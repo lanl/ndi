@@ -550,9 +550,9 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     case NDI_SEC_PART_TYPES:
         /* Vector of secondary particle types */
-        if (state->tn_stat.num_sec_parts >= 0) {
+        if (state->tn_stat.num_sec_parts >= 0)
             return_value = state->sec_part_filled;
-        }
+        break;
 
     case NDI_EDIST:             /* Curr. particle's energy distribution at current temp. */
         /* The number returned is the number of groups in the currently-set group stucture */
