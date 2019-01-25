@@ -433,6 +433,92 @@ int NDI2_set_zaid_float64_temp(int handle, const char *zaid, ndi_float64 temp)
 }
 
 /*!
+  \brief Set ZAID and temperature and background cross section for
+  \a handle.
+
+  This function associates a handle with an entry in the NDI index
+  file.  The file associated with the first matching ZAID entry and
+  closest temperature and background cross section (sigma_0) in the
+  index file is opened, and the physical data associated with that entry
+  initializes the handle data. Subsequent call to the \a NDI2_get family
+  of functions with this handle will return the requested physical data
+  associated with this ZAID, temperature, and background cross section.
+
+  \par Fortran example
+  \code
+  ! Set ZAID U-235 at room temperature in MeV
+  call ndi2_set_zaid(handle, "92235", 2.53e-8, 1000.0, ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing ZAID
+  \param temp: float32 temperature
+  \param sig0: float32 background cross section
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+*/
+int NDI2_set_zaid_float32_temp_sig_0(int handle, const char *zaid,
+                                     ndi_float32 temp, ndi_float32 sig0)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+
+    if (is_gendir(state_p)) {
+        return -2;
+    } else if (is_mpmg(state_p)) {
+        return ndimp_set_zaid_float32_temp_sig_0(state_p, zaid, temp,
+                                                 sig0);
+    } else {
+        return (ndi_c_set_zaid_float32_temp_sig_0_h(state_p, zaid, temp,
+                                                    sig0));
+    }
+}
+
+/*!
+  \brief Set ZAID and temperature and background cross section for
+  \a handle.
+
+  This function associates a handle with an entry in the NDI index
+  file.  The file associated with the first matching ZAID entry and
+  closest temperature and background cross section (sigma_0) in the
+  index file is opened, and the physical data associated with that entry
+  initializes the handle data. Subsequent call to the \a NDI2_get family
+  of functions with this handle will return the requested physical data
+  associated with this ZAID, temperature, and background cross section.
+
+  \par Fortran example
+  \code
+  ! Set ZAID U-235 at room temperature in MeV
+  call ndi2_set_zaid(handle, "92235", 2.53e-8, 1000.0, ndi_err)
+  \endcode
+
+  \param handle: integer input handle
+  \param zaid: string input containing ZAID
+  \param temp: float64 temperature
+  \param sig0: float64 background cross section
+  \param ndi_err: integer output error code (Fortran only)
+  \return integer output error code (C only)
+*/
+int NDI2_set_zaid_float64_temp_sig_0(int handle, const char *zaid,
+                                     ndi_float64 temp, ndi_float64 sig0)
+{
+    state_struct *state_p;
+
+    state_p = handle_to_state_p(handle);
+
+    if (is_gendir(state_p)) {
+        return -2;
+    } else if (is_mpmg(state_p)) {
+        return ndimp_set_zaid_float64_temp_sig_0(state_p, zaid, temp,
+                                                 sig0);
+    } else {
+        return (ndi_c_set_zaid_float64_temp_sig_0_h(state_p, zaid, temp,
+                                                    sig0));
+    }
+}
+
+/*!
   \brief Set reaction for \a handle.
 
   This function associates a handle with an entry in the NDI index file.  

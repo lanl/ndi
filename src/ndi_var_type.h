@@ -32,6 +32,8 @@ typedef double ndi_float64;
 #define NDI_VEC2MAT ndi_vec2mat32
 #define NDI_SET_ZAID_FLOAT_TEMP ndi_c_set_zaid_float32_temp_h
 #define NDIMP_SET_ZAID_FLOAT_TEMP ndimp_set_zaid_float32_temp
+#define NDI_SET_ZAID_FLOAT_TEMP_SIG_0 ndi_c_set_zaid_float32_temp_sig_0_h
+#define NDIMP_SET_ZAID_FLOAT_TEMP_SIG_0 ndimp_set_zaid_float32_temp_sig_0
 #define NDI_GET_FLOAT_VAL ndi_c_get_float32_val
 #define NDI_GET_FLOAT_VAL_N ndi_c_get_float32_val_n
 #define NDI_GET_FLOAT_VEC ndi_c_get_float32_vec
@@ -129,6 +131,8 @@ typedef double ndi_float64;
 #define NDI_VEC2MAT ndi_vec2mat64
 #define NDI_SET_ZAID_FLOAT_TEMP ndi_c_set_zaid_float64_temp_h
 #define NDIMP_SET_ZAID_FLOAT_TEMP ndimp_set_zaid_float64_temp
+#define NDI_SET_ZAID_FLOAT_TEMP_SIG_0 ndi_c_set_zaid_float64_temp_sig_0_h
+#define NDIMP_SET_ZAID_FLOAT_TEMP_SIG_0 ndimp_set_zaid_float64_temp_sig_0
 #define NDI_GET_FLOAT_VAL ndi_c_get_float64_val
 #define NDI_GET_FLOAT_VAL_N ndi_c_get_float64_val_n
 #define NDI_GET_FLOAT_VEC ndi_c_get_float64_vec
