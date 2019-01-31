@@ -45,26 +45,6 @@ int ndi_c_set_zaid_float64_temp(const char *in_zaid, ndi_float64 temp)
 
 /**********************************************************************/
 
-int ndi_c_set_zaid_float32_temp_sig_0(const char *in_zaid,
-                                      ndi_float32 temp,
-				      ndi_float32 sig0)
-{
-    return ndi_c_set_zaid_float32_temp_sig_0_h(default_h, in_zaid, temp,
-					       sig0);
-}
-
-/**********************************************************************/
-
-int ndi_c_set_zaid_float64_temp_sig_0(const char *in_zaid,
-				      ndi_float64 temp,
-				      ndi_float64 sig0)
-{
-    return ndi_c_set_zaid_float64_temp_sig_0_h(default_h, in_zaid, temp,
-					       sig0);
-}
-
-/**********************************************************************/
-
 int ndi_c_set_isotope(const char *in_zaid)
 {
     return ndi_c_set_isotope_h(default_h, in_zaid);

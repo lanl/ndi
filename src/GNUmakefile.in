@@ -117,7 +117,6 @@ SRC := \
 
 SRC_FLOAT := \
 	ndi_set_zaid_float_temp.c \
-	ndi_set_zaid_float_temp_sig_0.c \
 	ndi_collapse_float.c \
 	ndi_collapse_mat.c \
 	ndi_get_float_val.c \

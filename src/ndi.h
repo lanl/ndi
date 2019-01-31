@@ -44,10 +44,6 @@ extern "C" {
 				   ndi_float32 temp);
     int NDI2_set_zaid_float64_temp(int handle, const char *zaid, 
 				   ndi_float64 temp);
-    int NDI2_set_zaid_float32_temp_sig_0(int handle, const char *zaid,
-                                         ndi_float32 temp, ndi_float32 sig0);
-    int NDI2_set_zaid_float64_temp_sig_0(int handle, const char *zaid,
-                                         ndi_float64 temp, ndi_float64 sig0);
     int NDI2_set_reaction(int handle, const char *zaid);
     int NDI2_set_option(int handle, int in_key, const char *value);
     int NDI2_check_option(int handle, int in_key, char *out_value,
@@ -124,10 +120,6 @@ extern "C" {
     int ndi_c_set_zaid(const char *zaid);
     int ndi_c_set_zaid_float32_temp(const char *zaid, ndi_float32 temp);
     int ndi_c_set_zaid_float64_temp(const char *zaid, ndi_float64 temp);
-    int ndi_c_set_zaid_float32_temp_sig_0(const char *zaid, ndi_float32 temp,
-					  ndi_float32 sig0);
-    int ndi_c_set_zaid_float64_temp_sig_0(const char *zaid, ndi_float64 temp,
-					  ndi_float64 sig0);
     int ndi_c_set_reaction(const char *zaid);
     int ndi_c_get_size(int in_key, int *ierr);
     int ndi_c_get_size_n(int in_key, int vec_num, int *ierr);
@@ -187,8 +179,6 @@ extern "C" {
 #define ndi_set_zaid(x) ndi_c_set_zaid(x)
 #define ndi_set_zaid_float32_temp(x, y) ndi_c_set_float32_temp(x, y)
 #define ndi_set_zaid_float64_temp(x, y) ndi_c_set_float64_temp(x, y)
-#define ndi_set_zaid_float32_temp_sig_0(x, y) ndi_c_set_float32_temp_sig_0(x, y)
-#define ndi_set_zaid_float64_temp_sig_0(x, y) ndi_c_set_float64_temp_sig_0(x, y)
 #define ndi_set_reaction(x) ndi_c_set_reaction(x)
 #define ndi_get_size(x, y) ndi_c_get_size(x, y)
 #define ndi_get_size_n(x, y, z) ndi_c_get_size_n(x, y, z)

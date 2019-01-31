@@ -379,14 +379,6 @@ extern "C" {
 				      ndi_float32 temp);
     int ndi_c_set_zaid_float64_temp_h(state_struct *state, const char *zaid, 
 				      ndi_float64 temp);
-    int ndi_c_set_zaid_float32_temp_sig_0_h(state_struct *state,
-					    const char *zaid,
-                                            ndi_float32 temp,
-					    ndi_float32 sig0);
-    int ndi_c_set_zaid_float64_temp_sig_0_h(state_struct *state,
-					    const char *zaid,
-                                            ndi_float64 temp,
-					    ndi_float64 sig0);
     int ndi_c_set_isotope_h(state_struct *state, const char *in_zaid);
     int ndi_c_set_reaction_h(state_struct *state, const char *in_zaid);
     int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr);
@@ -773,10 +765,6 @@ extern "C" {
                                     ndi_float32 temp);
     int ndimp_set_zaid_float64_temp(state_struct *h, const char *zaid,
                                     ndi_float64 temp);
-    int ndimp_set_zaid_float32_temp_sig_0(state_struct *h, const char *zaid,
-                                          ndi_float32 temp, ndi_float32 sig0);
-    int ndimp_set_zaid_float64_temp_sig_0(state_struct *h, const char *zaid,
-                                          ndi_float64 temp, ndi_float64 sig0);
     int ndimp_get_float32_vec(state_struct *h,
 			      int in_key,
                               ndi_float32 * ret_vec,

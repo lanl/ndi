@@ -1,6 +1,6 @@
  lib_type=  0
   library=  0
-String array size is   115
+String array size is   107
  String vec error is      0
 *****SETTING ISOTOPE 1001.500nm   
     1:  >1001.500nm   <   err =     0
@@ -50754,368 +50754,8 @@ PartKerma   :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 ProdFull     2: 
 
-*****SETTING ISOTOPE 92235.001nm  
-   43:  >92235.001nm  <   err =     0
-ZAID: 92235.001nm   err=   0
-U-235 300K sig0=10
-                                                                                                                 
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  2.58522E-08
-Sig0        :  1.00000E+01
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 6.04270E+00   1.60355E+00
-Velocities  : 
- 1.49911E+00   1.21790E-02
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.33299E+02   1.80898E+03
-EAvail      : 
- 6.23954E+02   1.60090E+04
-Heating     : 
- 3.84213E+01   1.24291E+02
-Kerma       : 
- 4.78991E+02   1.48668E+04
-SigTot      : 
- 1.24668E+01   1.19613E+02
-NuTot       : 
- 2.48234E+00   2.43659E+00
-Nupr        : 
- 2.46629E+00   2.42074E+00
-NuDel       : 
- 1.60491E-02   1.58501E-02
-NubarTotSigF: 
- 7.03357E+00   2.14212E+02
-NubarPrSigF : 
- 6.98809E+00   2.12819E+02
-NubarDelSigF: 
- 4.54742E-02   1.39346E+00
-ChiVecTot   : 
- 9.99999E-01   8.38226E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38222E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.33662E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.33629E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 8.69404E+00   3.88845E-03   1.22030E+01
-Pn Full      0: 
- 8.69404E+00   3.88845E-03   0.00000E+00   1.22030E+01
-TransMatTot  2: 
- 8.78676E-01  -5.97929E-06   0.00000E+00   4.43420E-05
-TransMatPr   0: 
- 1.56821E+01   3.89427E-03   2.12819E+02   1.22032E+01
-DiagCorr     0: 
- 1.54991E+00   3.31532E-02
-BHSCorr      0: 
- 1.54941E+00   3.31532E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
-*****SETTING ISOTOPE 92235.003nm  
-   44:  >92235.003nm  <   err =     0
-ZAID: 92235.003nm   err=   0
-U-235 300K sig0=1e3
-                                                                                                                
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  2.58522E-08
-Sig0        :  1.00000E+03
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.33740E+01   1.55165E+01
-Velocities  : 
- 1.06153E+00   4.50174E-03
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.65474E+02   5.63837E+03
-EAvail      : 
- 8.86358E+02   4.98377E+04
-Heating     : 
- 4.63200E+01   1.36492E+02
-Kerma       : 
- 6.99678E+02   4.63362E+04
-SigTot      : 
- 1.51053E+01   3.39480E+02
-NuTot       : 
- 2.45882E+00   2.43667E+00
-Nupr        : 
- 2.44284E+00   2.42082E+00
-NuDel       : 
- 1.59845E-02   1.58500E-02
-NubarTotSigF: 
- 1.01741E+01   6.67675E+02
-NubarPrSigF : 
- 1.01080E+01   6.63331E+02
-NubarDelSigF: 
- 6.61408E-02   4.34307E+00
-ChiVecTot   : 
- 9.99999E-01   8.38756E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38756E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.36149E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.36132E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 9.35937E+00   7.81030E-03   1.37195E+01
-Pn Full      0: 
- 9.35937E+00   7.81030E-03   0.00000E+00   1.37195E+01
-TransMatTot  2: 
- 5.09889E-01   4.38170E-05   0.00000E+00   5.00265E-05
-TransMatPr   0: 
- 1.94674E+01   7.81875E-03   6.63331E+02   1.37201E+01
-DiagCorr     0: 
- 1.12288E+00   3.86042E-02
-BHSCorr      0: 
- 1.12029E+00   3.86042E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
-*****SETTING ISOTOPE 92235.010nm  
-   45:  >92235.010nm  <   err =     0
-ZAID: 92235.010nm   err=   0
-U-235 300K sig0=1e10
-                                                                                                               
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  2.58522E-08
-Sig0        :  1.00000E+10
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.35760E+01   2.07841E+01
-Velocities  : 
- 1.04886E+00   3.67917E-03
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.67329E+02   7.01747E+03
-EAvail      : 
- 9.02555E+02   6.20204E+04
-Heating     : 
- 4.67652E+01   1.37839E+02
-Kerma       : 
- 7.13381E+02   5.76694E+04
-SigTot      : 
- 1.52545E+01   4.18382E+02
-NuTot       : 
- 2.45814E+00   2.43668E+00
-Nupr        : 
- 2.44216E+00   2.42083E+00
-NuDel       : 
- 1.59816E-02   1.58500E-02
-NubarTotSigF: 
- 1.03705E+01   8.30983E+02
-NubarPrSigF : 
- 1.03030E+01   8.25578E+02
-NubarDelSigF: 
- 6.74237E-02   5.40534E+00
-ChiVecTot   : 
- 9.99999E-01   8.38770E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38770E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.36221E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.36204E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 9.38255E+00   8.01163E-03   1.40190E+01
-Pn Full      0: 
- 9.38255E+00   8.01163E-03   0.00000E+00   1.40190E+01
-TransMatTot  2: 
- 4.98826E-01   3.99579E-05   0.00000E+00   5.26437E-05
-TransMatPr   0: 
- 1.96856E+01   8.02025E-03   8.25577E+02   1.40197E+01
-DiagCorr     0: 
- 1.10930E+00   4.02337E-02
-BHSCorr      0: 
- 1.10656E+00   4.02337E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
 *****SETTING ISOTOPE 92235.091nm  
-   46:  >92235.091nm  <   err =     0
+   43:  >92235.091nm  <   err =     0
 ZAID: 92235.091nm   err=   0
 30 Group Multitemperature Prototype
                                                                                                 
@@ -52303,7 +51943,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92235.094nm  
-   47:  >92235.094nm  <   err =     0
+   44:  >92235.094nm  <   err =     0
 ZAID: 92235.094nm   err=   0
 30 Group Multitemperature Prototype
                                                                                                 
@@ -53491,7 +53131,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92235.098nm  
-   48:  >92235.098nm  <   err =     0
+   45:  >92235.098nm  <   err =     0
 ZAID: 92235.098nm   err=   0
 30 Group Multitemperature Prototype
                                                                                                 
@@ -54678,128 +54318,8 @@ PartKerma   :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 ProdFull     2: 
 
-*****SETTING ISOTOPE 92235.101nm  
-   49:  >92235.101nm  <   err =     0
-ZAID: 92235.101nm   err=   0
-U-235 300K sig0=0.1
-                                                                                                                
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  2.58522E-08
-Sig0        :  1.00000E-01
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.19265E-01   2.04982E-02
-Velocities  : 
- 1.90937E+00   1.41198E-02
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.20017E+02   1.49523E+03
-EAvail      : 
- 5.29862E+02   1.32357E+04
-Heating     : 
- 3.55988E+01   1.21313E+02
-Kerma       : 
- 4.01664E+02   1.22884E+04
-SigTot      : 
- 1.12831E+01   1.01295E+02
-NuTot       : 
- 2.50585E+00   2.43657E+00
-Nupr        : 
- 2.48978E+00   2.42072E+00
-NuDel       : 
- 1.60706E-02   1.58501E-02
-NubarTotSigF: 
- 5.95569E+00   1.77059E+02
-NubarPrSigF : 
- 5.91749E+00   1.75907E+02
-NubarDelSigF: 
- 3.81952E-02   1.15178E+00
-ChiVecTot   : 
- 9.99999E-01   8.37526E-07
-ChiVecTPr   : 
- 9.99999E-01   8.37517E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38790E-07
-ChiMatTot   : 
- 9.99999E-01   8.31063E-07   9.99999E-01   8.38790E-07
-ChiMatPr    : 
- 9.99999E-01   8.31013E-07   9.99999E-01   8.38790E-07
-ChiMatDel   : 
- 9.99999E-01   8.38790E-07   9.99999E-01   8.38790E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 8.20197E+00   2.59846E-03   1.20211E+01
-Pn Full      0: 
- 8.20197E+00   2.59846E-03   0.00000E+00   1.20211E+01
-TransMatTot  2: 
- 1.10819E+00  -3.21579E-06   0.00000E+00   4.41200E-05
-TransMatPr   0: 
- 1.41195E+01   2.60338E-03   1.75907E+02   1.20212E+01
-DiagCorr     0: 
- 1.81485E+00   3.27834E-02
-BHSCorr      0: 
- 1.81467E+00   3.27834E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
 *****SETTING ISOTOPE 92235.500nm  
-   50:  >92235.500nm  <   err =     0
+   46:  >92235.500nm  <   err =     0
 ZAID: 92235.500nm   err=   0
 zaid = 92235.500nm from mendf5                                                 
                                                     
@@ -55995,7 +55515,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92235.600nm  
-   51:  >92235.600nm  <   err =     0
+   47:  >92235.600nm  <   err =     0
 ZAID: 92235.600nm   err=   0
 zaid = 92235.600nm from mendf6                                                 
                                                     
@@ -57317,7 +56837,7 @@ ProdFull     2:
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 *****SETTING ISOTOPE 92235.601nm  
-   52:  >92235.601nm  <   err =     0
+   48:  >92235.601nm  <   err =     0
 ZAID: 92235.601nm   err=   0
 zaid = 92235.601nm from mendf6 (version 2)
                                                                                          
@@ -58638,368 +58158,8 @@ ProdFull     2:
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
-*****SETTING ISOTOPE 92235.602nm  
-   53:  >92235.602nm  <   err =     0
-ZAID: 92235.602nm   err=   0
-U-235 600K sig0=10
-                                                                                                                 
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  5.17043E-08
-Sig0        :  1.00000E+01
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 6.02620E+00   1.57011E+00
-Velocities  : 
- 1.51757E+00   1.19719E-02
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.34085E+02   1.85076E+03
-EAvail      : 
- 6.31505E+02   1.63804E+04
-Heating     : 
- 3.87464E+01   1.24293E+02
-Kerma       : 
- 4.85427E+02   1.52102E+04
-SigTot      : 
- 1.25283E+01   1.22374E+02
-NuTot       : 
- 2.48183E+00   2.43659E+00
-Nupr        : 
- 2.46578E+00   2.42074E+00
-NuDel       : 
- 1.60471E-02   1.58501E-02
-NubarTotSigF: 
- 7.12657E+00   2.19161E+02
-NubarPrSigF : 
- 7.08049E+00   2.17735E+02
-NubarDelSigF: 
- 4.60793E-02   1.42565E+00
-ChiVecTot   : 
- 9.99999E-01   8.38228E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38224E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.33715E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.33682E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 8.69410E+00   3.77670E-03   1.22476E+01
-Pn Full      0: 
- 8.69410E+00   3.77670E-03   0.00000E+00   1.22476E+01
-TransMatTot  2: 
- 8.82663E-01  -1.24510E-06   0.00000E+00   4.43130E-05
-TransMatPr   0: 
- 1.57746E+01   3.78260E-03   2.17735E+02   1.22478E+01
-DiagCorr     0: 
- 1.55631E+00   3.32637E-02
-BHSCorr      0: 
- 1.55584E+00   3.32637E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
-*****SETTING ISOTOPE 92235.603nm  
-   54:  >92235.603nm  <   err =     0
-ZAID: 92235.603nm   err=   0
-U-235 600K sig0=1e3
-                                                                                                                
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  5.17043E-08
-Sig0        :  1.00000E+03
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.33738E+01   1.55130E+01
-Velocities  : 
- 1.06159E+00   4.50038E-03
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.65672E+02   5.64126E+03
-EAvail      : 
- 8.88180E+02   4.98640E+04
-Heating     : 
- 4.63707E+01   1.36438E+02
-Kerma       : 
- 7.01213E+02   4.63599E+04
-SigTot      : 
- 1.51219E+01   3.39787E+02
-NuTot       : 
- 2.45877E+00   2.43667E+00
-Nupr        : 
- 2.44278E+00   2.42082E+00
-NuDel       : 
- 1.59842E-02   1.58500E-02
-NubarTotSigF: 
- 1.01962E+01   6.68016E+02
-NubarPrSigF : 
- 1.01299E+01   6.63671E+02
-NubarDelSigF: 
- 6.62847E-02   4.34530E+00
-ChiVecTot   : 
- 9.99999E-01   8.38757E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38756E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.36155E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.36138E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 9.36073E+00   7.83658E-03   1.37392E+01
-Pn Full      0: 
- 9.36073E+00   7.83658E-03   0.00000E+00   1.37392E+01
-TransMatTot  2: 
- 5.09939E-01   3.98529E-05   0.00000E+00   5.01116E-05
-TransMatPr   0: 
- 1.94907E+01   7.84505E-03   6.63671E+02   1.37397E+01
-DiagCorr     0: 
- 1.12294E+00   3.86635E-02
-BHSCorr      0: 
- 1.12035E+00   3.86635E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
-*****SETTING ISOTOPE 92235.610nm  
-   55:  >92235.610nm  <   err =     0
-ZAID: 92235.610nm   err=   0
-U-235 600K sig0=1e10
-                                                                                                               
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  5.17043E-08
-Sig0        :  1.00000E+10
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.35760E+01   2.07841E+01
-Velocities  : 
- 1.04886E+00   3.67917E-03
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.67331E+02   7.01540E+03
-EAvail      : 
- 9.02575E+02   6.20020E+04
-Heating     : 
- 4.67659E+01   1.37833E+02
-Kerma       : 
- 7.13398E+02   5.76524E+04
-SigTot      : 
- 1.52547E+01   4.18276E+02
-NuTot       : 
- 2.45814E+00   2.43668E+00
-Nupr        : 
- 2.44216E+00   2.42083E+00
-NuDel       : 
- 1.59816E-02   1.58500E-02
-NubarTotSigF: 
- 1.03707E+01   8.30738E+02
-NubarPrSigF : 
- 1.03033E+01   8.25334E+02
-NubarDelSigF: 
- 6.74253E-02   5.40374E+00
-ChiVecTot   : 
- 9.99999E-01   8.38770E-07
-ChiVecTPr   : 
- 9.99999E-01   8.38770E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.36221E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.36204E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 9.38254E+00   8.03946E-03   1.40395E+01
-Pn Full      0: 
- 9.38254E+00   8.03946E-03   0.00000E+00   1.40395E+01
-TransMatTot  2: 
- 4.98830E-01   3.54747E-05   0.00000E+00   5.27196E-05
-TransMatPr   0: 
- 1.96858E+01   8.04808E-03   8.25333E+02   1.40402E+01
-DiagCorr     0: 
- 1.10930E+00   4.02924E-02
-BHSCorr      0: 
- 1.10656E+00   4.02924E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
 *****SETTING ISOTOPE 92235.620nm  
-   56:  >92235.620nm  <   err =     0
+   49:  >92235.620nm  <   err =     0
 ZAID: 92235.620nm   err=   0
 9228  endf/b-vi.5 for u235, NJOY 97_62, 52 thermal groups                     
                                                      
@@ -62664,7 +61824,7 @@ ProdFull     2:
  0.00000E+00   0.00000E+00
 
 *****SETTING ISOTOPE 92235.666ngk 
-   57:  >92235.666ngk <   err =     0
+   50:  >92235.666ngk <   err =     0
 ZAID: 92235.666ngk  err=   0
 NGK coupled library from neutron 92235.600nm and photon 92000.020pm
                                                                 
@@ -64084,7 +63244,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92235.670nm  
-   58:  >92235.670nm  <   err =     0
+   51:  >92235.670nm  <   err =     0
 ZAID: 92235.670nm   err=   0
 zaid = 92235.600nm from mendf6
                                                                                                      
@@ -65406,7 +64566,7 @@ ProdFull     2:
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 *****SETTING ISOTOPE 92235.671nm  
-   59:  >92235.671nm  <   err =     0
+   52:  >92235.671nm  <   err =     0
 ZAID: 92235.671nm   err=   0
 zaid = 92235.600nm from mendf6
                                                                                                      
@@ -66728,7 +65888,7 @@ ProdFull     2:
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
 *****SETTING ISOTOPE 92235.673nm  
-   60:  >92235.673nm  <   err =     0
+   53:  >92235.673nm  <   err =     0
 ZAID: 92235.673nm   err=   0
 zaid = 92235.600nm from mendf6
                                                                                                      
@@ -68049,128 +67209,8 @@ ProdFull     2:
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 
-*****SETTING ISOTOPE 92235.701nm  
-   61:  >92235.701nm  <   err =     0
-ZAID: 92235.701nm   err=   0
-U-235 600K sig0=0.1
-                                                                                                                
-
-Groups      :      2
-Upscat      :      0
-Downscat    :      1
-ScatMat     :      4
-Edits       :      6
-SecPart     :      0
-NumTarget   :      7
-NumRProds   :      0
-PhGrps      :      0
-PhScatMat   :      0
-
-NumProdAll   2:      0
-NumProdRMO   2:      0
-NumProdFew   2:      0
-MT           2:     16
-
-Temp        :  5.17043E-08
-Sig0        :  1.00000E-01
-At wgt      :  2.35044E+02
-AWR         :  2.33025E+02
-
-ReacQ         2: 0.00000E+00
-
-Rx--all     : 
-Rx--rmo     : 
-Rx--few     : 
-
-Rx id all    2: 
-Rx mult all  2: 
-Rx id rmo    2: 
-Rx mult rmo  2: 
-Rx id few    2: 
-Rx mult few  2: 
-
-Ebounds     : 
- 1.70000E+01   1.67000E-04   1.39000E-10
-Weights     : 
- 1.18860E-01   1.98963E-02
-Velocities  : 
- 1.94691E+00   1.37898E-02
-AvgE        : 
- 8.50008E+00   8.35001E-05
-EnergyN     : 
- 1.20539E+02   1.54246E+03
-EAvail      : 
- 5.35173E+02   1.36551E+04
-Heating     : 
- 3.58800E+01   1.21466E+02
-Kerma       : 
- 4.06227E+02   1.26765E+04
-SigTot      : 
- 1.13218E+01   1.04362E+02
-NuTot       : 
- 2.50528E+00   2.43657E+00
-Nupr        : 
- 2.48921E+00   2.42072E+00
-NuDel       : 
- 1.60689E-02   1.58501E-02
-NubarTotSigF: 
- 6.02195E+00   1.82652E+02
-NubarPrSigF : 
- 5.98332E+00   1.81464E+02
-NubarDelSigF: 
- 3.86249E-02   1.18817E+00
-ChiVecTot   : 
- 9.99999E-01   8.37529E-07
-ChiVecTPr   : 
- 9.99999E-01   8.37521E-07
-ChiVecTDel  : 
- 9.99999E-01   8.38791E-07
-ChiMatTot   : 
- 9.99999E-01   8.31122E-07   9.99999E-01   8.38791E-07
-ChiMatPr    : 
- 9.99999E-01   8.31073E-07   9.99999E-01   8.38791E-07
-ChiMatDel   : 
- 9.99999E-01   8.38791E-07   9.99999E-01   8.38791E-07
-Norm        : 
- 1.00000E+00   1.00000E+00   1.00000E+00   1.00000E+00
-FissQ       : 
- 1.80646E+02   2.02233E+02   6.50000E+00   6.60000E+00   1.69130E+02   4.91600E+00
-ReacQ       : 
- 0.00000E+00   0.00000E+00  -5.29778E+00  -1.21423E+01   1.80646E+02   6.54520E+00
-PhotonE     : 
-
-Pn Scat (LD) 0: 
- 8.19757E+00   2.47495E-03   1.20719E+01
-Pn Full      0: 
- 8.19757E+00   2.47495E-03   0.00000E+00   1.20719E+01
-TransMatTot  2: 
- 1.11109E+00  -1.34433E-06   0.00000E+00   4.39956E-05
-TransMatPr   0: 
- 1.41809E+01   2.47992E-03   1.81464E+02   1.20720E+01
-DiagCorr     0: 
- 1.82133E+00   3.28963E-02
-BHSCorr      0: 
- 1.82116E+00   3.28963E-02
-Reaction XS  0: 
- 0.00000E+00   0.00000E+00
-Ph scat (f)  0: 
-
-TotProdXS   (92235       ) : 
- 0.00000E+00   0.00000E+00
-
-NumGrps     : 
-           0
-PnOrder     : 
-           0
-Ebounds     : 
-PartHeat    : 
- 0.00000E+00   0.00000E+00
-PartKerma   : 
- 0.00000E+00   0.00000E+00
-ProdFull     2: 
-
 *****SETTING ISOTOPE 92235.990nm  
-   62:  >92235.990nm  <   err =     0
+   54:  >92235.990nm  <   err =     0
 ZAID: 92235.990nm   err=   0
 zaid = 92235.990nm from rmoxsct                                                
                                                     
@@ -69366,7 +68406,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.601nm  
-   63:  >92236.601nm  <   err =     0
+   55:  >92236.601nm  <   err =     0
 ZAID: 92236.601nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_tot and nu_del
                                                               
@@ -69520,7 +68560,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.602nm  
-   64:  >92236.602nm  <   err =     0
+   56:  >92236.602nm  <   err =     0
 ZAID: 92236.602nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_tot and nu_pr
                                                                
@@ -69674,7 +68714,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.603nm  
-   65:  >92236.603nm  <   err =     0
+   57:  >92236.603nm  <   err =     0
 ZAID: 92236.603nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_pr and nu_del
                                                                
@@ -69828,7 +68868,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.604nm  
-   66:  >92236.604nm  <   err =     0
+   58:  >92236.604nm  <   err =     0
 ZAID: 92236.604nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_sig_f_pr and nu_sig_f_del
                                                    
@@ -69982,7 +69022,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.605nm  
-   67:  >92236.605nm  <   err =     0
+   59:  >92236.605nm  <   err =     0
 ZAID: 92236.605nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                    
@@ -70136,7 +69176,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.606nm  
-   68:  >92236.606nm  <   err =     0
+   60:  >92236.606nm  <   err =     0
 ZAID: 92236.606nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_pr and chi_vec_del; NUs: nu_sig_f_tot and nu_sig_f_del
                                                   
@@ -70290,7 +69330,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.607nm  
-   69:  >92236.607nm  <   err =     0
+   61:  >92236.607nm  <   err =     0
 ZAID: 92236.607nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_tot and nu_del
                                                              
@@ -70444,7 +69484,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.608nm  
-   70:  >92236.608nm  <   err =     0
+   62:  >92236.608nm  <   err =     0
 ZAID: 92236.608nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_tot and nu_pr
                                                               
@@ -70598,7 +69638,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.609nm  
-   71:  >92236.609nm  <   err =     0
+   63:  >92236.609nm  <   err =     0
 ZAID: 92236.609nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_pr and nu_del
                                                               
@@ -70752,7 +69792,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.610nm  
-   72:  >92236.610nm  <   err =     0
+   64:  >92236.610nm  <   err =     0
 ZAID: 92236.610nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_sig_f_pr and nu_sig_f_del
                                                   
@@ -70906,7 +69946,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.611nm  
-   73:  >92236.611nm  <   err =     0
+   65:  >92236.611nm  <   err =     0
 ZAID: 92236.611nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                   
@@ -71060,7 +70100,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.612nm  
-   74:  >92236.612nm  <   err =     0
+   66:  >92236.612nm  <   err =     0
 ZAID: 92236.612nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_del; NUs: nu_sig_f_tot and nu_sig_f_del
                                                  
@@ -71214,7 +70254,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.613nm  
-   75:  >92236.613nm  <   err =     0
+   67:  >92236.613nm  <   err =     0
 ZAID: 92236.613nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_tot and nu_del
                                                               
@@ -71368,7 +70408,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.614nm  
-   76:  >92236.614nm  <   err =     0
+   68:  >92236.614nm  <   err =     0
 ZAID: 92236.614nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_tot and nu_pr
                                                                
@@ -71522,7 +70562,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.615nm  
-   77:  >92236.615nm  <   err =     0
+   69:  >92236.615nm  <   err =     0
 ZAID: 92236.615nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_pr and nu_del
                                                                
@@ -71676,7 +70716,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.616nm  
-   78:  >92236.616nm  <   err =     0
+   70:  >92236.616nm  <   err =     0
 ZAID: 92236.616nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_sig_f_pr and nu_sig_f_del
                                                    
@@ -71830,7 +70870,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.617nm  
-   79:  >92236.617nm  <   err =     0
+   71:  >92236.617nm  <   err =     0
 ZAID: 92236.617nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                    
@@ -71984,7 +71024,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.618nm  
-   80:  >92236.618nm  <   err =     0
+   72:  >92236.618nm  <   err =     0
 ZAID: 92236.618nm   err=   0
 GIVEN ARE -- CHIs: chi_vec_tot and chi_vec_pr; NUs: nu_sig_f_tot and nu_sig_f_del
                                                   
@@ -72138,7 +71178,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.619nm  
-   81:  >92236.619nm  <   err =     0
+   73:  >92236.619nm  <   err =     0
 ZAID: 92236.619nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_tot and nu_del
                                                               
@@ -72292,7 +71332,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.620nm  
-   82:  >92236.620nm  <   err =     0
+   74:  >92236.620nm  <   err =     0
 ZAID: 92236.620nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_tot and nu_pr
                                                                
@@ -72446,7 +71486,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.621nm  
-   83:  >92236.621nm  <   err =     0
+   75:  >92236.621nm  <   err =     0
 ZAID: 92236.621nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_pr and nu_del
                                                                
@@ -72600,7 +71640,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.622nm  
-   84:  >92236.622nm  <   err =     0
+   76:  >92236.622nm  <   err =     0
 ZAID: 92236.622nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_sig_f_pr and nu_sig_f_del
                                                    
@@ -72754,7 +71794,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.623nm  
-   85:  >92236.623nm  <   err =     0
+   77:  >92236.623nm  <   err =     0
 ZAID: 92236.623nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                    
@@ -72908,7 +71948,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.624nm  
-   86:  >92236.624nm  <   err =     0
+   78:  >92236.624nm  <   err =     0
 ZAID: 92236.624nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_pr and chi_mat_del; NUs: nu_sig_f_tot and nu_sig_f_del
                                                   
@@ -73062,7 +72102,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.625nm  
-   87:  >92236.625nm  <   err =     0
+   79:  >92236.625nm  <   err =     0
 ZAID: 92236.625nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_totand chi_mat_del; NUs: nu_tot and nu_del
                                                               
@@ -73216,7 +72256,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.626nm  
-   88:  >92236.626nm  <   err =     0
+   80:  >92236.626nm  <   err =     0
 ZAID: 92236.626nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_del; NUs: nu_tot and nu_pr
                                                               
@@ -73370,7 +72410,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.627nm  
-   89:  >92236.627nm  <   err =     0
+   81:  >92236.627nm  <   err =     0
 ZAID: 92236.627nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_del; NUs: nu_pr and nu_del
                                                               
@@ -73524,7 +72564,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.628nm  
-   90:  >92236.628nm  <   err =     0
+   82:  >92236.628nm  <   err =     0
 ZAID: 92236.628nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_del; NUs: nu_sig_f_pr and nu_sig_f_del
                                                   
@@ -73678,7 +72718,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.629nm  
-   91:  >92236.629nm  <   err =     0
+   83:  >92236.629nm  <   err =     0
 ZAID: 92236.629nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_del; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                   
@@ -73832,7 +72872,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.630nm  
-   92:  >92236.630nm  <   err =     0
+   84:  >92236.630nm  <   err =     0
 ZAID: 92236.630nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_del; NUs: nu_sig_f_tot and nu_sig_f_del
                                                  
@@ -73986,7 +73026,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.631nm  
-   93:  >92236.631nm  <   err =     0
+   85:  >92236.631nm  <   err =     0
 ZAID: 92236.631nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_tot and nu_del
                                                               
@@ -74140,7 +73180,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.632nm  
-   94:  >92236.632nm  <   err =     0
+   86:  >92236.632nm  <   err =     0
 ZAID: 92236.632nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_tot and nu_pr
                                                                
@@ -74294,7 +73334,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.633nm  
-   95:  >92236.633nm  <   err =     0
+   87:  >92236.633nm  <   err =     0
 ZAID: 92236.633nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_pr and nu_del
                                                                
@@ -74448,7 +73488,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.634nm  
-   96:  >92236.634nm  <   err =     0
+   88:  >92236.634nm  <   err =     0
 ZAID: 92236.634nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_sig_f_pr and nu_sig_f_del
                                                    
@@ -74602,7 +73642,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.635nm  
-   97:  >92236.635nm  <   err =     0
+   89:  >92236.635nm  <   err =     0
 ZAID: 92236.635nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_sig_f_tot and nu_sig_f_pr
                                                    
@@ -74756,7 +73796,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92236.636nm  
-   98:  >92236.636nm  <   err =     0
+   90:  >92236.636nm  <   err =     0
 ZAID: 92236.636nm   err=   0
 GIVEN ARE -- CHIs: chi_mat_tot and chi_mat_pr; NUs: nu_sig_f_tot and nu_sig_f_del
                                                   
@@ -74910,7 +73950,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92238.500nm  
-   99:  >92238.500nm  <   err =     0
+   91:  >92238.500nm  <   err =     0
 ZAID: 92238.500nm   err=   0
 zaid = 92238.500nm from mendf5                                                 
                                                     
@@ -76106,7 +75146,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92238.666ngk 
-  100:  >92238.666ngk <   err =     0
+   92:  >92238.666ngk <   err =     0
 ZAID: 92238.666ngk  err=   0
 NGK coupled library from neutron 92238.600nm and photon 92000.020pm
                                                                 
@@ -77526,7 +76566,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 92238.990nm  
-  101:  >92238.990nm  <   err =     0
+   93:  >92238.990nm  <   err =     0
 ZAID: 92238.990nm   err=   0
 zaid = 92238.990nm from rmoxsct                                                
                                                     
@@ -78722,7 +77762,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94238.600nm  
-  102:  >94238.600nm  <   err =     0
+   94:  >94238.600nm  <   err =     0
 ZAID: 94238.600nm   err=   0
 zaid = 94238.600nm from mendf6                                                 
                                                     
@@ -79918,7 +78958,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94238.990nm  
-  103:  >94238.990nm  <   err =     0
+   95:  >94238.990nm  <   err =     0
 ZAID: 94238.990nm   err=   0
 zaid = 94238.990nm from rmoxsct                                                
                                                     
@@ -81114,7 +80154,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94239.550nm  
-  104:  >94239.550nm  <   err =     0
+   96:  >94239.550nm  <   err =     0
 ZAID: 94239.550nm   err=   0
 zaid = 94239.550nm from mendf5                                                 
                                                     
@@ -82310,7 +81350,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94239.600nm  
-  105:  >94239.600nm  <   err =     0
+   97:  >94239.600nm  <   err =     0
 ZAID: 94239.600nm   err=   0
 zaid = 94239.600nm from mendf6                                                 
                                                     
@@ -83506,7 +82546,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94239.666ngk 
-  106:  >94239.666ngk <   err =     0
+   98:  >94239.666ngk <   err =     0
 ZAID: 94239.666ngk  err=   0
 NGK coupled library from neutron 94239.600nm and photon 94000.020pm
                                                                 
@@ -84926,7 +83966,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94239.990nm  
-  107:  >94239.990nm  <   err =     0
+   99:  >94239.990nm  <   err =     0
 ZAID: 94239.990nm   err=   0
 zaid = 94239.990nm from rmoxsct                                                
                                                     
@@ -86122,7 +85162,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94240.500nm  
-  108:  >94240.500nm  <   err =     0
+  100:  >94240.500nm  <   err =     0
 ZAID: 94240.500nm   err=   0
 zaid = 94240.500nm from mendf5                                                 
                                                     
@@ -87318,7 +86358,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94240.600nm  
-  109:  >94240.600nm  <   err =     0
+  101:  >94240.600nm  <   err =     0
 ZAID: 94240.600nm   err=   0
 zaid = 94240.600nm from mendf6                                                 
                                                     
@@ -88514,7 +87554,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94240.990nm  
-  110:  >94240.990nm  <   err =     0
+  102:  >94240.990nm  <   err =     0
 ZAID: 94240.990nm   err=   0
 zaid = 94240.990nm from rmoxsct                                                
                                                     
@@ -89710,7 +88750,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94241.500nm  
-  111:  >94241.500nm  <   err =     0
+  103:  >94241.500nm  <   err =     0
 ZAID: 94241.500nm   err=   0
 zaid = 94241.500nm from mendf5                                                 
                                                     
@@ -90906,7 +89946,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94241.600nm  
-  112:  >94241.600nm  <   err =     0
+  104:  >94241.600nm  <   err =     0
 ZAID: 94241.600nm   err=   0
 zaid = 94241.600nm from mendf6                                                 
                                                     
@@ -92102,7 +91142,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94241.990nm  
-  113:  >94241.990nm  <   err =     0
+  105:  >94241.990nm  <   err =     0
 ZAID: 94241.990nm   err=   0
 zaid = 94241.990nm from rmoxsct                                                
                                                     
@@ -93298,7 +92338,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94242.500nm  
-  114:  >94242.500nm  <   err =     0
+  106:  >94242.500nm  <   err =     0
 ZAID: 94242.500nm   err=   0
 zaid = 94242.500nm from mendf5                                                 
                                                     
@@ -94492,7 +93532,7 @@ PartKerma   :
 ProdFull     2: 
 
 *****SETTING ISOTOPE 94242.600nm  
-  115:  >94242.600nm  <   err =     0
+  107:  >94242.600nm  <   err =     0
 ZAID: 94242.600nm   err=   0
 zaid = 94242.600nm from mendf6                                                 
                                                     

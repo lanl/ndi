@@ -62,8 +62,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_SET_ZAID           NDI_SET_ZAID\n");
     printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP NDI_SET_ZAID_FLOAT32_TEMP\n");
     printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP NDI_SET_ZAID_FLOAT64_TEMP\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0 NDI_SET_ZAID_FLOAT32_TEMP_SIG_0\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0 NDI_SET_ZAID_FLOAT64_TEMP_SIG_0\n");
     printf("#define F_NDI_SET_ISOTOPE        NDI_SET_ISOTOPE\n");
     printf("#define F_NDI_SET_REACTION       NDI_SET_REACTION\n");
     printf("#define F_NDI_GET_SIZE           NDI_GET_SIZE\n");
@@ -97,8 +95,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_SET_ZAID NDI2_SET_ZAID\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP NDI2_SET_ZAID_FLOAT32_TEMP\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP NDI2_SET_ZAID_FLOAT64_TEMP\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0 NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0 NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0\n");
     printf("#define F_NDI2_SET_ISOTOPE NDI2_SET_ISOTOPE\n");
     printf("#define F_NDI2_SET_REACTION NDI2_SET_REACTION\n");
     printf("#define F_NDI2_MAKE_HANDLE NDI2_MAKE_HANDLE\n");
@@ -141,8 +137,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_SET_ZAID           NDI_SET_ZAID_\n");
     printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP NDI_SET_ZAID_FLOAT32_TEMP_\n");
     printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP NDI_SET_ZAID_FLOAT64_TEMP_\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0 NDI_SET_ZAID_FLOAT32_TEMP_SIG_0_\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0 NDI_SET_ZAID_FLOAT64_TEMP_SIG_0_\n");
     printf("#define F_NDI_SET_ISOTOPE        NDI_SET_ISOTOPE_\n");
     printf("#define F_NDI_SET_REACTION       NDI_SET_REACTION_\n");
     printf("#define F_NDI_GET_SIZE           NDI_GET_SIZE_\n");
@@ -179,8 +173,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_SET_ZAID NDI2_SET_ZAID_\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP NDI2_SET_ZAID_FLOAT32_TEMP_\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP NDI2_SET_ZAID_FLOAT64_TEMP_\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0 NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0_\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0 NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0_\n");
     printf("#define F_NDI2_SET_ISOTOPE NDI2_SET_ISOTOPE_\n");
     printf("#define F_NDI2_SET_REACTION NDI2_SET_REACTION_\n");
     printf("#define F_NDI2_MAKE_HANDLE NDI2_MAKE_HANDLE_\n");
@@ -223,8 +215,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_SET_ZAID           ndi_set_zaid\n");
     printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP ndi_set_zaid_float32_temp\n");
     printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP ndi_set_zaid_float64_temp\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi_set_zaid_float32_temp_sig_0\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi_set_zaid_float64_temp_sig_0\n");
     printf("#define F_NDI_SET_ISOTOPE        ndi_set_isotope\n");
     printf("#define F_NDI_SET_REACTION       ndi_set_reaction\n");
     printf("#define F_NDI_GET_SIZE           ndi_get_size\n");
@@ -264,8 +254,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP ndi2_set_zaid_float32_temp\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP ndi2_set_zaid_float64_temp\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi2_set_zaid_float32_temp_sig_0\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi2_set_zaid_float64_temp_sig_0\n");
 
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope\n");
     printf("#define F_NDI2_SET_REACTION ndi2_set_reaction\n");
@@ -306,8 +294,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_SET_ZAID           ndi_set_zaid_\n");
     printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP ndi_set_zaid_float32_temp_\n");
     printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP ndi_set_zaid_float64_temp_\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi_set_zaid_float32_temp_sig_0_\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi_set_zaid_float64_temp_sig_0_\n");
     printf("#define F_NDI_SET_ISOTOPE        ndi_set_isotope_\n");
     printf("#define F_NDI_SET_REACTION       ndi_set_reaction_\n");
     printf("#define F_NDI_SET_OPTION         ndi_set_option_\n");
@@ -349,8 +335,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid_\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP ndi2_set_zaid_float32_temp_\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP ndi2_set_zaid_float64_temp_\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi2_set_zaid_float32_temp_sig_0_\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi2_set_zaid_float64_temp_sig_0_\n");
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope_\n");
     printf("#define F_NDI2_SET_REACTION ndi2_set_reaction_\n");
     printf("#define F_NDI2_GET_SIZE ndi2_get_size_\n");
@@ -390,8 +374,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI_SET_ZAID           ndi_set_zaid__\n");
     printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP ndi_set_zaid_float32_temp__\n");
     printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP ndi_set_zaid_float64_temp__\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi_set_zaid_float32_temp_sig_0__\n");
-    printf("#define F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi_set_zaid_float64_temp_sig_0__\n");
     printf("#define F_NDI_SET_ISOTOPE        ndi_set_isotope__\n");
     printf("#define F_NDI_SET_REACTION       ndi_set_reaction__\n");
     printf("#define F_NDI_SET_OPTION         ndi_set_option__\n");
@@ -433,8 +415,6 @@ void ndi_print_fmangle_body()
     printf("#define F_NDI2_SET_ZAID ndi2_set_zaid__\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP ndi2_set_zaid_float32_temp__\n");
     printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP ndi2_set_zaid_float64_temp__\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0 ndi2_set_zaid_float32_temp_sig_0__\n");
-    printf("#define F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0 ndi2_set_zaid_float64_temp_sig_0__\n");
     printf("#define F_NDI2_SET_ISOTOPE ndi2_set_isotope__\n");
     printf("#define F_NDI2_SET_REACTION ndi2_set_reaction__\n");
     printf("#define F_NDI2_GET_SIZE ndi2_get_size__\n");
