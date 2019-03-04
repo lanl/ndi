@@ -78,7 +78,7 @@ install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h
   ${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i
   ${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h
-  DESTINATION include/ndi
+  DESTINATION include
   PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 install(TARGETS ndi
