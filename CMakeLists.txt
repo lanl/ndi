@@ -7,7 +7,7 @@ else()
 endif()
 
 project(ndi 
-  VERSION 1.1.0 
+  VERSION 2.1.3
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
   LANGUAGES C Fortran)
 
@@ -74,10 +74,11 @@ target_compile_definitions(ndi_float64 PRIVATE FLOAT64)
 include(src/CMakeLists.txt)
 
 install(FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h
-  ${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i
-  ${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i"
+  "${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/ndi_version.h"
   DESTINATION include/ndi
   PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
