@@ -1,27 +1,36 @@
-function(CMAKE_DEPENDENT_CACHE_VAR option type doc default depends force)
+cmake_minimum_required(VERSION 3.12.1)
+include_guard(GLOBAL)
+
+function(CMAKE_DEPENDENT_CACHE_VAR variable type docstring default conditions force)
   list(APPEND type_list FILEPATH PATH STRING BOOL)
   list(FIND type_list ${type} type_found)
   if( type_found LESS 0 )
-    message(FATAL_ERROR "CMAKE_DEPENDENT_CACHE_VAR error: variable type '${type}' must be one of FILEPATH, PATH, STRING, or BOOL")
+    message("CMAKE_DEPENDENT_CACHE_VAR error: variable type")
+    message(FATAL_ERROR
+      "'${type}' must be one of FILEPATH, PATH, STRING, or BOOL")
   endif()
 
-  set(${option}_AVAILABLE 1)
-  foreach(d ${depends})
-    string(REGEX REPLACE " +" ";" CMAKE_DEPENDENT_OPTION_DEP "${d}")
-    if(${CMAKE_DEPENDENT_OPTION_DEP})
+  set(${variable}_AVAILABLE TRUE)
+  foreach(condition ${conditions})
+    string(REGEX REPLACE " +" ";"
+      CMAKE_DEPENDENT_VARIABLE_DEP "${condition}")
+    if(${CMAKE_DEPENDENT_VARIABLE_DEP})
     else()
-      set(${option}_AVAILABLE 0)
+      set(${variable}_AVAILABLE FALSE)
     endif()
   endforeach()
 
-  if(${option}_AVAILABLE)
-    set(${option} "${default}" CACHE "${type}" "${doc}")
-    set(${option} "${${option}}" CACHE "${type}" "${doc}" FORCE)
+  if(${variable}_AVAILABLE)
+    set(${variable} "${default}" CACHE "${type}" "${docstring}")
+    set(${variable} "${${variable}}" CACHE "${type}" "${docstring}" FORCE)
   else()
-    if( DEFINED ${option} )
-      set(${option} "${${option}}" CACHE INTERNAL "${doc}")
+    if(DEFINED ${variable})
+      set(${variable} "${${variable}}" CACHE INTERNAL "${docstring}")
     endif()
-    set(${option} "${force}" PARENT_SCOPE)
+    set(${variable} "${force}" PARENT_SCOPE)
   endif()
-
 endfunction()
+
+install(FILES
+  ${CMAKE_CURRENT_LIST_DIR}/CMakeDependentCacheVar.cmake
+  DESTINATION share/cmake/shacl/.cmake)

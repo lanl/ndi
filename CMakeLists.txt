@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.12)
 
 if( DEFINED PROJECT_NAME )
   set( subproject ON )
@@ -65,7 +65,7 @@ set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
 
 foreach(C_target IN ITEMS ndi ndi_C ndi_F ndi_float32 ndi_float64)
   target_compile_options(${C_target} PRIVATE
-    $<TARGET_PROPERTY:Warnings::Warnings_C,INTERFACE_COMPILE_OPTIONS>)
+    $<TARGET_PROPERTY:shacl::cmake::Warnings_C,INTERFACE_COMPILE_OPTIONS>)
 endforeach()
 
 target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
@@ -79,23 +79,18 @@ install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_version.h"
-  DESTINATION include/ndi
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  DESTINATION include/ndi)
 
 install(TARGETS ndi
   EXPORT ndiConfig
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
-  PERMISSIONS OWNER_READ OWNER_EXECUTE 
-              GROUP_READ GROUP_EXECUTE
-              WORLD_READ WORLD_EXECUTE)
+  RUNTIME DESTINATION bin)
 
 install(EXPORT ndiConfig
   FILE ndiConfig.cmake
   NAMESPACE ndi::
-  DESTINATION share/cmake/ndi
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  DESTINATION share/cmake/ndi)
 
 write_basic_package_version_file("ndiConfigVersion.cmake"
   VERSION ${ndi_VERSION}
@@ -103,8 +98,7 @@ write_basic_package_version_file("ndiConfigVersion.cmake"
 
 install(FILES
   "${ndi_BINARY_DIR}/ndiConfigVersion.cmake"
-  DESTINATION share/cmake/ndi
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  DESTINATION share/cmake/ndi)
 
 if(NOT subproject)
   include( InstallRequiredSystemLibraries )
