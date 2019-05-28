@@ -72,6 +72,7 @@ target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
 target_compile_definitions(ndi_float64 PRIVATE FLOAT64)
 
 include(src/CMakeLists.txt)
+include(GNUInstallDirs)
 
 install(FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h"
@@ -79,13 +80,13 @@ install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_version.h"
-  DESTINATION include/ndi)
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ndi")
 
 install(TARGETS ndi
   EXPORT ndiConfig
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin)
+  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+  ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
 install(EXPORT ndiConfig
   FILE ndiConfig.cmake
