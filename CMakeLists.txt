@@ -60,6 +60,7 @@ set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   INTERFACE_C_STANDARD 99
   WARN_ALL ON
   WARN_ERROR ON
+  Intel_DISABLED_WARNINGS "3656"
   LLVM_DISABLED_WARNINGS "unused-parameter"
   GNU_DISABLED_WARNINGS "unused-parameter")
 
