@@ -80,6 +80,7 @@ target_link_libraries(ndi PUBLIC m)
 
 set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   POSITION_INDEPENDENT_CODE "${ndi.position_independent_code}"
+  INTERPRODECURAL_OPTIMIZATION "${ndi.interprocedural_optimization}"
   C_EXTENSIONS OFF
   C_STANDARD 99
   INTERFACE_C_STANDARD 99
@@ -93,8 +94,7 @@ set_target_properties(ndi PROPERTIES
   MACOSX_RPATH ON
   SKIP_BUILD_RPATH OFF
   BUILD_WITH_INSTALL_RPATH OFF
-  INSTALL_RPATH_USE_LINK_PATH "${ndi.install.rpath_use_link_path}"
-  INTERPRODECURAL_OPTIMIZATION "${ndi.interprocedural_optimization}")
+  INSTALL_RPATH_USE_LINK_PATH "${ndi.install.rpath_use_link_path}")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(install_rpath "@loader_path")
