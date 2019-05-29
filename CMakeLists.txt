@@ -1,22 +1,41 @@
 cmake_minimum_required(VERSION 3.12)
 
-if( DEFINED PROJECT_NAME )
-  set( subproject ON )
-else()
-  set( subproject OFF )
+set(subproject OFF)
+if(DEFINED PROJECT_NAME)
+  set(subproject ON)
 endif()
 
-project(ndi 
+project(ndi
   VERSION 2.1.3
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
+  HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi"
   LANGUAGES C Fortran)
+
+set(CMAKE_DEBUG_POSTFIX "-debug")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
 
 include(CTest)
 include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
-
-list(APPEND CMAKE_MODULE_PATH "${ndi_SOURCE_DIR}/.cmake")
+include(GNUInstallDirs)
 include(Warnings)
+
+#
+# NDI has no dependencies, but the specification block is provided for
+# consistency with other projects.
+#
+# The file referenced in this block used by version branches of
+# ndi to fix the version of the dependencies found by the
+# find_package overload provided by Git Submodule Packages.
+#
+if(EXISTS "${PROJECT_SOURCE_DIR}/cmake/specification.cmake")
+  set(git.submodule.packages.specification
+    "${PROJECT_SOURCE_DIR}/cmake/specification.cmake" CACHE FILEPATH
+    "(READ ONLY) Path to consumed git submodule packages specification file" FORCE)
+  include("${PROJECT_SOURCE_DIR}/cmake/specification.cmake")
+endif()
 
 option(ndi.shared_library
   "Build the ndi unit tests and integrate with ctest"
@@ -24,8 +43,16 @@ option(ndi.shared_library
 
 CMAKE_DEPENDENT_OPTION(ndi.position_independent_code
   "Build the ndi library with position independent code"
-  "${position_independent_code}"
+  "${CMAKE_POSITION_INDEPENDENT_CODE}"
   "NOT ndi.shared_library" ON)
+
+option(ndi.interprocedural_optimizations
+  "Build the ndi library with interprocedural/link-time optimizations"
+  ${CMAKE_INTERPROCEDURAL_OPTIMIZATION})
+
+option(ndi.install.rpath_use_link_path
+  "Retain the ndi build linker paths in installation binary rpath"
+  ${CMAKE_INSTALL_RPATH_USE_LINK_PATH})
 
 CMAKE_DEPENDENT_OPTION(ndi.tests
   "Build the ndi tests and integrate with ctest"
@@ -37,18 +64,16 @@ add_library(ndi_C OBJECT "")
 add_library(ndi_F OBJECT "")
 
 if(ndi.shared_library)
-  add_library(ndi SHARED
-    $<TARGET_OBJECTS:ndi_float32>
-    $<TARGET_OBJECTS:ndi_float64>
-    $<TARGET_OBJECTS:ndi_C>
-    $<TARGET_OBJECTS:ndi_F>)
+  set(library_type SHARED)
 else()
-  add_library(ndi STATIC
-    $<TARGET_OBJECTS:ndi_float32>
-    $<TARGET_OBJECTS:ndi_float64>
-    $<TARGET_OBJECTS:ndi_C>
-    $<TARGET_OBJECTS:ndi_F>)
+  set(library_type STATIC)
 endif()
+
+add_library(ndi ${library_type}
+  $<TARGET_OBJECTS:ndi_float32>
+  $<TARGET_OBJECTS:ndi_float64>
+  $<TARGET_OBJECTS:ndi_C>
+  $<TARGET_OBJECTS:ndi_F>)
 
 add_library(ndi::ndi ALIAS ndi)
 target_link_libraries(ndi PUBLIC m)
@@ -61,7 +86,23 @@ set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   WARN_ALL ON
   WARN_ERROR ON
   LLVM_DISABLED_WARNINGS "unused-parameter"
-  GNU_DISABLED_WARNINGS "unused-parameter")
+  GNU_DISABLED_WARNINGS "unused-parameter"
+  Intel_DISABLED_WARNINGS "3656")
+
+set_target_properties(ndi PROPERTIES
+  MACOSX_RPATH ON
+  SKIP_BUILD_RPATH OFF
+  BUILD_WITH_INSTALL_RPATH OFF
+  INSTALL_RPATH_USE_LINK_PATH "${ndi.install.rpath_use_link_path}"
+  INTERPRODECURAL_OPTIMIZATION "${ndi.interprocedural_optimization}")
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(install_rpath "@loader_path")
+else()
+  set(install_rpath "\\$ORIGIN")
+endif()
+
+set_property(TARGET ndi APPEND PROPERTY INSTALL_RPATH "${install_rpath}")
 
 foreach(C_target IN ITEMS ndi ndi_C ndi_F ndi_float32 ndi_float64)
   target_compile_options(${C_target} PRIVATE
@@ -72,7 +113,6 @@ target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
 target_compile_definitions(ndi_float64 PRIVATE FLOAT64)
 
 include(src/CMakeLists.txt)
-include(GNUInstallDirs)
 
 install(FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h"
@@ -89,23 +129,22 @@ install(TARGETS ndi
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
 install(EXPORT ndiConfig
-  FILE ndiConfig.cmake
+  FILE "ndi-config.cmake"
   NAMESPACE ndi::
   DESTINATION share/cmake/ndi)
 
-write_basic_package_version_file("ndiConfigVersion.cmake"
-  VERSION ${ndi_VERSION}
+write_basic_package_version_file("ndi-config-version.cmake"
+  VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion)
 
 install(FILES
-  "${ndi_BINARY_DIR}/ndiConfigVersion.cmake"
+  "${PROJECT_BINARY_DIR}/ndi-config-version.cmake"
   DESTINATION share/cmake/ndi)
 
 if(NOT subproject)
-  include( InstallRequiredSystemLibraries )
-  set( CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory" )
-  set( CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE" )
-  set( CMAKE_PROJECT_HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi/browse" )
-  set( CPACK_PACKAGE_CONTACT "amccartney@lanl.gov" )
-  include( CPack )
+  include(InstallRequiredSystemLibraries)
+  set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory" )
+  set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+  set(CPACK_PACKAGE_CONTACT "tgsaller@lanl.gov")
+  include(CPack)
 endif()
