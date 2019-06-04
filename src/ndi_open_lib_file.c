@@ -38,12 +38,23 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
 
     FILE *temp_file_p = NULL;
     char name[MAX_IN_PATH_LEN];
-
+    char *path_full = getenv("NDI_DATA_PATH");
+ 
     if (!state) {
         return (NULL);
     }
 
-    temp_file_p = fpath2(state, path, "rb", name, MAX_IN_PATH_LEN);
+    /* Try given path */
+    if (path != NULL) {
+        temp_file_p = fpath2(state, path, "rb", name, MAX_IN_PATH_LEN);
+    }
+    
+    /* Try NDI_DATA_PATH environment variable */
+    if (temp_file_p == NULL && strcmp(path_full,"") != 0) {
+        strcpy(name,"");
+        strncat(path_full, path, strlen(path));
+	temp_file_p = fpath2(state, path_full, "rb", name, MAX_IN_PATH_LEN);
+    }
 
     /* Set global variable 'open_lib_file' to the pathname of the open file. */
     if (state->open_lib_file)
