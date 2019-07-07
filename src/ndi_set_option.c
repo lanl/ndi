@@ -159,11 +159,9 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 
     case NDI_FISS_PROD:	/* Set default fission product ZAID */
 	if (strncmp(value, "default", 8) == 0) {
-	    strncpy(state->def_fiss_prod_id, DEF_FISSION_PROD,
-		    sizeof(state->def_fiss_prod_id));
+	    strcpy(state->def_fiss_prod_id, DEF_FISSION_PROD);
 	} else {
-	    strncpy(state->def_fiss_prod_id, value,
-		    sizeof(state->def_fiss_prod_id));
+	    strcpy(state->def_fiss_prod_id, value);
 	    /*  Shouldn't need this--no one should be inputting symbols
 	       ierr =
 	       ndi_std_zaid(state, state->def_fiss_prod_id,

@@ -55,7 +55,7 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
         while (ndi_fget_next_dir(&rec, state->ndi_dir, 
                                  state->library_vers, tmp_zaid)) {
             if (fabs(rec.temp - temp) < diff) {
-                strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
+                strcpy(zaid, rec.zaid);
                 diff = fabs(rec.temp - temp);
             }
         }
@@ -102,7 +102,7 @@ int NDIMP_SET_ZAID_FLOAT_TEMP(state_struct *h, const char *zaid,
     state_struct *p;            /* current child handle */
 
     /* Copy zaid, */
-    strncpy(std_zaid, zaid, zaid_size);
+    strcpy(std_zaid, zaid);
     /* standardize it, */
     jerr = ndi_std_zaid(h, std_zaid, zaid_size);
     NDI_THROW(ierr, jerr);

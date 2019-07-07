@@ -79,7 +79,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 		if ((*open_path =
 		     (char *) ndi_malloc((strlen(dir_file) + 1) *
 					 sizeof(char)))) {
-		    strncpy(*open_path, dir_file, strlen(dir_file) + 1);
+                    strcpy(*open_path, dir_file);
 		} else {
 		    ierr = -14;	/* Out of Memory */
 		}
