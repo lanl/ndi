@@ -360,7 +360,7 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
 				   int string_size)
 {
     int ierr = 0;
-    char order_str[5];
+    char order_str[64];
     char temp_str[11] = "diag_";
 
     if (!state) {
@@ -375,10 +375,12 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
 	}
 	if (state->trans_corr == 'd') {
 	    strncat(temp_str, order_str, 6);
+            temp_str[sizeof(temp_str)-1] = '\0';
 	    strncpy(value, temp_str, string_size);
 	} else if (state->trans_corr == 'b') {
 	    strcpy(temp_str, "bhs_");
 	    strncat(temp_str, order_str, 6);
+            temp_str[sizeof(temp_str)-1]='\0';
 	    strncpy(value, temp_str, string_size);
 	} else {
 	    strncpy(value, "", string_size);

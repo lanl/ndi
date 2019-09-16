@@ -105,7 +105,7 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
                 size = arr_size;
                 NDI_THROW(ierr, 7); /* Data truncated */
             }
-            strncpy(str_arr, rec.zaid, size); /* add string */
+            strcpy(str_arr, rec.zaid); /* add string */
             arr_size -= size;   /* reduce available space */
             str_arr += size;    /* point past added string */
             if (arr_size == 0) goto catch; /* Out of space */

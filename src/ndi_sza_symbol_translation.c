@@ -61,12 +61,10 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
     }
 
     if ((strlen(tmp_sym_str) + 1) <= (unsigned long) str_size) {
-	strncpy(sym_str, tmp_sym_str,
-		(sizeof(char) * (strlen(tmp_sym_str) + 1)));
+	strcpy(sym_str, tmp_sym_str);
     } else {
 	if (str_size > 0) {
-	    strncpy(sym_str, tmp_sym_str, (sizeof(char) * str_size));
-	    sym_str[str_size - 1] = '\0';
+	    strcpy(sym_str, tmp_sym_str);
 	}
 	ierr = 7;
     }
