@@ -63,6 +63,67 @@ static spont_fiss sf_data[] = {
     {1095244, 4.443250e-12,  0.000000e+00,  2.660000,  0.828700,  4.316000}
 };
 
+/* Character ID for spontaneously fissioning isotopes with multiplicity data */
+char *sf_mult_id[NUM_SF_PNU_ISOTOPES] =
+               {"92238","94236","94238","94240","94242","96242","96244",
+                "96236","96248","98246","98250","98252","98254","100254",
+                "100256","100257","102252"};
+
+/* Probability of emission sf_mult_prob[i][m] for isotope i and
+ * m number of neutrons. */
+FLOAT_TYPE sf_mult_prob[NUM_SF_PNU_ISOTOPES][MAX_SF_PNU] = {
+   /* U-238 */
+   {0.0481677, 0.2485215, 0.4253044, 0.2284094, 0.0423438, 0.0072533, 0.0,
+    0.0, 0.0, 0.0, 0.0},
+   /* Pu-236 */
+   {0.0802878, 0.2126177, 0.377374, 0.2345049, 0.0750387, 0.020177, 0.0,
+    0.0, 0.0, 0.0, 0.0},
+   /* Pu-238 */
+   {0.0562929, 0.2106764, 0.3797428, 0.2224395, 0.1046818, 0.0261665, 0.0,
+    0.0, 0.0, 0.0, 0.0},
+   /* Pu-240 */
+   {0.0631852, 0.2319644, 0.333323, 0.2528207, 0.0986461, 0.0180199,
+    0.0020406, 0.0, 0.0, 0.0, 0.0},
+   /* Pu-242 */
+   {0.0679423, 0.2293159, 0.3341228, 0.2475507, 0.0996922, 0.0182398,
+    0.0031364, 0.0, 0.0, 0.0, 0.0},
+   /* Cm-242 */
+   {0.021255, 0.146741, 0.326753, 0.326828, 0.137509, 0.037382, 0.002591,
+    0.000755, 0.000187, 0.0, 0.0},
+   /* Cm-244 */
+   {0.0155, 0.1154, 0.2998, 0.3343, 0.1824, 0.0438, 0.0085, 0.0004, 0.00002,
+    0.0, 0.0},
+   /* Cm-246 */
+   {0.015218, 0.076728, 0.262704, 0.344924, 0.218065, 0.07559, 0.007223, 0.0,
+    0.0, 0.0, 0.0},
+   /* Cm-248 */
+   {0.0065, 0.0600, 0.2228, 0.3493, 0.2521, 0.0898, 0.0175, 0.0019, 0.000067,
+    0.0, 0.0},
+   /* Cf-246 */
+   {0.00051, 0.1136, 0.2346, 0.2743, 0.22087, 0.12597, 0.03017, 0.0, 0.0, 0.0,
+    0.0},
+   /* Cf-250 */
+   {0.0038191, 0.0365432, 0.1673371, 0.2945302, 0.2982732, 0.1451396,
+    0.0472215, 0.0040174, 0.0031188, 0.0, 0.0},
+   /* Cf-252 */
+   {0.0021767, 0.0259869, 0.1251188, 0.2740459, 0.3050812, 0.1854741,
+    0.0658998, 0.0142918, 0.0018219, 0.0001022, 0.0000005},
+   /* Cf-254 */
+   {0.0002, 0.01902, 0.11264, 0.26389, 0.31834, 0.19418, 0.07453, 0.015,
+    0.0022, 0.0, 0.0},
+   /* Fm-254 */
+   {0.0026945, 0.017339, 0.0860937, 0.2370245, 0.3191347, 0.2339337, 0.082387,
+    0.0122726, 0.0091204, 0.0, 0.0},
+   /* Fm-256 */
+   {0.0068, 0.0591, 0.1254, 0.2076, 0.2527, 0.2114, 0.1104, 0.0264, 0.0, 0.0,
+    0.0},
+   /* Fm-257 */
+   {0.0205736, 0.0520335, 0.117258, 0.1997003, 0.2627898, 0.2007776,
+    0.1061661, 0.0333033, 0.0073979, 0.0, 0.0},
+   /* No-252 */
+   {0.0559784, 0.05563, 0.0884742, 0.1387346, 0.1800994, 0.1837169, 0.1486908,
+    0.1024209, 0.0431477}};
+
 #define NUM_SF (sizeof sf_data/sizeof sf_data[0])
 
 /* binary search: see "The C Programming Language" p. 137 */
@@ -87,6 +148,50 @@ spont_fiss *ndi_get_sf_data(const char *zaid)
     }
     return NULL;
 }
+
+/* Get the multiplicities for the previously set spontaneous fission
+ * isotope. Currently does a straight search since there are only
+ * 17 isotopes. Can be changed. */
+int GET_SF_PNU(state_struct *state, FLOAT_TYPE *return_val)
+{
+    int i, n;
+    int ierr = 0;
+    int atomic_num_in;
+    int mass_in;
+    int atomic_num_curr;
+    int mass_curr;
+    int isotope_found_flag = 0; /* If isotope of same atomic number and
+                                   mass is found, then = 1, else 0 */
+    *return_val = 0.0;
+
+    /* Get atomic number and mass of set isotope */
+    ierr = ndi_parse_mg_zaid(state->iso_stat.zaid, &atomic_num_in, &mass_in);
+
+    if (ierr < 0) {
+        return (ierr);
+    }
+
+    /* Simple-minded look-up of isotope based on atomic number and mass */
+    for (i = 0; i < NUM_SF_PNU_ISOTOPES; i++) {
+        ierr = ndi_parse_mg_zaid(sf_mult_id[i], &atomic_num_curr, &mass_curr);
+        if (atomic_num_curr == atomic_num_in && mass_curr == mass_in) {
+            isotope_found_flag = -1;
+            /* Set spontaneous fission multiplicity probabilities */
+	    for (n = 0; n < MAX_SF_PNU; n++) {
+                return_val[n] = (FLOAT_TYPE) sf_mult_prob[i][n];
+	    }
+            return (ierr);
+        }
+    }
+
+    if (isotope_found_flag == 0) {
+        /* No data is given--set warning. Default probability is zero. */
+        ierr = 9;
+    }
+
+    return (ierr);
+}
+
 
 #ifdef TEST_SF
 

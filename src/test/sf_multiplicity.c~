@@ -1,0 +1,129 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "ndi.h"
+
+#define OPT_SIZE    24
+#define GENDIR_PATH_SIZE  200
+#define ZAID_SIZE   24
+
+static void print_float64_vec(ndi_float64 *flt64_ptr, int num_elements);
+static void print_string_vec(char *str_arr, int num_elements);
+
+int main ()
+
+{
+   int ierr, g, i;
+   int gendir0;
+   int handle0;
+   int num_grps;
+   char gendir_path[GENDIR_PATH_SIZE];
+   char option[OPT_SIZE];
+   char zaid[ZAID_SIZE];
+ 
+   int size;
+   char *str_arr;
+   ndi_float64 *flt_arr, sf_rate, *sf_spectra, *pi;
+   
+   /* GENDIR 0 */
+   ierr = NDI2_open_gendir(&gendir0, "");
+   if (ierr)
+     printf("  **Error %d in NDI open gendir.\n\n", ierr );
+   ierr = NDI2_get_string_val(gendir0, NDI_GENDIR_PATH, gendir_path, GENDIR_PATH_SIZE);
+   printf("NDI gendir path: %s",gendir_path);
+
+   ierr = NDI2_set_option_gendir(gendir0, NDI_LIB_TYPE_DEFAULT, 
+				 "multigroup_neutron"); 
+   if (ierr)
+       printf("  **Error %d in setting lib_type.\n\n", ierr );
+   ierr = NDI2_set_option_gendir(gendir0, NDI_LIBRARY_DEFAULT, "mendf6");
+   if (ierr)
+       printf("  **Error %d in setting library.\n\n", ierr );
+   ierr = NDI2_set_option_gendir(gendir0, NDI_COLLAPSE_DEFAULT, "12_lanl");
+   if (ierr)
+       printf("  **Error %d in setting group structure.\n\n", ierr );
+
+   /* GET HANDLE 0 */
+   ierr = NDI2_make_handle(gendir0, "multigroup_neutron", &handle0);
+   if (ierr)
+       printf("  **Error %d in NDI make_handle.\n\n", ierr );
+
+//   ierr = NDI2_set_isotope(handle0, "98252");
+   ierr = NDI2_set_isotope(handle0, "94240");
+   if (ierr)
+       printf("  **Error %d in setting zaid.\n\n", ierr );
+   ierr = NDI2_get_string_val(handle0, NDI_ZAID, zaid, ZAID_SIZE);
+   if (ierr)
+       printf("  **Error %d in getting zaid.\n\n", ierr );
+   printf("  Handle0\n    Zaid=%s\n", zaid);
+
+   ierr = NDI2_get_int_val(handle0, NDI_NUM_GRPS, &num_grps);
+   if (ierr)
+     printf("  **Error %d in getting number of energy groups.\n\n", ierr );
+   ierr = NDI2_get_float64_val(handle0, NDI_SF_RATE, &sf_rate);
+   if (ierr)
+     printf("  **Error %d in getting spontaneous fission rate.\n\n", ierr );
+   sf_spectra = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+   ierr = NDI2_get_float64_vec(handle0, NDI_SF_SPECTRA, sf_spectra, num_grps);
+   if (ierr)
+     printf("  **Error %d in getting spontaneous fission spectra.\n\n", ierr );
+   printf("    Number of groups=%d\n    Spontaneous fission rate=%e\n",num_grps,sf_rate);
+   printf("  Spontaneous fission spectrum:\n");
+   for (g = 0; g < num_grps; g++) {
+     printf("      sf_spectra(%d)=%e\n",g,sf_spectra[g]);
+   }
+
+   printf("  Spontaneous fission multiplicities:\n");
+   pi = (ndi_float64 *)malloc(num_grps * sizeof(ndi_float64));
+   for (i = 0; i < 4; i++) {
+     ierr = NDI2_get_float64_vec_n(handle0, NDI_SF_FMULT, i, pi, num_grps);
+     if (ierr)
+       printf("  **Error %d in getting spontaneous fission multiplicities.\n\n", ierr );
+     printf("    For multiplicity of %d:\n",i);
+     for (g = 0; g < num_grps; g++) {
+       printf("        Pi(%d)=%e\n",g,pi[g]);
+     }
+   }
+
+   /* CLOSE GENDIRS*/
+   ierr = NDI2_close_gendir(gendir0);
+   if (ierr)
+     printf("  **Error %d in closing NDI 0.\n\n", ierr );
+
+   return(ierr);
+}
+
+/**********************************************************************/
+
+static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements )
+{
+   int n;
+
+   for (n = 0; n < num_elements; n++) {
+      if ( ( n != 0 ) && ( ( n % 4 ) == 0) )
+	 printf("\n");
+      printf("%22.15e  ", flt64_ptr[n]);
+   }
+   printf("\n");
+}
+
+/**********************************************************************/
+
+/**********************************************************************/
+
+static void print_string_vec(char *str_arr, int size)
+{
+    int i;
+    char *t;
+
+    for (i = 0, t = str_arr; i < size; i++, t += strlen(t)+1) {
+	if ((i > 0) && (i%4 == 0)) printf("\n");
+	printf("%22s", t);
+    }
+    printf("\n");
+}
+
+/**********************************************************************/
+

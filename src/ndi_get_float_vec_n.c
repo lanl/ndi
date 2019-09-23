@@ -16,6 +16,7 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
+#include "ndi_sf.h"
 
 static int NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
 			 FLOAT_TYPE * up_diag, int num_ud, int num_row,
@@ -48,9 +49,10 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 		      int vec_num);
 static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 			  int vec_num);
-
 static int TD_HALF_MOMENT(state_struct *state, int half_moment, 
                           FLOAT_TYPE *return_vec, int return_size);
+static int GET_SF_FMULT(state_struct *state, int vec_num,
+                        FLOAT_TYPE *return_vec, int return_size);
  
 /**********************************************************************/
 
@@ -244,6 +246,10 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     case NDI_TD_HALF_MOMENT:
         ierr = TD_HALF_MOMENT(state, vec_num, return_vec, return_size);
         break;
+
+    case NDI_SF_FMULT:
+	ierr = GET_SF_FMULT(state, vec_num, return_vec, return_size);
+	break;
 
       /**********  UNKNOWN KEYWORD  ***********/
 
@@ -1383,5 +1389,83 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
 
     return(ierr);
 }
+
+/* Calculate Pi_{g,m} (see Memo CCS-2-19-028, "Adding Multiplet-Emmitting Volumetric
+ * Source to Stochastic Integration in PARTISN". This calculates the summation portion
+ * of Equation 18.) Pi is the probability of vec_num neutrons being emitted by
+ * spontaneous fission multiplied by a factorial, multiplied by the spontaneous
+ * fission spectrum for each energy group. */
+static int GET_SF_FMULT(state_struct *state, int vec_num, FLOAT_TYPE * return_vec,
+                        int return_size)
+{
+    FLOAT_TYPE *pnu = NULL;
+    FLOAT_TYPE *sf_spectra = NULL;
+    FLOAT_TYPE tmp = 0.0;
+    FLOAT_TYPE inv_factorial;
+
+    int num_grps;
+    int ierr;
+    int g, k, n;
+
+    if (!state) {
+        return (-2);
+    }
+
+    if ((vec_num < 0) || (vec_num >= MAX_SF_PNU)) {
+        return (-6);
+    }
+
+    /* get number of groups */
+    if (state->collapse_flag) {
+        num_grps = state->grp_num_new;
+    } else {
+        num_grps = state->iso_stat.num_grps;
+    }
+
+    /* calculate inverse factorial */
+    inv_factorial = 1.0;
+    for (n = 2; n <= vec_num; n++) {
+        inv_factorial *= n;
+    }
+    inv_factorial = 1 / inv_factorial;
+
+    /* get pnu, the probability than n neutrons are emitted per 
+       spontaneous fission */
+    pnu = (FLOAT_TYPE *) ndi_malloc(MAX_SF_PNU * sizeof(FLOAT_TYPE));
+    if (!pnu)
+        return (-14);           /* out of memory */
+    ierr = GET_SF_PNU(state, pnu);
+    if (ierr < 0)
+        return (ierr);
+
+    /* get spontaneous fission spectra */
+    sf_spectra = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
+    if (!sf_spectra)
+        return (-14);           /* out of memory */
+    ierr = NDI_GET_FLOAT_VEC_H(state, NDI_SF_SPECTRA, sf_spectra, num_grps);
+    if (ierr < 0)
+        return (ierr);
+
+    for (g = 0; g < num_grps; g++) {
+	return_vec[g] = 0.0;
+        if (sf_spectra[g] > 0.0) {      /* fissionable */
+            for (k = vec_num; k < MAX_SF_PNU; k++) {
+                tmp = 1.0;
+                for (n = 0; n < vec_num; n++) {
+                    tmp *= (k-n);
+                }
+                return_vec[g] += tmp*pnu[k];
+            }
+            return_vec[g] *= inv_factorial * sf_spectra[g];
+        }
+    }
+
+    if (pnu)
+        ndi_free((void **) &pnu);
+    if (sf_spectra)
+        ndi_free((void **) &sf_spectra);
+    return (ierr);
+}
+
 /*********************************************************************/
 /*********************************************************************/

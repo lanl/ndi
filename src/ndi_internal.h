@@ -68,6 +68,12 @@
 #define NUSIGF1_NU2     2
 #define NUSIGF1_NUSIGF2 1
 
+/* Spontaneous fission data. Currently hard-coded, will eventually
+ * replace with a file in NDI 3. */
+#define NUM_SF_PNU_ISOTOPES 17
+#define MAX_SF_PNU 11
+
+
 /**********************************************************************/
 
 /*
