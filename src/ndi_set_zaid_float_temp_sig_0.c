@@ -141,12 +141,12 @@ int NDIMP_SET_ZAID_FLOAT_TEMP_SIG_0(state_struct *h, const char *zaid,
         if ((p = m[i]) == 0) {
             NDI_THROW(ierr, -2); /* state not set */
         } else {
-            if (p->particle_type == 1) { /* neutron; temp dependent */
+            if (p->particle_type == 1) { /* neutron; temp and sig0 dependent */
                 /* Try setting full zaid, then za */
                 if ((jerr = NDI_SET_ZAID_FLOAT_TEMP_SIG_0(p, std_zaid, temp, sig0)) < 0)
                     jerr = NDI_SET_ZAID_FLOAT_TEMP_SIG_0(p, std_za, temp, sig0);
                 NDI_THROW(ierr, jerr);
-            } else {            /* non-neutron; non-temp dependent */
+            } else {            /* non-neutron; non-temp and non-sig0 dependent */
                 /* Try setting full zaid, then za */
                 if ((jerr = ndi_c_set_zaid_h(p, std_zaid)) < 0)
                     jerr = ndi_c_set_zaid_h(p, std_za);
