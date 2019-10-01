@@ -46,6 +46,12 @@ void F_NDI_SET_ZAID_FLOAT32_TEMP(char *zaid, ndi_float32 *temp, int *ierr,
 				 int zaid_len);
 void F_NDI_SET_ZAID_FLOAT64_TEMP(char *zaid, ndi_float64 *temp, int *ierr, 
 				 int zaid_len);
+void F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0(char *zaid, ndi_float32 *temp, 
+                                       ndi_float32 *sig0, int *ierr,
+                                       int zaid_len);
+void F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0(char *zaid, ndi_float64 *temp,
+                                       ndi_float64 *sig0, int *ierr,
+                                       int zaid_len);
 void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len);
 void F_NDI_GET_SIZE(int *in_key, int *return_val, int *ierr);
 void F_NDI_GET_SIZE_N(int *in_key, int *vec_num, int *return_val,
@@ -113,6 +119,12 @@ void F_NDI2_SET_ZAID_FLOAT32_TEMP(int *handle, char *zaid, ndi_float32 *temp,
 				  int *ierr, int zaid_len);
 void F_NDI2_SET_ZAID_FLOAT64_TEMP(int *handle, char *zaid, ndi_float64 *temp, 
 				  int *ierr, int zaid_len);
+void F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0(int *handle, char *zaid,
+					ndi_float32 *temp, ndi_float32 *sig0,
+                                        int *ierr, int zaid_len);
+void F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0(int *handle, char *zaid, 
+                                        ndi_float64 *temp, ndi_float64 *sig0,
+                                        int *ierr, int zaid_len);
 void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_SET_REACTION(int *handle, char *zaid, int *ierr, int len);
 void F_NDI2_GET_HANDLE(int *handle0, int *handle1, int *ierr);
@@ -401,6 +413,32 @@ void F_NDI_SET_ZAID_FLOAT64_TEMP(char *zaid, ndi_float64 *temp, int *ierr,
     *ierr = ndi_c_set_zaid_float64_temp(c_zaid, *temp);
     if (c_zaid)
 	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI_SET_ZAID_FLOAT32_TEMP_SIG_0(char *zaid, ndi_float32 *temp,
+				       ndi_float32 *sig0, int *ierr,
+                                       int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = ndi_c_set_zaid_float32_temp_sig_0(c_zaid, *temp, *sig0);
+    if (c_zaid)
+        ndi_free((void **) &c_zaid);
+}
+
+void F_NDI_SET_ZAID_FLOAT64_TEMP_SIG_0(char *zaid, ndi_float64 *temp, 
+                                       ndi_float64 *sig0, int *ierr, 
+                                       int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = ndi_c_set_zaid_float64_temp_sig_0(c_zaid, *temp, *sig0);
+    if (c_zaid)
+        ndi_free((void **) &c_zaid);
 }
 
 void F_NDI_SET_REACTION(char *zaid, int *ierr, int zaid_len)
@@ -770,6 +808,36 @@ void F_NDI2_SET_ZAID_FLOAT64_TEMP(int *handle, char *zaid,
     *ierr = NDI2_set_zaid_float64_temp(*handle, c_zaid, *temp);
     if (c_zaid)
 	ndi_free((void **) &c_zaid);
+}
+
+void F_NDI2_SET_ZAID_FLOAT32_TEMP_SIG_0(int *handle, char *zaid,
+                                        ndi_float32 *temp,
+					ndi_float32 *sig0, int *ierr,
+                                        int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = NDI2_set_zaid_float32_temp_sig_0(*handle, c_zaid, *temp,
+					     *sig0);
+    if (c_zaid)
+        ndi_free((void **) &c_zaid);
+}
+
+void F_NDI2_SET_ZAID_FLOAT64_TEMP_SIG_0(int *handle, char *zaid,
+                                        ndi_float64 *temp,
+				        ndi_float64 *sig0, int *ierr,
+                                        int zaid_len)
+{
+    char *c_zaid;
+
+    c_zaid = (char *) ndi_malloc((zaid_len + 1) * sizeof(char));
+    (void) ndi_f2c_string(zaid, &c_zaid, zaid_len, zaid_len + 1);
+    *ierr = NDI2_set_zaid_float64_temp_sig_0(*handle, c_zaid, *temp,
+					     *sig0);
+    if (c_zaid)
+        ndi_free((void **) &c_zaid);
 }
 
 void F_NDI2_SET_ISOTOPE(int *handle, char *zaid, int *ierr, int len)
