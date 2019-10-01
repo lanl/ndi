@@ -36,7 +36,7 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
     struct ndi_bin_tree_node *root = NULL;
     struct ndi_bin_tree_node *curr_node;
 
-    strncpy(section, in_value, 50);
+    strcpy(section, in_value);
     sec_len = (int) strlen(section);
 
     while (done == 0) {
@@ -102,9 +102,9 @@ struct ndi_bin_tree_node *ndi_create_node(char *instr)
     struct ndi_bin_tree_node *tmp_node = NULL;
 
     tmp_node = (struct ndi_bin_tree_node *)
-	malloc(sizeof(struct ndi_bin_tree_node));
+    malloc(sizeof(struct ndi_bin_tree_node));
     tmp_node->key = (char *) malloc(instr_len * sizeof(char));
-    strncpy(tmp_node->key, instr, instr_len);
+    strcpy(tmp_node->key, instr);
     tmp_node->left = NULL;
     tmp_node->right = NULL;
     return (tmp_node);
@@ -219,7 +219,7 @@ int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
 	    curr_size = *arr_size_p;
 	    ierr = 7;
 	}
-	strncpy(*key_array_p, root->key, curr_size);
+	strcpy(*key_array_p, root->key);
 	*arr_size_p -= (curr_size) * sizeof(char);
 	*key_array_p += curr_size;
 

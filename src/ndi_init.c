@@ -161,8 +161,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     if (is_gendir(parent)) {
 	state->particle_type = parent->particle_type;	/* lib_type option */
 	state->library_type = parent->library_type;
-	strncpy(state->library_vers, parent->library_vers,	/* library option */
-		strlen(parent->library_vers) + 1);
+	strcpy(state->library_vers, parent->library_vers);	/* library option */
 	state->mat_order = parent->mat_order;	/* mat_order option */
 	(void) ndi_set_collapse(state, parent->n_group);	/* collapse option */
 	state->trans_corr = parent->trans_corr;	/* trans. corr. option */
@@ -172,8 +171,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 	state->e_avg_calc = parent->e_avg_calc;	/* avg. grp energy calc */
 	state->kerma_calc = parent->kerma_calc;	/* default kerma calc */
 	state->default_temp = parent->default_temp;	/* temperature option */
-	strncpy(state->def_fiss_prod_id, parent->def_fiss_prod_id, strlen(parent->def_fiss_prod_id) + 1);	/* default fiss prod */
-
+	strcpy(state->def_fiss_prod_id, parent->def_fiss_prod_id);	/* default fiss prod */
 	/* Currently does not copy options:
 	   E_BOUNDS_CURR_PART
 	   DEPLETION

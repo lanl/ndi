@@ -31,6 +31,7 @@ int ndimp_set_zaid(state_struct *h, const char *zaid)
 
     /* Translate ZAID to standard form */
     strncpy(std_zaid, zaid, ZAID_SIZE);
+    std_zaid[sizeof(std_zaid)-1]='\0';
     tmp_err = ndi_std_zaid(h, std_zaid, ZAID_SIZE);
     if (tmp_err < 0) {
 	return (tmp_err);
@@ -42,7 +43,7 @@ int ndimp_set_zaid(state_struct *h, const char *zaid)
 	    if (tmp_err < 0) {
 		tmp_zaid = (char *) ndi_malloc(strlen(std_zaid) + 1
 					       * sizeof(char));
-		strncpy(tmp_zaid, std_zaid, strlen(std_zaid) + 1);
+		strcpy(tmp_zaid, std_zaid);
 		/* Strip ZAID ending, if present */
 		if ((dot_p = strchr(tmp_zaid, '.'))) {
 		    *dot_p = '\0';

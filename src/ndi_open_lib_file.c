@@ -71,9 +71,9 @@ FILE *fpath2(state_struct *state, const char *path,
 
     if (strncmp(path, prefix, strlen(prefix)) == 0) {
         dir_name(state->open_gendir_file, name);
-        strncat(name, path+strlen(prefix), len);
+        strncat(name, path + strlen(prefix), len - strlen(name) - 1);
     } else {
-        strncpy(name, path, len);
+        strcpy(name, path);
     }
 
     return fopen(name, mode);
