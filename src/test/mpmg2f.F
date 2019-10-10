@@ -370,8 +370,8 @@ c     SCATTERING MATRIX
          write(*, 260) (flt64_vec(j), j = 1, flt_vec_size)
          
 c     ACCESS SINGLE-PARTICLE DATA
-         call ndi2_get_int_val_n(data_handle, NDI_PARTICLE_N, 0, handle0,
-     $        ierr)
+         call ndi2_get_int_val_n(data_handle, NDI_PARTICLE_N, 0,
+     $        handle0, ierr)
          call ndi2_get_string_val(handle0, NDI_ZAID, part_zaid,
      $         ierr)
          if (ierr .ne. 0) then
