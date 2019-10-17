@@ -59,7 +59,7 @@ int NDI_SET_ZAID_FLOAT_TEMP_SIG_0(state_struct *state,
                                  state->library_vers, tmp_zaid)) {
             if (fabs(rec.temp - temp) <= diff_temp &&
 		fabs(rec.sig_0 - sig0) <= diff_sig0) {
-                strncpy(zaid, rec.zaid, MAX_TN_REAC_LEN);
+                strcpy(zaid, rec.zaid);
                 diff_temp = fabs(rec.temp - temp);
 		diff_sig0 = fabs(rec.sig_0 - sig0);
             }
@@ -127,12 +127,12 @@ int NDIMP_SET_ZAID_FLOAT_TEMP_SIG_0(state_struct *h, const char *zaid,
     state_struct *p;            /* current child handle */
 
     /* Copy zaid, */
-    strncpy(std_zaid, zaid, zaid_size);
+    strcpy(std_zaid, zaid);
     /* standardize it, */
     jerr = ndi_std_zaid(h, std_zaid, zaid_size);
     NDI_THROW(ierr, jerr);
     /* and extract za by truncating string after point*/
-    strncpy(std_za, std_zaid, zaid_size);
+    strcpy(std_za, std_zaid);
     if ((d=strchr(std_za, '.'))) *(d+1) = '\0';
 
     m = h->handle_map;
