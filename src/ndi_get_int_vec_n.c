@@ -57,13 +57,12 @@ int ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
     } else if (state->library_type == 'r') {
 	ierr = get_int_vec_n_tnreac(state, in_key, vec_num, return_vec,
 				    vec_size);
-    } else if (state->library_type == 'p') {
-	ierr = -4;
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
     } else {
 	/* Incompatible library type -- bad input key */
+        /* 's', 'd', 'p', 'x'                         */
 	ierr = -4;
     }
     return (ierr);

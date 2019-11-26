@@ -24,6 +24,8 @@ static int get_nth_int(state_struct *state, stat_flag sf, int in_key,
 		       int *return_val, int vec_num);
 static int get_int_val_n_tnreac(state_struct *state, int in_key,
 				int vec_num, int *ret_val);
+static int get_int_val_n_dedx(state_struct *state, int in_key, int vec_num,
+                              int *ret_val);
 
 /**********************************************************************/
 
@@ -65,6 +67,8 @@ int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
 	ierr = get_int_val_n_tnreac(state, in_key, vec_num, ret_val);
     } else if (state->library_type == 'p') {
 	ierr = ndimp_get_int_val_n(state, in_key, vec_num, ret_val);
+    } else if (state->library_type == 'x') {
+	ierr = get_int_val_n_dedx(state, in_key, vec_num, ret_val);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
@@ -426,6 +430,52 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
     return (ierr);
 }
 
+/**********************************************************************/
+/**********************************************************************/
+
+static int get_int_val_n_dedx(state_struct *state, int in_key,
+                                int vec_num, int *ret_val)
+{
+
+    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+
+    /*  Default return value is 0  */
+    *ret_val = 0;
+
+    if (!state) {
+        return (-2);
+    }
+
+    /*  Check if isotope is set  */
+    if (!state->dedx_stat.set_flag) {
+        return (-7);
+    }
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    case NDI_TARGET_ZAID:
+        /* ZAID for target isotope */
+        if (state->dedx_stat.num_targets > vec_num) {
+            *ret_val = state->dedx_stat.targets[vec_num];
+        } else {
+            /* Index out of range */
+            ierr = ndi_check_array_err(state->dedx_stat.num_targets);
+        }
+        break;
+
+       /*******************  UNKNOWN KEYWORD  ********************/
+
+    default:
+        ierr = -4;
+        break;
+    }
+
+    return (ierr);
+}
 
 /**********************************************************************/
 /**********************************************************************/

@@ -55,11 +55,9 @@ ndi_read_float64_block(FILE *stream, long file_pos,
     char seps[] = " ,\t\n";	/* Data delimiters in library file */
     FLOAT_TYPE *cur_flt_ptr = return_vec;
 
-    /* Add return_size */
-
     /* Go to start of data, read line and count floats */
-    /*  Check for data not available */
     fseek(stream, file_pos, SEEK_SET);
+
     while (float_count < num_floats) {
 
 	/* Check to see if we've reached the end of return_vec */
@@ -69,21 +67,10 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 	}
 
 	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-/*	 printf("\n>>%s\n", in_line);  */
 	    token = strtok(in_line, seps);
 	    while (token != NULL) {
 		if (float_count < num_floats) {
 		    *cur_flt_ptr = (FLOAT_TYPE) strtod(token, NULL);
-
-/* 	       if ( ( line_cnt == 6) || ( junk_count % 16 == 0) ) { */
-/* 		  printf("\n"); */
-/* 		  line_cnt = 0; */
-/* 	       } */
-/* 	       line_cnt++; */
-/* 	       junk_count++; */
-/* 	       printf("%11.5e   ", *cur_flt_ptr ); */
-
-
 		    token = strtok(NULL, seps);
 		    float_count++;
 		    cur_flt_ptr++;

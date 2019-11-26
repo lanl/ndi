@@ -93,6 +93,7 @@ typedef long int_zaid_type;
 
 typedef char mg_zaid[64];
 typedef char tn_zaid[64];
+typedef char dedx_zaid[64];
 
 enum e_avg_type {VEL_CALC, E_MEAN, SGNDF, LEGACY_VEL_CALC, FLAT_CALC, TD_CALC};
 enum kerma_calc_type {DATA, CALC, DATA_CALC, LEGACY};  
@@ -286,6 +287,27 @@ typedef struct _chain_status {
     depl_target_struct *target;
 } chain_status;
 
+typedef struct _dedx_status {
+    dedx_zaid zaid;
+    int set_flag;
+    int num_grps;
+    int num_densities;
+    int num_temps;
+    int num_targets;
+    char info[MAX_IN_STR_LEN];
+    char date_processed[MAX_IN_STR_LEN];
+    char date_source[MAX_IN_STR_LEN];
+    char library_name[MAX_IN_STR_LEN];
+    double at_wgt;
+    double awr;
+    stat_flag energies;
+    stat_flag densities;
+    stat_flag temps;
+    stat_flag free_e_dedx;
+    int *targets;
+    multi_stat target_dedx;
+} dedx_status;
+
 typedef struct _state_struct {
     short ndi_initialized;	/*  ndi_init called: 0=false, 1=true */
     int handle;
@@ -354,6 +376,9 @@ typedef struct _state_struct {
     int chain_filled;		/* Number of read depletion targets */
 
     depl_target_struct *depl_target;
+
+    /* dE/dx data */
+    dedx_status dedx_stat;
 
     struct _state_struct *handle_map[MAX_HANDLE_NUM];
     int handle_free;
@@ -546,6 +571,7 @@ extern "C" {
     int ndi_init_state_tn(state_struct *state);
     int ndi_init_state_tnreac(state_struct *state);
     int ndi_init_state_chain(state_struct *state);
+    int ndi_init_state_dedx(state_struct *state);
 
    /***  Subroutines in file ndi_misc.c ***/
     int ndi_init_int_vec(int *vec, int num_elements);

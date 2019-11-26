@@ -23,6 +23,8 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
 			    FLOAT_TYPE * ret_val);
 static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 			     FLOAT_TYPE * ret_val);
+static int GET_FLOAT_VAL_DEDX(state_struct *state, int in_key,
+			      FLOAT_TYPE * ret_val);
 static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
 			 FLOAT_TYPE * ret_val);
 
@@ -78,6 +80,8 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
     } else if (state->library_type == 'p') {
 	*ret_val = 0.0;
 	ierr = -4;
+    } else if (state->library_type == 'x') {
+        ierr = GET_FLOAT_VAL_DEDX(state, in_key, ret_val);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
@@ -309,6 +313,60 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 
     return (ierr);
 }
+
+static int GET_FLOAT_VAL_DEDX(state_struct *state, int in_key,
+                              FLOAT_TYPE * ret_val)
+{
+
+    int ierr = 0;
+
+    if (!state) {
+        return (-2);
+    }
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        return (-7);
+    }
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    case NDI_AT_WGT:            /* Projectile atomic weight  */
+        if (state->dedx_stat.at_wgt > 0.0) {
+            *ret_val = (FLOAT_TYPE) state->dedx_stat.at_wgt;
+        } else if (state->dedx_stat.awr > 0.0) {
+            *ret_val = (FLOAT_TYPE) (state->dedx_stat.awr * M_NEUT_AMU);
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
+
+    case NDI_AWR:               /* Projectile atomic weight ratio  */
+        if (state->dedx_stat.awr > 0.0) {
+            *ret_val = (FLOAT_TYPE) state->dedx_stat.awr;
+        } else if (state->dedx_stat.at_wgt > 0.0) {
+            *ret_val = (FLOAT_TYPE) (state->dedx_stat.at_wgt / M_NEUT_AMU);
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
+
+      /*******************  UNKNOWN KEYWORD  ********************/
+
+    default:
+        ierr = -4;
+        break;
+    }
+
+    return (ierr);
+}
+
 
 /**********************************************************************/
 /**********************************************************************/

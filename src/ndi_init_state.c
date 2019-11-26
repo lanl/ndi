@@ -126,5 +126,21 @@ int ndi_init_state_chain(state_struct *state)
 
     return (ierr);
 }
+/**********************************************************************/
+
+int ndi_init_state_dedx(state_struct *state)
+{
+
+    int ierr = 0;
+
+    if (!state) {
+        return (-2);
+    }
+
+    ierr = ndi_set0(state, 'x');
+
+    return (ierr);
+}
+
 
 /**********************************************************************/
