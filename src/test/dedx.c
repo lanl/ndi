@@ -21,13 +21,21 @@ int main ()
    double *double_vec;
    char test_zaid[20] = "";
    char zaid_in[20] = "";
+<<<<<<< HEAD
    char string_val, tmp1, tmp2, tmp3, tmp4;
+=======
+   char string_val, tmp1[80], tmp2, tmp3, tmp4;
+>>>>>>> dE/dx library and test
 
    printf("\n\n ********************************************************* \n" );
    printf("    TEST -- dE/dx data\n" );
    printf(" ********************************************************* \n\n" );
 
+<<<<<<< HEAD
    ierr = NDI2_open_gendir(&gendir_h, "./gendir");
+=======
+   ierr = NDI2_open_gendir(&gendir_h, "lib/gendir.dedx");
+>>>>>>> dE/dx library and test
    if (ierr != 0) printf("  **Error %d in NDI init.\n\n", ierr );
 
    ierr = NDI2_make_handle(gendir_h, "dedx", &handle);
@@ -182,7 +190,11 @@ int main ()
    free((void *) double_vec);
    printf("\n");
 
+<<<<<<< HEAD
 /* _x */
+=======
+/* _n */
+>>>>>>> dE/dx library and test
 
    double_vec = (double *) malloc(num_tot * sizeof(double));
    ierr = NDI2_get_float64_vec_x(handle, NDI_TARGET_DEDX, "94239", double_vec, num_tot);
