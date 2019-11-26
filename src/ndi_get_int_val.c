@@ -20,6 +20,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val);
 static int get_int_val_tn(state_struct *state, int in_key, int *ret_val);
 static int get_int_val_tnreac(state_struct *state, int in_key,
 			      int *ret_val);
+static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val);
 static int ndi_get_num_rprods(state_struct *state, int *num_rprods);
 
 /**********************************************************************/
@@ -56,6 +57,8 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 	ierr = get_int_val_tnreac(state, in_key, ret_val);
     } else if (state->library_type == 'p') {
 	ierr = ndimp_get_int_val(state, in_key, ret_val);
+    } else if (state->library_type == 'x') {
+        ierr = get_int_val_dedx(state, in_key, ret_val);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
@@ -407,6 +410,77 @@ static int get_int_val_tnreac(state_struct *state, int in_key,
     }
 
     return ierr;
+}
+
+/**********************************************************************/
+/**********************************************************************/
+static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
+{
+
+    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+
+    /*  Default return value is 0 */
+    *ret_val = 0;
+
+    if (!state) {
+        return (-2);
+    }
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        return (-7);
+    }
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    case NDI_NUM_GRPS: /*  Number of energies */
+        if (state->dedx_stat.num_grps > 0) {
+            *ret_val = state->dedx_stat.num_grps;
+        } else {
+            /* Error: data not available in library for this reaction */
+            ierr = -9;
+        }
+        break;
+
+    case NDI_NUM_DENSITIES: /*  Number of densities  */
+        if (state->dedx_stat.num_densities > 0) {
+            *ret_val = state->dedx_stat.num_densities;
+        } else {
+            /* Error: data not available in library for this reaction */
+            ierr = -9;
+        }
+        break;
+
+    case NDI_NUM_TEMPS: /*  Number of temperatures  */
+        if (state->dedx_stat.num_grps > 0) {
+            *ret_val = state->dedx_stat.num_temps;
+        } else {
+            /* Error: data not available in library for this reaction */
+            ierr = -9;
+        }
+        break;
+
+    case NDI_NUM_TARGET: /*  Number of targets  */
+        if (state->dedx_stat.num_targets > 0) {
+            *ret_val = state->dedx_stat.num_targets;
+        } else {
+            /* Error: data not available in library for this reaction */
+            ierr = -9;
+        }
+        break;
+
+      /**************  UNKNOWN KEYWORD  *****************/
+
+    default:
+        ierr = -4;
+        break;
+    }
+
+    return (ierr);
 }
 
 /**********************************************************************/

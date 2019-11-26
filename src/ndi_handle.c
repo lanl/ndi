@@ -147,6 +147,7 @@ char *ndi_get_section(state_struct *state)
                                 "dosimetry_neutron",
                                 "radchem_chain",
                                 "dosimetry_proton",
+				"dedx",
                                 ""
     };
     int sec;
@@ -173,8 +174,10 @@ char *ndi_get_section(state_struct *state)
 	    sec = 7;
 	else
 	    sec = 6;
-    } else {
+    } else if (state->library_type == 'x') {
 	sec = 8;
+    } else {
+	sec = 9;
     }
 
     return in_value[sec];
@@ -199,6 +202,8 @@ int ndi_is_library_type(state_struct *state, const char *type)
 	return (state->library_type == 'd' && state->particle_type == 1001);
     else if (strcmp(type, "multigroup_multi") == 0)
 	return (state->library_type == 'p');
+    else if (strcmp(type, "dedx") == 0)
+	return (state->library_type == 'x');
     else
 	return 0;
 }

@@ -112,6 +112,8 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	strcpy(section, "tndata");
     } else if ((pt_type == -1) && (l_type == 'r')) {
 	strcpy(section, "tn_reactions");
+    } else if ((pt_type == -1) && (l_type == 'x')) {
+	strcpy(section, "dedx");
     } else if (l_type == ' ') {
 	/* Error: library type not set */
 	return -16;

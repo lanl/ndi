@@ -18,6 +18,8 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 			  int *return_vec, int vec_size);
 static int get_int_vec_tn(state_struct *state, int in_key,
 			  int *return_vec, int vec_size);
+static int get_int_vec_dedx(state_struct *state, int in_key,
+                            int *return_vec, int vec_size);
 
 /**********************************************************************/
 
@@ -54,6 +56,8 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
 	ierr = get_int_vec_tn(state, in_key, return_vec, vec_size);
     } else if (state->library_type == 'p') {
 	ierr = ndimp_get_int_vec(state, in_key, return_vec, vec_size);
+    } else if (state->library_type == 'x') {
+        ierr = get_int_vec_dedx(state, in_key, return_vec, vec_size);
     } else if (state->library_type == ' ') {
 	/* Library type was not set */
 	ierr = -16;
@@ -467,6 +471,57 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     }
 
     return ierr;
+
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int get_int_vec_dedx(state_struct *state, int in_key,
+                            int *return_vec, int vec_size)
+{
+
+    int ierr = 0;               /* Error flag: 0=no error, pos=warning, neg=error */
+    int n;
+    int *curr_int = return_vec;
+    int *source_ptr;
+
+    if (!state) {
+        return (-2);
+    }
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        return (-7);
+    }
+
+   /*************************/
+   /*   Process input key   */
+   /*************************/
+
+    switch (in_key) {
+
+    case NDI_TARGET_ZAID:
+        /*  Check bounds */
+        if (state->dedx_stat.targets) {
+            source_ptr = state->dedx_stat.targets;
+            for (n = 0; n < state->dedx_stat.num_targets; n++) {
+                *curr_int++ = (int) * source_ptr++;
+            }
+        } else {
+            /* Error: data not available */
+            ierr = -9;
+        }
+        break;
+
+      /**********  UNKNOWN KEYWORD  ***********/
+
+    default:
+        ierr = -4;
+        break;
+    }
+
+    return (ierr);
 
 }
 

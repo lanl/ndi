@@ -1,6 +1,6 @@
-
+ 
 use Cwd;
-
+ 
 # To call prep_gendir.pl:
 #     perl prep_gendir.pl
 #
@@ -15,19 +15,19 @@ use Cwd;
 # Input for library name is the name to be included on the gendir line;
 # for example, mendf5  or rmoxsct.
 #
-
+ 
 print "Enter file spec: ";
 my $filespec = <STDIN>;
 my $curr_dir = cwd();
-
+ 
 chomp($filespec);
-
+ 
 if ( $filespec =~ /^\.\// ) {
     $filespec =~ s/^\.\//$curr_dir\//;
 } elsif ( $filespec !~ /^\// ) {
     $filespec = $curr_dir . "/" . $filespec;
 }
-
+ 
 ($sec, $min, $hour, $day, $mon, $year, $wd, $yd, $isdst) = localtime;
 $mon += 1;
 $year += 1900;
@@ -56,23 +56,24 @@ my $tn_index = 0;
 my $tr_index = 0;
 my $pd_index = 0;
 my $rc_index = 0;
-
+ 
 for my $curr_file ( glob($filespec) ) {
-
+ 
     next if -d $curr_file;
     print "\n\n***FILE: $curr_file\n";
-
-my $userlibset = 0; 
-my $userdateset = 0;  
-
+ 
+my $userlibset = 0;
+my $userdateset = 0;
+ 
 my $dateset = 0;
 my $libnameset = 0;
-
+ 
 #   Include file?
     print "  Include file? [n to skip]";
-    $process_file_flag = <STDIN>;
-    next if ( $process_file_flag =~ /^\s+n|N\s+$/ );
-
+#    $process_file_flag = <STDIN>;
+    $process_file_flag = "yes";
+    next if ( $process_file_flag =~ /^\s*no?\s*$/i);
+ 
 ##       Process date
 #    print "   Enter date ";
 #    if ( $file_date ne "" ) {
@@ -88,7 +89,7 @@ my $libnameset = 0;
 #	chomp($file_date);
 #    }
  
-   
+ 
     if ( open( CURR_LIB, $curr_file ) ) {
 	$zaid = "";
 	$zaid_ptr = "";
@@ -105,11 +106,11 @@ my $libnameset = 0;
         $library_name = "";
 	$line_len = 0;
 	$out_line = "";
-
+ 
 #       Cycle through each line of the current file
 	$fptr = tell CURR_LIB;
 	while ( <CURR_LIB> ) {
-	    
+	
 	    $line_counter++;
 #           Process new zaid
 	    if (/^\s*zaid\s*$/) {
@@ -149,7 +150,7 @@ my $libnameset = 0;
                     }
                 }
 	    }
-
+ 
 	    #Process temperature
 	    if (/^\s*temp\s*$/) {
 		while ( $temperature = <CURR_LIB> ) {
@@ -161,7 +162,7 @@ my $libnameset = 0;
 		}
 		$temperature =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-
+ 
 	    #Process number of groups
 	    if (/^\s*num_grps\s*$/) {
 		while ( $num_grps = <CURR_LIB> ) {
@@ -173,7 +174,7 @@ my $libnameset = 0;
 		}
 		$num_grps =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-	    
+	
 	    #Process sigma zero
 	    if (/^\s*sig_0\s*$/) {
 		while ( $sig_0 = <CURR_LIB> ) {
@@ -185,7 +186,7 @@ my $libnameset = 0;
 		}
 		$sig_0 =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-	    
+	
 	    #Process atomic weight
 	    if (/^\s*at_wgt\s*$/) {
 		while ( $at_wgt = <CURR_LIB> ) {
@@ -197,7 +198,7 @@ my $libnameset = 0;
 		}
 		$at_wgt =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-	    
+	
 	    #Process atomic weight ratio
 	    if (/^\s*awr\s*$/) {
 		while ( $awr = <CURR_LIB> ) {
@@ -209,7 +210,7 @@ my $libnameset = 0;
 		}
 		$awr =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-	    
+	
 	    #Process date_processed
 	    if (/^\s*date_processed\s*$/) {
 		while ( $date_processed = <CURR_LIB> ) {
@@ -221,7 +222,7 @@ my $libnameset = 0;
 		}
 		$date_processed =~ s/^\s*(.*?)\s*$/$1/;
 	    }
-	    
+	
 	    #Process library name
 	    if (/^\s*library_name\s*$/) {
  		while ( $library_name = <CURR_LIB> ) {
@@ -233,9 +234,9 @@ my $libnameset = 0;
 		}
 		$library_name =~ s/^\s*(.*?)\s*$/$1/;
  	    }
-	    
+	
 	    #END of current isotope
-	    
+	
 	    if (/^\s*end\s*$/) {
 		
                  if ( $library_name ne "" ) {
@@ -246,7 +247,7 @@ my $libnameset = 0;
                 } else {
                     $print_lib_name = $lib_name;
                 }
-
+ 
                 if ( $date_processed ne "" ) {
                    $print_date = $date_processed;
                } elsif ( $userdateset == 0 ) {
@@ -255,7 +256,7 @@ my $libnameset = 0;
                 } else {
                     $print_date = $file_date;
                 }
-
+ 
 		&add_to_string( $out_line, "z", $zaid );
 		&add_to_string( $out_line, "d", $print_date );
 		&add_to_string( $out_line, "l", $print_lib_name );
@@ -271,7 +272,7 @@ my $libnameset = 0;
 		$out_line .= " end";
 		
                  print " libtype $lib_type\n";
-
+ 
 		if ( $lib_type eq "nm" ) {
 		    $nfile[$nm_index] = $out_line;
 		    $nm_index++;
@@ -309,18 +310,18 @@ my $libnameset = 0;
 		$awr = -1;
 		$line_len = 0;
 		$out_line = "";
-
+ 
 	    }
-	    
+	
 	    $fptr = tell CURR_LIB;
 	}
 	close(CURR_LIB);
     } else {
 	print "No >$curr_file<\n";
     }
-    
+ 
 }
-
+ 
 open( OUTFILE, ">gendir.out" ) || die "Unable to open nd output file";
 if ( $nm_index != 0 ) {
     print OUTFILE "multigroup_neutron\n";
@@ -378,19 +379,19 @@ if ( $ndos_index != 0 ) {
     }
     print OUTFILE "end\n\n";
 }
-
+ 
 close(OUTFILE);
 print "File gendir.out written.\n";
-
+ 
 ###########################################################
-
+ 
 sub get_lib_name {
-
+ 
 #   first argument is string giving file name
 #   second argument is variable for library name
-
+ 
     my $in_lib;
-
+ 
     print "   Enter $_[0] library name";
     if ( $_[1] ne "" ) {
 	print " [default= $_[1]]: ";
@@ -403,18 +404,18 @@ sub get_lib_name {
 	chomp( $_[1]);
     }
     -1;
-
+ 
 }
-
+ 
 ###########################################################
-
+ 
 sub get_file_date {
-
+ 
 #   first argument is string giving file name
 #   second argument is variable for date
-
+ 
     my $in_date;
-
+ 
     print "   Enter $_[0] date";
     if ( $_[1] ne "" ) {
 	print " [default= $_[1]]: ";
@@ -427,21 +428,21 @@ sub get_file_date {
 	chomp( $_[1]);
     }
     -1;
-
+ 
 }
-
+ 
 ###########################################################
-
+ 
 sub add_to_string {
-
-#   1st argument ($_[0]) is string to add to 
+ 
+#   1st argument ($_[0]) is string to add to
 #   2nd argument ($_[1]) is gendir keyword (e.g. "z", "ln",... )
 #   x3rd argument ($_[2]) is keyword value (e.g. "92235.600nm" )
-
+ 
     my $temp_str = "";
     my $line_len = length($_[0]) - rindex( $_[0], "\n" );
     my $str2 = "=";
-
+ 
     #Check if these are empty strings
     if ( ( $_[1] eq "z" ) ||   #zaid
 	( $_[1] eq "d" ) ||    #file date
@@ -468,25 +469,25 @@ sub add_to_string {
     } else {
 	print "Warning: unknown keyword $_[1].\n";
     }
-
+ 
     #Add keyword, "=", and value to create temp. string
     $temp_str = "  " . $_[1] . $str2 . $_[2];
-
+ 
     #See if adding new temp string will make line length > 90
     if ( (length ($temp_str) + $line_len ) >= 90 ) {
 	$_[0] .= "\n  ";
     }
-
+ 
     #Add temp string to string
     $_[0] .= $temp_str;
     $line_len = length($_[0]) - rindex( $_[0], "\n" );
-
+ 
     return $_[0];
 }
-
+ 
 ###########################################################
-
+ 
 #  Make sure .. are handled in file names.
-
+ 
 ###########################################################
-
+ 

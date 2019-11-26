@@ -26,6 +26,8 @@ static int read_depl_data(state_struct *state, FILE *stream,
 			  const char *zaid);
 static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
 			    int binary);
+static int read_dedx_data(state_struct *state, FILE *stream,
+                          const char *zaid);
 static int read_simple_array(FILE *stream, stat_flag * sf, int data_num,
 			     ndi_float64 ** global_p, int binary);
 static int read_double_array(FILE *stream, int data_num,
@@ -74,6 +76,8 @@ static int read_float_val(FILE *stream, double *value, int binary);
 int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
 			  const int return_size, int binary);
+int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
+		    int num_targets, int num_elements, int binary);
 
 /**********************************************************************/
 
@@ -168,6 +172,8 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	ierr = read_tn_reac_data(state, stream, zaid);
     } else if (lib_type == '0') {	/* Depletion data */
 	ierr = read_depl_data(state, stream, zaid);
+    } else if (lib_type == 'x') {       /* dE/dx data */
+	ierr = read_dedx_data(state, stream, zaid);
     } else {
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
@@ -1256,6 +1262,168 @@ static int read_depl_data(state_struct *state, FILE *stream,
     }
 }
 
+/*************************************************************************/
+/*************************************************************************/
+
+static int read_dedx_data(state_struct *state, FILE *stream,
+                        const char *zaid)
+{
+
+    char in_keyword[MAX_IN_STR_LEN];
+    int ierr = 0;
+    int num_elements;
+    int part_index;
+    int part_type;
+    int binary;
+
+    if (!state) {
+        return (-2);
+    }
+
+    strcpy(state->dedx_stat.zaid, zaid);
+    state->dedx_stat.set_flag = 1;
+    binary = state->binary;
+
+    /*******************************************************/
+    /*                  Read dedx data                     */
+    /*******************************************************/
+
+    while (1) {
+
+        /* Read next keyword */
+        if (fscanf(stream, "%s\n", in_keyword) == EOF) {
+            /* Error reading file */
+            return (-11);
+        }
+
+      /******            Process keywords            ******/
+
+      /*** Single-valued data  ***/
+
+        /* Information */
+        if (strncmp(in_keyword, "info", 5) == 0) {
+            if (fgets(state->dedx_stat.info, sizeof(state->dedx_stat.info),
+                      stream) == NULL) {
+                /* Error reading file */
+                return (-11);
+            }
+        }
+        /* Date processed */
+        else if (strncmp(in_keyword, "date_processed", 15) == 0) {
+            ierr = read_next_string(stream, state->dedx_stat.date_processed,
+                                    sizeof(state->dedx_stat.date_processed));
+        }
+        /* Date source */
+        else if (strncmp(in_keyword, "date_source", 12) == 0) {
+            ierr = read_next_string(stream, state->dedx_stat.date_source,
+                                    sizeof(state->dedx_stat.date_source));
+        }
+        /* Library name */
+        else if (strncmp(in_keyword, "library_name", 13) == 0) {
+            ierr = read_next_string(stream, state->dedx_stat.library_name,
+                                    sizeof(state->dedx_stat.library_name));
+        }
+        /* Number of groups */
+        else if (strncmp(in_keyword, "num_grps", 9) == 0) {
+            if (fscanf(stream, "%d\n", &state->dedx_stat.num_grps) == EOF) {
+                return (-11);
+            }
+        }
+        /* Number of densities */
+        else if (strncmp(in_keyword, "num_dens", 9) == 0) {
+            if (fscanf(stream, "%d\n", &state->dedx_stat.num_densities) == EOF) {
+                return (-11);
+            }
+        }
+        /* Number of temperatures */
+        else if (strncmp(in_keyword, "num_temps", 10) == 0) {
+            if (fscanf(stream, "%d\n", &state->dedx_stat.num_temps) == EOF) {
+                return (-11);
+            }
+        }
+        /* Number of targets */
+        else if (strncmp(in_keyword, "num_targets", 12) == 0) {
+            if (fscanf(stream, "%d\n", &state->dedx_stat.num_targets) == EOF) {
+                return (-11);
+            }
+        }
+        /* atomic weight */
+        else if (strncmp(in_keyword, "at_wgt", 7) == 0) {
+            if (fscanf(stream, "%lf\n", &state->dedx_stat.at_wgt) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
+        }
+        /* atomic weight ratio */
+        else if (strncmp(in_keyword, "awr", 4) == 0) {
+            if (fscanf(stream, "%lf\n", &state->dedx_stat.awr) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
+        }
+
+      /*** Simple array data  ***/
+
+        /* energies */
+        else if (strncmp(in_keyword, "energies", 9) == 0) {
+            ierr = set_simple_array(stream, &state->dedx_stat.energies,
+                                    state->dedx_stat.num_grps, binary);
+        }
+        /* energies */
+        else if (strncmp(in_keyword, "densities", 10) == 0) {
+            ierr = set_simple_array(stream, &state->dedx_stat.densities,
+                                    state->dedx_stat.num_densities, binary);
+        }
+        /* energies */
+        else if (strncmp(in_keyword, "temperatures", 13) == 0) {
+            ierr = set_simple_array(stream, &state->dedx_stat.temps,
+                                    state->dedx_stat.num_temps, binary);
+        }
+        /* free electron dedx */
+        else if (strncmp(in_keyword, "free_e_dedx", 12) == 0) {
+            ierr = set_simple_array(stream, &state->dedx_stat.free_e_dedx,
+                                    state->dedx_stat.num_grps
+                                    *state->dedx_stat.num_densities
+                                    *state->dedx_stat.num_temps, binary);
+        }
+
+      /*** Multi-dim array data ***/
+
+        /* dedx for all targets, as well as target ZAIDs */
+        else if (strncmp(in_keyword, "target_ion_dedx", 8) == 0) {
+            state->dedx_stat.target_dedx.num_objs = state->dedx_stat.num_targets;
+            num_elements = state->dedx_stat.num_grps*state->dedx_stat.num_densities
+                           *state->dedx_stat.num_temps;
+	    state->dedx_stat.targets = (int *) ndi_malloc(state->dedx_stat.num_targets * sizeof(int));
+
+            ierr = set_target_dedx(stream, &state->dedx_stat.target_dedx,
+                                   state->dedx_stat.targets, 
+				   state->dedx_stat.num_targets, num_elements, binary);
+        }
+
+
+      /*********  COMMENTS  *************/
+
+        /* comment */
+        else if (strncmp(in_keyword, "comment", 8) == 0) {
+            ierr = skip_comment(stream);
+        }
+
+      /*********  END  *************/
+
+        /* end */
+        else if (strncmp(in_keyword, "end", 4) == 0) {
+            return (ierr);
+        }
+
+      /**************  UNKNOWN KEYWORD  *****************/
+
+        else {
+            /* Unknown keyword in library */
+            ierr = 15;
+        }
+    }
+}
 
 /**********************************************************************/
 /*************************************************************************/
@@ -2283,6 +2451,57 @@ int ndi_read_double_block(FILE *stream, long file_pos,
     }
 
     return ierr;
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int set_target_dedx(FILE *stream, multi_stat *dedx,
+                           int *targets, int num_targets,
+                           int num_elements, int binary)
+{
+    int n;
+    int ierr = 0;
+    int target_count = 0;
+    int target = 0;
+    int block_size;
+    char in_line[MAX_IN_STR_LEN];       /* Current input line */
+    char *token;                /* Current data item */
+    char seps[] = " ,\t\n";     /* Data delimiters in library file */
+    int *cur_int_ptr;
+
+    if (num_targets < 0) {
+        /* Library error: incorrect data order. */
+        ierr = -18;
+    } else if (num_targets == 0) {
+        /* No data! */
+        ierr = 5;
+    } else {
+        dedx->stat = (stat_flag *) ndi_malloc(num_targets * sizeof(stat_flag));
+        if (dedx->stat) {
+            for (n = 0; n < num_targets; ++n) {
+                if (fscanf(stream, "%d\n", &target) == EOF) {
+                    /* Error reading file--target ZAID not read */
+                    return (-11);
+                }
+                if (target < 1000) {
+                    /* Invalid ZAID */
+                    return (-22);
+                }
+                /* Store ZAID in targets */
+                targets[n] = target;
+                    
+                /* Point to data for this target */
+                dedx->stat[n].file_ptr = ftell(stream);
+                ierr = skip_float_block(stream, &block_size, num_elements, binary);
+                dedx->stat[n].length = num_elements;
+            }
+        } else {
+            /* Out of memory */
+            ierr = -14;
+        }
+    }
+    return (ierr);
 }
 
 /*********************************************************************/
