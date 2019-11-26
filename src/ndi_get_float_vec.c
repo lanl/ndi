@@ -774,8 +774,10 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
     int binary;
 
     if (!state) {
-        return (-2);
+        return -2;
     }
+
+    binary = state->binary;
 
     /* Check that isotope is set */
     if (!state->dedx_stat.set_flag) {

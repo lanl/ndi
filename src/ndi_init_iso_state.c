@@ -1280,6 +1280,8 @@ static int read_dedx_data(state_struct *state, FILE *stream,
         return (-2);
     }
 
+    binary = state->binary;
+
     strcpy(state->dedx_stat.zaid, zaid);
     state->dedx_stat.set_flag = 1;
     binary = state->binary;
