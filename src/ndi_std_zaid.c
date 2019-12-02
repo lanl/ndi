@@ -61,7 +61,7 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
     }
 
     /* Check errors */
-    if ((Z <= MAX_Z) && (Z > 0)) {
+    if ((Z <= MAX_Z) && ((Z > 0) || (Z == 0 && A == 1))) {
         sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000 + A));
 
 	(void) ndi_process_extension(in_zaid, &zaid_extension_p);

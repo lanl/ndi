@@ -347,10 +347,12 @@ int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
 	if (tmpz > 999) {
 	    /* Excited state */
 	    *z = (int) ldiv(tmpz, 1000).rem;
-/*       s = (int) ldiv(tmpz, 1000 ).quot;  */
 	} else {
 	    *z = tmpz;
 	}
+    } else if (izaid == 1) {
+	*a = (int) 1;
+	*z = (int) 0;
     } else {
 	/* ??? Error value */
 	ierr = -9;
