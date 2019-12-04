@@ -6,7 +6,7 @@ if(DEFINED PROJECT_NAME)
 endif()
 
 project(ndi
-  VERSION 2.1.3
+  VERSION 2.1.4
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi"
   LANGUAGES C Fortran)
@@ -134,7 +134,7 @@ install(EXPORT ndiConfig
   DESTINATION share/cmake/ndi)
 
 write_basic_package_version_file("ndi-config-version.cmake"
-  VERSION ${PROJECT_VERSION}
+  VERSION "${PROJECT_VERSION}"
   COMPATIBILITY SameMajorVersion)
 
 install(FILES
