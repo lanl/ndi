@@ -1,0 +1,813 @@
+***********************REACTION=d+t->n+a.111ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.222ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.980ztn***********************
+
+***  maxwellian reaction rate data from gerry hale (7-22-1998) for t(d,n)4he
+*************************************************************************
+
+*******Particle 1:
+      Vector size is:  16
+ 1.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+      Vector size is:  1
+         1  
+      Vector size is:  1
+         0  
+      Vector size is:  1
+ 1.404900000000000e+01  
+      Vector size is:  1
+ 1.000000000000000e+00  
+
+Average particle energy is:  1.404900e+01
+
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+      Vector size is:  16
+  **Error -30 in energy distribution -- returned value for particle alpha is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+he3->p+a.980ztn***********************
+
+***  maxwellian reaction rate data from gerry hale (7-22-1998) for 3he(d,p)4he
+*************************************************************************
+
+*******Particle 1001:
+      Vector size is:  16
+ 1.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+      Vector size is:  1
+        27  
+      Vector size is:  1
+         5  
+      Vector size is:  27
+ 1.450610000000000e+01   1.451820000000000e+01   1.453030000000000e+01   1.454240000000000e+01  
+ 1.455450000000000e+01   1.456670000000000e+01   1.457880000000000e+01   1.459090000000000e+01  
+ 1.460310000000000e+01   1.461520000000000e+01   1.462740000000000e+01   1.463950000000000e+01  
+ 1.465170000000000e+01   1.466380000000000e+01   1.467600000000000e+01   1.468820000000000e+01  
+ 1.470040000000000e+01   1.471250000000000e+01   1.472470000000000e+01   1.473690000000000e+01  
+ 1.474910000000000e+01   1.476130000000000e+01   1.477350000000000e+01   1.478570000000000e+01  
+ 1.479800000000000e+01   1.481020000000000e+01   1.482240000000000e+01  
+      Vector size is:  27
+ 1.020710000000000e-08   2.335440000000000e-07   4.161780000000000e-06   5.776080000000000e-05  
+ 6.243560000000000e-04   5.256250000000000e-03   3.446390000000000e-02   1.759940000000000e-01  
+ 6.999640000000000e-01   2.168190000000000e+00   5.230780000000000e+00   9.828310000000000e+00  
+ 1.438260000000000e+01   1.639230000000000e+01   1.455080000000000e+01   1.005960000000000e+01  
+ 5.416510000000000e+00   2.271450000000000e+00   7.418770000000000e-01   1.887150000000000e-01  
+ 3.738750000000000e-02   5.768880000000000e-03   6.932710000000000e-04   6.488730000000000e-05  
+ 4.730010000000000e-06   2.685400000000000e-07   1.187420000000000e-08  
+
+Average particle energy is:  1.466416e+01
+
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+      Vector size is:  16
+  **Error -30 in energy distribution -- returned value for particle alpha is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+d->n+he3.980ztn***********************
+
+***  maxwellian reaction rate data from gerry hale (7-22-1998) for d(d,n)3he
+*************************************************************************
+
+*******Particle 1:
+      Vector size is:  16
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   1.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+      Vector size is:  1
+         1  
+      Vector size is:  1
+         0  
+      Vector size is:  1
+ 2.449700000000000e+00  
+      Vector size is:  1
+ 1.000000000000000e+00  
+
+Average particle energy is:  2.449700e+00
+
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+      Vector size is:  16
+  **Error -30 in energy distribution -- returned value for particle alpha is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+d->p+t.980ztn***********************
+
+***  maxwellian reaction rate data from gerry hale (7-22-1998) for d(d,p)t
+*************************************************************************
+
+*******Particle 1001:
+      Vector size is:  16
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   1.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+      Vector size is:  1
+        27  
+      Vector size is:  1
+         5  
+      Vector size is:  27
+ 2.944340000000000e+00   2.950420000000000e+00   2.956500000000000e+00   2.962590000000000e+00  
+ 2.968690000000000e+00   2.974790000000000e+00   2.980900000000000e+00   2.987020000000000e+00  
+ 2.993140000000000e+00   2.999270000000000e+00   3.005400000000000e+00   3.011540000000000e+00  
+ 3.017690000000000e+00   3.023840000000000e+00   3.030000000000000e+00   3.036170000000000e+00  
+ 3.042340000000000e+00   3.048520000000000e+00   3.054700000000000e+00   3.060890000000000e+00  
+ 3.067090000000000e+00   3.073290000000000e+00   3.079500000000000e+00   3.085720000000000e+00  
+ 3.091940000000000e+00   3.098170000000000e+00   3.104400000000000e+00  
+      Vector size is:  27
+ 2.005750000000000e-08   4.589990000000000e-07   8.181059999999999e-06   1.135720000000000e-04  
+ 1.228000000000000e-03   1.034160000000000e-02   6.783309999999999e-02   3.465460000000000e-01  
+ 1.378940000000000e+00   4.273600000000000e+00   1.031590000000000e+01   1.939490000000000e+01  
+ 2.840090000000000e+01   3.239240000000000e+01   2.877530000000000e+01   1.990960000000000e+01  
+ 1.072930000000000e+01   4.503470000000000e+00   1.472280000000000e+00   3.748860000000000e-01  
+ 7.434920000000000e-02   1.148470000000000e-02   1.381760000000000e-03   1.294830000000000e-04  
+ 9.450620000000000e-06   5.372500000000000e-07   2.378820000000000e-08  
+
+Average particle energy is:  3.024041e+00
+
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+      Vector size is:  16
+  **Error -30 in energy distribution -- returned value for particle alpha is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=t+t->2n+a.980ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=t+li6->n+2a.980ztn***********************
+
+***  maxwellian reaction rate data from gerry hale (7-22-1998) for 6li(t,n)2*4he
+*************************************************************************
+
+  **Error -9 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+      Vector size is:  16
+  **Error -30 in energy distribution -- returned value for particle alpha is:
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+ 0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.981ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.982ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.983ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.984ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.985ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.986ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+he3->p+a.986ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.987ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.988ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.989ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.990ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.991ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.992ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.993ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.994ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.995ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.996ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.997ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.998ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.999ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.000ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.001ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.002ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.003ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.004ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.005ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.006ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.007ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.008ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.009ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.010ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.011ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.012ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.013ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.014ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.015ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+
+***********************REACTION=d+t->n+a.016ztn***********************
+
+  **Error -8 in setting reaction ZAID.
+  **Error -7 in getting info line.
+***  *************************************************************************
+
+  **Error -7 in getting number of secondary particles.
+*******Last particle alpha:
+  **Error -5 in setting current particle to alpha.
+  **Error -7 in getting size of edist (0).
+      Vector size is:  0
+  **Error -7 in energy distribution -- returned value for particle alpha is:
+
+
+Average particle energy is:  0.000000e+00
+

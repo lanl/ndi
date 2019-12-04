@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.chi_handle.dir/chi_handle.c.o  -o ndi.chi_handle  ../../libndi.a -lm 

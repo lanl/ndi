@@ -1,0 +1,6 @@
+multigroup_neutron
+  z=4009.991nm  d=05/12/2003  l=rmoxsct  f=lib/test2  ft=asc  ln=1
+    o=0
+    ng=30  t=2.530000000000E-08  s0=1.000000000000E+30  aw=9.012182000000E+00
+    awr=8.934762284802E+00 end
+end

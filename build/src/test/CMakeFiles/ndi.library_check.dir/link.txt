@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.library_check.dir/library_check.c.o  -o ndi.library_check  ../../libndi.a -lm 

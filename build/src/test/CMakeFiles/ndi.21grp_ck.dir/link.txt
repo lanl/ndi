@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.21grp_ck.dir/21grp_ck.F.o  -o ndi.21grp_ck  ../../libndi.a -lm 

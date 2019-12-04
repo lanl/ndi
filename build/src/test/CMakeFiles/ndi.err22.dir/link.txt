@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.err22.dir/err22.c.o  -o ndi.err22  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.qsf_kerma.dir/qsf_kerma.c.o  -o ndi.qsf_kerma  ../../libndi.a -lm 

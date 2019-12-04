@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.ekerma.dir/ekerma.c.o  -o ndi.ekerma  ../../libndi.a -lm 

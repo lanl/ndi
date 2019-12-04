@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.dedx.dir/dedx.c.o  -o ndi.dedx  ../../libndi.a -lm 

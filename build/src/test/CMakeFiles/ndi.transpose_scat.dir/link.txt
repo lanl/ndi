@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.transpose_scat.dir/transpose_scat.c.o  -o ndi.transpose_scat  ../../libndi.a -lm 

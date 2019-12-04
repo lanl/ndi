@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.testc.dir/testc.c.o  -o ndi.testc  ../../libndi.a -lm 

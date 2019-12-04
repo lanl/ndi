@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.radchemf.dir/radchemf.F.o  -o ndi.radchemf  ../../libndi.a -lm 

@@ -1,0 +1,962 @@
+[
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_set_zaid_float_temp.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_set_zaid_float_temp_sig_0.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp_sig_0.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp_sig_0.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_collapse_float.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_float.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_float.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_collapse_mat.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_mat.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_mat.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_get_float_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_get_float_val_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_get_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_get_float_vec_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_get_float_vec_x.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_x.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_x.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_misc_float.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_float.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_float.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndi_read_float_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_float_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_float_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndid_zaid_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_zaid_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_zaid_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndimp_get_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT32 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float32.dir/src/ndimp_get_float_vec_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_set_zaid_float_temp.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_set_zaid_float_temp_sig_0.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp_sig_0.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_zaid_float_temp_sig_0.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_collapse_float.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_float.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_float.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_collapse_mat.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_mat.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_collapse_mat.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_get_float_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_get_float_val_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_val_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_get_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_get_float_vec_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_get_float_vec_x.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_x.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_float_vec_x.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_misc_float.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_float.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_float.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndi_read_float_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_float_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_float_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndid_zaid_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_zaid_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_zaid_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndimp_get_float_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc -DFLOAT64 -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_float64.dir/src/ndimp_get_float_vec_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_float_vec_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_avail.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_avail.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_avail.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_bin_tree.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_bin_tree.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_bin_tree.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_check_option.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_check_option.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_check_option.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_close.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_close.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_close.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_close_lib_file.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_close_lib_file.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_close_lib_file.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_c_values.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_c_values.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_c_values.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndid_get_size.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_get_size.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_get_size.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndid_get_string_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_get_string_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndid_get_string_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_element_index.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_element_index.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_element_index.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_fill_element.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_fill_element.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_fill_element.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_find_index.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_find_index.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_find_index.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_free.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_free.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_free.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_int_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_int_val_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_val_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_val_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_int_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_int_vec_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_int_vec_x.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec_x.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_int_vec_x.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_size.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_size_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_size_x.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size_x.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_size_x.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_string_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_string_val_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_val_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_val_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_string_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_get_string_vec_x.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_vec_x.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_get_string_vec_x.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_init.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_init_iso_state.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init_iso_state.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init_iso_state.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_init_state.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init_state.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_init_state.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_interp_integ.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_interp_integ.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_interp_integ.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_malloc.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_malloc.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_malloc.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_misc.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_misc_depl.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_depl.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_misc_depl.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_open_gendir.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_open_gendir.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_open_gendir.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_open_lib_file.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_open_lib_file.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_open_lib_file.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_parse_zaid.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_parse_zaid.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_parse_zaid.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_read_dir_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_dir_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_dir_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_read_int_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_int_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_int_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_read_rx_prod.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_rx_prod.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_rx_prod.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_read_string_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_string_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_read_string_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_set0.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set0.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set0.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_set_e_grps.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_e_grps.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_e_grps.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_set_isotope.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_isotope.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_isotope.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_set_float_vec_option.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_float_vec_option.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_float_vec_option.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_set_option.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_option.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_set_option.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_skip_rx_prod.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_skip_rx_prod.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_skip_rx_prod.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_skip_float_block.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_skip_float_block.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_skip_float_block.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_state.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_state.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_state.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_std_zaid.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_std_zaid.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_std_zaid.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_sza_symbol_translation.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_sza_symbol_translation.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_sza_symbol_translation.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_user_functions_handles.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_user_functions_handles.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_user_functions_handles.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_user_functions_no_h.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_user_functions_no_h.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_user_functions_no_h.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_zaid_dir.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_zaid_dir.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_zaid_dir.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_int_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_int_val_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_val_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_val_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_int_vec.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_vec.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_int_vec.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_size.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_size.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_size.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_size_n.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_size_n.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_size_n.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_get_string_val.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_string_val.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_get_string_val.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_set_option.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_set_option.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_set_option.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndimp_set_zaid.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_set_zaid.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndimp_set_zaid.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_watt.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_watt.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_watt.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_C.dir/src/ndi_sf.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_sf.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_sf.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc     -o CMakeFiles/ndi_define_float.dir/src/ndi_define_float.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_define_float.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_define_float.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc     -o CMakeFiles/ndi_define_fmangle.dir/src/fcallscc.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/fcallscc.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/fcallscc.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/gfortran     -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/fcallscf.f -o CMakeFiles/ndi_define_fmangle.dir/src/fcallscf.f.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/fcallscf.f"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build",
+  "command": "/usr/bin/cc  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -Wall -Wextra -Wpedantic -Wno-unused-parameter -std=c99 -o CMakeFiles/ndi_F.dir/src/ndi_fortran.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_fortran.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/ndi_fortran.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_tempf.F -o CMakeFiles/ndi.zaid_tempf.dir/zaid_tempf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_tempf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.sgndf.dir/sgndf.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/sgndf.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/sgndf.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndi_testf2.F -o CMakeFiles/ndi.ndi_testf2.dir/ndi_testf2.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndi_testf2.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.chi_handle.dir/chi_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/chi_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/chi_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.radchem.dir/radchem.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchem.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchem.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ngk_test_handle.dir/ngk_test_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ngk_test_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ngk_test_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ex_kerma2.dir/ex_kerma2.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma2.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma2.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ngk_test.dir/ngk_test.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ngk_test.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ngk_test.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn4.dir/tn4.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn4.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn4.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ndid.dir/ndid.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndid.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndid.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.depl.dir/depl.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_new.dir/tn_new.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_new.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_new.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.handle_bashing.dir/handle_bashing.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/handle_bashing.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/handle_bashing.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndi_testf.F -o CMakeFiles/ndi.ndi_testf.dir/ndi_testf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndi_testf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.nonfissionables_handle.dir/nonfissionables_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/nonfissionables_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/nonfissionables_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.depl_handle.dir/depl_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.mpmg2.dir/mpmg2.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg2.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg2.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ex_avg_e.dir/ex_avg_e.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_avg_e.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_avg_e.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ndid_handle.dir/ndid_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndid_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndid_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tnreac_c_handle.dir/tnreac_c_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tnreac_c_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tnreac_c_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.kerma_example_handle.dir/kerma_example_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/kerma_example_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/kerma_example_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.chi.dir/chi.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/chi.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/chi.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.abundance_test_handle.dir/abundance_test_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/abundance_test_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/abundance_test_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.err22.dir/err22.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/err22.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/err22.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.photon.dir/photon.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/photon.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/photon.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.testc.dir/testc.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/testc.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/testc.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_temp_sig_0.F -o CMakeFiles/ndi.zaid_temp_sig_0.dir/zaid_temp_sig_0.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_temp_sig_0.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.qsf_kerma.dir/qsf_kerma.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/qsf_kerma.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/qsf_kerma.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.5_handle.dir/5_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/5_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/5_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.avg_e.dir/avg_e.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/avg_e.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/avg_e.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.avg_e2.dir/avg_e2.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/avg_e2.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/avg_e2.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ebounds.dir/ebounds.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ebounds.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ebounds.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.c_handle.dir/c_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/c_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/c_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ex_kerma1.dir/ex_kerma1.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma1.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma1.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.edist.dir/edist.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/edist.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/edist.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.symbol_translate_handle.dir/symbol_translate_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translate_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translate_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.transfer_mat.dir/transfer_mat.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transfer_mat.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transfer_mat.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.mpmg_grps.dir/mpmg_grps.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg_grps.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg_grps.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.5.dir/5.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/5.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/5.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.depl_zaid.dir/depl_zaid.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl_zaid.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl_zaid.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/f_handlef.F -o CMakeFiles/ndi.f_handlef.dir/f_handlef.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/f_handlef.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.depl2.dir/depl2.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl2.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl2.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.depl2_handle.dir/depl2_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl2_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl2_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_chain.dir/tn_chain.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_chain.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_chain.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_simple.dir/tn_simple.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_simple.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_simple.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.mg_sec_part.dir/mg_sec_part.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mg_sec_part.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mg_sec_part.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.dedx.dir/dedx.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/dedx.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/dedx.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tnreac_c.dir/tnreac_c.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tnreac_c.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tnreac_c.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ekerma.dir/ekerma.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ekerma.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ekerma.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.mpmg.dir/mpmg.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.library_check.dir/library_check.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/library_check.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/library_check.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn3.dir/tn3.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn3.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn3.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_new_handle.dir/tn_new_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_new_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_new_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_simple_handle.dir/tn_simple_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_simple_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_simple_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_use_handle.dir/tn_use_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_use_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_use_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn4_handle.dir/tn4_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn4_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn4_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.pnu_handle.dir/pnu_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/pnu_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/pnu_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn3_handle.dir/tn3_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn3_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn3_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn5.dir/tn5.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn5.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn5.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn5_handle.dir/tn5_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn5_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn5_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_c.dir/tn_c.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_c.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_c.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_c_handle.dir/tn_c_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_c_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_c_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_gendir_pathf.F -o CMakeFiles/ndi.ex_gendir_pathf.dir/ex_gendir_pathf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_gendir_pathf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_chain_handle.dir/tn_chain_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_chain_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_chain_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmgf.F -o CMakeFiles/ndi.mpmgf.dir/mpmgf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmgf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_interp_params.dir/tn_interp_params.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_interp_params.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_interp_params.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.nonfissionables.dir/nonfissionables.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/nonfissionables.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/nonfissionables.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.za_handle.dir/za_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/za_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/za_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_interp_params_handle.dir/tn_interp_params_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_interp_params_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_interp_params_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.tn_use.dir/tn_use.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_use.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/tn_use.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.transpose_scat.dir/transpose_scat.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transpose_scat.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transpose_scat.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.pnu.dir/pnu.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/pnu.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/pnu.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.za.dir/za.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/za.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/za.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translatef.F -o CMakeFiles/ndi.symbol_translatef.dir/symbol_translatef.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translatef.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.gendir_handle.dir/gendir_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndidf_handle.F -o CMakeFiles/ndi.ndidf_handle.dir/ndidf_handle.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndidf_handle.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.ex_gendir_path.dir/ex_gendir_path.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_gendir_path.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_gendir_path.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.neut.dir/neut.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/neut.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/neut.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.gendir_path.dir/gendir_path.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_path.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_path.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_avg_ef.F -o CMakeFiles/ndi.ex_avg_ef.dir/ex_avg_ef.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_avg_ef.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma1f.F -o CMakeFiles/ndi.ex_kerma1f.dir/ex_kerma1f.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma1f.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma2f.F -o CMakeFiles/ndi.ex_kerma2f.dir/ex_kerma2f.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ex_kerma2f.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/f_handlef2.F -o CMakeFiles/ndi.f_handlef2.dir/f_handlef2.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/f_handlef2.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/library_checkf.F -o CMakeFiles/ndi.library_checkf.dir/library_checkf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/library_checkf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.zaid_temp_sig0.dir/zaid_temp_sig0.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_temp_sig0.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/zaid_temp_sig0.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg2f.F -o CMakeFiles/ndi.mpmg2f.dir/mpmg2f.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/mpmg2f.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.binary.dir/binary.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/binary.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/binary.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndidf.F -o CMakeFiles/ndi.ndidf.dir/ndidf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndidf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchemf.F -o CMakeFiles/ndi.radchemf.dir/radchemf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchemf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_handlef.F -o CMakeFiles/ndi.gendir_handlef.dir/gendir_handlef.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_handlef.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.radchem_handle.dir/radchem_handle.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchem_handle.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/radchem_handle.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.old_rprod.dir/old_rprod.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/old_rprod.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/old_rprod.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.abundance_test.dir/abundance_test.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/abundance_test.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/abundance_test.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transpose_scatf.F -o CMakeFiles/ndi.transpose_scatf.dir/transpose_scatf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/transpose_scatf.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.symbol_translate.dir/symbol_translate.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translate.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/symbol_translate.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/cc -DNDI_STANDALONE -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -o CMakeFiles/ndi.kerma_example.dir/kerma_example.c.o   -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/kerma_example.c",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/kerma_example.c"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/21grp_ck.F -o CMakeFiles/ndi.21grp_ck.dir/21grp_ck.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/21grp_ck.F"
+},
+{
+  "directory": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test",
+  "command": "/usr/bin/gfortran  -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/src -I/usr/projects/data/nuclear/special/tgsaller/ndicpt/build    -c /usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_pathf.F -o CMakeFiles/ndi.gendir_pathf.dir/gendir_pathf.F.o",
+  "file": "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/gendir_pathf.F"
+}
+]

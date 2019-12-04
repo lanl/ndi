@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.mg_sec_part.dir/mg_sec_part.c.o  -o ndi.mg_sec_part  ../../libndi.a -lm 

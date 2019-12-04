@@ -1,0 +1,459 @@
+
+
+  ****************************************************
+    TEST TRANSLATION OF ISOTOPIC SYMBOL TO ZAID 
+  ****************************************************
+
+Interpret izaid before setting lib type.
+  izaid =      1001  SZA = H1                  
+  izaid =         0  SZA = g                   
+  izaid =         1  SZA = n                   
+  izaid =     92235  SZA = U235                
+  izaid =    103270  SZA = Lr270               
+  izaid =   2095240  SZA = Am240m2             
+  izaid =  20001002  SZA = H2m20               
+  ****ERROR =   -22
+  izaid =    110290  SZA =                     
+  izaid =      -999  SZA = Generic Destruction 
+  izaid =     99999  SZA = Fission Product     
+  ****ERROR =   -22
+  izaid =    999999  SZA =                     
+  ****ERROR =   -22
+  izaid =         2  SZA =                     
+  ****ERROR =   -22
+  izaid =    110000  SZA =                     
+  ****ERROR =   -22
+  izaid =   1109000  SZA =                     
+
+Interpret izaid after setting lib type.
+  izaid =      1001  SZA = H1                  
+  izaid =         0  SZA = g                   
+  izaid =         1  SZA = n                   
+  izaid =     92235  SZA = U235                
+  izaid =    103270  SZA = Lr270               
+  izaid =   2095240  SZA = Am240m2             
+  izaid =  20001002  SZA = H2m20               
+  ****ERROR =   -22
+  izaid =    110290  SZA =                     
+  izaid =      -999  SZA = Generic Destruction 
+  izaid =     99999  SZA = Fission Product     
+  ****ERROR =   -22
+  izaid =    999999  SZA =                     
+  ****ERROR =   -22
+  izaid =         2  SZA =                     
+  ****ERROR =   -22
+  izaid =    110000  SZA =                     
+  ****ERROR =   -22
+  izaid =   1109000  SZA =                     
+
+Check translation of symbols in set_isotope.
+ISOTOPE=>92235.600nm  <
+  Zaid = >92235.600nm  <
+ISOTOPE=>1001.        <
+  Zaid = >1001.600nm   <
+ISOTOPE=> 1002.       <
+  Zaid = >1002.600nm   <
+ISOTOPE=>1003         <
+  Zaid = >1003.600nm   <
+ISOTOPE=> 1039087     <
+  **Error    -8 in setting isotope  1039087     
+ISOTOPE=>pu239        <
+  Zaid = >94239.600nm  <
+ISOTOPE=>10020        <
+  **Error    -8 in setting isotope 10020        
+ISOTOPE=>h2           <
+  Zaid = >1002.600nm   <
+ISOTOPE=> He-4        <
+  **Error    -8 in setting isotope  He-4        
+ISOTOPE=>O16          <
+  Zaid = >8016.600nm   <
+ISOTOPE=>C-12         <
+  Zaid = >6012.600nm   <
+ISOTOPE=>i-127        <
+  **Error    -8 in setting isotope i-127        
+ISOTOPE=>TM169        <
+  **Error    -8 in setting isotope TM169        
+ISOTOPE=>TA-182       <
+  **Error    -8 in setting isotope TA-182       
+ISOTOPE=>pu-240.6     <
+  Zaid = >94240.600nm  <
+ISOTOPE=> h-1.50      <
+  Zaid = >1001.500nm   <
+ISOTOPE=>Fl-19        <
+  **Error   -22 in setting isotope Fl-19        
+
+Check translation of MT to Label.
+  MT=   1: (n,total)           
+  MT=   2: (n,n)m0             
+  MT=   3: (n,nonelastic)      
+  MT=   4: (n,n)               
+  MT=   5: (n,anything)        
+  MT=  10: (n,continuum)       
+  MT=  11: (n,2nd)             
+  MT=  16: (n,2n)              
+  MT=  17: (n,3n)              
+  MT=  18: (n,fission)         
+  MT=  19: (n,f)               
+  MT=  20: (n,nf)              
+  MT=  21: (n,2nf)             
+  MT=  22: (n,na)              
+  MT=  23: (n,n3a)             
+  MT=  24: (n,2na)             
+  MT=  25: (n,3na)             
+  MT=  27: (n,abs)             
+  MT=  28: (n,np)              
+  MT=  29: (n,n2a)             
+  MT=  30: (n,2n2a)            
+  MT=  32: (n,nd)              
+  MT=  33: (n,nt)              
+  MT=  34: (n,nHe3)            
+  MT=  35: (n,nd2a)            
+  MT=  36: (n,nt2a)            
+  MT=  37: (n,4n)              
+  MT=  38: (n,3nf)             
+  MT=  41: (n,2np)             
+  MT=  42: (n,3np)             
+  MT=  44: (n,n2p)             
+  MT=  45: (n,npa)             
+  MT=  50: (n,n)m0             
+  MT=  51: (n,n)m1             
+  MT=  52: (n,n)m2             
+  MT=  53: (n,n)m3             
+  MT=  54: (n,n)m4             
+  MT=  55: (n,n)m5             
+  MT=  56: (n,n)m6             
+  MT=  57: (n,n)m7             
+  MT=  58: (n,n)m8             
+  MT=  59: (n,n)m9             
+  MT=  60: (n,n)m10            
+  MT=  61: (n,n)m11            
+  MT=  62: (n,n)m12            
+  MT=  63: (n,n)m13            
+  MT=  64: (n,n)m14            
+  MT=  65: (n,n)m15            
+  MT=  66: (n,n)m16            
+  MT=  67: (n,n)m17            
+  MT=  68: (n,n)m18            
+  MT=  69: (n,n)m19            
+  MT=  70: (n,n)m20            
+  MT=  71: (n,n)m21            
+  MT=  72: (n,n)m22            
+  MT=  73: (n,n)m23            
+  MT=  74: (n,n)m24            
+  MT=  75: (n,n)m25            
+  MT=  76: (n,n)m26            
+  MT=  77: (n,n)m27            
+  MT=  78: (n,n)m28            
+  MT=  79: (n,n)m29            
+  MT=  80: (n,n)m30            
+  MT=  81: (n,n)m31            
+  MT=  82: (n,n)m32            
+  MT=  83: (n,n)m33            
+  MT=  84: (n,n)m34            
+  MT=  85: (n,n)m35            
+  MT=  86: (n,n)m36            
+  MT=  87: (n,n)m37            
+  MT=  88: (n,n)m38            
+  MT=  89: (n,n)m39            
+  MT=  90: (n,n)m40            
+  MT=  91: (n,n)m98            
+  MT= 101: (n,disap)           
+  MT= 102: (n,g)               
+  MT= 103: (n,p)               
+  MT= 104: (n,d)               
+  MT= 105: (n,t)               
+  MT= 106: (n,He3)             
+  MT= 107: (n,a)               
+  MT= 108: (n,2a)              
+  MT= 109: (n,3a)              
+  MT= 111: (n,2p)              
+  MT= 112: (n,pa)              
+  MT= 113: (n,t2a)             
+  MT= 114: (n,d2a)             
+  MT= 115: (n,pd)              
+  MT= 116: (n,pt)              
+  MT= 117: (n,da)              
+  MT= 600: (n,p)m0             
+  MT= 601: (n,p)m1             
+  MT= 602: (n,p)m2             
+  MT= 603: (n,p)m3             
+  MT= 604: (n,p)m4             
+  MT= 605: (n,p)m5             
+  MT= 606: (n,p)m6             
+  MT= 607: (n,p)m7             
+  MT= 608: (n,p)m8             
+  MT= 609: (n,p)m9             
+  MT= 610: (n,p)m10            
+  MT= 611: (n,p)m11            
+  MT= 612: (n,p)m12            
+  MT= 613: (n,p)m13            
+  MT= 614: (n,p)m14            
+  MT= 615: (n,p)m15            
+  MT= 616: (n,p)m16            
+  MT= 617: (n,p)m17            
+  MT= 618: (n,p)m18            
+  MT= 619: (n,p)m19            
+  MT= 620: (n,p)m20            
+  MT= 621: (n,p)m21            
+  MT= 622: (n,p)m22            
+  MT= 623: (n,p)m23            
+  MT= 624: (n,p)m24            
+  MT= 625: (n,p)m25            
+  MT= 626: (n,p)m26            
+  MT= 627: (n,p)m27            
+  MT= 628: (n,p)m28            
+  MT= 629: (n,p)m29            
+  MT= 630: (n,p)m30            
+  MT= 631: (n,p)m31            
+  MT= 632: (n,p)m32            
+  MT= 633: (n,p)m33            
+  MT= 634: (n,p)m34            
+  MT= 635: (n,p)m35            
+  MT= 636: (n,p)m36            
+  MT= 637: (n,p)m37            
+  MT= 638: (n,p)m38            
+  MT= 639: (n,p)m39            
+  MT= 640: (n,p)m40            
+  MT= 641: (n,p)m41            
+  MT= 642: (n,p)m42            
+  MT= 643: (n,p)m43            
+  MT= 644: (n,p)m44            
+  MT= 645: (n,p)m45            
+  MT= 646: (n,p)m46            
+  MT= 647: (n,p)m47            
+  MT= 648: (n,p)m48            
+  MT= 649: (n,p)m98            
+  MT= 650: (n,d)m0             
+  MT= 651: (n,d)m1             
+  MT= 652: (n,d)m2             
+  MT= 653: (n,d)m3             
+  MT= 654: (n,d)m4             
+  MT= 655: (n,d)m5             
+  MT= 656: (n,d)m6             
+  MT= 657: (n,d)m7             
+  MT= 658: (n,d)m8             
+  MT= 659: (n,d)m9             
+  MT= 660: (n,d)m10            
+  MT= 661: (n,d)m11            
+  MT= 662: (n,d)m12            
+  MT= 663: (n,d)m13            
+  MT= 664: (n,d)m14            
+  MT= 665: (n,d)m15            
+  MT= 666: (n,d)m16            
+  MT= 667: (n,d)m17            
+  MT= 668: (n,d)m18            
+  MT= 669: (n,d)m19            
+  MT= 670: (n,d)m20            
+  MT= 671: (n,d)m21            
+  MT= 672: (n,d)m22            
+  MT= 673: (n,d)m23            
+  MT= 674: (n,d)m24            
+  MT= 675: (n,d)m25            
+  MT= 676: (n,d)m26            
+  MT= 677: (n,d)m27            
+  MT= 678: (n,d)m28            
+  MT= 679: (n,d)m29            
+  MT= 680: (n,d)m30            
+  MT= 681: (n,d)m31            
+  MT= 682: (n,d)m32            
+  MT= 683: (n,d)m33            
+  MT= 684: (n,d)m34            
+  MT= 685: (n,d)m35            
+  MT= 686: (n,d)m36            
+  MT= 687: (n,d)m37            
+  MT= 688: (n,d)m38            
+  MT= 689: (n,d)m39            
+  MT= 690: (n,d)m40            
+  MT= 691: (n,d)m41            
+  MT= 692: (n,d)m42            
+  MT= 693: (n,d)m43            
+  MT= 694: (n,d)m44            
+  MT= 695: (n,d)m45            
+  MT= 696: (n,d)m46            
+  MT= 697: (n,d)m47            
+  MT= 698: (n,d)m48            
+  MT= 699: (n,d)m98            
+  MT= 700: (n,t)m0             
+  MT= 701: (n,t)m1             
+  MT= 702: (n,t)m2             
+  MT= 703: (n,t)m3             
+  MT= 704: (n,t)m4             
+  MT= 705: (n,t)m5             
+  MT= 706: (n,t)m6             
+  MT= 707: (n,t)m7             
+  MT= 708: (n,t)m8             
+  MT= 709: (n,t)m9             
+  MT= 710: (n,t)m10            
+  MT= 711: (n,t)m11            
+  MT= 712: (n,t)m12            
+  MT= 713: (n,t)m13            
+  MT= 714: (n,t)m14            
+  MT= 715: (n,t)m15            
+  MT= 716: (n,t)m16            
+  MT= 717: (n,t)m17            
+  MT= 718: (n,t)m18            
+  MT= 719: (n,t)m19            
+  MT= 720: (n,t)m20            
+  MT= 721: (n,t)m21            
+  MT= 722: (n,t)m22            
+  MT= 723: (n,t)m23            
+  MT= 724: (n,t)m24            
+  MT= 725: (n,t)m25            
+  MT= 726: (n,t)m26            
+  MT= 727: (n,t)m27            
+  MT= 728: (n,t)m28            
+  MT= 729: (n,t)m29            
+  MT= 730: (n,t)m30            
+  MT= 731: (n,t)m31            
+  MT= 732: (n,t)m32            
+  MT= 733: (n,t)m33            
+  MT= 734: (n,t)m34            
+  MT= 735: (n,t)m35            
+  MT= 736: (n,t)m36            
+  MT= 737: (n,t)m37            
+  MT= 738: (n,t)m38            
+  MT= 739: (n,t)m39            
+  MT= 740: (n,t)m40            
+  MT= 741: (n,t)m41            
+  MT= 742: (n,t)m42            
+  MT= 743: (n,t)m43            
+  MT= 744: (n,t)m44            
+  MT= 745: (n,t)m45            
+  MT= 746: (n,t)m46            
+  MT= 747: (n,t)m47            
+  MT= 748: (n,t)m48            
+  MT= 749: (n,t)m98            
+  MT= 750: (n,He3)m0           
+  MT= 751: (n,He3)m1           
+  MT= 752: (n,He3)m2           
+  MT= 753: (n,He3)m3           
+  MT= 754: (n,He3)m4           
+  MT= 755: (n,He3)m5           
+  MT= 756: (n,He3)m6           
+  MT= 757: (n,He3)m7           
+  MT= 758: (n,He3)m8           
+  MT= 759: (n,He3)m9           
+  MT= 760: (n,He3)m10          
+  MT= 761: (n,He3)m11          
+  MT= 762: (n,He3)m12          
+  MT= 763: (n,He3)m13          
+  MT= 764: (n,He3)m14          
+  MT= 765: (n,He3)m15          
+  MT= 766: (n,He3)m16          
+  MT= 767: (n,He3)m17          
+  MT= 768: (n,He3)m18          
+  MT= 769: (n,He3)m19          
+  MT= 770: (n,He3)m20          
+  MT= 771: (n,He3)m21          
+  MT= 772: (n,He3)m22          
+  MT= 773: (n,He3)m23          
+  MT= 774: (n,He3)m24          
+  MT= 775: (n,He3)m25          
+  MT= 776: (n,He3)m26          
+  MT= 777: (n,He3)m27          
+  MT= 778: (n,He3)m28          
+  MT= 779: (n,He3)m29          
+  MT= 780: (n,He3)m30          
+  MT= 781: (n,He3)m31          
+  MT= 782: (n,He3)m32          
+  MT= 783: (n,He3)m33          
+  MT= 784: (n,He3)m34          
+  MT= 785: (n,He3)m35          
+  MT= 786: (n,He3)m36          
+  MT= 787: (n,He3)m37          
+  MT= 788: (n,He3)m38          
+  MT= 789: (n,He3)m39          
+  MT= 790: (n,He3)m40          
+  MT= 791: (n,He3)m41          
+  MT= 792: (n,He3)m42          
+  MT= 793: (n,He3)m43          
+  MT= 794: (n,He3)m44          
+  MT= 795: (n,He3)m45          
+  MT= 796: (n,He3)m46          
+  MT= 797: (n,He3)m47          
+  MT= 798: (n,He3)m48          
+  MT= 799: (n,He3)m98          
+  MT= 800: (n,a)m0             
+  MT= 801: (n,a)m1             
+  MT= 802: (n,a)m2             
+  MT= 803: (n,a)m3             
+  MT= 804: (n,a)m4             
+  MT= 805: (n,a)m5             
+  MT= 806: (n,a)m6             
+  MT= 807: (n,a)m7             
+  MT= 808: (n,a)m8             
+  MT= 809: (n,a)m9             
+  MT= 810: (n,a)m10            
+  MT= 811: (n,a)m11            
+  MT= 812: (n,a)m12            
+  MT= 813: (n,a)m13            
+  MT= 814: (n,a)m14            
+  MT= 815: (n,a)m15            
+  MT= 816: (n,a)m16            
+  MT= 817: (n,a)m17            
+  MT= 818: (n,a)m18            
+  MT= 819: (n,a)m19            
+  MT= 820: (n,a)m20            
+  MT= 821: (n,a)m21            
+  MT= 822: (n,a)m22            
+  MT= 823: (n,a)m23            
+  MT= 824: (n,a)m24            
+  MT= 825: (n,a)m25            
+  MT= 826: (n,a)m26            
+  MT= 827: (n,a)m27            
+  MT= 828: (n,a)m28            
+  MT= 829: (n,a)m29            
+  MT= 830: (n,a)m30            
+  MT= 831: (n,a)m31            
+  MT= 832: (n,a)m32            
+  MT= 833: (n,a)m33            
+  MT= 834: (n,a)m34            
+  MT= 835: (n,a)m35            
+  MT= 836: (n,a)m36            
+  MT= 837: (n,a)m37            
+  MT= 838: (n,a)m38            
+  MT= 839: (n,a)m39            
+  MT= 840: (n,a)m40            
+  MT= 841: (n,a)m41            
+  MT= 842: (n,a)m42            
+  MT= 843: (n,a)m43            
+  MT= 844: (n,a)m44            
+  MT= 845: (n,a)m45            
+  MT= 846: (n,a)m46            
+  MT= 847: (n,a)m47            
+  MT= 848: (n,a)m48            
+  MT= 849: (n,a)m98            
+  MT= 875: (n,2n)m0            
+  MT= 876: (n,2n)m1            
+  MT= 877: (n,2n)m2            
+  MT= 878: (n,2n)m3            
+  MT= 879: (n,2n)m4            
+  MT= 880: (n,2n)m5            
+  MT= 881: (n,2n)m6            
+  MT= 882: (n,2n)m7            
+  MT= 883: (n,2n)m8            
+  MT= 884: (n,2n)m9            
+  MT= 885: (n,2n)m10           
+  MT= 886: (n,2n)m11           
+  MT= 887: (n,2n)m12           
+  MT= 888: (n,2n)m13           
+  MT= 889: (n,2n)m14           
+  MT= 890: (n,2n)m15           
+  MT= 891: (n,2n)m98           
+
+Check translation of extended MT to label.
+  MT=   1017: (n,3n)m1            
+  MT=   1102: (n,g)m1             
+  MT=   2017: (n,3n)m2            
+  MT=   2102: (n,g)m2             
+  MT=   3017: (n,3n)m3            
+  MT=   3102: (n,g)m3             
+  MT=  16000: (n,2n)m0            
+  MT=  16001: (n,2n)m1            
+  MT=  16002: (n,2n)m2            
+  MT=  16003: (n,2n)m3            
+  MT=  17000: (n,3n)m0            
+  MT=  17001: (n,3n)m1            
+  MT= 102000: (n,g)m0             
+  MT= 102001: (n,g)m1             
+  MT= 102002: (n,g)m2             

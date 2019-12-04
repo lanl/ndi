@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.old_rprod.dir/old_rprod.c.o  -o ndi.old_rprod  ../../libndi.a -lm 

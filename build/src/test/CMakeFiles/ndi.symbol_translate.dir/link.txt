@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.symbol_translate.dir/symbol_translate.c.o  -o ndi.symbol_translate  ../../libndi.a -lm 

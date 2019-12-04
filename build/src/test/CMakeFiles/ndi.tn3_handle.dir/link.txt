@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.tn3_handle.dir/tn3_handle.c.o  -o ndi.tn3_handle  ../../libndi.a -lm 

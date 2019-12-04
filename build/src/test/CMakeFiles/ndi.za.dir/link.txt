@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.za.dir/za.c.o  -o ndi.za  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.gendir_handle.dir/gendir_handle.c.o  -o ndi.gendir_handle  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.ex_avg_ef.dir/ex_avg_ef.F.o  -o ndi.ex_avg_ef  ../../libndi.a -lm 

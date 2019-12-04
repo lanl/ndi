@@ -1,0 +1,19 @@
+
+
+  ************************************************************** 
+    TEST ACCESSING SIGVBAR AND EINBAR INTERPOLATION PARAMETERS
+  ************************************************************** 
+
+Get sigvbar interpolation parameters for d+t->n+a.
+   Number of interpolation regions (err=0):  1
+   Interpolation region boundaries (err=0; size=1):
+   121   
+   Interpolation types(err=0; size=1):
+   5   
+
+Get einbar interpolation parameters for d+t->n+a.
+   Number of interpolation regions (err=0):  1
+   Interpolation region boundaries (err=0; size=1):
+   121   
+   Interpolation types(err=0; size=1):
+   5   

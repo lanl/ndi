@@ -1,0 +1,71 @@
+
+
+  NDI TEST SUITE -- testtn3
+
+    Error = 0 getting zaid h_list.001ztr.
+Num reac = 5; err = 0
+Reaction 0: d+t->n+a
+Reaction 1: d+d->n+he3
+Reaction 2: d+d->p+t
+Reaction 3: t+t->2n+a
+Reaction 4: d+he3->p+a
+
+*******************************
+     TN DATA
+*******************************
+
+Zaid d+t->n+a.980ztn (error = 0).
+  Q-value=17.589420; err=0
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+
+
+*****************************
+
+
+Zaid d+d->n+he3.980ztn (error = 0).
+  Q-value=3.268940; err=0
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+
+
+*****************************
+
+
+Zaid d+d->p+t.980ztn (error = 0).
+  Q-value=4.032710; err=0
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+
+
+*****************************
+
+
+Zaid t+t->2n+a.860ztn (error = 0).
+  Q-value=11.332120; err=0
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+
+
+*****************************
+
+
+Zaid d+he3->p+a.980ztn (error = 0).
+  Q-value=18.353190; err=0
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+
+
+*****************************
+
+

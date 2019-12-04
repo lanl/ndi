@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.ndid_handle.dir/ndid_handle.c.o  -o ndi.ndid_handle  ../../libndi.a -lm 

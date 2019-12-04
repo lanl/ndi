@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.nonfissionables.dir/nonfissionables.c.o  -o ndi.nonfissionables  ../../libndi.a -lm 

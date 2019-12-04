@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/ndi.h
+ndi_keywords.h
+../src/ndi_keywords.h
+ndi_var_type.h
+../src/ndi_var_type.h
+
+../src/ndi_keywords.h
+
+../src/ndi_var_type.h
+float.h
+-
+
+/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/depl2.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+ndi.h
+/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/ndi.h
+

@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.tn_use.dir/tn_use.c.o  -o ndi.tn_use  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.edist.dir/edist.c.o  -o ndi.edist  ../../libndi.a -lm 

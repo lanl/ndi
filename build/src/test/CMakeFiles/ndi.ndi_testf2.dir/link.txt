@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.ndi_testf2.dir/ndi_testf2.F.o  -o ndi.ndi_testf2  ../../libndi.a -lm 

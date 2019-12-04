@@ -1,0 +1,1571 @@
+Start testing: Sep 15 11:10 MDT
+----------------------------------------------------------
+1/98 Testing: ndi.5
+1/98 Test: ndi.5
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.5" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.5.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_5.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.5" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.5" end time: Sep 15 11:10 MDT
+"ndi.5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/98 Testing: ndi.5_handle
+2/98 Test: ndi.5_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.5_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.5_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_5_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.5_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.5_handle" end time: Sep 15 11:10 MDT
+"ndi.5_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/98 Testing: ndi.abundance_test
+3/98 Test: ndi.abundance_test
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.abundance_test" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.abundance_test.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_abundance_test.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.abundance_test" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.abundance_test" end time: Sep 15 11:10 MDT
+"ndi.abundance_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/98 Testing: ndi.abundance_test_handle
+4/98 Test: ndi.abundance_test_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.abundance_test_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.abundance_test_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_abundance_test_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.abundance_test_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.abundance_test_handle" end time: Sep 15 11:10 MDT
+"ndi.abundance_test_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/98 Testing: ndi.avg_e
+5/98 Test: ndi.avg_e
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.avg_e" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.avg_e.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_avg_e.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.avg_e" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.avg_e" end time: Sep 15 11:10 MDT
+"ndi.avg_e" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/98 Testing: ndi.avg_e2
+6/98 Test: ndi.avg_e2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.avg_e2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.avg_e2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_avg_e2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.avg_e2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.avg_e2" end time: Sep 15 11:10 MDT
+"ndi.avg_e2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/98 Testing: ndi.binary
+7/98 Test: ndi.binary
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.binary" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.binary.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_binary.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.binary" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.35 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.binary" end time: Sep 15 11:10 MDT
+"ndi.binary" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/98 Testing: ndi.c_handle
+8/98 Test: ndi.c_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.c_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.c_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_c_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.c_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   2.77 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.c_handle" end time: Sep 15 11:10 MDT
+"ndi.c_handle" time elapsed: 00:00:02
+----------------------------------------------------------
+
+9/98 Testing: ndi.chi
+9/98 Test: ndi.chi
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.chi" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.chi.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_chi.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.chi" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.chi" end time: Sep 15 11:10 MDT
+"ndi.chi" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/98 Testing: ndi.chi_handle
+10/98 Test: ndi.chi_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.chi_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.chi_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_chi_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.chi_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.chi_handle" end time: Sep 15 11:10 MDT
+"ndi.chi_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/98 Testing: ndi.dedx
+11/98 Test: ndi.dedx
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.dedx" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.dedx.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_dedx.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.dedx" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.24 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.dedx" end time: Sep 15 11:10 MDT
+"ndi.dedx" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/98 Testing: ndi.depl
+12/98 Test: ndi.depl
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_depl.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.depl" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.depl" end time: Sep 15 11:10 MDT
+"ndi.depl" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/98 Testing: ndi.depl_handle
+13/98 Test: ndi.depl_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_depl_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.depl_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.depl_handle" end time: Sep 15 11:10 MDT
+"ndi.depl_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/98 Testing: ndi.depl2
+14/98 Test: ndi.depl2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_depl2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.depl2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.depl2" end time: Sep 15 11:10 MDT
+"ndi.depl2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/98 Testing: ndi.depl2_handle
+15/98 Test: ndi.depl2_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl2_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl2_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_depl2_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.depl2_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.depl2_handle" end time: Sep 15 11:10 MDT
+"ndi.depl2_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/98 Testing: ndi.depl_zaid
+16/98 Test: ndi.depl_zaid
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl_zaid" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.depl_zaid.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_depl_zaid.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.depl_zaid" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.depl_zaid" end time: Sep 15 11:10 MDT
+"ndi.depl_zaid" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/98 Testing: ndi.ekerma
+17/98 Test: ndi.ekerma
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ekerma" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ekerma.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ekerma.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ekerma" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ekerma" end time: Sep 15 11:10 MDT
+"ndi.ekerma" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/98 Testing: ndi.ebounds
+18/98 Test: ndi.ebounds
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ebounds" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ebounds.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ebounds.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ebounds" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ebounds" end time: Sep 15 11:10 MDT
+"ndi.ebounds" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/98 Testing: ndi.edist
+19/98 Test: ndi.edist
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.edist" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.edist.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_edist.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.edist" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.edist" end time: Sep 15 11:10 MDT
+"ndi.edist" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/98 Testing: ndi.err22
+20/98 Test: ndi.err22
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.err22" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.err22.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_err22.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.err22" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.err22" end time: Sep 15 11:10 MDT
+"ndi.err22" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/98 Testing: ndi.ex_avg_e
+21/98 Test: ndi.ex_avg_e
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_avg_e" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_avg_e.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ex_avg_e.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_avg_e" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_avg_e" end time: Sep 15 11:10 MDT
+"ndi.ex_avg_e" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/98 Testing: ndi.ex_kerma1
+22/98 Test: ndi.ex_kerma1
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma1" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma1.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ex_kerma1.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_kerma1" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_kerma1" end time: Sep 15 11:10 MDT
+"ndi.ex_kerma1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/98 Testing: ndi.ex_kerma2
+23/98 Test: ndi.ex_kerma2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ex_kerma2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_kerma2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_kerma2" end time: Sep 15 11:10 MDT
+"ndi.ex_kerma2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/98 Testing: ndi.handle_bashing
+24/98 Test: ndi.handle_bashing
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.handle_bashing" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.handle_bashing.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_handle_bashing.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.handle_bashing" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.handle_bashing" end time: Sep 15 11:10 MDT
+"ndi.handle_bashing" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/98 Testing: ndi.kerma_example
+25/98 Test: ndi.kerma_example
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.kerma_example" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.kerma_example.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_kerma_example.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.kerma_example" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.kerma_example" end time: Sep 15 11:10 MDT
+"ndi.kerma_example" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/98 Testing: ndi.kerma_example_handle
+26/98 Test: ndi.kerma_example_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.kerma_example_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.kerma_example_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_kerma_example_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.kerma_example_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.kerma_example_handle" end time: Sep 15 11:10 MDT
+"ndi.kerma_example_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/98 Testing: ndi.library_check
+27/98 Test: ndi.library_check
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.library_check" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.library_check.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_library_check.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.library_check" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.library_check" end time: Sep 15 11:10 MDT
+"ndi.library_check" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/98 Testing: ndi.mg_sec_part
+28/98 Test: ndi.mg_sec_part
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mg_sec_part" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mg_sec_part.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_mg_sec_part.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mg_sec_part" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mg_sec_part" end time: Sep 15 11:10 MDT
+"ndi.mg_sec_part" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/98 Testing: ndi.mpmg
+29/98 Test: ndi.mpmg
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_mpmg.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mpmg" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mpmg" end time: Sep 15 11:10 MDT
+"ndi.mpmg" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/98 Testing: ndi.mpmg_grps
+30/98 Test: ndi.mpmg_grps
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg_grps" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg_grps.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_mpmg_grps.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mpmg_grps" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mpmg_grps" end time: Sep 15 11:10 MDT
+"ndi.mpmg_grps" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/98 Testing: ndi.mpmg2
+31/98 Test: ndi.mpmg2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_mpmg2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mpmg2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.36 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mpmg2" end time: Sep 15 11:10 MDT
+"ndi.mpmg2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/98 Testing: ndi.ndid
+32/98 Test: ndi.ndid
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndid" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndid.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ndid.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndid" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndid" end time: Sep 15 11:10 MDT
+"ndi.ndid" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/98 Testing: ndi.ndid_handle
+33/98 Test: ndi.ndid_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndid_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndid_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ndid_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndid_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndid_handle" end time: Sep 15 11:10 MDT
+"ndi.ndid_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/98 Testing: ndi.neut
+34/98 Test: ndi.neut
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.neut" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.neut.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_neut.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.neut" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.neut" end time: Sep 15 11:10 MDT
+"ndi.neut" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/98 Testing: ndi.ngk_test
+35/98 Test: ndi.ngk_test
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ngk_test" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ngk_test.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ngk_test.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ngk_test" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ngk_test" end time: Sep 15 11:10 MDT
+"ndi.ngk_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/98 Testing: ndi.ngk_test_handle
+36/98 Test: ndi.ngk_test_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ngk_test_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ngk_test_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ngk_test_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ngk_test_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ngk_test_handle" end time: Sep 15 11:10 MDT
+"ndi.ngk_test_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/98 Testing: ndi.nonfissionables
+37/98 Test: ndi.nonfissionables
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.nonfissionables" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.nonfissionables.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_nonfissionables.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.nonfissionables" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.nonfissionables" end time: Sep 15 11:10 MDT
+"ndi.nonfissionables" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/98 Testing: ndi.nonfissionables_handle
+38/98 Test: ndi.nonfissionables_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.nonfissionables_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.nonfissionables_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_nonfissionables_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.nonfissionables_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.nonfissionables_handle" end time: Sep 15 11:10 MDT
+"ndi.nonfissionables_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/98 Testing: ndi.old_rprod
+39/98 Test: ndi.old_rprod
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.old_rprod" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.old_rprod.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_old_rprod.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.old_rprod" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.old_rprod" end time: Sep 15 11:10 MDT
+"ndi.old_rprod" time elapsed: 00:00:00
+----------------------------------------------------------
+
+40/98 Testing: ndi.photon
+40/98 Test: ndi.photon
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.photon" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.photon.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_photon.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.photon" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   1.83 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.photon" end time: Sep 15 11:10 MDT
+"ndi.photon" time elapsed: 00:00:01
+----------------------------------------------------------
+
+41/98 Testing: ndi.pnu
+41/98 Test: ndi.pnu
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.pnu" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.pnu.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_pnu.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.pnu" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.pnu" end time: Sep 15 11:10 MDT
+"ndi.pnu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+42/98 Testing: ndi.pnu_handle
+42/98 Test: ndi.pnu_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.pnu_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.pnu_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_pnu_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.pnu_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.pnu_handle" end time: Sep 15 11:10 MDT
+"ndi.pnu_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+43/98 Testing: ndi.radchem
+43/98 Test: ndi.radchem
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchem" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchem.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_radchem.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.radchem" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.radchem" end time: Sep 15 11:10 MDT
+"ndi.radchem" time elapsed: 00:00:00
+----------------------------------------------------------
+
+44/98 Testing: ndi.radchem_handle
+44/98 Test: ndi.radchem_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchem_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchem_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_radchem_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.radchem_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.radchem_handle" end time: Sep 15 11:10 MDT
+"ndi.radchem_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/98 Testing: ndi.sgndf
+45/98 Test: ndi.sgndf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.sgndf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.sgndf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_sgndf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.sgndf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.sgndf" end time: Sep 15 11:10 MDT
+"ndi.sgndf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+46/98 Testing: ndi.symbol_translate
+46/98 Test: ndi.symbol_translate
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translate" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translate.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_symbol_translate.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.symbol_translate" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.symbol_translate" end time: Sep 15 11:10 MDT
+"ndi.symbol_translate" time elapsed: 00:00:00
+----------------------------------------------------------
+
+47/98 Testing: ndi.symbol_translate_handle
+47/98 Test: ndi.symbol_translate_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translate_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translate_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_symbol_translate_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.symbol_translate_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.symbol_translate_handle" end time: Sep 15 11:10 MDT
+"ndi.symbol_translate_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+48/98 Testing: ndi.testc
+48/98 Test: ndi.testc
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.testc" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.testc.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_testc.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.testc" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   2.71 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.testc" end time: Sep 15 11:10 MDT
+"ndi.testc" time elapsed: 00:00:02
+----------------------------------------------------------
+
+49/98 Testing: ndi.tn3
+49/98 Test: ndi.tn3
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn3" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn3.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn3.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn3" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn3" end time: Sep 15 11:10 MDT
+"ndi.tn3" time elapsed: 00:00:00
+----------------------------------------------------------
+
+50/98 Testing: ndi.tn3_handle
+50/98 Test: ndi.tn3_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn3_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn3_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn3_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn3_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn3_handle" end time: Sep 15 11:10 MDT
+"ndi.tn3_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+51/98 Testing: ndi.tn4
+51/98 Test: ndi.tn4
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn4" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn4.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn4.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn4" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn4" end time: Sep 15 11:10 MDT
+"ndi.tn4" time elapsed: 00:00:00
+----------------------------------------------------------
+
+52/98 Testing: ndi.tn4_handle
+52/98 Test: ndi.tn4_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn4_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn4_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn4_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn4_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn4_handle" end time: Sep 15 11:10 MDT
+"ndi.tn4_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+53/98 Testing: ndi.tn5
+53/98 Test: ndi.tn5
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn5" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn5.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn5.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn5" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn5" end time: Sep 15 11:10 MDT
+"ndi.tn5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+54/98 Testing: ndi.tn5_handle
+54/98 Test: ndi.tn5_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn5_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn5_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn5_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn5_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn5_handle" end time: Sep 15 11:10 MDT
+"ndi.tn5_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+55/98 Testing: ndi.tn_c
+55/98 Test: ndi.tn_c
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_c" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_c.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_c.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_c" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.24 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_c" end time: Sep 15 11:10 MDT
+"ndi.tn_c" time elapsed: 00:00:00
+----------------------------------------------------------
+
+56/98 Testing: ndi.tn_c_handle
+56/98 Test: ndi.tn_c_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_c_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_c_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_c_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_c_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_c_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_c_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/98 Testing: ndi.tn_chain
+57/98 Test: ndi.tn_chain
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_chain" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_chain.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_chain.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_chain" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_chain" end time: Sep 15 11:10 MDT
+"ndi.tn_chain" time elapsed: 00:00:00
+----------------------------------------------------------
+
+58/98 Testing: ndi.tn_chain_handle
+58/98 Test: ndi.tn_chain_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_chain_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_chain_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_chain_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_chain_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_chain_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_chain_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+59/98 Testing: ndi.tn_interp_params
+59/98 Test: ndi.tn_interp_params
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_interp_params" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_interp_params.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_interp_params.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_interp_params" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_interp_params" end time: Sep 15 11:10 MDT
+"ndi.tn_interp_params" time elapsed: 00:00:00
+----------------------------------------------------------
+
+60/98 Testing: ndi.tn_interp_params_handle
+60/98 Test: ndi.tn_interp_params_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_interp_params_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_interp_params_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_interp_params_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_interp_params_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_interp_params_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_interp_params_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+61/98 Testing: ndi.tn_new
+61/98 Test: ndi.tn_new
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_new" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_new.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_new.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_new" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_new" end time: Sep 15 11:10 MDT
+"ndi.tn_new" time elapsed: 00:00:00
+----------------------------------------------------------
+
+62/98 Testing: ndi.tn_new_handle
+62/98 Test: ndi.tn_new_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_new_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_new_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_new_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_new_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_new_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_new_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+63/98 Testing: ndi.tn_simple
+63/98 Test: ndi.tn_simple
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_simple" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_simple.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_simple.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_simple" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_simple" end time: Sep 15 11:10 MDT
+"ndi.tn_simple" time elapsed: 00:00:00
+----------------------------------------------------------
+
+64/98 Testing: ndi.tn_simple_handle
+64/98 Test: ndi.tn_simple_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_simple_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_simple_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_simple_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_simple_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_simple_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_simple_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+65/98 Testing: ndi.tn_use
+65/98 Test: ndi.tn_use
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_use" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_use.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_use.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_use" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_use" end time: Sep 15 11:10 MDT
+"ndi.tn_use" time elapsed: 00:00:00
+----------------------------------------------------------
+
+66/98 Testing: ndi.tn_use_handle
+66/98 Test: ndi.tn_use_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_use_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tn_use_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tn_use_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tn_use_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tn_use_handle" end time: Sep 15 11:10 MDT
+"ndi.tn_use_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+67/98 Testing: ndi.tnreac_c
+67/98 Test: ndi.tnreac_c
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tnreac_c" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tnreac_c.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tnreac_c.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tnreac_c" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tnreac_c" end time: Sep 15 11:10 MDT
+"ndi.tnreac_c" time elapsed: 00:00:00
+----------------------------------------------------------
+
+68/98 Testing: ndi.tnreac_c_handle
+68/98 Test: ndi.tnreac_c_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tnreac_c_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.tnreac_c_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_tnreac_c_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.tnreac_c_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.tnreac_c_handle" end time: Sep 15 11:10 MDT
+"ndi.tnreac_c_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+69/98 Testing: ndi.transfer_mat
+69/98 Test: ndi.transfer_mat
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transfer_mat" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transfer_mat.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_transfer_mat.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.transfer_mat" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.transfer_mat" end time: Sep 15 11:10 MDT
+"ndi.transfer_mat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+70/98 Testing: ndi.transpose_scat
+70/98 Test: ndi.transpose_scat
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transpose_scat" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transpose_scat.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_transpose_scat.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.transpose_scat" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.transpose_scat" end time: Sep 15 11:10 MDT
+"ndi.transpose_scat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+71/98 Testing: ndi.za
+71/98 Test: ndi.za
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.za" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.za.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_za.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.za" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.za" end time: Sep 15 11:10 MDT
+"ndi.za" time elapsed: 00:00:00
+----------------------------------------------------------
+
+72/98 Testing: ndi.za_handle
+72/98 Test: ndi.za_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.za_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.za_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_za_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.za_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.za_handle" end time: Sep 15 11:10 MDT
+"ndi.za_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+73/98 Testing: ndi.gendir_handle
+73/98 Test: ndi.gendir_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_gendir_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.gendir_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.gendir_handle" end time: Sep 15 11:10 MDT
+"ndi.gendir_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+74/98 Testing: ndi.ex_gendir_path
+74/98 Test: ndi.ex_gendir_path
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_gendir_path" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_gendir_path.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_ex_gendir_path.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_gendir_path" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_gendir_path" end time: Sep 15 11:10 MDT
+"ndi.ex_gendir_path" time elapsed: 00:00:00
+----------------------------------------------------------
+
+75/98 Testing: ndi.gendir_path
+75/98 Test: ndi.gendir_path
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_path" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_path.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_gendir_path.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.gendir_path" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.gendir_path" end time: Sep 15 11:10 MDT
+"ndi.gendir_path" time elapsed: 00:00:00
+----------------------------------------------------------
+
+76/98 Testing: ndi.qsf_kerma
+76/98 Test: ndi.qsf_kerma
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.qsf_kerma" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.qsf_kerma.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_qsf_kerma.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.qsf_kerma" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.qsf_kerma" end time: Sep 15 11:10 MDT
+"ndi.qsf_kerma" time elapsed: 00:00:00
+----------------------------------------------------------
+
+77/98 Testing: ndi.zaid_temp_sig0
+77/98 Test: ndi.zaid_temp_sig0
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_temp_sig0" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_temp_sig0.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testc_zaid_temp_sig0.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.zaid_temp_sig0" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.zaid_temp_sig0" end time: Sep 15 11:10 MDT
+"ndi.zaid_temp_sig0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+78/98 Testing: ndi.ex_avg_ef
+78/98 Test: ndi.ex_avg_ef
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_avg_ef" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_avg_ef.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ex_avg_ef.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_avg_ef" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_avg_ef" end time: Sep 15 11:10 MDT
+"ndi.ex_avg_ef" time elapsed: 00:00:00
+----------------------------------------------------------
+
+79/98 Testing: ndi.ex_kerma1f
+79/98 Test: ndi.ex_kerma1f
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma1f" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma1f.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ex_kerma1f.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_kerma1f" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_kerma1f" end time: Sep 15 11:10 MDT
+"ndi.ex_kerma1f" time elapsed: 00:00:00
+----------------------------------------------------------
+
+80/98 Testing: ndi.ex_kerma2f
+80/98 Test: ndi.ex_kerma2f
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma2f" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_kerma2f.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ex_kerma2f.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_kerma2f" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_kerma2f" end time: Sep 15 11:10 MDT
+"ndi.ex_kerma2f" time elapsed: 00:00:00
+----------------------------------------------------------
+
+81/98 Testing: ndi.f_handlef
+81/98 Test: ndi.f_handlef
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.f_handlef" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.f_handlef.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_f_handlef.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.f_handlef" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.18 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.f_handlef" end time: Sep 15 11:10 MDT
+"ndi.f_handlef" time elapsed: 00:00:00
+----------------------------------------------------------
+
+82/98 Testing: ndi.f_handlef2
+82/98 Test: ndi.f_handlef2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.f_handlef2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.f_handlef2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_f_handlef2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.f_handlef2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   4.58 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.f_handlef2" end time: Sep 15 11:10 MDT
+"ndi.f_handlef2" time elapsed: 00:00:04
+----------------------------------------------------------
+
+83/98 Testing: ndi.library_checkf
+83/98 Test: ndi.library_checkf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.library_checkf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.library_checkf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_library_checkf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.library_checkf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.library_checkf" end time: Sep 15 11:10 MDT
+"ndi.library_checkf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+84/98 Testing: ndi.mpmgf
+84/98 Test: ndi.mpmgf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmgf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmgf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_mpmgf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mpmgf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mpmgf" end time: Sep 15 11:10 MDT
+"ndi.mpmgf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+85/98 Testing: ndi.mpmg2f
+85/98 Test: ndi.mpmg2f
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg2f" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.mpmg2f.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_mpmg2f.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.mpmg2f" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.mpmg2f" end time: Sep 15 11:10 MDT
+"ndi.mpmg2f" time elapsed: 00:00:00
+----------------------------------------------------------
+
+86/98 Testing: ndi.ndi_testf
+86/98 Test: ndi.ndi_testf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndi_testf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndi_testf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ndi_testf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndi_testf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndi_testf" end time: Sep 15 11:10 MDT
+"ndi.ndi_testf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+87/98 Testing: ndi.ndi_testf2
+87/98 Test: ndi.ndi_testf2
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndi_testf2" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndi_testf2.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ndi_testf2.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndi_testf2" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   4.39 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndi_testf2" end time: Sep 15 11:10 MDT
+"ndi.ndi_testf2" time elapsed: 00:00:04
+----------------------------------------------------------
+
+88/98 Testing: ndi.ndidf
+88/98 Test: ndi.ndidf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndidf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndidf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ndidf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndidf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.64 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndidf" end time: Sep 15 11:10 MDT
+"ndi.ndidf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+89/98 Testing: ndi.ndidf_handle
+89/98 Test: ndi.ndidf_handle
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndidf_handle" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ndidf_handle.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ndidf_handle.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ndidf_handle" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ndidf_handle" end time: Sep 15 11:10 MDT
+"ndi.ndidf_handle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+90/98 Testing: ndi.radchemf
+90/98 Test: ndi.radchemf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchemf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.radchemf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_radchemf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.radchemf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.radchemf" end time: Sep 15 11:10 MDT
+"ndi.radchemf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+91/98 Testing: ndi.symbol_translatef
+91/98 Test: ndi.symbol_translatef
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translatef" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.symbol_translatef.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_symbol_translatef.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.symbol_translatef" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.symbol_translatef" end time: Sep 15 11:10 MDT
+"ndi.symbol_translatef" time elapsed: 00:00:00
+----------------------------------------------------------
+
+92/98 Testing: ndi.transpose_scatf
+92/98 Test: ndi.transpose_scatf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transpose_scatf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.transpose_scatf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_transpose_scatf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.transpose_scatf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.transpose_scatf" end time: Sep 15 11:10 MDT
+"ndi.transpose_scatf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+93/98 Testing: ndi.21grp_ck
+93/98 Test: ndi.21grp_ck
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.21grp_ck" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.21grp_ck.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_21grp_ck.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.21grp_ck" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.21grp_ck" end time: Sep 15 11:10 MDT
+"ndi.21grp_ck" time elapsed: 00:00:00
+----------------------------------------------------------
+
+94/98 Testing: ndi.gendir_handlef
+94/98 Test: ndi.gendir_handlef
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_handlef" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_handlef.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_gendir_handlef.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.gendir_handlef" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.gendir_handlef" end time: Sep 15 11:10 MDT
+"ndi.gendir_handlef" time elapsed: 00:00:00
+----------------------------------------------------------
+
+95/98 Testing: ndi.ex_gendir_pathf
+95/98 Test: ndi.ex_gendir_pathf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_gendir_pathf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.ex_gendir_pathf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_ex_gendir_pathf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.ex_gendir_pathf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.ex_gendir_pathf" end time: Sep 15 11:10 MDT
+"ndi.ex_gendir_pathf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+96/98 Testing: ndi.gendir_pathf
+96/98 Test: ndi.gendir_pathf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_pathf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.gendir_pathf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_gendir_pathf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.gendir_pathf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.gendir_pathf" end time: Sep 15 11:10 MDT
+"ndi.gendir_pathf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+97/98 Testing: ndi.zaid_tempf
+97/98 Test: ndi.zaid_tempf
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_tempf" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_tempf.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_zaid_tempf.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.zaid_tempf" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.zaid_tempf" end time: Sep 15 11:10 MDT
+"ndi.zaid_tempf" time elapsed: 00:00:00
+----------------------------------------------------------
+
+98/98 Testing: ndi.zaid_temp_sig_0
+98/98 Test: ndi.zaid_temp_sig_0
+Command: "/usr/projects/hpcsoft/toss3/common/x86_64/cmake/3.17.2/bin/cmake" "-D" "exe=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_temp_sig_0" "-D" "output=/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test/ndi.zaid_temp_sig_0.output" "-D" "reference=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/output/testf_zaid_temp_sig_0.out" "-D" "script=/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/fcmp.pl" "-P" "/usr/projects/data/nuclear/special/tgsaller/ndicpt/src/test/runtest.cmake"
+Directory: /usr/projects/data/nuclear/special/tgsaller/ndicpt/build/src/test
+"ndi.zaid_temp_sig_0" start time: Sep 15 11:10 MDT
+Output:
+----------------------------------------------------------
+-- Found Perl: /usr/bin/perl (found version "5.16.3") 
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"ndi.zaid_temp_sig_0" end time: Sep 15 11:10 MDT
+"ndi.zaid_temp_sig_0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 15 11:10 MDT

@@ -1,0 +1,84 @@
+GENDIR0 (path=gendir)
+  Library type:  multigroup_neutron
+  Library:  mendf5
+  Matrix order:  default
+  Collapse:  16_lanl
+  Transport correction:  none
+  Normalize:  norm
+  Reaction identifier:  mt
+  Average group energy:  from_vel
+  Kerma:  use_data
+  Default fission product:  50999
+  List of U zaids
+
+  Size of list is 36
+ Isotope 1: zaid=92233.500nm
+ Isotope 2: zaid=92235.500nm
+ Isotope 3: zaid=92238.500nm
+  List of atomic weights
+  Size of list is 3
+ 2.330400000000000e+02   2.350440000000000e+02   2.380510000000000e+02  
+
+  List of atomic weights and ZAIDS, 92235
+  Size of list is 12
+ Isotope 1: zaid=92235.500nm
+  Size of list is 1
+ 2.350440000000000e+02  
+
+  List of atomic weights and ZAIDS, 92235.6
+  Size of list is 121
+ Isotope 1: zaid=92235.600nm
+ Isotope 2: zaid=92235.666ngk
+ Isotope 3: zaid=92235.620nm
+ Isotope 4: zaid=92235.601nm
+ Isotope 5: zaid=92235.670nm
+ Isotope 6: zaid=92235.671nm
+ Isotope 7: zaid=92235.673nm
+ Isotope 8: zaid=92235.602nm
+ Isotope 9: zaid=92235.603nm
+ Isotope 10: zaid=92235.610nm
+  Size of list is 10
+ 2.350440000000000e+02   2.350440000000000e+02   2.350441400000000e+02   2.350442000000000e+02  
+ 2.350440000000000e+02   2.350440000000000e+02   2.350440000000000e+02   2.350439375216190e+02  
+ 2.350439375216190e+02   2.350439375216190e+02  
+
+  List of atomic weights and ZAIDS, 92235.600
+  Size of list is 12
+ Isotope 1: zaid=92235.600nm
+  Size of list is 1
+ 2.350440000000000e+02  
+
+  List of atomic weights and ZAIDS, 92235.600nm
+  Size of list is 12
+ Isotope 1: zaid=92235.600nm
+  Size of list is 1
+ 2.350440000000000e+02  
+
+  Handle0
+    Gendir path:  gendir
+    Library type:  multigroup_neutron
+    Library:  mendf5
+    Matrix order:  default
+    Collapse:  16_lanl
+    Transport correction:  none
+    Normalize:  norm
+    Reaction identifier:  mt
+    Average group energy:  from_vel
+    Kerma:  use_data
+    Default fission product:  50999
+  Handle1
+    Gendir path:  gendir
+    Library type:  multigroup_neutron
+    Library:  mendf5
+    Matrix order:  default
+    Collapse:  16_lanl
+    Transport correction:  bhs_3
+    Normalize:  norm
+    Reaction identifier:  mt
+    Average group energy:  from_vel
+    Kerma:  use_data_calc
+    Default fission product:  50999
+
+GENDIR1 (path=lib/gendir.test2)
+  Handle0
+    Zaid=4009.991nm

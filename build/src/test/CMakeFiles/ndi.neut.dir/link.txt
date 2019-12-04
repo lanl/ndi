@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.neut.dir/neut.c.o  -o ndi.neut  ../../libndi.a -lm 

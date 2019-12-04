@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.tn_interp_params_handle.dir/tn_interp_params_handle.c.o  -o ndi.tn_interp_params_handle  ../../libndi.a -lm 

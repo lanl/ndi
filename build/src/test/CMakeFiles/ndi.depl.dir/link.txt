@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.depl.dir/depl.c.o  -o ndi.depl  ../../libndi.a -lm 

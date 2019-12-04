@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.pnu.dir/pnu.c.o  -o ndi.pnu  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi_define_fmangle.dir/src/fcallscc.c.o CMakeFiles/ndi_define_fmangle.dir/src/fcallscf.f.o  -o ndi_define_fmangle 

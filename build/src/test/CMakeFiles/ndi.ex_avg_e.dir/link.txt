@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.ex_avg_e.dir/ex_avg_e.c.o  -o ndi.ex_avg_e  ../../libndi.a -lm 

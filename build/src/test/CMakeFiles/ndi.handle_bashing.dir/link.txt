@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.handle_bashing.dir/handle_bashing.c.o  -o ndi.handle_bashing  ../../libndi.a -lm 

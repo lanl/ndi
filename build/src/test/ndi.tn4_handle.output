@@ -1,0 +1,43 @@
+
+
+  NDI TEST SUITE -- testtn4
+
+
+*******************************
+     TN DATA
+*******************************
+
+
+
+**************************************************************
+                  REACTION  d+t->n+a
+**************************************************************
+Zaid d+t->n+a.980ztn (error = 0).
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1.  (err=0)
+   average energy for outgoing particle 1 is:    14.049000 (err=0).
+   reaction Q is    17.589420. (err=0)
+
+
+*****************************
+
+
+
+
+**************************************************************
+                  REACTION  d+he3->p+a
+**************************************************************
+Zaid d+he3->p+a.980ztn (error = 0).
+
+***
+Num secondary particles = 1; err = 0
+Particle 0 is a 1001.  (err=0)
+   average energy for outgoing particle 1001 is:    14.664155 (err=0).
+   reaction Q is    18.353190. (err=0)
+
+
+*****************************
+
+

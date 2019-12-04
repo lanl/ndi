@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.tn_new_handle.dir/tn_new_handle.c.o  -o ndi.tn_new_handle  ../../libndi.a -lm 

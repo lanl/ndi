@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.f_handlef.dir/f_handlef.F.o  -o ndi.f_handlef  ../../libndi.a -lm 

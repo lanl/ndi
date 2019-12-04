@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.abundance_test.dir/abundance_test.c.o  -o ndi.abundance_test  ../../libndi.a -lm 

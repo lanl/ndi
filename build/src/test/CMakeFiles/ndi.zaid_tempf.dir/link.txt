@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.zaid_tempf.dir/zaid_tempf.F.o  -o ndi.zaid_tempf  ../../libndi.a -lm 

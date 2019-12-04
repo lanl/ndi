@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/ndi.depl_zaid.dir/depl_zaid.c.o  -o ndi.depl_zaid  ../../libndi.a -lm 

@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.ndidf_handle.dir/ndidf_handle.F.o  -o ndi.ndidf_handle  ../../libndi.a -lm 

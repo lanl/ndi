@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.mpmgf.dir/mpmgf.F.o  -o ndi.mpmgf  ../../libndi.a -lm 

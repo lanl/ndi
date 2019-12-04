@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.library_checkf.dir/library_checkf.F.o  -o ndi.library_checkf  ../../libndi.a -lm 

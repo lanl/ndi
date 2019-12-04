@@ -1,0 +1,1 @@
+/usr/bin/gfortran    CMakeFiles/ndi.symbol_translatef.dir/symbol_translatef.F.o  -o ndi.symbol_translatef  ../../libndi.a -lm 
