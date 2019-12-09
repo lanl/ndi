@@ -48,6 +48,18 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
 
     /* Initialize depletion data */
     ierr = ndi_init_state_chain(state);
+
+    /* Convert input zaid to standard zaid and read data from gendir */
+//    strcpy(tmp_zaid, in_zaid);
+//    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+//        if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
+//            ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
+//        }
+      /*** Check returned error value  ***/
+//        if (ierr < 0)
+//            return (ierr);
+//    }
+
     /* Read data from gendir */
     ierr =
 	ndi_zaid_dir(state, state->particle_type, state->library_type,
@@ -281,6 +293,18 @@ int ndi_radchem(state_struct *state, const char *in_zaid)
 
     /* Initialize depletion data? */
     ierr = ndi_set0(state, '0');
+
+    /* Convert input zaid to standard zaid and read data from gendir */
+    strcpy(tmp_zaid, in_zaid);
+    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+        if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
+            ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
+        }
+      /*** Check returned error value  ***/
+        if (ierr < 0)
+            return (ierr);
+    }
+
     /* Read data from gendir */
     ierr =
 	ndi_zaid_dir(state, state->particle_type, state->library_type,

@@ -101,6 +101,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
     case NDI_REAC_ID:		/* Specify reaction identifiers as MT or C values */
 	ierr = ndi_set_reac_id(state, value);
 	break;
+
     case NDI_E_AVG:		/* Specify average bin energy calculation */
 	ierr = ndi_set_e_avg(state, value);
 	break;

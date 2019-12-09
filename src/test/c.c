@@ -285,7 +285,7 @@ int testc (void)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = ndi_set_option( NDI_LIB_TYPE, "multigroup_neutron" );
    ierr = ndi_set_option( NDI_DEPLETION, "test_depl" );
-   ierr = ndi_set_option(NDI_E_AVG, "from_e");
+   ierr = ndi_set_option( NDI_E_AVG, "from_e" );
 
    /*  For all ZAIDs */
    for ( i = 0; i < num_zaid; i++ ) {

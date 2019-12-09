@@ -43,7 +43,10 @@ ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
 
     tmp_zaid = strtok(zaid_str, seps);
 
-    if (isalpha(*tmp_zaid)) {
+    if (tmp_zaid == NULL) {
+        /* Bad (empty) zaid */
+	return (-22);
+    } else if (isalpha(*tmp_zaid)) {
 	/* First character is alphabetic, implying a symbolic zaid */
 	ierr = ndi_parse_symbolic_zaid(state, tmp_zaid, Z, A, S);
     } else {

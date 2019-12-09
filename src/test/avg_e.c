@@ -13,8 +13,8 @@ void print_int_vec( int *int_ptr, int num_elements );
 int main ()
 
 {
-    int ierr;
-    int vec_size;
+   int ierr, i;
+   int vec_size;
  
    ndi_float64 *ret_vec64 = NULL;
    ndi_float64 *ret_vec = NULL; 
@@ -442,8 +442,9 @@ int main ()
    printf("Average second half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) {
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
+   }
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
    printf("\n");
@@ -472,7 +473,7 @@ int main ()
    printf("Average first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -502,7 +503,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -532,7 +533,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -575,7 +576,7 @@ int main ()
    printf("Average second half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -606,7 +607,7 @@ int main ()
    printf("Average first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -636,7 +637,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -666,7 +667,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -782,7 +783,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -812,7 +813,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -861,7 +862,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -891,7 +892,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);

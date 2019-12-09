@@ -8,7 +8,7 @@ void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
 int main ()
 
 {
-   int ierr;
+   int ierr, i, j;
    int array_size;
 
    ndi_float64 *ret_vec64 = NULL;
@@ -64,8 +64,8 @@ int main ()
 
    /* allocate tmp_vec; initialize it as chi_matrix  */
    tmp_vec = (ndi_float64 *)malloc(array_size*array_size*sizeof(ndi_float64));
-   for (int i = 0; i < array_size; i++)
-       for (int j = 0; j < array_size; j++)
+   for (i = 0; i < array_size; i++)
+       for (j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] = ret_vec64[j];
 
    printf("\n         CHI VECTOR (PROMPT):\n");
@@ -84,8 +84,8 @@ int main ()
    }
 
    /* update tmp_vec with nusigf to get fission transfer matrix */
-   for(int i = 0; i < array_size; i++)
-       for(int j = 0; j < array_size; j++)
+   for(i = 0; i < array_size; i++)
+       for(j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] *= ret_vec64[i];
 
    printf("\n         NUSIGF (PROMPT):\n");
@@ -106,7 +106,7 @@ int main ()
    print_float64_vec( ret_vec64, array_size );	 
    printf("\n");
 
-   for (int i = 0; i < array_size; i++) {
+   for (i = 0; i < array_size; i++) {
        tmp_vec[i] -= ret_vec64[i];
        if (ret_vec64[i] != 0.0)
            tmp_vec[i] /= ret_vec64[i];
@@ -157,8 +157,8 @@ int main ()
    }
    /* allocate tmp_vec; initialize it as chi_matrix  */
    tmp_vec = (ndi_float64 *)malloc(array_size*array_size*sizeof(ndi_float64));
-   for (int i = 0; i < array_size; i++)
-       for (int j = 0; j < array_size; j++)
+   for (i = 0; i < array_size; i++)
+       for (j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] = ret_vec64[j];
 
    printf("\n         CHI VECTOR (TOTAL):\n");
@@ -176,8 +176,8 @@ int main ()
        printf("  **Error %d in %s -- returned value is:\n", ierr, "NU_SIG_F_TOT" );
    }
    /* update tmp_vec with nusigf to get fission transfer matrix */
-   for(int i = 0; i < array_size; i++)
-       for(int j = 0; j < array_size; j++)
+   for(i = 0; i < array_size; i++)
+       for(j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] *= ret_vec64[i];
 
    printf("\n         NUSIGF (TOTAL):\n");
@@ -197,7 +197,7 @@ int main ()
    printf("\n92235.60 FISSION TRANSFER MATRIX (TOTAL):\n");
    print_float64_vec( ret_vec64, array_size );	 
    printf("\n");
-   for (int i = 0; i < array_size; i++) {
+   for (i = 0; i < array_size; i++) {
        tmp_vec[i] -= ret_vec64[i];
        if (ret_vec64[i] != 0.0)
            tmp_vec[i] /= ret_vec64[i];

@@ -66,11 +66,11 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 	if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
             ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
 	}
-	/* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/
 	if (ierr < 0)
 	    return (ierr);
     }
+
     ierr =
 	ndi_zaid_dir(state, state->particle_type, state->library_type,
 		     tmp_zaid, real_zaid, library, lib_path, lib_file_type,

@@ -50,7 +50,10 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
     if (!state) {
 	return (-2);
     }
+
     ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
+    if (ierr != 0)
+	return ierr;
     if (S == -1 || Z == -1 || A == -1)
         return -22;             /* Invalid SZA */
 
