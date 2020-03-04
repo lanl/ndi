@@ -133,7 +133,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	    if (!state->iso_stat.set_flag) {
                 if (value)
                     ndi_free((void **) &value);
-		return -7;
+		return (-7);
 	    }
 	    pindex =
 		ndi_find_mg_part_index(atoi(value),
@@ -143,12 +143,12 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	    ierr = -16;
             if (value)
                 ndi_free((void **) &value);
-	    return ierr;
+	    return (ierr);
 	} else {
 	    ierr = -4;
 	    if (value)
                 ndi_free((void **) &value);
-	    return ierr;
+	    return (ierr);
 	}
 
 	state->curr_part_index = pindex;

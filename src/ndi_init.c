@@ -128,7 +128,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
         ndi_free((void **) &path);
 
     /* Fatal error opening gendir */
-    if (ierr < 0) return ierr;
+    if (ierr < 0) return (ierr);
 
     /* allocate state, declare uninitialized */
     state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
