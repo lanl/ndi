@@ -200,6 +200,9 @@ int main()
     printf("No transpose:\n");
     print_float64_vec(scat_no_trans, vec_size);
 
+    free(scat_no_trans);
+    free(scat_trans);
+
     /* Get another data handle after setting tranpose */
     ierr = NDI2_set_option_gendir(gendir2, NDI_MAT_ORDER_DEFAULT,
                                   "transpose");
@@ -229,7 +232,6 @@ int main()
     scat_no_trans = malloc(vec_size * sizeof(ndi_float64));
     scat_trans = malloc(vec_size * sizeof(ndi_float64));
     
-
     /* Get data */
     ierr = NDI2_get_float64_vec_n(mpmg_handle2, NDI_PN_FULL, 0, 
                                   scat_trans, vec_size);

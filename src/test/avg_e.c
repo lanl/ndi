@@ -13,7 +13,7 @@ void print_int_vec( int *int_ptr, int num_elements );
 int main ()
 
 {
-   int i, ierr;
+   int ierr, i;
    int vec_size;
  
    ndi_float64 *ret_vec64 = NULL;
@@ -274,7 +274,7 @@ int main ()
    }
 
  /*  Collapse to 16_lanl2 */
-  printf("******** U235:  SGNDF energies; 16_lanl2 ********\n");
+   printf("******** U235:  SGNDF energies; 16_lanl2 ********\n");
    ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl2");
    vec_size = ndi_get_size(NDI_E_AVG, &ierr);
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
@@ -459,6 +459,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 1, 
@@ -489,6 +494,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 0/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
@@ -518,6 +528,11 @@ int main ()
    printf("Inverse average inverse velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
+
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
 
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
@@ -593,6 +608,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (reqt 83) */ 
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 1, 
@@ -623,6 +643,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 0/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
@@ -652,6 +677,11 @@ int main ()
    printf("Inverse average inverse velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
+
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
 
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
@@ -799,6 +829,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, -1, 
@@ -877,6 +912,11 @@ int main ()
    printf("Inverse average inverse velocity: \n");
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
+
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
 
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));

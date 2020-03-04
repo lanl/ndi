@@ -71,6 +71,8 @@ int main() {
 
     ierr = ndi_close();
 
+    if(ret_vec64) free(ret_vec64);
+
     return(ierr);
 }
 

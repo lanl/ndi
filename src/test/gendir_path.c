@@ -38,5 +38,8 @@ int test_gendir_path(void)
   printf("\n  PATH: %s (size=%d; err=%d)\n\n", path, str_size, ierr);
 
   ierr = ndi_close();
+
+  if (path) free(path);
+
   return(0);
 }

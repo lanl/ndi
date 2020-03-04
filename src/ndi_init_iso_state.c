@@ -852,10 +852,6 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "sec_part_types", 15) == 0) {
 	    /* Check for num_sec_parts > 0 */
 	    if (state->tn_stat.num_sec_parts > 0) {
-		state->tn_stat.sec_part_types =
-		    (int_zaid_type *) ndi_malloc(state->tn_stat.
-						 num_sec_parts *
-						 sizeof(int_zaid_type));
 		ierr =
 		    set_sec_part_types(stream,
 				       &(state->tn_stat.sec_part_types),
@@ -924,6 +920,8 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 
    /***** ??? Should this be done at the end ?? ***/
     strcpy(state->tnreac_stat.dataset, zaid);
+    state->tnreac_stat.set_flag = 1;
+
 
    /*******************************************************/
     /*                     Read TN data                    */
@@ -1143,14 +1141,9 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "target", 7) == 0) {
 
 	    /* Read target zaid */
-/* 	if ( chain_stat.target_filled < num_target ) { */
 	    ierr =
 		set_chain_array(state, stream, state->depl_target,
 				state->num_target);
-	    /*      chain_stat.target_filled++;  
-	       }
-	     */
-
 	}
 
       /*********  COMMENTS  *************/
@@ -1785,31 +1778,12 @@ static int set_chain_array(state_struct *state, FILE *stream,
 					       num_reac), NO_MT);
 
 			/* Read reaction product multiplicities */
-			target_p->rprod[i].mult =
-			    (double *) ndi_malloc(target_p->rprod[i].
-						  num_reac *
-						  sizeof(double));
 			ierr =
 			    ndi_read_rx_prod2(stream, tmp_fptr,
 					      &(target_p->rprod[i].mult),
 					      MULT_PARAM,
 					      &(target_p->rprod[i].
 						num_reac), NO_MT);
-
-			/*  COMMENTED OUT
-			   fscanf( stream, "%d\n",  &(target_p->rprod[i].num_reac));
-			   target_p->rprod[i].mt = (int *)ndi_malloc( target_p->rprod[i].num_reac * sizeof(int) );
-			   target_p->rprod[i].mult = (int *)ndi_malloc( target_p->rprod[i].num_reac * sizeof(int) );
-			   curr_mt = target_p->rprod[i].mt;
-			   curr_mult = target_p->rprod[i].mult;
-			   for ( i = 0; i < target_p->rprod[i].num_reac; i++ ) {
-			   fscanf( stream, "%d", curr_mt);
-			   curr_mt++;
-
-			   fscanf( stream, "%d", curr_mult);
-			   curr_mult++;
-			   }
-			 */
 
 		    }
 

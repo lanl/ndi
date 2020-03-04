@@ -122,18 +122,18 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
 
     ierr = ndi_open_gendir(&tmp_gendirp, parent->open_gendir_file, &path);
 
-    if (ierr < 0) {
-	/* Fatal error opening gendir */
-	if (path)
-	    ndi_free((void **) &path);
-	return (ierr);
-    }
+    /* Path is not actually use, so de-allocate */
+    if (path)
+        ndi_free((void **) &path);
+
+    /* Fatal error opening gendir */
+    if (ierr < 0) return (ierr);
+
     /* allocate state, declare uninitialized */
     state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
     state->ndi_initialized = -1;
     strcpy(state->open_gendir_file, parent->open_gendir_file);
     state->ndi_dir = tmp_gendirp;
-
 
     /* Initialize variables */
     state->handle = -1;
