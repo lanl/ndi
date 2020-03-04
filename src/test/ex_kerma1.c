@@ -96,6 +96,9 @@ int main () {
 
     ierr = ndi_close();
 
+    if (kerma) free(kerma);
+    if (heating) free(heating);
+
     return(ierr);
 }
 
