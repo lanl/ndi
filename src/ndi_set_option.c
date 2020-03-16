@@ -131,6 +131,8 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	} else if (state->library_type == 'm') {
 	    /* Check that isotope is set */
 	    if (!state->iso_stat.set_flag) {
+                if (value)
+                    ndi_free((void **) &value);
 		return (-7);
 	    }
 	    pindex =
@@ -139,9 +141,13 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 				       state->iso_stat.num_sec_parts);
 	} else if (state->library_type == ' ') {
 	    ierr = -16;
+            if (value)
+                ndi_free((void **) &value);
 	    return (ierr);
 	} else {
 	    ierr = -4;
+	    if (value)
+                ndi_free((void **) &value);
 	    return (ierr);
 	}
 

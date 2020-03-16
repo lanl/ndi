@@ -13,8 +13,8 @@ void print_int_vec( int *int_ptr, int num_elements );
 int main ()
 
 {
-    int ierr;
-    int vec_size;
+   int ierr, i;
+   int vec_size;
  
    ndi_float64 *ret_vec64 = NULL;
    ndi_float64 *ret_vec = NULL; 
@@ -274,7 +274,7 @@ int main ()
    }
 
  /*  Collapse to 16_lanl2 */
-  printf("******** U235:  SGNDF energies; 16_lanl2 ********\n");
+   printf("******** U235:  SGNDF energies; 16_lanl2 ********\n");
    ierr = ndi_set_option(NDI_COLLAPSE, "16_lanl2");
    vec_size = ndi_get_size(NDI_E_AVG, &ierr);
    ret_vec64 = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
@@ -442,7 +442,7 @@ int main ()
    printf("Average second half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -459,6 +459,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 1, 
@@ -472,7 +477,7 @@ int main ()
    printf("Average first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -489,6 +494,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 0/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
@@ -502,7 +512,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -519,6 +529,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, -1, 
@@ -532,7 +547,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -575,7 +590,7 @@ int main ()
    printf("Average second half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -593,6 +608,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (reqt 83) */ 
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 1, 
@@ -606,7 +626,7 @@ int main ()
    printf("Average first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1/13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -623,6 +643,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (m = 0/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, 0, 
@@ -636,7 +661,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -653,6 +678,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, -1, 
@@ -666,7 +696,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -782,7 +812,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -799,6 +829,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, -1, 
@@ -812,7 +847,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -861,7 +896,7 @@ int main ()
    printf("Average zeroth half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]/ret_vec64[i] - 1) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
@@ -878,6 +913,11 @@ int main ()
    print_float64_vec( ret_vec64, vec_size );	 
    printf("\n");
 
+   if (ret_vec) {
+       free(ret_vec);
+       ret_vec = NULL;
+   }
+
    /* TD half moment (-1/2) (reqt 83) */
    ret_vec = (ndi_float64 *)malloc(vec_size * sizeof(ndi_float64));
    ierr = ndi_get_float64_vec_n(NDI_TD_HALF_MOMENT, -1, 
@@ -891,7 +931,7 @@ int main ()
    printf("Average minus first half moment: \n");
    print_float64_vec( ret_vec, vec_size );	 
    printf("\n");
-   for (int i = 0; i < vec_size; i++) 
+   for (i = 0; i < vec_size; i++) 
        ret_vec[i] = (ret_vec[i]*ret_vec64[i] - 13.83159325) * 100.0;
    printf("Relative %% difference:\n");
    print_float64_vec(ret_vec, vec_size);
