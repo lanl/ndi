@@ -76,8 +76,6 @@ static int read_float_val(FILE *stream, double *value, int binary);
 int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
 			  const int return_size, int binary);
-int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
-		    int num_targets, int num_elements, int binary);
 static int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
  		           int num_targets, int num_elements, int binary);
 
@@ -164,7 +162,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
-	return -17;
+	return (-17);
     }
     if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
@@ -180,6 +178,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
     }
+	//printf("B %d\n",ierr);
 
     return ierr;
 
@@ -227,34 +226,26 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    return -11;
 	}
 
-        /* Debugging statement shows all keywords read in.
-           Used to see if something is read in that is not a keyword */
-
-	//printf("Keyword: %s\n",in_keyword);
-
       /******            Process keywords            ******/
 
       /*** Single-valued data  ***/
 
-	/* Strings may have more than one word. Currently each string ends with
-           "break". read_string_line reads strings until "break" is found. */
-
 	/* Information */
 	if (strncmp(in_keyword, "info", 5) == 0) {
-	    if (binary) {
-	        ierr = read_string_line(stream, state->iso_stat.info,
-	       			        sizeof(state->iso_stat.info));
-	    } else {
-		if (fgets(state->iso_stat.info, sizeof(state->iso_stat.info),
+            if (binary) {
+                ierr = read_string_line(stream, state->iso_stat.info,
+                                        sizeof(state->iso_stat.info));
+            } else {
+                if (fgets(state->iso_stat.info, sizeof(state->iso_stat.info),
                     stream) == NULL) ierr = -11;
-	    }
-	    if (ierr < 0) {
-		/* Error reading string line */
-		return ierr;
-	    }
-	}
-	/* Data type -- currently not kept */
-	else if (strncmp(in_keyword, "data_type", 10) == 0) {
+            }
+            if (ierr < 0) {
+                /* Error reading string line */
+                return ierr;
+            }
+        }
+        /* Data type -- currently not kept */
+        else if (strncmp(in_keyword, "data_type", 10) == 0) {
 	    char junk[MAX_IN_STR_LEN];
             if (binary) {
                 ierr = read_string_line(stream, junk, sizeof(junk));
@@ -318,6 +309,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		/* Error reading file */
 		return ierr;
 	    }
+	    //printf("C %d\n", state->iso_stat.num_grps);
 	}
 	/* Last neutron group */
 	else if (strncmp(in_keyword, "last_n_grp", 11) == 0) {
@@ -549,6 +541,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* pn scattering -- full matrix */
 	else if (strncmp(in_keyword, "pn_full", 8) == 0) {
+        //scanf("%s", tmpc);
 	    state->iso_stat.pn_full.num_objs = state->iso_stat.pn_order;
 	    num_elements =
 		state->iso_stat.num_grps * state->iso_stat.num_grps;
@@ -1472,6 +1465,7 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 	ierr = 5;
     } else {
 	sf->file_ptr = ftell(stream);
+	//printf("B %ld\n", sf->file_ptr);
 	*global_p =
 	    (ndi_float64 *) ndi_malloc(data_num * sizeof(ndi_float64));
 	if (*global_p) {
@@ -1976,6 +1970,8 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 			return -12;
 		    }
 		    sf->stat[n].file_ptr = ftell(stream);
+		    //printf("A %ld %d",ftell(stream), pn_num);
+		    //scanf("%s", tmpc);
 		    ierr =
 			skip_float_block(stream, &block_size,
 					 num_elements, binary);

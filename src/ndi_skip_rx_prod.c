@@ -72,6 +72,10 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
                 return -11;
             }
 	}
+        if (fread(&num_prod, sizeof(int), 1, stream) == EOF) {
+            /* Error reading file--reaction product data not read */
+            return (-11);
+        }
     } else {
 	if (binary) {
 	    if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
