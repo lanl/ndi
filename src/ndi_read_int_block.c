@@ -58,24 +58,13 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 	    break;
 	}
 
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (int_count < num_ints) {
-		    *cur_int_ptr = strtol(token, (char **) NULL, 10);
-		    token = strtok(NULL, seps);
-		    int_count++;
-		    cur_int_ptr++;
-		} else {
-		    /* More data than expected */
-		    ierr = 6;
-		    break;
-		}
-	    }
-	} else {
+	if (fread(&cur_int_ptr, sizeof(long), 1, stream) == EOF) {
 	    /* Error reading file */
 	    ierr = -11;
 	    return (ierr);
+	} else {
+	    int_count++;
+	    cur_int_ptr++;
 	}
     }
 

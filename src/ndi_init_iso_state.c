@@ -122,9 +122,15 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     /* Read zaid */
    /*** ????  Can there be a blank space between keyword and zaid????
 	????  Must the data start in column one  */
-    n = fscanf(stream, "%s\n%s\n", in_keyword, izaid);
-    if ((n == EOF) || (n < 2)) {
+//    n = fscanf(stream, "%s\n%s\n", in_keyword, izaid);
+    n = fread(in_keyword, sizeof(in_keyword), 1, stream);
+    n = fread(izaid, sizeof(izaid), 1, stream);
+//	n = fscanf(stream, "%s", in_keyword);
+//	n = fscanf(stream, "%s", izaid);
+    printf("%s %s %s %d\n", in_keyword, izaid, zaid, n);
+    if ((n == EOF) || (n < 1)) {
 	/* zaid wasn't read */
+	//printf("Huh?\n");
 	return (-11);
     }
     if (strncmp(in_keyword, "zaid", 5) != 0) {
@@ -133,6 +139,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
+	printf("Hey %s %s\n", izaid, zaid);
 	return (-17);
     }
 
@@ -148,6 +155,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
     }
+	//printf("B %d\n",ierr);
 
 
     return (ierr);
@@ -167,6 +175,9 @@ static int read_mg_data(state_struct *state, FILE *stream,
     int num_elements;
     int part_index;
     int part_type;
+    int num;
+    float tmp;
+    char tmpc[100];
 
     if (!state) {
 	return (-2);
@@ -182,60 +193,80 @@ static int read_mg_data(state_struct *state, FILE *stream,
     while (1) {
 
 	/* Read next keyword */
-	if (fscanf(stream, "%s\n", in_keyword) == EOF) {
+	if (fread(in_keyword, sizeof(in_keyword), 1, stream) == EOF) {
+//fscanf(stream, "%s\n", in_keyword) == EOF) {
 	    /* Error reading file */
 	    return (-11);
 	}
 
-
+	printf("%s\n",in_keyword);
       /******            Process keywords            ******/
-
+//	if (strcmp(in_keyword, "") == 0){ continue; return(0);}
       /*** Single-valued data  ***/
-
+        printf("EE %s\n",in_keyword);
+ //	if ( num == 1 ) scanf("%s", tmpc);
 	/* Information */
 	if (strncmp(in_keyword, "info", 5) == 0) {
-	    if (fgets
-		(state->iso_stat.info, sizeof(state->iso_stat.info),
-		 stream) == NULL) {
+//	    if (fgets
+//		(state->iso_stat.info, sizeof(state->iso_stat.info),
+//		 stream) == NULL) {
+	    if (fread(state->iso_stat.info, sizeof(state->iso_stat.info), 1,
+		stream) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
+		//printf("AA %s\n", state->iso_stat.info);
 	}
 	/* Data type */
 	else if (strncmp(in_keyword, "data_type", 10) == 0) {
 	    char junk[MAX_IN_STR_LEN];
-	    if (fscanf(stream, "%s\n", junk) == EOF) {
+	    if (fread(junk, sizeof(junk), 1, stream) == EOF) {//fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* date_processed */
 	else if (strncmp(in_keyword, "date_processed", 15) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.date_processed,
-				    sizeof(state->iso_stat.
-					   date_processed));
+            if (fread(state->iso_stat.date_processed, sizeof(state->iso_stat.date_processed), 1,
+                stream) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
 	}
 	/* date_source */
 	else if (strncmp(in_keyword, "date_source", 12) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.date_source,
-				    sizeof(state->iso_stat.date_source));
+            if (fread(state->iso_stat.date_source, sizeof(state->iso_stat.date_source), 1,
+                stream) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
 	}
 	/* Library name */
 	else if (strncmp(in_keyword, "library_name", 13) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.library_name,
-				    sizeof(state->iso_stat.library_name));
+            if (fread(state->iso_stat.library_name, sizeof(state->iso_stat.library_name), 1,
+                stream) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
+		//printf("Lib name %s\n",state->iso_stat.library_name);
+//	    ierr = read_next_string(stream, state->iso_stat.library_name,
+//				    sizeof(state->iso_stat.library_name));
 	}
 	/* Number of groups */
 	else if (strncmp(in_keyword, "num_grps", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_grps) == EOF) {
+	    if (fread(&state->iso_stat.num_grps, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.num_grps) == EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
+		//printf("WTF? %s %d",in_keyword, state->iso_stat.num_grps);
 		return (-11);
 	    }
+	    //printf("C %d\n", state->iso_stat.num_grps);
 	}
 	/* Last neutron group */
 	else if (strncmp(in_keyword, "last_n_grp", 11) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.last_grp) == EOF) {
+            if (fread(&state->iso_stat.last_grp, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.last_grp) == EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
 		return (-11);
@@ -243,56 +274,67 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	}
 	/* Temperature */
 	else if (strncmp(in_keyword, "temp", 5) == 0) {
-	    if (fscanf(stream, "%le\n", &state->iso_stat.temp) == EOF) {
+            if (fread(&state->iso_stat.temp, sizeof(double), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%f\n", &state->iso_stat.temp) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* sig_0 */
 	else if (strncmp(in_keyword, "sig_0", 6) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.sig_0) == EOF) {
+            if (fread(&state->iso_stat.sig_0, sizeof(double), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%lf\n", &state->iso_stat.sig_0) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
+		//printf("SIG0 %f\n", state->iso_stat.sig_0);
 	}
 	/* upscatter_groups */
 	else if (strncmp(in_keyword, "up_grps", 8) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.up_grps) == EOF) {
+            if (fread(&state->iso_stat.up_grps, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.up_grps) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* downscatter_groups */
 	else if (strncmp(in_keyword, "down_grps", 10) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.down_grps) == EOF) {
+            if (fread(&state->iso_stat.down_grps, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.down_grps) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* atomic weight */
 	else if (strncmp(in_keyword, "at_wgt", 7) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.at_wgt) == EOF) {
-		/* Error reading file */
-		return (-11);
-	    }
+            if (fread(&state->iso_stat.at_wgt, sizeof(double), 1,
+                stream) == EOF) {
+                /* Error reading file */
+                return (-11);
+            }
+		//printf("Hmph %e\n", state->iso_stat.at_wgt);
+		//getchar();
 	}
 	/* atomic weight ratio */
 	else if (strncmp(in_keyword, "awr", 4) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.awr) == EOF) {
+            if (fread(&state->iso_stat.awr, sizeof(double), 1,
+                stream) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* number of reactions which have cross-section data */
 	else if (strncmp(in_keyword, "num_reac", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_reac) == EOF) {
+            if (fread(&state->iso_stat.num_reac, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.num_reac) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
 	}
 	/* number of scattering matrices */
 	else if (strncmp(in_keyword, "pn_order", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.pn_order) == EOF) {
+            if (fread(&state->iso_stat.pn_order, sizeof(int), 1, stream) == EOF) {
+//	    if (fscanf(stream, "%d\n", &state->iso_stat.pn_order) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
@@ -447,6 +489,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* pn scattering -- full matrix */
 	else if (strncmp(in_keyword, "pn_full", 8) == 0) {
+        //scanf("%s", tmpc);
 	    state->iso_stat.pn_full.num_objs = state->iso_stat.pn_order;
 	    num_elements =
 		state->iso_stat.num_grps * state->iso_stat.num_grps;
@@ -491,15 +534,13 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* number of secondary particles */
 	else if (strncmp(in_keyword, "num_sec_parts", 14) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_sec_parts) ==
-		EOF) {
+	    if (fread(&state->iso_stat.num_sec_parts, sizeof(int), 1, stream) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
             ierr = ndi_create_mg_sec_part(state,
                                           state->iso_stat.num_sec_parts,
                                           &state->iso_stat.sec_part);
-
 	}
 
 
@@ -507,7 +548,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "sec_part_types", 15) == 0) {
 	    long *temp_part_types = NULL;
 	    int i;
-
+//	    scanf("%s", tmpc);
 	    temp_part_types =
 		(long *) ndi_calloc(state->iso_stat.num_sec_parts,
 				    sizeof(long));
@@ -517,10 +558,13 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
 		state->iso_stat.sec_part[i].part_type =
 		    (int) temp_part_types[i];
+		printf("HEY %ld\n",temp_part_types[i]);
 	    }
 	    if (temp_part_types) {
 		ndi_free((void **) &temp_part_types);
-	    }
+	    	}
+//            scanf("%s", tmpc);
+	    num = 1;
 	}
 
 	/* secondary particle zaids */
@@ -554,7 +598,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "num_grps_", 9) == 0) {
 	    int curr_int;
 
-	    if (fscanf(stream, "%d\n", &curr_int) == EOF) {
+	    if (fread(&curr_int, sizeof(int), 1, stream) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    } else {
@@ -576,7 +620,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "pn_order_", 9) == 0) {
 	    int curr_int;
 
-	    if (fscanf(stream, "%d\n", &curr_int) == EOF) {
+	    if (fread(&curr_int, sizeof(int), 1, stream) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    } else {
@@ -1194,14 +1238,13 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 			     int data_num, ndi_float64 ** global_p)
 {
 
-
     int ierr = 0;
 
     /* Initialize */
     sf->file_ptr = 0;
     if (*global_p)
 	ndi_free((void **) global_p);
-
+    //printf("A %d\n",data_num);
     /* Error checks and read data */
     if (data_num < 0) {
 	/* Library error:  incorrect data order. */
@@ -1211,9 +1254,11 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 	ierr = 5;
     } else {
 	sf->file_ptr = ftell(stream);
+	//printf("B %ld\n", sf->file_ptr);
 	*global_p =
 	    (ndi_float64 *) ndi_malloc(data_num * sizeof(ndi_float64));
 	if (*global_p) {
+	    //printf("C %d\n", data_num);
 	    ierr = ndi_read_float64_block(stream, sf->file_ptr,
 					  data_num, *global_p, data_num);
 	    sf->length = data_num;
@@ -1655,7 +1700,7 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
     int ierr = 0;
     int pn_num;
     int block_size;
-
+    char tmpc[20];
 
    /*** get rid of this stupidity--set num_objs here ***/
     if (sf->num_objs < 0) {
@@ -1673,7 +1718,8 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 		(stat_flag *) ndi_malloc(pn_order * sizeof(stat_flag));
 	    if (sf->stat) {
 		for (n = 0; n < pn_order; ++n) {
-		    if (fscanf(stream, "%d\n", &pn_num) == EOF) {
+  	            if (fread(&pn_num, sizeof(int), 1, stream) == EOF) {
+//		    if (fscanf(stream, "%d\n", &pn_num) == EOF) {
 			/* Error reading file--pn order not read */
 			return (-11);
 		    }
@@ -1682,6 +1728,8 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 			return (-12);
 		    }
 		    sf->stat[n].file_ptr = ftell(stream);
+		    //printf("A %ld %d",ftell(stream), pn_num);
+		    //scanf("%s", tmpc);
 		    ierr =
 			skip_float_block(stream, &block_size,
 					 num_elements);
@@ -1731,7 +1779,9 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 		e_mt = *in_e_mt;
 		q_value = *in_q_value;
 		for (n = 0; n < num_reac; ++n) {
-		    if (fscanf(stream, "%d  %lf\n", e_mt, q_value) == EOF) {
+		    if (fread(e_mt, sizeof(int), 1, stream) == EOF ||
+			fread(q_value, sizeof(double), 1, stream) == EOF) {
+//		    if (fscanf(stream, "%d  %lf\n", e_mt, q_value) == EOF) {
 			/* Error reading file--MT and Q-value not read */
 			if (e_mt)
 			    ndi_free((void **) &e_mt);
@@ -2059,6 +2109,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
     char *token;		/* Current data item */
     char seps[] = " ,\t\n";	/* Data delimiters in library file */
     double *cur_flt_ptr = return_vec;
+    double input;
 
     /* Add return_size */
 
@@ -2073,19 +2124,15 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 	    break;
 	}
 
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (float_count < num_floats) {
-		    *cur_flt_ptr = (double) strtod(token, NULL);
-		    token = strtok(NULL, seps);
-		    float_count++;
-		    cur_flt_ptr++;
-		} else {
-		    /* More data than expected */
-		    ierr = 6;
-		    break;
-		}
+	if (fread(&input, sizeof(double), 1, stream) != EOF) {
+	    if (float_count < num_floats) {
+		*cur_flt_ptr = input;
+		float_count++;
+		cur_flt_ptr++;
+	    } else {
+		/* More data than expected */
+		ierr = 6;
+		break;
 	    }
 	} else {
 	    /* Error reading file */

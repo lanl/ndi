@@ -39,25 +39,27 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats)
     char seps[] = " ,\t\n";	/* Data delimiters in library file */
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
     int float_count = 0;	/* Current number of floats processed */
-
+    double in_float;
 
     /* Calculate the array size needed to hold the skipped floats. */
     *bsize = num_floats * (int) sizeof(float);
 
     /* Read next line and count floats */
     while (float_count < num_floats) {
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
+//	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+	if (fread(&in_float, sizeof(double), 1, stream) != EOF) {
+	    //printf("XX %f\n",in_float);
+//	    token = strtok(in_line, seps);
+//	    while (token != NULL) {
 		if (float_count < num_floats) {
-		    token = strtok(NULL, seps);
+//		    token = strtok(NULL, seps);
 		    float_count++;
 		} else {
 		    /* More data than expected */
 		    ierr = 6;
 		    break;
 		}
-	    }
+	   // }
 	} else {
 	    /* Error reading file */
 	    ierr = -11;

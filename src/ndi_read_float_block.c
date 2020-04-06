@@ -54,45 +54,39 @@ ndi_read_float64_block(FILE *stream, long file_pos,
     char *token;		/* Current data item */
     char seps[] = " ,\t\n";	/* Data delimiters in library file */
     FLOAT_TYPE *cur_flt_ptr = return_vec;
+    double input;
 
     /* Add return_size */
-
+	//printf("g");
     /* Go to start of data, read line and count floats */
     /*  Check for data not available */
     fseek(stream, file_pos, SEEK_SET);
+     //fread(cur_flt_ptr, sizeof(FLOAT_TYPE), return_size, stream) 
+     //return 0;
     while (float_count < num_floats) {
 
 	/* Check to see if we've reached the end of return_vec */
 	if (float_count >= return_size) {
 	    ierr = 7;
-	    break;
+//	    break;
 	}
+	fread(cur_flt_ptr, sizeof(FLOAT_TYPE), return_size, stream);
+	return 0;
+        if (fread(&input, sizeof(double), 1, stream) != EOF) {
+//
+	    //printf("HEY %d %e\n",float_count,input);
+//	   if(return_size > 700) getchar();
+	    if (float_count < num_floats) {
+		*cur_flt_ptr = (FLOAT_TYPE) input;
+		float_count++;
+		cur_flt_ptr++;
+//	    while (token != NULL) {
 
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-/*	 printf("\n>>%s\n", in_line);  */
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (float_count < num_floats) {
-		    *cur_flt_ptr = (FLOAT_TYPE) strtod(token, NULL);
-
-/* 	       if ( ( line_cnt == 6) || ( junk_count % 16 == 0) ) { */
-/* 		  printf("\n"); */
-/* 		  line_cnt = 0; */
-/* 	       } */
-/* 	       line_cnt++; */
-/* 	       junk_count++; */
-/* 	       printf("%11.5e   ", *cur_flt_ptr ); */
-
-
-		    token = strtok(NULL, seps);
-		    float_count++;
-		    cur_flt_ptr++;
 		} else {
 		    /* More data than expected */
 		    ierr = 6;
-		    break;
+		    //break;
 		}
-	    }
 	} else {
 	    /* Error reading file */
 	    ierr = -11;
