@@ -34,6 +34,7 @@ static int read_double_array(FILE *stream, int data_num,
 static int read_next_string(FILE *stream, char *str_array, int str_size);
 static int set_int_array(FILE *stream, long *int_p, int data_num);
 static int set_string_array(FILE *stream, char **str_p, int data_num);
+static int read_string_line(FILE *stream, char *line, int str_size);
 static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
 			      int data_num);
 static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num);
@@ -111,45 +112,37 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	return (-1);
     }
 
-    /* Use file pointers instead of line numbers */
-    fseek(stream, iso_start, SEEK_SET);
-    /*    (void)rewind(stream); 
-       if (iso_start > 1) {
-       if ( ( ierr = skiplines(stream, (iso_start - 1)) ) != 0 ) {
-       if ( ierr < 0 ) {
-       return(ierr);
-       }
-       } 
-       }
-     */
+    /* Originally used iso_start to seek the start of the cross sections. */
+    fseek(stream, 0, SEEK_SET);
 
-    /* Read zaid */
-   /*** ????  Can there be a blank space between keyword and zaid????
-	????  Must the data start in column one  */
-//    n = fscanf(stream, "%s\n%s\n", in_keyword, izaid);
-    n = fread(in_keyword, sizeof(in_keyword), 1, stream);
-    n = fread(izaid, sizeof(izaid), 1, stream);
-//	n = fscanf(stream, "%s", in_keyword);
-//	n = fscanf(stream, "%s", izaid);
-    printf("%s %s %s %d\n", in_keyword, izaid, zaid, n);
-    if ((n == EOF) || (n < 1)) {
-	/* zaid wasn't read */
-	//printf("Huh?\n");
-	return (-11);
+    /* Read the file until finding the "zaid" keyword, which is the
+       official start of the data. This only works for a single isotope
+       per data file */
+    while (fread(in_keyword, sizeof(in_keyword), 1, stream) != EOF){
+	if (strncmp(in_keyword, "zaid", 5) == 0) break;
     }
     if (strncmp(in_keyword, "zaid", 5) != 0) {
-	/* zaid isn't where it should be */
-	return (-12);
+        /* zaid isn't where it should be */
+        return (-12);
+    }
+
+    /* Read in the zaid */
+    n = fread(izaid, sizeof(izaid), 1, stream);
+    /* Debugging statement */
+    printf("Keyword: %s\nRead in zaid: %s\nzaid from gendir: %s\n", in_keyword, izaid, zaid, n);
+
+    if ((n == EOF) || (n < 1)) {
+	/* zaid wasn't read */
+	return (-11);
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
-	printf("Hey %s %s\n", izaid, zaid);
 	return (-17);
     }
 
-    if ((lib_type == 'm') || (lib_type == 'd')) {
+    if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
-    } else if (lib_type == 's') {
+    } else if (lib_type == 's') {       /* TN data */
 	ierr = read_tn_data(state, stream, zaid);
     } else if (lib_type == 'r') {	/* TN reaction data */
 	ierr = read_tn_reac_data(state, stream, zaid);
@@ -161,8 +154,6 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
     }
-	//printf("B %d\n",ierr);
-
 
     return (ierr);
 
@@ -189,91 +180,88 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	return (-2);
     }
 
-   /***** ??? Should this be done at the end ?? ***/
     strcpy(state->iso_stat.zaid, zaid);
     state->iso_stat.set_flag = 1;
 
-   /*******************************************************/
+    /*******************************************************/
     /*                  Read isotope data                  */
-   /*******************************************************/
+    /*******************************************************/
+
     while (1) {
 
 	/* Read next keyword */
 	if (fread(in_keyword, sizeof(in_keyword), 1, stream) == EOF) {
-//fscanf(stream, "%s\n", in_keyword) == EOF) {
 	    /* Error reading file */
 	    return (-11);
 	}
 
+        /* Debugging statement shows all keywords read in.
+           Used to see if something is read in that is not a keyword */
+
 	printf("%s\n",in_keyword);
-      /******            Process keywords            ******/
-//	if (strcmp(in_keyword, "") == 0){ continue; return(0);}
-      /*** Single-valued data  ***/
-        printf("EE %s\n",in_keyword);
- //	if ( num == 1 ) scanf("%s", tmpc);
+
+        /******            Process keywords            ******/
+
+        /*** Single-valued data  ***/
+
+	/* Strings may have more than one word. Currently each string ends with
+           "break". read_string_line reads strings until "break" is found. */
+
 	/* Information */
 	if (strncmp(in_keyword, "info", 5) == 0) {
-//	    if (fgets
-//		(state->iso_stat.info, sizeof(state->iso_stat.info),
-//		 stream) == NULL) {
-	    if (fread(state->iso_stat.info, sizeof(state->iso_stat.info), 1,
-		stream) == EOF) {
-		/* Error reading file */
-		return (-11);
+	    ierr = read_string_line(stream, state->iso_stat.info,
+				    sizeof(state->iso_stat.info));
+	    if (ierr < 0) {
+		/* Error reading string line */
+		return (ierr);
 	    }
-		//printf("AA %s\n", state->iso_stat.info);
 	}
-	/* Data type */
+	/* Data type -- currently not kept */
 	else if (strncmp(in_keyword, "data_type", 10) == 0) {
 	    char junk[MAX_IN_STR_LEN];
-	    if (fread(junk, sizeof(junk), 1, stream) == EOF) {//fscanf(stream, "%s\n", junk) == EOF) {
-		/* Error reading file */
-		return (-11);
-	    }
+            ierr = read_string_line(stream, junk, sizeof(junk));
+            if (ierr < 0) {
+                /* Error reading string line */
+                return (ierr);
+            }
 	}
 	/* date_processed */
 	else if (strncmp(in_keyword, "date_processed", 15) == 0) {
-            if (fread(state->iso_stat.date_processed, sizeof(state->iso_stat.date_processed), 1,
-                stream) == EOF) {
-                /* Error reading file */
-                return (-11);
+            ierr = read_string_line(stream, state->iso_stat.date_processed,
+                                    sizeof(state->iso_stat.date_processed));
+            if (ierr < 0) {
+                /* Error reading string line */
+                return (ierr);
             }
 	}
 	/* date_source */
 	else if (strncmp(in_keyword, "date_source", 12) == 0) {
-            if (fread(state->iso_stat.date_source, sizeof(state->iso_stat.date_source), 1,
-                stream) == EOF) {
-                /* Error reading file */
-                return (-11);
+            ierr = read_string_line(stream, state->iso_stat.date_source,
+                                    sizeof(state->iso_stat.date_source));
+            if (ierr < 0) {
+                /* Error reading string line */
+                return (ierr);
             }
 	}
 	/* Library name */
 	else if (strncmp(in_keyword, "library_name", 13) == 0) {
-            if (fread(state->iso_stat.library_name, sizeof(state->iso_stat.library_name), 1,
-                stream) == EOF) {
-                /* Error reading file */
-                return (-11);
+            ierr = read_string_line(stream, state->iso_stat.library_name,
+                                    sizeof(state->iso_stat.library_name));
+            if (ierr < 0) {
+                /* Error reading string line */
+                return (ierr);
             }
-		//printf("Lib name %s\n",state->iso_stat.library_name);
-//	    ierr = read_next_string(stream, state->iso_stat.library_name,
-//				    sizeof(state->iso_stat.library_name));
 	}
 	/* Number of groups */
 	else if (strncmp(in_keyword, "num_grps", 9) == 0) {
 	    if (fread(&state->iso_stat.num_grps, sizeof(int), 1, stream) == EOF) {
-//	    if (fscanf(stream, "%d\n", &state->iso_stat.num_grps) == EOF) {
-		/* ???? Could this return 0???? */
 		/* Error reading file */
-		//printf("WTF? %s %d",in_keyword, state->iso_stat.num_grps);
 		return (-11);
 	    }
-	    //printf("C %d\n", state->iso_stat.num_grps);
 	}
 	/* Last neutron group */
 	else if (strncmp(in_keyword, "last_n_grp", 11) == 0) {
             if (fread(&state->iso_stat.last_grp, sizeof(int), 1, stream) == EOF) {
-//	    if (fscanf(stream, "%d\n", &state->iso_stat.last_grp) == EOF) {
-		/* ???? Could this return 0???? */
 		/* Error reading file */
 		return (-11);
 	    }
@@ -281,7 +269,6 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	/* Temperature */
 	else if (strncmp(in_keyword, "temp", 5) == 0) {
             if (fread(&state->iso_stat.temp, sizeof(double), 1, stream) == EOF) {
-//	    if (fscanf(stream, "%f\n", &state->iso_stat.temp) == EOF) {
 		/* Error reading file */
 		return (-11);
 	    }
@@ -586,7 +573,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 				 state->iso_stat.num_sec_parts);
 
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
-		/* CHECK THAT ZAID MATCHES PART TYPE */
+		/* CHECK THAT zaid MATCHES PART TYPE */
 
 		strncpy(state->iso_stat.sec_part[i].zaid,
 			temp_part_zaids[i], sizeof(mg_zaid)-1);
@@ -1523,6 +1510,28 @@ static int set_string_array(FILE *stream, char **str_p, int data_num)
     } else {
 	ierr = ndi_read_string_block(stream, data_num, str_p);
     }
+    return (ierr);
+}
+
+/**********************************************************************/
+int read_string_line(FILE *stream, char *line, int str_size)
+{
+    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+    char input[133];                /* Current data item */
+    char *concacted;
+    char *seps = " ";     /* Data delimiters in library file */
+
+    printf("CC\n");
+    while (fread(input, sizeof(input), 1, stream) != EOF) {
+	printf("BB %s\n",input);
+        if (strcmp(input, "break") == 0) {
+            break;
+        } else {
+            strcat(line, seps);
+            strcat(line, input);
+        }
+    }
+
     return (ierr);
 }
 
