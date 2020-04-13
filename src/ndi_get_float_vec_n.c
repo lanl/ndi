@@ -23,13 +23,14 @@ static int NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
 static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 			   multi_stat full_mat, multi_stat down_mat,
 			   int num_grps, int vec_num,
-			   FLOAT_TYPE * return_mat, int return_size);
+			   FLOAT_TYPE * return_mat, int return_size,
+			   int binary);
 static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 			 FLOAT_TYPE * return_vec, int return_size);
 static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			    FLOAT_TYPE * return_vec,
 			    multi_stat * down_diag, multi_stat * full_mat,
-			    int vec_num, int vec_size);
+			    int vec_num, int vec_size, int binary);
 static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
 				   FLOAT_TYPE * return_vec,
 				   int return_size);
@@ -37,7 +38,8 @@ static int PN_FULL_TRANS_CORR(state_struct *state,
 			      FLOAT_TYPE * return_vec, int return_size);
 static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 			    sec_part_mg *sec_part, int vec_num,
-			    FLOAT_TYPE * return_vec, int return_size);
+			    FLOAT_TYPE * return_vec, int return_size,
+			    int binary);
 static int GET_DIAG_CORR(state_struct *state, int vec_num,
 			 FLOAT_TYPE * return_vec, int vec_size);
 static int GET_BHS_CORR(state_struct *state, int vec_num,
@@ -57,6 +59,8 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
 int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 			  FLOAT_TYPE * return_vec, int return_size)
 {
+//    int binary = 1;
+    int binary = 0;
 
     int ierr = 0;
     int tmp_err = 0;
@@ -110,7 +114,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 	    GET_PN_DOWN_FULL(state, state->lib_stream, return_vec,
 			     &state->iso_stat.pn_down_full,
 			     &state->iso_stat.pn_full, vec_num,
-			     return_size);
+			     return_size, binary);
 
 	/* Apply transport correction, if necessary */
       /*** Test that scattering order is less than transport correction order ***/
@@ -130,7 +134,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 	    GET_FULL_PN_MAT(state, state->lib_stream,
 			    state->iso_stat.pn_full,
 			    state->iso_stat.pn_down_full, num_elements,
-			    vec_num, return_vec, return_size);
+			    vec_num, return_vec, return_size, binary);
 
 	/* Apply transport correction, if necessary */
       /*** Test that scattering order is less than transport correction order ***/
@@ -154,7 +158,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 	num_elements = return_size;
 	ierr =
 	    GET_SIG_REAC(state, &state->iso_stat, vec_num, return_vec,
-			 &num_elements);
+			 &num_elements, binary);
 	break;
 
 
@@ -177,7 +181,8 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 		    GET_PN_PROD_FULL(state, state->lib_stream,
 				     &state->iso_stat.sec_part[state->
 							       curr_part_index],
-				     vec_num, return_vec, return_size);
+				     vec_num, return_vec, return_size,
+				     binary);
 
 		/* Transpose result, if necessary */
 		if (state->collapse_flag != 0) {
@@ -238,7 +243,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     case NDI_TOT_PROD_XS:	/* Total production x.s. for target given by 
 				   global var. 'zaid' and product given by vec_num */
 	sprintf(in_str, "%d", vec_num);
-	ierr = GET_PROD_REAC(state, in_str, return_vec, return_size);
+	ierr = GET_PROD_REAC(state, in_str, return_vec, return_size, binary);
 	break;
 
     case NDI_TD_HALF_MOMENT:
@@ -262,7 +267,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			    FLOAT_TYPE * return_vec,
 			    multi_stat * down_diag, multi_stat * full_mat,
-			    int vec_num, int return_size)
+			    int vec_num, int return_size, int binary)
 {
 
 /* Will not construct a diagonal from a full matrix.  Is this needed? */
@@ -311,7 +316,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 		    NDI_READ_FLOAT_BLOCK(stream,
 					 down_diag->stat[vec_num].file_ptr,
 					 diag_size, curr_vec,
-					 curr_vec_size);
+					 curr_vec_size, binary);
 		if (state->collapse_flag) {
 		    temp_mat =
 			(FLOAT_TYPE *) ndi_malloc(full_mat_size *
@@ -352,7 +357,8 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			NDI_READ_FLOAT_BLOCK(stream,
 					     full_mat->stat[vec_num].
 					     file_ptr, full_mat_size,
-					     temp_mat, full_mat_size);
+					     temp_mat, full_mat_size,
+					     binary);
 
 	   /*** check return value ***/
 		    curr_mat = temp_mat;
@@ -410,7 +416,8 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 			   multi_stat full_mat, multi_stat down_mat,
 			   int num_grps, int vec_num,
-			   FLOAT_TYPE * return_mat, int return_size)
+			   FLOAT_TYPE * return_mat, int return_size,
+			   int binary)
 {
 
     /* There's no check on the matrix size here. */
@@ -455,7 +462,7 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 		    NDI_READ_FLOAT_BLOCK(stream,
 					 full_mat.stat[vec_num].file_ptr,
 					 num_full_mat, temp_mat,
-					 temp_mat_size);
+					 temp_mat_size, binary);
 	    } else {
 		/* No file pointer set */
 		ierr = 9;
@@ -479,7 +486,8 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 			    NDI_READ_FLOAT_BLOCK(stream,
 						 down_mat.stat[vec_num].
 						 file_ptr, num_down,
-						 diag_array, num_down);
+						 diag_array, num_down,
+						 binary);
 			ierr =
 			    NDI_DIAG2FULL(NULL, 0, diag_array, num_down,
 					  num_grps, num_grps, temp_mat);
@@ -745,7 +753,8 @@ static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
 
 static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 			    sec_part_mg *sec_part, int vec_num,
-			    FLOAT_TYPE * return_vec, int return_size)
+			    FLOAT_TYPE * return_vec, int return_size,
+			    int binary)
 {
     int ierr = 0;
     FLOAT_TYPE *temp_vec = NULL;
@@ -777,7 +786,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 						    stat[vec_num].file_ptr,
 						    full_mat_size,
 						    temp_vec,
-						    full_mat_size);
+						    full_mat_size, binary);
 			if (ierr >= 0) {
 			    if (state->collapse_flag) {
 				new_grp_num_in = state->grp_num_new;
@@ -815,7 +824,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 						sec_part->pn_prod_full.
 						stat[vec_num].file_ptr,
 						full_mat_size, return_vec,
-						return_size);
+						return_size, binary);
 		}
 	    } else {
 		/* Error reading file pointer */

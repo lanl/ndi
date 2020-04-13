@@ -107,6 +107,9 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
                               const char *in_str,
                               FLOAT_TYPE *return_vec, int vec_size)
 {
+//    int binary = 1;
+    int binary = 0;
+
     int ierr = 0;
 
     if (!state->iso_stat.set_flag)
@@ -121,7 +124,8 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
     case NDI_TOT_PROD_XS:       /* Total production x.s. for target
                                    given by global var. 'zaid' and
                                    product given by in_str */
-        ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size);
+        ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size,
+			     binary);
         break;
 
     case NDI_RPROD_MLT:         /* Reaction multiplicity */
@@ -141,7 +145,7 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
 /*********************************************************************/
 
 int GET_PROD_REAC(state_struct *state, const char *rprod_in,
-                  FLOAT_TYPE * return_vec, int vec_size)
+                  FLOAT_TYPE * return_vec, int vec_size, int binary)
 {
     int i, j;
     int ierr = 0;
@@ -213,7 +217,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
         /* Must change get_sig_reac to not convert to c values */
         num_elements = num_grps;
         sig_reac_err = GET_SIG_REAC(state, &state->iso_stat, curr_mt, curr_xs,
-                                    &num_elements);
+                                    &num_elements, binary);
         if (sig_reac_err == 9) {
             ierr = 9;
         } else {
