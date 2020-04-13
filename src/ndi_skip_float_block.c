@@ -19,7 +19,8 @@
 /**********************************************************************/
 
 
-int skip_float_block(FILE *stream, int *bsize, const int num_floats)
+int skip_float_block(FILE *stream, int *bsize, const int num_floats,
+                     int binary)
 
 /*  Purpose: Skip over a specifed (num_floats) number of floating-point 
     numbers.
@@ -44,25 +45,44 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats)
     /* Calculate the array size needed to hold the skipped floats. */
     *bsize = num_floats * (int) sizeof(float);
 
-    /* Read next line and count floats */
-    while (float_count < num_floats) {
-//	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	if (fread(&in_float, sizeof(double), 1, stream) != EOF) {
-	    //printf("XX %f\n",in_float);
-//	    token = strtok(in_line, seps);
-//	    while (token != NULL) {
+    /* If the data is binary, use fread */
+    if ( binary ) {
+        /* Read next double and count floats */
+        while (float_count < num_floats) {
+	    if (fread(&in_float, sizeof(double), 1, stream) != EOF) {
 		if (float_count < num_floats) {
-//		    token = strtok(NULL, seps);
 		    float_count++;
 		} else {
 		    /* More data than expected */
 		    ierr = 6;
 		    break;
 		}
-	   // }
-	} else {
-	    /* Error reading file */
-	    ierr = -11;
+	    } else {
+	        /* Error reading file */
+	        ierr = -11;
+	    }
+	}
+    /* Otherwise use fgets to get an entire line of ascii data */
+    } else {
+        /* Read next line and count floats */
+	while (float_count < num_floats) {
+	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+		token = strtok(in_line, seps);
+		/* Work through line to get each float individually */
+		while (token != NULL) {
+		    if (float_count < num_floats) {
+			token = strtok(NULL, seps);
+                        float_count++;
+		    } else {
+                        /* More data than expected */
+                        ierr = 6;
+                        break;
+		    }
+                }
+	    } else {
+                /* Error reading file */
+                ierr = -11;
+            }
 	}
     }
     return (ierr);

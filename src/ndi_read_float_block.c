@@ -23,12 +23,14 @@
 int
 ndi_read_float32_block(FILE *stream, long file_pos,
 		       const int num_floats,
-		       FLOAT_TYPE * return_vec, const int return_size)
+		       FLOAT_TYPE * return_vec, const int return_size,
+		       int binary)
 #else
 int
 ndi_read_float64_block(FILE *stream, long file_pos,
 		       const int num_floats,
-		       FLOAT_TYPE * return_vec, const int return_size)
+		       FLOAT_TYPE * return_vec, const int return_size,
+	 	       int binary)
 #endif
 /*********************************************************************
     
@@ -64,37 +66,43 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 	/* Check to see if we've reached the end of return_vec */
 	if (float_count >= return_size) {
 	    ierr = 7;
-//	    break;
 	}
-	fread(cur_flt_ptr, sizeof(FLOAT_TYPE), return_size, stream);
-	return 0;
-        if (fread(&input, sizeof(double), 1, stream) != EOF) {
-//
-	    //printf("HEY %d %e\n",float_count,input);
-//	   if(return_size > 700) getchar();
-	    if (float_count < num_floats) {
-		*cur_flt_ptr = (FLOAT_TYPE) input;
-		float_count++;
-		cur_flt_ptr++;
-//	    while (token != NULL) {
 
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (float_count < num_floats) {
-		    *cur_flt_ptr = (FLOAT_TYPE) strtod(token, NULL);
-		    token = strtok(NULL, seps);
-		    float_count++;
+        if (binary) {
+	    if (fread(&input, sizeof(double), 1, stream) != EOF) {
+	        if (float_count < num_floats) {
+		    *cur_flt_ptr = (FLOAT_TYPE) input;
+	 	    float_count++;
 		    cur_flt_ptr++;
 		} else {
 		    /* More data than expected */
 		    ierr = 6;
-		    //break;
 		}
+	    } else {
+	        /* Error reading file */
+	        ierr = -11;
+	        return (ierr);
+	    }
 	} else {
-	    /* Error reading file */
-	    ierr = -11;
-	    return (ierr);
+            if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+                token = strtok(in_line, seps);
+                while (token != NULL) {
+                    if (float_count < num_floats) {
+                        *cur_flt_ptr = (FLOAT_TYPE) strtod(token, NULL);
+                        token = strtok(NULL, seps);
+                        float_count++;
+                        cur_flt_ptr++;
+                    } else {
+                        /* More data than expected */
+                        ierr = 6;
+                        break;
+                    }
+                }
+            } else {
+                /* Error reading file */
+                ierr = -11;
+                return (ierr);
+            }
 	}
     }
 

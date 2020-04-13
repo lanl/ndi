@@ -66,7 +66,7 @@ int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 			 long int f_ptr, int collapse_type,
 			 int library_grp_num, FLOAT_TYPE * return_vec,
-			 int return_size)
+			 int return_size, int binary)
 
      /* Reads data from stream begining at f_ptr.  If collapse_flag
         is set (and collapse_type != 0), then collapse into the
@@ -101,7 +101,7 @@ int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 	    }
 	    ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr,
 					library_grp_num,
-					temp_vec, library_grp_num);
+					temp_vec, library_grp_num, binary);
 	    ierr = NDI_COLLAPSE_FLOAT(state, temp_vec, library_grp_num,
 				      collapse_type,
 				      return_vec, return_size);
@@ -110,7 +110,7 @@ int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 	} else {
 	    ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr,
 					library_grp_num,
-					return_vec, return_size);
+					return_vec, return_size, binary);
 	}
     } else {
 	/* Error: data not available */
@@ -191,7 +191,7 @@ int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
 /*********************************************************************/
 
 int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
-		 FLOAT_TYPE * return_vec, int *return_size)
+		 FLOAT_TYPE * return_vec, int *return_size, int binary)
 
 /*  Purpose:  Returns the cross-section for particle 'mg' for the 
     reaction indicated by the mt corresponding to 'vec_num'.
@@ -238,7 +238,7 @@ int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
 	ierr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
 				    mg->sig_reac.stat[reac_index].file_ptr,
 				    0, mg->num_grps, return_vec,
-				    *return_size);
+				    *return_size, binary );
 
     } else {			/* ierr >= 0 ... */
 	/* Error: no data for this isotope */
@@ -476,7 +476,7 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 		   long int chi_mat_ptr, FLOAT_TYPE * nu_sig_f,
 		   FLOAT_TYPE * return_vec, int return_size,
-		   int collapse_type, int lib_num_grp)
+		   int collapse_type, int lib_num_grp, int binary)
 
      /*  NOTE: lib_num_grp is the number of groups on the library */
 {
@@ -506,7 +506,8 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 	   get_simple_float_vec ( or use collapse_flag == -1) */
 	ierr = NDI_READ_FLOAT_BLOCK(stream, chi_mat_ptr,
 				    lib_num_grp * lib_num_grp,
-				    chi_matrix, lib_num_grp * lib_num_grp);
+				    chi_matrix, lib_num_grp * lib_num_grp,
+				    binary);
 
 	/* Get wgts for averaging */
 	if (state->iso_stat.wgts.file_ptr > 0) {
@@ -517,7 +518,8 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 	    /* Check returned value */
 	    ierr =
 		NDI_READ_FLOAT_BLOCK(stream, state->iso_stat.wgts.file_ptr,
-				     lib_num_grp, weights, lib_num_grp);
+				     lib_num_grp, weights, lib_num_grp,
+				     binary);
 	}
 
 	/* Flux-average matrix to form vector */
