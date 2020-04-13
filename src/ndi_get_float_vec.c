@@ -352,6 +352,7 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_SIG_TOT:           /* Sigma total */
         num_elements = state->iso_stat.num_grps;
+	getchar();
         /*  Check bounds */
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
