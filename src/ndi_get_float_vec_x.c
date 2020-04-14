@@ -118,9 +118,7 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
                               const char *in_str,
                               FLOAT_TYPE *return_vec, int vec_size)
 {
-//    int binary = 1;
-    int binary = 0;
-
+    int binary = state->binary;
     int ierr = 0;
 
     if (!state->iso_stat.set_flag)

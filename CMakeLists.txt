@@ -120,7 +120,7 @@ install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_var_type.h"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_version.h"
-  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ndi")
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(TARGETS ndi
   EXPORT ndiConfig

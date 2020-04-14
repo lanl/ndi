@@ -66,6 +66,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 	/* Check to see if we've reached the end of return_vec */
 	if (float_count >= return_size) {
 	    ierr = 7;
+	    break;
 	}
 
         if (binary) {

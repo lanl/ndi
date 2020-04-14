@@ -59,14 +59,11 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
 int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 			  FLOAT_TYPE * return_vec, int return_size)
 {
-//    int binary = 1;
-    int binary = 0;
-
     int ierr = 0;
     int tmp_err = 0;
     int num_elements;
     char in_str[6];
-
+    int binary;
 
     /* Initialize return vector with zeroes */
     NDI_INIT_FLOAT_VEC(return_vec, return_size);
@@ -75,10 +72,13 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 	return (-2);
     }
 
+    binary = state->binary;
+
     /* Check that ndi_init has been called. */
     if (!state->ndi_initialized) {
 	return (-2);
     }
+
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
 	ierr = -2;
@@ -428,7 +428,6 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
     int num_full_mat = num_grps * num_grps;
     int num_down = (num_grps * (num_grps + 1)) / 2;
     FLOAT_TYPE *temp_mat = NULL;
-
 
     NDI_INIT_FLOAT_VEC(return_mat, return_size);
 

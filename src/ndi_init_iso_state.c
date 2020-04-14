@@ -50,7 +50,7 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 			int binary);
 static int ndi_setup_edist(char *keyword, FILE *stream,
 			   sec_part_distr *sec_part, int num_parts,
-			   int *parts_filled);
+			   int *parts_filled, int binary);
 static int fill_edist(FILE *stream, int ntemp, edist_data *dist,
 		      int binary);
 static int ndi_read_interp_param(FILE *stream, int ninterp,
@@ -104,19 +104,18 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     char izaid[MAX_IN_STR_LEN];
     int ierr = 0;
     int n;
-
-    int binary = 0;
-    //int binary = 1;
-
+    int binary;
 
    /*******************************************************/
-    /* Find start of isotope data and check that it is the
-       start of the correct data.                          */
+   /* Find start of isotope data and check that it is the
+      start of the correct data.                          */
    /*******************************************************/
 
     if (!state) {
 	return (-2);
     }
+
+    binary = state->binary;
 
     if (!stream) {
 	/* Error opening file */
@@ -152,7 +151,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     }
 
     /* Debugging statement */
-//    printf("Keyword: %s\nRead in zaid: %s\nzaid from gendir: %s\n", in_keyword, izaid, zaid);
+    //printf("Keyword: %s\nRead in zaid: %s\nzaid from gendir: %s\n", in_keyword, izaid, zaid);
 
     if ((n == EOF) || (n < 1)) {
 	/* zaid wasn't read */
@@ -162,7 +161,6 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Not the correct zaid */
 	return (-17);
     }
-
     if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
     } else if (lib_type == 's') {       /* TN data */
@@ -198,13 +196,13 @@ static int read_mg_data(state_struct *state, FILE *stream,
     int num, n;
     float tmp;
     char tmpc[100];
-
-    int binary = 0;
-//    int binary = 1;
+    int binary;
 
     if (!state) {
 	return (-2);
     }
+
+    binary = state->binary;
 
     strcpy(state->iso_stat.zaid, zaid);
     state->iso_stat.set_flag = 1;
@@ -229,7 +227,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
         /* Debugging statement shows all keywords read in.
            Used to see if something is read in that is not a keyword */
 
-//	printf("Keyword: %s\n",in_keyword);
+	//printf("Keyword: %s\n",in_keyword);
 
       /******            Process keywords            ******/
 
@@ -810,15 +808,15 @@ static int read_mg_data(state_struct *state, FILE *stream,
 static int read_tn_data(state_struct *state, FILE *stream,
 			const char *zaid)
 {
-
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
-
-    int binary = 0;
+    int binary
 
     if (!state) {
 	return (-2);
     }
+
+    binary = state->binary;
 
     strcpy(state->tn_stat.zaid, zaid);
     state->tn_stat.set_flag = 1;
@@ -971,7 +969,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 		ndi_setup_edist(in_keyword, stream,
 				state->tn_stat.sec_part,
 				state->tn_stat.num_sec_parts,
-				&state->sec_part_filled);
+				&state->sec_part_filled, binary);
 	}
 
 
@@ -1004,15 +1002,15 @@ static int read_tn_data(state_struct *state, FILE *stream,
 static int read_tn_reac_data(state_struct *state, FILE *stream,
 			     const char *zaid)
 {
-
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
-
-    int binary = 0;
+    int binary;
 
     if (!state) {
 	return (-2);
     }
+
+    binary = state->binary;
 
     strcpy(state->tnreac_stat.dataset, zaid);
     state->tnreac_stat.set_flag = 1;
@@ -2069,7 +2067,7 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 /**********************************************************************/
 static int ndi_setup_edist(char *keyword, FILE *stream,
 			   sec_part_distr *sec_part, int num_parts,
-			   int *parts_filled)
+			   int *parts_filled, int binary)
 {
     int ierr = 0;
     int tmp_err = 0;
@@ -2077,8 +2075,6 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
     int num_particles_read = *parts_filled;
     char *particle_str = &(keyword[7]);	/* The particle id starts at char 7 */
     sec_part_distr *part;
-
-    int binary = 0;
 
     /* Find next part to fill */
     if (num_particles_read < num_parts) {
