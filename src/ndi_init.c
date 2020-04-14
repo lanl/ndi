@@ -71,6 +71,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
     state->library_vers =
 	(char *) ndi_calloc(MAX_LIB_VERS_LEN, sizeof(char));
     strcpy(state->library_vers, "");
+    state->binary = 0;
     state->particle_type = -1;
     state->library_type = ' ';
     state->mat_order = 'd';	/* No transpose */

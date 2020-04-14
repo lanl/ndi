@@ -83,8 +83,12 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
    /*** Check returned error value ***/
 
     /* Check validity of data read from gendir */
-    if (strcmp(lib_file_type, "asc") != 0) {
-	/* Only ASCII library files are currently handled. */
+    if (strcmp(lib_file_type, "bin") == 0) {
+	state->binary = 1;
+    } else if (strcmp(lib_file_type, "asc") == 0) {
+        state->binary = 0;
+    } else {
+	/* Only ASCII and binary library files are currently handled. */
 	if (ierr >= 0) {
 	    ierr = -15;
 	}

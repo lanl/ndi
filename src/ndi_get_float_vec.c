@@ -194,19 +194,18 @@ static int GET_FLOAT_VEC_GENDIR(state_struct *state, int in_key,
 static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
                             FLOAT_TYPE *return_vec, int return_size)
 {
-//    int binary = 1;
-    int binary = 0;
- 
     int ierr = 0;
     int num_elements;
     FLOAT_TYPE *curr_flt = return_vec;
     double *source_ptr = NULL;
     int n;
+    int binary;
 
     if (!state) {
         return (-2);
     }
 
+    binary = state->binary;
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
@@ -349,7 +348,6 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_SIG_TOT:           /* Sigma total */
         num_elements = state->iso_stat.num_grps;
-	getchar();
         /*  Check bounds */
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
@@ -631,16 +629,17 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
                             FLOAT_TYPE * return_vec, int return_size)
 {
-    int binary = 0;
-
     int ierr = 0;
     int num_elements;
     int i;
     FLOAT_TYPE *curr_p = return_vec;
+    int binary;
 
     if (!state) {
         return (-2);
     }
+
+    binary = state->binary;
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
