@@ -352,7 +352,6 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_SIG_TOT:           /* Sigma total */
         num_elements = state->iso_stat.num_grps;
-	getchar();
         /*  Check bounds */
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
@@ -2371,7 +2370,6 @@ static int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
         }
         for (j = 0; j < num_elements; j++) {
             tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
-/*            printf ("%d: %e   q=%e  e=%e  xs=%e\n", j, tmp_vec[j], q, eavg[j], curr_xs[j]); */
         }
     }
 
@@ -2451,26 +2449,21 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
 
     if (state->collapse_flag)
         num_grps = state->grp_num_new;
-/*    printf("numgrps = %d\n", num_grps); */
     corr = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (state->trans_corr == 'd') {
         ierr =
             NDI_GET_FLOAT_VEC_N_H(state, NDI_CORR_DIAG,
                                   state->trans_corr_order, corr, num_grps);
     } else if (state->trans_corr == 'b') {
-/*       printf("D: %d\n", trans_corr_order); */
         ierr =
             NDI_GET_FLOAT_VEC_N_H(state, NDI_CORR_BHS,
                                   state->trans_corr_order, corr, num_grps);
     } else {
-/*       printf("Error\n"); */
         ierr = -13;
     }
     /*** Bounds checking? ***/
-/*    printf("correcting vector %d\n", ierr); */
     if (ierr >= 0) {
         for (i = 0; i < num_grps; i++) {
-/*       printf("%d  %e\n", i, corr[i]); */
             if (i >= return_size) {
                 ierr = 7;
                 break;
