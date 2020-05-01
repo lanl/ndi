@@ -810,7 +810,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 {
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
-    int binary
+    int binary;
 
     if (!state) {
 	return (-2);
