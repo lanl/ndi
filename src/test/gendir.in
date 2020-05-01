@@ -387,6 +387,19 @@ multigroup_neutron
     f=@top_srcdir@/src/test/lib/testlib_ss610  ft=asc  ln=1  o=0
     ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+10  aw=2.35043937521619E+02
     awr=2.33024800000000E+02 end
+  z=92235.141nm:b l=mtmg01 d=04/11/2011 awr=233.02499390
+    aw=235.04414367675781 t=2.530064158e-08 s0=10000000000.000000
+    f=../../src/test/lib/u235bin
+    ft=bin o=32 ng=618
+    end
+  z=92235.121nm  d=04/06/2011  l=mtmg01
+    f=../../src/test/lib/u235asc
+    ft=asc  ln=2  o=28
+    ng=618  t=2.530064236e-08  s0=10000000000.0
+    aw=235.0441392546  awr=233.02500000000001  end
+  z=1.800nm  d=05/31/2018  l=mendf80x
+    f=/yellow/usr/projects/lindet/tgsaller/codes/ndi/src/test/lib/1.800nm  ft=asc  ln=2
+    o=28  ng=618  t=2.530064236e-08  s0=10000000000.0  aw=1.008664904  awr=1.0 end
 end
 
 multigroup_photon
