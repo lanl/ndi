@@ -5,6 +5,7 @@
       integer ZLEN, ALEN
       parameter(ZLEN=24, ALEN=10)
 
+      character*(ZLEN) in_zaid
       integer gendir0
       integer ierr
 
@@ -39,19 +40,23 @@
 
       print *, ""
       print *, "Isotope 92235"
-      call print_isotope(gendir0, "92235.")
+      in_zaid = "92235."
+      call print_isotope(gendir0, in_zaid)
 
       print *, ""
       print *, "Isotope 92235.6"
-      call print_isotope(gendir0, "92235.6")
+      in_zaid = "92235.6"
+      call print_isotope(gendir0, in_zaid)
 
       print *, ""
       print *, "Isotope 92235.600"
-      call print_isotope(gendir0, "92235.600")
+      in_zaid = "92235.600"
+      call print_isotope(gendir0, in_zaid)
 
       print *, ""
       print *, "Isotope 92235.600nm"
-      call print_isotope(gendir0, "92235.600nm")
+      in_zaid = "92235.600nm"
+      call print_isotope(gendir0, in_zaid)
 
       print *, ""
       print *, "Close gendir:"
