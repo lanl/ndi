@@ -299,7 +299,7 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 	if (len_diff > 0) {
 	    strcpy(dir_zaid,d->zaid);
 	    token = strtok(dir_zaid,seps); 
-            }
+        }
 	if ((len_diff > 1 && strncmp(token, zaid, strlen(zaid)) == 0) || 
 	    (strncmp(d->zaid, zaid, strlen(d->zaid)) == 0) ||
             ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
