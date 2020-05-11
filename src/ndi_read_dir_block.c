@@ -276,18 +276,37 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 /* ndi_fget_next_dir reads records in the GENDIR file and attempts to
  * parse it as a series of dir_blocks.  Returns rec if a record is
  * found that matches input lib and zaid or NULL if end of
- * section, end of file, or error occurs */  
+ * section, end of file, or error occurs 
+ *
+ * It now (4/30/2020) will grab the zaid from the default library
+ * only if the ZAID does not have an extension. If it does (e.g.,
+ * 92235.600nm) it will find that exact ZAID. */  
 
 dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
                              const char *lib, const char *zaid)
 {
     dir_entry *d;
+    long int len_diff = 0;
+    char dir_zaid[MAX_IN_STR_LEN];
+    char *token;
+    char seps[] = "ngz"; // n(m) = neutron, g(m) = gamma, z(*) = everything else
+    char seps_dot[] = ".";
 
     while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
-        if ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
-            ((strcmp("", lib) == 0) ||
-             (strcmp(d->lib, lib) == 0)))
+	strcpy(dir_zaid,d->zaid);
+	token = strtok(dir_zaid,seps_dot);
+	len_diff = strlen(zaid) - strlen(token); 
+	if (len_diff > 0) {
+	    strcpy(dir_zaid,d->zaid);
+	    token = strtok(dir_zaid,seps); 
+        }
+	if ((len_diff > 1 && strncmp(token, zaid, strlen(zaid)) == 0) || 
+	    (strncmp(d->zaid, zaid, strlen(d->zaid)) == 0) ||
+            ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
+             ((strcmp("", lib) == 0) ||
+              (strcmp(d->lib, lib) == 0)))) {
             break;
+        }
     }
      
     return d;

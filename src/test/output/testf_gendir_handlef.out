@@ -4,15 +4,56 @@
    ok
  Set library:
    ok
+ 
+ Isotope 92235
  Get array size:
-  Size =     3
+  Size =     1
  Get zaid list:
-  92233.500nm             
   92235.500nm             
-  92238.500nm             
- Get atomic weight ratio list:
-   231.03800
-   233.02500
-   236.00600
+ Get atomic weight list:
+   235.04400
+ 
+ Isotope 92235.6
+ Get array size:
+  Size =    10
+ Get zaid list:
+  92235.600nm             
+  92235.666ngk            
+  92235.620nm             
+  92235.601nm             
+  92235.670nm             
+  92235.671nm             
+  92235.673nm             
+  92235.602nm             
+  92235.603nm             
+  92235.610nm             
+ Get atomic weight list:
+   235.04400
+   235.04400
+   235.04414
+   235.04420
+   235.04400
+   235.04400
+   235.04400
+   235.04394
+   235.04394
+   235.04394
+ 
+ Isotope 92235.600
+ Get array size:
+  Size =     1
+ Get zaid list:
+  92235.600nm             
+ Get atomic weight list:
+   235.04400
+ 
+ Isotope 92235.600nm
+ Get array size:
+  Size =     1
+ Get zaid list:
+  92235.600nm             
+ Get atomic weight list:
+   235.04400
+ 
  Close gendir:
    ok
