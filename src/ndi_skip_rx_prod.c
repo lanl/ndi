@@ -58,12 +58,12 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
     /* Read MT and number of reaction products */
     if (mt_flag) {
 	if (binary) {
-	    if (fread(&curr_mt, sizeof(int), 1, stream) == EOF) {
-	        /* Error reading file--reaction product data not read */
+	    if (fread(&curr_mt, sizeof(int), 1, stream) < 1) {
+	        /* Error reading file--mt number not read */
 	        return (-11);
 	    }
-            if (fread(&num_prod, sizeof(int), 1, stream) == EOF) {
-                /* Error reading file--reaction product data not read */
+            if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
+                /* Error reading file--number of reaction products not read */
                 return (-11);
             }
 	} else {
@@ -74,8 +74,8 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	}
     } else {
 	if (binary) {
-	    if (fread(&num_prod, sizeof(int), 1, stream) == EOF) {
-	        /* Error reading file--reaction product data not read */
+	    if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
+	        /* Error reading file--number of reaction products not read */
 	        return (-11);
 	    }
 	} else {
@@ -98,11 +98,11 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	       of particles released for this reaction */
 	    for (int i = 0; i < num_prod; ++i) {
 	        /* Product ID */
-	        if (fread(&num, sizeof(int), 1, stream) == EOF) {
+	        if (fread(&num, sizeof(int), 1, stream) < 1) {
 		    return (-11);
 	        }
 	        /* Number of product */
-                if (fread(&num, sizeof(int), 1, stream) == EOF) {
+                if (fread(&num, sizeof(int), 1, stream) < 1) {
                     return (-11);
                 }
 	    }

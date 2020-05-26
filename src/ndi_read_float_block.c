@@ -70,7 +70,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 	}
 
         if (binary) {
-	    if (fread(&input, sizeof(double), 1, stream) != EOF) {
+	    if (fread(&input, sizeof(double), 1, stream) > 0) {
 	        if (float_count < num_floats) {
 		    *cur_flt_ptr = (FLOAT_TYPE) input;
 	 	    float_count++;
@@ -80,7 +80,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 		    ierr = 6;
 		}
 	    } else {
-	        /* Error reading file */
+	        /* Error reading file or end of file */
 	        ierr = -11;
 	        return (ierr);
 	    }

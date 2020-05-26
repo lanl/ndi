@@ -129,9 +129,11 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
         /* Read the file until finding the "zaid" keyword, which is the
            official start of the data. This only works for a single isotope
            per data file */
-        while (fread(in_keyword, sizeof(in_keyword), 1, stream) != EOF){
+        while (fread(in_keyword, sizeof(in_keyword), 1, stream) > 0) {
 	    if (strncmp(in_keyword, "zaid", 5) == 0) break;
         }
+
+        if (feof(stream)) return (-11);
 
 	/* Read in the zaid */
 	n = fread(izaid, sizeof(izaid), 1, stream);
@@ -193,9 +195,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
     int num_elements;
     int part_index;
     int part_type;
-    int num, n;
-    float tmp;
-    char tmpc[100];
+    int n;
     int binary;
 
     if (!state) {
@@ -1582,10 +1582,9 @@ int read_string_line(FILE *stream, char *line, int str_size)
 {
     int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
     char input[133];                /* Current data item */
-    char *concacted;
     char *seps = " ";     /* Data delimiters in library file */
 
-    while (fread(input, sizeof(input), 1, stream) != EOF) {
+    while (fread(input, sizeof(input), 1, stream) > 0) {
         if (strcmp(input, "break") == 0) {
             break;
         } else {
@@ -1593,6 +1592,8 @@ int read_string_line(FILE *stream, char *line, int str_size)
             strcat(line, input);
         }
     }
+
+    if (feof(stream)) ierr = -11;
 
     return (ierr);
 }
@@ -1939,7 +1940,6 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
     int ierr = 0;
     int pn_num;
     int block_size;
-    char tmpc[20];
 
    /*** get rid of this stupidity--set num_objs here ***/
     if (sf->num_objs < 0) {
@@ -2406,7 +2406,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 
 	if (binary) {
 	    /*  Read one double at a time */
-	    if (fread(&input, sizeof(double), 1, stream) != EOF) {
+	    if (fread(&input, sizeof(double), 1, stream) > 0) {
 	        if (float_count < num_floats) {
 		    *cur_flt_ptr = input;
 	 	    float_count++;
@@ -2417,7 +2417,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 		    break;
 	        }
 	    } else {
-	        /* Error reading file */
+	        /* Error reading file or end of file */
 	        ierr = -11;
 		break;
 	    }

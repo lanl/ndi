@@ -49,7 +49,7 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats,
     if ( binary ) {
         /* Read next double and count floats */
         while (float_count < num_floats) {
-	    if (fread(&in_float, sizeof(double), 1, stream) != EOF) {
+	    if (fread(&in_float, sizeof(double), 1, stream) > 0) {
 		if (float_count < num_floats) {
 		    float_count++;
 		} else {
@@ -58,7 +58,7 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats,
 		    break;
 		}
 	    } else {
-	        /* Error reading file */
+	        /* Error reading file or end of file */
 	        ierr = -11;
 	    }
 	}

@@ -44,7 +44,8 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
     /* Read next line and count strings */
     while (string_count < num_strings) {
 	if (binary) {
-	    if (fread(in_line, sizeof(in_line), 1, stream) == EOF) {
+	    if (fread(in_line, sizeof(in_line), 1, stream) < 1) {
+		/* Error reading file or end of file */
 	        ierr = -11;
 	        break;
 	    } else {
