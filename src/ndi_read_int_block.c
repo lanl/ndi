@@ -60,8 +60,8 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 	}
 
 	if (binary) {
-	    if (fread(&cur_int_ptr, sizeof(long), 1, stream) == EOF) {
-	        /* Error reading file */
+	    if (fread(&cur_int_ptr, sizeof(long), 1, stream) < 1) {
+	        /* Error reading file or end of file */
 	        ierr = -11;
 	        return (ierr);
 	    } else {
