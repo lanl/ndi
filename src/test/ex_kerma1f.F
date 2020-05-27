@@ -20,7 +20,7 @@
       print *, "Kerma size is: ", kerma_size
       call ndi_get_size(NDI_HEATING, heating_size, ierr)
       print *, "Heating size is: ", heating_size
-      print *, ""
+      print *, " "
 
 
       call ndi_get_float64_vec(NDI_VEL, kerma, vec_size, ierr)
@@ -42,7 +42,7 @@
          print *, "  Error", ierr,
      $        "getting kerma (default) for isotope u235."
       endif
-      print *, ""
+      print *, " "
 
       ! Use kerma/heating from library (same as default 
       call ndi_set_option(NDI_KERMA, "use_data", ierr)
@@ -60,7 +60,7 @@
          print *, "  Error", ierr,
      $        "getting kerma (data) for isotope u235."
       endif
-      print *, ""
+      print *, " "
 
       ! Use kerma/heating from library if available, otherwise use calculation 
       ! In mendf6 library kerma/heating values ARE available, so this option will 
@@ -80,7 +80,7 @@
          print *, "  Error", ierr,
      $        "getting kerma (data_calc) for isotope u235."
       endif
-      print *, ""
+      print *, " "
 
 
       ! Use calculated kerma/heating only 
@@ -99,7 +99,7 @@
          print *, "  Error", ierr,
      $        "getting kerma (calc) for isotope u235."
       endif
-      print *, ""
+      print *, " "
 
 
       ! See how average energy option affects calculated kerma/heating values 
@@ -119,7 +119,7 @@
          print *, "  Error", ierr,
      $        "getting kerma (calc/sgndf energy) for isotope u235."
       endif
-      print *, ""
+      print *, " "
 
       call ndi_close(ierr)
       end

@@ -23,7 +23,7 @@
 
       write(*,*) "**  TRANSPOSE SET IN DATA TABLE  **"
       write(*,*) " "
-      call ndi2_open_gendir(gendir, "", ierr)
+      call ndi2_open_gendir(gendir, " ", ierr)
       call check_err(ierr, "opening gendir")
 
 c     Single particle test
@@ -212,7 +212,7 @@ c     ************ SET TRANSPOSE IN GENDIR ************
       write(*,*) "**  TRANSPOSE SET IN GENDIR  **"
       write(*,*) " "
 
-      call ndi2_open_gendir(gendir2, "", ierr)
+      call ndi2_open_gendir(gendir2, " ", ierr)
       call check_err(ierr, "opening gendir2")
 
 c     Single particle test

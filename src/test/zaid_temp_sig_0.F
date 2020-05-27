@@ -15,7 +15,7 @@ c       ndi2_set_zaid_float64_temp_sig_0
       real*8 sig0
 
       print *, "Open gendir:"
-      call ndi2_open_gendir(gendir, "", ierr)
+      call ndi2_open_gendir(gendir, " ", ierr)
       call check_err(ierr)
 
       print *, "Make handle:"

@@ -21,7 +21,7 @@
       data pbounds / 20.0, 4.0, 0.1 /
 
 c     Inintialize gendir 
-      call ndi2_open_gendir(gendir_handle, "", ierr)
+      call ndi2_open_gendir(gendir_handle, " ", ierr)
       if (ierr .ne. 0) then
          write(*, 10) ierr
  10      format("  **Error ", i3, " in NDI open gendir.")
