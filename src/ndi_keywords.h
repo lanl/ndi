@@ -183,7 +183,6 @@
 #define NDI_DENSITIES		      151
 #define NDI_ENERGIES		      152
 
-/* GLOBAL KEYWORDS */
 #define NDI_COLLAPSE_DEFAULT         1046
 #define NDI_CURR_PART_DEFAULT        1077
 #define NDI_E_AVG_DEFAULT            1069
@@ -198,4 +197,4 @@
 #define NDI_TEMP_DEFAULT             1006
 #define NDI_TRANS_CORR_DEFAULT       1072
 
-#endif				/* __NDI_KEYWORDS_H */
+#endif	
