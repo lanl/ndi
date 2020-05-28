@@ -387,6 +387,9 @@ multigroup_neutron
     f=@top_srcdir@/src/test/lib/testlib_ss610  ft=asc  ln=1  o=0
     ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+10  aw=2.35043937521619E+02
     awr=2.33024800000000E+02 end
+  z=1.800nm  d=05/31/2018  l=mendf80x
+    f=@top_srcdir@/src/test/lib/1.800nm  ft=asc  ln=2
+    o=28  ng=618  t=2.530064236e-08  s0=10000000000.0  aw=1.008664904  awr=1.0 end
 end
 
 multigroup_photon
