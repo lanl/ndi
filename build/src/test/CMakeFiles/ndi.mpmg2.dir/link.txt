@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.mpmg2.dir/mpmg2.c.o  -o ndi.mpmg2  ../../libndi.a -lm 

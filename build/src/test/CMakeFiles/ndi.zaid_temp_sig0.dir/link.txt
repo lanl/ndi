@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.zaid_temp_sig0.dir/zaid_temp_sig0.c.o  -o ndi.zaid_temp_sig0  ../../libndi.a -lm 

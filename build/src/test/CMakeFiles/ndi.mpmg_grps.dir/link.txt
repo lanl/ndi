@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.mpmg_grps.dir/mpmg_grps.c.o  -o ndi.mpmg_grps  ../../libndi.a -lm 

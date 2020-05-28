@@ -346,6 +346,7 @@ int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
     int ierr = 0;
     int curr_index = -1;
     int zaid = atoi(zaid_in);
+    int binary;
 
     if (!state) {
         return (-2);
@@ -356,6 +357,8 @@ int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
     if (state->dedx_stat.num_targets <= 0) {
         return (-7);
     }
+
+    binary = state->binary;
 
     for( i = 0; i < state->dedx_stat.num_targets; ++i ) {
 	if ( zaid != state->dedx_stat.targets[i] ) continue;
@@ -368,7 +371,7 @@ int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
     } else { 
         ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream,
              state->dedx_stat.target_dedx.stat[curr_index].file_ptr,
-             vec_size, return_vec, vec_size);
+             vec_size, return_vec, vec_size, binary);
     }
 
     return (ierr);

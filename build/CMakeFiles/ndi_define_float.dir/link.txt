@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi_define_float.dir/src/ndi_define_float.c.o  -o ndi_define_float 

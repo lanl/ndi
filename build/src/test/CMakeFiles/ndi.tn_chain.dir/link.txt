@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.tn_chain.dir/tn_chain.c.o  -o ndi.tn_chain  ../../libndi.a -lm 

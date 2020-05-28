@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.za_handle.dir/za_handle.c.o  -o ndi.za_handle  ../../libndi.a -lm 

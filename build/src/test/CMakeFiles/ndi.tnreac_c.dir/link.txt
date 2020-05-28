@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.tnreac_c.dir/tnreac_c.c.o  -o ndi.tnreac_c  ../../libndi.a -lm 

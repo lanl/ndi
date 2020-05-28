@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.transfer_mat.dir/transfer_mat.c.o  -o ndi.transfer_mat  ../../libndi.a -lm 

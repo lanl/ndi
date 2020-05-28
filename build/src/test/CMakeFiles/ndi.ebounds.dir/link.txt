@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.ebounds.dir/ebounds.c.o  -o ndi.ebounds  ../../libndi.a -lm 

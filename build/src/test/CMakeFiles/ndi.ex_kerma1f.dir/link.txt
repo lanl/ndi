@@ -1,1 +1,0 @@
-/usr/bin/gfortran    CMakeFiles/ndi.ex_kerma1f.dir/ex_kerma1f.F.o  -o ndi.ex_kerma1f  ../../libndi.a -lm 

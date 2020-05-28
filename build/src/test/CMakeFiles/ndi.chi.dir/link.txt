@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.chi.dir/chi.c.o  -o ndi.chi  ../../libndi.a -lm 

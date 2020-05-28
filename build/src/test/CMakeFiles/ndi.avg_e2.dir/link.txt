@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.avg_e2.dir/avg_e2.c.o  -o ndi.avg_e2  ../../libndi.a -lm 

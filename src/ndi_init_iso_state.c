@@ -26,7 +26,8 @@ static int read_depl_data(state_struct *state, FILE *stream,
 			  const char *zaid);
 static int read_dedx_data(state_struct *state, FILE *stream,
                           const char *zaid);
-static int set_simple_array(FILE *stream, stat_flag * sf, int data_num);
+static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
+			    int binary);
 static int read_simple_array(FILE *stream, stat_flag * sf, int data_num,
 			     ndi_float64 ** global_p, int binary);
 static int read_double_array(FILE *stream, int data_num,
@@ -76,7 +77,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
 			  const int return_size, int binary);
 static int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
-		    int num_targets, int num_elements);
+	    	           int num_targets, int num_elements, int binary);
 
 /**********************************************************************/
 
@@ -1271,6 +1272,7 @@ static int read_dedx_data(state_struct *state, FILE *stream,
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
     int num_elements;
+    int binary;
 
     if (!state) {
         return (-2);
@@ -1278,6 +1280,7 @@ static int read_dedx_data(state_struct *state, FILE *stream,
 
     strcpy(state->dedx_stat.zaid, zaid);
     state->dedx_stat.set_flag = 1;
+    binary = state->binary;
 
     /*******************************************************/
     /*                  Read dedx data                     */
@@ -1362,24 +1365,24 @@ static int read_dedx_data(state_struct *state, FILE *stream,
         /* energies */
         else if (strncmp(in_keyword, "energies", 9) == 0) {
             ierr = set_simple_array(stream, &state->dedx_stat.energies,
-                                    state->dedx_stat.num_grps);
+                                    state->dedx_stat.num_grps, binary);
         }
         /* energies */
         else if (strncmp(in_keyword, "densities", 10) == 0) {
             ierr = set_simple_array(stream, &state->dedx_stat.densities,
-                                    state->dedx_stat.num_densities);
+                                    state->dedx_stat.num_densities, binary);
         }
         /* energies */
         else if (strncmp(in_keyword, "temperatures", 13) == 0) {
             ierr = set_simple_array(stream, &state->dedx_stat.temps,
-                                    state->dedx_stat.num_temps);
+                                    state->dedx_stat.num_temps, binary);
         }
         /* free electron dedx */
         else if (strncmp(in_keyword, "free_e_dedx", 12) == 0) {
             ierr = set_simple_array(stream, &state->dedx_stat.free_e_dedx,
                                     state->dedx_stat.num_grps
                                     *state->dedx_stat.num_densities
-                                    *state->dedx_stat.num_temps);
+                                    *state->dedx_stat.num_temps, binary);
         }
 
       /*** Multi-dim array data ***/
@@ -1393,7 +1396,7 @@ static int read_dedx_data(state_struct *state, FILE *stream,
 
             ierr = set_target_dedx(stream, &state->dedx_stat.target_dedx,
                                    state->dedx_stat.targets, 
-				   state->dedx_stat.num_targets, num_elements);
+				   state->dedx_stat.num_targets, num_elements, binary);
         }
 
 
@@ -2454,7 +2457,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 
 static int set_target_dedx(FILE *stream, multi_stat *dedx,
                            int *targets, int num_targets,
-                           int num_elements)
+			   int num_elements, int binary)
 {
     int n;
     int ierr = 0;
@@ -2484,7 +2487,7 @@ static int set_target_dedx(FILE *stream, multi_stat *dedx,
                     
                 /* Point to data for this target */
                 dedx->stat[n].file_ptr = ftell(stream);
-                ierr = skip_float_block(stream, &block_size, num_elements);
+                ierr = skip_float_block(stream, &block_size, num_elements, binary);
                 dedx->stat[n].length = num_elements;
             }
         } else {

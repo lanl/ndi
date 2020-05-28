@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.radchem.dir/radchem.c.o  -o ndi.radchem  ../../libndi.a -lm 

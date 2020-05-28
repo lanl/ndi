@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.photon.dir/photon.c.o  -o ndi.photon  ../../libndi.a -lm 

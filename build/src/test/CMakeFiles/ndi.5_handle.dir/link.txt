@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.5_handle.dir/5_handle.c.o  -o ndi.5_handle  ../../libndi.a -lm 

@@ -1,1 +1,0 @@
-/usr/bin/gfortran    CMakeFiles/ndi.ex_gendir_pathf.dir/ex_gendir_pathf.F.o  -o ndi.ex_gendir_pathf  ../../libndi.a -lm 

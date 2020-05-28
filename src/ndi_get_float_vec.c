@@ -771,6 +771,7 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
 
     int ierr = 0;
     int num_elements;
+    int binary;
 
     if (!state) {
         return (-2);
@@ -780,6 +781,8 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
     if (!state->dedx_stat.set_flag) {
         return (-7);
     }
+
+    binary = state->binary;
 
     /*************************/
     /*   Process input key   */
@@ -793,7 +796,8 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->dedx_stat.temps.file_ptr, 1,
-                                 num_elements, return_vec, return_size);
+                                 num_elements, return_vec, return_size,
+				 binary);
         break;
 
     case NDI_DENSITIES:               /* Densities */
@@ -802,7 +806,8 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->dedx_stat.densities.file_ptr, 1,
-                                 num_elements, return_vec, return_size);
+                                 num_elements, return_vec, return_size,
+				 binary);
         break;
 
     case NDI_ENERGIES:               /* Energies */
@@ -811,7 +816,8 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->dedx_stat.energies.file_ptr, 1,
-                                 num_elements, return_vec, return_size);
+                                 num_elements, return_vec, return_size,
+				 binary);
         break;
 
     case NDI_DEDX:               /* Free electron dE/dx */
@@ -821,7 +827,8 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->dedx_stat.free_e_dedx.file_ptr, 1,
-                                 num_elements, return_vec, return_size);
+                                 num_elements, return_vec, return_size,
+				 binary);
         break;
 
     /**********  UNKNOWN KEYWORD  ***********/

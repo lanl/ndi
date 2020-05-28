@@ -1,2 +1,0 @@
-/yellow/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/CMakeFiles/CheckCXX/CMakeFiles/rebuild_cache.dir
-/yellow/usr/projects/data/nuclear/special/tgsaller/ndicpt/build/CMakeFiles/CheckCXX/CMakeFiles/edit_cache.dir

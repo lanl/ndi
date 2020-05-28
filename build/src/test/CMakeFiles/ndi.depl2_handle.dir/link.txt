@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.depl2_handle.dir/depl2_handle.c.o  -o ndi.depl2_handle  ../../libndi.a -lm 

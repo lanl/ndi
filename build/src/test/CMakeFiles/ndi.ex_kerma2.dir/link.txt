@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.ex_kerma2.dir/ex_kerma2.c.o  -o ndi.ex_kerma2  ../../libndi.a -lm 

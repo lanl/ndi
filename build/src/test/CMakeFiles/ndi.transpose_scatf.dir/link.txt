@@ -1,1 +1,0 @@
-/usr/bin/gfortran    CMakeFiles/ndi.transpose_scatf.dir/transpose_scatf.F.o  -o ndi.transpose_scatf  ../../libndi.a -lm 

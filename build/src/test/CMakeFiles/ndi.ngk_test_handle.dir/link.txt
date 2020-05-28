@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.ngk_test_handle.dir/ngk_test_handle.c.o  -o ndi.ngk_test_handle  ../../libndi.a -lm 

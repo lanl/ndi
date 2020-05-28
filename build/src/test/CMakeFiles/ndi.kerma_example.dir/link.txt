@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.kerma_example.dir/kerma_example.c.o  -o ndi.kerma_example  ../../libndi.a -lm 

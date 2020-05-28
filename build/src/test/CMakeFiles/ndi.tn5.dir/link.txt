@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.tn5.dir/tn5.c.o  -o ndi.tn5  ../../libndi.a -lm 

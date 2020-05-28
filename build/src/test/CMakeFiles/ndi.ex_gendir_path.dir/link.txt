@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/ndi.ex_gendir_path.dir/ex_gendir_path.c.o  -o ndi.ex_gendir_path  ../../libndi.a -lm 

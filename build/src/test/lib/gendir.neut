@@ -1,5 +1,0 @@
-multigroup_neutron
-  z=1.800nm  d=05/31/2018  l=mendf80x
-    f=/yellow/usr/projects/lindet/tgsaller/codes/ndi/src/test/lib/1.800nm  ft=asc  ln=2
-    o=28  ng=618  t=2.530064236e-08  s0=10000000000.0  aw=1.008664904  awr=1.0 end
-end
