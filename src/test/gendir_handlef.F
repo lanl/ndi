@@ -10,7 +10,7 @@
       integer ierr
 
       print *, "Open gendir:"
-      call ndi2_open_gendir(gendir0, "", ierr)
+      call ndi2_open_gendir(gendir0, " ", ierr)
       if ( ierr .ne. 0 ) then
          write (*, 100) ierr
  100     format("  **Error ", i6, " in NDI open gendir.")
@@ -38,27 +38,27 @@
          print *, "  ok"   
       endif
 
-      print *, ""
+      print *, " "
       print *, "Isotope 92235"
       in_zaid = "92235."
       call print_isotope(gendir0, in_zaid)
 
-      print *, ""
+      print *, " "
       print *, "Isotope 92235.6"
       in_zaid = "92235.6"
       call print_isotope(gendir0, in_zaid)
 
-      print *, ""
+      print *, " "
       print *, "Isotope 92235.600"
       in_zaid = "92235.600"
       call print_isotope(gendir0, in_zaid)
 
-      print *, ""
+      print *, " "
       print *, "Isotope 92235.600nm"
       in_zaid = "92235.600nm"
       call print_isotope(gendir0, in_zaid)
 
-      print *, ""
+      print *, " "
       print *, "Close gendir:"
       call ndi2_close_gendir(gendir0, ierr)
       if ( ierr .ne. 0 ) then

@@ -146,10 +146,10 @@ c     $   "27056.600nm", "u235", "u-238", "o-16", "al27"/
 c  "92234.50", "u-235" /
 
 
-      call ndi2_open_gendir(gendir_h, "", ierr)
+      call ndi2_open_gendir(gendir_h, " ", ierr)
 
 c     Test error on initialization before close
-      call ndi2_open_gendir(gendir_h, "", ierr) 
+      call ndi2_open_gendir(gendir_h, " ", ierr) 
 
       call ndi2_make_handle(gendir_h, "multigroup_neutron", 
      $     handle, ierr)

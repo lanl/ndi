@@ -10,7 +10,7 @@
 
       integer gendir
 
-      call ndi2_open_gendir(gendir, "", ierr)
+      call ndi2_open_gendir(gendir, " ", ierr)
       if ( ierr .ne. 0 ) then
          write(*, 100) ierr
  100     format("Error opening gendir", i6)
