@@ -78,6 +78,8 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int return_size, int binary);
 int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
 		    int num_targets, int num_elements, int binary);
+static int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
+ 		           int num_targets, int num_elements, int binary);
 
 /**********************************************************************/
 
