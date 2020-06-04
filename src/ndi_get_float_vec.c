@@ -753,7 +753,6 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
 
     int ierr = 0;
     int num_elements;
-    int n;
 
     if (!state) {
         return (-2);

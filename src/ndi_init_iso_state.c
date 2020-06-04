@@ -66,7 +66,7 @@ static int skip_comment(FILE *stream);
 int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
 			  const int return_size);
-int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
+static int set_target_dedx(FILE *stream, multi_stat *dedx, int *targets,
 		    int num_targets, int num_elements);
 
 /**********************************************************************/
