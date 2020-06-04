@@ -8,7 +8,7 @@ void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
 int main ()
 
 {
-   int ierr, i, j;
+   int i, j, ierr;
    int array_size;
 
    ndi_float64 *ret_vec64 = NULL;
@@ -84,8 +84,8 @@ int main ()
    }
 
    /* update tmp_vec with nusigf to get fission transfer matrix */
-   for(i = 0; i < array_size; i++)
-       for(j = 0; j < array_size; j++)
+   for (i = 0; i < array_size; i++)
+       for (j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] *= ret_vec64[i];
 
    printf("\n         NUSIGF (PROMPT):\n");
@@ -176,8 +176,8 @@ int main ()
        printf("  **Error %d in %s -- returned value is:\n", ierr, "NU_SIG_F_TOT" );
    }
    /* update tmp_vec with nusigf to get fission transfer matrix */
-   for(i = 0; i < array_size; i++)
-       for(j = 0; j < array_size; j++)
+   for (i = 0; i < array_size; i++)
+       for (j = 0; j < array_size; j++)
            tmp_vec[i*array_size+j] *= ret_vec64[i];
 
    printf("\n         NUSIGF (TOTAL):\n");
