@@ -6,7 +6,7 @@ if(DEFINED PROJECT_NAME)
 endif()
 
 project(ndi
-  VERSION 2.1.3
+  VERSION 2.2.0
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi"
   LANGUAGES C Fortran)
@@ -85,7 +85,7 @@ set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   C_STANDARD 99
   INTERFACE_C_STANDARD 99
   WARN_ALL ON
-  WARN_ERROR ON
+  WARN_ERROR OFF
   LLVM_DISABLED_WARNINGS "unused-parameter"
   GNU_DISABLED_WARNINGS "unused-parameter"
   Intel_DISABLED_WARNINGS "3656")
@@ -134,7 +134,7 @@ install(EXPORT ndiConfig
   DESTINATION share/cmake/ndi)
 
 write_basic_package_version_file("ndi-config-version.cmake"
-  VERSION ${PROJECT_VERSION}
+  VERSION "${PROJECT_VERSION}"
   COMPATIBILITY SameMajorVersion)
 
 install(FILES
