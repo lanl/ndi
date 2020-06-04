@@ -294,6 +294,7 @@ typedef struct _dedx_status {
     int num_densities;
     int num_temps;
     int num_targets;
+    int *targets;
     char info[MAX_IN_STR_LEN];
     char date_processed[MAX_IN_STR_LEN];
     char date_source[MAX_IN_STR_LEN];
@@ -304,7 +305,6 @@ typedef struct _dedx_status {
     stat_flag densities;
     stat_flag temps;
     stat_flag free_e_dedx;
-    int *targets;
     multi_stat target_dedx;
 } dedx_status;
 
