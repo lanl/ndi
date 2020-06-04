@@ -245,7 +245,6 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
     } else if (strncmp(value, "dedx", 5) == 0) {
 	state->particle_type = -1;
 	state->library_type = 'x';
-
     } else {
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;
