@@ -21,13 +21,13 @@ int main ()
    double *double_vec;
    char test_zaid[20] = "";
    char zaid_in[20] = "";
-   char string_val, tmp1[80], tmp2, tmp3, tmp4;
+   char string_val, tmp1, tmp2, tmp3, tmp4;
 
    printf("\n\n ********************************************************* \n" );
    printf("    TEST -- dE/dx data\n" );
    printf(" ********************************************************* \n\n" );
 
-   ierr = NDI2_open_gendir(&gendir_h, "lib/gendir.dedx");
+   ierr = NDI2_open_gendir(&gendir_h, "./gendir");
    if (ierr != 0) printf("  **Error %d in NDI init.\n\n", ierr );
 
    ierr = NDI2_make_handle(gendir_h, "dedx", &handle);

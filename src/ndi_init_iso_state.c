@@ -1274,8 +1274,6 @@ static int read_dedx_data(state_struct *state, FILE *stream,
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
     int num_elements;
-    int part_index;
-    int part_type;
     int binary;
 
     if (!state) {
@@ -2464,13 +2462,8 @@ static int set_target_dedx(FILE *stream, multi_stat *dedx,
 {
     int n;
     int ierr = 0;
-    int target_count = 0;
     int target = 0;
     int block_size;
-    char in_line[MAX_IN_STR_LEN];       /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";     /* Data delimiters in library file */
-    int *cur_int_ptr;
 
     if (num_targets < 0) {
         /* Library error: incorrect data order. */
