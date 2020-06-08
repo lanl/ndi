@@ -429,8 +429,6 @@ static int set0_dedx(state_struct *state)
 {
 
     int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
-    int i = 0;
-    int j = 0;
 
     if (!state) {
         return (-2);

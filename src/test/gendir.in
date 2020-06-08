@@ -719,3 +719,7 @@ tn_reactions
     l=testlib_tn_list f=@top_srcdir@/src/test/lib/tnreac_test  ft=asc  ln=88  o=1110 end
 end
 
+dedx
+ z=1001  l=dedx  f=@top_srcdir@/src/test/lib/dedx  ft=asc  ln=2  o=45  aw=1.00780E+00  awr=9.99142E-01 end
+end
+

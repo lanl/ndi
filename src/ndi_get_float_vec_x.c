@@ -28,7 +28,7 @@ static int GET_FLOAT_VEC_X_DEDX(state_struct *state, int in_key,
                                 FLOAT_TYPE *return_vec, int vec_size);
 
 static int GET_TARGET_DEDX(state_struct *state, const char *zaid,
-                    FLOAT_TYPE *return_vec, int vec_size);
+                           FLOAT_TYPE *return_vec, int vec_size);
 
 /**********************************************************************/
 
