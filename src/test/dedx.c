@@ -182,7 +182,7 @@ int main ()
    free((void *) double_vec);
    printf("\n");
 
-/* _n */
+/* _x */
 
    double_vec = (double *) malloc(num_tot * sizeof(double));
    ierr = NDI2_get_float64_vec_x(handle, NDI_TARGET_DEDX, "94239", double_vec, num_tot);
