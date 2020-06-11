@@ -295,6 +295,7 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
     while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
 	strcpy(dir_zaid,d->zaid);
 	token = strtok(dir_zaid,seps_dot);
+	if (token == NULL) continue;
 	len_diff = strlen(zaid) - strlen(token); 
 	if (len_diff > 0) {
 	    strcpy(dir_zaid,d->zaid);
