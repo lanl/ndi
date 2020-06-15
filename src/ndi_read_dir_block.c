@@ -122,7 +122,7 @@ int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
         }
     }                           /* while not done */
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -149,7 +149,7 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
     dir_rec->at_wgt = 0.0;
     dir_rec->awr = 0.0;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -295,6 +295,7 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
     while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
 	strcpy(dir_zaid,d->zaid);
 	token = strtok(dir_zaid,seps_dot);
+	if (token == NULL) continue;
 	len_diff = strlen(zaid) - strlen(token); 
 	if (len_diff > 0) {
 	    strcpy(dir_zaid,d->zaid);

@@ -35,15 +35,15 @@ int ndi_c_close_h(state_struct **curr_state)
     if (curr_state) {
 	state = *curr_state;
 	if (!state) {
-	    return (-2);
+	    return -2;
 	}
     } else {
-	return (-2);
+	return -2;
     }
 
     if (!state->ndi_initialized) {
 	/* Warning: NDI close failed--already closed */
-	return (-2);
+	return -2;
     }
 
     for (i = 0; i < MAX_HANDLE_NUM; i++)	/* close children */
@@ -94,7 +94,7 @@ int ndi_c_close_h(state_struct **curr_state)
 
     ndi_free((void **) curr_state);
 
-    return (ret_code);
+    return ret_code;
 
 }
 

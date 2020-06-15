@@ -35,12 +35,12 @@ ndi_find_part_index(const char *ptype, const sec_part_distr *part,
 	    if (*ptype == curr_char) {
 		/* check the first letter for n, p, a */
 		if (ptype == part[i].part_type) {
-		    return (i);
+		    return i;
 		}
 	    }
 	}
     }
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/
@@ -58,11 +58,11 @@ ndi_find_iso_index(const char *ptype, const char **string_array,
 	if (strncmp
 	    (ptype, string_array[i],
 	     (strlen(ptype) + 1) * sizeof(char)) == 0) {
-	    return (i);
+	    return i;
 	}
     }
 
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/

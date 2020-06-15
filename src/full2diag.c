@@ -67,7 +67,7 @@ static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 	    ierr = -25;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/

@@ -46,38 +46,38 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     *ret_val = 0.0;		/* Default return value is zero */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Special case--library type need not be set if asking for version. */
     if (in_key == NDI_ABUNDANCE) {	/* Natural abundance for isotope vec_num */
 	ierr = GET_ABUNDANCE(vec_num, ret_val);
-	return (ierr);
+	return ierr;
     }
     /* Check that ndi_init has been called. */
     if (!state->ndi_initialized) {
-	return (-2);
+	return -2;
     }
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
 	/*  32-bit operation not implemented on 64-bit platform */
-	return (-10);
+	return -10;
     }
 #endif
 
 
     if (state->library_type == ' ') {
 	/* Library type was not set */
-	return (-16);
+	return -16;
     } else if ((state->library_type != 'm') &&
 	       (state->library_type != 'd')) {
 	/* Incompatible library type -- bad input key */
-	return (-4);
+	return -4;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
     /*  Process input key  */
@@ -93,7 +93,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -140,7 +140,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     if ((tmp_err != 0) && (ierr >= 0)) {
 	ierr = tmp_err;
     }
-    return (ierr);
+    return ierr;
 }
 
 
@@ -164,7 +164,7 @@ static int GET_PROD_Q(state_struct *state, const int rprod_in,
     if (state) {
 	curr_targ = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
 
@@ -176,12 +176,12 @@ static int GET_PROD_Q(state_struct *state, const int rprod_in,
 	ierr = ndi_set_default_depl(state);
     }
     if (state->num_target <= 0) {
-	return (-7);
+	return -7;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-	return (ierr);
+	return ierr;
     }
 
 
@@ -192,7 +192,7 @@ static int GET_PROD_Q(state_struct *state, const int rprod_in,
     sprintf(rprod_str, "%d", rprod_in);
     ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_str, &curr_index);
     if (curr_index == -1) {
-	return (ierr);
+	return ierr;
     }
 
 
@@ -231,7 +231,7 @@ static int GET_PROD_Q(state_struct *state, const int rprod_in,
 	ierr = 9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/

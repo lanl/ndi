@@ -29,7 +29,7 @@ int ndimp_set_option(state_struct *mpmg_handle,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -160,7 +160,7 @@ static int set_mpmg_library(state_struct *mpmg_handle, const char *value)
     if (grp_structs)
 	ndi_free((void **) &grp_structs);
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

@@ -185,7 +185,7 @@ ndi_integrate_bins(double *distr_x, double *distr_y,
 
 
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -247,7 +247,7 @@ find_average_E(double *x, double *y, interp_params *iparm, double *ret_val)
 	*ret_val = xy_integr / y_integr;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*******************************************************************/
@@ -302,7 +302,7 @@ new_integrate(double *x, double *y, int npts, int interp_type,
     /* !!!UNLESS DISCRETE */
     if ((interp_type != NDI_INTERP_DISCRETE) &&
 	(double_compare(xstart, xend) == 0)) {
-	return (ierr);
+	return ierr;
     }
 
     /* Need to check order of xstart and xend points? */
@@ -352,7 +352,7 @@ new_integrate(double *x, double *y, int npts, int interp_type,
     *return_val =
 	integration_function[interp_type] (xstart, xend, xpts, ypts);
 /*   printf("   I=%e\n", *return_val ); */
-    return (ierr);
+    return ierr;
 
 }
 
@@ -411,7 +411,7 @@ new_integrate_xy(double *x, double *y, int npts, int interp_type,
     /* !!!UNLESS DISCRETE */
     if ((interp_type != NDI_INTERP_DISCRETE) &&
 	(double_compare(xstart, xend) == 0)) {
-	return (ierr);
+	return ierr;
     }
 
     /* Need to check order of xstart and xend points? */
@@ -461,7 +461,7 @@ new_integrate_xy(double *x, double *y, int npts, int interp_type,
     *return_val =
 	integration_function[interp_type] (xstart, xend, xpts, ypts);
 /*   printf("   I=%e\n", *return_val ); */
-    return (ierr);
+    return ierr;
 
 }
 
@@ -479,7 +479,7 @@ int ndi_init_double_vec(double *vec, int num_elements)
 	*vec++ = 0.0;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /********************************************************************************/
@@ -498,7 +498,7 @@ histogram_interp(double xin, double x1, double y1, double x2, double y2)
 
     /* Check that x1 <= xin <= x2 */
     result = y1;
-    return (result);
+    return result;
 
 }
 
@@ -518,7 +518,7 @@ lin_lin_interp(double xin, double x1, double y1, double x2, double y2)
     } else {
 	result = y1 + ((y2 - y1) * (xin - x1) / (x2 - x1));
     }
-    return (result);
+    return result;
 
 }
 
@@ -545,7 +545,7 @@ log_log_interp(double xin, double x1, double y1, double x2, double y2)
 		(log(xin) - log(x1)) / (log(x2) - log(x1)) * (log(y2) -
 							      log(y1)));
     }
-    return (result);
+    return result;
 
 }
 
@@ -566,7 +566,7 @@ lin_log_interp(double xin, double x1, double y1, double x2, double y2)
 	result =
 	    y1 + (log(xin) - log(x1)) / (log(x2) - log(x1)) * (y2 - y1);
     }
-    return (result);
+    return result;
 
 }
 
@@ -586,7 +586,7 @@ log_lin_interp(double xin, double x1, double y1, double x2, double y2)
 	result =
 	    exp(log(y1) + (xin - x1) / (x2 - x1) * (log(y2) - log(y1)));
     }
-    return (result);
+    return result;
 
 }
 
@@ -610,7 +610,7 @@ hale_interp(double xin, double x1, double y1, double x2,
 
     if (xin <= 0 ||
 	x1 <= 0 || x2 <= 0 || x3 <= 0 || y1 == 0 || y2 == 0 || y3 == 0) {
-	return (0.0);
+	return 0.0;
     }
 
     /* Check for negative values in sqrt and zeroes in denom */
@@ -627,7 +627,7 @@ hale_interp(double xin, double x1, double y1, double x2,
      */
 
     if (fabs(2 * del) < DBL_EPSILON || fabs(4 * dif1) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     }
 
 
@@ -647,7 +647,7 @@ hale_interp(double xin, double x1, double y1, double x2,
 /*    printf( "     A=%e, B= %e;        a=%e, b=%e, c=%e\n", A, B, a, b, c);  */
     result = a * sqrt(xin) * exp(-1 * pow((sqrt(xin) - b), 2) / c);
 
-    return (result);
+    return result;
 
 }
 
@@ -666,7 +666,7 @@ histogram_integrate(double xstart, double xend, double *x, double *y)
     double ystart;
 
     ystart = histogram_interp(xstart, x[0], y[0], x[1], y[1]);
-    return (fabs((xend - xstart) * ystart));
+    return fabs((xend - xstart) * ystart);
 
 }
 
@@ -685,7 +685,7 @@ double lin_lin_integrate(double xstart, double xend, double *x, double *y)
     ystart = lin_lin_interp(xstart, x[0], y[0], x[1], y[1]);
     yend = lin_lin_interp(xend, x[0], y[0], x[1], y[1]);
 
-    return (fabs((ystart + yend) * width / 2.0));
+    return fabs((ystart + yend) * width / 2.0);
 
 }
 
@@ -716,7 +716,7 @@ double log_log_integrate(double xstart, double xend, double *x, double *y)
 	fabs(xstart) < DBL_EPSILON ||
 	fabs(xend) < DBL_EPSILON ||
 	fabs(ystart) < DBL_EPSILON || fabs(yend) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (log(yend / ystart)) / (log(xend / xstart));
 	alpha = log(ystart) - beta * log(xstart);
@@ -729,7 +729,7 @@ double log_log_integrate(double xstart, double xend, double *x, double *y)
 	return_val = exp(alpha) * log(xend / xstart);
     }
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -754,7 +754,7 @@ double lin_log_integrate(double xstart, double xend, double *x, double *y)
 	fabs(xstart) < DBL_EPSILON ||
 	fabs(xend) < DBL_EPSILON ||
 	fabs(log(xend / xstart)) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (yend - ystart) / (log(xend / xstart));
 	alpha = ystart - beta * log(xstart);
@@ -764,7 +764,7 @@ double lin_log_integrate(double xstart, double xend, double *x, double *y)
 	alpha * (xend - xstart) + beta * ((xend * log(xend) - xend)
 					  - (xstart * log(xstart) -
 					     xstart));
-    return (return_val);
+    return return_val;
 
 }
 
@@ -786,7 +786,7 @@ double log_lin_integrate(double xstart, double xend, double *x, double *y)
     /* check that xstart,xend,ystart,yend not equal 0 */
     if ((double_compare(xstart, xend) == 0) ||
 	fabs(ystart) < DBL_EPSILON || fabs(yend) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (log(yend / ystart)) / (xend - xstart);
 	alpha = log(ystart) - beta * xstart;
@@ -800,7 +800,7 @@ double log_lin_integrate(double xstart, double xend, double *x, double *y)
 	    (exp(beta * (xend - xstart)) - 1.0);
     }
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -839,7 +839,7 @@ double hale_integrate(double xstart, double xend, double *x, double *y)
     /* Check for negative values in sqrt and zeroes in denom */
     if ((double_compare(xstart, xend) == 0) || x[0] <= 0 ||
 	x[1] <= 0 || x[2] <= 0 || y[0] == 0 || y[1] == 0 || y[2] == 0) {
-	return (return_val);
+	return return_val;
     }
 
     f1 = log(y[0] / sqrt(x[0]));
@@ -855,7 +855,7 @@ double hale_integrate(double xstart, double xend, double *x, double *y)
      */
 
     if (fabs(2 * del) < DBL_EPSILON || fabs(4 * dif1) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     }
 
     c = (del * del) / dif1;
@@ -883,7 +883,7 @@ double hale_integrate(double xstart, double xend, double *x, double *y)
 	fac1 * ((sqrt(x[0]) + b) * exp(-snc * u1 * u1) - exp2 -
 		fac2 * (erfn(snc, u1) - erf2));
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -906,7 +906,7 @@ double discrete_integrate(double xstart, double xend, double *x, double *y)
     }
 
 
-    return (result);
+    return result;
 
 }
 
@@ -926,7 +926,7 @@ histogram_integrate_x(double xstart, double xend, double *x, double *y)
     double ystart;
 
     ystart = histogram_interp(xstart, x[0], y[0], x[1], y[1]);
-    return (fabs(ystart * (xend + xstart) * (xend - xstart) / 2));
+    return fabs(ystart * (xend + xstart) * (xend - xstart) / 2);
 }
 
 /*********************************************************************/
@@ -952,7 +952,7 @@ lin_lin_integrate_x(double xstart, double xend, double *x, double *y)
     yend = lin_lin_interp(xend, x[0], y[0], x[1], y[1]);
 
     if (double_compare(xstart, xend) == 0) {
-	return (0.0);
+	return 0.0;
     } else {
 	alpha = (ystart * xend - yend * xstart) / (xend - xstart);
 	beta = (yend - ystart) / (xend - xstart);
@@ -962,7 +962,7 @@ lin_lin_integrate_x(double xstart, double xend, double *x, double *y)
 	+ beta * (xend * xend * xend - xstart * xstart * xstart) / 3.0;
 
 /*    printf("    INTEGRATE e*y(e)  (lin-lin):  a=%e b=%e int=%e\n", alpha,beta,return_val);    */
-    return (return_val);
+    return return_val;
 }
 
 /*********************************************************************/
@@ -993,7 +993,7 @@ log_log_integrate_x(double xstart, double xend, double *x, double *y)
 	fabs(ystart) < DBL_EPSILON ||
 	fabs(yend) < DBL_EPSILON ||
 	fabs(log(xend / xstart)) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (log(yend / ystart)) / (log(xend / xstart));
 	alpha = log(ystart) - beta * log(xstart);
@@ -1006,7 +1006,7 @@ log_log_integrate_x(double xstart, double xend, double *x, double *y)
 	return_val = exp(alpha) * log(xend / xstart);
     }
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -1033,7 +1033,7 @@ lin_log_integrate_x(double xstart, double xend, double *x, double *y)
 	fabs(xstart) < DBL_EPSILON ||
 	fabs(xend) < DBL_EPSILON ||
 	fabs(log(xend / xstart)) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (yend - ystart) / (log(xend / xstart));
 	alpha = ystart - beta * log(xstart);
@@ -1044,7 +1044,7 @@ lin_log_integrate_x(double xstart, double xend, double *x, double *y)
 		  - xstart * xstart * (log(xstart) - 0.5)) / 2.0;
 /*    printf("    INTEGRATE e*y(e)  (lin-log):  a=%e b=%e int=%e\n", alpha,beta,return_val);    */
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -1067,7 +1067,7 @@ log_lin_integrate_x(double xstart, double xend, double *x, double *y)
     /* check that xstart,xend,ystart,yend not equal 0 */
     if ((double_compare(xstart, xend) == 0) ||
 	fabs(ystart) < DBL_EPSILON || fabs(yend) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     } else {
 	beta = (log(yend / ystart)) / (xend - xstart);
 	alpha = log(ystart) - beta * xstart;
@@ -1081,7 +1081,7 @@ log_lin_integrate_x(double xstart, double xend, double *x, double *y)
 	       (beta * xstart - 1.0));
     }
 /*    printf("    INTEGRATE e*y(e)  (log-lin):  a=%e b=%e int=%e\n", alpha,beta,return_val);    */
-    return (return_val);
+    return return_val;
 
 }
 
@@ -1124,7 +1124,7 @@ double hale_integrate_x(double xstart, double xend, double *x, double *y)
     if ((double_compare(xstart, xend) == 0) || x[0] <= 0 ||
 	x[0] <= 0 ||
 	x[1] <= 0 || x[2] <= 0 || y[0] == 0 || y[1] == 0 || y[2] == 0) {
-	return (0.0);
+	return 0.0;
     }
     f1 = log(y[0] / sqrt(x[0]));
     f2 = log(y[1] / sqrt(x[1]));
@@ -1138,7 +1138,7 @@ double hale_integrate_x(double xstart, double xend, double *x, double *y)
 
 
     if (fabs(2 * del) < DBL_EPSILON || fabs(4 * dif1) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     }
 
     /*
@@ -1180,7 +1180,7 @@ double hale_integrate_x(double xstart, double xend, double *x, double *y)
 	   A4 * pow(u1, 3) / 2) * exp(-u1 * u1)
 	- B * erfn(snc, u1);
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -1218,7 +1218,7 @@ hale_integrate_x_bak(double x1, double y1, double x2, double y2,
 
     /* Check for negative values in sqrt and zeroes in denom */
     if (x1 <= 0 || x2 <= 0 || x3 <= 0 || y1 == 0 || y2 == 0 || y3 == 0) {
-	return (0.0);
+	return 0.0;
     }
     f1 = log(y1 / sqrt(x1));
     f2 = log(y2 / sqrt(x2));
@@ -1228,7 +1228,7 @@ hale_integrate_x_bak(double x1, double y1, double x2, double y2,
     del = sqrt(x2) - sqrt(x1);
 
     if (fabs(2 * del) < DBL_EPSILON || fabs(4 * dif1) < DBL_EPSILON) {
-	return (0.0);
+	return 0.0;
     }
 
     c = (del * del) / dif1;
@@ -1253,7 +1253,7 @@ hale_integrate_x_bak(double x1, double y1, double x2, double y2,
 	   A4 * pow(u1, 3) / 2) * exp(-u1 * u1)
 	- B * erfn(snc, u1);
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -1276,7 +1276,7 @@ discrete_integrate_x(double xstart, double xend, double *x, double *y)
 	result = x[0] * y[0];
     }
 
-    return (result);
+    return result;
 
 }
 
@@ -1311,5 +1311,5 @@ static double erfn(double sign, double x)
 	}
     }
 
-    return (return_value);
+    return return_value;
 }

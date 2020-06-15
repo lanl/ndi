@@ -73,7 +73,7 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
     /* Check input parameters */
     if ((data_type < 0) && (data_type > 1)) {
 	/* Internal error: invalid input parameter. */
-	return (-13);
+	return -13;
     }
 
    /**********************************************/
@@ -85,12 +85,12 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
     if (mt_flag) {
 	if (fscanf(stream, "%d\n%d\n", &curr_mt, &num_prod_in) == EOF) {
 	    /* Error reading file--reaction product data not read */
-	    return (-11);
+	    return -11;
 	}
     } else {
 	if (fscanf(stream, "%d\n", &num_prod_in) == EOF) {
 	    /* Error reading file--reaction product data not read */
-	    return (-11);
+	    return -11;
 	}
     }
 
@@ -99,13 +99,13 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 	if (num_prod_in < 0) {
 	    ierr = 9;
 	}
-	return (ierr);
+	return ierr;
     }
 
     if (fgets(in_line, sizeof(in_line), stream) == NULL) {
 	/* Error reading file */
 	ierr = -11;
-	return (ierr);
+	return ierr;
     }
     tok_str = in_line;
 
@@ -142,7 +142,7 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 	    } else {
 		/* Error: unexpected data (end) */
 		ierr = -12;
-		return (ierr);
+		return ierr;
 	    }
 	}			/*  if ((token=... */
 
@@ -162,7 +162,7 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 	}			/*  if ((token=... */
     }				/*  while  */
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -220,7 +220,7 @@ ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
 
     /* Check input parameters */
     if (data_type != MULT_PARAM)
-	return (-13);
+	return -13;
 
     /* Go to data block */
     fseek(stream, file_pos, SEEK_SET);
@@ -228,18 +228,18 @@ ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
     /* Read optional MT ID */
     if (mt_flag) {
 	if (fscanf(stream, "%d\n", &curr_mt) == EOF)
-	    return (-11);
+	    return -11;
     }
 
     /* Read number of reaction products */
     if (fscanf(stream, "%d\n", &num_prod_in) == EOF)
-	return (-11);
+	return -11;
 
     /* if num_prod_in <= 0 then there's no data */
     if (num_prod_in < 0)
-	return (9);		/* Warn: bad data on file */
+	return 9;		/* Warn: bad data on file */
     if (num_prod_in == 0)
-	return (0);
+	return 0;
 
     /* allocate return vector (bad style!) */
     *num_prod = num_prod_in;
@@ -251,7 +251,7 @@ ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
 
 	/* read line */
 	if (fgets(in_line, sizeof(in_line), stream) == NULL)
-	    return (-11);
+	    return -11;
 	tok_str = in_line;
 
 	/* parse line */
@@ -262,11 +262,11 @@ ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
 		if (++count == num_prod_in)
 		    break;
 	    } else {
-		return (-12);	/* Error: second of pair not found. */
+		return -12;	/* Error: second of pair not found. */
 	    }
 	}
 
     } while (count < num_prod_in);
 
-    return (0);
+    return 0;
 }

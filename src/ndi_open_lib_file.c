@@ -40,7 +40,7 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
     char name[MAX_IN_PATH_LEN];
 
     if (!state) {
-        return (NULL);
+        return NULL;
     }
 
     temp_file_p = fpath2(state, path, "rb", name, MAX_IN_PATH_LEN);
@@ -57,7 +57,7 @@ FILE *ndi_open_lib_file(state_struct *state, const char *path)
         }
     }
 
-    return (temp_file_p);
+    return temp_file_p;
 }
 
 /**********************************************************************/

@@ -48,7 +48,7 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 
     real_zaid[0] = '\0';
     if (!state) {
-	return (-2);
+	return -2;
     }
     ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
     if (S == -1 || Z == -1 || A == -1)
@@ -72,7 +72,7 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 	ierr = -22;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

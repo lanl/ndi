@@ -49,7 +49,7 @@ int ndi_set0(state_struct *state, char l_type)
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((l_type == 'm') || (l_type == 'd')) {
@@ -65,7 +65,7 @@ int ndi_set0(state_struct *state, char l_type)
 	ierr = -13;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -78,7 +78,7 @@ static int set0_mg(state_struct *state)
     int i;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->iso_stat.set_flag) {
@@ -197,7 +197,7 @@ static int set0_mg(state_struct *state)
 	    ndi_free((void **) &state->iso_stat.rprod_few.stat);
 	state->iso_stat.rprod_few.stat = NULL;
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -235,7 +235,7 @@ int ndi_set0_mg_sec_part(sec_part_mg *part)
 	part->pn_prod_full.stat = NULL;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -248,7 +248,7 @@ static int set0_tn(state_struct *state)
     int i = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->tn_stat.set_flag) {
@@ -305,7 +305,7 @@ static int set0_tn(state_struct *state)
 	state->sec_part_filled = 0;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -319,7 +319,7 @@ static int set0_tnreac(state_struct *state)
     int i = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     state->curr_part_index = -1;	/* Reset current part index */
@@ -357,7 +357,7 @@ static int set0_tnreac(state_struct *state)
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -372,7 +372,7 @@ static int set0_depl(state_struct *state)
     int j = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Free target data */
@@ -415,7 +415,7 @@ static int set0_depl(state_struct *state)
 	state->chain_stat.inc_part_types = NULL;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -450,7 +450,7 @@ int ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
     ierr = set0_interp_param(&(part->temp_interp), reset_flag);
     part->part_type = -1;
 
-    return (ierr);
+    return ierr;
 }
 
 /* static int set0_interp_param ( interp_params *param ) */
@@ -477,7 +477,7 @@ static int set0_interp_param(interp_params *param, int reset_flag)
     param->nbt = NULL;
     param->int_type = NULL;
 
-    return (ierr);
+    return ierr;
 }
 
 /* static int set0_edist_data ( edist_data *distr ) */
@@ -495,7 +495,7 @@ static int set0_edist_data(edist_data *distr, int reset_flag)
     ierr = set0_interp_param(&(distr->interp), reset_flag);
     distr->file_ptr = 0;
 
-    return (ierr);
+    return ierr;
 }
 
 

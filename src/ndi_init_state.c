@@ -23,7 +23,7 @@ int ndi_init_state_common(state_struct *state)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     state->curr_part_index = -1;
@@ -40,7 +40,7 @@ int ndi_init_state_common(state_struct *state)
 	strncpy(state->library_vers, "", 2);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -51,7 +51,7 @@ int ndi_init_state_iso_state(state_struct *state)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set0(state, 'm');
@@ -72,7 +72,7 @@ int ndi_init_state_iso_state(state_struct *state)
     strncpy(state->def_fiss_prod_id, DEF_FISSION_PROD,
 	    sizeof(state->def_fiss_prod_id));
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -84,7 +84,7 @@ int ndi_init_state_tn(state_struct *state)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set0(state, 's');
@@ -92,7 +92,7 @@ int ndi_init_state_tn(state_struct *state)
     state->sec_part_filled = 0;
     state->default_temp = 0.0;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -103,12 +103,12 @@ int ndi_init_state_tnreac(state_struct *state)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set0(state, 'r');
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -119,12 +119,12 @@ int ndi_init_state_chain(state_struct *state)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set0(state, '0');
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

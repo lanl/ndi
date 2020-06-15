@@ -59,7 +59,7 @@ int NDI_INIT_FLOAT_VEC(FLOAT_TYPE * vec, int num_elements)
 	*curr_vec = 0.0;
 	curr_vec++;
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -87,7 +87,7 @@ int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
     FLOAT_TYPE *temp_vec = NULL;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (f_ptr > 0) {
@@ -97,7 +97,7 @@ int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 					  sizeof(FLOAT_TYPE));
 	    if (!temp_vec) {
 		/* Out of memory */
-		return (-14);
+		return -14;
 	    }
 	    ierr = NDI_READ_FLOAT_BLOCK(stream, f_ptr,
 					library_grp_num,
@@ -117,7 +117,7 @@ int GET_SIMPLE_FLOAT_VEC(state_struct *state, FILE *stream,
 	ierr = -9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -149,7 +149,7 @@ int NDI_TRANSPOSE_FLOAT(FLOAT_TYPE * in_mat, int row_num, int col_num)
 	ierr = -14;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -168,7 +168,7 @@ int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
     if (rows != 0) {
 	cols = num_mat / rows;
     } else {
-	return (ierr);
+	return ierr;
     }
 
     for (j = 0; j < cols; j++) {
@@ -179,11 +179,11 @@ int NDI_VEC2MAT(const FLOAT_TYPE * vec, int num_vec,
 	    } else {
 		/* matrix is not big enough */
 		ierr = 7;
-		return (ierr);
+		return ierr;
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -216,14 +216,14 @@ int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
     int mt = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->reac_id == 'c') {
 	mt = ndi_c_c_to_mt(vec_num);
 	if (mt <= 0) {
 	    ierr = -24;
-	    return (ierr);	/* Invalid MT or reaction identifier */
+	    return ierr;	/* Invalid MT or reaction identifier */
 	}
     } else {
 	mt = vec_num;
@@ -250,7 +250,7 @@ int GET_SIG_REAC(state_struct *state, isotope_status * mg, int vec_num,
     if ((mt == 18) || (mt == 19) || (mt == 20) || (mt == 21) || (mt == 38)) {
 	(void) check_fissionable_err(&ierr, mg->fissionable);
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -272,7 +272,7 @@ int COPY_MATRIX(FLOAT_TYPE *dest, int d_size, FLOAT_TYPE *source, int s_size)
 	dest[i] = source[i];
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -292,7 +292,7 @@ int MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
     FLOAT_TYPE *result_p = return_vec;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((state->collapse_flag != 0) && (collapse >= 0)) {
@@ -328,7 +328,7 @@ int MULT_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 	ndi_free((void **) &temp_vec);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -351,7 +351,7 @@ int DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
     FLOAT_TYPE *result_p = return_vec;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((state->collapse_flag != 0) && (collapse >= 0)) {
@@ -391,7 +391,7 @@ int DIVIDE_FLOAT_VEC(state_struct *state, const ndi_float64 * vec1,
 	ndi_free((void **) &temp_vec);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -418,7 +418,7 @@ int NORM_FLOAT_VEC(FLOAT_TYPE * vec_p, int num_elements,
 	    temp_p++;
 	}
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -454,7 +454,7 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 	/* Simple-minded look-up */
 	if (abundance_id[i] == izaid) {
 	    *return_val = (FLOAT_TYPE) abundance_value[i];
-	    return (ierr);
+	    return ierr;
 	}
     }
 
@@ -468,7 +468,7 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
 	ierr = 9;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -490,7 +490,7 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
     FLOAT_TYPE norm;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (chi_mat_ptr > 0) {
@@ -500,7 +500,7 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 					       * sizeof(FLOAT_TYPE));
 	if (!chi_matrix) {
 	    /* Out of memory */
-	    return (-14);
+	    return -14;
 	}
 	/* Do not want the matrix collapsed so use read_float_block instead of
 	   get_simple_float_vec ( or use collapse_flag == -1) */
@@ -573,7 +573,7 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

@@ -35,5 +35,5 @@ int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }

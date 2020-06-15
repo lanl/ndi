@@ -30,7 +30,7 @@ ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 
     if (rprod->num_objs <= 0) {
 	/* No reaction product data in library */
-	return (-9);
+	return -9;
     }
 
     for (i = 0; i < rprod->num_objs; i++) {
@@ -41,16 +41,16 @@ ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 	read_return = fscanf(stream, "%d\n%d\n", &curr_mt, &num_prodx);
 	if ((read_return == EOF) || (read_return < 2)) {
 	    /* Error reading data */
-	    return (-11);
+	    return -11;
 	}
 	if (curr_mt == mt) {
 	    *ret_index = i;
-	    return (ierr);
+	    return ierr;
 	}
     }
     /* Reaction not found */
     ierr = -9;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -61,18 +61,18 @@ int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 
     if (num <= 0) {
 	/* No reaction product data in library */
-	return (-9);
+	return -9;
     }
 
     for (i = 0; i < num; i++) {
 	if (mt_array[i] == mt) {
 	    *ret_index = i;
-	    return (ierr);
+	    return ierr;
 	}
     }
     /* Reaction not found */
     ierr = -9;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

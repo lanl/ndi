@@ -74,5 +74,5 @@ int ndimp_get_int_val(state_struct *h, int in_key, int *return_val)
 
     }
 
-    return (ierr);
+    return ierr;
 }

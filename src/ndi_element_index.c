@@ -54,7 +54,7 @@ int element_index(const char *el_symbol)
     if ((row < 0) || (row >= 26)) {
 /*       printf("Error in row; char = *%c* row = %d  %d  %d\n",  */
 /* 	     *el_symbol, row, *el_symbol, 'a'); */
-	return (0);
+	return 0;
     }
 
 
@@ -67,10 +67,10 @@ int element_index(const char *el_symbol)
     }
     if ((col < 0) || (col >= 27)) {
 /*       printf("Error in col\n"); */
-	return (0);
+	return 0;
     }
 
-    return ((row * 27) + col);
+    return (row * 27) + col;
 
 }
 
