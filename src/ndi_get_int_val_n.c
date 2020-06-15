@@ -53,7 +53,7 @@ int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (is_gendir(state)) {
@@ -76,7 +76,7 @@ int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
 	/* Incompatible library type -- bad input key */
 	ierr = -4;
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -91,7 +91,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
     int mt = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Default (error) return value is 0  */
@@ -101,7 +101,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
     if (in_key != NDI_TARGET) {
 	/* Special case for targets -- isotope need not be set */
 	if (!state->iso_stat.set_flag) {
-	    return (-7);
+	    return -7;
 	}
     }
 
@@ -117,7 +117,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -148,7 +148,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -179,7 +179,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -256,7 +256,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	if (state->num_target > vec_num) {
 	    *ret_val = state->depl_target[vec_num].izaid;
@@ -273,7 +273,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	ierr = ndi_get_rprod_int_n(state, vec_num, ret_val);
 	break;
@@ -287,7 +287,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -304,12 +304,12 @@ static int get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
     *ret_val = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Check if isotope is set  */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -368,7 +368,7 @@ static int get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -383,12 +383,12 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
     *ret_val = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Check if isotope is set  */
     if (state->tnreac_stat.reac_num <= 0) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -427,7 +427,7 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -492,7 +492,7 @@ static int get_nth_int(state_struct *state, stat_flag sf, int in_key,
 	return_vec = (int *) ndi_malloc(vec_size * sizeof(int));
 	if (!return_vec) {
 	    /* Out of memory */
-	    return (-14);
+	    return -14;
 	}
 	ierr = ndi_c_get_int_vec_h(state, in_key, return_vec, vec_size);
 	*return_val = return_vec[vec_num];
@@ -502,7 +502,7 @@ static int get_nth_int(state_struct *state, stat_flag sf, int in_key,
 	ierr = 5;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

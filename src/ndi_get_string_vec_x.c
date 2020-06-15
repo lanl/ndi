@@ -66,7 +66,7 @@ int ndi_c_get_string_vec_x_h(state_struct *state, int in_key,
     }
 
  catch:
-    return (ierr);
+    return ierr;
 
 }
 

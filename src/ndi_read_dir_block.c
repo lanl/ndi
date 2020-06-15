@@ -122,7 +122,7 @@ int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
         }
     }                           /* while not done */
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -149,7 +149,7 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
     dir_rec->at_wgt = 0.0;
     dir_rec->awr = 0.0;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

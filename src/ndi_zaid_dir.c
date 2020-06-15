@@ -81,7 +81,7 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
     /* Check if library type is set */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((pt_type == 1) && (l_type == 'm')) {
@@ -116,14 +116,14 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 	strcpy(section, "dedx");
     } else if (l_type == ' ') {
 	/* Error: library type not set */
-	return (-16);
+	return -16;
     } else {
-	return (-5);
+	return -5;
     }
 
     if (!state->ndi_dir) {
 	/* Error opening file */
-	return (-1);
+	return -1;
     }
 
     (void) rewind(state->ndi_dir);
@@ -204,7 +204,7 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
     if (ierr >= 0) {
 	strcpy(real_zaid, tmp_zaid);
     }
-    return (ierr);
+    return ierr;
 
 }
 

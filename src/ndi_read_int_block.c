@@ -86,10 +86,10 @@ ndi_read_int_block(FILE *stream, const int num_ints,
             } else {
                 /* Error reading file */
                 ierr = -11;
-                return (ierr);
+                return ierr;
             }
 	}
     }
 
-    return (ierr);
+    return ierr;
 }

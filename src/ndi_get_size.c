@@ -45,7 +45,7 @@ zero as error.
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
         *ierr = -2;
-        return (size);
+        return size;
     }
 
     /* Special case--library type need not be set if asking for version. */
@@ -83,7 +83,7 @@ zero as error.
             *ierr = 9;
         }
     }
-    return (size);
+    return size;
 }
 
 
@@ -102,13 +102,13 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
 
     if (!state) {               /* check state sanity */
         *ierr = -2;
-        return(return_value);
+        return return_value;
     }
 
     in_value = ndi_get_section(state);
     if (in_value == 0) {
         *ierr = -16;            /* Library type not set */
-        return(return_value);
+        return return_value;
     }
         
     /* Open gendir */
@@ -140,7 +140,7 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
         break;
     }
     ndi_close_tree(&root);
-    return(return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -151,7 +151,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 
     if (!state) {
         *ierr = -2;
-        return (0);
+        return 0;
     }
 
     *ierr = 0;                  /* Default error value */
@@ -162,7 +162,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         /* Special case for depletion -- isotope need not be set */
         if (!state->iso_stat.set_flag) {
             *ierr = -7;
-            return (0);
+            return 0;
         }
     }
 
@@ -372,7 +372,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
 
         if (!state->ndi_dir) {
             *ierr = -2;
-            return (0);
+            return 0;
         }
 
         sprintf(sza, "%d.", atoi(state->iso_stat.zaid));
@@ -428,7 +428,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         break;
     }
 
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -445,13 +445,13 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     if (!state) {
         *ierr = -2;
-        return (0);
+        return 0;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
         *ierr = -7;
-        return (0);
+        return 0;
     }
 
     switch (in_key) {
@@ -566,7 +566,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
     case NDI_EDIST_INTERP_TYPE:
         /* Vector of interpolation type for current particle's temperature
            interpolation regions */
-        if (state->grp_num_new <= 0) return (-21);
+        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -575,10 +575,10 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
             if (part) {
                 return_value = part->temp_interp.nint;
             } else {
-                return (-30);
+                return -30;
             }
         } else {
-            return (-30);
+            return -30;
         }
 
         break;
@@ -586,7 +586,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
     case NDI_EDIST_TEMPS:
         /* Vector of interpolation type for current particle's interpolation 
            temperatures */
-        if (state->grp_num_new <= 0) return (-21);
+        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -595,17 +595,17 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
             if (part) {
                 return_value = part->temp_interp.npts;
             } else {
-                return (-30);
+                return -30;
             }
         } else {
-            return (-30);
+            return -30;
         }
 
         break;
 
     case NDI_EDIST_CONT_E:
     case NDI_EDIST_CONT_P:
-        if (state->grp_num_new <= 0) return (-21);
+        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -622,17 +622,17 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
                 return_value = part->edist[it].interp.npts;
             } else {
-                return (-30);
+                return -30;
             }
         } else {
-            return (-30);
+            return -30;
         }
 
         break;
 
     case NDI_EDIST_CONT_INTERP_REG:
     case NDI_EDIST_CONT_INTERP_TYPE:
-        if (state->grp_num_new <= 0) return (-21);
+        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -649,10 +649,10 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
                 return_value = part->edist[it].interp.nint;
             } else {
-                return (-30);
+                return -30;
             }
         } else {
-            return (-30);
+            return -30;
         }
 
         break;
@@ -681,7 +681,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
     if (return_value < 0) {
         return_value = 0;
     }
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -697,12 +697,12 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
 
     if (!state) {
         *ierr = -2;
-        return (0);
+        return 0;
     }
     /* Check that isotope is set */
     if (state->tnreac_stat.reac_num > 0) {
         *ierr = -7;
-        return (0);
+        return 0;
     }
 
     switch (in_key) {
@@ -741,7 +741,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
         break;
     }
 
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/

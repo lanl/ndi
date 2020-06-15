@@ -84,5 +84,5 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
             }   
 	}
     }
-    return (ierr);
+    return ierr;
 }

@@ -44,7 +44,7 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     /*** Check that NDI is initialized ***/
@@ -72,7 +72,7 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -106,18 +106,18 @@ static int ndi_set_collapse_vec(state_struct *state,
     double *curr_p = NULL;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that number of groups is reasonable */
     if (new_num_grps <= 0) {
-	return (-23);
+	return -23;
     }
 
     /* Check appropriate library type */
     if ((state->library_type != 'm') &&
 	(state->library_type != 'd') && (state->library_type != 's')) {
-	return (-23);
+	return -23;
     }
 
     /* Check monotonically decreasing and
@@ -144,7 +144,7 @@ static int ndi_set_collapse_vec(state_struct *state,
 		if (state->collapse_ebounds) {
 		    ndi_free((void **) &state->collapse_ebounds);
 		}
-		return (-23);
+		return -23;
 	    }
 	}
     }
@@ -175,7 +175,7 @@ static int ndi_set_collapse_vec(state_struct *state,
     } else {
 	strcpy(state->n_group, "default");
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -207,12 +207,12 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
     sec_part_mg *part = NULL;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that number of groups is reasonable */
     if (new_num_grps <= 0) {
-	return (-23);
+	return -23;
     }
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
@@ -222,7 +222,7 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 	    (state->curr_part_index < state->iso_stat.num_sec_parts)) {
 	    part = &state->iso_stat.sec_part[state->curr_part_index];
 	    if (!part) {
-		return (-91);
+		return -91;
 	    }
 
 	    /* Check monotonically decreasing and
@@ -250,7 +250,7 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 			if (part->collapse_ebounds) {
 			    ndi_free((void **) &part->collapse_ebounds);
 			}
-			return (-23);
+			return -23;
 		    }
 		}
 	    }
@@ -271,7 +271,7 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 	ierr = -4;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

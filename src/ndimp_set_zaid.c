@@ -34,7 +34,7 @@ int ndimp_set_zaid(state_struct *h, const char *zaid)
     std_zaid[sizeof(std_zaid)-1]='\0';
     tmp_err = ndi_std_zaid(h, std_zaid, ZAID_SIZE);
     if (tmp_err < 0) {
-	return (tmp_err);
+	return tmp_err;
     }
 
     for (i = 0; i < num_parts; i++) {
@@ -69,7 +69,7 @@ int ndimp_set_zaid(state_struct *h, const char *zaid)
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

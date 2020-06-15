@@ -3304,13 +3304,13 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
             /* check new_grp_bounds != NULL */
             /* check for monotonically decreasing */
         } else {
-            return (-5);
+            return -5;
         }
 
     } else if (strcmp("default", grp_struc) == 0) { 
         /* Use library's group structure */
         *new_grp = 0;
-        return(ierr);
+        return ierr;
 
     } else if (is_default_str(grp_struc)) {
         /* Use library's group structure */
@@ -3319,7 +3319,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         if ((old_grp > 0) && (old_grp != is_default_str(grp_struc))) {
             ierr = 77;
         }
-        return (ierr);
+        return ierr;
 
 
 /* =================== Match Neutron Group Structure Name =================== */
@@ -3719,7 +3719,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
     } else {
         /* Unknown group structure */
         *new_grp = 0;
-        return (-5);
+        return -5;
     }
 
 
@@ -3732,7 +3732,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         /* TN data or isotope not set for multigroup */
         if (old_grp <= 0) {
             /* Isotope not set, just return */
-            return (ierr);
+            return ierr;
         }
 
         /* old_grp must be at least as large as new_grp */
@@ -3740,7 +3740,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
             /* Incompatible group structure */
             *c_flag = 0;
             *new_grp = 0;
-            return (-23);
+            return -23;
         }
 
         ebounds = (int *) ndi_malloc((*new_grp + 1) * sizeof(int));
@@ -3767,7 +3767,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
                     ndi_free((void **) &ebounds);
                 *c_flag = 0; 
                 *new_grp = 0;
-                return (-23);
+                return -23;
             }
             new_grp_ptr++;
         }
@@ -3809,7 +3809,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         }
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -3863,7 +3863,7 @@ static int is_default_str(const char *grp_struct) {
         return_val = strtol(int_p, (char **)NULL, 10);
     }
     
-    return(return_val);
+    return return_val;
 }
 
 /**********************************************************************/

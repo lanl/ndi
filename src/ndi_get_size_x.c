@@ -71,7 +71,7 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
     }
 
  catch:
-    return (size);
+    return size;
 }
 
 /**********************************************************************/
@@ -148,7 +148,7 @@ static int get_mg_size_x(state_struct *state, int in_key,
     }
 
  catch:
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -222,7 +222,7 @@ static int get_reac_mt_size(state_struct *state, const char *rprod_in,
         curr_targ = state->depl_target;
     } else {
         *ierr = -2;
-        return (0);
+        return 0;
     }
 
     /* CHECK ERRORS */
@@ -232,22 +232,22 @@ static int get_reac_mt_size(state_struct *state, const char *rprod_in,
     }
     if (state->num_target <= 0) {
         *ierr = -7;
-        return (0);
+        return 0;
     }
 
     *ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-        return (0);
+        return 0;
     }
 
     curr_prod = curr_targ->rprod;
     curr_index = curr_targ->num_rprods;
     *ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
     if (curr_index == -1) {
-        return (0);
+        return 0;
     }
 
-    return (curr_prod->num_reac);
+    return curr_prod->num_reac;
 
 }
 /*********************************************************************/

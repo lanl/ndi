@@ -47,12 +47,12 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 
    /*** Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (state->library_type == ' ') {
 	/* Library type was not set */
-	return (-16);
+	return -16;
     }
 
     /* Initialize (zero) isotope state */
@@ -69,7 +69,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 	/* printf("tmp_zaid = %s \n", tmp_zaid ); */
       /*** Check returned error value  ***/
 	if (ierr < 0)
-	    return (ierr);
+	    return ierr;
     }
 
     ierr =
@@ -78,7 +78,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 		     &iso_start, &at_wgt, 0);
 
     if (ierr < 0) {
-	return (ierr);
+	return ierr;
     }
 
    /*** Check returned error value ***/
@@ -93,7 +93,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 	if (ierr >= 0) {
 	    ierr = -15;
 	}
-	return (ierr);
+	return ierr;
     }
 
     /* Open library file if needed */
@@ -141,7 +141,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 	ierr = tmp_err;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -169,7 +169,7 @@ int ndi_c_set_isotope_h(state_struct *state, const char *in_zaid)
 
     ierr = ndi_c_set_zaid_h(state, in_zaid);
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -196,7 +196,7 @@ int ndi_c_set_reaction_h(state_struct *state, const char *in_zaid)
 
     ierr = ndi_c_set_zaid_h(state, in_zaid);
 
-    return (ierr);
+    return ierr;
 }
 
 

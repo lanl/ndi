@@ -38,7 +38,7 @@ ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
     char seps[] = " ,\t\n";
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     tmp_zaid = strtok(zaid_str, seps);
@@ -53,7 +53,7 @@ ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
 	ierr = ndi_parse_int_zaid(tmp_izaid, Z, A, S);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -79,7 +79,7 @@ int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
     char element_symbol[2] = "  ";
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Find Z = alpha, [alpha]; */
@@ -107,7 +107,7 @@ int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
 
     /* Find S */
     *S = ndi_find_symbolic_state(curr_char);
-    return (ierr);
+    return ierr;
 
 }
 

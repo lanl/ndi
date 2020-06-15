@@ -113,14 +113,14 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
    /*******************************************************/
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     binary = state->binary;
 
     if (!stream) {
 	/* Error opening file */
-	return (-1);
+	return -1;
     }
 
     if (binary) {
@@ -134,7 +134,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	    if (strncmp(in_keyword, "zaid", 5) == 0) break;
         }
 
-        if (feof(stream)) return (-11);
+        if (feof(stream)) return -11;
 
 	/* Read in the zaid */
 	n = fread(izaid, sizeof(izaid), 1, stream);
@@ -150,7 +150,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 
     if (strncmp(in_keyword, "zaid", 5) != 0) {
         /* zaid isn't where it should be */
-        return (-12);
+        return -12;
     }
 
     /* Debugging statement */
@@ -158,11 +158,11 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 
     if ((n == EOF) || (n < 1)) {
 	/* zaid wasn't read */
-	return (-11);
+	return -11;
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
-	return (-17);
+	return -17;
     }
     if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
@@ -179,7 +179,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	ierr = -13;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -200,7 +200,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
     int binary;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     binary = state->binary;
@@ -222,7 +222,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	if (n==EOF) {
 	    /* Error reading file */
-	    return (-11);
+	    return -11;
 	}
 
         /* Debugging statement shows all keywords read in.
@@ -248,7 +248,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    }
 	    if (ierr < 0) {
 		/* Error reading string line */
-		return (ierr);
+		return ierr;
 	    }
 	}
 	/* Data type -- currently not kept */
@@ -261,7 +261,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             }
             if (ierr < 0) {
                 /* Error reading string line */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* date_processed */
@@ -276,7 +276,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             }
             if (ierr < 0) {
                 /* Error reading string line */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* date_source */
@@ -291,7 +291,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             }
             if (ierr < 0) {
                 /* Error reading string line */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* Library name */
@@ -306,7 +306,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             }
             if (ierr < 0) {
                 /* Error reading string line */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* Number of groups */
@@ -314,7 +314,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    ierr = read_int_val(stream, &state->iso_stat.num_grps, binary);
 	    if ( ierr < 0 ) {
 		/* Error reading file */
-		return (ierr);
+		return ierr;
 	    }
 	}
 	/* Last neutron group */
@@ -323,7 +323,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* Temperature */
@@ -331,7 +331,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             ierr = read_float_val(stream, &state->iso_stat.temp, binary);
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* sig_0 */
@@ -340,7 +340,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* upscatter_groups */
@@ -349,7 +349,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* downscatter_groups */
@@ -358,7 +358,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* atomic weight */
@@ -367,7 +367,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* atomic weight ratio */
@@ -376,7 +376,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* number of reactions which have cross-section data */
@@ -385,7 +385,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* number of scattering matrices */
@@ -394,7 +394,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 
@@ -572,7 +572,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* sigma edit reaction products -- all */
 	else if (strncmp(in_keyword, "rprod_all", 10) == 0) {
-//	    return (ierr);
+//	    return ierr;
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_all,
 				     state->iso_stat.num_reac, binary);
 	}
@@ -597,7 +597,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
             ierr = ndi_create_mg_sec_part(state, state->iso_stat.num_sec_parts,
                                           &state->iso_stat.sec_part);
@@ -655,7 +655,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "num_grps_", &part_type);
@@ -678,7 +678,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "pn_order_", &part_type);
@@ -791,7 +791,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* end */
 	else if (strncmp(in_keyword, "end", 4) == 0) {
-	    return (ierr);
+	    return ierr;
 	}
 
      /**************  UNKNOWN KEYWORD  *****************/
@@ -814,7 +814,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
     int binary;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     binary = state->binary;
@@ -831,7 +831,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	/* Read next keyword */
 	if (fscanf(stream, "%s\n", in_keyword) == EOF) {
 	    /* Error reading file */
-	    return (-11);
+	    return -11;
 	}
 
       /******************PROCESS KEYWORDS*********************/
@@ -844,7 +844,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 		(state->tn_stat.info, sizeof(state->tn_stat.info),
 		 stream) == NULL) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* date_processed */
@@ -867,7 +867,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	    if (fscanf(stream, "%d\n", &state->tn_stat.num_temps) == EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* Number of secondary particles for which there is energy distribution info */
@@ -876,7 +876,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 		EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    } else {
 	    }
 	}
@@ -885,7 +885,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	    if (fscanf(stream, "%lf\n", &state->tn_stat.q_value) == EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    } else {
 		state->tn_stat.q_set = 1;
 	    }
@@ -985,7 +985,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 
 	/* end */
 	else if (strncmp(in_keyword, "end", 4) == 0) {
-	    return (ierr);
+	    return ierr;
 	}
 
       /**************  UNKNOWN KEYWORD  *****************/
@@ -1008,7 +1008,7 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
     int binary;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     binary = state->binary;
@@ -1025,7 +1025,7 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 	/* Read next keyword */
 	if (fscanf(stream, "%s\n", in_keyword) == EOF) {
 	    /* Error reading file */
-	    return (-11);
+	    return -11;
 	}
 
       /******************PROCESS KEYWORDS*********************/
@@ -1038,7 +1038,7 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 		(state->tnreac_stat.info, sizeof(state->tnreac_stat.info),
 		 stream) == NULL) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* date_processed */
@@ -1066,7 +1066,7 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 		EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1093,7 +1093,7 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 
 	/* end */
 	else if (strncmp(in_keyword, "end", 4) == 0) {
-	    return (ierr);
+	    return ierr;
 	}
 
       /**************  UNKNOWN KEYWORD  *****************/
@@ -1117,7 +1117,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 
     /* Initialize data--set all to zero or null-string */
     if (!state) {
-	return (-2);
+	return -2;
     }
 
    /***** ??? Should this be done at the end ?? ***/
@@ -1131,7 +1131,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	/* Read next keyword */
 	if (fscanf(stream, "%s\n", in_keyword) == EOF) {
 	    /* Error reading file */
-	    return (-11);
+	    return -11;
 	}
 
       /******************PROCESS KEYWORDS*********************/
@@ -1143,7 +1143,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    if (fgets(state->depl_info, sizeof(state->depl_info), stream)
 		== NULL) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* date_processed */
@@ -1151,7 +1151,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* date_source */
@@ -1159,7 +1159,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 	/* Library name */
@@ -1167,7 +1167,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1176,7 +1176,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1185,7 +1185,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1194,7 +1194,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1203,7 +1203,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    char junk[MAX_IN_STR_LEN];
 	    if (fscanf(stream, "%s\n", junk) == EOF) {
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    }
 	}
 
@@ -1213,7 +1213,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    if (fscanf(stream, "%d\n", &state->num_target) == EOF) {
 		/* ???? Could this return 0???? */
 		/* Error reading file */
-		return (-11);
+		return -11;
 	    } else {
 		state->depl_target =
 		    (depl_target_struct *) ndi_malloc(state->num_target *
@@ -1250,7 +1250,7 @@ static int read_depl_data(state_struct *state, FILE *stream,
 
 	/* end */
 	else if (strncmp(in_keyword, "end", 4) == 0) {
-	    return (ierr);
+	    return ierr;
 	}
 
       /**************  UNKNOWN KEYWORD  *****************/
@@ -1411,7 +1411,7 @@ static int read_dedx_data(state_struct *state, FILE *stream,
 
         /* end */
         else if (strncmp(in_keyword, "end", 4) == 0) {
-            return (ierr);
+            return ierr;
         }
 
       /**************  UNKNOWN KEYWORD  *****************/
@@ -1445,7 +1445,7 @@ static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
 	ierr = skip_float_block(stream, &block_size, data_num, binary);
 	sf->length = block_size;
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1481,7 +1481,7 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 	    ierr = -14;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1517,7 +1517,7 @@ static int read_double_array(FILE *stream, int data_num, double **double_p,
 	    ierr = -14;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1540,7 +1540,7 @@ static int read_next_string(FILE *stream, char *str_array, int str_size)
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1559,7 +1559,7 @@ static int set_int_array(FILE *stream, long *int_p, int data_num,
 	ierr = ndi_read_int_block(stream, data_num, int_p, data_num,
 				  binary);
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1577,7 +1577,7 @@ static int set_string_array(FILE *stream, char **str_p, int data_num,
     } else {
 	ierr = ndi_read_string_block(stream, data_num, str_p, binary);
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1598,7 +1598,7 @@ int read_string_line(FILE *stream, char *line, int str_size)
 
     if (feof(stream)) ierr = -11;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1620,7 +1620,7 @@ static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
 	ierr = ndi_read_int_block(stream, data_num, *int_p, data_num,
 				  binary);
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1683,7 +1683,7 @@ static int set_reaction_array(FILE *stream, char **str_p,
 	*rprods_p = rprods;
 
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1713,7 +1713,7 @@ static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num,
 	    ierr = -14;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 
@@ -1733,7 +1733,7 @@ static int set_depl_array(state_struct *state, FILE *stream,
     if (state) {
 	target_count = state->chain_filled;
     } else {
-	return (-2);
+	return -2;
     }
 
     if (data_num < 0) {
@@ -1812,7 +1812,7 @@ static int set_depl_array(state_struct *state, FILE *stream,
     }
 
     state->chain_filled = target_count;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1833,7 +1833,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
     if (state) {
 	target_count = state->chain_filled;;
     } else {
-	return (-2);
+	return -2;
     }
 
     if (data_num < 0) {
@@ -1851,7 +1851,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
 	if (fscanf(stream, "%s\n", in_line) == EOF) {
 	    /* Error reading file */
 	    ierr = -11;
-	    return (ierr);
+	    return ierr;
 	} else {
 	    token = strtok(in_line, seps);
 	    target_p->izaid = (int) strtol(token, (char **) NULL, 10);
@@ -1864,7 +1864,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
 	    if (fscanf(stream, "%s\n", in_line) == EOF) {
 		/* Error reading file */
 		ierr = -11;
-		return (ierr);
+		return ierr;
 	    } else {
 		token = strtok(in_line, seps);
 		target_p->num_rprods =
@@ -1882,7 +1882,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
 		    if (fscanf(stream, "%s\n", in_line) == EOF) {
 			/* Error reading file */
 			ierr = -11;
-			return (ierr);
+			return ierr;
 		    } else {
 			token = strtok(in_line, seps);
 			target_p->rprod[i].izaid =
@@ -1926,7 +1926,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
 	}
 
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -1967,11 +1967,11 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 		    }
 		    if (i == EOF) {
 			/* Error reading file--pn order not read */
-			return (-11);
+			return -11;
 		    }
 		    if (n != pn_num) {
 			/* Unexpected data--pn out of order */
-			return (-12);
+			return -12;
 		    }
 		    sf->stat[n].file_ptr = ftell(stream);
 		    ierr =
@@ -1985,7 +1985,7 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2040,7 +2040,7 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 			    ndi_free((void **) &q_value);
 			if (sf->stat)
 			    ndi_free((void **) &sf->stat);
-			return (-11);
+			return -11;
 		    }
 
 		    /* Check for fission reaction */
@@ -2064,7 +2064,7 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2085,7 +2085,7 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
 	num_particles_read++;
     } else {
 	/* Error */
-	return (-15);
+	return -15;
     }
 
     /* Fill particle type */
@@ -2133,7 +2133,7 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
     }
 
     *parts_filled = num_particles_read;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2171,7 +2171,7 @@ static int fill_edist(FILE *stream, int ntemp, edist_data *dist, int binary)
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -2196,7 +2196,7 @@ static int ndi_read_interp_param(FILE *stream, int ninterp,
 	param->int_type = (int *) ndi_malloc(ninterp * sizeof(int));
 	if (!(param->nbt) || !(param->int_type)) {
 	    /* Out of memory */
-	    return (-14);
+	    return -14;
 	}
 	curr_nbt = param->nbt;
 	curr_int_type = param->int_type;
@@ -2231,11 +2231,10 @@ static int ndi_read_interp_param(FILE *stream, int ninterp,
 	    /* Error reading file */
 	    ierr = -11;
 	    break;
-/* 	 return(ierr); */
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -2259,7 +2258,7 @@ static int ndi_create_tn_sec_part(state_struct *state, int num_parts,
     }
 
     *sec_part = part;
-    return (ierr);
+    return ierr;
 }
 
 
@@ -2278,7 +2277,7 @@ static int ndi_create_mg_sec_part(state_struct *state, int num_parts,
     }
 
     *sec_part = part;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2300,7 +2299,7 @@ static int get_mg_part_type(const char *in_keyword, const char *prefix,
 	/* Internal NDI error */
 	ierr = -13;
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2313,7 +2312,7 @@ static int find_mg_sec_part_index(state_struct *state, int part_type)
     int return_val = -1;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
@@ -2323,7 +2322,7 @@ static int find_mg_sec_part_index(state_struct *state, int part_type)
 	    break;
 	}
     }
-    return (return_val);
+    return return_val;
 }
 
 /**********************************************************************/
@@ -2346,7 +2345,7 @@ static int skip_comment(FILE *stream)
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2363,7 +2362,7 @@ static int read_int_val(FILE *stream, int *value, int binary)
     
     if (n == EOF) ierr = -11;
  
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2380,7 +2379,7 @@ static int read_float_val(FILE *stream, double *value, int binary)
 
     if (n == EOF) ierr = -11;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2444,12 +2443,12 @@ int ndi_read_double_block(FILE *stream, long file_pos,
             } else {
                 /* Error reading file */
                 ierr = -11;
-                return (ierr);
+                return ierr;
             }
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2495,7 +2494,7 @@ static int set_target_dedx(FILE *stream, multi_stat *dedx,
             ierr = -14;
         }
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/

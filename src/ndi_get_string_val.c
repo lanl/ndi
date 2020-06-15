@@ -48,17 +48,17 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
     if ((ret_val) && (str_size > 0)) {
 	*ret_val = '\0';
     } else {
-	return (7);
+	return 7;
     }
 
     /* Check that ndi_init has been called. */
     if (!state) {
-	return (-2);
+	return -2;
     } else if (in_key == NDI_VERSION) {
 	/* Special case--library type need not be set if asking for version. */
 	strncpy(ret_val, NDI_VERSION_DATA, str_size);
     } else if (!state->ndi_initialized) {
-	return (-2);
+	return -2;
     } else if (in_key == NDI_GENDIR_PATH) {
 	strncpy(ret_val, state->open_gendir_file, str_size);
     } else {
@@ -85,7 +85,7 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -98,7 +98,7 @@ static int get_string_mg(state_struct *state, int in_key,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -107,7 +107,7 @@ static int get_string_mg(state_struct *state, int in_key,
 
     if ((in_key != NDI_DEPL_INFO) && (in_key != NDI_DEPL_ZAID)) {
 	if ((!state->iso_stat.set_flag)) {
-	    return (-7);
+	    return -7;
 	}
     }
 
@@ -148,7 +148,7 @@ static int get_string_mg(state_struct *state, int in_key,
 	}
 
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	strncpy(ret_val, state->depl_dataset, str_size);
 	break;
@@ -159,7 +159,7 @@ static int get_string_mg(state_struct *state, int in_key,
 	}
 
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	strncpy(ret_val, state->depl_info, str_size);
 	break;
@@ -205,7 +205,7 @@ static int get_string_mg(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -218,7 +218,7 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -227,7 +227,7 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
     /*************************/
@@ -263,7 +263,7 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -276,7 +276,7 @@ static int get_string_tnreac(state_struct *state, int in_key,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -285,7 +285,7 @@ static int get_string_tnreac(state_struct *state, int in_key,
 
     /* Check that isotope is set */
     if (state->tnreac_stat.reac_num <= 0) {
-	return (-7);
+	return -7;
     }
 
     /*************************/
@@ -328,7 +328,7 @@ static int get_string_tnreac(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

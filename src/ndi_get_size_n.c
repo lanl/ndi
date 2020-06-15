@@ -51,7 +51,7 @@ ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num, int *ierr)
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
 	*ierr = -2;
-	return (size);
+	return size;
     }
 
     if (in_key == NDI_ZAID) {
@@ -90,7 +90,7 @@ ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num, int *ierr)
 	    *ierr = 9;
 	}
     }
-    return (size);
+    return size;
 }
 
 /**********************************************************************/
@@ -108,7 +108,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 
     if (!state) {
 	*ierr = -2;
-	return (0);
+	return 0;
     }
 
     *ierr = 0;			/* Default error value */
@@ -118,7 +118,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 	/* Special case for targets -- isotope need not be set */
 	if (!state->iso_stat.set_flag) {
 	    *ierr = -7;
-	    return (0);
+	    return 0;
 	}
     }
 
@@ -351,7 +351,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -371,12 +371,12 @@ static int get_tn_size(state_struct *state, int in_key, int vec_num,
 
     if (!state) {
 	*ierr = -2;
-	return (0);
+	return 0;
     }
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
 	*ierr = -7;
-	return (return_value);
+	return return_value;
     }
 
     switch (in_key) {
@@ -430,7 +430,7 @@ static int get_tn_size(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -447,13 +447,13 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 
     if (!state) {
 	*ierr = -2;
-	return (0);
+	return 0;
     }
 
     /* Check that isotope is set */
     if (state->tnreac_stat.reac_num < 0) {
 	*ierr = -7;
-	return (return_value);
+	return return_value;
     }
 
     switch (in_key) {
@@ -524,7 +524,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/

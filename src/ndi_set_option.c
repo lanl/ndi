@@ -57,7 +57,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 
    /*** Check that NDI is initialized ***/
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     in_value_len = (int) strlen(in_value) + 1;
@@ -133,7 +133,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	    if (!state->iso_stat.set_flag) {
                 if (value)
                     ndi_free((void **) &value);
-		return (-7);
+		return -7;
 	    }
 	    pindex =
 		ndi_find_mg_part_index(atoi(value),
@@ -143,12 +143,12 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 	    ierr = -16;
             if (value)
                 ndi_free((void **) &value);
-	    return (ierr);
+	    return ierr;
 	} else {
 	    ierr = -4;
 	    if (value)
                 ndi_free((void **) &value);
-	    return (ierr);
+	    return ierr;
 	}
 
 	state->curr_part_index = pindex;
@@ -185,7 +185,7 @@ ndi_c_set_option_h(state_struct *state, int in_key, const char *in_value)
 
     if (value)
 	ndi_free((void **) &value);
-    return (ierr);
+    return ierr;
 }
 
 
@@ -208,7 +208,7 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strncmp(value, "multigroup_neutron", 19) == 0) {
@@ -259,7 +259,7 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 	ierr = ndi_init_state_dedx(state);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -281,7 +281,7 @@ static int ndi_set_library(state_struct *state, const char *value)
 /*** Check the !=; it sure doesn't seem right 1!!! */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strncmp(value, "default", 8) == 0) {
@@ -302,7 +302,7 @@ static int ndi_set_library(state_struct *state, const char *value)
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -321,7 +321,7 @@ static int ndi_set_mat_order(state_struct *state, const char *value)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strstr(value, "default") != NULL) {
@@ -336,7 +336,7 @@ static int ndi_set_mat_order(state_struct *state, const char *value)
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -361,7 +361,7 @@ int ndi_set_collapse(state_struct *state, const char *value)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
@@ -382,7 +382,7 @@ int ndi_set_collapse(state_struct *state, const char *value)
 			   state->library_type, NULL,
 			   &state->collapse_flag);
     } else {
-	return (-23);
+	return -23;
     }
 
     if (ierr >= 0) {
@@ -390,7 +390,7 @@ int ndi_set_collapse(state_struct *state, const char *value)
     } else {
 	strcpy(state->n_group, "default");
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -417,7 +417,7 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
     sec_part_mg *part;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
@@ -441,10 +441,10 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
 	}
     } else {
 	/* Bad input for current library type */
-	return (-4);
+	return -4;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -466,7 +466,7 @@ static int ndi_set_norm(state_struct *state, const char *value)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strstr(value, "default") != NULL) {
@@ -478,7 +478,7 @@ static int ndi_set_norm(state_struct *state, const char *value)
 	ierr = -5;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -491,7 +491,7 @@ static int ndi_set_trans_corr_diag(state_struct *state, const char *value)
     int tmp_order;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strncmp(value, "none", 4) == 0) {
@@ -519,7 +519,7 @@ static int ndi_set_trans_corr_diag(state_struct *state, const char *value)
 	ierr = -5;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -531,7 +531,7 @@ static int ndi_set_reac_id(state_struct *state, const char *value)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (strncmp(value, "mt", 3) == 0) {
@@ -544,7 +544,7 @@ static int ndi_set_reac_id(state_struct *state, const char *value)
 	ierr = -5;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -573,7 +573,7 @@ static int ndi_set_e_avg(state_struct *state, const char *value)
 	ierr = -5;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -597,7 +597,7 @@ static int ndi_set_kerma_calc(state_struct *state, const char *value)
 	ierr = -5;	/* "Error:  invalid NDI input argument. */
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -618,7 +618,7 @@ static int ndi_set_qsigf_calc(state_struct *state, const char *value)
 	ierr = -5;	/* "Error:  invalid NDI input argument. */
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -634,7 +634,7 @@ static int get_order(const char *value)
       /*** Check value ***/
 	return_value = (int) strtol((under_score + 1), NULL, 10);
     }
-    return (return_value);
+    return return_value;
 }
 
 /**********************************************************************/
@@ -699,12 +699,12 @@ static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 	strcpy(section, "dedx");
     } else {
 	/* Error: library type not set */
-	return (-16);
+	return -16;
     }
 
     if (!state->ndi_dir) {
 	/* Error opening file */
-	return (-1);
+	return -1;
     }
 
     (void) rewind(state->ndi_dir);
@@ -736,42 +736,42 @@ static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 				if (strncmp
 				    (in_value, dir_rec.zaid,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else if (strncmp(value_type, "l", 2) == 0) {
 				if (strncmp
 				    (in_value, dir_rec.lib,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else if (strncmp(value_type, "f", 2) == 0) {
 				if (strncmp
 				    (in_value, dir_rec.path,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else if (strncmp(value_type, "ft", 3) == 0) {
 				if (strncmp
 				    (in_value, dir_rec.lib_type,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else if (strncmp(value_type, "o", 2) == 0) {
 				sprintf(tmp_str, "%ld", dir_rec.offset);
 				if (strncmp
 				    (in_value, tmp_str,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else if (strncmp(value_type, "aw", 3) == 0) {
 				sprintf(tmp_str, "%lf", dir_rec.at_wgt);
 				if (strncmp
 				    (in_value, tmp_str,
 				     strlen(in_value) + 1) == 0) {
-				    return (1);
+				    return 1;
 				}
 			    } else {
-				return (-1);
+				return -1;
 			    }
 			}
 		    } else {
@@ -788,7 +788,7 @@ static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 	}
     }				/* while */
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

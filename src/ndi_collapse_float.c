@@ -72,12 +72,12 @@ int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
     int low_bound;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->grp_num_new <= 0) {
 	/* Number of groups not set  */
-	return (-21);
+	return -21;
     }
 
     for (i = 0; i < state->grp_num_new; i++) {
@@ -148,5 +148,5 @@ int ndi_collapse_float64(state_struct *state, const FLOAT_TYPE * old_vec,
 
     }
 
-    return (ierr);
+    return ierr;
 }

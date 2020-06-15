@@ -279,5 +279,5 @@ ndi_c_get_string_vec_x(int in_key, const char *in_str, char *ret_val,
 
 int ndi_c_close(void)
 {
-    return (ndi_c_close_h(&default_h));
+    return ndi_c_close_h(&default_h);
 }

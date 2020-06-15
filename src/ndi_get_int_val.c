@@ -43,7 +43,7 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
     *ret_val = 0;
 
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (is_gendir(state)) {
@@ -67,7 +67,7 @@ int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val)
 	ierr = -4;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -79,7 +79,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
     int z, a;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
 
@@ -88,14 +88,14 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 
     /* Check that ndi_init has been called. */
     if (!state->ndi_initialized) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (in_key != NDI_NUM_TARGET) {
 	/* Special case for no. of chain targets -- isotope need not be set */
 	if (!state->iso_stat.set_flag) {
-	    return (-7);
+	    return -7;
 	}
     }
 
@@ -199,7 +199,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-9);
+	    return -9;
 	}
 	ierr = ndi_get_num_rprods(state, ret_val);
 	break;
@@ -264,7 +264,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -279,12 +279,12 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
     *ret_val = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
    /*************************/
     /*   Process input key   */
@@ -365,7 +365,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -379,12 +379,12 @@ static int get_int_val_tnreac(state_struct *state, int in_key,
     *ret_val = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (state->tnreac_stat.reac_num <= 0) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -409,7 +409,7 @@ static int get_int_val_tnreac(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -497,7 +497,7 @@ static int ndi_get_num_rprods(state_struct *state, int *num_rprods)
     if (state) {
 	curr_targ = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
@@ -507,7 +507,7 @@ static int ndi_get_num_rprods(state_struct *state, int *num_rprods)
 	*num_rprods = 0;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

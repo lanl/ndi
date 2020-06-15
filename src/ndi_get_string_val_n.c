@@ -51,12 +51,12 @@ ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
     if ((ret_val) && (str_size > 0)) {
 	*ret_val = '\0';
     } else {
-	return (7);
+	return 7;
     }
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (in_key == NDI_ZAID) {
@@ -88,7 +88,7 @@ ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -101,7 +101,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -111,7 +111,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
     if ((in_key != NDI_TARGET) && (in_key != NDI_ZAID)) {
 	/* Special case for targets -- isotope need not be set */
 	if (!state->iso_stat.set_flag) {
-	    return (-7);
+	    return -7;
 	}
     }
 
@@ -168,7 +168,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	if (state->num_target > vec_num) {
 	    if (sprintf(ret_val, "%d", state->depl_target[vec_num].izaid) >
@@ -189,7 +189,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	ierr = ndi_get_rprod_id_n(state, vec_num, ret_val, str_size);
 	break;
@@ -218,7 +218,7 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -230,7 +230,7 @@ static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -240,7 +240,7 @@ static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
     if ((in_key != NDI_TARGET) && (in_key != NDI_ZAID)) {
 	/* Special case for targets -- isotope need not be set */
 	if (!state->iso_stat.set_flag) {
-	    return (-7);
+	    return -7;
 	}
     }
 
@@ -261,7 +261,7 @@ static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -274,18 +274,18 @@ static int get_string_n_tn(state_struct *state, int in_key, char *ret_val,
     int return_int;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (str_size > 0) {
 	*ret_val = '\0';
     } else {
-	return (7);
+	return 7;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -336,7 +336,7 @@ static int get_string_n_tn(state_struct *state, int in_key, char *ret_val,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -347,7 +347,7 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Default return value is empty string */
@@ -355,7 +355,7 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
 
     /* Check that isotope is set */
     if (state->tnreac_stat.reac_num <= 0) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -382,7 +382,7 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

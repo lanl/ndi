@@ -62,7 +62,7 @@ state_struct *handle_to_state_p(int handle)
 	k = handle;
 	state_p = handle_map[i]->handle_map[j]->handle_map[k];
     }
-    return (state_p);
+    return state_p;
 }
 
 /*!
@@ -90,7 +90,7 @@ int set_handle(state_struct *state)
 	}
     }
 
-    return (handle);
+    return handle;
 }
 
 /*!
@@ -108,9 +108,9 @@ int __ndi_close_handle(int handle)
 	(state_p = handle_to_state_p(handle))) {
 	ret_val = ndi_c_close_h(&state_p);
 	handle_map[handle] = NULL;
-	return (ret_val);
+	return ret_val;
     } else {
-	return (-2);
+	return -2;
     }
 }
 
@@ -120,7 +120,7 @@ int __ndi_add_child_handle(state_struct *parent)
     state_struct *child = NULL;
 
     if (!parent)
-	return (-2);
+	return -2;
 
     h = parent->handle_free;	/* get next child handle */
     if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
@@ -180,14 +180,14 @@ char *ndi_get_section(state_struct *state)
 	sec = 9;
     }
 
-    return (in_value[sec]);
+    return in_value[sec];
 }
 
 int ndi_is_library_type(state_struct *state, const char *type)
 {
 
     if (!state)
-	return (0);
+	return 0;
     if (strcmp(type, "multigroup_neutron") == 0)
 	return (state->library_type == 'm' && state->particle_type == 1);
     else if (strcmp(type, "multigroup_photon") == 0)
@@ -205,5 +205,5 @@ int ndi_is_library_type(state_struct *state, const char *type)
     else if (strcmp(type, "dedx") == 0)
 	return (state->library_type == 'x');
     else
-	return (0);
+	return 0;
 }

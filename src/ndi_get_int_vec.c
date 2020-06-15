@@ -44,7 +44,7 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (is_gendir(state)) {
@@ -66,7 +66,7 @@ int ndi_c_get_int_vec_h(state_struct *state, int in_key, int *return_vec,
 	ierr = -4;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -81,13 +81,13 @@ static int get_int_vec_mg(state_struct *state, int in_key,
     int *source_ptr;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -104,7 +104,7 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 	    ierr = ndi_set_default_depl(state);
 	}
 	if (state->num_target <= 0) {
-	    return (-7);
+	    return -7;
 	}
 	ierr = ndi_get_rprod_vec_mg(state, return_vec, vec_size);
 	break;
@@ -190,7 +190,7 @@ static int get_int_vec_mg(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -205,12 +205,12 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -353,7 +353,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	/* Vector of interpolation type for current particle's temperature
 	   interpolation regions */
 	if (state->grp_num_new <= 0)
-	    return (-21);
+	    return -21;
 	if ((state->curr_part_index >= 0) ||
 	    (state->curr_part_index < state->sec_part_filled)) {
 	    sec_part_distr *part;
@@ -365,10 +365,10 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 		for (i = 0; i < part->temp_interp.nint; i++)
 		    return_vec[i] = part->temp_interp.nbt[i];
 	    } else {
-		return (-30);
+		return -30;
 	    }
 	} else {
-	    return (-30);
+	    return -30;
 	}
 
 	break;
@@ -377,7 +377,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	/* Vector of endpoints for current particle's temperature 
 	   interpolation regions */
 	if (state->grp_num_new <= 0)
-	    return (-21);
+	    return -21;
 	if ((state->curr_part_index >= 0) ||
 	    (state->curr_part_index < state->sec_part_filled)) {
 	    sec_part_distr *part;
@@ -389,10 +389,10 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 		for (i = 0; i < part->temp_interp.nint; i++)
 		    return_vec[i] = part->temp_interp.int_type[i];
 	    } else {
-		return (-30);
+		return -30;
 	    }
 	} else {
-	    return (-30);
+	    return -30;
 	}
 
 	break;
@@ -401,7 +401,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	/* Vector of interpolation type for current particle's temperature
 	   interpolation regions */
 	if (state->grp_num_new <= 0)
-	    return (-21);
+	    return -21;
 	if ((state->curr_part_index >= 0) ||
 	    (state->curr_part_index < state->sec_part_filled)) {
 	    sec_part_distr *part;
@@ -422,10 +422,10 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 		for (i = 0; i < part->edist[it].interp.nint; i++)
 		    return_vec[i] = part->edist[it].interp.nbt[i];
 	    } else {
-		return (-30);
+		return -30;
 	    }
 	} else {
-	    return (-30);
+	    return -30;
 	}
 
 	break;
@@ -434,7 +434,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	/* Vector of endpoints for current particle's temperature 
 	   interpolation regions */
 	if (state->grp_num_new <= 0)
-	    return (-21);
+	    return -21;
 	if ((state->curr_part_index >= 0) ||
 	    (state->curr_part_index < state->sec_part_filled)) {
 	    sec_part_distr *part;
@@ -455,10 +455,10 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 		for (i = 0; i < part->edist[it].interp.nint; i++)
 		    return_vec[i] = part->edist[it].interp.int_type[i];
 	    } else {
-		return (-30);
+		return -30;
 	    }
 	} else {
-	    return (-30);
+	    return -30;
 	}
 
 	break;
@@ -470,7 +470,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

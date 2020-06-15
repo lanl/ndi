@@ -46,7 +46,7 @@ int ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (is_gendir(state)) {
@@ -65,7 +65,7 @@ int ndi_c_get_int_vec_n_h(state_struct *state, int in_key, int vec_num,
         /* 's', 'd', 'p', 'x'                         */
 	ierr = -4;
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -81,12 +81,12 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
     stat_flag curr_state;	/* Status indicator of current reaction */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Check if isotope is set  */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -100,7 +100,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -142,7 +142,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (-ierr);	/* Invalid MT or reaction identifier */
+		return -ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -182,7 +182,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (-ierr);	/* Invalid MT or reaction identifier */
+		return -ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -226,7 +226,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -268,7 +268,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -314,7 +314,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	    mt = ndi_c_c_to_mt(vec_num);
 	    if (mt <= 0) {
 		ierr = -24;
-		return (ierr);	/* Invalid MT or reaction identifier */
+		return ierr;	/* Invalid MT or reaction identifier */
 	    }
 	} else {
 	    mt = vec_num;
@@ -356,7 +356,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -372,12 +372,12 @@ static int get_int_vec_n_tnreac(state_struct *state, int in_key,
     int num_elements;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Check if isotope is set  */
     if (state->tnreac_stat.reac_num <= 0) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -448,7 +448,7 @@ static int get_int_vec_n_tnreac(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
