@@ -24,7 +24,7 @@ c     Test multi-temperature functionality (Requirement 22)
       data text /0.0, 2.58e-8, 100.0 /
 
       print *, "Open gendir:"
-      call ndi2_open_gendir(gendir, "", ierr)
+      call ndi2_open_gendir(gendir, " ", ierr)
       call check_err(ierr)
 
       print *, "Make handle:"
