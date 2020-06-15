@@ -20,7 +20,7 @@ int main ()
    printf("    TEST - Set neutron \"isotope\" \n" );
    printf("  ********************************************************** \n\n" );
 
-   ierr = NDI2_open_gendir(&gendir_h, "lib/gendir.neut");
+   ierr = NDI2_open_gendir(&gendir_h, "./gendir");
    if (ierr != 0) printf("**Error %d in NDI init.\n\n", ierr );
    ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
    if (ierr != 0) printf("**Error %d making particle handle.\n", ierr);
