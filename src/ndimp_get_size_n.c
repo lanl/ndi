@@ -36,7 +36,7 @@ int ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr)
 	break;
     }
 
-    return (return_val);
+    return return_val;
 
 }
 

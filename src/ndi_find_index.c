@@ -33,7 +33,7 @@ int ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 
     if (rprod->num_objs <= 0) {
 	/* No reaction product data in library */
-	return (-9);
+	return -9;
     }
 
     for (i = 0; i < rprod->num_objs; i++) {
@@ -44,16 +44,16 @@ int ndi_find_rprod_index(FILE *stream, multi_stat * rprod, int *ret_index,
 	read_return = fscanf(stream, "%d\n%d\n", &curr_mt, &num_prodx);
 	if ((read_return == EOF) || (read_return < 2)) {
 	    /* Error reading data */
-	    return (-11);
+	    return -11;
 	}
 	if (curr_mt == mt) {
 	    *ret_index = i;
-	    return (ierr);
+	    return ierr;
 	}
     }
     /* Reaction not found */
     ierr = -9;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -64,18 +64,18 @@ int ndi_find_reac_index(int *mt_array, int *ret_index, int mt, int num)
 
     if (num <= 0) {
 	/* No reaction product data in library */
-	return (-9);
+	return -9;
     }
 
     for (i = 0; i < num; i++) {
 	if (mt_array[i] == mt) {
 	    *ret_index = i;
-	    return (ierr);
+	    return ierr;
 	}
     }
     /* Reaction not found */
     ierr = -9;
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -90,11 +90,11 @@ int ndi_find_tn_part_index(const long ptype, const sec_part_distr *part,
 
     for (i = 0; i < num_parts; i++) {
 	if (ptype == part[i].part_type) {
-	    return (i);
+	    return i;
 	}
     }
 
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/
@@ -111,11 +111,11 @@ int ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
     for (i = 0; i < num_parts; i++) {
 	curr_part = part[i];
 	if (curr_part.part_type == ptype) {
-	    return (i);
+	    return i;
 	}
     }
 
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/
@@ -132,11 +132,11 @@ int ndi_find_iso_index(const char *ptype, const char **string_array,
 	if (strncmp
 	    (ptype, string_array[i],
 	     (strlen(ptype) + 1) * sizeof(char)) == 0) {
-	    return (i);
+	    return i;
 	}
     }
 
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/
@@ -219,10 +219,10 @@ int ndi_find_temp_bound_index(double default_temp, edist_data *edist,
 	/* Leave the defaults */
     } else {
 	/* No temperature data given */
-	return (-9);
+	return -9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -284,7 +284,7 @@ int ndi_find_bounds_index(double *x, int numpts, double xin,
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -296,9 +296,9 @@ static double ndi_find_closest_bound_index(double inval, double val1,
     /* default_temp is a global variable */
 
     if (fabs(val1 - inval) <= fabs(inval - val2)) {
-	return (val1);
+	return val1;
     } else {
-	return (val2);
+	return val2;
     }
 
 }

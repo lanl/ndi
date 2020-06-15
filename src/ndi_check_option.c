@@ -54,7 +54,7 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
     int ierr = 0;		/* Error flag: 0=no error, pos=warning, neg=error */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
    /*** Check that NDI is initialized ***/
@@ -194,7 +194,7 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -217,7 +217,7 @@ static int ndi_get_lib_type(state_struct *state, char *value,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if ((state->particle_type == 1) && (state->library_type == 'm')) {
@@ -244,7 +244,7 @@ static int ndi_get_lib_type(state_struct *state, char *value,
 	ierr = 9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -264,7 +264,7 @@ static int ndi_get_library(state_struct *state, char *value,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->library_vers) {
@@ -275,7 +275,7 @@ static int ndi_get_library(state_struct *state, char *value,
 	strncpy(value, "default", string_size);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -294,7 +294,7 @@ static int ndi_get_mat_order(state_struct *state, char *value, int string_size)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->mat_order == 'd') {
@@ -306,7 +306,7 @@ static int ndi_get_mat_order(state_struct *state, char *value, int string_size)
 	ierr = 9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -332,7 +332,7 @@ static int ndi_get_collapse(state_struct *state, char *value,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (*state->n_group != '\0') {
@@ -340,7 +340,7 @@ static int ndi_get_collapse(state_struct *state, char *value,
     } else {
 	strncpy(value, "default", string_size);
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -364,7 +364,7 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
     char temp_str[11] = "diag_";
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->trans_corr == ' ') {
@@ -388,7 +388,7 @@ static int ndi_get_trans_corr_diag(state_struct *state, char *value,
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -408,7 +408,7 @@ static int ndi_get_norm(state_struct *state, char *value, int string_size)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->no_norm == 0) {
@@ -420,7 +420,7 @@ static int ndi_get_norm(state_struct *state, char *value, int string_size)
 	ierr = 9;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -441,7 +441,7 @@ static int ndi_get_reac_id(state_struct *state, char *value,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->reac_id == 'm') {
@@ -453,7 +453,7 @@ static int ndi_get_reac_id(state_struct *state, char *value,
 	ierr = -27;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -489,7 +489,7 @@ static int ndi_get_e_avg(state_struct *state, char *value, int string_size)
 	ierr = -27;
     }
 
-    return (ierr);
+    return ierr;
 
 
 }
@@ -528,7 +528,7 @@ static int ndi_get_kerma_calc(state_struct *state, char *value,
 	ierr = -27;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -552,7 +552,7 @@ static int ndi_get_qsigf_calc(state_struct *state, char *value,
 	ierr = -27;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

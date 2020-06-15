@@ -189,7 +189,7 @@ int ndi_sigf_avail(const state_struct *state)
 	return_val = -1;	/* True: sig_react_18 available */
     }
 
-    return (return_val);
+    return return_val;
 }
 
 /*********************************************************************/

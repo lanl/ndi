@@ -45,7 +45,7 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
 
     if (is_gendir(state)) {
@@ -64,7 +64,7 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
 	/* Incompatible library type -- bad input key */
 	ierr = -4;
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -76,12 +76,12 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Check if isotope is set  */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -100,7 +100,7 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -118,7 +118,7 @@ static int get_reac_mt(state_struct *state, const char *rprod_in,
     if (state) {
 	curr_targ = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
     /* CHECK ERRORS */
@@ -127,30 +127,30 @@ static int get_reac_mt(state_struct *state, const char *rprod_in,
 	ierr = ndi_set_default_depl(state);
     }
     if (state->num_target <= 0) {
-	return (-7);
+	return -7;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-	return (ierr);
+	return ierr;
     }
 
     curr_prod = curr_targ->rprod;
     curr_index = curr_targ->num_rprods;
     ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
     if (curr_index == -1) {
-	return (ierr);
+	return ierr;
     }
 
     if (vec_size < curr_prod->num_reac) {
-	return (7);
+	return 7;
     }
 
     for (i = 0; i < curr_prod->num_reac; i++) {
 	return_vec[i] = curr_prod->mt[i];
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

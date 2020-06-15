@@ -54,16 +54,16 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 
     /* Check that ndi_init has been called. */
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (!state->ndi_initialized) {
-	return (-2);
+	return -2;
     }
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
 	/*  32-bit operation not implemented on 64-bit platform */
-	return (-10);
+	return -10;
     }
 #endif
 
@@ -86,7 +86,7 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 	ierr = -4;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -100,12 +100,12 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -179,7 +179,7 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -192,12 +192,12 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
 
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -225,7 +225,7 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -238,12 +238,12 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -307,7 +307,7 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -332,22 +332,22 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
     interp_params curr_interp;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* INITIALIZE */
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Set current particle */
     if ((state->curr_part_index < 0) ||
 	(state->curr_part_index >= state->sec_part_filled))
-	return (-30);
+	return -30;
 
     part = &(state->tn_stat.sec_part[state->curr_part_index]);
     if (!part)
-	return (-30);
+	return -30;
 
     /* Find closest temperature */
     num_temps = part->temp_interp.npts;
@@ -355,7 +355,7 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
 	ndi_find_temp_bound_index(state->default_temp, part->edist,
 				  num_temps, &hi, &lo, &curr_temp_index);
     if (ierr < 0)
-	return (-30);
+	return -30;
 
 
     /* Initialize distribution variables */
@@ -376,7 +376,7 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
 	    ndi_free((void **) &distr_E);
 	if (distr_prob)
 	    ndi_free((void **) &distr_prob);
-	return (-30);
+	return -30;
     }
 
 
@@ -390,7 +390,7 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
     /* Change from double to correct float type */
     *ret_val = (FLOAT_TYPE) Eavg;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

@@ -25,11 +25,11 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
     char tmp_str[MAX_IN_STR_LEN] = "";
 
     if (str_size < 1) {
-	return (7);
+	return 7;
     }
 
     if (ndi_special_sza(sza, sym_str, str_size)) {
-	return (0);
+	return 0;
     }
 
     ierr = ndi_parse_int_zaid(sza, &Z, &A, &S);
@@ -68,5 +68,5 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
 	}
 	ierr = 7;
     }
-    return (ierr);
+    return ierr;
 }

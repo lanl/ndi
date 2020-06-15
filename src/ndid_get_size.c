@@ -51,7 +51,7 @@ int ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
 
     ierr = ndi_count_nodes(root, arr_num);
     ndi_close_tree(&root);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -88,7 +88,7 @@ int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
 
     ierr = ndi_count_size(root, arr_size);
     ndi_close_tree(&root);
-    return (ierr);
+    return ierr;
 
 }
 

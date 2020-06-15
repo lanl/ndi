@@ -86,7 +86,7 @@ int NDIMP_GET_FLOAT_VEC(state_struct *h, int in_key,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -120,7 +120,7 @@ static int GET_COMB_FLOAT_VEC(state_struct *handle[],
     }
 
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -163,7 +163,7 @@ static int GET_MPMG_CHI_MAT(state_struct *h,
 
     for (in = 0; in < num_parts; in++) {
 	if (!(in_part = (handle[in]))) {
-	    return (-99);
+	    return -99;
 	}
 	/* NO TRANSPOSE */
 	transpose_state = in_part->mat_order;
@@ -205,7 +205,7 @@ static int GET_MPMG_CHI_MAT(state_struct *h,
 	in_part->mat_order = transpose_state;
     }				/* in loop */
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

@@ -46,7 +46,7 @@ int ndi_c_get_string_vec_h(state_struct *state, int in_key, char *str_arr,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return (-2);
+	return -2;
     }
     if (is_gendir(state)) {
 	ierr = get_string_vec_gendir(state, in_key, str_arr, arr_size);
@@ -64,7 +64,7 @@ int ndi_c_get_string_vec_h(state_struct *state, int in_key, char *str_arr,
 	/* Incompatible library type  -- bad input key */
 	ierr = -4;
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -80,12 +80,12 @@ static int get_string_vec_gendir(state_struct *state, int in_key,
     char *in_value;
 
     if (!state) {		/* check state sanity */
-	return (-2);
+	return -2;
     }
 
     in_value = ndi_get_section(state);
     if (in_value == 0) {
-	return (-16);		/* Library type not set */
+	return -16;		/* Library type not set */
     }
 
     /* Open gendir */
@@ -104,7 +104,7 @@ static int get_string_vec_gendir(state_struct *state, int in_key,
 	ierr = ndi_collect_keys(root, str_arr, arr_size);
     }
     ndi_close_tree(&root);
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

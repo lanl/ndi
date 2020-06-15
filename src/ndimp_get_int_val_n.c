@@ -47,7 +47,7 @@ int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -72,7 +72,7 @@ static int get_comb_reac_mt_n(state_struct *h,
     if (mt_arr)
 	ndi_free((void **) &mt_arr);
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -97,7 +97,7 @@ static int get_last_group_n(state_struct *h,
     /* Should vec_num be part type? and translate to particle index? */
 
     if (end_index > num_parts) {
-	return (-33);
+	return -33;
     }
 
     for (i = 0; i <= end_index; i++) {
@@ -111,7 +111,7 @@ static int get_last_group_n(state_struct *h,
 
     *return_val = sum;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

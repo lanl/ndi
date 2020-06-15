@@ -68,32 +68,32 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     NDI_INIT_FLOAT_VEC(return_vec, return_size);
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Check that ndi_init has been called. */
     if (!state->ndi_initialized) {
-	return (-2);
+	return -2;
     }
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
 	ierr = -2;
-	return (ierr);
+	return ierr;
     }
 #endif
 
     if (state->library_type == ' ') {
 	/* Library type was not set */
-	return (-16);
+	return -16;
     } else if ((state->library_type != 'm') &&
 	       (state->library_type != 'd')) {
 	/* Incompatible library -- Bad input key */
-	return (-4);
+	return -4;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return (-7);
+	return -7;
     }
 
    /*************************/
@@ -254,7 +254,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     if ((tmp_err != 0) && (ierr >= 0)) {
 	ierr = tmp_err;
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -285,12 +285,12 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 	diag_size = (num_grps * (num_grps + 1)) / 2;
 	full_mat_size = num_grps * num_grps;
     } else {
-	return (-2);
+	return -2;
     }
 
     if (num_grps <= 0) {
 	ierr = 9;
-	return (ierr);
+	return ierr;
     }
 
     if (down_diag->num_objs > 0) {
@@ -304,7 +304,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 						  sizeof(FLOAT_TYPE));
 		    curr_vec_size = diag_size;
 		    if (!temp_vec)
-			return (-14);
+			return -14;
 		    curr_vec = temp_vec;
 		}
 		ierr =
@@ -317,7 +317,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			(FLOAT_TYPE *) ndi_malloc(full_mat_size *
 						  sizeof(FLOAT_TYPE));
 		    if (!temp_mat)
-			return (-14);
+			return -14;
 		    ierr =
 			NDI_DIAG2FULL(NULL, 0, curr_vec, diag_size,
 				      num_grps, num_grps, temp_mat);
@@ -347,7 +347,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 			(FLOAT_TYPE *) ndi_malloc(full_mat_size *
 						  sizeof(FLOAT_TYPE));
 		    if (!temp_mat)
-			return (-14);
+			return -14;
 		    ierr =
 			NDI_READ_FLOAT_BLOCK(stream,
 					     full_mat->stat[vec_num].
@@ -401,7 +401,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
 	ndi_free((void **) &temp_mat);
     if (temp_vec)
 	ndi_free((void **) &temp_vec);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -426,12 +426,12 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
     NDI_INIT_FLOAT_VEC(return_mat, return_size);
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (num_grps <= 0) {
 	ierr = 9;
-	return (ierr);
+	return ierr;
     }
 
     if (state->collapse_flag) {
@@ -440,7 +440,7 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 	temp_mat_size = num_full_mat;
 	if (!temp_mat) {
 	    /* Out of memory */
-	    return (-14);
+	    return -14;
 	}
     } else {
 	temp_mat = return_mat;
@@ -527,7 +527,7 @@ static int GET_FULL_PN_MAT(state_struct *state, FILE *stream,
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -573,7 +573,7 @@ static int NDI_DIAG2FULL(FLOAT_TYPE * low_diag, int num_ld,
 	    }
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -626,7 +626,7 @@ static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
 	    ierr = -25;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -644,12 +644,12 @@ static int PN_FULL_TRANS_CORR(state_struct *state,
     if (state) {
 	num_grps = state->iso_stat.num_grps;
     } else {
-	return (-2);
+	return -2;
     }
 
     if (num_grps <= 0) {
 	ierr = 9;
-	return (ierr);
+	return ierr;
     }
 
     if (state->collapse_flag)
@@ -675,7 +675,7 @@ static int PN_FULL_TRANS_CORR(state_struct *state,
     }
     if (corr)
 	ndi_free((void **) &corr);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -696,12 +696,12 @@ static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
     if (state) {
 	num_grps = state->iso_stat.num_grps;
     } else {
-	return (-2);
+	return -2;
     }
 
     if (num_grps <= 0) {
 	ierr = 9;
-	return (ierr);
+	return ierr;
     }
 
     if (state->collapse_flag)
@@ -736,7 +736,7 @@ static int PN_DOWN_FULL_TRANS_CORR(state_struct *state,
     }
     if (corr)
 	ndi_free((void **) &corr);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -759,7 +759,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
     if (state) {
 	full_mat_size = sec_part->num_grps * state->iso_stat.num_grps;
     } else {
-	return (-2);
+	return -2;
     }
 
 
@@ -828,7 +828,7 @@ static int GET_PN_PROD_FULL(state_struct *state, FILE *stream,
 	/* Error: no data for this isotope */
 	ierr = 9;
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -845,7 +845,7 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
     FLOAT_TYPE *temp_vec = NULL;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->collapse_flag) {
@@ -858,7 +858,7 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
     ierr = NDI_INIT_FLOAT_VEC(return_vec, vec_size);
     temp_vec = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
     if (!temp_vec) {
-	return (-14);           /* Out of memory */
+	return -14;           /* Out of memory */
     }
 
     /* Don't transpose or correct matrix, 
@@ -887,7 +887,7 @@ static int GET_DIAG_CORR(state_struct *state, int vec_num,
     if (temp_vec)
 	ndi_free((void **) &temp_vec);
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -907,7 +907,7 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
 
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->collapse_flag) {
@@ -926,7 +926,7 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
     temp_vec = (FLOAT_TYPE *) ndi_malloc(array_size * sizeof(FLOAT_TYPE));
     if (!temp_vec) {
 	/* Out of memory */
-	return (-14);
+	return -14;
     }
 
     /*  Don't transpose matrix, but save user-defined transpose & trans. cor. state */
@@ -958,7 +958,7 @@ static int GET_BHS_CORR(state_struct *state, int vec_num,
     if (temp_vec)
 	ndi_free((void **) &temp_vec);
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -982,7 +982,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
    /*** Check for non-fissionable isotopes ***/
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     switch (n_type) {
@@ -1001,7 +1001,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
     }
 
     if (ierr < 0)
-	return (ierr);
+	return ierr;
 
     transpose_state = state->mat_order;	/* remember user transpose */
     state->mat_order = 'd';	/* turn transpose off */
@@ -1057,7 +1057,7 @@ static int GET_TRANSFER_MAT(state_struct *state, int n_type, int vec_num,
 	if (scat_mat)
 	    ndi_free((void **) &scat_mat);
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -1114,10 +1114,10 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 /*     assert(0 <= vec_num && vec_num < MAX_NU); */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
     if ((vec_num < 0) || (vec_num >= MAX_NU)) {
-	return (-6);
+	return -6;
     }
 
     /* get number of groups */
@@ -1129,11 +1129,11 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     /* get nu */
     nu = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu)
-	return (-14);		/* out of memory */
+	return -14;		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_PR, nu, num_grps);
     if (ierr < 0)
-	return (ierr);
+	return ierr;
 
     sigma = sqrt(2.0) * 1.08;	/* Terrell's fit value */
 
@@ -1153,7 +1153,7 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
 
     if (nu)
 	ndi_free((void **) &nu);
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -1231,10 +1231,10 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
 /*     assert(0 <= i && i < MAX_NU); */
 
     if (!state) {
-	return (-2);
+	return -2;
     }
     if ((i < 0) || (i >= MAX_NU)) {
-	return (-6);
+	return -6;
     }
 
     /* get number of groups */
@@ -1246,28 +1246,28 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     /* get nu */
     nu = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu)
-	return (-14);		/* out of memory */
+	return -14;		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_PR, nu, num_grps);
     if (ierr < 0)
-	return (ierr);
+	return ierr;
 
     /* get sig_f */
     nu_sig_f = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu_sig_f)
-	return (-14);		/* out of memory */
+	return -14;		/* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_SIG_F_PR, nu_sig_f, num_grps);
     if (ierr < 0)
-	return (ierr);
+	return ierr;
 
     p = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!p)
-	return (-14);		/* out of memory */
+	return -14;		/* out of memory */
 
     ierr = NDI_INIT_FLOAT_VEC(sig_pnu, num_grps);
     if (ierr < 0)
-	return (ierr);
+	return ierr;
 
     for (j = i; j < MAX_NU; j++) {
 	GET_PNU_PR(state, p, j);	/* get probabilities */
@@ -1290,7 +1290,7 @@ static int GET_SIG_PNU_PR(state_struct *state, FLOAT_TYPE * sig_pnu, int i)
     if (p)
 	ndi_free((void **) &p);
 
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -1381,7 +1381,7 @@ static int TD_HALF_MOMENT(state_struct *state, int half_moment,
         }
     }
 
-    return(ierr);
+    return ierr;
 }
 /*********************************************************************/
 /*********************************************************************/

@@ -54,7 +54,7 @@ NDI2_open_gendir(int *handle, const char *path)
 	ierr = -1;		/* handle array exhausted */
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /*!
@@ -84,7 +84,7 @@ NDI2_close_gendir(int handle)
     state_p = handle_to_state_p(handle);
 
     if (is_gendir(state_p)) {
-        return (__ndi_close_handle(handle));
+        return __ndi_close_handle(handle);
     } else {
 	return -2;
     }
@@ -93,7 +93,7 @@ NDI2_close_gendir(int handle)
 /*! @} end of open_gendir */
 
 /*! \defgroup gendir_set Gendir Handle Set and Check
- *  These functions set and check the gendir handle state, 
+ *  These functions set and check the gendir handle state,
  *  which affects subsequent 
  *  requests for gendir data including the creation state of data handles.
  *  They require a valid gendir handle from \a NDI2_open_gendir, and are 
@@ -148,7 +148,7 @@ NDI2_set_option_gendir(int handle, int in_key, const char *value)
     if (is_gendir(state_p)) {
         if ((in_key >= 1006) && (in_key <= 1100)) {
             new_inkey = in_key - 1000;
-            return (ndi_c_set_option_h(state_p, new_inkey, value));
+            return ndi_c_set_option_h(state_p, new_inkey, value);
         } else {
             return -4;
         }
@@ -210,8 +210,8 @@ NDI2_check_option_gendir(int handle, int in_key, char *out_value,
     if (is_gendir(state_p)) {
         if ((in_key >= 1006) && (in_key <= 1100)) {
             new_inkey = in_key - 1000;
-            return (ndi_c_check_option_h(state_p, new_inkey, out_value, 
-					 string_size));
+            return ndi_c_check_option_h(state_p, new_inkey, out_value,
+					string_size);
         } else {
             return -4;
         }
@@ -276,9 +276,9 @@ NDI2_make_handle(int handle0, const char *type, int *handle1)
 
     child = handle_to_state_p(*handle1);	/* get child state */
     if (ndi_is_library_type(child, type))
-	return (0);
+	return 0;
     else
-	return (ndi_c_set_option_h(child, NDI_LIB_TYPE, type));
+	return ndi_c_set_option_h(child, NDI_LIB_TYPE, type);
 }
 
 /*! @} end of make_handle */
@@ -350,9 +350,9 @@ NDI2_set_zaid(int handle, const char *zaid)
     if (is_gendir(state_p)) {
         return -2;
     } else if (is_mpmg(state_p)) {
-        return (ndimp_set_zaid(state_p, zaid ));
+        return ndimp_set_zaid(state_p, zaid);
     } else {
-        return (ndi_c_set_zaid_h(state_p, zaid));
+        return ndi_c_set_zaid_h(state_p, zaid);
     }
 }
 
@@ -390,7 +390,7 @@ int NDI2_set_zaid_float32_temp(int handle, const char *zaid, ndi_float32 temp)
     } else if (is_mpmg(state_p)) {
         return ndimp_set_zaid_float32_temp(state_p, zaid, temp);
     } else {
-        return (ndi_c_set_zaid_float32_temp_h(state_p, zaid, temp));
+        return ndi_c_set_zaid_float32_temp_h(state_p, zaid, temp);
     }
 }
 
@@ -428,7 +428,7 @@ int NDI2_set_zaid_float64_temp(int handle, const char *zaid, ndi_float64 temp)
     } else if (is_mpmg(state_p)) {
         return ndimp_set_zaid_float64_temp(state_p, zaid, temp);
     } else {
-        return (ndi_c_set_zaid_float64_temp_h(state_p, zaid, temp));
+        return ndi_c_set_zaid_float64_temp_h(state_p, zaid, temp);
     }
 }
 
@@ -470,8 +470,8 @@ int NDI2_set_zaid_float32_temp_sig_0(int handle, const char *zaid,
         return ndimp_set_zaid_float32_temp_sig_0(state_p, zaid, temp,
                                                  sig0);
     } else {
-        return (ndi_c_set_zaid_float32_temp_sig_0_h(state_p, zaid, temp,
-                                                    sig0));
+        return ndi_c_set_zaid_float32_temp_sig_0_h(state_p, zaid, temp,
+                                                   sig0);
     }
 }
 
@@ -513,8 +513,8 @@ int NDI2_set_zaid_float64_temp_sig_0(int handle, const char *zaid,
         return ndimp_set_zaid_float64_temp_sig_0(state_p, zaid, temp,
                                                  sig0);
     } else {
-        return (ndi_c_set_zaid_float64_temp_sig_0_h(state_p, zaid, temp,
-                                                    sig0));
+        return ndi_c_set_zaid_float64_temp_sig_0_h(state_p, zaid, temp,
+                                                   sig0);
     }
 }
 
@@ -551,7 +551,7 @@ NDI2_set_reaction(int handle, const char *zaid)
     } else if (is_mpmg(state_p)) {
         return -4;
     } else {
-        return (ndi_c_set_reaction_h(state_p, zaid));
+        return ndi_c_set_reaction_h(state_p, zaid);
     }
 }
 
@@ -603,9 +603,9 @@ NDI2_set_option(int handle, int in_key, const char *value)
     state_p = handle_to_state_p(handle);
 
     if (is_mpmg(state_p) && in_key == NDI_LIBRARY) {
-	return (ndimp_set_option(state_p, in_key, value));
+	return ndimp_set_option(state_p, in_key, value);
     } else {
-        return (ndi_c_set_option_h(state_p, in_key, value));
+        return ndi_c_set_option_h(state_p, in_key, value);
     }
 }
 
@@ -648,8 +648,8 @@ NDI2_set_float64_vec_option(int handle, int in_key,
         /* Case not handled currently */
         return -2;
     } else {
-        return (ndi_c_set_float64_vec_option_h(state_p, in_key, option_array, 
-                                               array_size));
+        return ndi_c_set_float64_vec_option_h(state_p, in_key, option_array,
+                                              array_size);
     }
 }
 
@@ -700,7 +700,7 @@ NDI2_check_option(int handle, int in_key, char *out_value, int string_size)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_check_option_h(state_p, in_key, out_value, string_size));
+    return ndi_c_check_option_h(state_p, in_key, out_value, string_size);
 }
 
 /*! @} end of handle_set */
@@ -887,7 +887,7 @@ NDI2_get_size(int handle, int in_key, int *ierr)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_size_h(state_p, in_key, ierr));
+    return ndi_c_get_size_h(state_p, in_key, ierr);
 }
 
 /*!
@@ -979,7 +979,7 @@ NDI2_get_size_n(int handle, int in_key, int vec_num, int *ierr)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_size_n_h(state_p, in_key, vec_num, ierr));
+    return ndi_c_get_size_n_h(state_p, in_key, vec_num, ierr);
 }
 
 
@@ -1028,7 +1028,7 @@ NDI2_get_size_x(int handle, int in_key, const char *in_str,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_size_x_h(state_p, in_key, in_str, ierr));
+    return ndi_c_get_size_x_h(state_p, in_key, in_str, ierr);
 }
 
 /*!
@@ -1092,7 +1092,7 @@ NDI2_get_int_val(int handle, int in_key, int *ret_val)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_int_val_h(state_p, in_key, ret_val));
+    return ndi_c_get_int_val_h(state_p, in_key, ret_val);
 }
 
 /*!
@@ -1143,7 +1143,7 @@ NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_int_val_n_h(state_p, in_key, vec_num, ret_val));
+    return ndi_c_get_int_val_n_h(state_p, in_key, vec_num, ret_val);
 }
 
 /*!
@@ -1158,7 +1158,7 @@ NDI2_get_int_val_n(int handle, int in_key, int vec_num, int *ret_val)
 
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought.
-  \param return_vec: integer output array, allocated by the user, 
+  \param return_vec: integer output array, allocated by the user,
   containing the values returned by NDI.
   \param vec_size: integer input indicating the allocated size of return_vec.
   \param ndi_err: integer output error code (Fortran only)
@@ -1194,7 +1194,7 @@ NDI2_get_int_vec(int handle, int in_key, int *return_vec, int vec_size)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_int_vec_h(state_p, in_key, return_vec, vec_size));
+    return ndi_c_get_int_vec_h(state_p, in_key, return_vec, vec_size);
 }
 
 /*!
@@ -1242,8 +1242,8 @@ NDI2_get_int_vec_n(int handle, int in_key, int vec_num,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_int_vec_n_h(state_p, in_key, vec_num, 
-                                      return_vec, vec_size));
+    return ndi_c_get_int_vec_n_h(state_p, in_key, vec_num,
+                                 return_vec, vec_size);
 }
 
 /*!
@@ -1281,8 +1281,8 @@ NDI2_get_int_vec_x(int handle, int in_key, const char *in_str,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_int_vec_x_h(state_p, in_key, in_str, 
-                                      return_vec, vec_size));
+    return ndi_c_get_int_vec_x_h(state_p, in_key, in_str,
+                                 return_vec, vec_size);
 }
 
 /*!
@@ -1321,7 +1321,7 @@ NDI2_get_float32_val(int handle, int in_key, ndi_float32 *ret_val)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float32_val_h(state_p, in_key, ret_val));
+    return ndi_c_get_float32_val_h(state_p, in_key, ret_val);
 }
 
 /*!
@@ -1363,7 +1363,7 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
         *ret_val = 0.0;
         return -2;
     } else {
-        return (ndi_c_get_float32_val_n_h(state_p, in_key, vec_num, ret_val));
+        return ndi_c_get_float32_val_n_h(state_p, in_key, vec_num, ret_val);
     }
 }
 
@@ -1379,7 +1379,7 @@ NDI2_get_float32_val_n(int handle, int in_key, int vec_num,
 
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought.
-  \param return_vec: float32 output array, allocated by the user, 
+  \param return_vec: float32 output array, allocated by the user,
   containing the values returned by NDI.
   \param vec_size: integer input indicating the allocated size of return_vec.
   \param ndi_err: integer output error code (Fortran only)
@@ -1441,7 +1441,7 @@ NDI2_get_float32_vec(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float32_vec_h(state_p, in_key, return_vec, vec_size));
+    return ndi_c_get_float32_vec_h(state_p, in_key, return_vec, vec_size);
 }
 
 /*!
@@ -1488,17 +1488,15 @@ NDI2_get_float32_vec_n(int handle, int in_key, int vec_num,
 
     state_p = handle_to_state_p(handle);
     if (is_mpmg(state_p)) {
-	return (ndimp_get_float32_vec_n(state_p,
-					in_key, vec_num, 
-					return_vec, vec_size));
+	return ndimp_get_float32_vec_n(state_p, in_key, vec_num,
+				       return_vec, vec_size);
     } else if (is_gendir(state_p)) {
         /* Case not handled currently */
         (void)ndi_init_float32_vec(return_vec, vec_size);
         return -2;
     } else {
-	return (ndi_c_get_float32_vec_n_h(state_p, 
-					  in_key, vec_num, 
-					  return_vec, vec_size));
+	return ndi_c_get_float32_vec_n_h(state_p, in_key, vec_num,
+					 return_vec, vec_size);
     }
 }
 
@@ -1541,8 +1539,8 @@ NDI2_get_float32_vec_x(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float32_vec_x_h(state_p, in_key, in_str, 
-				      return_vec, vec_size));
+    return ndi_c_get_float32_vec_x_h(state_p, in_key, in_str,
+				     return_vec, vec_size);
 }
 
 /*!
@@ -1581,7 +1579,7 @@ NDI2_get_float64_val(int handle, int in_key, ndi_float64 *ret_val)
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float64_val_h(state_p, in_key, ret_val));
+    return ndi_c_get_float64_val_h(state_p, in_key, ret_val);
 }
 
 /*!
@@ -1623,7 +1621,7 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
         *ret_val = 0.0;
         return -2;
     } else {
-        return (ndi_c_get_float64_val_n_h(state_p, in_key, vec_num, ret_val));
+        return ndi_c_get_float64_val_n_h(state_p, in_key, vec_num, ret_val);
     }
 }
 
@@ -1639,7 +1637,7 @@ NDI2_get_float64_val_n(int handle, int in_key, int vec_num,
 
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought.
-  \param return_vec: float64 output array, allocated by the user, 
+  \param return_vec: float64 output array, allocated by the user,
   containing the values returned by NDI.
   \param vec_size: integer input indicating the allocated size of return_vec.
   \param ndi_err: integer output error code (Fortran only)
@@ -1701,7 +1699,7 @@ NDI2_get_float64_vec(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float64_vec_h(state_p, in_key, return_vec, vec_size));
+    return ndi_c_get_float64_vec_h(state_p, in_key, return_vec, vec_size);
 }
 
 /*!
@@ -1748,17 +1746,16 @@ NDI2_get_float64_vec_n(int handle, int in_key, int vec_num,
 
     state_p = handle_to_state_p(handle);
     if (is_mpmg(state_p)) {
-	return (ndimp_get_float64_vec_n(state_p,
-					in_key, vec_num, 
-					return_vec, vec_size));
+	return ndimp_get_float64_vec_n(state_p, in_key, vec_num,
+				       return_vec, vec_size);
     } else if (is_gendir(state_p)) {
         /* Case not handled currently */
         (void)ndi_init_float64_vec(return_vec, vec_size);
         return -2;
     } else {
-	return (ndi_c_get_float64_vec_n_h(state_p, 
-					  in_key, vec_num, 
-					  return_vec, vec_size));
+	return ndi_c_get_float64_vec_n_h(state_p,
+					 in_key, vec_num,
+					 return_vec, vec_size);
     }
 }
 
@@ -1800,8 +1797,8 @@ NDI2_get_float64_vec_x(int handle, int in_key,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_float64_vec_x_h(state_p, in_key, in_str, 
-                                          return_vec, vec_size));
+    return ndi_c_get_float64_vec_x_h(state_p, in_key, in_str,
+                                     return_vec, vec_size);
 }
 
 /*!
@@ -1815,7 +1812,7 @@ NDI2_get_float64_vec_x(int handle, int in_key,
 
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought.
-  \param ret_val: character output array, allocated by the user, 
+  \param ret_val: character output array, allocated by the user,
   containing the values returned by NDI.
   \param str_size: integer input indicating the allocated size of \a ret_val 
   (C only) 
@@ -1859,7 +1856,7 @@ NDI2_get_string_val(int handle, int in_key, char *ret_val,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_string_val_h(state_p, in_key, ret_val, str_size));
+    return ndi_c_get_string_val_h(state_p, in_key, ret_val, str_size);
 }
 
 /*!
@@ -1912,8 +1909,8 @@ NDI2_get_string_val_n(int handle, int in_key, int vec_num,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_string_val_n_h(state_p, in_key, vec_num, 
-				     ret_val, str_size));
+    return ndi_c_get_string_val_n_h(state_p, in_key, vec_num,
+				    ret_val, str_size);
 }
 
 /*!
@@ -1921,7 +1918,7 @@ NDI2_get_string_val_n(int handle, int in_key, int vec_num,
 
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought
-  \param ret_val: string output array, allocated by the user, 
+  \param ret_val: string output array, allocated by the user,
   containing the values returned by NDI.
   \param str_size: integer input indicating allocated size of ret_val (C only).
   \param lvec: integer input indicating length of string array (Fortran only)
@@ -1949,7 +1946,7 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_string_vec_h(state_p, in_key, ret_val, str_size));
+    return ndi_c_get_string_vec_h(state_p, in_key, ret_val, str_size);
 }
 
 /*!
@@ -1959,7 +1956,7 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
   \param handle: integer input handle
   \param in_key: integer input key indicating the data sought
   \param in_str: string input key indicating the data sought
-  \param ret_val: string output array, allocated by the user, 
+  \param ret_val: string output array, allocated by the user,
   containing the values returned by NDI.
   \param str_size: integer input indicating allocated size of ret_val (C only).
   \param lvec: integer input indicating length of string array (Fortran only)
@@ -1981,14 +1978,14 @@ NDI2_get_string_vec(int handle, int in_key, char *ret_val,
  
 */
 int 
-NDI2_get_string_vec_x(int handle, int in_key, const char *in_str, 
+NDI2_get_string_vec_x(int handle, int in_key, const char *in_str,
 		      char *ret_val, int str_size)
 {
     state_struct *state_p;
 
     state_p = handle_to_state_p(handle);
-    return (ndi_c_get_string_vec_x_h(state_p, in_key, in_str, 
-				     ret_val, str_size));
+    return ndi_c_get_string_vec_x_h(state_p, in_key, in_str,
+				    ret_val, str_size);
 }
 
 /*! @} end of handle_get */

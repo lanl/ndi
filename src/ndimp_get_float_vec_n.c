@@ -53,7 +53,7 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -94,7 +94,7 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 
     for (in = 0; in < num_parts; in++) {
 	if (!(in_part = (handle[in]))) {
-	    return (-99);
+	    return -99;
 	}
 	/* NO TRANSPOSE */
 	transpose_state = in_part->mat_order;
@@ -115,12 +115,12 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 	for (out = 0; out < num_parts; out++) {
 	    if (!(out_part = (handle[out]))) {
 		in_part->mat_order = transpose_state;
-		return (-99);
+		return -99;
 	    }
 	    /* Check that each particle is multigroup */
 	    if (out_part->library_type != 'm') {
 		in_part->mat_order = transpose_state;
-		return (-99);
+		return -99;
 	    }
 	    tmp_err =
 		ndi_c_get_int_val_h(out_part, NDI_NUM_GRPS, &num_grps_out);
@@ -217,7 +217,7 @@ static int GET_MP_SCAT_MAT(state_struct *h,
 	in_part->mat_order = transpose_state;
     }				/* in loop */
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -256,5 +256,5 @@ static int GET_COMB_FLOAT_VEC_N(state_struct *h,
     }
 
 
-    return (ierr);
+    return ierr;
 }
