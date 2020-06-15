@@ -102,7 +102,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
             } else {
                 /* Error reading file */
                 ierr = -11;
-                return (ierr);
+                return ierr;
             }
 	}
     }

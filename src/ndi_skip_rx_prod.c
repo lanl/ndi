@@ -69,7 +69,7 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	} else {
             if (fscanf(stream, "%d\n%d\n", &curr_mt, &num_prod) == EOF) {
                 /* Error reading file--reaction product data not read */
-                return (-11);
+                return -11;
             }
 	}
     } else {
@@ -81,7 +81,7 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	} else {
             if (fscanf(stream, "%d\n", &num_prod) == EOF) {
                 /* Error reading file--reaction product data not read */
-                return (-11);
+                return -11;
             }
 	}
     }
@@ -109,7 +109,6 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	} else {
 	    if (fgets(in_line, sizeof(in_line), stream) == NULL) {
                 /* Error reading file */
-                return -11;
             }
             tok_str = in_line;
 
@@ -138,37 +137,6 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
             	    } else {
                         /* Error reading file */
                         return -11;
-                    }
-                }
-                ++prod_count;
-            }
-            tok_str = in_line;
-
-	    prod_count = 0;
-	    while (prod_count < num_prod) {
-        	/*  Read reaction product id from string  */
-        	token = strtok(tok_str, seps);
-        	while (token == NULL) {
-            	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-                	tok_str = in_line;
-                	token = strtok(tok_str, seps);
-            	    } else {
-                	/* Error reading file */
-                	return (-11);
-            	    }
-        	}
-        	tok_str = NULL;
-
-        	/*  Read reaction product multiplicity  */
-        	token = strtok(tok_str, seps);
-        	while (token == NULL) {
-            	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-                	tok_str = in_line;
-                	token = strtok(tok_str, seps);
-                	tok_str = NULL;
-            	    } else {
-                        /* Error reading file */
-                        return (-11);
                     }
                 }
                 ++prod_count;

@@ -137,6 +137,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
         }
 
         if (feof(stream)) return -11;
+
 	/* Read in the zaid */
 	n = fread(izaid, sizeof(izaid), 1, stream);
 
@@ -163,7 +164,7 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
-	return (-17);
+	return -17;
     }
     if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
@@ -239,14 +240,14 @@ static int read_mg_data(state_struct *state, FILE *stream,
             } else {
                 if (fgets(state->iso_stat.info, sizeof(state->iso_stat.info),
                     stream) == NULL) ierr = -11;
-            }
-            if (ierr < 0) {
-                /* Error reading string line */
-                return ierr;
-            }
-        }
-        /* Data type -- currently not kept */
-        else if (strncmp(in_keyword, "data_type", 10) == 0) {
+	    }
+	    if (ierr < 0) {
+		/* Error reading string line */
+		return ierr;
+	    }
+	}
+	/* Data type -- currently not kept */
+	else if (strncmp(in_keyword, "data_type", 10) == 0) {
 	    char junk[MAX_IN_STR_LEN];
             if (binary) {
                 ierr = read_string_line(stream, junk, sizeof(junk));
@@ -308,7 +309,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	    ierr = read_int_val(stream, &state->iso_stat.num_grps, binary);
 	    if ( ierr < 0 ) {
 		/* Error reading file */
-		return (ierr);
+		return ierr;
 	    }
 	}
 	/* Last neutron group */
@@ -317,7 +318,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* Temperature */
@@ -325,7 +326,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
             ierr = read_float_val(stream, &state->iso_stat.temp, binary);
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* sig_0 */
@@ -334,7 +335,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* upscatter_groups */
@@ -343,7 +344,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* downscatter_groups */
@@ -352,7 +353,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* atomic weight */
@@ -361,7 +362,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* atomic weight ratio */
@@ -370,7 +371,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* number of reactions which have cross-section data */
@@ -379,7 +380,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 	/* number of scattering matrices */
@@ -388,7 +389,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
 	}
 
@@ -590,7 +591,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
             }
             ierr = ndi_create_mg_sec_part(state, state->iso_stat.num_sec_parts,
                                           &state->iso_stat.sec_part);
@@ -648,7 +649,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "num_grps_", &part_type);
@@ -671,7 +672,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
             if ( ierr < 0 ) {
                 /* Error reading file */
-                return (ierr);
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "pn_order_", &part_type);
@@ -1402,7 +1403,7 @@ static int read_dedx_data(state_struct *state, FILE *stream,
 
         /* end */
         else if (strncmp(in_keyword, "end", 4) == 0) {
-            return (ierr);
+            return ierr;
         }
 
       /**************  UNKNOWN KEYWORD  *****************/
@@ -2370,7 +2371,7 @@ static int read_int_val(FILE *stream, int *value, int binary)
     
     if (n == EOF) ierr = -11;
  
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -2434,7 +2435,7 @@ int ndi_read_double_block(FILE *stream, long file_pos,
             } else {
                 /* Error reading file */
                 ierr = -11;
-                return (ierr);
+                return ierr;
             }
 	}
     }
@@ -2485,7 +2486,7 @@ static int set_target_dedx(FILE *stream, multi_stat *dedx,
             ierr = -14;
         }
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
