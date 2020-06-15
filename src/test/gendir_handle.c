@@ -22,7 +22,7 @@ int main ()
    char option[OPT_SIZE];
    char zaid[ZAID_SIZE];
  
-   int size;
+   int size, zaid_size;
    char *str_arr;
    ndi_float64 *flt_arr;
    
@@ -72,7 +72,7 @@ int main ()
 
    /* Requirement 45 */
 
-   printf("  List of U zaids\n");
+   printf("  List of U zaids\n\n");
    size = NDI2_get_size_x(gendir0, NDI_ZAID, "92", &ierr);
    if (ierr != 0) {
        printf("    **Error getting zaid size is %d\n", ierr);
@@ -82,10 +82,10 @@ int main ()
        ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92", str_arr, size);
        if (ierr != 0) 
 	   printf("    **Error getting zaids is %d\n", ierr);
+       print_string_vec(str_arr, size);
        size = NDI2_get_size_x(gendir0, NDI_TEMP, "92", &ierr);
        if (ierr != 0)
 	   printf("    ** Error getting temp size is %d\n", ierr);
-       print_string_vec(str_arr, size);
        free(str_arr);
    }
        
@@ -102,6 +102,101 @@ int main ()
        print_float64_vec(flt_arr, size);
        free(flt_arr);
    }
+
+   /* Test different ZAID formats */
+
+   printf("  List of atomic weights and ZAIDS, 92235\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92235", &ierr);
+   if (ierr != 0) printf("    ** Error getting at_wgt size is %d\n", ierr);
+   zaid_size = NDI2_get_size_x(gendir0, NDI_ZAID, "92235", &ierr);
+   if (ierr != 0) {
+       printf("    ** Error getting zaid size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", zaid_size);
+       str_arr = (char *) malloc(zaid_size * sizeof(char));
+       ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92235", str_arr, zaid_size);
+       if (ierr != 0)
+           printf("    **Error getting zaids is %d\n", ierr);
+       print_string_vec(str_arr, zaid_size);
+       free(str_arr);
+       printf("  Size of list is %d\n", size);
+       flt_arr = (ndi_float64 *) malloc(size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(gendir0, NDI_AT_WGT, "92235", flt_arr, size);
+       if (ierr != 0)
+           printf("    **Error getting at_wgts is %d\n", ierr);
+       print_float64_vec(flt_arr, size);
+       free(flt_arr);
+   }
+
+   printf("  List of atomic weights and ZAIDS, 92235.6\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92235.6", &ierr);
+   if (ierr != 0) printf("    ** Error getting at_wgt size is %d\n", ierr);
+   zaid_size = NDI2_get_size_x(gendir0, NDI_ZAID, "92235.6", &ierr);
+   if (ierr != 0) {
+       printf("    ** Error getting zaid size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", zaid_size);
+       str_arr = (char *) malloc(zaid_size * sizeof(char));
+       ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92235.6", str_arr, zaid_size);
+       if (ierr != 0)
+           printf("    **Error getting zaids is %d\n", ierr);
+       print_string_vec(str_arr, zaid_size);
+       free(str_arr);
+       printf("  Size of list is %d\n", size);
+       flt_arr = (ndi_float64 *) malloc(size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(gendir0, NDI_AT_WGT, "92235.6", flt_arr, size);
+       if (ierr != 0)
+           printf("    **Error getting at_wgts is %d\n", ierr);
+       print_float64_vec(flt_arr, size);
+       free(flt_arr);
+   }
+
+   printf("  List of atomic weights and ZAIDS, 92235.600\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92235.600", &ierr);
+   if (ierr != 0) printf("    ** Error getting at_wgt size is %d\n", ierr);
+   zaid_size = NDI2_get_size_x(gendir0, NDI_ZAID, "92235.600", &ierr);
+   if (ierr != 0) {
+       printf("    ** Error getting zaid size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", zaid_size);
+       str_arr = (char *) malloc(zaid_size * sizeof(char));
+       ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92235.600", str_arr, zaid_size);
+       if (ierr != 0)
+           printf("    **Error getting zaids is %d\n", ierr);
+       print_string_vec(str_arr, zaid_size);
+       free(str_arr);
+       printf("  Size of list is %d\n", size);
+       flt_arr = (ndi_float64 *) malloc(size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(gendir0, NDI_AT_WGT, "92235.600", flt_arr, size);
+       if (ierr != 0)
+           printf("    **Error getting at_wgts is %d\n", ierr);
+       print_float64_vec(flt_arr, size);
+       free(flt_arr);
+   }
+
+   printf("  List of atomic weights and ZAIDS, 92235.600nm\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92235.600nm", &ierr);
+   if (ierr != 0) printf("    ** Error getting at_wgt size is %d\n", ierr);
+   zaid_size = NDI2_get_size_x(gendir0, NDI_ZAID, "92235.600nm", &ierr);
+   if (ierr != 0) {
+       printf("    ** Error getting zaid size is %d\n", ierr);
+   } else {
+       printf("  Size of list is %d\n", zaid_size);
+       str_arr = (char *) malloc(zaid_size * sizeof(char));
+       ierr = NDI2_get_string_vec_x(gendir0, NDI_ZAID, "92235.600nm", str_arr, zaid_size);
+       if (ierr != 0)
+           printf("    **Error getting zaids is %d\n", ierr);
+       print_string_vec(str_arr, zaid_size);
+       free(str_arr);
+       printf("  Size of list is %d\n", size);
+       flt_arr = (ndi_float64 *) malloc(size * sizeof(ndi_float64));
+       ierr = NDI2_get_float64_vec_x(gendir0, NDI_AT_WGT, "92235.600nm", flt_arr, size);
+       if (ierr != 0)
+           printf("    **Error getting at_wgts is %d\n", ierr);
+       print_float64_vec(flt_arr, size);
+       free(flt_arr);
+   }
+
        
    /* GET HANDLE 0 */
    ierr = NDI2_make_handle(gendir0, "multigroup_neutron", &handle0);
@@ -215,7 +310,7 @@ static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements )
 	 printf("\n");
       printf("%22.15e  ", flt64_ptr[n]);
    }
-   printf("\n");
+   printf("\n\n");
 }
 
 /**********************************************************************/
@@ -224,14 +319,18 @@ static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements )
 
 static void print_string_vec(char *str_arr, int size)
 {
-    int i;
+    int i, count;
     char *t;
+    t = str_arr;
 
-    for (i = 0, t = str_arr; i < size; i++, t += strlen(t)+1) {
-	if ((i > 0) && (i%4 == 0)) printf("\n");
-	printf("%22s", t);
+    i = 0;
+    count = 0;
+    while ( i < size ) {
+	count++;
+	printf(" Isotope %d: zaid=%s\n",count,t);
+        i+= strlen(t)+1;
+	t+= strlen(t)+1;
     }
-    printf("\n");
 }
 
 /**********************************************************************/

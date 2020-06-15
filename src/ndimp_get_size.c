@@ -86,7 +86,7 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
 	break;
     }
 
-    return (return_val);
+    return return_val;
 
 }
 
@@ -114,7 +114,7 @@ static int get_sum_of_particle_sizes(state_struct *h, const int in_key,
 	    }
 	}
     }
-    return (sum);
+    return sum;
 }
 
 /**********************************************************************/
@@ -156,5 +156,5 @@ static int get_num_unique_reac(state_struct *h, int *ierr)
 	ndi_free((void **) &unique_mts);
 
     *ierr = tmp_err;
-    return (num_unique_mts);
+    return num_unique_mts;
 }

@@ -91,7 +91,7 @@ int ndi_open_gendir(FILE **dir_stream, const char *in_path,
 	}
     }
 
-    return (ierr);
+    return ierr;
 }
 
 static int local_isblank(const char *str)

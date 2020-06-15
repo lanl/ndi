@@ -63,7 +63,7 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 	    if (fread(&cur_int_ptr, sizeof(long), 1, stream) < 1) {
 	        /* Error reading file or end of file */
 	        ierr = -11;
-	        return (ierr);
+	        return ierr;
 	    } else {
 	        int_count++;
 	        cur_int_ptr++;
@@ -86,10 +86,10 @@ ndi_read_int_block(FILE *stream, const int num_ints,
             } else {
                 /* Error reading file */
                 ierr = -11;
-                return (ierr);
+                return ierr;
             }
 	}
     }
 
-    return (ierr);
+    return ierr;
 }

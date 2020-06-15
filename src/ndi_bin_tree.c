@@ -63,7 +63,7 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
 
 				default:
 				    /* Invalid key */
-				    return (NULL);
+				    return NULL;
 				}
 				curr_node =
 				    ndi_create_node(str_of_interest);
@@ -90,7 +90,7 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
 	}
     }
 
-    return (root);
+    return root;
 }
 
 /***********************************************************************/
@@ -107,7 +107,7 @@ struct ndi_bin_tree_node *ndi_create_node(char *instr)
     strcpy(tmp_node->key, instr);
     tmp_node->left = NULL;
     tmp_node->right = NULL;
-    return (tmp_node);
+    return tmp_node;
 
 }
 
@@ -124,7 +124,7 @@ struct ndi_bin_tree_node *ndi_create_inode(char *instr, int int_val)
     tmp_node->value.ival = int_val;
     tmp_node->left = NULL;
     tmp_node->right = NULL;
-    return (tmp_node);
+    return tmp_node;
 
 }
 
@@ -141,7 +141,7 @@ struct ndi_bin_tree_node *ndi_create_f32node(char *instr,
     tmp_node->value.f32val = ndi_float32_val;
     tmp_node->left = NULL;
     tmp_node->right = NULL;
-    return (tmp_node);
+    return tmp_node;
 
 }
 
@@ -158,7 +158,7 @@ struct ndi_bin_tree_node *ndi_create_f64node(char *instr,
     tmp_node->value.f64val = float64_val;
     tmp_node->left = NULL;
     tmp_node->right = NULL;
-    return (tmp_node);
+    return tmp_node;
 
 }
 
@@ -199,7 +199,7 @@ int ndi_collect_keys(struct ndi_bin_tree_node *root, char *key_array_p,
     int tmp_size_p = arr_size_p;
 
     ierr = _ndi_collect_keys(root, &tmp_array_p, &tmp_size_p);
-    return (ierr);
+    return ierr;
 }
 
 int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
@@ -226,7 +226,7 @@ int _ndi_collect_keys(struct ndi_bin_tree_node *root, char **key_array_p,
 	/* Handle right branch -- greater than */
 	ierr = _ndi_collect_keys(root->right, key_array_p, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 
@@ -240,7 +240,7 @@ int ndi_collect_ival(struct ndi_bin_tree_node *root, int *int_array_p,
     int *tmp_p = int_array_p;
 
     ierr = _ndi_collect_ival(root, &tmp_p, &tmp_size);
-    return (ierr);
+    return ierr;
 }
 
 int _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
@@ -267,7 +267,7 @@ int _ndi_collect_ival(struct ndi_bin_tree_node *root, int **int_array_p,
 	/* Handle right branch -- greater than */
 	ierr = _ndi_collect_ival(root->right, int_array_p, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 
@@ -281,7 +281,7 @@ int ndi_collect_f32val(struct ndi_bin_tree_node *root,
     ndi_float32 *tmp_p = float32_array_p;
 
     ierr = _ndi_collect_f32val(root, &tmp_p, &tmp_size);
-    return (ierr);
+    return ierr;
 }
 
 int _ndi_collect_f32val(struct ndi_bin_tree_node *root,
@@ -310,7 +310,7 @@ int _ndi_collect_f32val(struct ndi_bin_tree_node *root,
 	ierr =
 	    _ndi_collect_f32val(root->right, float32_array_p, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 
@@ -324,7 +324,7 @@ int ndi_collect_f64val(struct ndi_bin_tree_node *root,
     ndi_float64 *tmp_p = float64_array_p;
 
     ierr = _ndi_collect_f64val(root, &tmp_p, &tmp_size);
-    return (ierr);
+    return ierr;
 }
 
 int _ndi_collect_f64val(struct ndi_bin_tree_node *root,
@@ -353,14 +353,14 @@ int _ndi_collect_f64val(struct ndi_bin_tree_node *root,
 	ierr =
 	    _ndi_collect_f64val(root->right, float64_array_p, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 int ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
-    return (_ndi_count_nodes(root, arr_size_p));
+    return _ndi_count_nodes(root, arr_size_p);
 }
 
 int _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
@@ -381,14 +381,14 @@ int _ndi_count_nodes(struct ndi_bin_tree_node *root, int *arr_size_p)
 	/* Handle right branch -- greater than */
 	ierr = _ndi_count_nodes(root->right, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 int ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 {
 
     *arr_size_p = 0;
-    return (_ndi_count_size(root, arr_size_p));
+    return _ndi_count_size(root, arr_size_p);
 }
 
 int _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
@@ -409,7 +409,7 @@ int _ndi_count_size(struct ndi_bin_tree_node *root, int *arr_size_p)
 	/* Handle right branch -- greater than */
 	ierr = _ndi_count_size(root->right, arr_size_p);
     }
-    return (ierr);
+    return ierr;
 }
 
 int ndi_close_tree(struct ndi_bin_tree_node **root)
@@ -436,7 +436,7 @@ int ndi_close_tree(struct ndi_bin_tree_node **root)
 	}
 
     }
-    return (ierr);
+    return ierr;
 }
 
 

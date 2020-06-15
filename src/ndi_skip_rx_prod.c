@@ -60,28 +60,28 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	if (binary) {
 	    if (fread(&curr_mt, sizeof(int), 1, stream) < 1) {
 	        /* Error reading file--mt number not read */
-	        return (-11);
+	        return -11;
 	    }
             if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
                 /* Error reading file--number of reaction products not read */
-                return (-11);
+                return -11;
             }
 	} else {
             if (fscanf(stream, "%d\n%d\n", &curr_mt, &num_prod) == EOF) {
                 /* Error reading file--reaction product data not read */
-                return (-11);
+                return -11;
             }
 	}
     } else {
 	if (binary) {
 	    if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
 	        /* Error reading file--number of reaction products not read */
-	        return (-11);
+	        return -11;
 	    }
 	} else {
             if (fscanf(stream, "%d\n", &num_prod) == EOF) {
                 /* Error reading file--reaction product data not read */
-                return (-11);
+                return -11;
             }
 	}
     }
@@ -99,17 +99,17 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	    for (int i = 0; i < num_prod; ++i) {
 	        /* Product ID */
 	        if (fread(&num, sizeof(int), 1, stream) < 1) {
-		    return (-11);
+		    return -11;
 	        }
 	        /* Number of product */
                 if (fread(&num, sizeof(int), 1, stream) < 1) {
-                    return (-11);
+                    return -11;
                 }
 	    }
 	} else {
 	    if (fgets(in_line, sizeof(in_line), stream) == NULL) {
                 /* Error reading file */
-                return (-11);
+                return -11;
             }
             tok_str = in_line;
 
@@ -123,7 +123,7 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
                 	token = strtok(tok_str, seps);
             	    } else {
                 	/* Error reading file */
-                	return (-11);
+                	return -11;
             	    }
         	}
         	tok_str = NULL;
@@ -137,7 +137,7 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
                 	tok_str = NULL;
             	    } else {
                         /* Error reading file */
-                        return (-11);
+                        return -11;
                     }
                 }
                 ++prod_count;
@@ -145,5 +145,5 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	}
     }
 
-    return (ierr);
+    return ierr;
 }

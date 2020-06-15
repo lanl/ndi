@@ -34,15 +34,15 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
     double at_wgt = 0.0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->library_type != 'm') {
 	if (state->library_type != ' ') {
-	    return (-16);
+	    return -16;
 	} else {
 	    /* Incompatible library type */
-	    return (-4);
+	    return -4;
 	}
     }
 
@@ -57,7 +57,7 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
     /* Check validity of data read from gendir */
     if (strcmp(lib_path, "") == 0) {
 	ierr = -8;
-	return (-8);
+	return -8;
     }
 
     /* Set global variable to indicate the name of the new depl dataset */
@@ -85,7 +85,7 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
     if (ierr >= 0) {
 	state->ndi_depl_set = -1;
     }
-    return (ierr);
+    return ierr;
 
 }
 
@@ -104,7 +104,7 @@ int ndi_set_default_depl(state_struct *state)
     double at_wgt;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     ierr =
@@ -113,7 +113,7 @@ int ndi_set_default_depl(state_struct *state)
 		     lib_file_type, &iso_start, &at_wgt, -1);
     ierr = ndi_depletion(state, state->depl_dataset);
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -145,7 +145,7 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
 
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /* Initialize output variables */
@@ -156,7 +156,7 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
     if (!state->ndi_depl_set) {
 	/* Depletion option not set */
 	ierr = -30;
-	return (ierr);
+	return ierr;
     }
 
     /* Change target zaid to integer */
@@ -169,7 +169,7 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
     }
 
     if (!curr_targ) {
-	return (-30);
+	return -30;
     }
 
     /* Find target index in depl_target */
@@ -184,13 +184,13 @@ int ndi_set_curr_target(state_struct *state, depl_target_struct **targ_p,
     if (curr_index < 0) {
 	/* Current zaid not found in targets */
 	ierr = -31;
-	return (ierr);
+	return ierr;
     }
 
     *targ_p = curr_targ;
     *target_index = curr_index;
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -221,11 +221,11 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
 
     /* Check input */
     if (!state) {		/* State uninitialized error */
-	return (-2);
+	return -2;
     }
 
     if (!state->ndi_depl_set) {	/* Depletion uninitialized error */
-	return (-30);
+	return -30;
     }
 
     /* Change input rprod to integer */
@@ -241,13 +241,13 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
     }
 
     if (i == num_rprods) {	/* Reaction product not in depletion set error */
-	return (-32);
+	return -32;
     }
 
     *rprod_p = &curr_prod[i];
     *prod_index = i;
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -267,15 +267,15 @@ int ndi_radchem(state_struct *state, const char *in_zaid)
     double at_wgt = 0.0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (state->library_type != 'd') {
 	if (state->library_type != ' ') {
-	    return (-16);
+	    return -16;
 	} else {
 	    /* Incompatible library type */
-	    return (-4);
+	    return -4;
 	}
     }
 
@@ -314,7 +314,7 @@ int ndi_radchem(state_struct *state, const char *in_zaid)
     if (ierr >= 0) {
 	state->ndi_depl_set = -1;
     }
-    return (ierr);
+    return ierr;
 
 }
 

@@ -43,7 +43,7 @@ int ndi_fill_elements(state_struct *state)
     int i;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     /*  Allocate space and zero array  */
@@ -159,6 +159,6 @@ int ndi_fill_elements(state_struct *state)
     state->ndi_elements[element_index("no")] = 102;
     state->ndi_elements[element_index("lr")] = 103;	/* Value of MAX_Z */
 
-    return (ret_code);
+    return ret_code;
 
 }

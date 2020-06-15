@@ -30,9 +30,9 @@ int ndi_comp_zaids(const void *z1, const void *z2)
     a2 = atoi(z2);
 
     if (a1 < a2) {
-	return (-1);
+	return -1;
     } else if (a1 > a2) {
-	return (1);
+	return 1;
     } else {
 	s1 = (int) strlen(z1) + 1;
 	s2 = (int) strlen(z2) + 1;
@@ -40,7 +40,7 @@ int ndi_comp_zaids(const void *z1, const void *z2)
 	    zsize = s1;
 	else
 	    zsize = s2;
-	return (strncmp((char *) z1, (char *) z2, zsize));
+	return strncmp((char *) z1, (char *) z2, zsize);
     }
 }
 
@@ -58,7 +58,7 @@ int ndi_init_int_vec(int *vec, int num_elements)
 	*curr_vec = 0;
 	curr_vec++;
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -75,7 +75,7 @@ int ndi_free_ptr_array(int array_size, char **array)
 	    ndi_free((void **) &array[i]);
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -89,7 +89,7 @@ int ndi_get_rprod_int_n(state_struct *state, int vec_num, int *rprod_id)
     if (state) {
 	curr_target = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
     *rprod_id = 0;
@@ -112,7 +112,7 @@ int ndi_get_rprod_int_n(state_struct *state, int vec_num, int *rprod_id)
 	rprod_id = 0;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -129,7 +129,7 @@ int ndi_get_rprod_vec_mg(state_struct *state, int *rprod_vec, int vec_size)
     if (state) {
 	curr_target = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
     /* Initialize vector with zeroes */
@@ -157,7 +157,7 @@ int ndi_get_rprod_vec_mg(state_struct *state, int *rprod_vec, int vec_size)
 	ierr = -30;
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -174,7 +174,7 @@ ndi_get_rprod_id_n(state_struct *state, int vec_num, char *rprod_id,
     if (state) {
 	curr_target = state->depl_target;
     } else {
-	return (-2);
+	return -2;
     }
 
     ierr = ndi_set_curr_target(state, &curr_target, &curr_index);
@@ -201,7 +201,7 @@ ndi_get_rprod_id_n(state_struct *state, int vec_num, char *rprod_id,
 	strcpy(rprod_id, "");
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -217,10 +217,10 @@ int ndi_check_array_err(int num)
 {
     if (num > 0) {
 	/*  Subscript out of range */
-	return (-6);
+	return -6;
     } else {
 	/* Error: data not available for this isotope */
-	return (9);
+	return 9;
     }
 
 }
@@ -286,11 +286,11 @@ ndi_read_float_pair(FILE *stream, long int file_pos, int num_prs,
 	} else {
 	    /* Error reading file */
 	    ierr = -11;
-	    return (ierr);
+	    return ierr;
 	}
     }
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -308,7 +308,7 @@ ndi_translate_fiss_prod(state_struct *state, int *zaid_list, int num_zaids)
     int ierr = 0;
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     for (i = 0; i < num_zaids; i++) {
@@ -317,7 +317,7 @@ ndi_translate_fiss_prod(state_struct *state, int *zaid_list, int num_zaids)
 	}
 	zaid_p++;
     }
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -358,7 +358,7 @@ int ndi_parse_mg_zaid(char *zaid, int *z, int *a)
 	ierr = -9;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 
@@ -373,11 +373,11 @@ int double_compare(const double a, const double b)
 {
 
     if (ndi_approx_equal(a, b, DBL_EPSILON, 0.0)) {
-	return (0);
+	return 0;
     } else if (a < b) {
-	return (-1);
+	return -1;
     } else {
-	return (1);
+	return 1;
     }
 
 }
@@ -410,13 +410,13 @@ int ndi_empty_string(char *in_str)
 
     while ((*curr_char != '\0') && (str_size > 0)) {
 	if (!isspace(*curr_char)) {
-	    return (0);
+	    return 0;
 	}
 	curr_char++;
 	str_size--;
     }
 
-    return (-1);
+    return -1;
 }
 
 /**********************************************************************/
@@ -453,11 +453,11 @@ ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
     char tmp_str[MAX_IN_STR_LEN];
 
     if (!state) {
-	return (-2);
+	return -2;
     }
 
     if (str_size <= 0) {
-	return (7);
+	return 7;
     }
 
     if (!state->chain_stat.set_flag) {
@@ -485,7 +485,7 @@ ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
 	    ierr = 7;
 	}
     }
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -540,7 +540,7 @@ int ndi_use_sgndf_values(state_struct *state, int num_grps)
 	ret_val = 0;
     }
 
-    return (ret_val);
+    return ret_val;
 }
 
 /**********************************************************************/
@@ -582,7 +582,7 @@ int ndi_special_sza(int sza, char *sym_str, int str_size)
 	strncpy(sym_str, tmp_str, str_size);
     }
 
-    return (ret_val);
+    return ret_val;
 }
 
 /**********************************************************************/
@@ -620,7 +620,7 @@ int ndi_niceStrCp(char *new_str, const char *old_str, int new_len)
     /* Handle 'empty' strings */
     if (newindx == 0)
 	new_str[0] = '\0';
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/

@@ -119,9 +119,9 @@ int ndi_c_c_to_mt(int c_val)
 
 
     if ((c_val < 1) || (c_val > 74)) {
-	return (0);
+	return 0;
     } else {
-	return (ndi_c_value[c_val]);
+	return ndi_c_value[c_val];
     }
 }
 
@@ -263,7 +263,7 @@ int ndi_c_mt_to_c(int mt)
 	break;
     }
 
-    return (c_val);
+    return c_val;
 }
 
 /**********************************************************************/
@@ -401,7 +401,7 @@ static int ndi_mt_to_label(int mt, char *label)
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -504,7 +504,7 @@ static int ndi_label_to_mt(const char *in_value)
 
     if (label)
 	ndi_free((void **) &label);
-    return (mt);
+    return mt;
 }
 #endif
 

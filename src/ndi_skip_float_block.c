@@ -85,5 +85,5 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats,
             }
 	}
     }
-    return (ierr);
+    return ierr;
 }

@@ -65,7 +65,7 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
     }
 
     ndi_close_tree(&root);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -127,7 +127,7 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
 
 				default:
 				    ierr = -4;
-				    return (NULL);
+				    return NULL;
 				    break;
 				}
 
@@ -156,7 +156,7 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
 	    done = -1;
 	}
     }
-    return (root);
+    return root;
 }
 
 /***********************************************************************/

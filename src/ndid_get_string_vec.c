@@ -57,7 +57,7 @@ ndid_c_get_string_vec(int in_key, const char *in_value,
     }
 
     ndi_close_tree(&root);
-    return (ierr);
+    return ierr;
 
 }
 

@@ -57,7 +57,7 @@ int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
     }
 
  catch:
-    return (ierr);
+    return ierr;
 }
 
 /*********************************************************************/
@@ -162,7 +162,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
     if (state) {
         curr_targ = state->depl_target;
     } else {
-        return (-2);
+        return -2;
     }
 
     /* CHECK ERRORS */
@@ -171,19 +171,19 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
         ierr = ndi_set_default_depl(state);
     }
     if (state->num_target <= 0) {
-        return (-7);
+        return -7;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-        return (ierr);
+        return ierr;
     }
 
     curr_prod = curr_targ->rprod;
     curr_index = curr_targ->num_rprods;
     ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
     if (curr_index == -1) {
-        return (ierr);
+        return ierr;
     }
 
 
@@ -196,12 +196,12 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
     if (num_grps <= 0) {
         /* Bad energy group structure */
         ierr = 5;
-        return (ierr);
+        return ierr;
     }
     curr_xs = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!curr_xs) {
         /* Out of memory */
-        return (-14);
+        return -14;
     }
 
 
@@ -237,7 +237,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
     ndi_c_set_option_h(state, NDI_REAC_ID, old_reac_id);
     if (curr_xs)
         ndi_free((void **) &curr_xs);
-    return (ierr);
+    return ierr;
 
 }
 
@@ -257,7 +257,7 @@ int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
     if (state) {
         curr_targ = state->depl_target;
     } else {
-        return (-2);
+        return -2;
     }
 
     /* CHECK ERRORS */
@@ -266,30 +266,30 @@ int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
         ierr = ndi_set_default_depl(state);
     }
     if (state->num_target <= 0) {
-        return (-7);
+        return -7;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-        return (ierr);
+        return ierr;
     }
 
     curr_prod = curr_targ->rprod;
     curr_index = curr_targ->num_rprods;
     ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
     if (curr_index == -1) {
-        return (ierr);
+        return ierr;
     }
 
     if (vec_size < curr_prod->num_reac) {
-        return (7);
+        return 7;
     }
 
     for (i = 0; i < curr_prod->num_reac; i++) {
         return_vec[i] = curr_prod->mult[i];
     }
 
-    return (ierr);
+    return ierr;
 
 }
 

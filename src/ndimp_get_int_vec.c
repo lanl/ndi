@@ -36,7 +36,7 @@ int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec,
 	break;
     }
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
@@ -96,5 +96,5 @@ static int get_comb_reac_mt(state_struct *handle[],
 	ndi_free((void **) &curr_mts);
     ierr = tmp_err;
 
-    return (ierr);
+    return ierr;
 }

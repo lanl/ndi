@@ -40,7 +40,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
     state_struct *state;
 
     if (!curr_state) {
-	return (-2);
+	return -2;
     }
     *curr_state = NULL;
 
@@ -51,7 +51,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 	/* Fatal error opening gendir */
 	if (path)
 	    ndi_free((void **) &path);
-	return (ierr);
+	return ierr;
     }
     state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
     state->ndi_initialized = -1;
@@ -96,7 +96,7 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 
     *curr_state = state;
 
-    return (ierr);
+    return ierr;
 
 }
 
@@ -115,7 +115,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     state_struct *state;
 
     if (!child) {
-	return (-2);
+	return -2;
     }
 
     *child = NULL;
@@ -127,7 +127,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
         ndi_free((void **) &path);
 
     /* Fatal error opening gendir */
-    if (ierr < 0) return (ierr);
+    if (ierr < 0) return ierr;
 
     /* allocate state, declare uninitialized */
     state = (state_struct *) ndi_calloc(1, sizeof(state_struct));
@@ -187,7 +187,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     state->handle_free = 0;
 
     *child = state;
-    return (ierr);
+    return ierr;
 
 }
 

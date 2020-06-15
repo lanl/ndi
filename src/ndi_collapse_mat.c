@@ -101,7 +101,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 	/*  Fill with zeroes and return */
 	NDI_INIT_FLOAT_VEC(new_mat, new_size);
 	ierr = 9;
-	return (ierr);
+	return ierr;
     }
 
     for (k = 0; k < new_grp_num_in; k++) {
@@ -145,7 +145,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 			|| (curr_old_index < 0)) {
 			/* Bounds check */
 			ierr = -21;
-			return (ierr);
+			return ierr;
 		    }
 		    out_sum += old_mat[curr_old_index];
 		}		/* for j */
@@ -160,7 +160,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 		if (curr_new_index >= new_size) {
 		    /* Bounds check */
 		    ierr = 7;
-		    return (ierr);
+		    return ierr;
 		}
 
 		new_mat[curr_new_index] = in_sum / wt_sum;
@@ -172,7 +172,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 	}			/* for l */
     }				/* for k */
 
-    return (ierr);
+    return ierr;
 }
 
 /**********************************************************************/
