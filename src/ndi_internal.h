@@ -292,7 +292,8 @@ typedef struct _state_struct {
     FILE *ndi_dir;		/*  Gendir (directory) file */
     char open_gendir_file[MAX_IN_PATH_LEN];	/*  Current gendir file name */
     FILE *lib_stream;		/*  Current library file */
-    char *open_lib_file;	/* Path for open library file */
+    int binary;                 /*  Library file is binary (1) or ascii (0) */
+    char *open_lib_file;	/*  Path for open library file */
     short *ndi_elements;	/*  Lookup table for element symbols */
     char *library_vers;		/*  Default library type (mendf5,mendf6,rmoxsct,"") */
     int particle_type;		/*  Incident particle type: 1-neutron, 0-photon, -1-tn */
@@ -499,42 +500,47 @@ extern "C" {
 			   const int *new_ebounds_out,
 			   const ndi_float64 * local_weight,
 			   FLOAT_TYPE * new_mat, int new_size);
-    int skip_float_block(FILE *stream, int *bsize, const int num_floats);
+    int skip_float_block(FILE *stream, int *bsize, const int num_floats,
+			 int binary);
     int ndi_read_float32_block(FILE *stream, long file_pos,
 			       const int num_floats,
 			       ndi_float32 * return_vec,
-			       const int return_size);
+			       const int return_size, int binary);
     int ndi_read_float64_block(FILE *stream, long file_pos,
 			       const int num_floats,
 			       ndi_float64 * return_vec,
-			       const int return_size);
-    int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag);
+			       const int return_size, int binary);
+    int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
+			 int binary);
     int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
 			 const int data_type, int *num_prod, short mt_flag);
     int ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
 			 const int data_type, int *num_prod, short mt_flag);
     int ndi_read_string_block(FILE *stream, const int num_strings,
-			      char **p);
+			      char **p, int binary);
     int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec);
-     int ndi_fseek_section(FILE *stream, const char *str, int wherefrom);
-     dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream);
-     dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream, 
+    int ndi_fseek_section(FILE *stream, const char *str, int wherefrom);
+    dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream);
+    dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream, 
                                   const char *lib, const char *zaid);
-     int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
+    int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
                              const char *lib, const char *zaid);
-     int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
+    int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
                              const char *lib, const char *zaid,
                              double *vec, int *vec_size);
-     int ndi_read_int_block(FILE *stream, const int num_ints,
-                            long *return_vec, const int return_size);
+    int ndi_read_int_block(FILE *stream, const int num_ints,
+                           long *return_vec, const int return_size,
+			   int binary);
     void *ndi_malloc(size_t size);
     void *ndi_calloc(size_t nmemb, size_t size);
     void ndi_free(void **p);
     int ndi_set_tn_dataset(const char *dataset);
     int ndi_get_prod_reac32(state_struct *state, const char *rprod,
-			    ndi_float32 * return_vec, int vec_size);
+			    ndi_float32 * return_vec, int vec_size,
+			    int binary);
     int ndi_get_prod_reac64(state_struct *state, const char *rprod,
-			    ndi_float64 * return_vec, int vec_size);
+			    ndi_float64 * return_vec, int vec_size,
+			    int binary);
     int ndi_get_rprod_mlt32(state_struct *state, const char *rprod,
 			    ndi_float32 * return_vec, int vec_size);
     int ndi_get_rprod_mlt64(state_struct *state, const char *rprod,
@@ -603,12 +609,12 @@ extern "C" {
 				   long int f_ptr, int collapse_type,
 				   int library_grp_num,
 				   ndi_float32 * return_vec,
-				   int return_size);
+				   int return_size, int binary);
     int ndi_get_simple_float64_vec(state_struct *state, FILE *stream,
 				   long int f_ptr, int collapse_type,
 				   int library_grp_num,
 				   ndi_float64 * return_vec,
-				   int return_size);
+				   int return_size, int binary);
     int ndi_transpose_float32(ndi_float32 * in_mat, int row_num,
 			      int col_num);
     int ndi_transpose_float64(ndi_float64 * in_mat, int row_num,
@@ -619,10 +625,10 @@ extern "C" {
 		      ndi_float64 * return_mat, int num_mat, int mat_size);
     int ndi_get_sig_reac32(state_struct *state, isotope_status * mg,
 			   int mt, ndi_float32 * return_vec,
-			   int *return_size);
+			   int *return_size, int binary);
     int ndi_get_sig_reac64(state_struct *state, isotope_status * mg,
 			   int mt, ndi_float64 * return_vec,
-			   int *return_size);
+			   int *return_size, int binary);
     int ndi_copy_matrix32(ndi_float32 *dest, int d, 
                           FLOAT_TYPE *source, int s);
     int ndi_copy_matrix64(ndi_float64 *dest, int d, 
@@ -657,12 +663,12 @@ extern "C" {
 			     long int chi_mat_ptr, ndi_float32 *nu_sig_f,
                              ndi_float32 * return_vec,
 			     int return_size, int collapse_type,
-			     int num_grp);
+			     int num_grp, int binary);
     int ndi_chi_mat_to_vec64(state_struct *state, FILE *stream,
 			     long int chi_mat_ptr, ndi_float64 *nu_sig_f,
                              ndi_float64 * return_vec,
 			     int return_size, int collapse_type,
-			     int num_grp);
+			     int num_grp, int binary);
     
    /*** Subroutines in file ndi_find_index.c ***/
     int ndi_find_rprod_index(FILE *stream, multi_stat * rprod,

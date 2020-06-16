@@ -18,7 +18,8 @@
 
 /**********************************************************************/
 
-int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag)
+int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
+		     int binary)
 
 /*  Purpose:  Skip over reaction product data in library file.
 
@@ -42,10 +43,12 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag)
     int num_prod;		/* Number of products for current reaction */
     int curr_mt;		/* MT of current reaction */
     int prod_count;		/* Running total of products processed */
+    int num;                    /* Miscellaneous read in integer */
 
     /* Read reaction mt and number of reaction products, then
        set reaction product state. */
-    /*  Assumption:  reaction product format?? */
+    /*  Assumption:  reaction product format:
+	Reaction MT, Number of Products, [ID quantity]x# of products */
 
     if ((rx_prod->file_ptr = ftell(stream)) == -1L) {
 	/* Error setting pointer */
@@ -54,58 +57,92 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag)
 
     /* Read MT and number of reaction products */
     if (mt_flag) {
-	if (fscanf(stream, "%d\n%d\n", &curr_mt, &num_prod) == EOF) {
-	    /* Error reading file--reaction product data not read */
-	    return -11;
+	if (binary) {
+	    if (fread(&curr_mt, sizeof(int), 1, stream) < 1) {
+	        /* Error reading file--mt number not read */
+	        return -11;
+	    }
+            if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
+                /* Error reading file--number of reaction products not read */
+                return -11;
+            }
+	} else {
+            if (fscanf(stream, "%d\n%d\n", &curr_mt, &num_prod) == EOF) {
+                /* Error reading file--reaction product data not read */
+                return -11;
+            }
 	}
     } else {
-	if (fscanf(stream, "%d\n", &num_prod) == EOF) {
-	    /* Error reading file--reaction product data not read */
-	    return -11;
+	if (binary) {
+	    if (fread(&num_prod, sizeof(int), 1, stream) < 1) {
+	        /* Error reading file--number of reaction products not read */
+	        return -11;
+	    }
+	} else {
+            if (fscanf(stream, "%d\n", &num_prod) == EOF) {
+                /* Error reading file--reaction product data not read */
+                return -11;
+            }
 	}
     }
 
     rx_prod->length = num_prod;
-    /*  Num_prod = 0   ---> no more data to read for this reaction  */
-    if (num_prod > 0) {
-	if (fgets(in_line, sizeof(in_line), stream) == NULL) {
-	    /* Error reading file */
-	    return -11;
-	}
-	tok_str = in_line;
-    }
 
     /*  Skip through rx product data to leave file stream at beginning
-       of next reaction or at next keyword                         */
+        of next reaction or at next keyword  */
 
-    prod_count = 0;
-    while (prod_count < num_prod) {
-	/*  Read reaction product id from string  */
-	token = strtok(tok_str, seps);
-	while (token == NULL) {
-	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-		tok_str = in_line;
-		token = strtok(tok_str, seps);
-	    } else {
-		/* Error reading file */
-		return -11;
+    /*  Num_prod = 0   ---> no more data to read for this reaction  */
+    if (num_prod > 0) {
+	if (binary) {
+	    /* Cycle through products. Each product has a particle ID and number
+	       of particles released for this reaction */
+	    for (int i = 0; i < num_prod; ++i) {
+	        /* Product ID */
+	        if (fread(&num, sizeof(int), 1, stream) < 1) {
+		    return -11;
+	        }
+	        /* Number of product */
+                if (fread(&num, sizeof(int), 1, stream) < 1) {
+                    return -11;
+                }
 	    }
-	}
-	tok_str = NULL;
+	} else {
+	    if (fgets(in_line, sizeof(in_line), stream) == NULL) {
+                /* Error reading file */
+                return -11;
+            }
+            tok_str = in_line;
 
-	/*  Read reaction product multiplicity  */
-	token = strtok(tok_str, seps);
-	while (token == NULL) {
-	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-		tok_str = in_line;
-		token = strtok(tok_str, seps);
-		tok_str = NULL;
-	    } else {
-		/* Error reading file */
-		return -11;
-	    }
+	    prod_count = 0;
+	    while (prod_count < num_prod) {
+        	/*  Read reaction product id from string  */
+        	token = strtok(tok_str, seps);
+        	while (token == NULL) {
+            	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+                	tok_str = in_line;
+                	token = strtok(tok_str, seps);
+            	    } else {
+                	/* Error reading file */
+                	return -11;
+            	    }
+        	}
+        	tok_str = NULL;
+
+        	/*  Read reaction product multiplicity  */
+        	token = strtok(tok_str, seps);
+        	while (token == NULL) {
+            	    if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+                	tok_str = in_line;
+                	token = strtok(tok_str, seps);
+                	tok_str = NULL;
+            	    } else {
+                        /* Error reading file */
+                        return -11;
+                    }
+                }
+                ++prod_count;
+            }
 	}
-	++prod_count;
     }
 
     return ierr;

@@ -1,0 +1,38 @@
+
+ Start with binary data 
+
+  Isotope zaid:  92235.141nm:b
+  Number of groups:  2
+  Pn order:  5
+  No. pnu:  10
+  No. reactions:  7
+  Atomic weight:  235.044144
+  Reaction MTs size:  7
+2   4   16   17   18   37   102   
+  Ebounds size:  3
+ 1.700000e+01    2.232000e+00    1.670000e-04   
+  Total cross-section size:  2
+ 7.400265e+00    1.585947e+01   
+  Scatter matrix size:  4
+ 4.465949e+00    1.706373e+00    0.000000e+00    9.622283e+00   
+
+
+ Try with ASCII data
+
+  Isotope zaid:  92235.121nm
+  Number of groups:  2
+  Pn order:  5
+  No. pnu:  10
+  No. reactions:  7
+  Atomic weight:  235.044139
+  Reaction MTs size:  7
+2   4   16   17   18   37   102   
+  Ebounds size:  3
+ 1.700000e+01    2.232000e+00    1.670000e-04   
+  Total cross-section size:  2
+ 7.400265e+00    1.585947e+01   
+  Scatter matrix size:  4
+ 4.465949e+00    1.706373e+00    0.000000e+00    9.622283e+00   
+
+ Closing. 
+

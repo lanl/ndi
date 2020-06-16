@@ -24,33 +24,41 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 			     const char *zaid);
 static int read_depl_data(state_struct *state, FILE *stream,
 			  const char *zaid);
-static int set_simple_array(FILE *stream, stat_flag * sf, int data_num);
+static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
+			    int binary);
 static int read_simple_array(FILE *stream, stat_flag * sf, int data_num,
-			     ndi_float64 ** global_p);
+			     ndi_float64 ** global_p, int binary);
 static int read_double_array(FILE *stream, int data_num,
-			     double **double_p);
+			     double **double_p, int binary);
 static int read_next_string(FILE *stream, char *str_array, int str_size);
-static int set_int_array(FILE *stream, long *int_p, int data_num);
-static int set_string_array(FILE *stream, char **str_p, int data_num);
+static int set_int_array(FILE *stream, long *int_p, int data_num,
+			 int binary);
+static int set_string_array(FILE *stream, char **str_p, int data_num,
+			    int binary);
+static int read_string_line(FILE *stream, char *line, int str_size);
 static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
-			      int data_num);
-static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num);
+			      int data_num, int binary);
+static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num,
+			     int binary);
 static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
-			int in_grps, int out_grps, int num_elements);
+			int in_grps, int out_grps, int num_elements,
+			int binary);
 static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 			int in_grps, int **in_e_mt,
-			double **in_q_value, int *fission_flag);
+			double **in_q_value, int *fission_flag,
+			int binary);
 static int ndi_setup_edist(char *keyword, FILE *stream,
 			   sec_part_distr *sec_part, int num_parts,
-			   int *parts_filled);
-static int fill_edist(FILE *stream, int ntemp, edist_data *dist);
+			   int *parts_filled, int binary);
+static int fill_edist(FILE *stream, int ntemp, edist_data *dist,
+		      int binary);
 static int ndi_read_interp_param(FILE *stream, int ninterp,
 				 interp_params *param);
 static int ndi_create_tn_sec_part(state_struct *state, int num_parts,
 				  sec_part_distr **sec_part);
 static int set_reaction_array(FILE *stream, char **str_p,
 			      stat_flag ** reac_p, stat_flag ** rprods_p,
-			      int data_num);
+			      int data_num, int binary);
 static int set_depl_array(state_struct *state, FILE *stream,
 			  depl_target_struct *target_p, int data_num);
 static int ndi_create_mg_sec_part(state_struct *state, int num_parts,
@@ -61,9 +69,11 @@ static int find_mg_sec_part_index(state_struct *state, int part_type);
 static int set_chain_array(state_struct *state, FILE *stream,
 			   depl_target_struct *target, int data_num);
 static int skip_comment(FILE *stream);
+static int read_int_val(FILE *stream, int *value, int binary);
+static int read_float_val(FILE *stream, double *value, int binary);
 int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
-			  const int return_size);
+			  const int return_size, int binary);
 
 /**********************************************************************/
 
@@ -91,54 +101,68 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
     char izaid[MAX_IN_STR_LEN];
     int ierr = 0;
     int n;
-
+    int binary;
 
    /*******************************************************/
-    /* Find start of isotope data and check that it is the
-       start of the correct data.                          */
+   /* Find start of isotope data and check that it is the
+      start of the correct data.                          */
    /*******************************************************/
 
     if (!state) {
 	return -2;
     }
 
+    binary = state->binary;
+
     if (!stream) {
 	/* Error opening file */
 	return -1;
     }
 
-    /* Use file pointers instead of line numbers */
-    fseek(stream, iso_start, SEEK_SET);
-    /*    (void)rewind(stream); 
-       if (iso_start > 1) {
-       if ( ( ierr = skiplines(stream, (iso_start - 1)) ) != 0 ) {
-       if ( ierr < 0 ) {
-       return(ierr);
-       }
-       } 
-       }
-     */
+    if (binary) {
+        /* Originally used iso_start to seek the start of the cross sections. */
+	fseek(stream, 0, SEEK_SET);
 
-    /* Read zaid */
-   /*** ????  Can there be a blank space between keyword and zaid????
-	????  Must the data start in column one  */
-    n = fscanf(stream, "%s\n%s\n", in_keyword, izaid);
-    if ((n == EOF) || (n < 2)) {
+        /* Read the file until finding the "zaid" keyword, which is the
+           official start of the data. This only works for a single isotope
+           per data file */
+        while (fread(in_keyword, sizeof(in_keyword), 1, stream) > 0) {
+	    if (strncmp(in_keyword, "zaid", 5) == 0) break;
+        }
+
+        if (feof(stream)) return -11;
+
+	/* Read in the zaid */
+	n = fread(izaid, sizeof(izaid), 1, stream);
+
+    } else {
+	/* Use iso_start for ASCII data */
+        fseek(stream, iso_start, SEEK_SET);
+
+	/* Read in keyword and zaid */
+        n = fscanf(stream, "%s\n%s\n", in_keyword, izaid);
+
+    }
+
+    if (strncmp(in_keyword, "zaid", 5) != 0) {
+        /* zaid isn't where it should be */
+        return -12;
+    }
+
+    /* Debugging statement */
+    //printf("Keyword: %s\nRead in zaid: %s\nzaid from gendir: %s\n", in_keyword, izaid, zaid);
+
+    if ((n == EOF) || (n < 1)) {
 	/* zaid wasn't read */
 	return -11;
-    }
-    if (strncmp(in_keyword, "zaid", 5) != 0) {
-	/* zaid isn't where it should be */
-	return -12;
     }
     if (strncmp(izaid, zaid, (strlen(zaid) * sizeof(char))) != 0) {
 	/* Not the correct zaid */
 	return -17;
     }
-
-    if ((lib_type == 'm') || (lib_type == 'd')) {
+    if ((lib_type == 'm') || (lib_type == 'd')) { /* MG/depletion data */
 	ierr = read_mg_data(state, stream, zaid);
-    } else if (lib_type == 's') {
+    } else if (lib_type == 's') {       /* TN data */
 	ierr = read_tn_data(state, stream, zaid);
     } else if (lib_type == 'r') {	/* TN reaction data */
 	ierr = read_tn_reac_data(state, stream, zaid);
@@ -148,7 +172,6 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
     }
-
 
     return ierr;
 
@@ -167,135 +190,206 @@ static int read_mg_data(state_struct *state, FILE *stream,
     int num_elements;
     int part_index;
     int part_type;
+    int n;
+    int binary;
 
     if (!state) {
 	return -2;
     }
 
-   /***** ??? Should this be done at the end ?? ***/
+    binary = state->binary;
+
     strcpy(state->iso_stat.zaid, zaid);
     state->iso_stat.set_flag = 1;
 
-   /*******************************************************/
+    /*******************************************************/
     /*                  Read isotope data                  */
-   /*******************************************************/
+    /*******************************************************/
+
     while (1) {
 
-	/* Read next keyword */
-	if (fscanf(stream, "%s\n", in_keyword) == EOF) {
+	if (binary) {
+	    n = fread(in_keyword, sizeof(in_keyword), 1, stream);
+	} else {
+	    n = fscanf(stream, "%s\n", in_keyword);
+	}
+
+	if (n==EOF) {
 	    /* Error reading file */
 	    return -11;
 	}
 
+        /* Debugging statement shows all keywords read in.
+           Used to see if something is read in that is not a keyword */
+
+	//printf("Keyword: %s\n",in_keyword);
 
       /******            Process keywords            ******/
 
       /*** Single-valued data  ***/
 
+	/* Strings may have more than one word. Currently each string ends with
+           "break". read_string_line reads strings until "break" is found. */
+
 	/* Information */
 	if (strncmp(in_keyword, "info", 5) == 0) {
-	    if (fgets
-		(state->iso_stat.info, sizeof(state->iso_stat.info),
-		 stream) == NULL) {
-		/* Error reading file */
-		return -11;
+	    if (binary) {
+	        ierr = read_string_line(stream, state->iso_stat.info,
+	       			        sizeof(state->iso_stat.info));
+	    } else {
+		if (fgets(state->iso_stat.info, sizeof(state->iso_stat.info),
+                    stream) == NULL) ierr = -11;
+	    }
+	    if (ierr < 0) {
+		/* Error reading string line */
+		return ierr;
 	    }
 	}
-	/* Data type */
+	/* Data type -- currently not kept */
 	else if (strncmp(in_keyword, "data_type", 10) == 0) {
 	    char junk[MAX_IN_STR_LEN];
-	    if (fscanf(stream, "%s\n", junk) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            if (binary) {
+                ierr = read_string_line(stream, junk, sizeof(junk));
+            } else {
+                if (fgets(junk, sizeof(junk), stream) == NULL) ierr = -11;
+            }
+            if (ierr < 0) {
+                /* Error reading string line */
+                return ierr;
+            }
 	}
 	/* date_processed */
 	else if (strncmp(in_keyword, "date_processed", 15) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.date_processed,
-				    sizeof(state->iso_stat.
-					   date_processed));
+            if (binary) {
+                ierr = read_string_line(stream, state->iso_stat.date_processed,
+                                        sizeof(state->iso_stat.date_processed));
+            } else {
+                if (fgets(state->iso_stat.date_processed,
+		    sizeof(state->iso_stat.date_processed), stream) == NULL)
+                    ierr = -11;
+            }
+            if (ierr < 0) {
+                /* Error reading string line */
+                return ierr;
+            }
 	}
 	/* date_source */
 	else if (strncmp(in_keyword, "date_source", 12) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.date_source,
-				    sizeof(state->iso_stat.date_source));
+            if (binary) {
+                ierr = read_string_line(stream, state->iso_stat.date_source,
+                                        sizeof(state->iso_stat.date_source));
+            } else {
+                if (fgets(state->iso_stat.date_source,
+                    sizeof(state->iso_stat.date_source), stream) == NULL)
+                    ierr = -11;
+            }
+            if (ierr < 0) {
+                /* Error reading string line */
+                return ierr;
+            }
 	}
 	/* Library name */
 	else if (strncmp(in_keyword, "library_name", 13) == 0) {
-	    ierr = read_next_string(stream, state->iso_stat.library_name,
-				    sizeof(state->iso_stat.library_name));
+            if (binary) {
+                ierr = read_string_line(stream, state->iso_stat.library_name,
+                                        sizeof(state->iso_stat.library_name));
+            } else {
+                if (fgets(state->iso_stat.library_name,
+                    sizeof(state->iso_stat.library_name), stream) == NULL)
+                    ierr = -11;
+            }
+            if (ierr < 0) {
+                /* Error reading string line */
+                return ierr;
+            }
 	}
 	/* Number of groups */
 	else if (strncmp(in_keyword, "num_grps", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_grps) == EOF) {
-		/* ???? Could this return 0???? */
+	    ierr = read_int_val(stream, &state->iso_stat.num_grps, binary);
+	    if ( ierr < 0 ) {
 		/* Error reading file */
-		return -11;
+		return ierr;
 	    }
 	}
 	/* Last neutron group */
 	else if (strncmp(in_keyword, "last_n_grp", 11) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.last_grp) == EOF) {
-		/* ???? Could this return 0???? */
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_int_val(stream, &state->iso_stat.last_grp, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* Temperature */
 	else if (strncmp(in_keyword, "temp", 5) == 0) {
-	    if (fscanf(stream, "%le\n", &state->iso_stat.temp) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_float_val(stream, &state->iso_stat.temp, binary);
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* sig_0 */
 	else if (strncmp(in_keyword, "sig_0", 6) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.sig_0) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_float_val(stream, &state->iso_stat.sig_0, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* upscatter_groups */
 	else if (strncmp(in_keyword, "up_grps", 8) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.up_grps) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_int_val(stream, &state->iso_stat.up_grps, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* downscatter_groups */
 	else if (strncmp(in_keyword, "down_grps", 10) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.down_grps) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_int_val(stream, &state->iso_stat.down_grps, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* atomic weight */
 	else if (strncmp(in_keyword, "at_wgt", 7) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.at_wgt) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_float_val(stream, &state->iso_stat.at_wgt, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* atomic weight ratio */
 	else if (strncmp(in_keyword, "awr", 4) == 0) {
-	    if (fscanf(stream, "%lf\n", &state->iso_stat.awr) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_float_val(stream, &state->iso_stat.awr, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* number of reactions which have cross-section data */
 	else if (strncmp(in_keyword, "num_reac", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_reac) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_int_val(stream, &state->iso_stat.num_reac, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 	/* number of scattering matrices */
 	else if (strncmp(in_keyword, "pn_order", 9) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.pn_order) == EOF) {
-		/* Error reading file */
-		return -11;
-	    }
+            ierr = read_int_val(stream, &state->iso_stat.pn_order, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
 	}
 
       /*** Simple array data  ***/
@@ -304,90 +398,90 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "e_bounds", 9) == 0) {
 	    ierr = read_simple_array(stream, &state->iso_stat.e_bounds,
 				     (state->iso_stat.num_grps + 1),
-				     &state->lib_ebounds);
+				     &state->lib_ebounds, binary);
 	}
 	/* wgts */
 	else if (strncmp(in_keyword, "wgts", 5) == 0) {
 	    ierr = read_simple_array(stream, &state->iso_stat.wgts,
 				     state->iso_stat.num_grps,
-				     &state->lib_weight);
+				     &state->lib_weight, binary);
 	}
 	/* vel */
 	else if (strncmp(in_keyword, "vel", 4) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.vel,
-				 state->iso_stat.num_grps);
+				 state->iso_stat.num_grps, binary);
 	}
 	/* heating */
 	else if (strncmp(in_keyword, "heating", 8) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.heat,
-				 state->iso_stat.num_grps);
+				 state->iso_stat.num_grps, binary);
 	}
 	/* kerma */
 	else if (strncmp(in_keyword, "kerma", 6) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.kerma,
-				 state->iso_stat.num_grps);
+				 state->iso_stat.num_grps, binary);
 	}
 	/* sig_tot */
 	else if (strncmp(in_keyword, "sig_tot", 8) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.sig_tot,
-				 state->iso_stat.num_grps);
+				 state->iso_stat.num_grps, binary);
 	}
 	/* nubar total */
 	else if (strncmp(in_keyword, "nu_tot", 7) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_tot,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* nubar prompt */
 	else if (strncmp(in_keyword, "nu_pr", 6) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_pr,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* nubar delayed */
 	else if (strncmp(in_keyword, "nu_del", 7) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_del,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* nubar total sigma fission */
 	else if (strncmp(in_keyword, "nu_sig_f_tot", 13) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_sig_f_tot,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* nubar prompt sigma fission */
 	else if (strncmp(in_keyword, "nu_sig_f_pr", 12) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_sig_f_pr,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* nubar delayed sigma fission */
 	else if (strncmp(in_keyword, "nu_sig_f_del", 13) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.nu_sig_f_del,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi total vector */
 	else if (strncmp(in_keyword, "chi_vec_tot", 12) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.chi_vec_tot,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi prompt vector */
 	else if (strncmp(in_keyword, "chi_vec_pr", 11) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.chi_vec_pr,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi delayed vector */
 	else if (strncmp(in_keyword, "chi_vec_del", 12) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.chi_vec_del,
-				    state->iso_stat.num_grps);
+				    state->iso_stat.num_grps, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi total matrix */
@@ -396,7 +490,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		state->iso_stat.num_grps * state->iso_stat.num_grps;
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.chi_mat_tot,
-				 num_elements);
+				 num_elements, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi prompt matrix */
@@ -405,7 +499,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		state->iso_stat.num_grps * state->iso_stat.num_grps;
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.chi_mat_pr,
-				 num_elements);
+				 num_elements, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* chi delayed matrix */
@@ -414,35 +508,35 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		state->iso_stat.num_grps * state->iso_stat.num_grps;
 	    ierr =
 		set_simple_array(stream, &state->iso_stat.chi_mat_del,
-				 num_elements);
+				 num_elements, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* fission q */
 	else if (strncmp(in_keyword, "fiss_q", 7) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.fiss_q,
-				    NUM_FISSION_Q);
+				    NUM_FISSION_Q, binary);
 	    state->iso_stat.fissionable = 1;
 	}
 	/* Normalization factors */
 	else if (strncmp(in_keyword, "norm", 5) == 0) {
 	    ierr = set_simple_array(stream, &state->iso_stat.norm,
-				    NUM_NORM);
+				    NUM_NORM, binary);
 	}
 
-
-	/* Multi-dim array data */
+      /*** Multi-dim array data ***/
 
 	/* pn scattering -- full lower diagonal */
 	else if (strncmp(in_keyword, "pn_down_full", 13) == 0) {
 	    state->iso_stat.pn_down_full.num_objs =
 		state->iso_stat.pn_order;
-	 /*** Check that num_grps == down_grps + 1 ???  ***/
+  	    /*** Check that num_grps == down_grps + 1 ???  ***/
 	    num_elements = ((state->iso_stat.num_grps) *
 			    (state->iso_stat.num_grps + 1)) / 2;
 	    ierr = set_pn_array(stream, &state->iso_stat.pn_down_full,
 				state->iso_stat.pn_down_full.num_objs,
 				state->iso_stat.num_grps,
-				state->iso_stat.num_grps, num_elements);
+				state->iso_stat.num_grps, num_elements,
+				binary);
 	}
 
 	/* pn scattering -- full matrix */
@@ -454,8 +548,8 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		set_pn_array(stream, &state->iso_stat.pn_full,
 			     state->iso_stat.pn_full.num_objs,
 			     state->iso_stat.num_grps,
-			     state->iso_stat.num_grps, num_elements);
-/*	 printf("setting pnfull ierr=%d\n", ierr); */
+			     state->iso_stat.num_grps, num_elements,
+			     binary);
 	}
 
 	/* sigma edit cross section */
@@ -466,54 +560,53 @@ static int read_mg_data(state_struct *state, FILE *stream,
 			     state->iso_stat.num_grps,
 			     &state->iso_stat.reac_mt,
 			     &state->iso_stat.reac_q,
-			     &state->iso_stat.fissionable);
+			     &state->iso_stat.fissionable,
+			     binary);
 	}
 
 	/* sigma edit reaction products -- all */
 	else if (strncmp(in_keyword, "rprod_all", 10) == 0) {
+//	    return ierr;
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_all,
-				     state->iso_stat.num_reac);
+				     state->iso_stat.num_reac, binary);
 	}
 
 	/* sigma edit reaction products -- rmo */
 	else if (strncmp(in_keyword, "rprod_rmo", 10) == 0) {
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_rmo,
-				     state->iso_stat.num_reac);
+				     state->iso_stat.num_reac, binary);
 	}
 
 	/* sigma edit reaction products -- few */
 	else if (strncmp(in_keyword, "rprod_few", 10) == 0) {
 	    ierr = set_reaction_prod(stream, &state->iso_stat.rprod_few,
-				     state->iso_stat.num_reac);
+				     state->iso_stat.num_reac, binary);
 	}
 
       /*********  SECONDARY PARTICLE DATA  *************/
 
 	/* number of secondary particles */
 	else if (strncmp(in_keyword, "num_sec_parts", 14) == 0) {
-	    if (fscanf(stream, "%d\n", &state->iso_stat.num_sec_parts) ==
-		EOF) {
-		/* Error reading file */
-		return -11;
-	    }
-            ierr = ndi_create_mg_sec_part(state,
-                                          state->iso_stat.num_sec_parts,
+            ierr = read_int_val(stream, &state->iso_stat.num_sec_parts, binary);
+
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
+            }
+            ierr = ndi_create_mg_sec_part(state, state->iso_stat.num_sec_parts,
                                           &state->iso_stat.sec_part);
-
 	}
-
 
 	/* secondary particle types */
 	else if (strncmp(in_keyword, "sec_part_types", 15) == 0) {
 	    long *temp_part_types = NULL;
 	    int i;
-
 	    temp_part_types =
 		(long *) ndi_calloc(state->iso_stat.num_sec_parts,
 				    sizeof(long));
 	    ierr =
 		set_int_array(stream, temp_part_types,
-			      state->iso_stat.num_sec_parts);
+			      state->iso_stat.num_sec_parts, binary);
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
 		state->iso_stat.sec_part[i].part_type =
 		    (int) temp_part_types[i];
@@ -527,17 +620,16 @@ static int read_mg_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "sec_part_zaids", 15) == 0) {
 	    char **temp_part_zaids = NULL;
 	    int i;
-
 	    temp_part_zaids =
 		(char **) ndi_calloc(state->iso_stat.num_sec_parts,
 				     sizeof(char *));
 	    ierr =
 		set_string_array(stream, temp_part_zaids,
-				 state->iso_stat.num_sec_parts);
+				 state->iso_stat.num_sec_parts,
+				 binary);
 
 	    for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
-		/* CHECK THAT ZAID MATCHES PART TYPE */
-
+		/* CHECK THAT zaid MATCHES PART TYPE */
 		strncpy(state->iso_stat.sec_part[i].zaid,
 			temp_part_zaids[i], sizeof(mg_zaid)-1);
 		if (temp_part_zaids[i]) {
@@ -552,19 +644,20 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* number of groups -- secondary particle */
 	else if (strncmp(in_keyword, "num_grps_", 9) == 0) {
-	    int curr_int;
+	    int curr_int = 0;
+            ierr = read_int_val(stream, &curr_int, binary);
 
-	    if (fscanf(stream, "%d\n", &curr_int) == EOF) {
-		/* Error reading file */
-		return -11;
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "num_grps_", &part_type);
 		part_index = find_mg_sec_part_index(state, part_type);
-		if ((part_index >= 0)
-		    && (part_index < state->iso_stat.num_sec_parts)) {
+		if ((part_index >= 0) &&
+		    (part_index < state->iso_stat.num_sec_parts)) {
 		    state->iso_stat.sec_part[part_index].num_grps =
-			curr_int;
+		   	curr_int;
 		} else {
 		    /* Error -- bad part type? */
 		    ierr = -15;
@@ -574,11 +667,12 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* number of production matrices -- secondary particle */
 	else if (strncmp(in_keyword, "pn_order_", 9) == 0) {
-	    int curr_int;
+	    int curr_int = 0;
+            ierr = read_int_val(stream, &curr_int, binary);
 
-	    if (fscanf(stream, "%d\n", &curr_int) == EOF) {
-		/* Error reading file */
-		return -11;
+            if ( ierr < 0 ) {
+                /* Error reading file */
+                return ierr;
 	    } else {
 		ierr =
 		    get_mg_part_type(in_keyword, "pn_order_", &part_type);
@@ -596,7 +690,6 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* partial heating -- secondary particle */
 	else if (strncmp(in_keyword, "heating_", 8) == 0) {
-
 	    ierr = get_mg_part_type(in_keyword, "heating_", &part_type);
 	    part_index = find_mg_sec_part_index(state, part_type);
 	    if ((part_index >= 0)
@@ -604,7 +697,8 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		ierr =
 		    set_simple_array(stream,
 				     &state->iso_stat.sec_part[part_index].
-				     heating, state->iso_stat.num_grps);
+				     heating, state->iso_stat.num_grps,
+				     binary);
 	    } else {
 		/* Error -- bad particle? */
 		ierr = -15;
@@ -613,7 +707,6 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* partial kerma -- secondary particle */
 	else if (strncmp(in_keyword, "kerma_", 6) == 0) {
-
 	    ierr = get_mg_part_type(in_keyword, "kerma_", &part_type);
 	    part_index = find_mg_sec_part_index(state, part_type);
 	    if ((part_index >= 0)
@@ -621,7 +714,8 @@ static int read_mg_data(state_struct *state, FILE *stream,
 		ierr =
 		    set_simple_array(stream,
 				     &state->iso_stat.sec_part[part_index].
-				     kerma, state->iso_stat.num_grps);
+				     kerma, state->iso_stat.num_grps,
+				     binary);
 	    } else {
 		/* Error -- bad particle? */
 		ierr = -15;
@@ -630,7 +724,6 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	/* energy boundaries -- secondary particle */
 	else if (strncmp(in_keyword, "e_bounds_", 9) == 0) {
-
 	    ierr = get_mg_part_type(in_keyword, "e_bounds_", &part_type);
 	    part_index = find_mg_sec_part_index(state, part_type);
 	    if ((part_index >= 0)
@@ -640,18 +733,17 @@ static int read_mg_data(state_struct *state, FILE *stream,
 				      (state->iso_stat.
 				       sec_part[part_index].num_grps + 1),
 				      &state->iso_stat.
-				      sec_part[part_index].e_bounds);
+				      sec_part[part_index].e_bounds,
+				      binary);
 	    } else {
 		/* Error -- bad particle? */
-		ierr = -999;
+		ierr = -15;
 	    }
 	}
 
 	/* full pn production matrix -- secondary particle */
 	else if (strncmp(in_keyword, "pn_prod_full_", 13) == 0) {
-
-	    ierr =
-		get_mg_part_type(in_keyword, "pn_prod_full_", &part_type);
+	    ierr = get_mg_part_type(in_keyword, "pn_prod_full_", &part_type);
 	    part_index = find_mg_sec_part_index(state, part_type);
 	    if ((part_index >= 0)
 		&& (part_index < state->iso_stat.num_sec_parts)) {
@@ -669,7 +761,7 @@ static int read_mg_data(state_struct *state, FILE *stream,
 				 pn_prod_full.num_objs,
 				 state->iso_stat.num_grps,
 				 state->iso_stat.sec_part[part_index].
-				 num_grps, num_elements);
+				 num_grps, num_elements, binary);
 
 		assert(state->iso_stat.sec_part[part_index].pn_prod_full.
 		       num_objs <= 0
@@ -678,25 +770,25 @@ static int read_mg_data(state_struct *state, FILE *stream,
 
 	    } else {
 		/* Error -- bad particle? */
-		ierr = -999;
+		ierr = -15;
 	    }
 	}
 
-      /*********  COMMENTS  *************/
+     /*********  COMMENTS  *************/
 
 	/* comment */
 	else if (strncmp(in_keyword, "comment", 8) == 0) {
 	    ierr = skip_comment(stream);
 	}
 
-      /*********  END  *************/
+     /*********  END  *************/
 
 	/* end */
 	else if (strncmp(in_keyword, "end", 4) == 0) {
 	    return ierr;
 	}
 
-      /**************  UNKNOWN KEYWORD  *****************/
+     /**************  UNKNOWN KEYWORD  *****************/
 
 	else {
 	    /* Unknown keyword in library */
@@ -711,21 +803,23 @@ static int read_mg_data(state_struct *state, FILE *stream,
 static int read_tn_data(state_struct *state, FILE *stream,
 			const char *zaid)
 {
-
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
+    int binary;
 
     if (!state) {
 	return -2;
     }
 
-   /***** ??? Should this be done at the end ?? ***/
+    binary = state->binary;
+
     strcpy(state->tn_stat.zaid, zaid);
     state->tn_stat.set_flag = 1;
 
-   /*******************************************************/
+    /*******************************************************/
     /*                     Read TN data                    */
-   /*******************************************************/
+    /*******************************************************/
+
     while (1) {
 
 	/* Read next keyword */
@@ -733,7 +827,6 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	    /* Error reading file */
 	    return -11;
 	}
-
 
       /******************PROCESS KEYWORDS*********************/
 
@@ -806,40 +899,42 @@ static int read_tn_data(state_struct *state, FILE *stream,
 	else if (strncmp(in_keyword, "temps", 6) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->tn_stat.temps,
-				 state->tn_stat.num_temps);
+				 state->tn_stat.num_temps, binary);
 	}
 	/* sigma vbar */
 	else if (strncmp(in_keyword, "sigvbars", 9) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->tn_stat.sigvbars,
-				 state->tn_stat.num_temps);
+				 state->tn_stat.num_temps, binary);
 	}
 	/* sigma vbar interpolation data */
 	else if (strncmp(in_keyword, "int_sigvbars", 13) == 0) {
 	    ierr =
 		ndi_skip_rx_prod(stream, &state->tn_stat.int_sigvbars,
-				 NO_MT);
+				 NO_MT, binary);
 	}
 	/* einbar interpolation data */
 	else if (strncmp(in_keyword, "int_einbars", 12) == 0) {
 	    ierr =
 		ndi_skip_rx_prod(stream, &state->tn_stat.int_einbars,
-				 NO_MT);
+				 NO_MT, binary);
 	}
 	/* average incident energy */
 	else if (strncmp(in_keyword, "einbars", 8) == 0) {
 	    ierr =
 		set_simple_array(stream, &state->tn_stat.einbars,
-				 state->tn_stat.num_temps);
+				 state->tn_stat.num_temps, binary);
 	}
 	/* reaction products */
 	else if (strncmp(in_keyword, "rprods", 7) == 0) {
-	    ierr = ndi_skip_rx_prod(stream, &state->tn_stat.rprods, NO_MT);
+	    ierr = ndi_skip_rx_prod(stream, &state->tn_stat.rprods, NO_MT,
+				    binary);
 	}
 	/* reactants */
 	else if (strncmp(in_keyword, "reactants", 10) == 0) {
 	    ierr =
-		ndi_skip_rx_prod(stream, &state->tn_stat.reactants, NO_MT);
+		ndi_skip_rx_prod(stream, &state->tn_stat.reactants, NO_MT,
+			 	binary);
 	}
 
 	/* secondary particle types */
@@ -849,7 +944,8 @@ static int read_tn_data(state_struct *state, FILE *stream,
 		ierr =
 		    set_sec_part_types(stream,
 				       &(state->tn_stat.sec_part_types),
-				       state->tn_stat.num_sec_parts);
+				       state->tn_stat.num_sec_parts,
+				       binary);
 	    } else {
 		ierr = -18;
 	    }
@@ -868,7 +964,7 @@ static int read_tn_data(state_struct *state, FILE *stream,
 		ndi_setup_edist(in_keyword, stream,
 				state->tn_stat.sec_part,
 				state->tn_stat.num_sec_parts,
-				&state->sec_part_filled);
+				&state->sec_part_filled, binary);
 	}
 
 
@@ -901,25 +997,23 @@ static int read_tn_data(state_struct *state, FILE *stream,
 static int read_tn_reac_data(state_struct *state, FILE *stream,
 			     const char *zaid)
 {
-
     char in_keyword[MAX_IN_STR_LEN];
     int ierr = 0;
+    int binary;
 
     if (!state) {
 	return -2;
     }
 
+    binary = state->binary;
 
-    /* Initialize data--set all to zero or null-string */
-
-   /***** ??? Should this be done at the end ?? ***/
     strcpy(state->tnreac_stat.dataset, zaid);
     state->tnreac_stat.set_flag = 1;
 
-
-   /*******************************************************/
+    /*******************************************************/
     /*                     Read TN data                    */
-   /*******************************************************/
+    /*******************************************************/
+
     while (1) {
 
 	/* Read next keyword */
@@ -927,7 +1021,6 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 	    /* Error reading file */
 	    return -11;
 	}
-
 
       /******************PROCESS KEYWORDS*********************/
 
@@ -979,7 +1072,8 @@ static int read_tn_reac_data(state_struct *state, FILE *stream,
 		set_reaction_array(stream, state->tnreac_stat.list_reac,
 				   &state->tnreac_stat.reactants,
 				   &state->tnreac_stat.rprods,
-				   state->tnreac_stat.reac_num);
+				   state->tnreac_stat.reac_num,
+				   binary);
 	}
 
       /*********  COMMENTS  *************/
@@ -1033,7 +1127,6 @@ static int read_depl_data(state_struct *state, FILE *stream,
 	    /* Error reading file */
 	    return -11;
 	}
-
 
       /******************PROCESS KEYWORDS*********************/
 
@@ -1167,7 +1260,8 @@ static int read_depl_data(state_struct *state, FILE *stream,
 /**********************************************************************/
 /*************************************************************************/
 
-static int set_simple_array(FILE *stream, stat_flag * sf, int data_num)
+static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
+			    int binary)
 {
 
     int block_size = 0;
@@ -1182,7 +1276,7 @@ static int set_simple_array(FILE *stream, stat_flag * sf, int data_num)
 	ierr = 5;
     } else {
 	sf->file_ptr = ftell(stream);
-	ierr = skip_float_block(stream, &block_size, data_num);
+	ierr = skip_float_block(stream, &block_size, data_num, binary);
 	sf->length = block_size;
     }
     return ierr;
@@ -1191,9 +1285,9 @@ static int set_simple_array(FILE *stream, stat_flag * sf, int data_num)
 /**********************************************************************/
 
 static int read_simple_array(FILE *stream, stat_flag * sf,
-			     int data_num, ndi_float64 ** global_p)
+			     int data_num, ndi_float64 ** global_p,
+			     int binary)
 {
-
 
     int ierr = 0;
 
@@ -1201,7 +1295,6 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
     sf->file_ptr = 0;
     if (*global_p)
 	ndi_free((void **) global_p);
-
     /* Error checks and read data */
     if (data_num < 0) {
 	/* Library error:  incorrect data order. */
@@ -1214,8 +1307,8 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 	*global_p =
 	    (ndi_float64 *) ndi_malloc(data_num * sizeof(ndi_float64));
 	if (*global_p) {
-	    ierr = ndi_read_float64_block(stream, sf->file_ptr,
-					  data_num, *global_p, data_num);
+	    ierr = ndi_read_float64_block(stream, sf->file_ptr, data_num,
+					  *global_p, data_num, binary);
 	    sf->length = data_num;
 	} else {
 	    /* Out of memory */
@@ -1228,7 +1321,8 @@ static int read_simple_array(FILE *stream, stat_flag * sf,
 /**********************************************************************/
 /**********************************************************************/
 
-static int read_double_array(FILE *stream, int data_num, double **double_p)
+static int read_double_array(FILE *stream, int data_num, double **double_p,
+			     int binary)
 {
 
 
@@ -1250,8 +1344,8 @@ static int read_double_array(FILE *stream, int data_num, double **double_p)
 	file_ptr = ftell(stream);
 	*double_p = (double *) ndi_malloc(data_num * sizeof(double));
 	if (*double_p) {
-	    ierr = ndi_read_double_block(stream, file_ptr,
-					 data_num, *double_p, data_num);
+	    ierr = ndi_read_double_block(stream, file_ptr, data_num,
+					 *double_p, data_num, binary);
 	} else {
 	    /* Out of memory */
 	    ierr = -14;
@@ -1284,7 +1378,8 @@ static int read_next_string(FILE *stream, char *str_array, int str_size)
 }
 
 /**********************************************************************/
-static int set_int_array(FILE *stream, long *int_p, int data_num)
+static int set_int_array(FILE *stream, long *int_p, int data_num,
+			 int binary)
 {
     int ierr = 0;
 
@@ -1295,13 +1390,15 @@ static int set_int_array(FILE *stream, long *int_p, int data_num)
 	/* No data! */
 	ierr = 5;
     } else {
-	ierr = ndi_read_int_block(stream, data_num, int_p, data_num);
+	ierr = ndi_read_int_block(stream, data_num, int_p, data_num,
+				  binary);
     }
     return ierr;
 }
 
 /**********************************************************************/
-static int set_string_array(FILE *stream, char **str_p, int data_num)
+static int set_string_array(FILE *stream, char **str_p, int data_num,
+			    int binary)
 {
     int ierr = 0;
 
@@ -1312,15 +1409,36 @@ static int set_string_array(FILE *stream, char **str_p, int data_num)
 	/* No data! */
 	ierr = 5;
     } else {
-	ierr = ndi_read_string_block(stream, data_num, str_p);
+	ierr = ndi_read_string_block(stream, data_num, str_p, binary);
     }
+    return ierr;
+}
+
+/**********************************************************************/
+int read_string_line(FILE *stream, char *line, int str_size)
+{
+    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+    char input[133];                /* Current data item */
+    char *seps = " ";     /* Data delimiters in library file */
+
+    while (fread(input, sizeof(input), 1, stream) > 0) {
+        if (strcmp(input, "break") == 0) {
+            break;
+        } else {
+            strcat(line, seps);
+            strcat(line, input);
+        }
+    }
+
+    if (feof(stream)) ierr = -11;
+
     return ierr;
 }
 
 /**********************************************************************/
 /**********************************************************************/
 static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
-			      int data_num)
+			      int data_num, int binary)
 {
     int ierr = 0;
 
@@ -1333,7 +1451,8 @@ static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
     } else {
 	*int_p =
 	    (int_zaid_type *) ndi_malloc(data_num * sizeof(int_zaid_type));
-	ierr = ndi_read_int_block(stream, data_num, *int_p, data_num);
+	ierr = ndi_read_int_block(stream, data_num, *int_p, data_num,
+				  binary);
     }
     return ierr;
 }
@@ -1342,7 +1461,7 @@ static int set_sec_part_types(FILE *stream, int_zaid_type ** int_p,
 /**********************************************************************/
 static int set_reaction_array(FILE *stream, char **str_p,
 			      stat_flag ** reac_p, stat_flag ** rprods_p,
-			      int data_num)
+			      int data_num, int binary)
 {
     int ierr = 0;
     int reac_count = 0;
@@ -1378,10 +1497,10 @@ static int set_reaction_array(FILE *stream, char **str_p,
 		    strcpy(str_p[reac_count], token);
 		    ierr =
 			ndi_skip_rx_prod(stream, &(reactants[reac_count]),
-					 NO_MT);
+					 NO_MT, binary);
 		    ierr =
 			ndi_skip_rx_prod(stream, &(rprods[reac_count]),
-					 NO_MT);
+					 NO_MT, binary);
 		    reac_count++;
 		} else {
 		    /* More data than expected */
@@ -1402,7 +1521,8 @@ static int set_reaction_array(FILE *stream, char **str_p,
 }
 
 /**********************************************************************/
-static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num)
+static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num,
+			     int binary)
 {
     int n;
     int ierr = 0;
@@ -1419,7 +1539,8 @@ static int set_reaction_prod(FILE *stream, multi_stat * sf, int data_num)
 	sf->stat = (stat_flag *) ndi_malloc(data_num * sizeof(stat_flag));
 	if (sf->stat) {
 	    for (n = 0; n < data_num; ++n) {
-		ierr = ndi_skip_rx_prod(stream, &(sf->stat[n]), READ_MT);
+		ierr = ndi_skip_rx_prod(stream, &(sf->stat[n]), READ_MT,
+					binary);
 	    }
 	} else {
 	    /* Out of memory */
@@ -1646,16 +1767,16 @@ static int set_chain_array(state_struct *state, FILE *stream,
 /**********************************************************************/
 
 static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
-			int in_grps, int out_grps, int num_elements)
+			int in_grps, int out_grps, int num_elements,
+			int binary)
 
 /* It is assumed that 'num_objs' was set when the pn number was read */
 /* The number of incoming and outgoing energy groups must be set */
 {
-    int n;
+    int i, n;
     int ierr = 0;
     int pn_num;
     int block_size;
-
 
    /*** get rid of this stupidity--set num_objs here ***/
     if (sf->num_objs < 0) {
@@ -1673,7 +1794,12 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 		(stat_flag *) ndi_malloc(pn_order * sizeof(stat_flag));
 	    if (sf->stat) {
 		for (n = 0; n < pn_order; ++n) {
-		    if (fscanf(stream, "%d\n", &pn_num) == EOF) {
+		    if (binary) {
+			i = fread(&pn_num, sizeof(int), 1, stream);
+		    } else {
+			i = fscanf(stream, "%d\n", &pn_num);
+		    }
+		    if (i == EOF) {
 			/* Error reading file--pn order not read */
 			return -11;
 		    }
@@ -1684,7 +1810,7 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 		    sf->stat[n].file_ptr = ftell(stream);
 		    ierr =
 			skip_float_block(stream, &block_size,
-					 num_elements);
+					 num_elements, binary);
 		    sf->stat[n].length = block_size;
 		}
 	    } else {
@@ -1700,13 +1826,16 @@ static int set_pn_array(FILE *stream, multi_stat * sf, int pn_order,
 
 static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 			int in_grps, int **in_e_mt,
-			double **in_q_value, int *fission_flag)
+			double **in_q_value, int *fission_flag,
+			int binary)
 
 /* It is assumed that 'num_objs' has not been set */
 /* The number of  energy groups must be set */
 {
     int n;
     int ierr = 0;
+    int i = 0;
+    int j = 0;
     int *e_mt;
     int block_size;
     double *q_value;
@@ -1731,7 +1860,13 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 		e_mt = *in_e_mt;
 		q_value = *in_q_value;
 		for (n = 0; n < num_reac; ++n) {
-		    if (fscanf(stream, "%d  %lf\n", e_mt, q_value) == EOF) {
+		    if (binary) {
+			i = fread(e_mt, sizeof(int), 1, stream);
+			j = fread(q_value, sizeof(double), 1, stream);
+		    } else {
+			i = fscanf(stream, "%d  %lf\n", e_mt, q_value);
+		    }
+		    if (i == EOF || j == EOF) {
 			/* Error reading file--MT and Q-value not read */
 			if (e_mt)
 			    ndi_free((void **) &e_mt);
@@ -1751,11 +1886,10 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 			*fission_flag = 1;
 		    }
 
-	       /*** check e_mt[n] == curr_e_mt  and store q_value */
 		    e_mt++;
 		    q_value++;
 		    sf->stat[n].file_ptr = ftell(stream);
-		    ierr = skip_float_block(stream, &block_size, in_grps);
+		    ierr = skip_float_block(stream, &block_size, in_grps, binary);
 		    sf->stat[n].length = block_size;
 		}
 	    } else {
@@ -1770,7 +1904,7 @@ static int set_sig_reac(FILE *stream, multi_stat * sf, int num_reac,
 /**********************************************************************/
 static int ndi_setup_edist(char *keyword, FILE *stream,
 			   sec_part_distr *sec_part, int num_parts,
-			   int *parts_filled)
+			   int *parts_filled, int binary)
 {
     int ierr = 0;
     int tmp_err = 0;
@@ -1815,7 +1949,7 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
 		if (!(part->edist)) {
 		    ierr = -14;
 		} else {
-		    tmp_err = fill_edist(stream, ntemp, part->edist);
+		    tmp_err = fill_edist(stream, ntemp, part->edist, binary);
 		}
 	    }			/*else {
 				   tmp_err = fill_edist( stream, ntemp, NULL );
@@ -1837,7 +1971,7 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
 }
 
 /**********************************************************************/
-static int fill_edist(FILE *stream, int ntemp, edist_data *dist)
+static int fill_edist(FILE *stream, int ntemp, edist_data *dist, int binary)
 {
     int ierr = 0;
     int i;
@@ -1857,7 +1991,8 @@ static int fill_edist(FILE *stream, int ntemp, edist_data *dist)
 		    ndi_read_interp_param(stream, ninterp,
 					  &(dist[i].interp));
 		dist[i].file_ptr = ftell(stream);
-		ierr = skip_float_block(stream, &block_size, npts * 2);
+		ierr = skip_float_block(stream, &block_size, npts * 2,
+					binary);
 	    } else {
 		/* Error reading file */
 		ierr = -11;
@@ -2048,9 +2183,43 @@ static int skip_comment(FILE *stream)
 }
 
 /**********************************************************************/
+static int read_int_val(FILE *stream, int *value, int binary)
+{
+    int ierr = 0;
+    int n = 0;
+
+    if (binary) {
+	n = fread(value, sizeof(int), 1, stream);
+    } else {
+	n = fscanf(stream, "%d\n", value);
+    }
+    
+    if (n == EOF) ierr = -11;
+ 
+    return ierr;
+}
+
+/**********************************************************************/
+static int read_float_val(FILE *stream, double *value, int binary)
+{
+    int ierr = 0;
+    int n = 0;
+
+    if (binary) {
+        n = fread(value, sizeof(double), 1, stream);
+    } else {
+        n = fscanf(stream, "%lf\n", value);
+    }
+
+    if (n == EOF) ierr = -11;
+
+    return ierr;
+}
+
+/**********************************************************************/
 int ndi_read_double_block(FILE *stream, long file_pos,
 			  const int num_floats, double *return_vec,
-			  const int return_size)
+			  const int return_size, int binary)
 {
     int float_count = 0;	/* Current number of floats processed */
     int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
@@ -2058,12 +2227,11 @@ int ndi_read_double_block(FILE *stream, long file_pos,
     char *token;		/* Current data item */
     char seps[] = " ,\t\n";	/* Data delimiters in library file */
     double *cur_flt_ptr = return_vec;
-
-    /* Add return_size */
+    double input;
 
     /* Go to start of data, read line and count floats */
-    /*  Check for data not available */
     fseek(stream, file_pos, SEEK_SET);
+
     while (float_count < num_floats) {
 
 	/* Check to see if we've reached the end of return_vec */
@@ -2072,24 +2240,45 @@ int ndi_read_double_block(FILE *stream, long file_pos,
 	    break;
 	}
 
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (float_count < num_floats) {
-		    *cur_flt_ptr = (double) strtod(token, NULL);
-		    token = strtok(NULL, seps);
-		    float_count++;
+	if (binary) {
+	    /*  Read one double at a time */
+	    if (fread(&input, sizeof(double), 1, stream) > 0) {
+	        if (float_count < num_floats) {
+		    *cur_flt_ptr = input;
+	 	    float_count++;
 		    cur_flt_ptr++;
-		} else {
+	        } else {
 		    /* More data than expected */
 		    ierr = 6;
 		    break;
-		}
+	        }
+	    } else {
+	        /* Error reading file or end of file */
+	        ierr = -11;
+		break;
 	    }
-	} else {
-	    /* Error reading file */
-	    ierr = -11;
-	    return ierr;
+        } else {
+	    /* Read one line of doubles at a time */
+            if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+                token = strtok(in_line, seps);
+		/* Go through each double in the line */
+                while (token != NULL) {
+                    if (float_count < num_floats) {
+                        *cur_flt_ptr = (double) strtod(token, NULL);
+                        token = strtok(NULL, seps);
+                        float_count++;
+                        cur_flt_ptr++;
+                    } else {
+                        /* More data than expected */
+                        ierr = 6;
+                        break;
+                    }
+                }
+            } else {
+                /* Error reading file */
+                ierr = -11;
+                return ierr;
+            }
 	}
     }
 

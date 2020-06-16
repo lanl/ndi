@@ -19,7 +19,8 @@
 /**********************************************************************/
 
 
-int ndi_read_string_block(FILE *stream, const int num_strings, char **p)
+int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
+			  int binary)
 
 /*  Purpose: Skip over a specifed (num_strings) number of floating-point 
     numbers.
@@ -42,26 +43,45 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p)
 
     /* Read next line and count strings */
     while (string_count < num_strings) {
-	if (fgets(in_line, sizeof(in_line), stream) != NULL) {
-	    token = strtok(in_line, seps);
-	    while (token != NULL) {
-		if (string_count < num_strings) {
-		    p[string_count] =
-			(char *) ndi_malloc((strlen(token) + 1) *
-					    sizeof(char));
-		    strcpy(p[string_count], token);
-		    token = strtok(NULL, seps);
-		    string_count++;
-		} else {
-		    /* More data than expected */
+	if (binary) {
+	    if (fread(in_line, sizeof(in_line), 1, stream) < 1) {
+		/* Error reading file or end of file */
+	        ierr = -11;
+	        break;
+	    } else {
+	        if (string_count < num_strings) {
+   	            p[string_count] = (char *) ndi_malloc((strlen(token) + 1) *
+                                                           sizeof(in_line));
+	            strcpy(p[string_count], in_line);
+	            string_count++;
+	        } else {
+                    /* More data than expected */
 		    ierr = 6;
 		    break;
-		}
+	        }
 	    }
 	} else {
-	    /* Error reading file */
-	    ierr = -11;
-	    break;
+            if (fgets(in_line, sizeof(in_line), stream) != NULL) {
+                token = strtok(in_line, seps);
+                while (token != NULL) { 
+                    if (string_count < num_strings) {
+                        p[string_count] =
+                            (char *) ndi_malloc((strlen(token) + 1) *
+                                                sizeof(char)); 
+                        strcpy(p[string_count], token);
+                        token = strtok(NULL, seps);
+                        string_count++;
+                    } else {
+                        /* More data than expected */
+                        ierr = 6;
+                        break; 
+                    }   
+                }   
+            } else {
+                /* Error reading file */
+                ierr = -11;
+                break; 
+            }   
 	}
     }
     return ierr;
