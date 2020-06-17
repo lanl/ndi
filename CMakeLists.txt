@@ -6,7 +6,7 @@ if(DEFINED PROJECT_NAME)
 endif()
 
 project(ndi
-  VERSION 2.1.4
+  VERSION 2.2.0
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi"
   LANGUAGES C Fortran)
