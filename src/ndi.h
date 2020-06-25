@@ -10,8 +10,8 @@
  * Defines
  */
 
-#ifndef __NDI_H
-#define __NDI_H
+#ifndef NDI_H
+#define NDI_H
 
 #include "ndi_keywords.h"
 #include "ndi_var_type.h"
@@ -174,7 +174,7 @@ extern "C" {
 
     /* Rename functions */
 
-#ifndef __NDI_NO_NAME_SUB
+#ifndef NDI_NO_NAME_SUB
 #define ndid_get_size(x, y, z) ndid_c_get_size(x, y, z)
 #define ndid_get_num(x, y, z) ndid_c_get_num(x, y, z)
 #define ndid_get_string_vec(w, x, y, z) ndid_c_get_string_vec(w, x, y, z)
@@ -218,9 +218,9 @@ extern "C" {
 #define ndi_c_to_mt(x)  ndi_c_c_to_mt(x)
 #define ndi_mt_to_c(x) ndi_c_mt_to_c(x)
 
-#endif				/* __NDI_NO_NAME_SUB */
+#endif				/* NDI_NO_NAME_SUB */
 
 #ifdef	__cplusplus
 }
 #endif
-#endif				/* __NDI_H */
+#endif				/* NDI_H */

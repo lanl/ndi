@@ -126,7 +126,7 @@ static int set_mpmg_library(state_struct *mpmg_handle, const char *value)
 	mpmg_handle->handle_free = 0;
 
 	for (i = 0; i < num_parts; i++) {
-	    tmp_err = __ndi_add_child_handle(mpmg_handle);
+	    tmp_err = ndi_add_child_handle(mpmg_handle);
 	    curr_h = mpmg_handle->handle_map[i];
 	    if ((tmp_err != 0) && ((ierr >= 0) || (tmp_err < 0)))
 		ierr = tmp_err;

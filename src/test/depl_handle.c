@@ -11,7 +11,7 @@ static void print_float64_array( float64 *array, int num );
 static void print_int_array( int *array, int num );
 
 
-#ifdef __STANDALONE 
+#ifdef NDI_STANDALONE 
 int main ()
 {
   int ierr = 0;
@@ -19,7 +19,7 @@ int main ()
   ierr = test_depl();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int test_depl(void)
 {

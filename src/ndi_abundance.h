@@ -8,8 +8,8 @@
 
 /**********************************************************************/
 
-#ifndef __NDI_ABUNDANCE_H
-#define __NDI_ABUNDANCE_H
+#ifndef NDI_ABUNDANCE_H
+#define NDI_ABUNDANCE_H
 
 /* This method of defining abundances should be replaced as soon as 
    possible.  This information should be read from a standalone file.
@@ -603,4 +603,4 @@ ndi_float64 abundance_value[] = { 0.99985,
     0.992745
 };
 
-#endif				/* __NDI_ABUNDANCE_H */
+#endif				/* NDI_ABUNDANCE_H */

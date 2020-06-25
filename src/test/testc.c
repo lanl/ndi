@@ -23,7 +23,7 @@ static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
 static void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
 static void print_int_vec( int *int_ptr, int num_elements );
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main (void)
 {
   int ierr = 0;
@@ -31,7 +31,7 @@ int main (void)
   ierr = testc();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int testc (void)
 {

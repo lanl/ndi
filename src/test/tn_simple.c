@@ -8,7 +8,7 @@ typedef double float64;
 
 int tn_simple(void);
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -16,7 +16,7 @@ int main ()
   ierr = tn_simple();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int tn_simple(void)
 {

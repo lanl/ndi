@@ -10,7 +10,7 @@ typedef double float64;
 int kerma_example(void);
 static void print_float64_vec( float64 *flt64_ptr, int num_elements );
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -18,7 +18,7 @@ int main ()
   ierr = kerma_example();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int kerma_example(void)
 {

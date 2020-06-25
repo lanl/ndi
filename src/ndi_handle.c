@@ -94,12 +94,12 @@ int set_handle(state_struct *state)
 }
 
 /*!
-  \fn __ndi_close_handle
+  \fn ndi_close_handle
   \brief close the specified level 0 handle
   \param handle
   \return 0 if sucessful; negative if error
 */
-int __ndi_close_handle(int handle)
+int ndi_close_handle(int handle)
 {
     int ret_val;
     state_struct *state_p;
@@ -114,7 +114,7 @@ int __ndi_close_handle(int handle)
     }
 }
 
-int __ndi_add_child_handle(state_struct *parent)
+int ndi_add_child_handle(state_struct *parent)
 {
     int h;
     state_struct *child = NULL;

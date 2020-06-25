@@ -11,7 +11,7 @@ static int check_ndi_float_vec_n_func_mgn(int handle);
 static void print_float64_vec( ndi_float64 *flt64_ptr, int num_elements );
 
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 
 int main ()
 {
@@ -20,7 +20,7 @@ int main ()
   ierr = test_collapse();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 
 int test_collapse (void)

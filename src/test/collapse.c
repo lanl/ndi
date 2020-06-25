@@ -15,7 +15,7 @@ static void print_float32_vec( ndi_float32 *flt_ptr, int num_elements );
 static void print_int_vec( int *int_ptr, int num_elements );
 
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 
 int main ()
 {
@@ -24,7 +24,7 @@ int main ()
   ierr = test_collapse();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 
 int test_collapse (void)

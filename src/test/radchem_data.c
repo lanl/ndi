@@ -8,7 +8,7 @@ typedef double float64;
 
 int radchem_data(void);
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -16,7 +16,7 @@ int main ()
   ierr = radchem_data();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int radchem_data(void)
 {
