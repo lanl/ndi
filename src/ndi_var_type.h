@@ -4,8 +4,8 @@
 
 /**********************************************************************/
 
-#ifndef __NDI_VAR_TYPE_H
-#define __NDI_VAR_TYPE_H
+#ifndef NDI_VAR_TYPE_H
+#define NDI_VAR_TYPE_H
 
 #include <float.h>
 #define FLOAT32_EPSILON FLT_EPSILON
@@ -217,5 +217,5 @@ typedef double ndi_float64;
 
 /**********************************************************************/
 
-#endif	/* __NDI_VAR_TYPE_H */
+#endif	/* NDI_VAR_TYPE_H */
 

@@ -8,8 +8,8 @@
 
 /**********************************************************************/
 
-#ifndef __NDI_ELEMENT_SYMBOLS_H
-#define __NDI_ELEMENT_SYMBOLS_H
+#ifndef NDI_ELEMENT_SYMBOLS_H
+#define NDI_ELEMENT_SYMBOLS_H
 
 #include "ndi_var_type.h"
 
@@ -123,4 +123,4 @@ static char *ndi_element_sym[104] = {
     /* Z = 103 */ "Lr"
 };
 
-#endif				/* __NDI_ELEMENT_SYMBOLS_H */
+#endif				/* NDI_ELEMENT_SYMBOLS_H */

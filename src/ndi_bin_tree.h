@@ -8,8 +8,8 @@
 
 /**********************************************************************/
 
-#ifndef __NDI_BIN_TREE_H
-#define __NDI_BIN_TREE_H
+#ifndef NDI_BIN_TREE_H
+#define NDI_BIN_TREE_H
 
 /**********************************************************************/
 
@@ -83,4 +83,4 @@ extern "C" {
     int ndi_close_tree(struct ndi_bin_tree_node **root);
 
 
-#endif				/* __NDI_BIN_TREE_H */
+#endif				/* NDI_BIN_TREE_H */

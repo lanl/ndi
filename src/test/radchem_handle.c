@@ -11,7 +11,7 @@ int test_radchem_chain(void);
 static void print_float64_array( float64 *array, int num );
 
 
-/*ifdef __STANDALONE*/
+/*ifdef NDI_STANDALONE*/
 int main ()
 {
   int ierr = 0;
@@ -19,7 +19,7 @@ int main ()
   ierr = test_radchem_chain();
   return(ierr);
 }
-/*endif  * __STANDALONE */
+/*endif  * NDI_STANDALONE */
 
 int test_radchem_chain(void)
 {

@@ -84,7 +84,7 @@ NDI2_close_gendir(int handle)
     state_p = handle_to_state_p(handle);
 
     if (is_gendir(state_p)) {
-        return __ndi_close_handle(handle);
+        return ndi_close_handle(handle);
     } else {
 	return -2;
     }
@@ -271,7 +271,7 @@ NDI2_make_handle(int handle0, const char *type, int *handle1)
     if (parent)			/* calculate child handle */
         *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
     
-    if(__ndi_add_child_handle(parent) != 0) /* add child handle */
+    if(ndi_add_child_handle(parent) != 0) /* add child handle */
 	return -1;
 
     child = handle_to_state_p(*handle1);	/* get child state */

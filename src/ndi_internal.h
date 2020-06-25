@@ -8,8 +8,8 @@
 
 /**********************************************************************/
 
-#ifndef __NDI_INTERNAL_H
-#define __NDI_INTERNAL_H
+#ifndef NDI_INTERNAL_H
+#define NDI_INTERNAL_H
 
 #include "ndi_var_type.h"
 #include "ndi_version.h"
@@ -705,8 +705,8 @@ extern "C" {
     int is_mpmg(state_struct *state);
     state_struct *handle_to_state_p(int handle);
     int set_handle(state_struct *state);
-    int __ndi_close_handle(int handle);
-    int __ndi_add_child_handle(state_struct *parent);
+    int ndi_close_handle(int handle);
+    int ndi_add_child_handle(state_struct *parent);
     char *ndi_get_section(state_struct *state);
     int ndi_is_library_type(state_struct *state, const char *type);
 
@@ -808,4 +808,4 @@ extern "C" {
   /**********************************************************************/
 
 
-#endif				/* __NDI_INTERNAL_H */
+#endif				/* NDI_INTERNAL_H */

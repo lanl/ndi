@@ -11,8 +11,8 @@ void print_var_type_header(void);
 int main()
 {
     print_var_type_header();
-    printf("#ifndef __NDI_VAR_TYPE_H\n");
-    printf("#define __NDI_VAR_TYPE_H\n\n");
+    printf("#ifndef NDI_VAR_TYPE_H\n");
+    printf("#define NDI_VAR_TYPE_H\n\n");
     
     printf("#include <float.h>\n");
 
@@ -250,7 +250,7 @@ int main()
 
     printf
 	("/**********************************************************************/\n\n");
-    printf("#endif	/* __NDI_VAR_TYPE_H */\n\n");
+    printf("#endif	/* NDI_VAR_TYPE_H */\n\n");
     return 0;
 
 }

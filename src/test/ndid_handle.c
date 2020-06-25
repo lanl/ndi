@@ -10,7 +10,7 @@ int test_ndid(void);
 static void print_list( char *list, int list_num );
 static void print_f64list( float64 *list, int list_num );
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -18,7 +18,7 @@ int main ()
   ierr = test_ndid();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int test_ndid(void)
 {
