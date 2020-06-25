@@ -9,7 +9,7 @@ typedef double float64;
 static void print_float64_array( float64 *array, int num );
 int test5(void);
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -17,7 +17,7 @@ int main ()
   ierr = test5();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 
 int test5(void)

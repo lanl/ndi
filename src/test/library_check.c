@@ -6,7 +6,7 @@
 
 int test_library_check(void);
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -14,7 +14,7 @@ int main ()
   ierr = test_library_check();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int test_library_check(void)
 {

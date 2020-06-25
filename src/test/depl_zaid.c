@@ -9,7 +9,7 @@ typedef double float64;
 int test_depl_zaid(void);
 static void print_int_array( int *array, int num );
 
-#ifdef __STANDALONE 
+#ifdef NDI_STANDALONE 
 int main ()
 {
   int ierr = 0;
@@ -17,7 +17,7 @@ int main ()
   ierr = test_depl_zaid();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int test_depl_zaid(void)
 {

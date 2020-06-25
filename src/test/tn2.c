@@ -791,7 +791,7 @@ static int setup_integ( void  )
    return(ierr);
 }
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main (void)
 {
   int ierr = 0;
@@ -799,5 +799,5 @@ int main (void)
   ierr = testtn2();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 

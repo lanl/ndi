@@ -8,7 +8,7 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib
 
 foreach(test_name IN LISTS c_tests)
   add_executable(ndi.${test_name} ${CMAKE_CURRENT_LIST_DIR}/${test_name}.c)
-  target_compile_definitions(ndi.${test_name} PUBLIC __STANDALONE)
+  target_compile_definitions(ndi.${test_name} PUBLIC NDI_STANDALONE)
   target_link_libraries(ndi.${test_name} PUBLIC ndi)
   get_property(location TARGET ndi.${test_name} PROPERTY OUTPUT_NAME)
   add_test(NAME ndi.${test_name} COMMAND ${CMAKE_COMMAND}

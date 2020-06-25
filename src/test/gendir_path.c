@@ -6,7 +6,7 @@
 
 int test_gendir_path(void);
 
-#ifdef __STANDALONE
+#ifdef NDI_STANDALONE
 int main ()
 {
   int ierr = 0;
@@ -14,7 +14,7 @@ int main ()
   ierr = test_gendir_path();
   return(ierr);
 }
-#endif  /* __STANDALONE */
+#endif  /* NDI_STANDALONE */
 
 int test_gendir_path(void)
 {

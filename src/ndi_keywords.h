@@ -1,6 +1,6 @@
 
-#ifndef __NDI_KEYWORDS_H
-#define __NDI_KEYWORDS_H
+#ifndef NDI_KEYWORDS_H
+#define NDI_KEYWORDS_H
 
 #define NDI_ZAID                        1
 #define NDI_INFO                        2
