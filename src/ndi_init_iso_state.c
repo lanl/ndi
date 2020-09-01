@@ -28,6 +28,8 @@ static int read_dedx_data(state_struct *state, FILE *stream,
                           const char *zaid);
 static int set_simple_array(FILE *stream, stat_flag * sf, int data_num,
 			    int binary);
+static int read_dedx_data(state_struct *state, FILE *stream,
+                          const char *zaid);
 static int read_simple_array(FILE *stream, stat_flag * sf, int data_num,
 			     ndi_float64 ** global_p, int binary);
 static int read_double_array(FILE *stream, int data_num,
