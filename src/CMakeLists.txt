@@ -17,9 +17,12 @@ add_custom_command(
 
 add_custom_target(generate_ndi_var_type DEPENDS ndi_var_type.h)
 
-add_executable(ndi_define_fmangle
-  ${CMAKE_CURRENT_LIST_DIR}/fcallscc.c
-  ${CMAKE_CURRENT_LIST_DIR}/fcallscf.f)
+
+# Seperate the C and Fortran code into disparate CMake targets for windows compatibility.
+add_library(ndi_define_fmanglec STATIC)
+target_sources(ndi_define_fmanglec PRIVATE ${CMAKE_CURRENT_LIST_DIR}/fcallscc.c)
+add_executable(ndi_define_fmangle ${CMAKE_CURRENT_LIST_DIR}/fcallscf.f)
+target_link_libraries(ndi_define_fmangle PRIVATE ndi_define_fmanglec)
 
 add_custom_command(
   OUTPUT fmangle.h
