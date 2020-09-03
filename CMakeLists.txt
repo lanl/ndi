@@ -76,7 +76,6 @@ add_library(ndi ${library_type}
   $<TARGET_OBJECTS:ndi_F>)
 
 add_library(ndi::ndi ALIAS ndi)
-target_link_libraries(ndi PUBLIC m)
 
 set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   POSITION_INDEPENDENT_CODE "${ndi.position_independent_code}"
@@ -88,6 +87,7 @@ set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
   WARN_ERROR ON
   LLVM_DISABLED_WARNINGS "unused-parameter"
   GNU_DISABLED_WARNINGS "unused-parameter"
+  MSVC_DISABLED_WARNINGS "4267;4100;4244;4706;4127;4305;4456;4295;4701;4703;4996"
   Intel_DISABLED_WARNINGS "3656")
 
 set_target_properties(ndi PROPERTIES
@@ -95,6 +95,15 @@ set_target_properties(ndi PROPERTIES
   SKIP_BUILD_RPATH OFF
   BUILD_WITH_INSTALL_RPATH OFF
   INSTALL_RPATH_USE_LINK_PATH "${ndi.install.rpath_use_link_path}")
+
+if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+  target_compile_definitions(ndi PUBLIC _CRT_SECURE_NO_WARNINGS)
+  target_compile_definitions(ndi_C PUBLIC _CRT_SECURE_NO_WARNINGS)
+  target_compile_definitions(ndi_float32 PUBLIC _CRT_SECURE_NO_WARNINGS)
+  target_compile_definitions(ndi_float64 PUBLIC _CRT_SECURE_NO_WARNINGS)
+else()
+  target_link_libraries(ndi PUBLIC m)
+endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(install_rpath "@loader_path")
