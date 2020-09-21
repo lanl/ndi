@@ -21,7 +21,7 @@ int main ()
    double *double_vec;
    char test_zaid[20] = "";
    char zaid_in[20] = "";
-   char string_val, tmp1, tmp2, tmp3, tmp4;
+   char string_val, tmp1[80], tmp2, tmp3, tmp4;
 
    printf("\n\n ********************************************************* \n" );
    printf("    TEST -- dE/dx data\n" );
@@ -47,24 +47,24 @@ int main ()
    printf("ZAID of length %d: %s\n",int_val, &string_val);
 
    int_val = NDI2_get_size(handle, NDI_INFO, &ierr);
-   ierr = NDI2_get_string_val(handle, NDI_INFO, &tmp1, int_val);
+   ierr = NDI2_get_string_val(handle, NDI_INFO, tmp1, int_val);
    if( ierr != 0) printf("  Error %d retrieving info.\n", ierr);
    printf("Info: %s", &tmp1);
 
    int_val = NDI2_get_size(handle, NDI_DATE_PROCESSED, &ierr);
-   ierr = NDI2_get_string_val(handle, NDI_DATE_PROCESSED, &tmp2, int_val);
+   ierr = NDI2_get_string_val(handle, NDI_DATE_PROCESSED, tmp1, int_val);
    if( ierr != 0) printf("  Error %d retrieving date processed.\n", ierr);
-   printf("Date processed: %s", &tmp2);
+   printf("Date processed: %s", &tmp1);
 
    int_val = NDI2_get_size(handle, NDI_DATE_SOURCE, &ierr);
-   ierr = NDI2_get_string_val(handle, NDI_DATE_SOURCE, &string_val, int_val);
+   ierr = NDI2_get_string_val(handle, NDI_DATE_SOURCE, tmp1, int_val);
    if( ierr != 0) printf("  Error %d retrieving date source.\n", ierr);
-   printf("Date source: %s", &string_val);
+   printf("Date source: %s", &tmp1);
 
    int_val = NDI2_get_size(handle, NDI_LIBRARY_NAME, &ierr);
-   ierr = NDI2_get_string_val(handle, NDI_LIBRARY_NAME, &string_val, int_val);
+   ierr = NDI2_get_string_val(handle, NDI_LIBRARY_NAME, tmp1, int_val);
    if( ierr != 0) printf("  Error %d retrieving library name.\n", ierr);
-   printf("Library name: %s\n", &string_val);
+   printf("Library name: %s\n", &tmp1);
 
 /* Test get_float_val */
 
