@@ -109,6 +109,7 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 	} else {
 	    if (fgets(in_line, sizeof(in_line), stream) == NULL) {
                 /* Error reading file */
+                return -11;
             }
             tok_str = in_line;
 
