@@ -157,9 +157,6 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
         return -12;
     }
 
-    /* Debugging statement */
-//    printf("Keyword: %s\nRead in zaid: %s\nzaid from gendir: %s\n", in_keyword, izaid, zaid);
-
     if ((n == EOF) || (n < 1)) {
 	/* zaid wasn't read */
 	return -11;
@@ -182,7 +179,6 @@ int ndi_init_iso_state(state_struct *state, FILE *stream, char lib_type,
 	/* Internal error--invalid lib_type input */
 	ierr = -13;
     }
-	//printf("B %d\n",ierr);
 
     return ierr;
 

@@ -441,7 +441,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         if (state->dedx_stat.num_grps > 0) {
             *ret_val = state->dedx_stat.num_grps;
         } else {
-            /* Error: data not available in library for this reaction */
+            /* Error: data not available in library for this charged particle */
             ierr = -9;
         }
         break;
@@ -450,7 +450,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         if (state->dedx_stat.num_densities > 0) {
             *ret_val = state->dedx_stat.num_densities;
         } else {
-            /* Error: data not available in library for this reaction */
+            /* Error: data not available in library for this charged particle */
             ierr = -9;
         }
         break;
@@ -459,7 +459,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         if (state->dedx_stat.num_grps > 0) {
             *ret_val = state->dedx_stat.num_temps;
         } else {
-            /* Error: data not available in library for this reaction */
+            /* Error: data not available in library for this charged particle */
             ierr = -9;
         }
         break;
@@ -468,7 +468,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         if (state->dedx_stat.num_targets > 0) {
             *ret_val = state->dedx_stat.num_targets;
         } else {
-            /* Error: data not available in library for this reaction */
+            /* Error: data not available in library for this charged particle */
             ierr = -9;
         }
         break;

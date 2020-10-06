@@ -784,8 +784,6 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
         return (-7);
     }
 
-    binary = state->binary;
-
     /*************************/
     /*   Process input key   */
     /*************************/

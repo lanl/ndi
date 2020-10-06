@@ -207,7 +207,7 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
    multigroup_neutron, tn, multigroup_photon, dedx
    
    Global variables used (and valid values):
-   particle_type -- 1-neutorn, 0-photon, -1(tn or dedx)
+   particle_type -- 1-neutron, 0-photon, -1-tn or dedx
    library_type -- m, s(tn)
    
 -------------------------------------------------------------------------*/

@@ -557,7 +557,7 @@ static int get_dedx_size_n(state_struct *state, int in_key, int vec_num,
 
     /****  Single-valued data -- return "1" ****/
 
-    case NDI_TARGET_ZAID:        /* Total production Q for input product */
+    case NDI_TARGET_ZAID:        /* Target ZAID */
         return_value = 1;
         break;
 
