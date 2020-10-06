@@ -360,12 +360,6 @@ int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
 
     binary = state->binary;
 
-//    for( i = 0; i < state->dedx_stat.num_targets; ++i ) {
-//	if ( zaid != state->dedx_stat.targets[i] ) continue;
-//	curr_index = i;
-//	break;
-//    }
-
     for (i = 0; i < state->dedx_stat.num_targets; ++i) {
         if ( zaid == state->dedx_stat.targets[i] ) {
             curr_index = i;
