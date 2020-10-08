@@ -22,6 +22,14 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
 static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
                                   const char *in_str,
                                   FLOAT_TYPE *return_vec, int vec_size);
+
+static int GET_FLOAT_VEC_X_DEDX(state_struct *state, int in_key,
+                                const char *in_str,
+                                FLOAT_TYPE *return_vec, int vec_size);
+
+static int GET_TARGET_DEDX(state_struct *state, const char *zaid,
+                           FLOAT_TYPE *return_vec, int vec_size);
+
 /**********************************************************************/
 
 int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
@@ -50,6 +58,9 @@ int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
                (state->library_type == 'd')) {
         ierr = GET_FLOAT_VEC_X_MG(state, in_key, in_str, 
                                   return_vec, vec_size);
+    } else if (state->library_type == 'x') {
+	ierr = GET_FLOAT_VEC_X_DEDX(state, in_key, in_str,
+                                    return_vec, vec_size);
     } else if (state->library_type == ' ') {
         NDI_THROW(ierr, -16);   /* Library type was not set */
     } else {
@@ -128,6 +139,38 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
 
     case NDI_RPROD_MLT:         /* Reaction multiplicity */
         ierr = GET_RPROD_MLT(state, in_str, return_vec, vec_size);
+        break;
+
+    default:     /**********  UNKNOWN KEYWORD  ***********/
+        NDI_THROW(ierr, -4);
+        break;
+    }
+
+ catch:
+    return ierr;
+}
+
+/**********************************************************************/
+/*********************************************************************/
+
+static int GET_FLOAT_VEC_X_DEDX(state_struct *state, int in_key,
+                                const char *in_str,
+                                FLOAT_TYPE *return_vec, int vec_size)
+{
+    int ierr = 0;
+
+    if (!state->dedx_stat.set_flag)
+        NDI_THROW(ierr, -7);   /* Isotope not set */
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    case NDI_TARGET_DEDX:       /* Get dE/dx for a target given
+                                   by the ZAID in in_str */
+        ierr = GET_TARGET_DEDX(state, in_str, return_vec, vec_size);
         break;
 
     default:     /**********  UNKNOWN KEYWORD  ***********/
@@ -290,6 +333,50 @@ int GET_RPROD_MLT(state_struct *state, const char *rprod_in,
     }
 
     return ierr;
+
+}
+
+/*********************************************************************/
+/*********************************************************************/
+
+int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
+                    FLOAT_TYPE *return_vec, int vec_size)
+{
+    int i;
+    int ierr = 0;
+    int curr_index = -1;
+    int zaid = atoi(zaid_in);
+    int binary;
+
+    if (!state) {
+        return (-2);
+    }
+
+    /* CHECK ERRORS */
+
+    if (state->dedx_stat.num_targets <= 0) {
+        return (-7);
+    }
+
+    binary = state->binary;
+
+    for (i = 0; i < state->dedx_stat.num_targets; ++i) {
+        if ( zaid == state->dedx_stat.targets[i] ) {
+            curr_index = i;
+            break;
+        }
+    }
+
+
+    if ( curr_index < 0 ) {
+	ierr = -9;
+    } else { 
+        ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream,
+             state->dedx_stat.target_dedx.stat[curr_index].file_ptr,
+             vec_size, return_vec, vec_size, binary);
+    }
+
+    return (ierr);
 
 }
 

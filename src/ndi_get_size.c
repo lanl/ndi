@@ -20,6 +20,7 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr);
 static int get_mg_size(state_struct *state, int in_key, int *ierr);
 static int get_tn_size(state_struct *state, int in_key, int *ierr);
 static int get_tnreac_size(state_struct *state, int in_key, int *ierr);
+static int get_dedx_size(state_struct *state, int in_key, int *ierr);
 
 /**********************************************************************/
 
@@ -64,6 +65,8 @@ zero as error.
             size = get_tnreac_size(state, in_key, ierr);
         } else if (state->library_type == 'p') {
             size = ndimp_get_size(state, in_key, ierr);
+        } else if (state->library_type == 'x') {
+            size = get_dedx_size(state, in_key, ierr);
         } else if (state->library_type == ' ') {
             *ierr = -16;
             size = 0;
@@ -739,6 +742,109 @@ static int get_tnreac_size(state_struct *state, int in_key, int *ierr)
     }
 
     return return_value;
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int get_dedx_size(state_struct *state, int in_key, int *ierr)
+{
+
+
+    int return_value = 0;       /* Default return value is '0' */
+
+    *ierr = 0;                  /* Default error value */
+
+    if (!state) {
+        *ierr = -2;
+        return (0);
+    }
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        *ierr = -7;
+        return (0);
+    }
+
+    switch (in_key) {
+
+        /*************************/
+        /*   Single-valued data  */
+        /*************************/
+
+        /* String values--return size of string */
+    case NDI_ZAID:              /*  ZAID  */
+        return_value = (int) strlen(state->dedx_stat.zaid) + 1;
+        break;
+    case NDI_INFO:              /* Information */
+        return_value = (int) strlen(state->dedx_stat.info) + 1;
+        break;
+    case NDI_DATE_PROCESSED:    /* Date library was processed */
+        return_value = (int) strlen(state->dedx_stat.date_processed) + 1;
+        break;
+    case NDI_DATE_SOURCE:       /* Date of library source info */
+        return_value = (int) strlen(state->dedx_stat.date_source) + 1;
+        break;
+    case NDI_LIBRARY_NAME:      /* Name of current library */
+        return_value = (int) strlen(state->dedx_stat.library_name) + 1;
+        break;
+
+        /* Single values--return "1" */
+    case NDI_NUM_TEMPS:         /* Number of tempuratures */
+    case NDI_NUM_GRPS:          /* Number of energies */
+    case NDI_NUM_DENSITIES:     /* Number of densities */
+    case NDI_NUM_TARGET:       /* Number of target particles  */
+        return_value = 1;
+        break;
+
+        /*************************/
+        /*  Simple array values  */
+        /*************************/
+
+    case NDI_TEMPS:
+        /* temperatures */
+        return_value = state->dedx_stat.num_temps;
+        break;
+
+    case NDI_ENERGIES:
+        /* energies */
+        return_value = state->dedx_stat.num_grps;
+        break;
+
+    case NDI_DENSITIES:
+        /* densities */
+        return_value = state->dedx_stat.num_densities;
+        break;
+
+    case NDI_TARGET:
+        /* targets */
+        return_value = state->dedx_stat.num_targets;
+        break;
+
+    case NDI_DEDX:
+	/* free electron dE/dx */
+        return_value = state->dedx_stat.num_grps*state->dedx_stat.num_temps
+                       *state->dedx_stat.num_densities;
+        break;
+
+    case NDI_TARGET_DEDX:
+	/* target ion dE/dx */
+        return_value = state->dedx_stat.num_grps*state->dedx_stat.num_temps
+                       *state->dedx_stat.num_densities*state->dedx_stat.num_targets;
+        break;
+
+        /***********  UNKNOWN KEYWORD  **************/
+
+    default:
+        *ierr = -4;
+        return_value = 0;
+        break;
+    }
+
+    if (return_value < 0) {
+        return_value = 0;
+    }
+    return (return_value);
 }
 
 /**********************************************************************/

@@ -82,7 +82,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 	    } else {
 	        /* Error reading file or end of file */
 	        ierr = -11;
-	        return ierr;
+	        return (ierr);
 	    }
 	} else {
             if (fgets(in_line, sizeof(in_line), stream) != NULL) {

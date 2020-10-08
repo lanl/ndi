@@ -175,6 +175,14 @@
 #define NDI_TD_VAL                    144
 #define NDI_SF_RATE                   145
 
+#define NDI_DEDX                      146
+#define NDI_TARGET_ZAID		      147
+#define NDI_TARGET_DEDX		      148
+#define NDI_NUM_DENSITIES	      149
+#define NDI_NUM_ENERGIES	      150
+#define NDI_DENSITIES		      151
+#define NDI_ENERGIES		      152
+
 #define NDI_COLLAPSE_DEFAULT         1046
 #define NDI_CURR_PART_DEFAULT        1077
 #define NDI_E_AVG_DEFAULT            1069

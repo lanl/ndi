@@ -21,6 +21,8 @@ static int get_tn_size(state_struct *state, int in_key, int vec_num,
 		       int *ierr);
 static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 			   int *ierr);
+static int get_dedx_size_n(state_struct *state, int in_key, int vec_num,
+                           int *ierr);
 
 /**********************************************************************/
 
@@ -71,6 +73,8 @@ ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num, int *ierr)
 	    size = get_tnreac_size(state, in_key, vec_num, ierr);
 	} else if (state->library_type == 'p') {
 	    size = ndimp_get_size_n(state, in_key, vec_num, ierr);
+        } else if (state->library_type == 'x') {
+            size = get_dedx_size_n(state, in_key, vec_num, ierr);
 	} else if (state->library_type == ' ') {
 	    *ierr = -16;
 	    size = 0;
@@ -521,6 +525,62 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
     }
 
     return return_value;
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+static int get_dedx_size_n(state_struct *state, int in_key, int vec_num,
+                           int *ierr)
+{
+
+    int return_value = 0;       /* Default return value is '0' */
+
+    if (!state) {
+        *ierr = -2;
+        return (0);
+    }
+
+    *ierr = 0;                  /* Default error value */
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        *ierr = -7;
+        return (0);
+    }
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    /****  Single-valued data -- return "1" ****/
+
+    case NDI_TARGET_ZAID:        /* Target ZAID */
+        return_value = 1;
+        break;
+
+    /****  Multi-dimensional array ****/
+
+    case NDI_TARGET_DEDX:    /* dE/dx for target. Identical for all targets  */
+        if (state->dedx_stat.target_dedx.num_objs > 0) {
+            return_value = state->dedx_stat.num_grps*state->dedx_stat.num_densities
+                           *state->dedx_stat.num_temps;
+        } else {
+            /* No target dedx data for this isotope */
+            *ierr = 9;
+        }
+        break;
+
+    /***********  UNKNOWN KEYWORD  **************/
+
+    default:
+        *ierr = -4;
+        break;
+    }
+
+    return (return_value);
 }
 
 /**********************************************************************/

@@ -213,15 +213,17 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 
     if (strncmp(value, "multigroup_neutron", 19) == 0) {
       /**** make section a global variable = multigroup_neutron? ****/
-
 	state->particle_type = 1;
 	state->library_type = 'm';
+
     } else if (strncmp(value, "tn", 3) == 0) {
 	state->particle_type = -1;
 	state->library_type = 's';
+
     } else if (strncmp(value, "tnreactions", 12) == 0) {
 	state->particle_type = -1;
 	state->library_type = 'r';
+
     } else if (strncmp(value, "multigroup_photon", 18) == 0) {
 	state->particle_type = 0;
 	state->library_type = 'm';
@@ -229,8 +231,9 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
     } else if (strncmp(value, "dosimetry_neutron", 18) == 0) {
 	state->particle_type = 1;
 	state->library_type = 'd';
-        /* Reqt 93: dosimetry proton */
+
     } else if (strncmp(value, "dosimetry_proton", 17) == 0) {
+        /* Reqt 93: dosimetry proton */
 	state->particle_type = 1001;
 	state->library_type = 'd';
 
@@ -239,6 +242,9 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 	state->particle_type = -1;
 	state->library_type = 'p';
 
+    } else if (strncmp(value, "dedx", 5) == 0) {
+	state->particle_type = -1;
+	state->library_type = 'x';
     } else {
 	/* "Error:  invalid NDI input argument. */
 	ierr = -5;
@@ -250,10 +256,8 @@ static int ndi_set_lib_type(state_struct *state, const char *value)
 	ierr = ndi_init_state_tn(state);
 	ierr = ndi_init_state_tnreac(state);
 	ierr = ndi_init_state_chain(state);
+	ierr = ndi_init_state_dedx(state);
     }
-
-/*    if ( ierr >= 0 ) ierr = ndi_set0(library_type); */
-
 
     return ierr;
 }
@@ -691,10 +695,8 @@ static int ndi_lib_dir(state_struct *state, int pt_type, char l_type,
 	strcpy(section, "tndata");
     } else if ((pt_type == -1) && (l_type == 'r')) {
 	strcpy(section, "tn_reactions");
-	/*
-	   } else if ( ( pt_type == 'n' ) && ( l_type == '0' ) ) {
-	   strcpy( section, "neutron_depletion" );
-	 */
+    } else if ((pt_type == -1) && (l_type == 'x')) {
+	strcpy(section, "dedx");
     } else {
 	/* Error: library type not set */
 	return -16;

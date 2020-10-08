@@ -20,6 +20,7 @@ static int set0_mg(state_struct *state);
 static int set0_tn(state_struct *state);
 static int set0_tnreac(state_struct *state);
 static int set0_depl(state_struct *state);
+static int set0_dedx(state_struct *state);
 
 static int set0_interp_param(interp_params *param, int reset_flag);
 static int set0_edist_data(edist_data *distr, int reset_flag);
@@ -60,6 +61,8 @@ int ndi_set0(state_struct *state, char l_type)
 	ierr = set0_tnreac(state);
     } else if (l_type == '0') {
 	ierr = set0_depl(state);
+    } else if (l_type == 'x') {
+	ierr = set0_dedx(state);
     } else {
 	/* invalid library type */
 	ierr = -13;
@@ -422,7 +425,62 @@ static int set0_depl(state_struct *state)
 /**********************************************************************/
 /**********************************************************************/
 
-/* int ndi_set0_tn_sec_part ( sec_part_distr *part ) */
+static int set0_dedx(state_struct *state)
+{
+
+    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+
+    if (!state) {
+        return (-2);
+    }
+
+    if (state->dedx_stat.set_flag) {
+
+        (void) strncpy(state->dedx_stat.zaid, "", sizeof(state->dedx_stat.zaid));
+
+        state->dedx_stat.set_flag = 0;
+	state->dedx_stat.num_grps = 0;
+	state->dedx_stat.num_densities = 0;
+	state->dedx_stat.num_temps = 0;
+	state->dedx_stat.num_targets = 0;
+
+        (void) strncpy(state->dedx_stat.info, "",
+		       sizeof(state->dedx_stat.info));
+        (void) strncpy(state->dedx_stat.date_processed, "",
+                       sizeof(state->dedx_stat.date_processed));
+        (void) strncpy(state->dedx_stat.date_source, "",
+		       sizeof(state->dedx_stat.date_source));
+        (void) strncpy(state->dedx_stat.library_name, "",
+                       sizeof(state->dedx_stat.library_name));
+
+	state->dedx_stat.energies.length = 0;
+        state->dedx_stat.energies.file_ptr = 0;
+        state->dedx_stat.densities.length = 0;
+        state->dedx_stat.densities.file_ptr = 0;
+        state->dedx_stat.temps.length = 0;
+        state->dedx_stat.temps.file_ptr = 0;
+        state->dedx_stat.free_e_dedx.length = 0;
+        state->dedx_stat.free_e_dedx.file_ptr = 0;
+
+        if (state->dedx_stat.targets)
+            ndi_free((void **) &state->dedx_stat.targets);
+        state->dedx_stat.targets = NULL;
+
+        state->dedx_stat.target_dedx.num_objs = -1;
+        if (state->dedx_stat.target_dedx.stat)
+            ndi_free((void **) &state->dedx_stat.target_dedx.stat);
+        state->dedx_stat.target_dedx.stat = NULL;
+
+    }
+
+    return (ierr);
+
+}
+
+
+/**********************************************************************/
+/**********************************************************************/
+
 int ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
 {
 
@@ -440,7 +498,6 @@ int ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag)
     if (reset_flag) {
 	num_temps = part->temp_interp.npts;
 	for (j = 0; j < num_temps; j++) {
-	    /*          ierr = set0_edist_data( &(edist_ptr[j]) ); */
 	    ierr = set0_edist_data(&(edist_ptr[j]), reset_flag);
 	}
 	if (edist_ptr)

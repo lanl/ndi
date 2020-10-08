@@ -89,6 +89,8 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
     NDI_CURR_ERR(jerr, ierr);
     jerr = ndi_init_state_chain(state);
     NDI_CURR_ERR(jerr, ierr);
+    jerr = ndi_init_state_dedx(state);
+    NDI_CURR_ERR(jerr, ierr);
 
     for (i = 0; i < MAX_HANDLE_NUM; i++)
 	state->handle_map[i] = NULL;	/* handle pointers */
@@ -101,7 +103,6 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
 }
 
 /**********************************************************************/
-
 
 /*  Purpose:  Clone parent state to child state
 
@@ -158,6 +159,7 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     ierr = ndi_init_state_tn(state);
     ierr = ndi_init_state_tnreac(state);
     ierr = ndi_init_state_chain(state);
+    ierr = ndi_init_state_dedx(state);
 
     if (is_gendir(parent)) {
 	state->particle_type = parent->particle_type;	/* lib_type option */

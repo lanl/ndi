@@ -204,10 +204,10 @@ int ndi_c_check_option_h(state_struct *state, int in_key, char *out_value,
 
 
 /* Valid library type values:
-   multigroup_neutron, tn, multigroup_photon
+   multigroup_neutron, tn, multigroup_photon, dedx
    
    Global variables used (and valid values):
-   particle_type -- 1-neutorn, 0-photon, -1(tn)
+   particle_type -- 1-neutron, 0-photon, -1-tn or dedx
    library_type -- m, s(tn)
    
 -------------------------------------------------------------------------*/
@@ -239,6 +239,9 @@ static int ndi_get_lib_type(state_struct *state, char *value,
     } else if ((state->particle_type == -1)
 	       && (state->library_type == 'p')) {
 	strncpy(value, "multigroup_multi", string_size);
+    } else if ((state->particle_type == -1)
+	       && (state->library_type == 'x')) {
+	strncpy(value, "dedx", string_size);
     } else {
 	strncpy(value, "", string_size);
 	ierr = 9;

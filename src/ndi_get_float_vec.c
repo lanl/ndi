@@ -24,6 +24,8 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
                             FLOAT_TYPE * return_vec, int return_size);
 static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
                             FLOAT_TYPE * return_vec, int return_size);
+static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
+                              FLOAT_TYPE * return_vec, int return_size);
 static int GET_CHI_MAT(state_struct *state, char chi_type, 
                        FLOAT_TYPE *return_mat, int return_size, int binary);
 static int read_sig_xf_mat(state_struct *state, char sig_xf_type, 
@@ -140,6 +142,8 @@ int NDI_GET_FLOAT_VEC_H(state_struct *state, int in_key,
         ierr = GET_FLOAT_VEC_TN(state, in_key, return_vec, return_size);
     } else if (state->library_type == 'p') {
         ierr = NDIMP_GET_FLOAT_VEC(state, in_key, return_vec, return_size);
+    } else if (state->library_type == 'x') {
+        ierr = GET_FLOAT_VEC_DEDX(state, in_key, return_vec, return_size);
     } else if (state->library_type == ' ') {
         /* Library type was not set */
         ierr = -16;
@@ -756,6 +760,81 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
     }
 
     return ierr;
+}
+
+/*********************************************************************/
+/*********************************************************************/
+
+static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
+                              FLOAT_TYPE *return_vec, int return_size)
+{
+
+    int ierr = 0;
+    int num_elements;
+    int binary;
+
+    if (!state) {
+        return -2;
+    }
+
+    binary = state->binary;
+
+    /* Check that isotope is set */
+    if (!state->dedx_stat.set_flag) {
+        return (-7);
+    }
+
+    /*************************/
+    /*   Process input key   */
+    /*************************/
+
+    switch (in_key) {
+
+    case NDI_TEMPS:               /* Temperatures */
+        num_elements = state->dedx_stat.num_temps;
+        /*  Check bounds */
+        ierr =
+            GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
+                                 state->dedx_stat.temps.file_ptr, 1,
+                                 num_elements, return_vec, return_size, binary);
+        break;
+
+    case NDI_DENSITIES:               /* Densities */
+        num_elements = state->dedx_stat.num_densities;
+        /*  Check bounds */
+        ierr =
+            GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
+                                 state->dedx_stat.densities.file_ptr, 1,
+                                 num_elements, return_vec, return_size, binary);
+        break;
+
+    case NDI_ENERGIES:               /* Energies */
+        num_elements = state->dedx_stat.num_grps;
+        /*  Check bounds */
+        ierr =
+            GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
+                                 state->dedx_stat.energies.file_ptr, 1,
+                                 num_elements, return_vec, return_size, binary);
+        break;
+
+    case NDI_DEDX:               /* Free electron dE/dx */
+        num_elements = state->dedx_stat.num_grps*state->dedx_stat.num_temps
+                       *state->dedx_stat.num_densities;
+        /*  Check bounds */
+        ierr =
+            GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
+                                 state->dedx_stat.free_e_dedx.file_ptr, 1,
+                                 num_elements, return_vec, return_size, binary);
+        break;
+
+    /**********  UNKNOWN KEYWORD  ***********/
+
+    default:
+        ierr = -4;
+        break;
+    }
+
+    return (ierr);
 }
 
 /*********************************************************************/
@@ -2291,7 +2370,6 @@ static int NDI_GET_OLD_KERMA(state_struct *state, FLOAT_TYPE * return_vec,
         }
         for (j = 0; j < num_elements; j++) {
             tmp_vec[j] += curr_xs[j] * (eavg[j] + q);
-/*            printf ("%d: %e   q=%e  e=%e  xs=%e\n", j, tmp_vec[j], q, eavg[j], curr_xs[j]); */
         }
     }
 
@@ -2371,26 +2449,21 @@ static int SIG_TOT_TRANS_CORR(state_struct *state,
 
     if (state->collapse_flag)
         num_grps = state->grp_num_new;
-/*    printf("numgrps = %d\n", num_grps); */
     corr = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (state->trans_corr == 'd') {
         ierr =
             NDI_GET_FLOAT_VEC_N_H(state, NDI_CORR_DIAG,
                                   state->trans_corr_order, corr, num_grps);
     } else if (state->trans_corr == 'b') {
-/*       printf("D: %d\n", trans_corr_order); */
         ierr =
             NDI_GET_FLOAT_VEC_N_H(state, NDI_CORR_BHS,
                                   state->trans_corr_order, corr, num_grps);
     } else {
-/*       printf("Error\n"); */
         ierr = -13;
     }
     /*** Bounds checking? ***/
-/*    printf("correcting vector %d\n", ierr); */
     if (ierr >= 0) {
         for (i = 0; i < num_grps; i++) {
-/*       printf("%d  %e\n", i, corr[i]); */
             if (i >= return_size) {
                 ierr = 7;
                 break;
