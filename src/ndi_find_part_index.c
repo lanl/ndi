@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_part_part_index.c
- * Description:        Internal functions--given a particle type, finds index structure.
- * Time-stamp:        <1999-11-19 17:43:42 jomc>
+ * Description: Internal functions--given a particle type, finds index structure.
+ * Time-stamp:  <1999-11-19 17:43:42 jomc>
  *
  */
 

@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_parse_zaid.c
- * Description:        Internal function--parse zaid into Z, A, and state
- * Time-stamp:        <2003-03-25 09:26:02 jomc>
+ * Description: Internal function--parse zaid into Z, A, and state
+ * Time-stamp:  <2003-03-25 09:26:02 jomc>
  *
  */
 

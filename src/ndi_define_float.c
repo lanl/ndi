@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:        Define 32 & 64 bit floats and declarations
+ * Description: Define 32 & 64 bit floats and declarations
  *
  */
 

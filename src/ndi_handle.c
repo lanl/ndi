@@ -46,7 +46,7 @@ state_struct *handle_to_state_p(int handle)
 
     } else if (m1 <= handle && handle < m1 + m2) {
         /* handle = (1+j)m1 + k */
-        handle -= m1;                /* handle =    j*m1 + k */
+        handle -= m1;            /* handle =    j*m1 + k */
         j = handle / m1;
         handle -= j * m1;        /* handle = k */
         k = handle;
@@ -54,7 +54,7 @@ state_struct *handle_to_state_p(int handle)
 
     } else if (m1 + m2 <= handle && handle < m1 + m2 + m3) {
         /* handle = (1+i)m2 + (1+j)m1 + k */
-        handle -= (m1 + m2);        /* handle =    i*m2 +    j*m1 + k */
+        handle -= (m1 + m2);     /* handle =    i*m2 +    j*m1 + k */
         i = handle / m2;
         handle -= i * m2;        /* handle =              j*m1 + k */
         j = handle / m1;
@@ -122,7 +122,7 @@ int ndi_add_child_handle(state_struct *parent)
     if (!parent)
         return -2;
 
-    h = parent->handle_free;        /* get next child handle */
+    h = parent->handle_free;     /* get next child handle */
     if (h < MAX_HANDLE_NUM && !(parent->handle_map[h])) {
         ndi_c_clone_h(parent, &child);
         parent->handle_map[h] = child;
@@ -131,7 +131,7 @@ int ndi_add_child_handle(state_struct *parent)
             child->handle = h + (parent->handle + 1) * MAX_HANDLE_NUM;
         }
     } else {
-        return -1;                /* handle array exhausted */
+        return -1;               /* handle array exhausted */
     }
 
     return 0;

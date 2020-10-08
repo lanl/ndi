@@ -50,7 +50,7 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
     *ierr = 0;                  /* Default error value */
 
     if ((!state) || (!state->ndi_initialized)) {
-        NDI_THROW(*ierr, -2);  /* State not initialized */
+        NDI_THROW(*ierr, -2);   /* State not initialized */
     }
 
     if (is_gendir(state)) {
@@ -61,7 +61,7 @@ int ndi_c_get_size_x_h(state_struct *state, int in_key,
     } else if (state->library_type == 'x') {
         size = get_dedx_size_x(state, in_key, in_str, ierr);
     } else if (state->library_type == ' ') {
-        NDI_THROW(*ierr, -16);            /* library type not set */
+        NDI_THROW(*ierr, -16);  /* library type not set */
     } else {
         NDI_THROW(*ierr, -4);   /* Incompatible library type */
     }
@@ -101,7 +101,7 @@ static int get_size_x_gendir(state_struct *state, int in_key,
         }
         break;
     default:
-        NDI_THROW(*ierr, -4);   /* Unrecognized in_key */
+        NDI_THROW(*ierr, -4);      /* Unrecognized in_key */
 
     }
 
@@ -119,12 +119,13 @@ static int get_mg_size_x(state_struct *state, int in_key,
 
 
     if (!state->iso_stat.set_flag) {
-        NDI_THROW(*ierr, -7);  /* Isotope not set */
+        NDI_THROW(*ierr, -7);   /* Isotope not set */
     }
 
     /*************************/
     /*   Process input key   */
     /*************************/
+
     switch (in_key) {
 
     case NDI_TOT_PROD_XS:       /* Total production cross section */
@@ -181,13 +182,13 @@ static int get_dedx_size_x(state_struct *state, int in_key,
 
     /****    Single-valued data -- return "1" ****/
 
-    case NDI_TARGET_ZAID:        /* Total production Q for input product */
+    case NDI_TARGET_ZAID:       /* Total production Q for input product */
         return_value = 1;
         break;
 
     /****  Multi-dimensional array ****/
 
-    case NDI_TARGET_DEDX:    /* dE/dx for target. Identical for all targets  */
+    case NDI_TARGET_DEDX:       /* dE/dx for target. Identical for all targets  */
         if (state->dedx_stat.target_dedx.num_objs > 0) {
             return_value = state->dedx_stat.num_grps*state->dedx_stat.num_densities
                            *state->dedx_stat.num_temps;

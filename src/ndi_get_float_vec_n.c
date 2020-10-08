@@ -101,7 +101,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
 
     switch (in_key) {
@@ -210,7 +210,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
 
         break;
 
-    case NDI_TRANSFER_MAT_TOT:        /* Transfer matrix -- total */
+    case NDI_TRANSFER_MAT_TOT:       /* Transfer matrix -- total */
     case NDI_TRANSFER_MAT_PR:        /* Transfer matrix -- prompt */
         ierr =
             GET_TRANSFER_MAT(state, in_key, vec_num, return_vec,
@@ -230,18 +230,18 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_CORR_DIAG:        /* Diagonal transport correction  */
+    case NDI_CORR_DIAG:             /* Diagonal transport correction  */
 
         ierr = GET_DIAG_CORR(state, vec_num, return_vec, return_size);
         break;
 
-    case NDI_CORR_BHS:                /* Bell-Hansen-Sandmeier transport correction */
+    case NDI_CORR_BHS:              /* Bell-Hansen-Sandmeier transport correction */
 
         ierr = GET_BHS_CORR(state, vec_num, return_vec, return_size);
         break;
 
-    case NDI_TOT_PROD_XS:        /* Total production x.s. for target given by 
-                                   global var. 'zaid' and product given by vec_num */
+    case NDI_TOT_PROD_XS  :         /* Total production x.s. for target given by 
+                                       global var. 'zaid' and product given by vec_num */
         sprintf(in_str, "%d", vec_num);
         ierr = GET_PROD_REAC(state, in_str, return_vec, return_size, binary);
         break;
@@ -360,7 +360,7 @@ static int GET_PN_DOWN_FULL(state_struct *state, FILE *stream,
                                              temp_mat, full_mat_size,
                                              binary);
 
-           /*** check return value ***/
+                    /*** check return value ***/
                     curr_mat = temp_mat;
                     full = -1;
                 } else {
@@ -1137,13 +1137,13 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
     /* get nu */
     nu = (FLOAT_TYPE *) ndi_malloc(num_grps * sizeof(FLOAT_TYPE));
     if (!nu)
-        return -14;                /* out of memory */
+        return -14;               /* out of memory */
 
     ierr = NDI_GET_FLOAT_VEC_H(state, NDI_NU_PR, nu, num_grps);
     if (ierr < 0)
         return ierr;
 
-    sigma = sqrt(2.0) * 1.08;        /* Terrell's fit value */
+    sigma = sqrt(2.0) * 1.08;     /* Terrell's fit value */
 
     for (g = 0; g < num_grps; g++) {
         if (nu[g] > 0.0) {        /* fissionable */
@@ -1154,7 +1154,7 @@ static int GET_PNU_PR(state_struct *state, FLOAT_TYPE * return_vec,
                 return_vec[g] -=
                     0.5 * (1.0 +
                            ndi_erf((vec_num - nu[g] - 0.5 + b) / sigma));
-        } else {                /* non-fissionable */
+        } else {                  /* non-fissionable */
             return_vec[g] = vec_num ? 0.0 : 1.0;
         }
     }

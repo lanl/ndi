@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:        User functions NDI 2.x
+ * Description: User functions NDI 2.x
  *
  */
 
@@ -265,15 +265,15 @@ NDI2_make_handle(int handle0, const char *type, int *handle1)
 {
     state_struct *parent;
     state_struct *child;
-    *handle1 = -1;                /* invalid handle */
+    *handle1 = -1;                        /* invalid handle */
 
-    parent = handle_to_state_p(handle0); /* get parent state */
-    if (parent)                        /* calculate child handle */
+    parent = handle_to_state_p(handle0);  /* get parent state */
+    if (parent)                           /* calculate child handle */
         *handle1 = (handle0 + 1) * MAX_HANDLE_NUM + parent->handle_free;
     
     if(ndi_add_child_handle(parent) != 0) /* add child handle */
         return -1;
-    child = handle_to_state_p(*handle1);        /* get child state */
+    child = handle_to_state_p(*handle1);  /* get child state */
     if (ndi_is_library_type(child, type))
         return 0;
     else

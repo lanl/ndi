@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_zaid_dir.c
- * Description:        Internal function--lookup zaid in gendir file.
- * Time-stamp:        <2000-02-04 16:27:34 jomc>
+ * Description: Internal function--lookup zaid in gendir file.
+ * Time-stamp:  <2000-02-04 16:27:34 jomc>
  *
  */
 

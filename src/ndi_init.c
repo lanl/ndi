@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_init.c
- * Description:        User function--open gendir file and initialize state.
- * Time-stamp:        <2000-02-04 16:07:55 jomc>
+ * Description: User function--open gendir file and initialize state.
+ * Time-stamp:  <2000-02-04 16:07:55 jomc>
  *
  */
 
@@ -74,9 +74,9 @@ int ndi_c_init_h(state_struct **curr_state, const char *gendir_path)
     state->binary = 0;
     state->particle_type = -1;
     state->library_type = ' ';
-    state->mat_order = 'd';        /* No transpose */
-    state->reac_id = 'm';        /* Use MT numbers to identify reactions */
-    state->curr_reac_index = -1;        /* OBSOLETE? */
+    state->mat_order = 'd';                 /* No transpose */
+    state->reac_id = 'm';                   /* Use MT numbers to identify reactions */
+    state->curr_reac_index = -1;            /* OBSOLETE? */
     strncpy(state->nuc_data_type, "", sizeof(state->nuc_data_type));        /* OBSOLETE */
 
     jerr = ndi_init_state_common(state);
@@ -149,9 +149,9 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     strcpy(state->library_vers, "");
     state->particle_type = -1;
     state->library_type = ' ';
-    state->mat_order = 'd';        /* No transpose */
+    state->mat_order = 'd';      /* No transpose */
     state->reac_id = 'm';        /* Use MT numbers to identify reactions */
-    state->curr_reac_index = -1;        /* OBSOLETE? */
+    state->curr_reac_index = -1; /* OBSOLETE? */
     strncpy(state->nuc_data_type, "", sizeof(state->nuc_data_type));        /* OBSOLETE */
 
     ierr = ndi_init_state_common(state);
@@ -162,19 +162,19 @@ int ndi_c_clone_h(state_struct *parent, state_struct **child)
     ierr = ndi_init_state_dedx(state);
 
     if (is_gendir(parent)) {
-        state->particle_type = parent->particle_type;        /* lib_type option */
+        state->particle_type = parent->particle_type;       /* lib_type option */
         state->library_type = parent->library_type;
-        strcpy(state->library_vers, parent->library_vers);        /* library option */
-        state->mat_order = parent->mat_order;        /* mat_order option */
-        (void) ndi_set_collapse(state, parent->n_group);        /* collapse option */
-        state->trans_corr = parent->trans_corr;        /* trans. corr. option */
+        strcpy(state->library_vers, parent->library_vers);  /* library option */
+        state->mat_order = parent->mat_order;               /* mat_order option */
+        (void) ndi_set_collapse(state, parent->n_group);    /* collapse option */
+        state->trans_corr = parent->trans_corr;             /* trans. corr. option */
         state->trans_corr_order = parent->trans_corr_order;
-        state->no_norm = parent->no_norm;        /* norm option */
-        state->reac_id = parent->reac_id;        /* reaction identifiers */
-        state->e_avg_calc = parent->e_avg_calc;        /* avg. grp energy calc */
-        state->kerma_calc = parent->kerma_calc;        /* default kerma calc */
-        state->default_temp = parent->default_temp;        /* temperature option */
-        strcpy(state->def_fiss_prod_id, parent->def_fiss_prod_id);        /* default fiss prod */
+        state->no_norm = parent->no_norm;                   /* norm option */
+        state->reac_id = parent->reac_id;                   /* reaction identifiers */
+        state->e_avg_calc = parent->e_avg_calc;             /* avg. grp energy calc */
+        state->kerma_calc = parent->kerma_calc;             /* default kerma calc */
+        state->default_temp = parent->default_temp;         /* temperature option */
+        strcpy(state->def_fiss_prod_id, parent->def_fiss_prod_id); /* default fiss prod */
         /* Currently does not copy options:
            E_BOUNDS_CURR_PART
            DEPLETION

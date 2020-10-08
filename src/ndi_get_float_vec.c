@@ -799,7 +799,7 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
                                  num_elements, return_vec, return_size, binary);
         break;
 
-    case NDI_DENSITIES:               /* Densities */
+    case NDI_DENSITIES:           /* Densities */
         num_elements = state->dedx_stat.num_densities;
         /*  Check bounds */
         ierr =
@@ -808,7 +808,7 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
                                  num_elements, return_vec, return_size, binary);
         break;
 
-    case NDI_ENERGIES:               /* Energies */
+    case NDI_ENERGIES:            /* Energies */
         num_elements = state->dedx_stat.num_grps;
         /*  Check bounds */
         ierr =
@@ -817,7 +817,7 @@ static int GET_FLOAT_VEC_DEDX(state_struct *state, int in_key,
                                  num_elements, return_vec, return_size, binary);
         break;
 
-    case NDI_DEDX:               /* Free electron dE/dx */
+    case NDI_DEDX:                /* Free electron dE/dx */
         num_elements = state->dedx_stat.num_grps*state->dedx_stat.num_temps
                        *state->dedx_stat.num_densities;
         /*  Check bounds */
@@ -2804,7 +2804,6 @@ static int GET_DEPL_XS(state_struct *state, isotope_status * mg,
         /* Out of memory */
         return -14;
     }
-
 
     /* Collect a list of MTs for the current target -- no duplicates! */
 

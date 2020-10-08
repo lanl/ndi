@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_collapse_mat.c
- * Description:        Internal function--collapse matrix using weighting function.
- * Time-stamp:        <1999-07-13 13:25:30 jomc>
+ * Description: Internal function--collapse matrix using weighting function.
+ * Time-stamp:  <1999-07-13 13:25:30 jomc>
  *
  */
 
@@ -84,15 +84,15 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
     int j;                        /* counter over old outgoing energy groups (cols) */
     int k;                        /* counter over new incident energy groups (rows) */
     int l;                        /* counter over new outgoing energy groups (cols) */
-    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    int curr_new_index;                /* Pointer into new (collapsed) vector */
-    int curr_old_index;                /* Pointer into old (uncollapsed) vector */
+    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
+    int curr_new_index;           /* Pointer into new (collapsed) vector */
+    int curr_old_index;           /* Pointer into old (uncollapsed) vector */
     int low_bounds_in = 0;
     int up_bounds_in = 0;
-    int low_bounds_out = 0;        /* Smallest old index contained in current new group */
+    int low_bounds_out = 0;       /* Smallest old index contained in current new group */
     int up_bounds_out = 0;        /* Largest old index contained in current new group */
     FLOAT_TYPE in_sum = 0;        /* Summing rows */
-    FLOAT_TYPE out_sum = 0;        /* Summing columns */
+    FLOAT_TYPE out_sum = 0;       /* Summing columns */
     FLOAT_TYPE wt_sum = 0;        /* Sum of weights */
 
 

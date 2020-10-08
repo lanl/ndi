@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_skip_float_block.c
- * Description:        Internal function--skip float data to get to next keyword.
- * Time-stamp:        <1998-10-02 16:15:21 jomc>
+ * Description: Internal function--skip float data to get to next keyword.
+ * Time-stamp:  <1998-10-02 16:15:21 jomc>
  *
  */
 
@@ -35,11 +35,11 @@ int skip_float_block(FILE *stream, int *bsize, const int num_floats,
 
 ***********************************************************************/
 {
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    int float_count = 0;        /* Current number of floats processed */
+    int float_count = 0;         /* Current number of floats processed */
     double in_float;
 
     /* Calculate the array size needed to hold the skipped floats. */

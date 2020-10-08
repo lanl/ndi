@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_read_string_block.c
- * Description:        Internal function--read a fixed number of strings.
- * Time-stamp:        <1998-12-18 17:48:09 jomc>
+ * Description: Internal function--read a fixed number of strings.
+ * Time-stamp:  <1998-12-18 17:48:09 jomc>
  *
  */
 
@@ -34,11 +34,11 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
 
 ***********************************************************************/
 {
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
-    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    int string_count = 0;        /* Current number of strings processed */
+    char in_line[MAX_IN_STR_LEN]; /* Current input line */
+    char *token;                  /* Current data item */
+    char seps[] = " ,\t\n";       /* Data delimiters in library file */
+    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
+    int string_count = 0;         /* Current number of strings processed */
 
 
     /* Read next line and count strings */

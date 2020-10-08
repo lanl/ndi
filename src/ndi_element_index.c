@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_element_index.c
- * Description:        Internal function--convert elemental symbol to array index.
- * Time-stamp:        <1999-04-06 17:52:31 jomc>
+ * Description: Internal function--convert elemental symbol to array index.
+ * Time-stamp:  <1999-04-06 17:52:31 jomc>
  *
  */
 
@@ -42,8 +42,8 @@ int element_index(const char *el_symbol)
 
 ***********************************************************************/
 {
-    int row;                        /* Array row--1st character of symbol a=0,b=1...      */
-    int col;                        /* Array column--2nd character of symbol a=0,b=1...
+    int row;                    /* Array row--1st character of symbol a=0,b=1...      */
+    int col;                    /* Array column--2nd character of symbol a=0,b=1...
                                    blank space or '-' = 26             */
 
 

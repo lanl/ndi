@@ -188,7 +188,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_LIBRARY_NAME:      /* Name of current library */
         return_value = (int) strlen(state->iso_stat.library_name) + 1;
         break;
-    case NDI_DEPL_ZAID: /*  Depletion ZAID  */
+    case NDI_DEPL_ZAID:         /*  Depletion ZAID  */
     case NDI_CHAIN:
     case NDI_DEPLETION:
         if (!state->ndi_depl_set) {
@@ -196,7 +196,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         }
         return_value = (int) strlen(state->depl_dataset) + 1;
         break;
-    case NDI_DEPL_INFO: /* Depletion info */
+    case NDI_DEPL_INFO:         /* Depletion info */
         if (!state->ndi_depl_set) {
             *ierr = ndi_set_default_depl(state);
         }
@@ -242,15 +242,15 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_TEMP:              /* Temperature */
     case NDI_SIG_0:             /* sig_0 */
     case NDI_UP_GRPS:           /* upscatter_groups */
-    case NDI_DOWN_GRPS: /* downscatter_groups */
+    case NDI_DOWN_GRPS:         /* downscatter_groups */
     case NDI_AT_WGT:            /* atomic weight */
     case NDI_AWR:               /* atomic weight ratio */
     case NDI_NUM_REAC:          /* number of edits */
     case NDI_NUM_RPRODS:        /* number of reaction products */
     case NDI_PN_ORDER:          /* number of scattering matrices */
     case NDI_NUM_SEC_PARTS:     /* number of secondary particles */
-    case NDI_NUM_GRPS_CURR_PART:        /* number of groups -- current particle */
-    case NDI_PN_ORDER_CURR_PART:        /* number of production matrices--current particle */
+    case NDI_NUM_GRPS_CURR_PART:/* number of groups -- current particle */
+    case NDI_PN_ORDER_CURR_PART:/* number of production matrices--current particle */
     case NDI_NUM_TARGET:        /* number of chain targets */
     case NDI_LAST_GRP:          /* Kludged ngk last neutron group */
     case NDI_FISSIONABLE:       /* Boolean: fission data? */
@@ -390,11 +390,11 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     /*  Multi-dim array values  */
     /****************************/
 
-    case NDI_RPROD_ALL: /* old reaction product format -- all */
+    case NDI_RPROD_ALL:         /* old reaction product format -- all */
         return_value = state->iso_stat.rprod_all.num_objs;
         break;
 
-    case NDI_RPROD_RMO: /* sigma edit reaction products -- rmo */
+    case NDI_RPROD_RMO:         /* sigma edit reaction products -- rmo */
         return_value = state->iso_stat.rprod_rmo.num_objs;
         break;
 
@@ -478,8 +478,8 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
         break;
 
         /* Single values--return "1" */
-    case NDI_NUM_TEMPS: /* Number of sigma tempuratures */
-    case NDI_NUM_SIGVBAR_INTERP:        /* Number of sigvbar interpolation regions */
+    case NDI_NUM_TEMPS:         /* Number of sigma tempuratures */
+    case NDI_NUM_SIGVBAR_INTERP:/* Number of sigvbar interpolation regions */
     case NDI_NUM_EINBAR_INTERP: /* Number of einbar interpolation regions */
     case NDI_NUM_SEC_PARTS:     /* Number of sec particles w/energy info  */
     case NDI_NUM_REAC:          /* Number of reactions  */
@@ -658,7 +658,7 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
         break;
 
     case NDI_EINBAR:
-        /* thermal-averaged total incoming energy for each temp. */
+                                /* thermal-averaged total incoming energy for each temp. */
         return_value = state->tn_stat.num_temps;
         break;
 
@@ -793,7 +793,7 @@ static int get_dedx_size(state_struct *state, int in_key, int *ierr)
     case NDI_NUM_TEMPS:         /* Number of tempuratures */
     case NDI_NUM_GRPS:          /* Number of energies */
     case NDI_NUM_DENSITIES:     /* Number of densities */
-    case NDI_NUM_TARGET:       /* Number of target particles  */
+    case NDI_NUM_TARGET:        /* Number of target particles  */
         return_value = 1;
         break;
 

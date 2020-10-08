@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_string_val.c
- * Description:        User function--return a string value.
- * Time-stamp:        <1999-11-18 18:19:39 jomc>
+ * Description: User function--return a string value.
+ * Time-stamp:  <1999-11-18 18:19:39 jomc>
  *
  */
 
@@ -85,7 +85,7 @@ static int get_string_vec_gendir(state_struct *state, int in_key,
 
     in_value = ndi_get_section(state);
     if (in_value == 0) {
-        return -16;                /* Library type not set */
+        return -16;              /* Library type not set */
     }
 
     /* Open gendir */

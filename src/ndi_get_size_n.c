@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_size_n.c
- * Description:        User function--returns size of an element of a multi-dim array.
- * Time-stamp:        <1999-11-18 13:09:22 jomc>
+ * Description: User function--returns size of an element of a multi-dim array.
+ * Time-stamp:  <1999-11-18 13:09:22 jomc>
  *
  */
 
@@ -45,7 +45,7 @@ static int get_dedx_size_n(state_struct *state, int in_key, int vec_num,
 int
 ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num, int *ierr)
 {
-    int size = 0;                /* Default return value is '0' */
+    int size = 0;                     /* Default return value is '0' */
 
     *ierr = 0;                        /* Default error value */
     /* Check that ndi_init has been called. */
@@ -111,7 +111,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         return 0;
     }
 
-    *ierr = 0;                        /* Default error value */
+    *ierr = 0;                   /* Default error value */
 
     /* Check that isotope is set */
     if (in_key != NDI_TARGET) {
@@ -123,25 +123,26 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
      /****    Single-valued data -- return "1" ****/
 
-    case NDI_RPROD_ALL:        /* sigma edit reaction products -- all */
-    case NDI_RPROD_RMO:        /* sigma edit reaction products -- rmo */
-    case NDI_RPROD_FEW:        /* sigma edit reaction products -- few */
-    case NDI_REAC_MT:                /* Reaction mt for reaction indexed by vec_num */
-    case NDI_REAC_Q:                /* Reaction Q value for reaction indexed by vec_num */
-    case NDI_ABUNDANCE:        /* Abundance of input sza */
-    case NDI_TOT_PROD_Q:        /* Total production Q for input product */
+    case NDI_RPROD_ALL:          /* sigma edit reaction products -- all */
+    case NDI_RPROD_RMO:          /* sigma edit reaction products -- rmo */
+    case NDI_RPROD_FEW:          /* sigma edit reaction products -- few */
+    case NDI_REAC_MT:            /* Reaction mt for reaction indexed by vec_num */
+    case NDI_REAC_Q:             /* Reaction Q value for reaction indexed by vec_num */
+    case NDI_ABUNDANCE:          /* Abundance of input sza */
+    case NDI_TOT_PROD_Q:         /* Total production Q for input product */
         return_value = 1;
         break;
 
 
      /****    String values ****/
-    case NDI_SEC_PART_TYPES:        /* Secondary particle types  */
+    case NDI_SEC_PART_TYPES:     /* Secondary particle types  */
         if (state->iso_stat.sec_part) {
             if (0 <= vec_num && 
                 vec_num < state->iso_stat.num_sec_parts) {
@@ -158,7 +159,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_SEC_PART_ZAIDS:        /* Secondary particle ZAIDs  */
+    case NDI_SEC_PART_ZAIDS:     /* Secondary particle ZAIDs  */
         if (state->iso_stat.sec_part) {
             if (0 <= vec_num &&
                 vec_num < state->iso_stat.num_sec_parts) {
@@ -211,7 +212,7 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_INC_PART_TYPES:        /* nth incident particle type */
+    case NDI_INC_PART_TYPES:     /* nth incident particle type */
         *ierr =
             ndi_get_nth_inc_part_type(state, vec_num, tmp_str,
                                       MAX_IN_STR_LEN);
@@ -228,11 +229,11 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
 
         /* Size of the vector is the number of groups */
     case NDI_TOT_PROD_XS:        /* Total production cross section */
-    case NDI_SIG_REAC:                /* reaction cross section */
-    case NDI_CORR_DIAG:        /* Diagonal transport correction  */
-    case NDI_CORR_BHS:                /* Bell-Hansen-Sandmeier transport correction */
-    case NDI_PNU_PR:                /* fission neutron mult. probabilities */
-    case NDI_SIG_PNU_PR:        /* fission neutron mult. cross sections */
+    case NDI_SIG_REAC:           /* reaction cross section */
+    case NDI_CORR_DIAG:          /* Diagonal transport correction  */
+    case NDI_CORR_BHS:           /* Bell-Hansen-Sandmeier transport correction */
+    case NDI_PNU_PR:             /* fission neutron mult. probabilities */
+    case NDI_SIG_PNU_PR:         /* fission neutron mult. cross sections */
     case NDI_TD_HALF_MOMENT:
         if (state->collapse_flag != 0) {
             return_value = state->grp_num_new;
@@ -242,8 +243,8 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         break;
 
         /* Others */
-    case NDI_RPROD_ID_ALL:        /* reaction product ids -- all */
-    case NDI_RPROD_MLT_ALL:        /* reaction product multiplicities--all */
+    case NDI_RPROD_ID_ALL:       /* reaction product ids -- all */
+    case NDI_RPROD_MLT_ALL:      /* reaction product multiplicities--all */
         *ierr =
             ndi_find_rprod_index(state->lib_stream,
                                  &state->iso_stat.rprod_all, &rprod_index,
@@ -254,8 +255,8 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_RPROD_ID_RMO:        /* reaction product ids -- rmo */
-    case NDI_RPROD_MLT_RMO:        /* reaction product multiplicities--rmo */
+    case NDI_RPROD_ID_RMO:       /* reaction product ids -- rmo */
+    case NDI_RPROD_MLT_RMO:      /* reaction product multiplicities--rmo */
         *ierr =
             ndi_find_rprod_index(state->lib_stream,
                                  &state->iso_stat.rprod_rmo, &rprod_index,
@@ -267,8 +268,8 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         break;
 
 
-    case NDI_RPROD_ID_FEW:        /* reaction product ids -- few */
-    case NDI_RPROD_MLT_FEW:        /* reaction product ids -- few */
+    case NDI_RPROD_ID_FEW:       /* reaction product ids -- few */
+    case NDI_RPROD_MLT_FEW:      /* reaction product ids -- few */
         *ierr =
             ndi_find_rprod_index(state->lib_stream,
                                  &state->iso_stat.rprod_few, &rprod_index,
@@ -295,9 +296,9 @@ static int get_mg_size_n(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_PN_FULL:                /* pn scattering -- full matrix */
-    case NDI_TRANSFER_MAT_TOT:        /* Transfer matrix -- total */
-    case NDI_TRANSFER_MAT_PR:        /* Transfer matrix -- prompt */
+    case NDI_PN_FULL:            /* pn scattering -- full matrix */
+    case NDI_TRANSFER_MAT_TOT:   /* Transfer matrix -- total */
+    case NDI_TRANSFER_MAT_PR:    /* Transfer matrix -- prompt */
         if (state->collapse_flag != 0) {
             return_value = state->grp_num_new * state->grp_num_new;
         } else {
@@ -367,7 +368,7 @@ static int get_tn_size(state_struct *state, int in_key, int vec_num,
     int return_value = 0;        /* Default return value is '0' */
     char tmp_str[MAX_IN_STR_LEN];
 
-    *ierr = 0;                        /* Default error value */
+    *ierr = 0;                   /* Default error value */
 
     if (!state) {
         *ierr = -2;
@@ -400,7 +401,7 @@ static int get_tn_size(state_struct *state, int in_key, int vec_num,
                                      tmp_str, MAX_IN_STR_LEN);
         return_value = (int) strlen(tmp_str) + 1;
         break;
-    case NDI_SEC_PART_TYPES:        /* Secondary particle types  */
+    case NDI_SEC_PART_TYPES:     /* Secondary particle types  */
         /* This gives the size of the string returned if the nth part type is asked for */
         if ((state->tn_stat.num_sec_parts > vec_num) &&
             (state->sec_part_filled > vec_num) &&
@@ -443,7 +444,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
 
     int return_value = 0;        /* Default return value is '0' */
 
-    *ierr = 0;                        /* Default error value */
+    *ierr = 0;                   /* Default error value */
 
     if (!state) {
         *ierr = -2;
@@ -459,8 +460,8 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
     switch (in_key) {
 
      /**** Single-valued data -- return "1" ****/
-    case NDI_NUM_RPRODS:        /* Number of reaction products */
-    case NDI_NUM_REACTANTS:        /* Number of reactants */
+    case NDI_NUM_RPRODS:         /* Number of reaction products */
+    case NDI_NUM_REACTANTS:      /* Number of reactants */
         return_value = 1;
         break;
 
@@ -501,7 +502,7 @@ static int get_tnreac_size(state_struct *state, int in_key, int vec_num,
         break;
 
       /**** String values ****/
-    case NDI_LIST_REAC:        /* List of reactions */
+    case NDI_LIST_REAC:          /* List of reactions */
         if ((state->tnreac_stat.reac_num > vec_num)) {
             return_value =
                 (int) strlen(state->tnreac_stat.list_reac[vec_num]) + 1;
@@ -557,13 +558,13 @@ static int get_dedx_size_n(state_struct *state, int in_key, int vec_num,
 
     /****  Single-valued data -- return "1" ****/
 
-    case NDI_TARGET_ZAID:        /* Target ZAID */
+    case NDI_TARGET_ZAID:       /* Target ZAID */
         return_value = 1;
         break;
 
     /****  Multi-dimensional array ****/
 
-    case NDI_TARGET_DEDX:    /* dE/dx for target. Identical for all targets  */
+    case NDI_TARGET_DEDX:       /* dE/dx for target. Identical for all targets  */
         if (state->dedx_stat.target_dedx.num_objs > 0) {
             return_value = state->dedx_stat.num_grps*state->dedx_stat.num_densities
                            *state->dedx_stat.num_temps;

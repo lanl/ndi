@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        User function--set isotope for processing.
+ * Description: User function--set isotope for processing.
  *
  */
 
@@ -33,12 +33,12 @@
 ***********************************************************************/
 int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 {
-    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
+    int ierr = 0;                  /* Error flag: 0=no error,pos=warning, neg=error */
     int tmp_err = 0;
-    char library[20];                /* Name of file (e.g. mendf5) */
-    char lib_path[MAX_IN_PATH_LEN];        /* Path of library file */
-    char lib_file_type[] = "   ";        /* Currently only 'asc' is valid ascii */
-    long int iso_start;                /* Line number in file where isotope data begins */
+    char library[20];              /* Name of file (e.g. mendf5) */
+    char lib_path[MAX_IN_PATH_LEN];/* Path of library file */
+    char lib_file_type[] = "   ";  /* Currently only 'asc' is valid ascii */
+    long int iso_start;            /* Line number in file where isotope data begins */
     char tmp_zaid[MAX_IN_STR_LEN];
     double at_wgt;
     char real_zaid[MAX_IN_STR_LEN];

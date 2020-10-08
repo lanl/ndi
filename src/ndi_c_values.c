@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_def_c_values.c
- * Description:        Internal function--fill array LLNL c-values.
- * Time-stamp:        <1998-12-10 11:12:55 jomc>
+ * Description: Internal function--fill array LLNL c-values.
+ * Time-stamp:  <1998-12-10 11:12:55 jomc>
  *
  */
 
@@ -42,63 +42,63 @@ int ndi_c_c_to_mt(int c_val)
     int ndi_c_value[100];
 
 /*              C-value        MT-value                    */
-    ndi_c_value[1] = 1;                /* (n, total) */
+    ndi_c_value[1] = 1;         /* (n, total) */
     ndi_c_value[2] = -1;        /* unassigned */
     ndi_c_value[3] = -1;        /* unassigned */
     ndi_c_value[4] = -1;        /* unassigned */
     ndi_c_value[5] = -1;        /* unassigned */
     ndi_c_value[6] = -1;        /* unassigned */
     ndi_c_value[7] = -1;        /* unassigned */
-    ndi_c_value[8] = 0;                /* lg. angle coul. scat.--no MT equivalent */
-    ndi_c_value[9] = 0;                /* elas. + interference--no MT equivalent */
+    ndi_c_value[8] = 0;         /* lg. angle coul. scat.--no MT equivalent */
+    ndi_c_value[9] = 0;         /* elas. + interference--no MT equivalent */
     ndi_c_value[10] = 2;        /* elastic */
     ndi_c_value[11] = 4;        /* (n,n') - inelastic */
-    ndi_c_value[12] = 16;        /* (n,2n) */
-    ndi_c_value[13] = 17;        /* (n,3n) */
-    ndi_c_value[14] = 37;        /* (n,4n) */
-    ndi_c_value[15] = 18;        /* (n,fission) - total fission */
+    ndi_c_value[12] = 16;       /* (n,2n) */
+    ndi_c_value[13] = 17;       /* (n,3n) */
+    ndi_c_value[14] = 37;       /* (n,4n) */
+    ndi_c_value[15] = 18;       /* (n,fission) - total fission */
     ndi_c_value[16] = 0;        /* unassigned */
     ndi_c_value[17] = 0;        /* unassigned */
     ndi_c_value[18] = 0;        /* unassigned */
     ndi_c_value[19] = 0;        /* unassigned */
-    ndi_c_value[20] = 28;        /* (n,n'p) */
-    ndi_c_value[21] = 28;        /* ?(n,pn') */
-    ndi_c_value[22] = 32;        /* (n,n'd) */
-    ndi_c_value[23] = 35;        /* (n,n'd2a) */
-    ndi_c_value[24] = 33;        /* (n,n't) */
-    ndi_c_value[25] = 34;        /* (n,n'3^He) */
-    ndi_c_value[26] = 22;        /* (n,n'a) */
-    ndi_c_value[27] = 23;        /* (n,n'3a) */
-    ndi_c_value[28] = 36;        /* (n,n't2a) */
-    ndi_c_value[29] = 41;        /* (n,2np) */
-    ndi_c_value[30] = -1;        /* ??(n,gna) */
-    ndi_c_value[31] = 30;        /* (n,2n2a) */
-    ndi_c_value[32] = -1;        /* (n,2nda) */
+    ndi_c_value[20] = 28;       /* (n,n'p) */
+    ndi_c_value[21] = 28;       /* ?(n,pn') */
+    ndi_c_value[22] = 32;       /* (n,n'd) */
+    ndi_c_value[23] = 35;       /* (n,n'd2a) */
+    ndi_c_value[24] = 33;       /* (n,n't) */
+    ndi_c_value[25] = 34;       /* (n,n'3^He) */
+    ndi_c_value[26] = 22;       /* (n,n'a) */
+    ndi_c_value[27] = 23;       /* (n,n'3a) */
+    ndi_c_value[28] = 36;       /* (n,n't2a) */
+    ndi_c_value[29] = 41;       /* (n,2np) */
+    ndi_c_value[30] = -1;       /* ??(n,gna) */
+    ndi_c_value[31] = 30;       /* (n,2n2a) */
+    ndi_c_value[32] = -1;       /* (n,2nda) */
     ndi_c_value[33] = 0;        /* unassigned */
     ndi_c_value[34] = 0;        /* unassigned */
     ndi_c_value[35] = 0;        /* unassigned */
     ndi_c_value[36] = 0;        /* unassigned */
-    ndi_c_value[37] = 109;        /* (n,3a) */
-    ndi_c_value[38] = -1;        /* (n,3He2a) */
-    ndi_c_value[39] = -1;        /* (n,pta) */
-    ndi_c_value[40] = 103;        /* (n,p) */
-    ndi_c_value[41] = 104;        /* (n,d) */
-    ndi_c_value[42] = 105;        /* (n, t) */
-    ndi_c_value[43] = 113;        /* (n,t2a) */
-    ndi_c_value[44] = 106;        /* (n,3^He) */
-    ndi_c_value[45] = 107;        /* (n,a) */
-    ndi_c_value[46] = 102;        /* (n,g) */
+    ndi_c_value[37] = 109;      /* (n,3a) */
+    ndi_c_value[38] = -1;       /* (n,3He2a) */
+    ndi_c_value[39] = -1;       /* (n,pta) */
+    ndi_c_value[40] = 103;      /* (n,p) */
+    ndi_c_value[41] = 104;      /* (n,d) */
+    ndi_c_value[42] = 105;      /* (n, t) */
+    ndi_c_value[43] = 113;      /* (n,t2a) */
+    ndi_c_value[44] = 106;      /* (n,3^He) */
+    ndi_c_value[45] = 107;      /* (n,a) */
+    ndi_c_value[46] = 102;      /* (n,g) */
     ndi_c_value[47] = 0;        /* unassigned */
     ndi_c_value[48] = 0;        /* unassigned */
     ndi_c_value[49] = 0;        /* unassigned */
-    ndi_c_value[50] = 203;        /* (n,Xp) */
-    ndi_c_value[51] = 204;        /* (n,Xd) */
-    ndi_c_value[52] = -1;        /* ?Unspecified in my LLNL source (n,Xt)?? */
-    ndi_c_value[53] = 206;        /* (n,X3^He) */
-    ndi_c_value[54] = 207;        /* (n,Xa) */
-    ndi_c_value[55] = 202;        /* (n,Xg) */
-    ndi_c_value[56] = 201;        /* (n,Xn) */
-    ndi_c_value[57] = -1;        /* (n,Xbeta-) */
+    ndi_c_value[50] = 203;      /* (n,Xp) */
+    ndi_c_value[51] = 204;      /* (n,Xd) */
+    ndi_c_value[52] = -1;       /* ?Unspecified in my LLNL source (n,Xt)?? */
+    ndi_c_value[53] = 206;      /* (n,X3^He) */
+    ndi_c_value[54] = 207;      /* (n,Xa) */
+    ndi_c_value[55] = 202;      /* (n,Xg) */
+    ndi_c_value[56] = 201;      /* (n,Xn) */
+    ndi_c_value[57] = -1;       /* (n,Xbeta-) */
     ndi_c_value[58] = 0;        /* unassigned */
     ndi_c_value[59] = 0;        /* unassigned */
     ndi_c_value[60] = 0;        /* unassigned */
@@ -106,16 +106,16 @@ int ndi_c_c_to_mt(int c_val)
     ndi_c_value[62] = 0;        /* unassigned */
     ndi_c_value[63] = 0;        /* unassigned */
     ndi_c_value[64] = 0;        /* unassigned */
-    ndi_c_value[65] = -1;        /* Activation (undefined reaction) */
+    ndi_c_value[65] = -1;       /* Activation (undefined reaction) */
     ndi_c_value[66] = 0;        /* unassigned */
     ndi_c_value[67] = 0;        /* unassigned */
     ndi_c_value[68] = 0;        /* unassigned */
     ndi_c_value[69] = 0;        /* unassigned */
-    ndi_c_value[70] = 501;        /* Total photon interaction */
-    ndi_c_value[71] = 502;        /* Coherent scattering */
-    ndi_c_value[72] = 504;        /* Incoherent scattering */
-    ndi_c_value[73] = 522;        /* Photoelectric */
-    ndi_c_value[74] = 516;        /* Pair production */
+    ndi_c_value[70] = 501;      /* Total photon interaction */
+    ndi_c_value[71] = 502;      /* Coherent scattering */
+    ndi_c_value[72] = 504;      /* Incoherent scattering */
+    ndi_c_value[73] = 522;      /* Photoelectric */
+    ndi_c_value[74] = 516;      /* Pair production */
 
 
     if ((c_val < 1) || (c_val > 74)) {
@@ -201,61 +201,61 @@ int ndi_c_mt_to_c(int mt)
     case 41:                        /* (n,2np) */
         c_val = 29;
         break;
-    case 102:                        /* (n,g) */
+    case 102:                       /* (n,g) */
         c_val = 46;
         break;
-    case 103:                        /* (n,p) */
+    case 103:                       /* (n,p) */
         c_val = 40;
         break;
-    case 104:                        /* (n,d) */
+    case 104:                       /* (n,d) */
         c_val = 41;
         break;
-    case 105:                        /* (n, t) */
+    case 105:                       /* (n, t) */
         c_val = 42;
         break;
-    case 106:                        /* (n,3^He) */
+    case 106:                       /* (n,3^He) */
         c_val = 44;
         break;
-    case 107:                        /* (n,a) */
+    case 107:                       /* (n,a) */
         c_val = 45;
         break;
-    case 109:                        /* (n,3a) */
+    case 109:                       /* (n,3a) */
         c_val = 37;
         break;
-    case 113:                        /* (n,t2a) */
+    case 113:                       /* (n,t2a) */
         c_val = 43;
         break;
-    case 201:                        /* (n,Xn) */
+    case 201:                       /* (n,Xn) */
         c_val = 56;
         break;
-    case 202:                        /* (n,Xg) */
+    case 202:                       /* (n,Xg) */
         c_val = 55;
         break;
-    case 203:                        /* (n,Xp) */
+    case 203:                       /* (n,Xp) */
         c_val = 50;
         break;
-    case 204:                        /* (n,Xd) */
+    case 204:                       /* (n,Xd) */
         c_val = 51;
         break;
-    case 206:                        /* (n,X3^He) */
+    case 206:                       /* (n,X3^He) */
         c_val = 53;
         break;
-    case 207:                        /* (n,Xa) */
+    case 207:                       /* (n,Xa) */
         c_val = 54;
         break;
-    case 501:                        /* Total photon interaction */
+    case 501:                       /* Total photon interaction */
         c_val = 70;
         break;
-    case 502:                        /* Coherent scattering */
+    case 502:                       /* Coherent scattering */
         c_val = 71;
         break;
-    case 504:                        /* Incoherent scattering */
+    case 504:                       /* Incoherent scattering */
         c_val = 72;
         break;
-    case 522:                        /* Photoelectric */
+    case 522:                       /* Photoelectric */
         c_val = 73;
         break;
-    case 516:                        /* Pair production */
+    case 516:                       /* Pair production */
         c_val = 74;
         break;
     default:
@@ -297,103 +297,103 @@ static int ndi_mt_to_label(int mt, char *label)
     case 4:                        /* (n,n') - inelastic */
         strncpy(label, "inelastic", 10);
         break;
-    case 16:                        /* (n,2n) */
+    case 16:                       /* (n,2n) */
         strncpy(label, "(n,2n)", 7);
         break;
-    case 17:                        /* (n,3n) */
+    case 17:                       /* (n,3n) */
         strncpy(label, "(n,3n)", 7);
         break;
-    case 18:                        /* (n,fission) - total fission */
+    case 18:                       /* (n,fission) - total fission */
         strncpy(label, "(n,Xf)", 7);
         break;
-    case 22:                        /* (n,n'a) */
+    case 22:                       /* (n,n'a) */
         strncpy(label, "(n,n'alpha)", 12);
         break;
-    case 23:                        /* (n,n'3a) */
+    case 23:                       /* (n,n'3a) */
         strncpy(label, "(n,n'3alpha)", 13);
         break;
-    case 28:                        /* (n,n'p) */
+    case 28:                       /* (n,n'p) */
         strncpy(label, "(n,n'p)", 8);
         break;
-    case 30:                        /* (n,2n2a) */
+    case 30:                       /* (n,2n2a) */
         strncpy(label, "(n,2n2alpha)", 13);
         break;
-    case 32:                        /* (n,n'd) */
+    case 32:                       /* (n,n'd) */
         strncpy(label, "(n,n'd)", 8);
         break;
-    case 33:                        /* (n,n't) */
+    case 33:                       /* (n,n't) */
         strncpy(label, "(n,n't)", 8);
         break;
-    case 34:                        /* (n,n'3^He) */
+    case 34:                       /* (n,n'3^He) */
         strncpy(label, "(n,n'He3)", 10);
         break;
-    case 35:                        /* (n,n'd2a) */
+    case 35:                       /* (n,n'd2a) */
         strncpy(label, "(n,n'd2a)", 10);
         break;
-    case 36:                        /* (n,n't2a) */
+    case 36:                       /* (n,n't2a) */
         strncpy(label, "(n,n't2a)", 10);
         break;
-    case 37:                        /* (n,4n) */
+    case 37:                       /* (n,4n) */
         strncpy(label, "(n,4n)", 7);
         break;
-    case 41:                        /* (n,2np) */
+    case 41:                       /* (n,2np) */
         strncpy(label, "(n,2np)", 8);
         break;
-    case 102:                        /* (n,g) */
+    case 102:                       /* (n,g) */
         strncpy(label, "(n,gamma)", 10);
         break;
-    case 103:                        /* (n,p) */
+    case 103:                       /* (n,p) */
         strncpy(label, "(n,p)", 6);
         break;
-    case 104:                        /* (n,d) */
+    case 104:                       /* (n,d) */
         strncpy(label, "(n,d)", 6);
         break;
-    case 105:                        /* (n,t) */
+    case 105:                       /* (n,t) */
         strncpy(label, "(n,t)", 6);
         break;
-    case 106:                        /* (n,3^He) */
+    case 106:                       /* (n,3^He) */
         strncpy(label, "(n,He3)", 7);
         break;
-    case 107:                        /* (n,a) */
+    case 107:                       /* (n,a) */
         strncpy(label, "(n,alpha)", 10);
         break;
-    case 109:                        /* (n,3a) */
+    case 109:                       /* (n,3a) */
         strncpy(label, "(n,3alpha)", 11);
         break;
-    case 113:                        /* (n,t2a) */
+    case 113:                       /* (n,t2a) */
         strncpy(label, "(n,t2alpha)", 12);
         break;
-    case 201:                        /* (n,Xn) */
+    case 201:                       /* (n,Xn) */
         strncpy(label, "(n,Xn)", 7);
         break;
-    case 202:                        /* (n,Xg) */
+    case 202:                       /* (n,Xg) */
         strncpy(label, "(n,Xgamma)", 11);
         break;
-    case 203:                        /* (n,Xp) */
+    case 203:                       /* (n,Xp) */
         strncpy(label, "(n,Xp)", 7);
         break;
-    case 204:                        /* (n,Xd) */
+    case 204:                       /* (n,Xd) */
         strncpy(label, "(n,Xd)", 7);
         break;
-    case 206:                        /* (n,X3^He) */
+    case 206:                       /* (n,X3^He) */
         strncpy(label, "(n,XHe3)", 9);
         break;
-    case 207:                        /* (n,Xa) */
+    case 207:                       /* (n,Xa) */
         strncpy(label, "(n,Xalpha)", 11);
         break;
-    case 501:                        /* Total photon interaction */
+    case 501:                       /* Total photon interaction */
         strncpy(label, "Total photon", 13);
         break;
-    case 502:                        /* Coherent scattering */
+    case 502:                       /* Coherent scattering */
         strncpy(label, "Coherent", 9);
         break;
-    case 504:                        /* Incoherent scattering */
+    case 504:                       /* Incoherent scattering */
         strncpy(label, "Incoherent", 11);
         break;
-    case 522:                        /* Photoelectric */
+    case 522:                       /* Photoelectric */
         strncpy(label, "Photoelectric", 14);
         break;
-    case 516:                        /* Pair production */
+    case 516:                       /* Pair production */
         strncpy(label, "Pair production", 16);
         break;
     default:

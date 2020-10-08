@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_fill_element.c
- * Description:        Internal function--fill lookup array of elements.
- * Time-stamp:        <1998-09-14 19:42:17 jomc>
+ * Description: Internal function--fill lookup array of elements.
+ * Time-stamp:  <1998-09-14 19:42:17 jomc>
  *
  */
 

@@ -1,7 +1,7 @@
 /*
  *
  * $Id$
- * Description:        Internal function--open the gendir file.
+ * Description: Internal function--open the gendir file.
  *
  */
 
@@ -98,7 +98,7 @@ static int local_isblank(const char *str)
 {
 
     int i;
-    for (i = 0; isspace(str[i]); i++);        /* skip leading whitespace */
+    for (i = 0; isspace(str[i]); i++); /* skip leading whitespace */
     return str[i] == '\0';
 }
 
@@ -124,7 +124,7 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
         ""
     };
 
-    char prefix[] = "$NDIROOT/"; /* Abbrev for abs_path */
+    char prefix[] = "$NDIROOT/";  /* Abbrev for abs_path */
     char prefix2[] = "$NDIHOME/"; /* "$NDIROOT/" NDI_VERSION_DATA "share/" */
 
     FILE *f;
@@ -135,7 +135,7 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
             strncpy(file, abs_path[i], len);
             strncat(file, rel_path + strlen(prefix), len);
             if ((f = fopen(file, mode)))
-                return f;        /* success */
+                return f;         /* success */
         }
         /* Reqt. 87*/
     } else if (strncmp(rel_path, prefix2, strlen(prefix2)) == 0) {
@@ -144,16 +144,16 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
             strncat(file, NDI_VERSION_DATA "/share/", len);
             strncat(file, rel_path + strlen(prefix2), len);
             if ((f = fopen(file, mode)))
-                return f;        /* success */
+                return f;         /* success */
         }
     } else {
         strncpy(file, rel_path, len);
         if ((f = fopen(file, mode)))
-            return f;                /* success */
+            return f;             /* success */
     }
 
     strncpy(file, "", len);
-    return NULL;                /* file not found */
+    return NULL;                  /* file not found */
 }
 
 /**********************************************************************/

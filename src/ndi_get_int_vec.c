@@ -1,7 +1,7 @@
 /*
  *
  * $Id$
- * Description:        User function--returns an integer vector.
+ * Description: User function--returns an integer vector.
  *
  */
 
@@ -91,7 +91,7 @@ static int get_int_vec_mg(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
 
     switch (in_key) {
@@ -158,7 +158,7 @@ static int get_int_vec_mg(state_struct *state, int in_key,
         break;
 
       /***********************************************************************/
-        /*           This section looks at non-standard isotope data           */
+      /*           This section looks at non-standard isotope data           */
       /***********************************************************************/
 
     case NDI_REAC_MT:                /* Vector containing number of reaction mts */
@@ -214,7 +214,7 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
 
     switch (in_key) {

@@ -1,7 +1,7 @@
 /*
  * File:        ndi_state.h
- * Description:        Header file for libndi
- * Time-stamp:        <2000-02-03 11:34:05 jomc>
+ * Description: Header file for libndi
+ * Time-stamp:  <2000-02-03 11:34:05 jomc>
  *
  * This header file is included in library code only.
  */

@@ -19,8 +19,9 @@ int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val,
         *ret_val = '\0';
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_ZAID:                /*  NDI_ZAID  */

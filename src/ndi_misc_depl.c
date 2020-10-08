@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        Miscellaneous functions dealing with depletion (no floats)
+ * Description: Miscellaneous functions dealing with depletion (no floats)
  *
  */
 
@@ -25,10 +25,10 @@ int ndi_depletion(state_struct *state, const char *in_zaid)
     int ierr = 0;
     int tmp_err = 0;
     FILE *depl_file = NULL;
-    char library[20] = "";        /* Name of file (e.g. mendf5) */
-    char lib_path[MAX_IN_PATH_LEN] = "";        /* Path of library file */
+    char library[20] = "";               /* Name of file (e.g. mendf5) */
+    char lib_path[MAX_IN_PATH_LEN] = ""; /* Path of library file */
     char lib_file_type[] = "   ";        /* Currently only 'asc' is valid ascii */
-    long int iso_start = 0;        /* Line number in file where isotope data begins */
+    long int iso_start = 0;              /* Line number in file where isotope data begins */
     char tmp_zaid[20] = "";
     char in_lib_type = ' ';
     double at_wgt = 0.0;
@@ -96,11 +96,11 @@ int ndi_set_default_depl(state_struct *state)
 {
 
     int ierr = 0;
-    char tmp_zaid[MAX_IN_STR_LEN] = "";        /* This 'zaid' will match any zaid in the gendir */
-    char library[20];                /* Name of file (e.g. mendf5) */
-    char lib_path[MAX_IN_PATH_LEN];        /* Path of library file */
-    char lib_file_type[] = "   ";        /* Currently only 'asc' is valid ascii */
-    long int iso_start;                /* Line number in file where isotope data begins */
+    char tmp_zaid[MAX_IN_STR_LEN] = ""; /* This 'zaid' will match any zaid in the gendir */
+    char library[20];                   /* Name of file (e.g. mendf5) */
+    char lib_path[MAX_IN_PATH_LEN];     /* Path of library file */
+    char lib_file_type[] = "   ";       /* Currently only 'asc' is valid ascii */
+    long int iso_start;                 /* Line number in file where isotope data begins */
     double at_wgt;
 
     if (!state) {
@@ -220,7 +220,7 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
     *prod_index = -1;
 
     /* Check input */
-    if (!state) {                /* State uninitialized error */
+    if (!state) {                      /* State uninitialized error */
         return -2;
     }
 
@@ -240,7 +240,7 @@ int ndi_set_curr_rprod(state_struct *state, depl_rprod_struct **rprod_p,
         }
     }
 
-    if (i == num_rprods) {        /* Reaction product not in depletion set error */
+    if (i == num_rprods) {             /* Reaction product not in depletion set error */
         return -32;
     }
 
@@ -258,10 +258,10 @@ int ndi_radchem(state_struct *state, const char *in_zaid)
     int ierr = 0;
     int tmp_err = 0;
     FILE *depl_file = NULL;
-    char library[20] = "";        /* Name of file (e.g. mendf5) */
-    char lib_path[MAX_IN_PATH_LEN] = "";        /* Path of library file */
+    char library[20] = "";               /* Name of file (e.g. mendf5) */
+    char lib_path[MAX_IN_PATH_LEN] = ""; /* Path of library file */
     char lib_file_type[] = "   ";        /* Currently only 'asc' is valid ascii */
-    long int iso_start = 0;        /* Line number in file where isotope data begins */
+    long int iso_start = 0;              /* Line number in file where isotope data begins */
     char tmp_zaid[20] = "";
     char in_lib_type = ' ';
     double at_wgt = 0.0;

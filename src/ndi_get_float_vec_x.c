@@ -249,7 +249,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
 
 
     /* For each reaction, read MT and mult */
-    /*     find sig_reac for MT, multiply by mult. and  and to total */
+    /* find sig_reac for MT, multiply by mult. and  and to total */
 
     ierr = ndi_c_check_option_h(state, NDI_REAC_ID, old_reac_id, old_reac_size);
     ierr = ndi_c_set_option_h(state, NDI_REAC_ID, "mt");

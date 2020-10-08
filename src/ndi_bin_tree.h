@@ -1,7 +1,7 @@
 /*
  * File:        ndi_bin_tree.h
- * Description:        Header file for libndi
- * Time-stamp:        <2000-02-03 11:12:37 jomc>
+ * Description: Header file for libndi
+ * Time-stamp:  <2000-02-03 11:12:37 jomc>
  *
  * This header file is included in internal library code only.
  */

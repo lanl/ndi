@@ -1,9 +1,9 @@
 
 /*
  * File:        ndid_zaid_float_vec.c
- * Description:        User function--return list of multigroup-neutron zaids 
+ * Description: User function--return list of multigroup-neutron zaids 
  *                             and float values.
- * Time-stamp:        <2000-02-03 15:13:59 jomc>
+ * Time-stamp:  <2000-02-03 15:13:59 jomc>
  *
  */
 
@@ -76,8 +76,8 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
-    size_t sec_len;                /* Length of 'section' string */
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
+    size_t sec_len;              /* Length of 'section' string */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
     int done = 0;                /* Flag indicating when processing of zaid is done */
     dir_entry mg_dir;

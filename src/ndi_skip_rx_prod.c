@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_skip_rx_prod.c
- * Description:        Internal function--skip over reaction products in file.
- * Time-stamp:        <1998-11-03 15:45:39 jomc>
+ * Description: Internal function--skip over reaction products in file.
+ * Time-stamp:  <1998-11-03 15:45:39 jomc>
  *
  */
 
@@ -35,15 +35,15 @@ int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
 
 ***********************************************************************/
 {
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
     char *tok_str = NULL;        /* Input string being parsed */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
     int num_prod;                /* Number of products for current reaction */
-    int curr_mt;                /* MT of current reaction */
-    int prod_count;                /* Running total of products processed */
-    int num;                    /* Miscellaneous read in integer */
+    int curr_mt;                 /* MT of current reaction */
+    int prod_count;              /* Running total of products processed */
+    int num;                     /* Miscellaneous read in integer */
 
     /* Read reaction mt and number of reaction products, then
        set reaction product state. */

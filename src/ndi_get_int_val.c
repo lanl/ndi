@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_int_val.c
- * Description:        User function--return nuclear data (integer).
- * Time-stamp:        <1999-11-19 17:53:33 jomc>
+ * Description: User function--return nuclear data (integer).
+ * Time-stamp:  <1999-11-19 17:53:33 jomc>
  *
  */
 
@@ -101,11 +101,12 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_NUM_GRPS:                /*  Number of groups  */
+    case NDI_NUM_GRPS:                 /*  Number of groups  */
         if (state->collapse_flag != 0) {
             *ret_val = state->grp_num_new;
         } else {
@@ -117,15 +118,15 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_FISSIONABLE:        /* Does this isotope have fission data?  */
+    case NDI_FISSIONABLE:             /* Does this isotope have fission data?  */
         *ret_val = state->iso_stat.fissionable;
         break;
 
-    case NDI_SPONTANEOUS_FISSIONABLE:    /* Does this isotope have sf data? */
+    case NDI_SPONTANEOUS_FISSIONABLE: /* Does this isotope have sf data? */
         *ret_val = ndi_get_sf_data(state->iso_stat.zaid)? 1: 0;
         break;
 
-    case NDI_UP_GRPS:                /* Number of upscatter groups  */
+    case NDI_UP_GRPS:                 /* Number of upscatter groups  */
         if (state->iso_stat.up_grps >= 0) {
             *ret_val = state->iso_stat.up_grps;
         } else {
@@ -133,7 +134,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_DOWN_GRPS:        /* Number of downscatter groups  */
+    case NDI_DOWN_GRPS:              /* Number of downscatter groups  */
         if (state->iso_stat.down_grps >= 0) {
             *ret_val = state->iso_stat.down_grps;
         } else {
@@ -141,7 +142,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_LAST_GRP:                /* KLUDGE: Last neutron group  */
+    case NDI_LAST_GRP:               /* KLUDGE: Last neutron group  */
         if (state->iso_stat.last_grp >= 0) {
             *ret_val = state->iso_stat.last_grp;
         } else {
@@ -149,7 +150,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_REAC:                /* Number of edits  */
+    case NDI_NUM_REAC:               /* Number of edits  */
         if (state->iso_stat.num_reac >= 0) {
             *ret_val = state->iso_stat.num_reac;
         } else {
@@ -158,10 +159,10 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         break;
 
     case NDI_NUM_PNU_PR:
-        *ret_val = 10;                /* number of fission neutron probabilities */
+        *ret_val = 10;               /* number of fission neutron probabilities */
         break;
 
-    case NDI_NUM_GRPS_CURR_PART:        /* Number of groups -- current particle */
+    case NDI_NUM_GRPS_CURR_PART:     /* Number of groups -- current particle */
         if (state->iso_stat.sec_part &&
             (state->curr_part_index < state->iso_stat.num_sec_parts) &&
             (state->curr_part_index >= 0)) {
@@ -182,7 +183,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 
         break;
 
-    case NDI_NUM_TARGET:        /* Number of targets on this depletion set */
+    case NDI_NUM_TARGET:             /* Number of targets on this depletion set */
         if (!state->ndi_depl_set) {
             ierr = ndi_set_default_depl(state);
         }
@@ -194,7 +195,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_RPRODS:        /* Number of products given for target given by current zaid */
+    case NDI_NUM_RPRODS:             /* Number of products given for target given by current zaid */
         if (!state->ndi_depl_set) {
             ierr = ndi_set_default_depl(state);
         }
@@ -204,12 +205,12 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
         ierr = ndi_get_num_rprods(state, ret_val);
         break;
 
-    case NDI_ATOMIC_NUM:        /* Atomic number of current isotope -- Z */
+    case NDI_ATOMIC_NUM:             /* Atomic number of current isotope -- Z */
         ierr = ndi_parse_mg_zaid(state->iso_stat.zaid, &z, &a);
         *ret_val = z;
         break;
 
-    case NDI_MASS_NUM:                /* Mass number of current isotope -- A */
+    case NDI_MASS_NUM:               /* Mass number of current isotope -- A */
         ierr = ndi_parse_mg_zaid(state->iso_stat.zaid, &z, &a);
         *ret_val = a;
 
@@ -217,7 +218,7 @@ static int get_int_val_mg(state_struct *state, int in_key, int *ret_val)
 
 
       /***********************************************************************/
-        /* This section looks at non-standard isotope data (length & num_objs) */
+      /* This section looks at non-standard isotope data (length & num_objs) */
       /***********************************************************************/
 
     case NDI_PN_ORDER:
@@ -286,12 +287,14 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
     if (!state->tn_stat.set_flag) {
         return -7;
     }
+
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_NUM_TEMPS:        /*  Number of temperatures  */
+    case NDI_NUM_TEMPS:          /*  Number of temperatures  */
         if (state->tn_stat.num_temps >= 0) {
             *ret_val = state->tn_stat.num_temps;
         } else {
@@ -300,7 +303,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_SEC_PARTS:        /*  Number of sec particles w/energy info  */
+    case NDI_NUM_SEC_PARTS:      /*  Number of sec particles w/energy info  */
         if (state->tn_stat.num_sec_parts >= 0) {
             *ret_val = state->tn_stat.num_sec_parts;
         } else {
@@ -309,7 +312,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_SIGVBAR_INTERP:        /* Number of sigvbar interpolation regions  */
+    case NDI_NUM_SIGVBAR_INTERP: /* Number of sigvbar interpolation regions  */
         if (state->tn_stat.int_sigvbars.length >= 0) {
             *ret_val = state->tn_stat.int_sigvbars.length;
         } else {
@@ -317,7 +320,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_EINBAR_INTERP:        /* Number of einbar interpolation regions  */
+    case NDI_NUM_EINBAR_INTERP:  /* Number of einbar interpolation regions  */
         if (state->tn_stat.int_einbars.length >= 0) {
             *ret_val = state->tn_stat.int_einbars.length;
         } else {
@@ -325,7 +328,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_REAC:                /* Number of reactions  */
+    case NDI_NUM_REAC:           /* Number of reactions  */
         /* TN data only describes one reaction for each zaid */
         if (state->tn_stat.rprods.length >= 0) {
             *ret_val = 1;
@@ -334,7 +337,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_RPRODS:        /* Number of reaction products */
+    case NDI_NUM_RPRODS:         /* Number of reaction products */
         if (state->tn_stat.rprods.length >= 0) {
             *ret_val = state->tn_stat.rprods.length;
         } else {
@@ -342,7 +345,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_REACTANTS:        /* Number of reactants */
+    case NDI_NUM_REACTANTS:      /* Number of reactants */
         if (state->tn_stat.reactants.length >= 0) {
             *ret_val = state->tn_stat.reactants.length;
         } else {
@@ -350,7 +353,7 @@ static int get_int_val_tn(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_GRPS:                /* Number of energy grps used in edist of sec. parts */
+    case NDI_NUM_GRPS:           /* Number of energy grps used in edist of sec. parts */
         *ret_val = state->grp_num_new;
         if (*ret_val < 0) {
             *ret_val = 0;
@@ -388,11 +391,12 @@ static int get_int_val_tnreac(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_NUM_REAC:                /* Number of reactions on this TN dataset */
+    case NDI_NUM_REAC:           /* Number of reactions on this TN dataset */
 
         if (state->tnreac_stat.reac_num >= 0) {
             *ret_val = state->tnreac_stat.reac_num;
@@ -437,7 +441,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
 
     switch (in_key) {
 
-    case NDI_NUM_GRPS: /*  Number of energies */
+    case NDI_NUM_GRPS:           /*  Number of energies */
         if (state->dedx_stat.num_grps > 0) {
             *ret_val = state->dedx_stat.num_grps;
         } else {
@@ -446,7 +450,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_DENSITIES: /*  Number of densities  */
+    case NDI_NUM_DENSITIES:      /*  Number of densities  */
         if (state->dedx_stat.num_densities > 0) {
             *ret_val = state->dedx_stat.num_densities;
         } else {
@@ -455,7 +459,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_TEMPS: /*  Number of temperatures  */
+    case NDI_NUM_TEMPS:          /*  Number of temperatures  */
         if (state->dedx_stat.num_grps > 0) {
             *ret_val = state->dedx_stat.num_temps;
         } else {
@@ -464,7 +468,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
         }
         break;
 
-    case NDI_NUM_TARGET: /*  Number of targets  */
+    case NDI_NUM_TARGET:         /*  Number of targets  */
         if (state->dedx_stat.num_targets > 0) {
             *ret_val = state->dedx_stat.num_targets;
         } else {

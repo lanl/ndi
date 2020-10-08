@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_close_lib_file.c
- * Description:        Internal function--close open library file.
- * Time-stamp:        <1998-10-02 16:19:50 jomc>
+ * Description: Internal function--close open library file.
+ * Time-stamp:  <1998-10-02 16:19:50 jomc>
  *
  */
 

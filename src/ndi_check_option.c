@@ -1,7 +1,7 @@
 
 /*
  *$Id$
- * Description:        User function--check defaults.
+ * Description: User function--check defaults.
  *
  */
 

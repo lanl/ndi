@@ -1,8 +1,8 @@
 
 /*
  * File:        ndid_get_string_vec.c
- * Description:        User function--return list of multigroup-neutron zaids.
- * Time-stamp:        <2000-02-03 15:21:57 jomc>
+ * Description: User function--return list of multigroup-neutron zaids.
+ * Time-stamp:  <2000-02-03 15:21:57 jomc>
  *
  */
 

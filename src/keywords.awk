@@ -1,9 +1,9 @@
 #! /usr/bin/awk -f
 #  ========================================================================  #
 # 
-#         Author:        Mark G. Gray
+#         Author: Mark G. Gray
 #                 Los Alamos National Laboratory
-#         Date:        Fri Apr 11 14:34:28 MDT 2003
+#         Date:   Fri Apr 11 14:34:28 MDT 2003
 # 
 #         Copyright (c) 2003 U. S. Department of Energy. All rights reserved.
 # 

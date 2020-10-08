@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_int_vec_n.c
- * Description:        User function--return a vector which is an element of a matrix.
- * Time-stamp:        <2000-02-01 18:37:48 jomc>
+ * Description: User function--return a vector which is an element of a matrix.
+ * Time-stamp:  <2000-02-01 18:37:48 jomc>
  *
  */
 
@@ -77,7 +77,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
     int rprod_index;
     int mt = 0;
-    int num_elements;                /* Number of vector elements to return */
+    int num_elements;            /* Number of vector elements to return */
     stat_flag curr_state;        /* Status indicator of current reaction */
 
     if (!state) {
@@ -90,8 +90,9 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_RPROD_ID_ALL:
@@ -142,7 +143,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
             mt = ndi_c_c_to_mt(vec_num);
             if (mt <= 0) {
                 ierr = -24;
-                return -ierr;        /* Invalid MT or reaction identifier */
+                return -ierr;       /* Invalid MT or reaction identifier */
             }
         } else {
             mt = vec_num;
@@ -182,7 +183,7 @@ static int get_int_vec_n_mg(state_struct *state, int in_key, int vec_num,
             mt = ndi_c_c_to_mt(vec_num);
             if (mt <= 0) {
                 ierr = -24;
-                return -ierr;        /* Invalid MT or reaction identifier */
+                return -ierr;       /* Invalid MT or reaction identifier */
             }
         } else {
             mt = vec_num;

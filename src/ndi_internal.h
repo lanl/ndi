@@ -1,7 +1,7 @@
 /*
  * File:        ndi_internal.h
- * Description:        Header file for libndi
- * Time-stamp:        <2000-02-03 11:12:37 jomc>
+ * Description: Header file for libndi
+ * Time-stamp:  <2000-02-03 11:12:37 jomc>
  *
  * This header file is included in internal library code only.
  */
@@ -145,7 +145,7 @@ typedef struct _interp_params {
     int npts;                        /* number of x,y pairs given */
     int nint;                        /* number of interpolations regions */
     int *nbt;                        /* using ENDF nomenclature--the value separating 2 adj interp regions */
-    int *int_type;                /* interpolation scheme: 0=discrete,2=lin-lin */
+    int *int_type;                   /* interpolation scheme: 0=discrete,2=lin-lin */
 } interp_params;
 
 enum {
@@ -238,7 +238,7 @@ typedef struct _tn_status {
     int num_temps;
     int num_sec_parts;
     int num_grps;
-    int num_edist;                /* All sec. parts. may not have E. distr. data */
+    int num_edist;                   /* All sec. parts. may not have E. distr. data */
     tn_zaid zaid;
     char info[MAX_IN_STR_LEN];
     char date_processed[MAX_IN_STR_LEN];
@@ -260,27 +260,27 @@ typedef struct _tn_status {
 
 typedef struct _tnreac_status {
     int set_flag;
-    int reac_num;                /*  Number of reactions in TN reaction dataset */
+    int reac_num;                    /*  Number of reactions in TN reaction dataset */
     char dataset[60];                /*  Name of current set of TN reaction data */
-    char info[MAX_IN_STR_LEN];        /*  Information about current TN reaction dataset */
+    char info[MAX_IN_STR_LEN];       /*  Information about current TN reaction dataset */
     char date_processed[MAX_IN_STR_LEN];
     char date_source[MAX_IN_STR_LEN];
     char library_name[MAX_IN_STR_LEN];
-    char *list_reac[MAX_TN_REAC];        /*  List of current set of TN reaction zaids */
+    char *list_reac[MAX_TN_REAC];    /*  List of current set of TN reaction zaids */
     stat_flag *reactants;
     stat_flag *rprods;
 } tnreac_status;
 
 typedef struct _chain_status {
-    int set_flag;                /*  Is chain set? True = -1; False= 0 */
-    int num_inc_parts;                /* Number of incident particles */
-    int num_reac_non_null;        /* Number of target/prod pairs where target != prod */
-    int num_target;                /* Number of targets in radchem dataset */
-    int num_target_unique;        /* Number of unique targets in radchem dataset */
-    int *inc_part_types;        /* Incident particles types */
-    int target_filled;                /* Number of targets for which data has been stored */
+    int set_flag;                    /*  Is chain set? True = -1; False= 0 */
+    int num_inc_parts;               /* Number of incident particles */
+    int num_reac_non_null;           /* Number of target/prod pairs where target != prod */
+    int num_target;                  /* Number of targets in radchem dataset */
+    int num_target_unique;           /* Number of unique targets in radchem dataset */
+    int *inc_part_types;             /* Incident particles types */
+    int target_filled;               /* Number of targets for which data has been stored */
     char dataset[60];                /*  Name of current set of chain data */
-    char info[MAX_IN_STR_LEN];        /*  Information about current chain dataset */
+    char info[MAX_IN_STR_LEN];       /*  Information about current chain dataset */
     char date_processed[MAX_IN_STR_LEN];
     char date_source[MAX_IN_STR_LEN];
     char library_name[MAX_IN_STR_LEN];
@@ -309,50 +309,50 @@ typedef struct _dedx_status {
 } dedx_status;
 
 typedef struct _state_struct {
-    short ndi_initialized;        /*  ndi_init called: 0=false, 1=true */
+    short ndi_initialized;           /*  ndi_init called: 0=false, 1=true */
     int handle;
-    FILE *ndi_dir;                /*  Gendir (directory) file */
-    char open_gendir_file[MAX_IN_PATH_LEN];        /*  Current gendir file name */
+    FILE *ndi_dir;                   /*  Gendir (directory) file */
+    char open_gendir_file[MAX_IN_PATH_LEN]; /*  Current gendir file name */
     FILE *lib_stream;                /*  Current library file */
-    int binary;                 /*  Library file is binary (1) or ascii (0) */
-    char *open_lib_file;        /*  Path for open library file */
-    short *ndi_elements;        /*  Lookup table for element symbols */
-    char *library_vers;                /*  Default library type (mendf5,mendf6,rmoxsct,"") */
-    int particle_type;                /*  Incident particle type: 1-neutron, 0-photon, -1-tn */
-    char library_type;                /*  m-multigroup */
-    char mat_order;                /*  Transpose return matrices? 
-                                   d=no(default), t=yes(transpose) */
-    char reac_id;                /*  Reaction identifier: m=MT (default), c=c-value */
-    enum e_avg_type e_avg_calc;        /* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
-    enum kerma_calc_type kerma_calc;        /* CALC=>calculate kerma; DATA=>get data from library
+    int binary;                      /*  Library file is binary (1) or ascii (0) */
+    char *open_lib_file;             /*  Path for open library file */
+    short *ndi_elements;             /*  Lookup table for element symbols */
+    char *library_vers;              /*  Default library type (mendf5,mendf6,rmoxsct,"") */
+    int particle_type;               /*  Incident particle type: 1-neutron, 0-photon, -1-tn */
+    char library_type;               /*  m-multigroup */
+    char mat_order;                  /*  Transpose return matrices? 
+                                         d=no(default), t=yes(transpose) */
+    char reac_id;                    /*  Reaction identifier: m=MT (default), c=c-value */
+    enum e_avg_type e_avg_calc;      /* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
+    enum kerma_calc_type kerma_calc; /* CALC=>calculate kerma; DATA=>get data from library
                                            DATA_CALC=> get data from lib; use calc if not avail */
     enum qsigf_calc_type qsigf_calc; /* CALC=>correct calc; BAD_CALC=>bad calc */
-    int curr_reac_index;        /*  Obsolete? */
-    char nuc_data_type[2];        /*  Obsolete? */
+    int curr_reac_index;             /*  Obsolete? */
+    char nuc_data_type[2];           /*  Obsolete? */
 
     /*    GENERAL STATE VARIABLES -- initialized when lib_type changes */
-    int curr_part_index;        /*  index of current particle */
-    char n_group[MAX_NGROUP_STR_LEN];        /*  Type of group structure to collapse to */
-    int grp_num_new;                /*  Number of groups to collapse to */
+    int curr_part_index;             /*  index of current particle */
+    char n_group[MAX_NGROUP_STR_LEN];/*  Type of group structure to collapse to */
+    int grp_num_new;                 /*  Number of groups to collapse to */
     double *collapse_ebounds;        /* User-set boundaries--used with TN or user-defined for MG */
 
     /* Multigroup data */
-    isotope_status iso_stat;        /*  Struct containing isotope state */
+    isotope_status iso_stat;         /*  Struct containing isotope state */
     int *new_ebounds;                /*  Index of new ebound group structure, 
-                                   allocated in ndi_set_e_grp  */
-    short collapse_flag;        /*  Collapsing required? 0=no; -1=yes  */
-    ndi_float64 *lib_weight;        /*  Array of weights read in for current nuc */
+                                         allocated in ndi_set_e_grp  */
+    short collapse_flag;             /*  Collapsing required? 0=no; -1=yes  */
+    ndi_float64 *lib_weight;         /*  Array of weights read in for current nuc */
     ndi_float64 *lib_ebounds;        /*  Array of ebounds read in for current nuc */
-    char trans_corr;                /*  Transport correction: " "=no correction, 
-                                   d=diagonal, b=Bell-Hansen-Sandmeier */
-    int trans_corr_order;        /*  Transport correction order */
-    int no_norm;                /*  Normalize chi's and edists: 0=normalize; -1=do not normalize */
-    char def_fiss_prod_id[20];        /* Value of default fiss. prod. ZAID  */
+    char trans_corr;                 /*  Transport correction: " "=no correction, 
+                                         d=diagonal, b=Bell-Hansen-Sandmeier */
+    int trans_corr_order;            /*  Transport correction order */
+    int no_norm;                     /*  Normalize chi's and edists: 0=normalize; -1=do not normalize */
+    char def_fiss_prod_id[20];       /* Value of default fiss. prod. ZAID  */
 
     /* TN data */
     tn_status tn_stat;
     int tn_num_grps;
-    int sec_part_filled;        /*  Number of secondary particles with edist */
+    int sec_part_filled;             /*  Number of secondary particles with edist */
     double default_temp;
 
     /* TN reaction data */
@@ -362,18 +362,18 @@ typedef struct _state_struct {
     chain_status chain_stat;
 
     /* TN reaction data */
-    char tn_dataset[60];        /* Name of current set of TN reaction data */
-    char tn_reac_info[MAX_IN_STR_LEN];        /* Current TN reaction dataset info */
-    int tn_reac_num;                /* Number of TN reactions in dataset */
-    char *tn_list_reac[MAX_TN_REAC];        /* List of current TN reaction zaids */
+    char tn_dataset[60];             /* Name of current set of TN reaction data */
+    char tn_reac_info[MAX_IN_STR_LEN]; /* Current TN reaction dataset info */
+    int tn_reac_num;                 /* Number of TN reactions in dataset */
+    char *tn_list_reac[MAX_TN_REAC]; /* List of current TN reaction zaids */
     stat_flag *tn_reactants;
     stat_flag *tn_rprods;
 
     /* Depletion data */
     int ndi_depl_set;                /* Is depletion set? True = -1; False= 0 */
-    char depl_dataset[60];        /* Name of current set of depletion data */
-    char depl_info[MAX_IN_STR_LEN];        /* current depletion dataset info */
-    int num_target;                /* Number of targets in depletion dataset */
+    char depl_dataset[60];           /* Name of current set of depletion data */
+    char depl_info[MAX_IN_STR_LEN];  /* current depletion dataset info */
+    int num_target;                  /* Number of targets in depletion dataset */
     int chain_filled;                /* Number of read depletion targets */
 
     depl_target_struct *depl_target;
@@ -571,7 +571,7 @@ extern "C" {
     int ndi_get_rprod_mlt64(state_struct *state, const char *rprod,
                             ndi_float64 * return_vec, int vec_size);
 
-   /***  Subroutines in file ndi_init_state.c ***/
+    /***  Subroutines in file ndi_init_state.c ***/
     int ndi_init_state_common(state_struct *state);
     int ndi_init_state_iso_state(state_struct *state);
     int ndi_init_state_tn(state_struct *state);
@@ -579,7 +579,7 @@ extern "C" {
     int ndi_init_state_chain(state_struct *state);
     int ndi_init_state_dedx(state_struct *state);
 
-   /***  Subroutines in file ndi_misc.c ***/
+    /***  Subroutines in file ndi_misc.c ***/
     int ndi_init_int_vec(int *vec, int num_elements);
     int ndi_comp_zaids(const void *z1, const void *z2);
     int ndi_free_ptr_array(int array_size, char **array);
@@ -612,7 +612,7 @@ extern "C" {
     double ndi_td(double x);
     double ndi_ttd(double E, double T);
 
-  /***  Subroutines in file ndi_misc_depl.c ***/
+    /***  Subroutines in file ndi_misc_depl.c ***/
     int ndi_depletion(state_struct *state, const char *in_zaid);
     int ndi_radchem(state_struct *state, const char *in_zaid);
     int ndi_set_default_depl(state_struct *state);
@@ -696,7 +696,7 @@ extern "C" {
                              int return_size, int collapse_type,
                              int num_grp, int binary);
     
-   /*** Subroutines in file ndi_find_index.c ***/
+    /*** Subroutines in file ndi_find_index.c ***/
     int ndi_find_rprod_index(FILE *stream, multi_stat * rprod,
                              int *ret_index, int mt);
     int ndi_find_reac_index(int *mt_array, int *ret_index, int mt,
@@ -712,7 +712,7 @@ extern "C" {
                                   int *closest);
 
 
-  /*** Subroutines in file ndi_avail.c ***/
+    /*** Subroutines in file ndi_avail.c ***/
     unsigned ndi_nusigf_avail(const state_struct *state, char nu_type);
     unsigned ndi_nu_avail(const state_struct *state, char nu_type);
     int ndi_sigf_avail(const state_struct *state);
@@ -726,7 +726,7 @@ extern "C" {
     /***Subroutines in file ndi_sza_symbol_translations.c ***/
     int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size);
 
-     /*** Subroutines in file ndi_handle.c ***/
+    /*** Subroutines in file ndi_handle.c ***/
     int is_gendir(state_struct *state);
     int is_mpmg(state_struct *state);
     state_struct *handle_to_state_p(int handle);
@@ -736,7 +736,7 @@ extern "C" {
     char *ndi_get_section(state_struct *state);
     int ndi_is_library_type(state_struct *state, const char *type);
 
-   /*** Subroutines in file ndi_interp_integ.c ***/
+    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,
                            interp_params *interp, double *bin_bound,
                            int num_bins, int moment, 

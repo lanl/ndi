@@ -2,8 +2,8 @@
 
 /*
  * File:        ndi_get_int_val_n.c
- * Description:        User function--return an element of a vector (integer).
- * Time-stamp:        <99/11/03 11:13:09 jomc>
+ * Description: User function--return an element of a vector (integer).
+ * Time-stamp:  <99/11/03 11:13:09 jomc>
  *
  */
 
@@ -57,7 +57,7 @@ int ndi_c_get_int_val_n_h(state_struct *state, int in_key, int vec_num,
     }
 
     if (is_gendir(state)) {
-        ierr = -2;                /* case not currently handled */
+        ierr = -2;               /* case not currently handled */
     } else if ((state->library_type == 'm') ||
                (state->library_type == 'd')) {
         ierr = get_int_val_n_mg(state, in_key, vec_num, ret_val);
@@ -106,8 +106,9 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
 
@@ -232,7 +233,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
         break;
 
 
-    case NDI_INC_PART_TYPES:        /* Incident particle types */
+    case NDI_INC_PART_TYPES:     /* Incident particle types */
         if (!state->chain_stat.set_flag) {
             ierr = ndi_set_default_depl(state);
         }
@@ -249,7 +250,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
         }
         break;
 
-    case NDI_TARGET:                /* Zaid of target specified by vec_num */
+    case NDI_TARGET:             /* Zaid of target specified by vec_num */
 
         /* check vec_num is less than num of targets */
         if (!state->ndi_depl_set) {
@@ -313,8 +314,9 @@ static int get_int_val_n_tn(state_struct *state, int in_key, int vec_num,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_RPRODS_ID:
@@ -392,11 +394,12 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_NUM_RPRODS:        /* Number of reaction products */
+    case NDI_NUM_RPRODS:         /* Number of reaction products */
         if (vec_num < state->tnreac_stat.reac_num) {
             if (state->tnreac_stat.rprods[vec_num].length >= 0) {
                 *ret_val = state->tnreac_stat.rprods[vec_num].length;
@@ -408,7 +411,7 @@ static int get_int_val_n_tnreac(state_struct *state, int in_key,
         }
         break;
 
-    case NDI_NUM_REACTANTS:        /* Number of reactants */
+    case NDI_NUM_REACTANTS:      /* Number of reactants */
         if (vec_num < state->tnreac_stat.reac_num) {
             if (state->tnreac_stat.reactants[vec_num].length >= 0) {
                 *ret_val = state->tnreac_stat.reactants[vec_num].length;

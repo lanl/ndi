@@ -1,7 +1,7 @@
 /*
- * File:        ndi_abundance.h
- * Description:        Natural abundance information
- * Time-stamp:        <2003-03-24 13:14:09 jomc>
+ * File:         ndi_abundance.h
+ * Description:  Natural abundance information
+ * Time-stamp:   <2003-03-24 13:14:09 jomc>
  *
  * This header file is included in internal library code only.
  */

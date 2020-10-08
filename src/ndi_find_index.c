@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_find_index.c
- * Description:        Internal functions--given an MT, finds array index of data.
- * Time-stamp:        <1998-12-18 14:24:04 jomc>
+ * Description: Internal functions--given an MT, finds array index of data.
+ * Time-stamp:  <1998-12-18 14:24:04 jomc>
  *
  */
 

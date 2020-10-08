@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        Fortran interface code
+ * Description: Fortran interface code
  *
  */
 

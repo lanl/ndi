@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_std_zaid.c
- * Description:        Internal function--convert input to standard zaid.
- * Time-stamp:        <1999-04-13 16:37:45 jomc>
+ * Description: Internal function--convert input to standard zaid.
+ * Time-stamp:  <1999-04-13 16:37:45 jomc>
  *
  */
 

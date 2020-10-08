@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        Internal function--small misc functions used throughout.
+ * Description: Internal function--small misc functions used throughout.
  *
  */
 

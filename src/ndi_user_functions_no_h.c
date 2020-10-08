@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:        User functions for NDI 1.x backwards compatability
+ * Description: User functions for NDI 1.x backwards compatability
  * 
  */
 

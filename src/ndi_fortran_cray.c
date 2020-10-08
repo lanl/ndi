@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_fortran.c
- * Description:        Source for libndi.a
- * Time-stamp:        <1999-11-12 17:02:52 jomc>
+ * Description: Source for libndi.a
+ * Time-stamp:  <1999-11-12 17:02:52 jomc>
  *
  */
 

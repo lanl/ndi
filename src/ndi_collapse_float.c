@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        Internal function--collapse vector using weighting function.
+ * Description: Internal function--collapse vector using weighting function.
  *
  */
 

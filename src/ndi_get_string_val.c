@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_string_val.c
- * Description:        User function--return a string value.
- * Time-stamp:        <1999-11-18 18:19:39 jomc>
+ * Description: User function--return a string value.
+ * Time-stamp:  <1999-11-18 18:19:39 jomc>
  *
  */
 
@@ -117,17 +117,17 @@ static int get_string_mg(state_struct *state, int in_key,
 
     switch (in_key) {
 
-    case NDI_ZAID:                /*  NDI_ZAID  */
+    case NDI_ZAID:               /*  NDI_ZAID  */
         /* Check that isotope is set */
         strncpy(ret_val, state->iso_stat.zaid, str_size);
         break;
 
-    case NDI_INFO:                /*  Information  */
+    case NDI_INFO:               /*  Information  */
         /* Check that isotope is set */
         strncpy(ret_val, state->iso_stat.info, str_size);
         break;
 
-    case NDI_DATE_PROCESSED:        /* Date library was processed */
+    case NDI_DATE_PROCESSED:     /* Date library was processed */
         /* Check that isotope is set */
         strncpy(ret_val, state->iso_stat.date_processed, str_size);
         break;
@@ -137,12 +137,12 @@ static int get_string_mg(state_struct *state, int in_key,
         strncpy(ret_val, state->iso_stat.date_source, str_size);
         break;
 
-    case NDI_LIBRARY_NAME:        /* Name of current library */
+    case NDI_LIBRARY_NAME:       /* Name of current library */
         /* Check that isotope is set */
         strncpy(ret_val, state->iso_stat.library_name, str_size);
         break;
 
-    case NDI_DEPL_ZAID:        /* Depletion ZAID  */
+    case NDI_DEPL_ZAID:          /* Depletion ZAID  */
         if (!state->ndi_depl_set) {
             ierr = ndi_set_default_depl(state);
         }
@@ -153,7 +153,7 @@ static int get_string_mg(state_struct *state, int in_key,
         strncpy(ret_val, state->depl_dataset, str_size);
         break;
 
-    case NDI_DEPL_INFO:        /*  Depletion nformation  */
+    case NDI_DEPL_INFO:          /*  Depletion nformation  */
         if (!state->ndi_depl_set) {
             ierr = ndi_set_default_depl(state);
         }
@@ -165,7 +165,7 @@ static int get_string_mg(state_struct *state, int in_key,
         break;
 
 
-    case NDI_SEC_PART_TYPES:        /* Type of current particle */
+    case NDI_SEC_PART_TYPES:     /* Type of current particle */
         /* Check also curr_part_index < num_parts?  */
         if (0 <= state->curr_part_index &&
             state->curr_part_index < state->iso_stat.num_sec_parts) {
@@ -180,7 +180,7 @@ static int get_string_mg(state_struct *state, int in_key,
         }
         break;
 
-    case NDI_SEC_PART_ZAIDS:        /* ZAID of current particle */
+    case NDI_SEC_PART_ZAIDS:     /* ZAID of current particle */
         if (0 <= state->curr_part_index &&
             state->curr_part_index < state->iso_stat.num_sec_parts) {
             strncpy(ret_val,
@@ -236,15 +236,15 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
 
     switch (in_key) {
 
-    case NDI_ZAID:                /*  NDI_ZAID  */
+    case NDI_ZAID:               /*  NDI_ZAID  */
         strncpy(ret_val, state->tn_stat.zaid, str_size);
         break;
 
-    case NDI_INFO:                /*  Information  */
+    case NDI_INFO:               /*  Information  */
         strncpy(ret_val, state->tn_stat.info, str_size);
         break;
 
-    case NDI_DATE_PROCESSED:        /* Date library was processed */
+    case NDI_DATE_PROCESSED:     /* Date library was processed */
         strncpy(ret_val, state->tn_stat.date_processed, str_size);
         break;
 
@@ -252,7 +252,7 @@ static int get_string_tn(state_struct *state, int in_key, char *ret_val,
         strncpy(ret_val, state->tn_stat.date_source, str_size);
         break;
 
-    case NDI_LIBRARY_NAME:        /* Name of current library */
+    case NDI_LIBRARY_NAME:       /* Name of current library */
         strncpy(ret_val, state->tn_stat.library_name, str_size);
         break;
 
@@ -294,11 +294,11 @@ static int get_string_tnreac(state_struct *state, int in_key,
 
     switch (in_key) {
 
-    case NDI_ZAID:                /*  NDI_ZAID  */
+    case NDI_ZAID:               /*  NDI_ZAID  */
         strncpy(ret_val, state->tnreac_stat.dataset, str_size);
         break;
 
-    case NDI_INFO:                /*  Information  */
+    case NDI_INFO:               /*  Information  */
         if (strncmp(state->tnreac_stat.info, "\0", 1) != 0) {
             strncpy(ret_val, state->tnreac_stat.info, str_size);
         } else {
@@ -308,7 +308,7 @@ static int get_string_tnreac(state_struct *state, int in_key,
         break;
 
 
-    case NDI_DATE_PROCESSED:        /* Date library was processed */
+    case NDI_DATE_PROCESSED:     /* Date library was processed */
         strncpy(ret_val, state->tnreac_stat.date_processed, str_size);
         break;
 
@@ -317,7 +317,7 @@ static int get_string_tnreac(state_struct *state, int in_key,
         strncpy(ret_val, state->tnreac_stat.date_source, str_size);
         break;
 
-    case NDI_LIBRARY_NAME:        /* Name of current library */
+    case NDI_LIBRARY_NAME:       /* Name of current library */
         strncpy(ret_val, state->tnreac_stat.library_name, str_size);
         break;
 

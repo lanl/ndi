@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        User function--return an element of a vector (float).
+ * Description: User function--return an element of a vector (float).
  *
  */
 
@@ -43,7 +43,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     int mt = 0;
     int tmp_err = 0;
 
-    *ret_val = 0.0;                /* Default return value is zero */
+    *ret_val = 0.0;              /* Default return value is zero */
 
     if (!state) {
         return -2;
@@ -84,7 +84,7 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
     switch (in_key) {
 
       /***********************************************************************/
-        /*           This section looks at non-standard isotope data           */
+      /*           This section looks at non-standard isotope data           */
       /***********************************************************************/
 
     case NDI_REAC_Q:                /* Reaction Q for reaction vec_num */

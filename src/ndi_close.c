@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_close.c
- * Description:        User function--deallocate memory and close files.
- * Time-stamp:        <2000-02-04 16:09:47 jomc>
+ * Description: User function--deallocate memory and close files.
+ * Time-stamp:  <2000-02-04 16:09:47 jomc>
  *
  */
 

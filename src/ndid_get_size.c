@@ -1,8 +1,8 @@
 
 /*
  * File:        ndid_get_size.c
- * Description:        User function--return size (in bytes) of return value.
- * Time-stamp:        <2000-02-03 15:00:51 jomc>
+ * Description: User function--return size (in bytes) of return value.
+ * Time-stamp:  <2000-02-03 15:00:51 jomc>
  *
  */
 

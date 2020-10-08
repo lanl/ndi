@@ -88,12 +88,12 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
 
     section = ndi_get_section(state);
     if (section == 0)
-        NDI_THROW(ierr, -16);   /* Library type not set */
+        NDI_THROW(ierr, -16);      /* Library type not set */
 
-    fpos = ftell(state->ndi_dir); /* remember file position */
+    fpos = ftell(state->ndi_dir);  /* remember file position */
         
     if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
-        NDI_THROW(ierr, -11);  /* Section not found */
+        NDI_THROW(ierr, -11);      /* Section not found */
 
     while (ndi_fget_next_dir(&rec, state->ndi_dir,
                              state->library_vers,  in_str)) {
@@ -103,11 +103,11 @@ static int get_string_vec_x_gendir(state_struct *state, int in_key,
             size = strlen(rec.zaid) + 1; /* include EOS */
             if (size > arr_size) {
                 size = arr_size;
-                NDI_THROW(ierr, 7); /* Data truncated */
+                NDI_THROW(ierr, 7);    /* Data truncated */
             }
             strcpy(str_arr, rec.zaid); /* add string */
-            arr_size -= size;   /* reduce available space */
-            str_arr += size;    /* point past added string */
+            arr_size -= size;          /* reduce available space */
+            str_arr += size;           /* point past added string */
             if (arr_size == 0) goto catch; /* Out of space */
             break;
         default:

@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_set_float_vec_option.c
- * Description:        User function--set defaults.
- * Time-stamp:        <2003-10-24 17:49:16 jomc>
+ * Description: User function--set defaults.
+ * Time-stamp:  <2003-10-24 17:49:16 jomc>
  *
  */
 

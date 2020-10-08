@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:        User function--return a vector which is an element of a matrix.
+ * Description: User function--return a vector which is an element of a matrix.
  *
  */
 
@@ -84,8 +84,9 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_REAC_MT:

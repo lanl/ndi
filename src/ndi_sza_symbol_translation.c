@@ -1,7 +1,7 @@
 /*
  * File:        ndi_sza_symbol_translation.c
- * Description:        Functions for SZA to label conversions.
- * Time-stamp:        <2002-12-10 16:00:00 mcw>
+ * Description: Functions for SZA to label conversions.
+ * Time-stamp:  <2002-12-10 16:00:00 mcw>
  *
  */
 

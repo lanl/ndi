@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_float_val.c
- * Description:        User function--returns a real value.
- * Time-stamp:        <99/10/20 10:57:37 jomc>
+ * Description: User function--returns a real value.
+ * Time-stamp:  <99/10/20 10:57:37 jomc>
  *
  */
 
@@ -52,7 +52,7 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 {
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
 
-    *ret_val = 0.0;                /* Default return value is zero */
+    *ret_val = 0.0;              /* Default return value is zero */
 
     /* Check that ndi_init has been called. */
     if (!state) {
@@ -113,8 +113,9 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_TEMP:                /*  Temperature  */
@@ -205,8 +206,9 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
     case NDI_REAC_Q:                /* Reaction Q-value */
@@ -251,8 +253,9 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
 /*    case NDI_ABUNDANCE:                            */

@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_interp_integ.c
- * Description:        Internal functions for integration and interpolation
- * Time-stamp:        <01/01/24 11:07:11 jomc>
+ * Description: Internal functions for integration and interpolation
+ * Time-stamp:  <01/01/24 11:07:11 jomc>
  *
  */
 
@@ -29,7 +29,7 @@ ndi_integrate_bins(double *distr_x, double *distr_y,
                    int num_bins, int moment, 
                    double *return_vec, int return_size)
 
-     /*  The x, y points are assumed to be monotonically increasing in 
+    /*  The x, y points are assumed to be monotonically increasing in 
         x.  The bin boundaries are assumed to be monotonically decreasing.
         Integration will take place from low x values to high; so the
         distribution points will start at index 0 and be incremented, 
@@ -57,7 +57,7 @@ ndi_integrate_bins(double *distr_x, double *distr_y,
     int num_interp_regions = interp->nint;
     int interp_region = 0;
     int interp_type = interp->int_type[interp_region];
-    int interp_bound_index = interp->nbt[interp_region] - 1;        /* Convert to zero-based index */
+    int interp_bound_index = interp->nbt[interp_region] - 1; /* Convert to zero-based index */
 
     /* Bin variables */
     int curr_bin_index = num_bins - 1;

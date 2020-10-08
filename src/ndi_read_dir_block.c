@@ -170,18 +170,18 @@ int ndi_fseek_section(FILE *stream, const char *str, int wherefrom)
     char line[MAX_IN_STR_LEN];
     long fpos;
 
-    fpos = ftell(stream);      /* remember file position */
+    fpos = ftell(stream);               /* remember file position */
 
     if (wherefrom == 0) rewind(stream); /* start from beginning */
 
     while ((l = fgets(line, sizeof(line), stream)) != NULL)
         if (strncmp(line, str, strlen(str)) == 0) break;
 
-    if (l == NULL) {            /* while ended by EOF */
-        fseek(stream, fpos, SEEK_SET); /* restore original file position */
-        return -1;            /* not found or file error */
-    } else {                    /* while ended by break */
-        return 0;             /* success */
+    if (l == NULL) {                    /* while ended by EOF */
+        fseek(stream, fpos, SEEK_SET);  /* restore original file position */
+        return -1;                      /* not found or file error */
+    } else {                            /* while ended by break */
+        return 0;                       /* success */
     }
 }
 
@@ -204,19 +204,19 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
 
     while ((l=fgets(line, sizeof(line), stream)) != NULL) {
         for (t = strtok(line, s); t != NULL; t = strtok(NULL, s)) {
-            if (strcmp(t, "z") == 0) { /* ZAID */
+            if (strcmp(t, "z") == 0) {         /* ZAID */
                 t = strtok(NULL, s);
                 strcpy(rec->zaid, t);
                 n++;
-            } else if (strcmp(t, "d") == 0) { /* Date */
+            } else if (strcmp(t, "d") == 0) {  /* Date */
                 t = strtok(NULL, s);
                 strcpy(rec->date, t);
                 n++;
-            } else if (strcmp(t, "l") == 0) { /* Library */
+            } else if (strcmp(t, "l") == 0) {  /* Library */
                 t = strtok(NULL, s);
                 strcpy(rec->lib, t);
                 n++;
-            } else if (strcmp(t, "f") == 0) { /* file path */
+            } else if (strcmp(t, "f") == 0) {  /* file path */
                 t = strtok(NULL, s);
                 strcpy(rec->path, t);
                 n++;
@@ -228,23 +228,23 @@ dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream)
                 t = strtok(NULL, s);
                 rec->line_num = atol(t);
                 n++;
-            } else if (strcmp(t, "o") == 0) { /* File offset */
+            } else if (strcmp(t, "o") == 0) {  /* File offset */
                 t = strtok(NULL, s);
                 rec->offset = atol(t);
                 n++;
-            } else if (strcmp(t, "ng") == 0) {/* Number of groups */
+            } else if (strcmp(t, "ng") == 0) { /* Number of groups */
                 t = strtok(NULL, s);
                 rec->num_grps = atoi(t);
                 n++;
-            } else if (strcmp(t, "t") == 0) {/* Temperature */
+            } else if (strcmp(t, "t") == 0) {  /* Temperature */
                 t = strtok(NULL, s);
                 rec->temp = atof(t);
                 n++;
-            } else if (strcmp(t, "s0") == 0) {/* Self-shielding */
+            } else if (strcmp(t, "s0") == 0) { /* Self-shielding */
                 t = strtok(NULL, s);
                 rec->sig_0 = atof(t);
                 n++;
-            } else if (strcmp(t, "aw") == 0) {/* Atomic weight */
+            } else if (strcmp(t, "aw") == 0) { /* Atomic weight */
                 t = strtok(NULL, s);
                 rec->at_wgt = atof(t);
                 n++;
@@ -394,10 +394,10 @@ int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
         NDI_THROW(ierr, -4);   /* Unrecognized input key */
     }
 
-    fpos = ftell(stream); /* remember file position */
+    fpos = ftell(stream);      /* remember file position */
         
     if (ndi_fseek_section(stream, section, 0) != 0)
-        NDI_THROW(ierr, -11); /* Section not found */
+        NDI_THROW(ierr, -11);  /* Section not found */
     
     while (ndi_fget_next_dir(&rec, stream, lib, zaid)) {
         if (i < *size) {

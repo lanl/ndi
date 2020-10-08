@@ -3793,7 +3793,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
                     curr_e_ptr++;
                     new_grp_ptr++;
                 }
-            } else {            /* No default group structure */
+            } else {             /* No default group structure */
                 ierr = -5;
             }
         } else {
@@ -3829,7 +3829,7 @@ static int doublecmp(double a, double b)
           return +1;
      } else if (diff < -delta) { /* a < b */
           return -1;
-     } else {                   /* a ~ b */
+     } else {                    /* a ~ b */
           return 0;
      }
 }

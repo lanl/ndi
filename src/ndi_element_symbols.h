@@ -1,7 +1,7 @@
 /*
  * File:        ndi_element_symbols.h
- * Description:        Chemical symbol data for ZAID/symbol translations.
- * Time-stamp:        <2003-03-24 18:27:33 jomc>
+ * Description: Chemical symbol data for ZAID/symbol translations.
+ * Time-stamp:  <2003-03-24 18:27:33 jomc>
  *
  * This header file is included in internal library code only.
  */

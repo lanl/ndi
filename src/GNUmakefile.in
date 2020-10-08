@@ -9,32 +9,32 @@
 #
 ######################################################################
 
-.PHONY:                all check clean distclean install
+.PHONY: all check clean distclean install
 
 vpath %.c @srcdir@
 vpath %.h @srcdir@ .
 vpath %.f @srcdir@
 vpath %.F @srcdir@
 
-SHELL                = /bin/sh
+SHELL              = /bin/sh
 
-CONFIG                = @CONFIG@
-top_srcdir        = @top_srcdir@
-srcdir                = @srcdir@
-prefix                = @prefix@
+CONFIG             = @CONFIG@
+top_srcdir         = @top_srcdir@
+srcdir             = @srcdir@
+prefix             = @prefix@
 
-VERSION                = $(shell head -1 $(top_srcdir)/VERSION)
-libdir                = $(prefix)/$(VERSION)/$(CONFIG)/lib
-includedir        = $(prefix)/$(VERSION)/$(CONFIG)/include
+VERSION            = $(shell head -1 $(top_srcdir)/VERSION)
+libdir             = $(prefix)/$(VERSION)/$(CONFIG)/lib
+includedir         = $(prefix)/$(VERSION)/$(CONFIG)/include
 
 DEP                = gcc -MM
 CPP                = @CPP@
-RANLIB                = @RANLIB@
-INSTALL                = @INSTALL@
+RANLIB             = @RANLIB@
+INSTALL            = @INSTALL@
 AWK                = @AWK@
-MD5SUM                = @MD5SUM@
+MD5SUM             = @MD5SUM@
 
-GROUP                := pdata
+GROUP              := pdata
 
 INSTALL_DIR        = $(INSTALL) -g $(GROUP) -m 755 -d
 INSTALL_LIB        = $(INSTALL) -g $(GROUP) -m 444
@@ -47,7 +47,7 @@ include $(top_srcdir)/conf/$(CONFIG).mk
 
 ######################################################################
 
-CPPFLAGS        += -I. -I$(srcdir)
+CPPFLAGS += -I. -I$(srcdir)
 
 TARGET := libndi.a libndi_debug.a
 

@@ -1,9 +1,9 @@
 
 /*
  * File:        ndi_misc_float.c
- * Description:        Miscellaneous functions operating with floats.
+ * Description: Miscellaneous functions operating with floats.
 
- * Time-stamp:        <2003-03-24 13:51:13 jomc>
+ * Time-stamp:  <2003-03-24 13:51:13 jomc>
  *
  */
 
@@ -434,7 +434,7 @@ int GET_ABUNDANCE(int izaid, FLOAT_TYPE * return_val)
     int a;
     int element_in;
     int element_curr;
-    int element_found_flag = 0;        /* If isotope of same element as izaid 
+    int element_found_flag = 0; /* If isotope of same element as izaid 
                                    is found, then = 1, else = 0 */
 
     *return_val = 0.0;
@@ -483,7 +483,7 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 
     int ierr = 0;
     int in;                        /* Number of incoming energy groups */
-    int out;                        /* Number of outgoing energy groups */
+    int out;                       /* Number of outgoing energy groups */
     FLOAT_TYPE *chi_matrix = NULL;
     FLOAT_TYPE *weights = NULL;
     FLOAT_TYPE *temp_vec = NULL;
@@ -581,5 +581,4 @@ int CHI_MAT_TO_VEC(state_struct *state, FILE *stream,
 
 
 /*********************************************************************/
-
 /*********************************************************************/

@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_init_iso_state.c
- * Description:        Internal function--initialize isotope state.
- * Time-stamp:        <2000-02-03 14:50:33 jomc>
+ * Description: Internal function--initialize isotope state.
+ * Time-stamp:  <2000-02-03 14:50:33 jomc>
  *
  */
 
@@ -1576,8 +1576,8 @@ static int set_string_array(FILE *stream, char **str_p, int data_num,
 int read_string_line(FILE *stream, char *line, int str_size)
 {
     int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
-    char input[133];                /* Current data item */
-    char *seps = " ";     /* Data delimiters in library file */
+    char input[133];            /* Current data item */
+    char *seps = " ";           /* Data delimiters in library file */
 
     while (fread(input, sizeof(input), 1, stream) > 0) {
         if (strcmp(input, "break") == 0) {
@@ -1623,9 +1623,9 @@ static int set_reaction_array(FILE *stream, char **str_p,
 {
     int ierr = 0;
     int reac_count = 0;
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     stat_flag *reactants;
     stat_flag *rprods;
 
@@ -1715,9 +1715,9 @@ static int set_depl_array(state_struct *state, FILE *stream,
 {
     int ierr = 0;
     int target_count;
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     int i;
     depl_target_struct *target_p;
     long int tmp_fptr;
@@ -1814,9 +1814,9 @@ static int set_chain_array(state_struct *state, FILE *stream,
 {
     int ierr = 0;
     int target_count;
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char in_line[MAX_IN_STR_LEN]; /* Current input line */
+    char *token;                  /* Current data item */
+    char seps[] = " ,\t\n";       /* Data delimiters in library file */
     char junk[20];
     int i;
     depl_target_struct *target_p;
@@ -1834,7 +1834,7 @@ static int set_chain_array(state_struct *state, FILE *stream,
     } else if (data_num == 0) {
         /* No data! */
         ierr = 5;
-    } else {                        /* Read info for current target */
+    } else {                      /* Read info for current target */
         /* Read next line and count strings */
 
 
@@ -2068,7 +2068,7 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
     int tmp_err = 0;
     int ntemp, ninterp;
     int num_particles_read = *parts_filled;
-    char *particle_str = &(keyword[7]);        /* The particle id starts at char 7 */
+    char *particle_str = &(keyword[7]);      /* The particle id starts at char 7 */
     sec_part_distr *part;
 
     /* Find next part to fill */
@@ -2109,9 +2109,9 @@ static int ndi_setup_edist(char *keyword, FILE *stream,
                 } else {
                     tmp_err = fill_edist(stream, ntemp, part->edist, binary);
                 }
-            }                        /*else {
-                                   tmp_err = fill_edist( stream, ntemp, NULL );
-                                   } */
+            } /*else {
+                tmp_err = fill_edist( stream, ntemp, NULL );
+            } */
         } else {
         }
 
@@ -2175,10 +2175,10 @@ static int ndi_read_interp_param(FILE *stream, int ninterp,
     */
 {
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    int param_count = 0;        /* Current number of inter parameter pairs processed */
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    int param_count = 0;         /* Current number of inter parameter pairs processed */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     int *curr_nbt;
     int *curr_int_type;
 
@@ -2325,7 +2325,7 @@ static int skip_comment(FILE *stream)
     char *first_token = NULL;
     char comment[MAX_IN_STR_LEN];
 
-    ierr = -11;                        /* Default error -- error reading file */
+    ierr = -11;                      /* Default error -- error reading file */
 
     while (fgets(comment, sizeof(comment), stream) != NULL) {
         first_token = strtok(comment, seps);
@@ -2379,11 +2379,11 @@ int ndi_read_double_block(FILE *stream, long file_pos,
                           const int num_floats, double *return_vec,
                           const int return_size, int binary)
 {
-    int float_count = 0;        /* Current number of floats processed */
+    int float_count = 0;         /* Current number of floats processed */
     int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    char *token;                 /* Current data item */
+    char seps[] = " ,\t\n";      /* Data delimiters in library file */
     double *cur_flt_ptr = return_vec;
     double input;
 

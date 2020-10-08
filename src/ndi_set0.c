@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_set0.c
- * Description:        Internal function--initialize iso_stat, lib_ebounds, lib_weight.
- * Time-stamp:        <1999-11-19 17:29:24 jomc>
+ * Description: Internal function--initialize iso_stat, lib_ebounds, lib_weight.
+ * Time-stamp:  <1999-11-19 17:29:24 jomc>
  *
  */
 
@@ -325,7 +325,7 @@ static int set0_tnreac(state_struct *state)
         return -2;
     }
 
-    state->curr_part_index = -1;        /* Reset current part index */
+    state->curr_part_index = -1; /* Reset current part index */
 
     if (state->tnreac_stat.set_flag) {
 
@@ -402,7 +402,7 @@ static int set0_depl(state_struct *state)
             ndi_free((void **) &state->depl_target);
     }
 
-    state->curr_part_index = -1;        /* Reset current part index */
+    state->curr_part_index = -1; /* Reset current part index */
     (void) strncpy(state->depl_dataset, "", sizeof(state->depl_dataset));
     (void) strncpy(state->depl_info, "", sizeof(state->depl_info));
 
@@ -428,7 +428,7 @@ static int set0_depl(state_struct *state)
 static int set0_dedx(state_struct *state)
 {
 
-    int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
 
     if (!state) {
         return (-2);

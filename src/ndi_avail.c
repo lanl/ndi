@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_avail.c
- * Description:        Internal functions--indicates is quantity is available.
- * Time-stamp:        <1999-06-28 13:37:09 jomc>
+ * Description: Internal functions--indicates is quantity is available.
+ * Time-stamp:  <1999-06-28 13:37:09 jomc>
  *
  */
 
@@ -98,7 +98,7 @@ unsigned ndi_nu_avail(const state_struct *state, char nu_type)
     Return: nu | nu1 & nu2 | sig_reac_18 & (nusigf |
     | nu1 & nusigf2 | nusigf1 & nu2 | nusigf1 & nusigf2) */
 
-    unsigned flag = 0;                /* Default is false */
+    unsigned flag = 0;          /* Default is false */
 
     long int nu_ptr;
     long int nu1_ptr;
@@ -177,7 +177,7 @@ int ndi_sigf_avail(const state_struct *state)
 
        ******************************************************************** */
 
-    int return_val = 0;                /* Default is false */
+    int return_val = 0;         /* Default is false */
     int reac_index = -1;
     int mt = 18;                /*  Total fission cross-section  */
 

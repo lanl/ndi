@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_read_int_block.c
- * Description:        Internal function--read a given number of ints from file.
- * Time-stamp:        <2003-01-12 16:02:26 jomc>
+ * Description: Internal function--read a given number of ints from file.
+ * Time-stamp:  <2003-01-12 16:02:26 jomc>
  *
  */
 
@@ -41,11 +41,11 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 
 ***********************************************************************/
 {
-    int int_count = 0;                /* Current number of ints processed */
-    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char *token;                /* Current data item */
-    char seps[] = " ,\t\n";        /* Data delimiters in library file */
+    int int_count = 0;            /* Current number of ints processed */
+    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
+    char in_line[MAX_IN_STR_LEN]; /* Current input line */
+    char *token;                  /* Current data item */
+    char seps[] = " ,\t\n";       /* Data delimiters in library file */
     long *cur_int_ptr = return_vec;
 
 

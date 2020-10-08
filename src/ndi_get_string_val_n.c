@@ -1,8 +1,8 @@
 
 /*
  * File:        ndi_get_string_val_n.c
- * Description:        User function--return a string element from a list.
- * Time-stamp:        <2003-03-24 18:41:12 jomc>
+ * Description: User function--return a string element from a list.
+ * Time-stamp:  <2003-03-24 18:41:12 jomc>
  *
  */
 
@@ -117,15 +117,16 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
 
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_ZAID:                /* Translate input SZA to string */
+    case NDI_ZAID:               /* Translate input SZA to string */
         ierr = ndi_translate_sza_to_symbol(vec_num, ret_val, str_size);
         break;
 
-    case NDI_SEC_PART_TYPES:        /* Secondary particle types  */
+    case NDI_SEC_PART_TYPES:     /* Secondary particle types  */
         if (state->iso_stat.sec_part) {
             if (0 <= vec_num && 
                 vec_num < state->iso_stat.num_sec_parts) {
@@ -133,17 +134,17 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
                     sprintf(ret_val, "%d",
                             state->iso_stat.sec_part[vec_num].part_type);
                 } else {
-                    ierr = -9;  /* This data not set */
+                    ierr = -9;   /* This data not set */
                 }
             } else {
-                ierr = -6;      /* Index out of range */
+                ierr = -6;       /* Index out of range */
             }
         } else {
-            ierr = -9;          /* Secondary data not set */
+            ierr = -9;           /* Secondary data not set */
         }
         break;
 
-    case NDI_SEC_PART_ZAIDS:        /* Secondary particle ZAIDs  */
+    case NDI_SEC_PART_ZAIDS:     /* Secondary particle ZAIDs  */
         if (state->iso_stat.sec_part) {
             if (0 <= vec_num &&
                 vec_num < state->iso_stat.num_sec_parts) {
@@ -151,17 +152,17 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
                     strncpy(ret_val, state->iso_stat.sec_part[vec_num].zaid,
                             str_size);
                 } else {
-                    ierr = 9;   /* This data not set */
+                    ierr = 9;    /* This data not set */
                 }
             } else {
-                ierr = -6;      /* Index out of range */
+                ierr = -6;       /* Index out of range */
             }
         } else {
-            ierr = 9;           /* Secondary data not set */
+            ierr = 9;            /* Secondary data not set */
         }
         break;
 
-    case NDI_TARGET:                /* Zaid of target specified by vec_num */
+    case NDI_TARGET:             /* Zaid of target specified by vec_num */
 
         /* check vec_num is less than num of targets */
         if (!state->ndi_depl_set) {
@@ -195,12 +196,12 @@ static int get_string_n_mg(state_struct *state, int in_key, char *ret_val,
         break;
 
 
-    case NDI_INC_PART_TYPES:        /* Incident particle types */
+    case NDI_INC_PART_TYPES:     /* Incident particle types */
         ierr =
             ndi_get_nth_inc_part_type(state, vec_num, ret_val, str_size);
         break;
 
-    case NDI_REAC_LABEL:        /* Reaction label by MT */
+    case NDI_REAC_LABEL:         /* Reaction label by MT */
         ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
         /* Reqt. 19: substitue incident particle name */
         for (int i = 0; i < str_size; i++) {
@@ -244,13 +245,13 @@ static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
         }
     }
 
+   /*************************/
+   /*   Process input key   */
+   /*************************/
 
-   /*************************/
-    /*   Process input key   */
-   /*************************/
     switch (in_key) {
 
-    case NDI_REAC_LABEL:        /* Reaction label by MT */
+case NDI_REAC_LABEL:             /* Reaction label by MT */
         ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
         break;
 
@@ -289,11 +290,12 @@ static int get_string_n_tn(state_struct *state, int in_key, char *ret_val,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_SEC_PART_TYPES:        /* Secondary particle types  */
+    case NDI_SEC_PART_TYPES:     /* Secondary particle types  */
         /* Check vec_num is within bounds */
         if ((state->tn_stat.num_sec_parts > vec_num) &&
             (state->sec_part_filled > vec_num) &&
@@ -359,11 +361,12 @@ static int get_string_n_tnreac(state_struct *state, int in_key,
     }
 
    /*************************/
-    /*   Process input key   */
+   /*   Process input key   */
    /*************************/
+
     switch (in_key) {
 
-    case NDI_LIST_REAC:        /* List of reactions */
+    case NDI_LIST_REAC:          /* List of reactions */
 
         /* check vec_num is less than num of reac */
         if (state->tnreac_stat.reac_num > vec_num) {
