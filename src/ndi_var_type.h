@@ -217,5 +217,5 @@ typedef double ndi_float64;
 
 /**********************************************************************/
 
-#endif	/* NDI_VAR_TYPE_H */
+#endif        /* NDI_VAR_TYPE_H */
 

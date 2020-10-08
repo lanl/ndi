@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_read_int_block.c
- * Description:	Internal function--read a given number of ints from file.
- * Time-stamp:	<2003-01-12 16:02:26 jomc>
+ * File:        ndi_read_int_block.c
+ * Description:        Internal function--read a given number of ints from file.
+ * Time-stamp:        <2003-01-12 16:02:26 jomc>
  *
  */
 
@@ -21,8 +21,8 @@
 
 int
 ndi_read_int_block(FILE *stream, const int num_ints,
-		   long *return_vec, const int return_size,
-		   int binary)
+                   long *return_vec, const int return_size,
+                   int binary)
 
 /*********************************************************************
     
@@ -41,11 +41,11 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 
 ***********************************************************************/
 {
-    int int_count = 0;		/* Current number of ints processed */
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
-    char in_line[MAX_IN_STR_LEN];	/* Current input line */
-    char *token;		/* Current data item */
-    char seps[] = " ,\t\n";	/* Data delimiters in library file */
+    int int_count = 0;                /* Current number of ints processed */
+    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
+    char in_line[MAX_IN_STR_LEN];        /* Current input line */
+    char *token;                /* Current data item */
+    char seps[] = " ,\t\n";        /* Data delimiters in library file */
     long *cur_int_ptr = return_vec;
 
 
@@ -53,22 +53,22 @@ ndi_read_int_block(FILE *stream, const int num_ints,
 
     while (int_count < num_ints) {
 
-	/* Check to see if we've reached the end of return_vec */
-	if (int_count >= return_size) {
-	    ierr = 7;
-	    break;
-	}
+        /* Check to see if we've reached the end of return_vec */
+        if (int_count >= return_size) {
+            ierr = 7;
+            break;
+        }
 
-	if (binary) {
-	    if (fread(&cur_int_ptr, sizeof(long), 1, stream) < 1) {
-	        /* Error reading file or end of file */
-	        ierr = -11;
-	        return ierr;
-	    } else {
-	        int_count++;
-	        cur_int_ptr++;
-	    }
-	} else {
+        if (binary) {
+            if (fread(&cur_int_ptr, sizeof(long), 1, stream) < 1) {
+                /* Error reading file or end of file */
+                ierr = -11;
+                return ierr;
+            } else {
+                int_count++;
+                cur_int_ptr++;
+            }
+        } else {
             if (fgets(in_line, sizeof(in_line), stream) != NULL) {
                 token = strtok(in_line, seps);
                 while (token != NULL) {
@@ -88,7 +88,7 @@ ndi_read_int_block(FILE *stream, const int num_ints,
                 ierr = -11;
                 return ierr;
             }
-	}
+        }
     }
 
     return ierr;

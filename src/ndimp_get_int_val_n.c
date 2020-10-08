@@ -5,12 +5,12 @@
 #include "ndi_state.h"
 
 static int get_comb_reac_mt_n(state_struct *h, int vec_num,
-			      int *return_val);
+                              int *return_val);
 static int get_last_group_n(state_struct *h, int vec_num, int *return_val);
 
 /**********************************************************************/
 int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
-			int *ret_val)
+                        int *ret_val)
 {
 
     int ierr = 0;
@@ -27,24 +27,24 @@ int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
     switch (in_key) {
 
     case NDI_REAC_MT:
-	ierr = get_comb_reac_mt_n(h, vec_num, ret_val);
-	break;
+        ierr = get_comb_reac_mt_n(h, vec_num, ret_val);
+        break;
 
     case NDI_LAST_GRP:
-	ierr = get_last_group_n(h, vec_num, ret_val);
-	break;
+        ierr = get_last_group_n(h, vec_num, ret_val);
+        break;
 
     case NDI_PARTICLE_N:
-	if ((vec_num < num_parts) && (vec_num >= 0)) {
-	    *ret_val = handle[vec_num]->handle;
-	} else {
-	    ierr = -6;
-	}
-	break;
+        if ((vec_num < num_parts) && (vec_num >= 0)) {
+            *ret_val = handle[vec_num]->handle;
+        } else {
+            ierr = -6;
+        }
+        break;
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -52,7 +52,7 @@ int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
 
 /**********************************************************************/
 static int get_comb_reac_mt_n(state_struct *h,
-			      const int vec_num, int *return_val)
+                              const int vec_num, int *return_val)
 {
 
     int ierr = 0;
@@ -66,18 +66,18 @@ static int get_comb_reac_mt_n(state_struct *h,
     ierr = ndimp_get_int_vec(h, NDI_REAC_MT, mt_arr, vec_size);
 
     if (vec_num < vec_size) {
-	*return_val = mt_arr[vec_num];
+        *return_val = mt_arr[vec_num];
     }
 
     if (mt_arr)
-	ndi_free((void **) &mt_arr);
+        ndi_free((void **) &mt_arr);
 
     return ierr;
 }
 
 /**********************************************************************/
 static int get_last_group_n(state_struct *h,
-			    const int vec_num, int *return_val)
+                            const int vec_num, int *return_val)
 {
 
     int temp_val = 0;
@@ -97,16 +97,16 @@ static int get_last_group_n(state_struct *h,
     /* Should vec_num be part type? and translate to particle index? */
 
     if (end_index > num_parts) {
-	return -33;
+        return -33;
     }
 
     for (i = 0; i <= end_index; i++) {
-	if ((statep = (handle[i]))) {
-	    ierr = ndi_c_get_int_val_h(statep, NDI_NUM_GRPS, &temp_val);
-	    if (temp_val >= 0) {
-		sum += temp_val;
-	    }
-	}
+        if ((statep = (handle[i]))) {
+            ierr = ndi_c_get_int_val_h(statep, NDI_NUM_GRPS, &temp_val);
+            if (temp_val >= 0) {
+                sum += temp_val;
+            }
+        }
     }
 
     *return_val = sum;

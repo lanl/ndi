@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_get_float_val.c
- * Description:	User function--returns a real value.
- * Time-stamp:	<99/10/20 10:57:37 jomc>
+ * File:        ndi_get_float_val.c
+ * Description:        User function--returns a real value.
+ * Time-stamp:        <99/10/20 10:57:37 jomc>
  *
  */
 
@@ -18,20 +18,20 @@
 #include "ndi_sf.h"
 
 static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
-			    FLOAT_TYPE * ret_val);
+                            FLOAT_TYPE * ret_val);
 static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
-			    FLOAT_TYPE * ret_val);
+                            FLOAT_TYPE * ret_val);
 static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
-			     FLOAT_TYPE * ret_val);
+                             FLOAT_TYPE * ret_val);
 static int GET_FLOAT_VAL_DEDX(state_struct *state, int in_key,
-			      FLOAT_TYPE * ret_val);
+                              FLOAT_TYPE * ret_val);
 static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
-			 FLOAT_TYPE * ret_val);
+                         FLOAT_TYPE * ret_val);
 
 /**********************************************************************/
 
 int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
-			FLOAT_TYPE * ret_val)
+                        FLOAT_TYPE * ret_val)
 
 
 /*********************************************************************
@@ -50,44 +50,44 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 
 ***********************************************************************/
 {
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
+    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
 
-    *ret_val = 0.0;		/* Default return value is zero */
+    *ret_val = 0.0;                /* Default return value is zero */
 
     /* Check that ndi_init has been called. */
     if (!state) {
-	return -2;
+        return -2;
     }
 
     if (!state->ndi_initialized) {
-	return -2;
+        return -2;
     }
 #ifdef FLOAT32
     if (sizeof(float) == 8) {
-	/*  32-bit operation not implemented on 64-bit platform */
-	return -10;
+        /*  32-bit operation not implemented on 64-bit platform */
+        return -10;
     }
 #endif
 
     if (is_gendir(state)) {
-	ierr = -2;		/* case not handled currently */
+        ierr = -2;                /* case not handled currently */
     } else if (state->library_type == 'm') {
-	ierr = GET_FLOAT_VAL_MG(state, in_key, ret_val);
+        ierr = GET_FLOAT_VAL_MG(state, in_key, ret_val);
     } else if (state->library_type == 's') {
-	ierr = GET_FLOAT_VAL_TN(state, in_key, ret_val);
+        ierr = GET_FLOAT_VAL_TN(state, in_key, ret_val);
     } else if (state->library_type == 'd') {
-	ierr = GET_FLOAT_VAL_DOS(state, in_key, ret_val);
+        ierr = GET_FLOAT_VAL_DOS(state, in_key, ret_val);
     } else if (state->library_type == 'p') {
-	*ret_val = 0.0;
-	ierr = -4;
+        *ret_val = 0.0;
+        ierr = -4;
     } else if (state->library_type == 'x') {
         ierr = GET_FLOAT_VAL_DEDX(state, in_key, ret_val);
     } else if (state->library_type == ' ') {
-	/* Library type was not set */
-	ierr = -16;
+        /* Library type was not set */
+        ierr = -16;
     } else {
-	/* Incompatible library type -- bad input key */
-	ierr = -4;
+        /* Incompatible library type -- bad input key */
+        ierr = -4;
     }
 
     return ierr;
@@ -98,18 +98,18 @@ int NDI_GET_FLOAT_VAL_H(state_struct *state, int in_key,
 /**********************************************************************/
 
 static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
-			    FLOAT_TYPE * ret_val)
+                            FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return -7;
+        return -7;
     }
 
    /*************************/
@@ -117,45 +117,45 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
    /*************************/
     switch (in_key) {
 
-    case NDI_TEMP:		/*  Temperature  */
-	if (state->iso_stat.temp >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+    case NDI_TEMP:                /*  Temperature  */
+        if (state->iso_stat.temp >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
-    case NDI_SIG_0:		/* Sigma zero  */
-	if (state->iso_stat.sig_0 >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+    case NDI_SIG_0:                /* Sigma zero  */
+        if (state->iso_stat.sig_0 >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
-    case NDI_AT_WGT:		/* Atomic weight  */
-	if (state->iso_stat.at_wgt > 0.0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
+    case NDI_AT_WGT:                /* Atomic weight  */
+        if (state->iso_stat.at_wgt > 0.0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
         } else if (state->iso_stat.awr > 0.0) {
             *ret_val = (FLOAT_TYPE) (state->iso_stat.awr * M_NEUT_AMU);
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
-    case NDI_AWR:		/* Atomic weight ratio  */
-	if (state->iso_stat.awr > 0.0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
+    case NDI_AWR:                /* Atomic weight ratio  */
+        if (state->iso_stat.awr > 0.0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
         } else if (state->iso_stat.at_wgt > 0.0) {
             *ret_val = (FLOAT_TYPE) (state->iso_stat.at_wgt / M_NEUT_AMU);
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
     case NDI_SF_RATE:           /* Spontaneous Fission Rate (Reqt 46) */
         if (state-> iso_stat.fissionable == 0) { /* Not fissionable */
@@ -179,8 +179,8 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
       /*******************  UNKNOWN KEYWORD  ********************/
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -189,19 +189,19 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
-			    FLOAT_TYPE * ret_val)
+                            FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
 
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Check that isotope is set */
     if (!state->tn_stat.set_flag) {
-	return -7;
+        return -7;
     }
 
    /*************************/
@@ -209,24 +209,24 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
    /*************************/
     switch (in_key) {
 
-    case NDI_REAC_Q:		/* Reaction Q-value */
-	*ret_val = (FLOAT_TYPE) state->tn_stat.q_value;
-	if (state->tn_stat.q_set == 0) {
-	    ierr = -9;
-	}
-	break;
+    case NDI_REAC_Q:                /* Reaction Q-value */
+        *ret_val = (FLOAT_TYPE) state->tn_stat.q_value;
+        if (state->tn_stat.q_set == 0) {
+            ierr = -9;
+        }
+        break;
 
-    case NDI_EAVG_OUT:		/* Average outgoing energy */
-    case NDI_EOUTBAR:		/* Average outgoing energy */
-	ierr = CALC_EAVG_OUT(state, state->lib_stream, ret_val);
-	break;
+    case NDI_EAVG_OUT:                /* Average outgoing energy */
+    case NDI_EOUTBAR:                /* Average outgoing energy */
+        ierr = CALC_EAVG_OUT(state, state->lib_stream, ret_val);
+        break;
 
 
       /*******************  UNKNOWN KEYWORD  ********************/
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -236,18 +236,18 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
 /**********************************************************************/
 
 static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
-			     FLOAT_TYPE * ret_val)
+                             FLOAT_TYPE * ret_val)
 {
 
     int ierr = 0;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Check that isotope is set */
     if (!state->iso_stat.set_flag) {
-	return -7;
+        return -7;
     }
 
    /*************************/
@@ -256,59 +256,59 @@ static int GET_FLOAT_VAL_DOS(state_struct *state, int in_key,
     switch (in_key) {
 
 /*    case NDI_ABUNDANCE:                            */
-	/*  Abundance  */
-	/*
-	   if ( state->iso_stat.abundance >= 0 ) {
-	   *ret_val = (FLOAT_TYPE) state->iso_stat.abundance;
-	   } else {
-	   ierr = -9;
-	   *ret_val = 0.0;
-	   }
-	   break;
-	 */
+        /*  Abundance  */
+        /*
+           if ( state->iso_stat.abundance >= 0 ) {
+           *ret_val = (FLOAT_TYPE) state->iso_stat.abundance;
+           } else {
+           ierr = -9;
+           *ret_val = 0.0;
+           }
+           break;
+         */
 
-    case NDI_TEMP:		/*  Temperature  */
-	if (state->iso_stat.temp >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+    case NDI_TEMP:                /*  Temperature  */
+        if (state->iso_stat.temp >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.temp;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
-    case NDI_SIG_0:		/* Sigma zero  */
-	if (state->iso_stat.sig_0 >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+    case NDI_SIG_0:                /* Sigma zero  */
+        if (state->iso_stat.sig_0 >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.sig_0;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
-    case NDI_AT_WGT:		/* Atomic weight  */
-	if (state->iso_stat.at_wgt >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+    case NDI_AT_WGT:                /* Atomic weight  */
+        if (state->iso_stat.at_wgt >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.at_wgt;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
     case NDI_AWR:
-	/* Atomic weight ratio  */
-	if (state->iso_stat.awr >= 0) {
-	    *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
-	} else {
-	    ierr = -9;
-	    *ret_val = 0.0;
-	}
-	break;
+        /* Atomic weight ratio  */
+        if (state->iso_stat.awr >= 0) {
+            *ret_val = (FLOAT_TYPE) state->iso_stat.awr;
+        } else {
+            ierr = -9;
+            *ret_val = 0.0;
+        }
+        break;
 
       /*******************  UNKNOWN KEYWORD  ********************/
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -372,7 +372,7 @@ static int GET_FLOAT_VAL_DEDX(state_struct *state, int in_key,
 /**********************************************************************/
 
 static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
-			 FLOAT_TYPE * ret_val)
+                         FLOAT_TYPE * ret_val)
      /* Calculates the average outgoing energy of the "current" secondary 
         particle (given by global var. curr_part_index) by integrating
         over that particles energy distribution
@@ -390,30 +390,30 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
     interp_params curr_interp;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* INITIALIZE */
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Set current particle */
     if ((state->curr_part_index < 0) ||
-	(state->curr_part_index >= state->sec_part_filled))
-	return -30;
+        (state->curr_part_index >= state->sec_part_filled))
+        return -30;
 
     part = &(state->tn_stat.sec_part[state->curr_part_index]);
     if (!part)
-	return -30;
+        return -30;
 
     /* Find closest temperature */
     num_temps = part->temp_interp.npts;
     ierr =
-	ndi_find_temp_bound_index(state->default_temp, part->edist,
-				  num_temps, &hi, &lo, &curr_temp_index);
+        ndi_find_temp_bound_index(state->default_temp, part->edist,
+                                  num_temps, &hi, &lo, &curr_temp_index);
     if (ierr < 0)
-	return -30;
+        return -30;
 
 
     /* Initialize distribution variables */
@@ -422,26 +422,26 @@ static int CALC_EAVG_OUT(state_struct *state, FILE *lib_stream,
     distr_E = (double *) ndi_malloc(curr_interp.npts * sizeof(double));
     distr_prob = (double *) ndi_malloc(curr_interp.npts * sizeof(double));
     ierr = ndi_read_float_pair(lib_stream, curr_file_p,
-			       curr_interp.npts, distr_E, distr_prob,
-			       curr_interp.npts);
+                               curr_interp.npts, distr_E, distr_prob,
+                               curr_interp.npts);
 
     /* FIND AVERAGE ENERGY */
     ierr = find_average_E(distr_E, distr_prob, &curr_interp, &Eavg);
 
     /* Check error */
     if (ierr < 0) {
-	if (distr_E)
-	    ndi_free((void **) &distr_E);
-	if (distr_prob)
-	    ndi_free((void **) &distr_prob);
-	return -30;
+        if (distr_E)
+            ndi_free((void **) &distr_E);
+        if (distr_prob)
+            ndi_free((void **) &distr_prob);
+        return -30;
     }
 
 
     if (distr_E)
-	ndi_free((void **) &distr_E);
+        ndi_free((void **) &distr_E);
     if (distr_prob)
-	ndi_free((void **) &distr_prob);
+        ndi_free((void **) &distr_prob);
 
     /* Check error */
 

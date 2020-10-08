@@ -822,13 +822,13 @@ static int get_dedx_size(state_struct *state, int in_key, int *ierr)
         break;
 
     case NDI_DEDX:
-	/* free electron dE/dx */
+        /* free electron dE/dx */
         return_value = state->dedx_stat.num_grps*state->dedx_stat.num_temps
                        *state->dedx_stat.num_densities;
         break;
 
     case NDI_TARGET_DEDX:
-	/* target ion dE/dx */
+        /* target ion dE/dx */
         return_value = state->dedx_stat.num_grps*state->dedx_stat.num_temps
                        *state->dedx_stat.num_densities*state->dedx_stat.num_targets;
         break;

@@ -1,7 +1,7 @@
 /*
- * File:	ndi_internal.h
- * Description:	Header file for libndi
- * Time-stamp:	<2000-02-03 11:12:37 jomc>
+ * File:        ndi_internal.h
+ * Description:        Header file for libndi
+ * Time-stamp:        <2000-02-03 11:12:37 jomc>
  *
  * This header file is included in internal library code only.
  */
@@ -31,8 +31,8 @@
 #define J_TO_MEV        (Q_ELEC_C*1e+6)
 #define ROOM_TEMP_MEV   2.53e-8
        
-#define NUM_FISSION_Q		6
-#define NUM_NORM		4
+#define NUM_FISSION_Q                6
+#define NUM_NORM                4
 
 #define MAX_TN_REAC            50
 #define MAX_TN_REAC_LEN        24
@@ -142,10 +142,10 @@ typedef struct _sec_part_mg {
 } sec_part_mg;
 
 typedef struct _interp_params {
-    int npts;			/* number of x,y pairs given */
-    int nint;			/* number of interpolations regions */
-    int *nbt;			/* using ENDF nomenclature--the value separating 2 adj interp regions */
-    int *int_type;		/* interpolation scheme: 0=discrete,2=lin-lin */
+    int npts;                        /* number of x,y pairs given */
+    int nint;                        /* number of interpolations regions */
+    int *nbt;                        /* using ENDF nomenclature--the value separating 2 adj interp regions */
+    int *int_type;                /* interpolation scheme: 0=discrete,2=lin-lin */
 } interp_params;
 
 enum {
@@ -238,7 +238,7 @@ typedef struct _tn_status {
     int num_temps;
     int num_sec_parts;
     int num_grps;
-    int num_edist;		/* All sec. parts. may not have E. distr. data */
+    int num_edist;                /* All sec. parts. may not have E. distr. data */
     tn_zaid zaid;
     char info[MAX_IN_STR_LEN];
     char date_processed[MAX_IN_STR_LEN];
@@ -260,27 +260,27 @@ typedef struct _tn_status {
 
 typedef struct _tnreac_status {
     int set_flag;
-    int reac_num;		/*  Number of reactions in TN reaction dataset */
-    char dataset[60];		/*  Name of current set of TN reaction data */
-    char info[MAX_IN_STR_LEN];	/*  Information about current TN reaction dataset */
+    int reac_num;                /*  Number of reactions in TN reaction dataset */
+    char dataset[60];                /*  Name of current set of TN reaction data */
+    char info[MAX_IN_STR_LEN];        /*  Information about current TN reaction dataset */
     char date_processed[MAX_IN_STR_LEN];
     char date_source[MAX_IN_STR_LEN];
     char library_name[MAX_IN_STR_LEN];
-    char *list_reac[MAX_TN_REAC];	/*  List of current set of TN reaction zaids */
+    char *list_reac[MAX_TN_REAC];        /*  List of current set of TN reaction zaids */
     stat_flag *reactants;
     stat_flag *rprods;
 } tnreac_status;
 
 typedef struct _chain_status {
-    int set_flag;		/*  Is chain set? True = -1; False= 0 */
-    int num_inc_parts;		/* Number of incident particles */
-    int num_reac_non_null;	/* Number of target/prod pairs where target != prod */
-    int num_target;		/* Number of targets in radchem dataset */
-    int num_target_unique;	/* Number of unique targets in radchem dataset */
-    int *inc_part_types;	/* Incident particles types */
-    int target_filled;		/* Number of targets for which data has been stored */
-    char dataset[60];		/*  Name of current set of chain data */
-    char info[MAX_IN_STR_LEN];	/*  Information about current chain dataset */
+    int set_flag;                /*  Is chain set? True = -1; False= 0 */
+    int num_inc_parts;                /* Number of incident particles */
+    int num_reac_non_null;        /* Number of target/prod pairs where target != prod */
+    int num_target;                /* Number of targets in radchem dataset */
+    int num_target_unique;        /* Number of unique targets in radchem dataset */
+    int *inc_part_types;        /* Incident particles types */
+    int target_filled;                /* Number of targets for which data has been stored */
+    char dataset[60];                /*  Name of current set of chain data */
+    char info[MAX_IN_STR_LEN];        /*  Information about current chain dataset */
     char date_processed[MAX_IN_STR_LEN];
     char date_source[MAX_IN_STR_LEN];
     char library_name[MAX_IN_STR_LEN];
@@ -309,50 +309,50 @@ typedef struct _dedx_status {
 } dedx_status;
 
 typedef struct _state_struct {
-    short ndi_initialized;	/*  ndi_init called: 0=false, 1=true */
+    short ndi_initialized;        /*  ndi_init called: 0=false, 1=true */
     int handle;
-    FILE *ndi_dir;		/*  Gendir (directory) file */
-    char open_gendir_file[MAX_IN_PATH_LEN];	/*  Current gendir file name */
-    FILE *lib_stream;		/*  Current library file */
+    FILE *ndi_dir;                /*  Gendir (directory) file */
+    char open_gendir_file[MAX_IN_PATH_LEN];        /*  Current gendir file name */
+    FILE *lib_stream;                /*  Current library file */
     int binary;                 /*  Library file is binary (1) or ascii (0) */
-    char *open_lib_file;	/*  Path for open library file */
-    short *ndi_elements;	/*  Lookup table for element symbols */
-    char *library_vers;		/*  Default library type (mendf5,mendf6,rmoxsct,"") */
-    int particle_type;		/*  Incident particle type: 1-neutron, 0-photon, -1-tn */
-    char library_type;		/*  m-multigroup */
-    char mat_order;		/*  Transpose return matrices? 
-				   d=no(default), t=yes(transpose) */
-    char reac_id;		/*  Reaction identifier: m=MT (default), c=c-value */
-    enum e_avg_type e_avg_calc;	/* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
-    enum kerma_calc_type kerma_calc;	/* CALC=>calculate kerma; DATA=>get data from library
-					   DATA_CALC=> get data from lib; use calc if not avail */
+    char *open_lib_file;        /*  Path for open library file */
+    short *ndi_elements;        /*  Lookup table for element symbols */
+    char *library_vers;                /*  Default library type (mendf5,mendf6,rmoxsct,"") */
+    int particle_type;                /*  Incident particle type: 1-neutron, 0-photon, -1-tn */
+    char library_type;                /*  m-multigroup */
+    char mat_order;                /*  Transpose return matrices? 
+                                   d=no(default), t=yes(transpose) */
+    char reac_id;                /*  Reaction identifier: m=MT (default), c=c-value */
+    enum e_avg_type e_avg_calc;        /* VEL_CALC=> e = 1/2 m vel^2; E_MEAN=> mean of boundaries */
+    enum kerma_calc_type kerma_calc;        /* CALC=>calculate kerma; DATA=>get data from library
+                                           DATA_CALC=> get data from lib; use calc if not avail */
     enum qsigf_calc_type qsigf_calc; /* CALC=>correct calc; BAD_CALC=>bad calc */
-    int curr_reac_index;	/*  Obsolete? */
-    char nuc_data_type[2];	/*  Obsolete? */
+    int curr_reac_index;        /*  Obsolete? */
+    char nuc_data_type[2];        /*  Obsolete? */
 
     /*    GENERAL STATE VARIABLES -- initialized when lib_type changes */
-    int curr_part_index;	/*  index of current particle */
-    char n_group[MAX_NGROUP_STR_LEN];	/*  Type of group structure to collapse to */
-    int grp_num_new;		/*  Number of groups to collapse to */
-    double *collapse_ebounds;	/* User-set boundaries--used with TN or user-defined for MG */
+    int curr_part_index;        /*  index of current particle */
+    char n_group[MAX_NGROUP_STR_LEN];        /*  Type of group structure to collapse to */
+    int grp_num_new;                /*  Number of groups to collapse to */
+    double *collapse_ebounds;        /* User-set boundaries--used with TN or user-defined for MG */
 
     /* Multigroup data */
-    isotope_status iso_stat;	/*  Struct containing isotope state */
-    int *new_ebounds;		/*  Index of new ebound group structure, 
-				   allocated in ndi_set_e_grp  */
-    short collapse_flag;	/*  Collapsing required? 0=no; -1=yes  */
-    ndi_float64 *lib_weight;	/*  Array of weights read in for current nuc */
-    ndi_float64 *lib_ebounds;	/*  Array of ebounds read in for current nuc */
-    char trans_corr;		/*  Transport correction: " "=no correction, 
-				   d=diagonal, b=Bell-Hansen-Sandmeier */
-    int trans_corr_order;	/*  Transport correction order */
-    int no_norm;		/*  Normalize chi's and edists: 0=normalize; -1=do not normalize */
-    char def_fiss_prod_id[20];	/* Value of default fiss. prod. ZAID  */
+    isotope_status iso_stat;        /*  Struct containing isotope state */
+    int *new_ebounds;                /*  Index of new ebound group structure, 
+                                   allocated in ndi_set_e_grp  */
+    short collapse_flag;        /*  Collapsing required? 0=no; -1=yes  */
+    ndi_float64 *lib_weight;        /*  Array of weights read in for current nuc */
+    ndi_float64 *lib_ebounds;        /*  Array of ebounds read in for current nuc */
+    char trans_corr;                /*  Transport correction: " "=no correction, 
+                                   d=diagonal, b=Bell-Hansen-Sandmeier */
+    int trans_corr_order;        /*  Transport correction order */
+    int no_norm;                /*  Normalize chi's and edists: 0=normalize; -1=do not normalize */
+    char def_fiss_prod_id[20];        /* Value of default fiss. prod. ZAID  */
 
     /* TN data */
     tn_status tn_stat;
     int tn_num_grps;
-    int sec_part_filled;	/*  Number of secondary particles with edist */
+    int sec_part_filled;        /*  Number of secondary particles with edist */
     double default_temp;
 
     /* TN reaction data */
@@ -362,19 +362,19 @@ typedef struct _state_struct {
     chain_status chain_stat;
 
     /* TN reaction data */
-    char tn_dataset[60];	/* Name of current set of TN reaction data */
-    char tn_reac_info[MAX_IN_STR_LEN];	/* Current TN reaction dataset info */
-    int tn_reac_num;		/* Number of TN reactions in dataset */
-    char *tn_list_reac[MAX_TN_REAC];	/* List of current TN reaction zaids */
+    char tn_dataset[60];        /* Name of current set of TN reaction data */
+    char tn_reac_info[MAX_IN_STR_LEN];        /* Current TN reaction dataset info */
+    int tn_reac_num;                /* Number of TN reactions in dataset */
+    char *tn_list_reac[MAX_TN_REAC];        /* List of current TN reaction zaids */
     stat_flag *tn_reactants;
     stat_flag *tn_rprods;
 
     /* Depletion data */
-    int ndi_depl_set;		/* Is depletion set? True = -1; False= 0 */
-    char depl_dataset[60];	/* Name of current set of depletion data */
-    char depl_info[MAX_IN_STR_LEN];	/* current depletion dataset info */
-    int num_target;		/* Number of targets in depletion dataset */
-    int chain_filled;		/* Number of read depletion targets */
+    int ndi_depl_set;                /* Is depletion set? True = -1; False= 0 */
+    char depl_dataset[60];        /* Name of current set of depletion data */
+    char depl_info[MAX_IN_STR_LEN];        /* current depletion dataset info */
+    int num_target;                /* Number of targets in depletion dataset */
+    int chain_filled;                /* Number of read depletion targets */
 
     depl_target_struct *depl_target;
 
@@ -392,7 +392,7 @@ typedef struct _state_struct {
  * Function prototypes
  */
 
-#ifdef	__cplusplus
+#ifdef        __cplusplus
 extern "C" {
 #endif
 
@@ -402,147 +402,147 @@ extern "C" {
     int ndi_c_close_h(state_struct **curr_state);
     int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid);
     int ndi_c_set_zaid_float32_temp_h(state_struct *state, const char *zaid, 
-				      ndi_float32 temp);
+                                      ndi_float32 temp);
     int ndi_c_set_zaid_float64_temp_h(state_struct *state, const char *zaid, 
-				      ndi_float64 temp);
+                                      ndi_float64 temp);
     int ndi_c_set_zaid_float32_temp_sig_0_h(state_struct *state,
-					    const char *zaid,
+                                            const char *zaid,
                                             ndi_float32 temp,
-					    ndi_float32 sig0);
+                                            ndi_float32 sig0);
     int ndi_c_set_zaid_float64_temp_sig_0_h(state_struct *state,
-					    const char *zaid,
+                                            const char *zaid,
                                             ndi_float64 temp,
-					    ndi_float64 sig0);
+                                            ndi_float64 sig0);
     int ndi_c_set_isotope_h(state_struct *state, const char *in_zaid);
     int ndi_c_set_reaction_h(state_struct *state, const char *in_zaid);
     int ndi_c_get_size_h(state_struct *state, int in_key, int *ierr);
     int ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num,
-			   int *ierr);
+                           int *ierr);
     int ndi_c_get_size_x_h(state_struct *state, int in_key,
-			   const char *in_str, int *ierr);
+                           const char *in_str, int *ierr);
     int ndi_c_set_option_h(state_struct *state, int in_key,
-			   const char *in_value);
+                           const char *in_value);
     int ndi_c_set_float64_vec_option_h(state_struct *state,
-				       const int in_key,
-				       const ndi_float64 * option_array,
-				       const int array_size);
+                                       const int in_key,
+                                       const ndi_float64 * option_array,
+                                       const int array_size);
     int ndi_c_check_option_h(state_struct *state, int in_key,
-			     char *out_value, int string_size);
+                             char *out_value, int string_size);
     int ndi_c_get_int_val_h(state_struct *state, int in_key, int *ret_val);
     int ndi_c_get_int_val_n_h(state_struct *state, int in_key,
-			      int vec_num, int *ret_val);
+                              int vec_num, int *ret_val);
     int ndi_c_get_int_vec_h(state_struct *state, int in_key,
-			    int *return_vec, int vec_size);
+                            int *return_vec, int vec_size);
     int ndi_c_get_int_vec_n_h(state_struct *state, int in_key,
-			      int vec_num, int *return_vec, int vec_size);
+                              int vec_num, int *return_vec, int vec_size);
     int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
                               const char *in_str, int *return_vec, 
                               int vec_size);
     int ndi_c_get_float32_val_h(state_struct *state, int in_key,
-				ndi_float32 * ret_val);
+                                ndi_float32 * ret_val);
     int ndi_c_get_float32_val_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float32 * ret_val);
+                                  int vec_num, ndi_float32 * ret_val);
     int ndi_c_get_float32_vec_h(state_struct *state, int in_key,
-				ndi_float32 * return_vec, int return_size);
+                                ndi_float32 * return_vec, int return_size);
     int ndi_c_get_float32_vec_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float32 * return_vec,
-				  int return_size);
+                                  int vec_num, ndi_float32 * return_vec,
+                                  int return_size);
     int ndi_c_get_float32_vec_x_h(state_struct *state, int in_key,
-				  const char *in_str,
-				  ndi_float32 * return_vec, int vec_size);
+                                  const char *in_str,
+                                  ndi_float32 * return_vec, int vec_size);
     int ndi_c_get_float64_val_h(state_struct *state, int in_key,
-				ndi_float64 * ret_val);
+                                ndi_float64 * ret_val);
     int ndi_c_get_float64_val_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float64 * ret_val);
+                                  int vec_num, ndi_float64 * ret_val);
     int ndi_c_get_float64_vec_h(state_struct *state, int in_key,
-				ndi_float64 * return_vec, int return_size);
+                                ndi_float64 * return_vec, int return_size);
     int ndi_c_get_float64_vec_n_h(state_struct *state, int in_key,
-				  int vec_num, ndi_float64 * return_vec,
-				  int return_size);
+                                  int vec_num, ndi_float64 * return_vec,
+                                  int return_size);
     int ndi_c_get_float64_vec_x_h(state_struct *state, int in_key,
-				  const char *in_str,
-				  ndi_float64 * return_vec, int vec_size);
+                                  const char *in_str,
+                                  ndi_float64 * return_vec, int vec_size);
     int ndi_c_get_string_val_h(state_struct *state, int in_key,
-			       char *ret_val, int str_size);
+                               char *ret_val, int str_size);
     int ndi_c_get_string_val_n_h(state_struct *state, int in_key, int vec_num,
-				 char *ret_val, int str_size);
+                                 char *ret_val, int str_size);
     int ndi_c_get_string_vec_h(state_struct *state, int in_key,
-			       char *str_arr, int arr_size);
+                               char *str_arr, int arr_size);
     int ndi_c_get_string_vec_x_h(state_struct *state, int in_key,
-				 const char *in_str,
-				 char *str_arr, int arr_size);
+                                 const char *in_str,
+                                 char *str_arr, int arr_size);
 
     int ndi_set0(state_struct *state, char l_type);
     /*    int ndi_set0_tn_sec_part ( sec_part_distr *part ); */
     int ndi_set0_mg_sec_part(sec_part_mg *part);
     int ndi_set0_tn_sec_part(sec_part_distr *part, int reset_flag);
     int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
-		     const char *in_zaid, char *real_zaid, char *library,
-		     char *lib_path, char *lib_file_type,
-		     long int *iso_start, double *at_wgt,
-		     int reaction_flag);
+                     const char *in_zaid, char *real_zaid, char *library,
+                     char *lib_path, char *lib_file_type,
+                     long int *iso_start, double *at_wgt,
+                     int reaction_flag);
     int ndi_close_lib_file(state_struct *state);
     FILE *ndi_open_lib_file(state_struct *state, const char *path);
     int ndi_open_gendir(FILE **ndi_dir, const char *gendir_path, char **path);
     int ndi_init_iso_state(state_struct *state, FILE *stream,
-			   char lib_type, long int iso_start,
-			   const char *zaid);
+                           char lib_type, long int iso_start,
+                           const char *zaid);
     int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size);
     int ndi_fill_elements(state_struct *state);
     int element_index(const char *el_symbol);
     int ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
-		       int *new_grp, double **new_grp_bounds,
-		       const char *grp_struc, char library_type,
-		       int **new_ebound_index, short *c_flag);
+                       int *new_grp, double **new_grp_bounds,
+                       const char *grp_struc, char library_type,
+                       int **new_ebound_index, short *c_flag);
     int ndi_set_collapse(state_struct *state, const char *value);
 /*
    int ndi_set_e_grps( state_struct *state, int **new_ebound_p, const char *grp_struc, int *new_grp,
-		       int old_grp, short *c_flag);
+                       int old_grp, short *c_flag);
 */
 /*    int ndi_get_old_kerma64(state_struct *state, ndi_float64 * return_vec,
-			    int return_size);
+                            int return_size);
     int ndi_get_old_kerma32(state_struct *state, ndi_float32 * return_vec,
-			    int return_size);
+                            int return_size);
 */
     int ndi_collapse_float32(state_struct *state,
-			     const ndi_float32 * old_vec, int old_grp_num,
-			     int recip_flag, ndi_float32 * return_vec,
-			     int return_size);
+                             const ndi_float32 * old_vec, int old_grp_num,
+                             int recip_flag, ndi_float32 * return_vec,
+                             int return_size);
     int ndi_collapse_float64(state_struct *state,
-			     const ndi_float64 * old_vec, int old_grp_num,
-			     int recip_flag, ndi_float64 * return_vec,
-			     int return_size);
+                             const ndi_float64 * old_vec, int old_grp_num,
+                             int recip_flag, ndi_float64 * return_vec,
+                             int return_size);
     int ndi_collapse_mat32(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-			   int old_grp_num_out, int new_grp_num_in,
-			   int new_grp_num_out, const int *new_ebounds_in,
-			   const int *new_ebounds_out,
-			   const ndi_float64 * local_weight,
-			   FLOAT_TYPE * new_mat, int new_size);
+                           int old_grp_num_out, int new_grp_num_in,
+                           int new_grp_num_out, const int *new_ebounds_in,
+                           const int *new_ebounds_out,
+                           const ndi_float64 * local_weight,
+                           FLOAT_TYPE * new_mat, int new_size);
 
     int ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-			   int old_grp_num_out, int new_grp_num_in,
-			   int new_grp_num_out, const int *new_ebounds_in,
-			   const int *new_ebounds_out,
-			   const ndi_float64 * local_weight,
-			   FLOAT_TYPE * new_mat, int new_size);
+                           int old_grp_num_out, int new_grp_num_in,
+                           int new_grp_num_out, const int *new_ebounds_in,
+                           const int *new_ebounds_out,
+                           const ndi_float64 * local_weight,
+                           FLOAT_TYPE * new_mat, int new_size);
     int skip_float_block(FILE *stream, int *bsize, const int num_floats,
-			 int binary);
+                         int binary);
     int ndi_read_float32_block(FILE *stream, long file_pos,
-			       const int num_floats,
-			       ndi_float32 * return_vec,
-			       const int return_size, int binary);
+                               const int num_floats,
+                               ndi_float32 * return_vec,
+                               const int return_size, int binary);
     int ndi_read_float64_block(FILE *stream, long file_pos,
-			       const int num_floats,
-			       ndi_float64 * return_vec,
-			       const int return_size, int binary);
+                               const int num_floats,
+                               ndi_float64 * return_vec,
+                               const int return_size, int binary);
     int ndi_skip_rx_prod(FILE *stream, stat_flag * rx_prod, short mt_flag,
-			 int binary);
+                         int binary);
     int ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
-			 const int data_type, int *num_prod, short mt_flag);
+                         const int data_type, int *num_prod, short mt_flag);
     int ndi_read_rx_prod2(FILE *stream, long file_pos, double **vec,
-			 const int data_type, int *num_prod, short mt_flag);
+                         const int data_type, int *num_prod, short mt_flag);
     int ndi_read_string_block(FILE *stream, const int num_strings,
-			      char **p, int binary);
+                              char **p, int binary);
     int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec);
     int ndi_fseek_section(FILE *stream, const char *str, int wherefrom);
     dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream);
@@ -555,21 +555,21 @@ extern "C" {
                              double *vec, int *vec_size);
     int ndi_read_int_block(FILE *stream, const int num_ints,
                            long *return_vec, const int return_size,
-			   int binary);
+                           int binary);
     void *ndi_malloc(size_t size);
     void *ndi_calloc(size_t nmemb, size_t size);
     void ndi_free(void **p);
     int ndi_set_tn_dataset(const char *dataset);
     int ndi_get_prod_reac32(state_struct *state, const char *rprod,
-			    ndi_float32 * return_vec, int vec_size,
-			    int binary);
+                            ndi_float32 * return_vec, int vec_size,
+                            int binary);
     int ndi_get_prod_reac64(state_struct *state, const char *rprod,
-			    ndi_float64 * return_vec, int vec_size,
-			    int binary);
+                            ndi_float64 * return_vec, int vec_size,
+                            int binary);
     int ndi_get_rprod_mlt32(state_struct *state, const char *rprod,
-			    ndi_float32 * return_vec, int vec_size);
+                            ndi_float32 * return_vec, int vec_size);
     int ndi_get_rprod_mlt64(state_struct *state, const char *rprod,
-			    ndi_float64 * return_vec, int vec_size);
+                            ndi_float64 * return_vec, int vec_size);
 
    /***  Subroutines in file ndi_init_state.c ***/
     int ndi_init_state_common(state_struct *state);
@@ -584,24 +584,24 @@ extern "C" {
     int ndi_comp_zaids(const void *z1, const void *z2);
     int ndi_free_ptr_array(int array_size, char **array);
     int ndi_get_rprod_int_n(state_struct *state, int vec_num,
-			    int *rprod_id);
+                            int *rprod_id);
     int ndi_get_rprod_vec_mg(state_struct *state, int *rprod_vec,
-			     int vec_size);
+                             int vec_size);
     int ndi_get_rprod_id_n(state_struct *state, int vec_num,
-			   char *rprod_id, int str_size);
+                           char *rprod_id, int str_size);
     int ndi_check_array_err(int num);
     int ndi_read_float_pair(FILE *stream, long int file_pos, int num_prs,
-			    double *flt_vecx, double *flt_vecy,
-			    int return_size);
+                            double *flt_vecx, double *flt_vecy,
+                            int return_size);
     int ndi_translate_fiss_prod(state_struct *state, int *zaid_list,
-				int num_zaids);
+                                int num_zaids);
     int ndi_parse_mg_zaid(char *zaid, int *z, int *a);
     int double_compare(const double a, const double b);
     int ndi_approx_equal(double a, double b, double relerr, double abserr);
     int ndi_empty_string(char *in_str);
     void check_fissionable_err(int *curr_err, int fission_flag);
     int ndi_get_nth_inc_part_type(state_struct *state, int vec_num,
-				  char *in_str, const int str_size);
+                                  char *in_str, const int str_size);
     int ndi_use_sgndf_values(state_struct *state, int num_grps);
     int ndi_special_sza( int sza, char *sym_str, int str_size );
     char *ndi_error_string(int ierr);
@@ -617,11 +617,11 @@ extern "C" {
     int ndi_radchem(state_struct *state, const char *in_zaid);
     int ndi_set_default_depl(state_struct *state);
     int ndi_set_curr_target(state_struct *state,
-			    depl_target_struct **targ_p,
-			    int *target_index);
+                            depl_target_struct **targ_p,
+                            int *target_index);
     int ndi_set_curr_rprod(state_struct *state,
-			   depl_rprod_struct **rprod_p, const char *rprod,
-			   int *prod_index);
+                           depl_rprod_struct **rprod_p, const char *rprod,
+                           int *prod_index);
     int ndi_niceStrCp(char *new_str, const char *old_str, int new_len);
 
     /***  Subroutines in file ndi_misc_float.c ***/
@@ -632,84 +632,84 @@ extern "C" {
     int ndi_init_float32_vec(ndi_float32 * vec, int num_elements);
     int ndi_init_float64_vec(ndi_float64 * vec, int num_elements);
     int ndi_get_simple_float32_vec(state_struct *state, FILE *stream,
-				   long int f_ptr, int collapse_type,
-				   int library_grp_num,
-				   ndi_float32 * return_vec,
-				   int return_size, int binary);
+                                   long int f_ptr, int collapse_type,
+                                   int library_grp_num,
+                                   ndi_float32 * return_vec,
+                                   int return_size, int binary);
     int ndi_get_simple_float64_vec(state_struct *state, FILE *stream,
-				   long int f_ptr, int collapse_type,
-				   int library_grp_num,
-				   ndi_float64 * return_vec,
-				   int return_size, int binary);
+                                   long int f_ptr, int collapse_type,
+                                   int library_grp_num,
+                                   ndi_float64 * return_vec,
+                                   int return_size, int binary);
     int ndi_transpose_float32(ndi_float32 * in_mat, int row_num,
-			      int col_num);
+                              int col_num);
     int ndi_transpose_float64(ndi_float64 * in_mat, int row_num,
-			      int col_num);
+                              int col_num);
     int ndi_vec2mat32(const ndi_float32 * vec, int num_vec,
-		      ndi_float32 * return_mat, int num_mat, int mat_size);
+                      ndi_float32 * return_mat, int num_mat, int mat_size);
     int ndi_vec2mat64(const ndi_float64 * vec, int num_vec,
-		      ndi_float64 * return_mat, int num_mat, int mat_size);
+                      ndi_float64 * return_mat, int num_mat, int mat_size);
     int ndi_get_sig_reac32(state_struct *state, isotope_status * mg,
-			   int mt, ndi_float32 * return_vec,
-			   int *return_size, int binary);
+                           int mt, ndi_float32 * return_vec,
+                           int *return_size, int binary);
     int ndi_get_sig_reac64(state_struct *state, isotope_status * mg,
-			   int mt, ndi_float64 * return_vec,
-			   int *return_size, int binary);
+                           int mt, ndi_float64 * return_vec,
+                           int *return_size, int binary);
     int ndi_copy_matrix32(ndi_float32 *dest, int d, 
                           FLOAT_TYPE *source, int s);
     int ndi_copy_matrix64(ndi_float64 *dest, int d, 
                           FLOAT_TYPE *source, int num);
     int ndi_mult_float32_vec(state_struct *state,
-			     const ndi_float64 * vec1,
-			     const ndi_float64 * vec2, int num_elements,
-			     int collapse_flag, ndi_float32 * return_vec,
-			     int vec_size);
+                             const ndi_float64 * vec1,
+                             const ndi_float64 * vec2, int num_elements,
+                             int collapse_flag, ndi_float32 * return_vec,
+                             int vec_size);
     int ndi_mult_float64_vec(state_struct *state,
-			     const ndi_float64 * vec1,
-			     const ndi_float64 * vec2, int num_elements,
-			     int collapse_flag, ndi_float64 * return_vec,
-			     int vec_size);
+                             const ndi_float64 * vec1,
+                             const ndi_float64 * vec2, int num_elements,
+                             int collapse_flag, ndi_float64 * return_vec,
+                             int vec_size);
     int ndi_divide_float32_vec(state_struct *state,
-			       const ndi_float64 * vec1,
-			       const ndi_float64 * vec2, int num_elements,
-			       int collapse, ndi_float32 * return_vec,
-			       int return_size);
+                               const ndi_float64 * vec1,
+                               const ndi_float64 * vec2, int num_elements,
+                               int collapse, ndi_float32 * return_vec,
+                               int return_size);
     int ndi_divide_float64_vec(state_struct *state,
-			       const ndi_float64 * vec1,
-			       const ndi_float64 * vec2, int num_elements,
-			       int collapse, ndi_float64 * return_vec,
-			       int return_size);
+                               const ndi_float64 * vec1,
+                               const ndi_float64 * vec2, int num_elements,
+                               int collapse, ndi_float64 * return_vec,
+                               int return_size);
     int ndi_norm_float32_vec(ndi_float32 * vec_p, int num_elements,
-			     const ndi_float32 norm_val);
+                             const ndi_float32 norm_val);
     int ndi_norm_float64_vec(ndi_float64 * vec_p, int num_elements,
-			     const ndi_float64 norm_val);
+                             const ndi_float64 norm_val);
     int ndi_get_abundance32(int izaid, ndi_float32 * return_val);
     int ndi_get_abundance64(int izaid, ndi_float64 * return_val);
     int ndi_chi_mat_to_vec32(state_struct *state, FILE *stream,
-			     long int chi_mat_ptr, ndi_float32 *nu_sig_f,
+                             long int chi_mat_ptr, ndi_float32 *nu_sig_f,
                              ndi_float32 * return_vec,
-			     int return_size, int collapse_type,
-			     int num_grp, int binary);
+                             int return_size, int collapse_type,
+                             int num_grp, int binary);
     int ndi_chi_mat_to_vec64(state_struct *state, FILE *stream,
-			     long int chi_mat_ptr, ndi_float64 *nu_sig_f,
+                             long int chi_mat_ptr, ndi_float64 *nu_sig_f,
                              ndi_float64 * return_vec,
-			     int return_size, int collapse_type,
-			     int num_grp, int binary);
+                             int return_size, int collapse_type,
+                             int num_grp, int binary);
     
    /*** Subroutines in file ndi_find_index.c ***/
     int ndi_find_rprod_index(FILE *stream, multi_stat * rprod,
-			     int *ret_index, int mt);
+                             int *ret_index, int mt);
     int ndi_find_reac_index(int *mt_array, int *ret_index, int mt,
-			    int num);
+                            int num);
     int ndi_find_tn_part_index(const long ptype,
-			       const sec_part_distr *part, int num_parts);
+                               const sec_part_distr *part, int num_parts);
     int ndi_find_mg_part_index(const int ptype, const sec_part_mg *part,
-			       int num_parts);
+                               int num_parts);
     int ndi_find_iso_index(const char *ptype, const char **string_array,
-			   int num_parts);
+                           int num_parts);
     int ndi_find_temp_bound_index(double default_temp, edist_data *edist,
-				  int num_temps, int *hi, int *lo,
-				  int *closest);
+                                  int num_temps, int *hi, int *lo,
+                                  int *closest);
 
 
   /*** Subroutines in file ndi_avail.c ***/
@@ -720,7 +720,7 @@ extern "C" {
 
     /*** Subroutines in file ndi_parse_zaid.c ***/
     int ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
-			   int *A, int *S);
+                           int *A, int *S);
     int ndi_parse_int_zaid(int izaid, int *Z, int *A, int *S);
 
     /***Subroutines in file ndi_sza_symbol_translations.c ***/
@@ -738,64 +738,64 @@ extern "C" {
 
    /*** Subroutines in file ndi_interp_integ.c ***/
     int ndi_integrate_bins(double *distr_x, double *distr_y,
-			   interp_params *interp, double *bin_bound,
-			   int num_bins, int moment, 
+                           interp_params *interp, double *bin_bound,
+                           int num_bins, int moment, 
                            double *return_vec, int return_size);
     int find_average_E(double *x, double *y, interp_params *iparm,
-		       double *ret_val);
+                       double *ret_val);
     int new_integrate(double *x, double *y, int npts, int interp_type,
-		      int curr_x_index, double xstart, double xend,
-		      double *return_val);
+                      int curr_x_index, double xstart, double xend,
+                      double *return_val);
     int new_integrate_xy(double *x, double *y, int npts, int interp_type,
-			 int curr_x_index, double xstart, double xend,
-			 double *return_val);
+                         int curr_x_index, double xstart, double xend,
+                         double *return_val);
     int ndi_init_double_vec(double *vec, int num_elements);
     int ndi_find_energy_bin_index(double in_energy, double *energy_vec,
-				  int num_grps, int *eindex);
+                                  int num_grps, int *eindex);
     int integrate2(double xstart, double xend, double *x, double *y,
-		   interp_params *interp, double *ret_val, int int_flag);
+                   interp_params *interp, double *ret_val, int int_flag);
     double integrate(int int_type, double x1, double y1, double x2,
-		     double y2);
+                     double y2);
     double histogram_interp(double xin, double x1, double y1, double x2,
-			    double y2);
+                            double y2);
     double lin_lin_interp(double xin, double x1, double y1, double x2,
-			  double y2);
+                          double y2);
     double log_log_interp(double xin, double x1, double y1, double x2,
-			  double y2);
+                          double y2);
     double lin_log_interp(double xin, double x1, double y1, double x2,
-			  double y2);
+                          double y2);
     double log_lin_interp(double xin, double x1, double y1, double x2,
-			  double y2);
+                          double y2);
     double hale_interp(double xin, double x1, double y1, double x2,
-		       double y2, double x3, double y3);
+                       double y2, double x3, double y3);
     double histogram_integrate(double xstart, double xend, double *x,
-			       double *y);
+                               double *y);
     double lin_lin_integrate(double xstart, double xend, double *x,
-			     double *y);
+                             double *y);
     double log_log_integrate(double xstart, double xend, double *x,
-			     double *y);
+                             double *y);
     double lin_log_integrate(double xstart, double xend, double *x,
-			     double *y);
+                             double *y);
     double log_lin_integrate(double xstart, double xend, double *x,
-			     double *y);
+                             double *y);
     double hale_integrate(double xstart, double xend, double *x,
-			  double *y);
+                          double *y);
     double discrete_integrate(double xstart, double xend, double *x,
-			      double *y);
+                              double *y);
     double histogram_integrate_x(double xstart, double xend, double *x,
-				 double *y);
+                                 double *y);
     double lin_lin_integrate_x(double xstart, double xend, double *x,
-			       double *y);
+                               double *y);
     double log_log_integrate_x(double xstart, double xend, double *x,
-			       double *y);
+                               double *y);
     double lin_log_integrate_x(double xstart, double xend, double *x,
-			       double *y);
+                               double *y);
     double log_lin_integrate_x(double xstart, double xend, double *x,
-			       double *y);
+                               double *y);
     double hale_integrate_x(double xstart, double xend, double *x,
-			    double *y);
+                            double *y);
     double discrete_integrate_x(double xstart, double xend, double *x,
-				double *y);
+                                double *y);
 
     /* multi-particle multi-group functions */
     int ndimp_set_option(state_struct *mpmg_handle, 
@@ -810,28 +810,28 @@ extern "C" {
     int ndimp_set_zaid_float64_temp_sig_0(state_struct *h, const char *zaid,
                                           ndi_float64 temp, ndi_float64 sig0);
     int ndimp_get_float32_vec(state_struct *h,
-			      int in_key,
+                              int in_key,
                               ndi_float32 * ret_vec,
-			      int vec_size);
+                              int vec_size);
     int ndimp_get_float64_vec(state_struct *h, 
-			      int in_key,
+                              int in_key,
                               ndi_float64 * ret_vec,
-			      int vec_size);
+                              int vec_size);
     int ndimp_get_float32_vec_n(state_struct *h, int in_key, int vec_num,
-				ndi_float32 * ret_vec, int vec_size);
+                                ndi_float32 * ret_vec, int vec_size);
     int ndimp_get_float64_vec_n(state_struct *h, int in_key, int vec_num,
-				ndi_float64 * ret_vec, int vec_size);
+                                ndi_float64 * ret_vec, int vec_size);
     int ndimp_get_int_val(state_struct *h, int in_key, int *return_val);
     int ndimp_get_int_val_n(state_struct *h, int in_key, int vec_num,
-			    int *ret_val);
+                            int *ret_val);
     int ndimp_get_int_vec(state_struct *h, int in_key, int *ret_vec, 
-			  int vec_size);
+                          int vec_size);
     int ndimp_get_size(state_struct *h, int in_key, int *ierr);
     int ndimp_get_size_n(state_struct *h, int in_key, int vec_num, int *ierr);
     int ndimp_get_string_val(state_struct *h, int in_key, char *ret_val,
-			     int str_size);
+                             int str_size);
 
   /**********************************************************************/
 
 
-#endif				/* NDI_INTERNAL_H */
+#endif                                /* NDI_INTERNAL_H */

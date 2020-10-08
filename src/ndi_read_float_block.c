@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_read_float_block.c
- * Description:	Internal function--read a given number of floats.
- * Time-stamp:	<2000-02-01 10:02:26 jomc>
+ * File:        ndi_read_float_block.c
+ * Description:        Internal function--read a given number of floats.
+ * Time-stamp:        <2000-02-01 10:02:26 jomc>
  *
  */
 
@@ -22,15 +22,15 @@
 #ifdef FLOAT32
 int
 ndi_read_float32_block(FILE *stream, long file_pos,
-		       const int num_floats,
-		       FLOAT_TYPE * return_vec, const int return_size,
-		       int binary)
+                       const int num_floats,
+                       FLOAT_TYPE * return_vec, const int return_size,
+                       int binary)
 #else
 int
 ndi_read_float64_block(FILE *stream, long file_pos,
-		       const int num_floats,
-		       FLOAT_TYPE * return_vec, const int return_size,
-	 	       int binary)
+                       const int num_floats,
+                       FLOAT_TYPE * return_vec, const int return_size,
+                        int binary)
 #endif
 /*********************************************************************
     
@@ -50,11 +50,11 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 
 ***********************************************************************/
 {
-    int float_count = 0;	/* Current number of floats processed */
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
-    char in_line[MAX_IN_STR_LEN];	/* Current input line */
-    char *token;		/* Current data item */
-    char seps[] = " ,\t\n";	/* Data delimiters in library file */
+    int float_count = 0;        /* Current number of floats processed */
+    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
+    char in_line[MAX_IN_STR_LEN];        /* Current input line */
+    char *token;                /* Current data item */
+    char seps[] = " ,\t\n";        /* Data delimiters in library file */
     FLOAT_TYPE *cur_flt_ptr = return_vec;
     double input;
 
@@ -63,28 +63,28 @@ ndi_read_float64_block(FILE *stream, long file_pos,
 
     while (float_count < num_floats) {
 
-	/* Check to see if we've reached the end of return_vec */
-	if (float_count >= return_size) {
-	    ierr = 7;
-	    break;
-	}
+        /* Check to see if we've reached the end of return_vec */
+        if (float_count >= return_size) {
+            ierr = 7;
+            break;
+        }
 
         if (binary) {
-	    if (fread(&input, sizeof(double), 1, stream) > 0) {
-	        if (float_count < num_floats) {
-		    *cur_flt_ptr = (FLOAT_TYPE) input;
-	 	    float_count++;
-		    cur_flt_ptr++;
-		} else {
-		    /* More data than expected */
-		    ierr = 6;
-		}
-	    } else {
-	        /* Error reading file or end of file */
-	        ierr = -11;
-	        return (ierr);
-	    }
-	} else {
+            if (fread(&input, sizeof(double), 1, stream) > 0) {
+                if (float_count < num_floats) {
+                    *cur_flt_ptr = (FLOAT_TYPE) input;
+                     float_count++;
+                    cur_flt_ptr++;
+                } else {
+                    /* More data than expected */
+                    ierr = 6;
+                }
+            } else {
+                /* Error reading file or end of file */
+                ierr = -11;
+                return (ierr);
+            }
+        } else {
             if (fgets(in_line, sizeof(in_line), stream) != NULL) {
                 token = strtok(in_line, seps);
                 while (token != NULL) {
@@ -104,7 +104,7 @@ ndi_read_float64_block(FILE *stream, long file_pos,
                 ierr = -11;
                 return ierr;
             }
-	}
+        }
     }
 
     return ierr;

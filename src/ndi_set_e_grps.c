@@ -3317,7 +3317,7 @@ ndi_set_e_grps(const int old_grp, double *old_grp_bounds,
         *new_grp = 0;
         /* Check group number? */
         if ((old_grp > 0) && (old_grp != is_default_str(grp_struc))) {
-            ierr = 77;
+            ierr = 18;
         }
         return ierr;
 

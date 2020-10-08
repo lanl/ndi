@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_close_lib_file.c
- * Description:	Internal function--close open library file.
- * Time-stamp:	<1998-10-02 16:19:50 jomc>
+ * File:        ndi_close_lib_file.c
+ * Description:        Internal function--close open library file.
+ * Time-stamp:        <1998-10-02 16:19:50 jomc>
  *
  */
 
@@ -34,21 +34,21 @@
 ***********************************************************************/
 int ndi_close_lib_file(state_struct *state)
 {
-    int ret_code = 0;		/* Return code--returned error value */
+    int ret_code = 0;                /* Return code--returned error value */
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Close library file */
     if (state->lib_stream) {
-	if (fclose(state->lib_stream) != 0)
-	    ret_code = -3;
+        if (fclose(state->lib_stream) != 0)
+            ret_code = -3;
     }
 
     /* Deinitialize state */
     if (state->open_lib_file)
-	ndi_free((void **) &state->open_lib_file);
+        ndi_free((void **) &state->open_lib_file);
 
     return ret_code;
 

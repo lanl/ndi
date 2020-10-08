@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_std_zaid.c
- * Description:	Internal function--convert input to standard zaid.
- * Time-stamp:	<1999-04-13 16:37:45 jomc>
+ * File:        ndi_std_zaid.c
+ * Description:        Internal function--convert input to standard zaid.
+ * Time-stamp:        <1999-04-13 16:37:45 jomc>
  *
  */
 
@@ -48,7 +48,7 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 
     real_zaid[0] = '\0';
     if (!state) {
-	return -2;
+        return -2;
     }
     ierr = ndi_parse_str_zaid(state, in_zaid, &Z, &A, &S);
     if (S == -1 || Z == -1 || A == -1)
@@ -64,12 +64,12 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
     if ((Z <= MAX_Z) && ((Z > 0) || (Z == 0 && A == 1))) {
         sprintf(real_zaid, "%-d.", (S * 1000000 + Z * 1000 + A));
 
-	(void) ndi_process_extension(in_zaid, &zaid_extension_p);
-	strcat(real_zaid, zaid_extension_p);
-	/* Check length */
-	strcpy(in_zaid, real_zaid);
+        (void) ndi_process_extension(in_zaid, &zaid_extension_p);
+        strcat(real_zaid, zaid_extension_p);
+        /* Check length */
+        strcpy(in_zaid, real_zaid);
     } else {
-	ierr = -22;
+        ierr = -22;
     }
 
     return ierr;
@@ -77,7 +77,7 @@ int ndi_std_zaid(state_struct *state, char *in_zaid, int zaid_size)
 }
 
 /**********************************************************************/
-	    /*   FUNCTIONS INTERNAL TO FILE  */
+            /*   FUNCTIONS INTERNAL TO FILE  */
 /**********************************************************************/
 static void ndi_process_extension(char *in_str, char **ext_p)
 {
@@ -95,19 +95,19 @@ static void ndi_process_extension(char *in_str, char **ext_p)
 
     /* Find last non-blank character and set ending pointer */
     for (i = (in_str_len - 1); i >= 0; i--) {
-	if (!isspace(in_str[i])) {
-	    end_p = &in_str[i + 1];
-	    break;
-	}
+        if (!isspace(in_str[i])) {
+            end_p = &in_str[i + 1];
+            break;
+        }
     }
 
     /* Set pointer to mark the beginning of the ZAID extension */
     char_p = strchr(in_str, '.');
 
     if (char_p) {
-	*ext_p = char_p + 1;
+        *ext_p = char_p + 1;
     } else {
-	*ext_p = end_p;
+        *ext_p = end_p;
     }
 
     return;

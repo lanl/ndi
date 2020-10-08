@@ -1,7 +1,7 @@
 
 /*
  * $Id$
- * Description:	User function--return a vector which is an element of a matrix.
+ * Description:        User function--return a vector which is an element of a matrix.
  *
  */
 
@@ -15,17 +15,17 @@
 #include "ndi_internal.h"
 
 static int get_int_vec_x_mg(state_struct *state, int in_key,
-			    const char *in_str, int *return_vec,
-			    int vec_size);
+                            const char *in_str, int *return_vec,
+                            int vec_size);
 
 static int get_reac_mt(state_struct *state, const char *rprod_in,
-		       int *return_vec, int vec_size);
+                       int *return_vec, int vec_size);
 
 /**********************************************************************/
 
 int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
-			  const char *in_str, int *return_vec,
-			  int vec_size)
+                          const char *in_str, int *return_vec,
+                          int vec_size)
 
 /*  Purpose: Return an integer array which is a named element
     
@@ -45,23 +45,23 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return -2;
+        return -2;
     }
 
     if (is_gendir(state)) {
-	ierr = -2;		/* case not handled currently */
+        ierr = -2;                /* case not handled currently */
     } else if (state->library_type == 'm') {
-	ierr =
-	    get_int_vec_x_mg(state, in_key, in_str, return_vec, vec_size);
+        ierr =
+            get_int_vec_x_mg(state, in_key, in_str, return_vec, vec_size);
     } else if (state->library_type == 'r') {
-	ierr = -2;
+        ierr = -2;
     } else if (state->library_type == ' ') {
-	/* Library type was not set */
-	ierr = -16;
+        /* Library type was not set */
+        ierr = -16;
     } else {
-	/* Incompatible library type -- bad input key */
+        /* Incompatible library type -- bad input key */
         /* 's', 'd', 'p', 'x'                         */
-	ierr = -4;
+        ierr = -4;
     }
     return ierr;
 }
@@ -69,18 +69,18 @@ int ndi_c_get_int_vec_x_h(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 static int get_int_vec_x_mg(state_struct *state, int in_key,
-			    const char *in_str, int *return_vec,
-			    int vec_size)
+                            const char *in_str, int *return_vec,
+                            int vec_size)
 {
     int ierr = 0;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /*  Check if isotope is set  */
     if (!state->iso_stat.set_flag) {
-	return -7;
+        return -7;
     }
 
    /*************************/
@@ -89,14 +89,14 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
     switch (in_key) {
 
     case NDI_REAC_MT:
-	ierr = get_reac_mt(state, in_str, return_vec, vec_size);
-	break;
+        ierr = get_reac_mt(state, in_str, return_vec, vec_size);
+        break;
 
       /***********  UNKNOWN KEYWORD  **************/
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -105,7 +105,7 @@ static int get_int_vec_x_mg(state_struct *state, int in_key,
 /**********************************************************************/
 /**********************************************************************/
 static int get_reac_mt(state_struct *state, const char *rprod_in,
-		       int *return_vec, int vec_size)
+                       int *return_vec, int vec_size)
 {
     int i;
     int ierr = 0;
@@ -115,38 +115,38 @@ static int get_reac_mt(state_struct *state, const char *rprod_in,
 
 
     if (state) {
-	curr_targ = state->depl_target;
+        curr_targ = state->depl_target;
     } else {
-	return -2;
+        return -2;
     }
 
     /* CHECK ERRORS */
 
     if (!state->ndi_depl_set) {
-	ierr = ndi_set_default_depl(state);
+        ierr = ndi_set_default_depl(state);
     }
     if (state->num_target <= 0) {
-	return -7;
+        return -7;
     }
 
     ierr = ndi_set_curr_target(state, &curr_targ, &curr_index);
     if (curr_index == -1) {
-	return ierr;
+        return ierr;
     }
 
     curr_prod = curr_targ->rprod;
     curr_index = curr_targ->num_rprods;
     ierr = ndi_set_curr_rprod(state, &curr_prod, rprod_in, &curr_index);
     if (curr_index == -1) {
-	return ierr;
+        return ierr;
     }
 
     if (vec_size < curr_prod->num_reac) {
-	return 7;
+        return 7;
     }
 
     for (i = 0; i < curr_prod->num_reac; i++) {
-	return_vec[i] = curr_prod->mt[i];
+        return_vec[i] = curr_prod->mt[i];
     }
 
     return ierr;

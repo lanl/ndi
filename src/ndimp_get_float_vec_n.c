@@ -6,15 +6,15 @@
 #include "ndi_var_type.h"
 
 static int GET_MP_SCAT_MAT(state_struct *h,
-			   int in_key, FLOAT_TYPE * return_vec,
-			   int vec_size);
+                           int in_key, FLOAT_TYPE * return_vec,
+                           int vec_size);
 static int GET_COMB_FLOAT_VEC_N(state_struct *h,
-				int in_key, int vec_num,
-				FLOAT_TYPE * return_vec, int vec_size);
+                                int in_key, int vec_num,
+                                FLOAT_TYPE * return_vec, int vec_size);
 
 /**********************************************************************/
 int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
-			  FLOAT_TYPE * ret_vec, int vec_size)
+                          FLOAT_TYPE * ret_vec, int vec_size)
 {
 
     int ierr = 0;
@@ -30,27 +30,27 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
     switch (in_key) {
 
     case NDI_PN_FULL:
-	ierr = GET_MP_SCAT_MAT(h, vec_num, ret_vec, vec_size);
-	if ((mat_order == 't') && (ierr >= 0)) {
-	    int num_grps, tmp_err;
-	    tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &num_grps);
-	    if ((tmp_err != 0) && ((ierr >= 0) || (tmp_err < 0)))
-		ierr = tmp_err;
-	    (void) NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps);
-	}
-	break;
+        ierr = GET_MP_SCAT_MAT(h, vec_num, ret_vec, vec_size);
+        if ((mat_order == 't') && (ierr >= 0)) {
+            int num_grps, tmp_err;
+            tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &num_grps);
+            if ((tmp_err != 0) && ((ierr >= 0) || (tmp_err < 0)))
+                ierr = tmp_err;
+            (void) NDI_TRANSPOSE_FLOAT(ret_vec, num_grps, num_grps);
+        }
+        break;
 
     case NDI_SIG_REAC:
     case NDI_PNU_PR:
     case NDI_SIG_PNU_PR:
     case NDI_CORR_DIAG:
     case NDI_CORR_BHS:
-	ierr = GET_COMB_FLOAT_VEC_N(h, in_key, vec_num, ret_vec, vec_size);
-	break;
+        ierr = GET_COMB_FLOAT_VEC_N(h, in_key, vec_num, ret_vec, vec_size);
+        break;
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -58,8 +58,8 @@ int NDIMP_GET_FLOAT_VEC_N(state_struct *h, int in_key, int vec_num,
 
 /**********************************************************************/
 static int GET_MP_SCAT_MAT(state_struct *h,
-			   int pn_order, FLOAT_TYPE * return_vec,
-			   int ret_size)
+                           int pn_order, FLOAT_TYPE * return_vec,
+                           int ret_size)
 {
 
     int ierr = 0;
@@ -93,137 +93,140 @@ static int GET_MP_SCAT_MAT(state_struct *h,
     tmp_err = ndimp_get_int_val(h, NDI_NUM_GRPS, &tot_num_grps);
 
     for (in = 0; in < num_parts; in++) {
-	if (!(in_part = (handle[in]))) {
-	    return -99;
-	}
-	/* NO TRANSPOSE */
-	transpose_state = in_part->mat_order;
-	in_part->mat_order = 'd';
+        if (!(in_part = (handle[in]))) {
+            /* Invalid particle handle */
+            return -35;
+        }
+        /* NO TRANSPOSE */
+        transpose_state = in_part->mat_order;
+        in_part->mat_order = 'd';
 
-	tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps_in);
-	row_end = row_start + num_grps_in;
-	col_start = 0;
-	tmp_err =
-	    ndi_c_check_option_h(in_part, NDI_CURR_PART,
-				 out_part_type_state,
-				 sizeof(out_part_type_state));
-	if ((tmp_err != 9) && (tmp_err > 0)) {
-	    reset_curr_part_flag = -1;
-	} else {
-	    reset_curr_part_flag = 0;
-	}
-	for (out = 0; out < num_parts; out++) {
-	    if (!(out_part = (handle[out]))) {
-		in_part->mat_order = transpose_state;
-		return -99;
-	    }
-	    /* Check that each particle is multigroup */
-	    if (out_part->library_type != 'm') {
-		in_part->mat_order = transpose_state;
-		return -99;
-	    }
-	    tmp_err =
-		ndi_c_get_int_val_h(out_part, NDI_NUM_GRPS, &num_grps_out);
-	    col_end = col_start + num_grps_out;
-	    if (in != out) {
-		/* Set current particle parameters to outgoing particle */
-		tmp_err =
-		    ndi_c_check_option_h(out_part, NDI_PARTICLE_TYPE,
-					 out_part_type,
-					 sizeof(out_part_type));
-		tmp_err =
-		    ndi_c_set_option_h(in_part, NDI_CURR_PART,
-				       out_part_type);
-		if (tmp_err < 0) {
-		    ierr = 9;
-		    col_start = col_end;
-		    continue;
-		}
+        tmp_err = ndi_c_get_int_val_h(in_part, NDI_NUM_GRPS, &num_grps_in);
+        row_end = row_start + num_grps_in;
+        col_start = 0;
+        tmp_err =
+            ndi_c_check_option_h(in_part, NDI_CURR_PART,
+                                 out_part_type_state,
+                                 sizeof(out_part_type_state));
+        if ((tmp_err != 9) && (tmp_err > 0)) {
+            reset_curr_part_flag = -1;
+        } else {
+            reset_curr_part_flag = 0;
+        }
+        for (out = 0; out < num_parts; out++) {
+            if (!(out_part = (handle[out]))) {
+                in_part->mat_order = transpose_state;
+                /* Invalid particle handle */
+                return -35;
+            }
+            /* Check that each particle is multigroup */
+            if (out_part->library_type != 'm') {
+                in_part->mat_order = transpose_state;
+                /* Invalid particle handle */
+                return -35;
+            }
+            tmp_err =
+                ndi_c_get_int_val_h(out_part, NDI_NUM_GRPS, &num_grps_out);
+            col_end = col_start + num_grps_out;
+            if (in != out) {
+                /* Set current particle parameters to outgoing particle */
+                tmp_err =
+                    ndi_c_check_option_h(out_part, NDI_PARTICLE_TYPE,
+                                         out_part_type,
+                                         sizeof(out_part_type));
+                tmp_err =
+                    ndi_c_set_option_h(in_part, NDI_CURR_PART,
+                                       out_part_type);
+                if (tmp_err < 0) {
+                    ierr = 9;
+                    col_start = col_end;
+                    continue;
+                }
 
-		temp_size =
-		    ndi_c_get_size_h(out_part, NDI_E_BOUNDS, &tmp_err);
-		ebounds_out =
-		    (ndi_float64 *) ndi_malloc(temp_size *
-					       sizeof(ndi_float64));
+                temp_size =
+                    ndi_c_get_size_h(out_part, NDI_E_BOUNDS, &tmp_err);
+                ebounds_out =
+                    (ndi_float64 *) ndi_malloc(temp_size *
+                                               sizeof(ndi_float64));
 
-		tmp_err =
-		    ndi_c_get_float64_vec_h(out_part, NDI_E_BOUNDS,
-					    ebounds_out, temp_size);
-		/* Save e_bounds_curr_part state for later reset? */
-		tmp_err =
-		    ndi_c_set_float64_vec_option_h(in_part,
-						   NDI_E_BOUNDS_CURR_PART,
-						   ebounds_out, temp_size);
-		if (ebounds_out)
-		    ndi_free((void **) &ebounds_out);
+                tmp_err =
+                    ndi_c_get_float64_vec_h(out_part, NDI_E_BOUNDS,
+                                            ebounds_out, temp_size);
+                /* Save e_bounds_curr_part state for later reset? */
+                tmp_err =
+                    ndi_c_set_float64_vec_option_h(in_part,
+                                                   NDI_E_BOUNDS_CURR_PART,
+                                                   ebounds_out, temp_size);
+                if (ebounds_out)
+                    ndi_free((void **) &ebounds_out);
 
-		/* Get production matrix */
-		temp_size =
-		    ndi_c_get_size_n_h(in_part, NDI_PN_PROD_FULL_CURR_PART,
-				       pn_order, &tmp_err);
-		temp_mat =
-		    (FLOAT_TYPE *) ndi_malloc(temp_size *
-					      sizeof(FLOAT_TYPE));
-		tmp_err =
-		    NDI_GET_FLOAT_VEC_N_H(in_part,
-					  NDI_PN_PROD_FULL_CURR_PART,
-					  pn_order, temp_mat, temp_size);
+                /* Get production matrix */
+                temp_size =
+                    ndi_c_get_size_n_h(in_part, NDI_PN_PROD_FULL_CURR_PART,
+                                       pn_order, &tmp_err);
+                temp_mat =
+                    (FLOAT_TYPE *) ndi_malloc(temp_size *
+                                              sizeof(FLOAT_TYPE));
+                tmp_err =
+                    NDI_GET_FLOAT_VEC_N_H(in_part,
+                                          NDI_PN_PROD_FULL_CURR_PART,
+                                          pn_order, temp_mat, temp_size);
 
-		/* Reset current particle ebounds??? */
+                /* Reset current particle ebounds??? */
 
-	    } else {
-		/* Get scattering matrix */
-		temp_size =
-		    ndi_c_get_size_n_h(in_part, NDI_PN_FULL, pn_order,
-				       &tmp_err);
-		temp_mat =
-		    (FLOAT_TYPE *) ndi_malloc(temp_size *
-					      sizeof(FLOAT_TYPE));
-		tmp_err =
-		    NDI_GET_FLOAT_VEC_N_H(in_part, NDI_PN_FULL, pn_order,
-					  temp_mat, temp_size);
-	    }
+            } else {
+                /* Get scattering matrix */
+                temp_size =
+                    ndi_c_get_size_n_h(in_part, NDI_PN_FULL, pn_order,
+                                       &tmp_err);
+                temp_mat =
+                    (FLOAT_TYPE *) ndi_malloc(temp_size *
+                                              sizeof(FLOAT_TYPE));
+                tmp_err =
+                    NDI_GET_FLOAT_VEC_N_H(in_part, NDI_PN_FULL, pn_order,
+                                          temp_mat, temp_size);
+            }
 
-	    /* Place values from temp_mat into appropriate place in the return_vec */
-	    /* Indexing nightmare:  
-	       rows represent incident particles; 
-	       columns represent outgoing particles  */
-	    temp_mat_count = 0;
-	    curr_p = temp_mat;
-	    for (row = row_start; row < row_end; row++) {
-		for (col = col_start; col < col_end; col++) {
-		    ret_index = (row * tot_num_grps) + col;
-		    if ((ret_index < ret_size) &&
-			(temp_mat_count < temp_size)) {
-			return_vec[ret_index] = *curr_p;
-			temp_mat_count++;
-			curr_p++;
-		    } else {
-			ierr = 7;
-			break;
-		    }
-		}
-	    }
-	    if (temp_mat)
-		ndi_free((void **) &temp_mat);
-	    col_start = col_end;
-	}			/* out loop */
-	if (reset_curr_part_flag) {
-	    tmp_err =
-		ndi_c_set_option_h(in_part, NDI_CURR_PART,
-				   out_part_type_state);
-	}
-	row_start = row_end;
-	in_part->mat_order = transpose_state;
-    }				/* in loop */
+            /* Place values from temp_mat into appropriate place in the return_vec */
+            /* Indexing nightmare:  
+               rows represent incident particles; 
+               columns represent outgoing particles  */
+            temp_mat_count = 0;
+            curr_p = temp_mat;
+            for (row = row_start; row < row_end; row++) {
+                for (col = col_start; col < col_end; col++) {
+                    ret_index = (row * tot_num_grps) + col;
+                    if ((ret_index < ret_size) &&
+                        (temp_mat_count < temp_size)) {
+                        return_vec[ret_index] = *curr_p;
+                        temp_mat_count++;
+                        curr_p++;
+                    } else {
+                        ierr = 7;
+                        break;
+                    }
+                }
+            }
+            if (temp_mat)
+                ndi_free((void **) &temp_mat);
+            col_start = col_end;
+        }                        /* out loop */
+        if (reset_curr_part_flag) {
+            tmp_err =
+                ndi_c_set_option_h(in_part, NDI_CURR_PART,
+                                   out_part_type_state);
+        }
+        row_start = row_end;
+        in_part->mat_order = transpose_state;
+    }                                /* in loop */
 
     return ierr;
 }
 
 /**********************************************************************/
 static int GET_COMB_FLOAT_VEC_N(state_struct *h,
-				int in_key, int vec_num,
-				FLOAT_TYPE * return_vec, int vec_size)
+                                int in_key, int vec_num,
+                                FLOAT_TYPE * return_vec, int vec_size)
 {
     int ierr = 0;
     int i;
@@ -239,20 +242,20 @@ static int GET_COMB_FLOAT_VEC_N(state_struct *h,
     num_parts = h->handle_free;
 
     for (i = 0; i < num_parts; i++) {
-	if (curr_size <= 0) {
-	    ierr = 7;
-	    break;
-	}
-	if ((statep = (handle[i]))) {
-	    last_size =
-		ndi_c_get_size_n_h(statep, in_key, vec_num, &tmp_err);
-	    tmp_err =
-		NDI_GET_FLOAT_VEC_N_H(statep, in_key, vec_num, curr_p,
-				      curr_size);
-	    /* Check return error */
-	    curr_size -= last_size;
-	    curr_p += last_size;
-	}
+        if (curr_size <= 0) {
+            ierr = 7;
+            break;
+        }
+        if ((statep = (handle[i]))) {
+            last_size =
+                ndi_c_get_size_n_h(statep, in_key, vec_num, &tmp_err);
+            tmp_err =
+                NDI_GET_FLOAT_VEC_N_H(statep, in_key, vec_num, curr_p,
+                                      curr_size);
+            /* Check return error */
+            curr_size -= last_size;
+            curr_p += last_size;
+        }
     }
 
 

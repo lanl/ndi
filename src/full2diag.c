@@ -20,7 +20,7 @@
 ***********************************************************************/
 
 static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
-			 FLOAT_TYPE * return_vec, int return_size)
+                         FLOAT_TYPE * return_vec, int return_size)
 {
     int ierr = 0;
     int row = 0;
@@ -32,40 +32,40 @@ static int NDI_FULL2DIAG(FLOAT_TYPE * full_mat, int num_grps,
     FLOAT_TYPE upscat_sum;
 
     if ((full_mat) && (return_vec)) {
-	for (row = 0; row < num_row; row++) {
-	    upscat_sum = 0.0;
-	    for (col = row; col < num_col; col++) {
-		if (((mat_ptr - full_mat) < (num_row * num_col))
-		    && (ret_count < return_size)) {
-		    if (col < row) {
-			upscat_sum += *mat_ptr;
-		    } else if (col == row) {
-			return_vec[ret_count] = *mat_ptr + upscat_sum;
-		    } else {
-			ret_count++;
-			return_vec[ret_count] = *mat_ptr;
-			ret_count++;
-		    }
-		    mat_ptr++;
-		} else {
-		    ierr = 7;
-		    break;
-		}
-	    }
-	    if (((mat_ptr - full_mat) >= (num_row * num_col))
-		|| (ret_count >= return_size)) {
-		break;
-	    }
-	}
+        for (row = 0; row < num_row; row++) {
+            upscat_sum = 0.0;
+            for (col = row; col < num_col; col++) {
+                if (((mat_ptr - full_mat) < (num_row * num_col))
+                    && (ret_count < return_size)) {
+                    if (col < row) {
+                        upscat_sum += *mat_ptr;
+                    } else if (col == row) {
+                        return_vec[ret_count] = *mat_ptr + upscat_sum;
+                    } else {
+                        ret_count++;
+                        return_vec[ret_count] = *mat_ptr;
+                        ret_count++;
+                    }
+                    mat_ptr++;
+                } else {
+                    ierr = 7;
+                    break;
+                }
+            }
+            if (((mat_ptr - full_mat) >= (num_row * num_col))
+                || (ret_count >= return_size)) {
+                break;
+            }
+        }
 
     } else {
-	if (!full_mat) {
-	    /* Bad matrix -- internal NDI error */
-	    ierr = -13;
-	} else if (!return_vec) {
-	    /* Bad vector input by user */
-	    ierr = -25;
-	}
+        if (!full_mat) {
+            /* Bad matrix -- internal NDI error */
+            ierr = -13;
+        } else if (!return_vec) {
+            /* Bad vector input by user */
+            ierr = -25;
+        }
     }
     return ierr;
 }

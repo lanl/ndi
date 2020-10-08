@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_set_float_vec_option.c
- * Description:	User function--set defaults.
- * Time-stamp:	<2003-10-24 17:49:16 jomc>
+ * File:        ndi_set_float_vec_option.c
+ * Description:        User function--set defaults.
+ * Time-stamp:        <2003-10-24 17:49:16 jomc>
  *
  */
 
@@ -17,16 +17,16 @@
 #include "ndi_internal.h"
 
 static int ndi_set_collapse_vec(state_struct *state,
-				const ndi_float64 * ebound_array,
-				const int new_num_grps);
+                                const ndi_float64 * ebound_array,
+                                const int new_num_grps);
 static int ndi_set_ebounds_curr_part(state_struct *state,
-				     const ndi_float64 * ebound_array,
-				     const int new_num_grps);
+                                     const ndi_float64 * ebound_array,
+                                     const int new_num_grps);
 
 /**********************************************************************/
 int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
-				   const ndi_float64 * option_array,
-				   const int array_size)
+                                   const ndi_float64 * option_array,
+                                   const int array_size)
 
 /*  Purpose: Set options/defaults.
 
@@ -40,11 +40,11 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 
 ***********************************************************************/
 {
-    int ierr = 0;		/* Error flag: 0=no error, pos=warning, neg=error */
+    int ierr = 0;                /* Error flag: 0=no error, pos=warning, neg=error */
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
-	return -2;
+        return -2;
     }
 
     /*** Check that NDI is initialized ***/
@@ -55,21 +55,21 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
     switch (in_key) {
 
     case NDI_COLLAPSE:
-	/* Set energy groups to collapse to */
-	ierr = ndi_set_collapse_vec(state, option_array, array_size - 1);
-	break;
+        /* Set energy groups to collapse to */
+        ierr = ndi_set_collapse_vec(state, option_array, array_size - 1);
+        break;
 
     case NDI_E_BOUNDS_CURR_PART:
-	/* Set energy groups to collapse secondary particle */
-	ierr =
-	    ndi_set_ebounds_curr_part(state, option_array, array_size - 1);
-	break;
+        /* Set energy groups to collapse secondary particle */
+        ierr =
+            ndi_set_ebounds_curr_part(state, option_array, array_size - 1);
+        break;
 
-	/**********  UNKNOWN KEYWORD  ***********/
+        /**********  UNKNOWN KEYWORD  ***********/
 
     default:
-	ierr = -4;
-	break;
+        ierr = -4;
+        break;
     }
 
     return ierr;
@@ -81,8 +81,8 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 /**********************************************************************/
 
 static int ndi_set_collapse_vec(state_struct *state,
-				const ndi_float64 * ebound_array,
-				const int new_num_grps)
+                                const ndi_float64 * ebound_array,
+                                const int new_num_grps)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -106,18 +106,18 @@ static int ndi_set_collapse_vec(state_struct *state,
     double *curr_p = NULL;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Check that number of groups is reasonable */
     if (new_num_grps <= 0) {
-	return -23;
+        return -23;
     }
 
     /* Check appropriate library type */
     if ((state->library_type != 'm') &&
-	(state->library_type != 'd') && (state->library_type != 's')) {
-	return -23;
+        (state->library_type != 'd') && (state->library_type != 's')) {
+        return -23;
     }
 
     /* Check monotonically decreasing and
@@ -125,55 +125,55 @@ static int ndi_set_collapse_vec(state_struct *state,
        for passing into ndi_set_e_grps */
 
     if (state->collapse_ebounds)
-	ndi_free((void **) &state->collapse_ebounds);
+        ndi_free((void **) &state->collapse_ebounds);
     state->collapse_ebounds =
-	(double *) ndi_calloc(new_num_grps + 1, sizeof(double));
+        (double *) ndi_calloc(new_num_grps + 1, sizeof(double));
     curr_p = state->collapse_ebounds;
     state->grp_num_new = new_num_grps;
     state->collapse_flag = -1;
 
     for (i = 0; i < new_num_grps + 1; i++) {
-	if ((i == 0) || ((i > 0) && (ebound_array[i] < last_bound))) {
-	    *curr_p = (double) ebound_array[i];
-	    last_bound = ebound_array[i];
-	    curr_p++;
-	} else {
-	    if (i > 0) {
-		state->collapse_flag = 0;
-		strcpy(state->n_group, "default");
-		if (state->collapse_ebounds) {
-		    ndi_free((void **) &state->collapse_ebounds);
-		}
-		return -23;
-	    }
-	}
+        if ((i == 0) || ((i > 0) && (ebound_array[i] < last_bound))) {
+            *curr_p = (double) ebound_array[i];
+            last_bound = ebound_array[i];
+            curr_p++;
+        } else {
+            if (i > 0) {
+                state->collapse_flag = 0;
+                strcpy(state->n_group, "default");
+                if (state->collapse_ebounds) {
+                    ndi_free((void **) &state->collapse_ebounds);
+                }
+                return -23;
+            }
+        }
     }
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
-	/* Multigroup or dosimetry */
-	old_num_grps = state->iso_stat.num_grps;
-	ierr =
-	    ndi_set_e_grps(old_num_grps, state->lib_ebounds,
-			   &state->grp_num_new, &state->collapse_ebounds,
-			   "user", state->library_type,
-			   &state->new_ebounds, &state->collapse_flag);
+        /* Multigroup or dosimetry */
+        old_num_grps = state->iso_stat.num_grps;
+        ierr =
+            ndi_set_e_grps(old_num_grps, state->lib_ebounds,
+                           &state->grp_num_new, &state->collapse_ebounds,
+                           "user", state->library_type,
+                           &state->new_ebounds, &state->collapse_flag);
 
     } else if (state->library_type == 's') { /* Reqt 92 */
-	/* TN */
+        /* TN */
         state->collapse_flag = 0; /* No collapse possible with TN */
-	if (state->new_ebounds)
-	    ndi_free((void **) &state->new_ebounds);
-	ierr =
-	    ndi_set_e_grps(0, NULL, 
+        if (state->new_ebounds)
+            ndi_free((void **) &state->new_ebounds);
+        ierr =
+            ndi_set_e_grps(0, NULL, 
                            &state->grp_num_new, &state->collapse_ebounds, 
                            "user", state->library_type, 
                            NULL, &state->collapse_flag);
     }
 
     if (ierr >= 0) {
-	strcpy(state->n_group, "user");
+        strcpy(state->n_group, "user");
     } else {
-	strcpy(state->n_group, "default");
+        strcpy(state->n_group, "default");
     }
     return ierr;
 }
@@ -182,8 +182,8 @@ static int ndi_set_collapse_vec(state_struct *state,
 /**********************************************************************/
 
 static int ndi_set_ebounds_curr_part(state_struct *state,
-				     const ndi_float64 * ebound_array,
-				     const int new_num_grps)
+                                     const ndi_float64 * ebound_array,
+                                     const int new_num_grps)
 
 /* Valid input values:
    30_group, 21_group, 16_group, 14_group, 13_group, 12_group, 10_group,
@@ -207,68 +207,68 @@ static int ndi_set_ebounds_curr_part(state_struct *state,
     sec_part_mg *part = NULL;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Check that number of groups is reasonable */
     if (new_num_grps <= 0) {
-	return -23;
+        return -23;
     }
 
     if ((state->library_type == 'm') || (state->library_type == 'd')) {
-	/* Multigroup or dosimetry */
-	if (state->iso_stat.sec_part &&
-	    (state->curr_part_index >= 0) &&
-	    (state->curr_part_index < state->iso_stat.num_sec_parts)) {
-	    part = &state->iso_stat.sec_part[state->curr_part_index];
-	    if (!part) {
-		return -91;
-	    }
+        /* Multigroup or dosimetry */
+        if (state->iso_stat.sec_part &&
+            (state->curr_part_index >= 0) &&
+            (state->curr_part_index < state->iso_stat.num_sec_parts)) {
+            part = &state->iso_stat.sec_part[state->curr_part_index];
+            if (!part) {
+                return -91;
+            }
 
-	    /* Check monotonically decreasing and
-	       copy ebounds into state->collapse_ebounds array 
-	       for passing into ndi_set_e_grps */
+            /* Check monotonically decreasing and
+               copy ebounds into state->collapse_ebounds array 
+               for passing into ndi_set_e_grps */
 
-	    if (part->collapse_ebounds)
-		ndi_free((void **) &part->collapse_ebounds);
-	    part->collapse_ebounds =
-		(double *) ndi_calloc(new_num_grps + 1, sizeof(double));
-	    curr_p = part->collapse_ebounds;
-	    part->grp_num_new = new_num_grps;
-	    part->collapse_flag = -1;
+            if (part->collapse_ebounds)
+                ndi_free((void **) &part->collapse_ebounds);
+            part->collapse_ebounds =
+                (double *) ndi_calloc(new_num_grps + 1, sizeof(double));
+            curr_p = part->collapse_ebounds;
+            part->grp_num_new = new_num_grps;
+            part->collapse_flag = -1;
 
-	    for (i = 0; i < part->grp_num_new + 1; i++) {
-		if ((i == 0) ||
-		    ((i > 0) && (ebound_array[i] < last_bound))) {
-		    *curr_p = (double) ebound_array[i];
-		    last_bound = ebound_array[i];
-		    curr_p++;
-		} else {
-		    if (i > 0) {
-			part->collapse_flag = 0;
-			strcpy(part->n_group, "default");
-			if (part->collapse_ebounds) {
-			    ndi_free((void **) &part->collapse_ebounds);
-			}
-			return -23;
-		    }
-		}
-	    }
+            for (i = 0; i < part->grp_num_new + 1; i++) {
+                if ((i == 0) ||
+                    ((i > 0) && (ebound_array[i] < last_bound))) {
+                    *curr_p = (double) ebound_array[i];
+                    last_bound = ebound_array[i];
+                    curr_p++;
+                } else {
+                    if (i > 0) {
+                        part->collapse_flag = 0;
+                        strcpy(part->n_group, "default");
+                        if (part->collapse_ebounds) {
+                            ndi_free((void **) &part->collapse_ebounds);
+                        }
+                        return -23;
+                    }
+                }
+            }
 
-	    ierr =
-		ndi_set_e_grps(part->num_grps, part->e_bounds,
-			       &part->grp_num_new, &part->collapse_ebounds,
-			       "user", state->library_type,
-			       &part->new_ebounds, &part->collapse_flag);
-	    if (ierr >= 0) {
-		strcpy(part->n_group, "user");
-	    } else {
-		strcpy(part->n_group, "default");
-	    }
-	}
+            ierr =
+                ndi_set_e_grps(part->num_grps, part->e_bounds,
+                               &part->grp_num_new, &part->collapse_ebounds,
+                               "user", state->library_type,
+                               &part->new_ebounds, &part->collapse_flag);
+            if (ierr >= 0) {
+                strcpy(part->n_group, "user");
+            } else {
+                strcpy(part->n_group, "default");
+            }
+        }
     } else {
-	/* Bad input for current library type */
-	ierr = -4;
+        /* Bad input for current library type */
+        ierr = -4;
     }
 
     return ierr;
