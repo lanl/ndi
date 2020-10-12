@@ -31,7 +31,7 @@
 #define J_TO_MEV        (Q_ELEC_C*1e+6)
 #define ROOM_TEMP_MEV   2.53e-8
        
-#define NUM_FISSION_Q                6
+#define NUM_FISSION_Q           6
 #define NUM_NORM                4
 
 #define MAX_TN_REAC            50
@@ -392,7 +392,7 @@ typedef struct _state_struct {
  * Function prototypes
  */
 
-#ifdef        __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 

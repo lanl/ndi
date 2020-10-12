@@ -218,7 +218,7 @@ static int GET_FLOAT_VAL_TN(state_struct *state, int in_key,
         }
         break;
 
-    case NDI_EAVG_OUT:                /* Average outgoing energy */
+    case NDI_EAVG_OUT:               /* Average outgoing energy */
     case NDI_EOUTBAR:                /* Average outgoing energy */
         ierr = CALC_EAVG_OUT(state, state->lib_stream, ret_val);
         break;

@@ -9884,7 +9884,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -9892,7 +9892,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -10821,7 +10821,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -11515,7 +11515,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -14666,7 +14666,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -14674,7 +14674,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -15604,7 +15604,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -16299,7 +16299,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -19450,14 +19450,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -20392,7 +20392,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -21095,7 +21095,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -27430,7 +27430,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -27438,7 +27438,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -27813,7 +27813,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -28086,7 +28086,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -29159,7 +29159,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -29167,7 +29167,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -29543,7 +29543,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -29817,7 +29817,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -30890,14 +30890,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -31278,7 +31278,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -31560,7 +31560,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -34836,7 +34836,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -34844,7 +34844,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -35780,7 +35780,7 @@ Reaction Q values:
  1.807600000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -36483,7 +36483,7 @@ Reaction Q values:
  1.807600e+02    1.807600e+02    1.807600e+02    1.807600e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -39634,7 +39634,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -39642,7 +39642,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -40571,7 +40571,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -41265,7 +41265,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -44416,7 +44416,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -44424,7 +44424,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -45354,7 +45354,7 @@ Reaction Q values:
 -2.213900000000000e+00  -9.638999999999999e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -46049,7 +46049,7 @@ Reaction Q values:
 -9.639000e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -49200,14 +49200,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -50142,7 +50142,7 @@ Reaction Q values:
  1.895200000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -50845,7 +50845,7 @@ Reaction Q values:
  1.895200e+02    1.895200e+02    1.895200e+02    1.895200e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -61643,7 +61643,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -61651,7 +61651,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -62580,7 +62580,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -63274,7 +63274,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -66425,7 +66425,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -66433,7 +66433,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -67363,7 +67363,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -68058,7 +68058,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -71209,14 +71209,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -72151,7 +72151,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -72854,7 +72854,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -82550,7 +82550,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -82558,7 +82558,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -83487,7 +83487,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -84181,7 +84181,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -87332,7 +87332,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -87340,7 +87340,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -88270,7 +88270,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -88965,7 +88965,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -92116,14 +92116,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -93058,7 +93058,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -93761,7 +93761,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -103457,7 +103457,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -103465,7 +103465,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -104394,7 +104394,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -105088,7 +105088,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -108239,7 +108239,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -108247,7 +108247,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -109177,7 +109177,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -109872,7 +109872,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -113023,14 +113023,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -113965,7 +113965,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -114668,7 +114668,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -124368,7 +124368,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -124376,7 +124376,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -125305,7 +125305,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -125999,7 +125999,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -129150,7 +129150,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -129158,7 +129158,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -130088,7 +130088,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -130783,7 +130783,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -133934,14 +133934,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -134876,7 +134876,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -135579,7 +135579,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -146375,7 +146375,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -146383,7 +146383,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -147312,7 +147312,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -148006,7 +148006,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -151157,7 +151157,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -151165,7 +151165,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -152095,7 +152095,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -152790,7 +152790,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -155941,14 +155941,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -156883,7 +156883,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -157586,7 +157586,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -167286,7 +167286,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  2
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -167294,7 +167294,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -168223,7 +168223,7 @@ Reaction Q values:
  0.000000000000000e+00   2.224600000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -168917,7 +168917,7 @@ Reaction Q values:
  0.000000e+00    2.224600e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -172068,7 +172068,7 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  6
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  
   **Error -31: in No. of reaction prod -- returned value is 0
@@ -172076,7 +172076,7 @@ Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -173006,7 +173006,7 @@ Reaction Q values:
 -2.215600000000000e+00  -9.636790000000000e+00  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -173701,7 +173701,7 @@ Reaction Q values:
 -9.636790e+00   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -176852,14 +176852,14 @@ No. of upscatter groups:  0
 No. of downscatter groups:  29
 No. of reactions:  9
 No. of photon groups:  
-  **Error -999: in No. of photon groups -- returned value is 0
+  **Error -36: in No. of photon groups -- returned value is 0
 No. of targets:  7
 No. of reaction prod:  3
 Pn order -- scattering:  5
 No. of secondary particles:  
   **Error -9: in No. of secondary particles -- returned value is 0
 Pn order -- photon prod:  
-  **Error -999: in Pn order -- photon prod -- returned value is 0
+  **Error -36: in Pn order -- photon prod -- returned value is 0
 
 
 FLOAT64 VALUES:
@@ -177794,7 +177794,7 @@ Reaction Q values:
  1.894400000000000e+02  
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -178497,7 +178497,7 @@ Reaction Q values:
  1.894400e+02    1.894400e+02    1.894400e+02    1.894400e+02   
 Photon energy bounds: 
 ***ERROR GETTING SIZE FOR Photon energy bounds.
-  **Error -999 in Photon energy bounds -- returned value is:
+  **Error -36 in Photon energy bounds -- returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   

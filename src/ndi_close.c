@@ -29,7 +29,7 @@ int ndi_c_close_h(state_struct **curr_state)
 {
     int i;
     int ierr = 0;                /* 0=no error,pos=warning, neg=error */
-    int ret_code = 0;                /* Return code--returned error value */
+    int ret_code = 0;            /* Return code--returned error value */
     state_struct *state;
 
     if (curr_state) {
@@ -80,7 +80,7 @@ int ndi_c_close_h(state_struct **curr_state)
     state->particle_type = -1;
     state->library_type = ' ';
     state->mat_order = 'd';        /* No transpose */
-    state->reac_id = 'm';        /* Use MT numbers to identify reactions */
+    state->reac_id = 'm';          /* Use MT numbers to identify reactions */
     state->e_avg_calc = VEL_CALC;
     state->kerma_calc = DATA;
     state->curr_reac_index = -1;

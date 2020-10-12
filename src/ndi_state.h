@@ -11,7 +11,7 @@
 #ifndef NDI_STATE_H
 #define NDI_STATE_H
 
-#ifdef        __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -26,7 +26,7 @@ extern "C" {
 
     extern state_struct *default_h;
 
-#ifdef        __cplusplus
+#ifdef  __cplusplus
 }
 #endif
 #endif                                /* NDI_STATE_H */

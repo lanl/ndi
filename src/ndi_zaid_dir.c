@@ -58,13 +58,13 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
              double *at_wgt, int reaction_flag)
 {
 
-    char section[30];                /* Gendir section (e.g. neutron_multigroup) */
-    size_t sec_len;                /* Length of 'section' string */
-    char in_line[MAX_IN_STR_LEN];        /* Current input line */
-    char zaid_string[MAX_IN_STR_LEN];        /* First string on current line */
+    char section[30];                 /* Gendir section (e.g. neutron_multigroup) */
+    size_t sec_len;                   /* Length of 'section' string */
+    char in_line[MAX_IN_STR_LEN];     /* Current input line */
+    char zaid_string[MAX_IN_STR_LEN]; /* First string on current line */
     char seps[] = " ,\t\n";
-    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
-    int done = 0;                /* Flag indicating when processing of zaid is done */
+    int ierr = 0;                     /* Error flag: 0=no error,pos=warning, neg=error */
+    int done = 0;                     /* Flag indicating when processing of zaid is done */
     char tmp_zaid[MAX_IN_STR_LEN];
     dir_entry dir_rec;
 
@@ -214,7 +214,8 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 /**********************************************************************/
 
 static void ndi_find_zaid_string(char *in_line, int in_size,
-                     char *zaid_string, int string_size, char *seps)
+                                 char *zaid_string, int string_size,
+                                 char *seps)
 {
 
     /* This function assumes that the string is terminated by '\0'.

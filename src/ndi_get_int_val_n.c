@@ -206,7 +206,7 @@ static int get_int_val_n_mg(state_struct *state, int in_key, int vec_num,
         break;
 
       /***********************************************************************/
-        /*           This section looks at non-standard isotope data           */
+      /*           This section looks at non-standard isotope data           */
       /***********************************************************************/
 
     case NDI_REAC_MT:

@@ -39,7 +39,7 @@ struct ndi_bin_tree_node {
  *             FUNCTION PROTOTYPES
  */
 
-#ifdef        __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 

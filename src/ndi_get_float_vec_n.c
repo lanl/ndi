@@ -205,7 +205,7 @@ int NDI_GET_FLOAT_VEC_N_H(state_struct *state, int in_key, int vec_num,
             }
         } else {
             /* Error -- bad particle? */
-            ierr = -999;
+            ierr = -36;
         }
 
         break;

@@ -697,7 +697,7 @@ void F_NDI_GET_STRING_VEC_X(int *in_key, char *in_str,
 
     /* Call C function to get data */
     jerr = ndi_c_get_string_vec_x(*in_key, c_in_str, 
-                                 c_str_arr, c_str_arr_size);
+                                  c_str_arr, c_str_arr_size);
     NDI_THROW(*ierr, jerr);
 
     /* Call C function to get number of strings */
@@ -762,7 +762,7 @@ void F_NDI2_CLOSE_GENDIR(int *handle, int *ierr)
 }
 
 void F_NDI2_MAKE_HANDLE(int *handle, char *type, int *handle1, int *ierr, 
-                         int len)
+                        int len)
 {
     char *c_str;
 
@@ -786,7 +786,7 @@ void F_NDI2_SET_ZAID(int *handle, char *zaid, int *ierr, int len)
 
 void F_NDI2_SET_ZAID_FLOAT32_TEMP(int *handle, char *zaid, 
                                   ndi_float32 *temp, int *ierr, 
-                                 int zaid_len)
+                                  int zaid_len)
 {
     char *c_zaid;
 
@@ -798,8 +798,8 @@ void F_NDI2_SET_ZAID_FLOAT32_TEMP(int *handle, char *zaid,
 }
 
 void F_NDI2_SET_ZAID_FLOAT64_TEMP(int *handle, char *zaid, 
-                                 ndi_float64 *temp, int *ierr, 
-                                 int zaid_len)
+                                  ndi_float64 *temp, int *ierr, 
+                                  int zaid_len)
 {
     char *c_zaid;
 

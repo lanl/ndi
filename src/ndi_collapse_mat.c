@@ -153,7 +153,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
                 in_sum += out_sum * local_weight[i];
                 wt_sum += local_weight[i];
 
-            }                        /* for i */
+            }                    /* for i */
 
             if (wt_sum != 0) {
                 curr_new_index = (k * new_grp_num_out) + l;
@@ -170,7 +170,7 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
             }
 
         }                        /* for l */
-    }                                /* for k */
+    }                            /* for k */
 
     return ierr;
 }
