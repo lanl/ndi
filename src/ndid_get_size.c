@@ -1,8 +1,8 @@
 
 /*
- * File:	ndid_get_size.c
- * Description:	User function--return size (in bytes) of return value.
- * Time-stamp:	<2000-02-03 15:00:51 jomc>
+ * File:        ndid_get_size.c
+ * Description: User function--return size (in bytes) of return value.
+ * Time-stamp:  <2000-02-03 15:00:51 jomc>
  *
  */
 
@@ -39,14 +39,14 @@ int ndid_c_get_num(int in_key, const char *in_value, int *arr_num)
     /* Open gendir */
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
-	ndi_free((void **) &path);
+        ndi_free((void **) &path);
 
     if (ierr < 0) {
-	root = NULL;
+        root = NULL;
     } else {
-	/* Build a binary tree with ZAID as key */
-	root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
-	fclose(ndi_dir);
+        /* Build a binary tree with ZAID as key */
+        root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
+        fclose(ndi_dir);
     }
 
     ierr = ndi_count_nodes(root, arr_num);
@@ -76,14 +76,14 @@ int ndid_c_get_size(int in_key, const char *in_value, int *arr_size)
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     /* throw away path */
     if (path)
-	ndi_free((void **) &path);
+        ndi_free((void **) &path);
 
     if (ierr < 0) {
-	root = NULL;
+        root = NULL;
     } else {
-	/* Build a binary tree with ZAID as key */
-	root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
-	fclose(ndi_dir);
+        /* Build a binary tree with ZAID as key */
+        root = ndi_build_tree(ndi_dir, NDI_ZAID, in_value);
+        fclose(ndi_dir);
     }
 
     ierr = ndi_count_size(root, arr_size);

@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_parse_zaid.c
- * Description:	Internal function--parse zaid into Z, A, and state
- * Time-stamp:	<2003-03-25 09:26:02 jomc>
+ * File:        ndi_parse_zaid.c
+ * Description: Internal function--parse zaid into Z, A, and state
+ * Time-stamp:  <2003-03-25 09:26:02 jomc>
  *
  */
 
@@ -18,14 +18,14 @@
 #include "ndi_internal.h"
 
 static int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
-				   int *Z, int *A, int *S);
+                                   int *Z, int *A, int *S);
 static int ndi_find_symbolic_state(char *in_str);
 
 /**********************************************************************/
 
 int
 ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
-		   int *A, int *S)
+                   int *A, int *S)
 {
 
     /* Parse a ZAID represented as a string.  This ZAID can be symbolic
@@ -38,19 +38,19 @@ ndi_parse_str_zaid(state_struct *state, char *zaid_str, int *Z,
     char seps[] = " ,\t\n";
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     tmp_zaid = strtok(zaid_str, seps);
 
     if (isalpha(*tmp_zaid)) {
-	/* First character is alphabetic, implying a symbolic zaid */
-	ierr = ndi_parse_symbolic_zaid(state, tmp_zaid, Z, A, S);
+        /* First character is alphabetic, implying a symbolic zaid */
+        ierr = ndi_parse_symbolic_zaid(state, tmp_zaid, Z, A, S);
     } else {
-	/* Numeric (integer) zaid */
-	/* ZAID extension ('.' and characters following) is removed by strtol */
-	int tmp_izaid = (int) strtol(tmp_zaid, (char **) NULL, 10);
-	ierr = ndi_parse_int_zaid(tmp_izaid, Z, A, S);
+        /* Numeric (integer) zaid */
+        /* ZAID extension ('.' and characters following) is removed by strtol */
+        int tmp_izaid = (int) strtol(tmp_zaid, (char **) NULL, 10);
+        ierr = ndi_parse_int_zaid(tmp_izaid, Z, A, S);
     }
 
     return ierr;
@@ -79,7 +79,7 @@ int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
     char element_symbol[2] = "  ";
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /* Find Z = alpha, [alpha]; */
@@ -87,22 +87,22 @@ int ndi_parse_symbolic_zaid(state_struct *state, char *in_zaid,
     curr_char++;
 
     if (isalpha(*curr_char)) {
-	element_symbol[1] = tolower(*curr_char);
-	curr_char++;
+        element_symbol[1] = tolower(*curr_char);
+        curr_char++;
     }
 
     *Z = state->ndi_elements[element_index(element_symbol)];
 
     /* Skip optional dash */
     if (*curr_char == '-') {
-	curr_char = curr_char + 1;
+        curr_char = curr_char + 1;
     }
 
     /* Find A = {digit} */
     if (isdigit(*curr_char)) {
-	*A = (int) strtol(curr_char, &curr_char, 10);
+        *A = (int) strtol(curr_char, &curr_char, 10);
     } else {
-	*A = 0;
+        *A = 0;
     }
 
     /* Find S */

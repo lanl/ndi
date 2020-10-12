@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:	User functions for NDI 1.x backwards compatability
+ * Description: User functions for NDI 1.x backwards compatability
  * 
  */
 
@@ -17,7 +17,7 @@ int ndi_c_init(void)
 {
 
     if (default_h) {
-	ndi_c_close_h(&default_h);
+        ndi_c_close_h(&default_h);
     }
     return ndi_c_init_h(&default_h, "");
 }
@@ -47,20 +47,20 @@ int ndi_c_set_zaid_float64_temp(const char *in_zaid, ndi_float64 temp)
 
 int ndi_c_set_zaid_float32_temp_sig_0(const char *in_zaid,
                                       ndi_float32 temp,
-				      ndi_float32 sig0)
+                                      ndi_float32 sig0)
 {
     return ndi_c_set_zaid_float32_temp_sig_0_h(default_h, in_zaid, temp,
-					       sig0);
+                                               sig0);
 }
 
 /**********************************************************************/
 
 int ndi_c_set_zaid_float64_temp_sig_0(const char *in_zaid,
-				      ndi_float64 temp,
-				      ndi_float64 sig0)
+                                      ndi_float64 temp,
+                                      ndi_float64 sig0)
 {
     return ndi_c_set_zaid_float64_temp_sig_0_h(default_h, in_zaid, temp,
-					       sig0);
+                                               sig0);
 }
 
 /**********************************************************************/
@@ -139,17 +139,17 @@ int
 ndi_c_get_int_vec_n(int in_key, int vec_num, int *return_vec, int vec_size)
 {
     return ndi_c_get_int_vec_n_h(default_h, in_key, vec_num, return_vec,
-				 vec_size);
+                                 vec_size);
 }
 
 /**********************************************************************/
 
 int
 ndi_c_get_int_vec_x(int in_key, const char *in_str, int *return_vec,
-		    int vec_size)
+                    int vec_size)
 {
     return ndi_c_get_int_vec_x_h(default_h, in_key, in_str, return_vec,
-				 vec_size);
+                                 vec_size);
 }
 
 /**********************************************************************/
@@ -170,30 +170,30 @@ int ndi_c_get_float32_val_n(int in_key, int vec_num, ndi_float32 * ret_val)
 
 int
 ndi_c_get_float32_vec(int in_key, ndi_float32 * return_vec,
-		      int return_size)
+                      int return_size)
 {
     return ndi_c_get_float32_vec_h(default_h, in_key, return_vec,
-				   return_size);
+                                   return_size);
 }
 
 /**********************************************************************/
 
 int
 ndi_c_get_float32_vec_n(int in_key, int vec_num,
-			ndi_float32 * return_vec, int return_size)
+                        ndi_float32 * return_vec, int return_size)
 {
     return ndi_c_get_float32_vec_n_h(default_h, in_key, vec_num,
-				     return_vec, return_size);
+                                     return_vec, return_size);
 }
 
 /**********************************************************************/
 
 int
 ndi_c_get_float32_vec_x(int in_key, const char *in_str,
-			ndi_float32 * return_vec, int vec_size)
+                        ndi_float32 * return_vec, int vec_size)
 {
     return ndi_c_get_float32_vec_x_h(default_h, in_key, in_str, return_vec,
-				     vec_size);
+                                     vec_size);
 }
 
 /**********************************************************************/
@@ -214,30 +214,30 @@ int ndi_c_get_float64_val_n(int in_key, int vec_num, ndi_float64 * ret_val)
 
 int
 ndi_c_get_float64_vec(int in_key, ndi_float64 * return_vec,
-		      int return_size)
+                      int return_size)
 {
     return ndi_c_get_float64_vec_h(default_h, in_key, return_vec,
-				   return_size);
+                                   return_size);
 }
 
 /**********************************************************************/
 
 int
 ndi_c_get_float64_vec_n(int in_key, int vec_num,
-			ndi_float64 * return_vec, int return_size)
+                        ndi_float64 * return_vec, int return_size)
 {
     return ndi_c_get_float64_vec_n_h(default_h, in_key, vec_num,
-				     return_vec, return_size);
+                                     return_vec, return_size);
 }
 
 /**********************************************************************/
 
 int
 ndi_c_get_float64_vec_x(int in_key, const char *in_str,
-			ndi_float64 * return_vec, int vec_size)
+                        ndi_float64 * return_vec, int vec_size)
 {
     return ndi_c_get_float64_vec_x_h(default_h, in_key, in_str, return_vec,
-				     vec_size);
+                                     vec_size);
 }
 
 /**********************************************************************/
@@ -251,10 +251,10 @@ int ndi_c_get_string_val(int in_key, char *ret_val, int str_size)
 
 int
 ndi_c_get_string_val_n(int in_key, int vec_num, char *ret_val,
-		       int str_size)
+                       int str_size)
 {
     return ndi_c_get_string_val_n_h(default_h, in_key, vec_num, ret_val,
-				    str_size);
+                                    str_size);
 }
 
 /**********************************************************************/
@@ -269,10 +269,10 @@ ndi_c_get_string_vec(int in_key, char *ret_val, int str_size)
 
 int
 ndi_c_get_string_vec_x(int in_key, const char *in_str, char *ret_val,
-		       int str_size)
+                       int str_size)
 {
     return ndi_c_get_string_vec_x_h(default_h, in_key, in_str,
-				    ret_val, str_size);
+                                    ret_val, str_size);
 }
 
 /**********************************************************************/

@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_read_string_block.c
- * Description:	Internal function--read a fixed number of strings.
- * Time-stamp:	<1998-12-18 17:48:09 jomc>
+ * File:        ndi_read_string_block.c
+ * Description: Internal function--read a fixed number of strings.
+ * Time-stamp:  <1998-12-18 17:48:09 jomc>
  *
  */
 
@@ -20,7 +20,7 @@
 
 
 int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
-			  int binary)
+                          int binary)
 
 /*  Purpose: Skip over a specifed (num_strings) number of floating-point 
     numbers.
@@ -34,33 +34,33 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
 
 ***********************************************************************/
 {
-    char in_line[MAX_IN_STR_LEN];	/* Current input line */
-    char *token;		/* Current data item */
-    char seps[] = " ,\t\n";	/* Data delimiters in library file */
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
-    int string_count = 0;	/* Current number of strings processed */
+    char in_line[MAX_IN_STR_LEN]; /* Current input line */
+    char *token;                  /* Current data item */
+    char seps[] = " ,\t\n";       /* Data delimiters in library file */
+    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
+    int string_count = 0;         /* Current number of strings processed */
 
 
     /* Read next line and count strings */
     while (string_count < num_strings) {
-	if (binary) {
-	    if (fread(in_line, sizeof(in_line), 1, stream) < 1) {
-		/* Error reading file or end of file */
-	        ierr = -11;
-	        break;
-	    } else {
-	        if (string_count < num_strings) {
-   	            p[string_count] = (char *) ndi_malloc((strlen(token) + 1) *
+        if (binary) {
+            if (fread(in_line, sizeof(in_line), 1, stream) < 1) {
+                /* Error reading file or end of file */
+                ierr = -11;
+                break;
+            } else {
+                if (string_count < num_strings) {
+                       p[string_count] = (char *) ndi_malloc((strlen(token) + 1) *
                                                            sizeof(in_line));
-	            strcpy(p[string_count], in_line);
-	            string_count++;
-	        } else {
+                    strcpy(p[string_count], in_line);
+                    string_count++;
+                } else {
                     /* More data than expected */
-		    ierr = 6;
-		    break;
-	        }
-	    }
-	} else {
+                    ierr = 6;
+                    break;
+                }
+            }
+        } else {
             if (fgets(in_line, sizeof(in_line), stream) != NULL) {
                 token = strtok(in_line, seps);
                 while (token != NULL) { 
@@ -82,7 +82,7 @@ int ndi_read_string_block(FILE *stream, const int num_strings, char **p,
                 ierr = -11;
                 break; 
             }   
-	}
+        }
     }
     return ierr;
 }

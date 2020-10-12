@@ -1,466 +1,466 @@
 2016-01-27  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
 
-	* ndi_std_zaid.c (ndi_std_zaid): Set isostate, mass number to zero
-	for photons
+        * ndi_std_zaid.c (ndi_std_zaid): Set isostate, mass number to zero
+        for photons
 
-	* ndi_parse_zaid.c (ndi_parse_int_zaid): Simplify math
-	(ndi_parse_symbolic_zaid): Advance pointer after parsing A
-	(ndi_find_symbolic_state): Refactor parser
+        * ndi_parse_zaid.c (ndi_parse_int_zaid): Simplify math
+        (ndi_parse_symbolic_zaid): Advance pointer after parsing A
+        (ndi_find_symbolic_state): Refactor parser
 
 2015-07-02  Mark Girard Gray  <mgg@ml-fey1.lanl.gov>
 
-	* ndi_get_string_val_n.c (get_string_n_mg): Add code to substitute
-	incident particle name for z in reaction label. 
+        * ndi_get_string_val_n.c (get_string_n_mg): Add code to substitute
+        incident particle name for z in reaction label. 
 
-	* ndi_misc.c (ndi_get_incident_name): Add code to return incident
-	particle name by zaid. 
+        * ndi_misc.c (ndi_get_incident_name): Add code to return incident
+        particle name by zaid. 
 
 2015-06-26  Mark Girard Gray  <mgg@ml-fey2.lanl.gov>
 
-	* ndi_misc.c (ndi_mt_label): Update labels to be more consistent
-	with standard.
+        * ndi_misc.c (ndi_mt_label): Update labels to be more consistent
+        with standard.
 
-	* ndi_get_string_val_n.c (ndi_mt_to_label): Interpret mt=16 or 102
-	as 16000 or 102000 if 1016 or 1102 in table.
+        * ndi_get_string_val_n.c (ndi_mt_to_label): Interpret mt=16 or 102
+        as 16000 or 102000 if 1016 or 1102 in table.
 
-	* ndi_misc.c (ndi_has_mt): Added test for mt in table.
+        * ndi_misc.c (ndi_has_mt): Added test for mt in table.
 
 2014-09-16  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added user defined group
-	option to TN
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added user defined group
+        option to TN
 
 2014-08-27  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added 301_lanl, 47_lanl group boundaries.
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added 301_lanl, 47_lanl group boundaries.
 
 2014-06-12  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added 264_lanl, 141_lanl,
-	75_lanl, 42_lanl, 37_lanl, and 34_lanl group boundaries.
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added 264_lanl, 141_lanl,
+        75_lanl, 42_lanl, 37_lanl, and 34_lanl group boundaries.
 
 2014-05-22  Mark G. Gray  <mgg@ml-fey2.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added 460_awe, 35_awe group
-	boundaries.
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added 460_awe, 35_awe group
+        boundaries.
 
 2014-01-10  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
-	* ndi_set_float_vec_option.c (ndi_set_collapse_vec): Added TN to
-	user set collapse groups.
+        * ndi_set_float_vec_option.c (ndi_set_collapse_vec): Added TN to
+        user set collapse groups.
 
 2014-01-08  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
-	* ndi_zaid_dir.c (ndi_zaid_dir): Added dosimetry_proton.
+        * ndi_zaid_dir.c (ndi_zaid_dir): Added dosimetry_proton.
 
-	* ndi_handle.c (ndi_get_section): Added dosimetry_proton
-	(ndi_is_library_type): Added dosimetry_proton
+        * ndi_handle.c (ndi_get_section): Added dosimetry_proton
+        (ndi_is_library_type): Added dosimetry_proton
 
-	* ndi_set_option.c (ndi_set_lib_type): Added dosimetry_proton to
-	lib_type 
-	(ndi_lib_dir): Added dosimetry_proton to lib_type
+        * ndi_set_option.c (ndi_set_lib_type): Added dosimetry_proton to
+        lib_type 
+        (ndi_lib_dir): Added dosimetry_proton to lib_type
 
-	* ndi_check_option.c (ndi_get_lib_type): Added dosimetry_proton to
-	lib_type. 
+        * ndi_check_option.c (ndi_get_lib_type): Added dosimetry_proton to
+        lib_type. 
 
 2014-01-07  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
-	* ndi_get_float_vec_n.c (GET_DIAG_CORR): Use PN_FULL for correct
-	diagonal with upscatter.
+        * ndi_get_float_vec_n.c (GET_DIAG_CORR): Use PN_FULL for correct
+        diagonal with upscatter.
 
 2013-01-23  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
-	* ndi_abundance.h: Document abundance origins
+        * ndi_abundance.h: Document abundance origins
 
 2012-11-26  Mark G. Gray  <mgg@ml-fey.lanl.gov>
 
-	* ndi_open_gendir.c (fpath): Reqt. 87 - $NDIHOME
+        * ndi_open_gendir.c (fpath): Reqt. 87 - $NDIHOME
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Reqt. 88 - added 32_llnl
-	group boundaries
+        * ndi_set_e_grps.c (ndi_set_e_grps): Reqt. 88 - added 32_llnl
+        group boundaries
 
 2012-08-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_misc.c (ndi_ttd): Added provenance comments
-	(ndi_approx_equal): Added approximate equal
+        * ndi_misc.c (ndi_ttd): Added provenance comments
+        (ndi_approx_equal): Added approximate equal
 
 2012-07-31  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec_n.c (TD_HALF_MOMENT): Added temperature dependence
+        * ndi_get_float_vec_n.c (TD_HALF_MOMENT): Added temperature dependence
 
-	* ndi_get_float_vec.c (GET_TD_VAL): Added temperature dependence
+        * ndi_get_float_vec.c (GET_TD_VAL): Added temperature dependence
 
 2012-05-03  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_keywords.h (NDI_SF_RATE): Reqt. 46. Add NDI_SF_RATE keyword.
+        * ndi_keywords.h (NDI_SF_RATE): Reqt. 46. Add NDI_SF_RATE keyword.
 
-	* ndi_get_float_val.c (GET_FLOAT_VAL_MG): Reqt. 46.  Add
-	calculation of spontaneous fission rate.
+        * ndi_get_float_val.c (GET_FLOAT_VAL_MG): Reqt. 46.  Add
+        calculation of spontaneous fission rate.
 
 2012-03-20  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_avail.c (ndi_nusigf_avail): Reqt. 42 Fault! Test for
-	sig_reac_18 & nusigf changed to sig_reac_18 & nu.
+        * ndi_avail.c (ndi_nusigf_avail): Reqt. 42 Fault! Test for
+        sig_reac_18 & nusigf changed to sig_reac_18 & nu.
 
 2011-04-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_val.c (GET_FLOAT_VAL_MG): Add calculation for
-	atomic weight from atomic weight ratio and vice versa
+        * ndi_get_float_val.c (GET_FLOAT_VAL_MG): Add calculation for
+        atomic weight from atomic weight ratio and vice versa
 
 2011-02-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_string_val_n.c: Added mt=11, 24, 25, 42, 44, 45, 108,
-	111, 112, 114, 115, 116, and 117 to list.
+        * ndi_get_string_val_n.c: Added mt=11, 24, 25, 42, 44, 45, 108,
+        111, 112, 114, 115, 116, and 117 to list.
 
 2011-01-12  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): Added NDI_TEMPS
+        * ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): Added NDI_TEMPS
 
-	* ndimp_get_size.c (ndimp_get_size): Added NDI_TEMPS
+        * ndimp_get_size.c (ndimp_get_size): Added NDI_TEMPS
 
 2011-01-10  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_set_zaid_float_temp.c (NDIMP_SET_ZAID_FLOAT_TEMP): Added
-	code for multitemperature multiparticle
+        * ndi_set_zaid_float_temp.c (NDIMP_SET_ZAID_FLOAT_TEMP): Added
+        code for multitemperature multiparticle
 
 2010-12-14  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_avail.c (ndi_sigxf_avail): Added introspection code for
-	transfer matrix
+        * ndi_avail.c (ndi_sigxf_avail): Added introspection code for
+        transfer matrix
 
 2010-09-21  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Swap CALC and LEGACY
-	options
-	
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Swap CALC and LEGACY
+        options
+        
 
 2010-08-18  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_GET_QSIGF): Added code
-	(NDI_GET_QF): Added code
+        * ndi_get_float_vec.c (NDI_GET_QSIGF): Added code
+        (NDI_GET_QF): Added code
 
-	* ndi_define_float.c (main): Added NDI_GET_QF, NDI_GET_QSIGF
+        * ndi_define_float.c (main): Added NDI_GET_QF, NDI_GET_QSIGF
 
-	* ndi_set_option.c (ndi_set_qsigf_calc): Added set option code
-	(ndi_set_kerma_calc): Added option set for new option
+        * ndi_set_option.c (ndi_set_qsigf_calc): Added set option code
+        (ndi_set_kerma_calc): Added option set for new option
 
-	* ndi_check_option.c (ndi_get_qsigf_calc): Added check option code
-	(ndi_get_kerma_calc): Added option check for new option
+        * ndi_check_option.c (ndi_get_qsigf_calc): Added check option code
+        (ndi_get_kerma_calc): Added option check for new option
 
-	* ndi_internal.h: Add LEGACY option to kerma_calc_type enum
+        * ndi_internal.h: Add LEGACY option to kerma_calc_type enum
 
-	* ndi_get_size.c (get_mg_size): Added NDI_Q_SIG_F_PR
+        * ndi_get_size.c (get_mg_size): Added NDI_Q_SIG_F_PR
 
-	* ndi_keywords.h (NDI_Q_SIG_F_PR): Add new keyword
+        * ndi_keywords.h (NDI_Q_SIG_F_PR): Add new keyword
 
-	* ndi_internal.h: add qsigf_calc_type, qsigf_calc variable
+        * ndi_internal.h: add qsigf_calc_type, qsigf_calc variable
 
 2010-06-08  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_size.c (get_mg_size): Added NDI_V_AVG 
+        * ndi_get_size.c (get_mg_size): Added NDI_V_AVG 
 
-	* ndi_misc_float.c (NDI_CONST_FLOAT_VEC): Initialize vector to
-	constant (Reqt. 67)
+        * ndi_misc_float.c (NDI_CONST_FLOAT_VEC): Initialize vector to
+        constant (Reqt. 67)
 
 2010-06-07  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_internal.h (M_NEUT_KG): updated physical constants (Reqt. 67)
+        * ndi_internal.h (M_NEUT_KG): updated physical constants (Reqt. 67)
 
 2010-06-04  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (tdv): Added v*td function (Reqt. 67)
-	(TD_MOMENT): Generalized TD_ENERGY to calculate velocity
-	(NDI_CALC_V_AVG): Provide average v for photons, neutrons
+        * ndi_get_float_vec.c (tdv): Added v*td function (Reqt. 67)
+        (TD_MOMENT): Generalized TD_ENERGY to calculate velocity
+        (NDI_CALC_V_AVG): Provide average v for photons, neutrons
 
-	* ndi_keywords.h (NDI_V_AVG): Added keyword (Reqt. 67)
+        * ndi_keywords.h (NDI_V_AVG): Added keyword (Reqt. 67)
 
 2010-03-01  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_GET_OLD_KERMA): Turn off transpose and
-	corrections before getting scattering matrix
+        * ndi_get_float_vec.c (NDI_GET_OLD_KERMA): Turn off transpose and
+        corrections before getting scattering matrix
 
 2010-02-25  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_misc.c (ndi_error_string): Added comma to warnings list to
-	fix off by one error
+        * ndi_misc.c (ndi_error_string): Added comma to warnings list to
+        fix off by one error
 
 2009-12-23  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c: Negative value fixup in NDI_SF_SPECTRA
-	(GET_E_BOUNDS_CURR_PART): Fixed segfault for collapse
+        * ndi_get_float_vec.c: Negative value fixup in NDI_SF_SPECTRA
+        (GET_E_BOUNDS_CURR_PART): Fixed segfault for collapse
 
 2009-12-17  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added fission transfer
-	matrix keywords to switch
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added fission transfer
+        matrix keywords to switch
 
-	* ndi_get_size.c (get_mg_size): Added fission transfer matrix size 
+        * ndi_get_size.c (get_mg_size): Added fission transfer matrix size 
 
-	* ndi_keywords.h (NDI_FISS_XFER_MAT_DEL): Added fission transfer
-	matrix keywords
+        * ndi_keywords.h (NDI_FISS_XFER_MAT_DEL): Added fission transfer
+        matrix keywords
 
 2009-12-16  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (GET_SIG_XF_MAT): Calculate fission transfer
-	matrix (Reqt. 63).
+        * ndi_get_float_vec.c (GET_SIG_XF_MAT): Calculate fission transfer
+        matrix (Reqt. 63).
 
 2009-12-11  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Convert
-	input zaid to standard zaid (Reqt. 60).
+        * ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Convert
+        input zaid to standard zaid (Reqt. 60).
 
 2009-11-19  Mark G. Gray  <mgg@yr-fe1.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_GET_HEATING): Fixed collapse after
-	calculation bug (Reqt. 59).
-	(NDI_GET_KERMA): Fixed collapse after calculation bug (Reqt. 59).
+        * ndi_get_float_vec.c (NDI_GET_HEATING): Fixed collapse after
+        calculation bug (Reqt. 59).
+        (NDI_GET_KERMA): Fixed collapse after calculation bug (Reqt. 59).
 
 2009-06-23  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_zaid_dir.c (ndi_zaid_dir): Match libraries for chains
+        * ndi_zaid_dir.c (ndi_zaid_dir): Match libraries for chains
 
 2009-06-17  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_size.c (get_mg_size): Added NDI_DEPLETION, NDI_CHAIN
+        * ndi_get_size.c (get_mg_size): Added NDI_DEPLETION, NDI_CHAIN
 
-	* ndi_check_option.c (ndi_c_check_option_h): Fixed NDI_CHAIN,
-	NDI_DEPLETION, NDI_RADCHEM
+        * ndi_check_option.c (ndi_c_check_option_h): Fixed NDI_CHAIN,
+        NDI_DEPLETION, NDI_RADCHEM
 
 2009-06-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_misc.c (ndi_error_string): Added warnings 11, 12, 15; errors
-	-27, -30, -31
+        * ndi_misc.c (ndi_error_string): Added warnings 11, 12, 15; errors
+        -27, -30, -31
 
 2009-06-12  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_misc.c (ndi_error_string): Added warnings 9, 10; error -25
+        * ndi_misc.c (ndi_error_string): Added warnings 9, 10; error -25
 
 2009-06-11  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_set_isotope.c (ndi_c_set_zaid_h): missing file type in
-	gendir now returns error
+        * ndi_set_isotope.c (ndi_c_set_zaid_h): missing file type in
+        gendir now returns error
 
-	* ndi_get_float_vec.c (GET_EDIST_CONT): initialize current
-	temperature index for successful EDIST_CONT search
+        * ndi_get_float_vec.c (GET_EDIST_CONT): initialize current
+        temperature index for successful EDIST_CONT search
 
-	* ndi_get_int_vec.c (get_int_vec_tn): initialize current
-	temperature index for successful EDIST_CONT search
+        * ndi_get_int_vec.c (get_int_vec_tn): initialize current
+        temperature index for successful EDIST_CONT search
 
 2008-07-15  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added . to
-	ensure full ZA match
+        * ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added . to
+        ensure full ZA match
 
-	* ndi_get_size.c (get_mg_size): Added . to NDI_TEMPS to ensure
-	full ZA match
+        * ndi_get_size.c (get_mg_size): Added . to NDI_TEMPS to ensure
+        full ZA match
 
-	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added . to NDI_TEMPS to
-	ensure full ZA match
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added . to NDI_TEMPS to
+        ensure full ZA match
 
 2008-05-28  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_user_functions_handles.c: Updated documentation with new
-	keywords and functions
+        * ndi_user_functions_handles.c: Updated documentation with new
+        keywords and functions
 
 2008-05-21  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_string_val_n.c (ndi_mt_to_label): Added partial fission
-	reactions to list
+        * ndi_get_string_val_n.c (ndi_mt_to_label): Added partial fission
+        reactions to list
 
 2008-05-20  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_int_val.c (get_int_val_mg): Added NDI_SF_FISSIONABLE
+        * ndi_get_int_val.c (get_int_val_mg): Added NDI_SF_FISSIONABLE
 
-	* ndi_sf.c: Converted decay rate from seconds to shakes (10^-8 s)
+        * ndi_sf.c: Converted decay rate from seconds to shakes (10^-8 s)
 
 2008-05-09  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_size.c (get_mg_size): Added code for spontaneous fission
-	spectra 
+        * ndi_get_size.c (get_mg_size): Added code for spontaneous fission
+        spectra 
 
-	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added code for
-	spontaneous fission spectra
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added code for
+        spontaneous fission spectra
 
 2008-05-08  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added
-	qualified zaid override
+        * ndi_set_zaid_float_temp.c (NDI_SET_ZAID_FLOAT_TEMP): Added
+        qualified zaid override
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added static to 78 group
-	structure definitions to indicate static duration
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added static to 78 group
+        structure definitions to indicate static duration
 
 2008-01-16  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_float_vec_x.c (GET_FLOAT_VEC_X_GENDIR): Added gendir
-	routine 
+        * ndi_get_float_vec_x.c (GET_FLOAT_VEC_X_GENDIR): Added gendir
+        routine 
 
-	* ndi_get_size_x.c (get_size_x_gendir): Added gendir routine
+        * ndi_get_size_x.c (get_size_x_gendir): Added gendir routine
 
-	* ndi_internal.h (NDI_THROW): Fixed multiline macro
+        * ndi_internal.h (NDI_THROW): Fixed multiline macro
 
 2007-10-09  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_get_float_vec_n.c (GET_TRANSFER_MAT): Removed Chi vector
-	conditional code; use Chi matrix
+        * ndi_get_float_vec_n.c (GET_TRANSFER_MAT): Removed Chi vector
+        conditional code; use Chi matrix
 
 2007-10-03  Mark Gray  <mgg@mckennitt.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_GET_CHI_VEC): Added calculation of chi
-	vector if other two matricies/vectors available
+        * ndi_get_float_vec.c (NDI_GET_CHI_VEC): Added calculation of chi
+        vector if other two matricies/vectors available
 
 2007-10-01  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndimp_get_size.c (ndimp_get_size): Added CHI_MAT sizes to MP
+        * ndimp_get_size.c (ndimp_get_size): Added CHI_MAT sizes to MP
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): Added 91_lanl, 49_lanl group structures
+        * ndi_set_e_grps.c (ndi_set_e_grps): Added 91_lanl, 49_lanl group structures
 
 2007-07-12  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_get_size.c (get_mg_size): Added multi-temperature stub
+        * ndi_get_size.c (get_mg_size): Added multi-temperature stub
 
-	* ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added multi-temperature
-	stub
-	
+        * ndi_get_float_vec.c (GET_FLOAT_VEC_MG): Added multi-temperature
+        stub
+        
 2007-07-11  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_get_size.c (get_tn_size):  added
-	NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
-	NDI_EDIST_CONT_INTERP_TYPE
+        * ndi_get_size.c (get_tn_size):  added
+        NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
+        NDI_EDIST_CONT_INTERP_TYPE
 
-	* ndi_keywords.h (NDI_EDIST_CONT_INTERP_TYPE): added
-	NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
-	NDI_EDIST_CONT_INTERP_TYPE
+        * ndi_keywords.h (NDI_EDIST_CONT_INTERP_TYPE): added
+        NDI_EDIST_CONT_E, NDI_EDIST_CONT_P, NDI_EDIST_CONT_INTERP_REG,
+        NDI_EDIST_CONT_INTERP_TYPE
 
-	* ndi_get_int_vec.c (get_int_vec_tn): added
-	NDI_EDIST_CONT_INTERP_TYPE and NDI_EDIST_CONT_INTERP_REG
+        * ndi_get_int_vec.c (get_int_vec_tn): added
+        NDI_EDIST_CONT_INTERP_TYPE and NDI_EDIST_CONT_INTERP_REG
 
-	* ndi_get_float_vec.c (GET_EDIST_CONT): routine to get TN
-	secondary particle distribution
+        * ndi_get_float_vec.c (GET_EDIST_CONT): routine to get TN
+        secondary particle distribution
 
 2007-07-05  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_open_gendir.c (ndi_open_gendir): Relative gendir path
-	(Reqt. 37)
+        * ndi_open_gendir.c (ndi_open_gendir): Relative gendir path
+        (Reqt. 37)
 
 2007-07-03  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_get_float_vec.c (GET_CHI_MAT): Fixed chi matrix collapse
-	(NDI_GET_CHI_VEC): Changed matrix vector collapse to F . C_m
+        * ndi_get_float_vec.c (GET_CHI_MAT): Fixed chi matrix collapse
+        (NDI_GET_CHI_VEC): Changed matrix vector collapse to F . C_m
 
 2007-07-02  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_collapse_float.c (ndi_collapse_float): Clarified flooring code 
+        * ndi_collapse_float.c (ndi_collapse_float): Clarified flooring code 
 
 2007-05-30  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_get_int_vec_x.c (get_int_vec_x_mg): Remove superfluous
-	fission product check
+        * ndi_get_int_vec_x.c (get_int_vec_x_mg): Remove superfluous
+        fission product check
 
-	* ndi_get_float_vec_x.c (NDI_GET_FLOAT_VEC_X_H): Remove
-	superfluous fission product check
+        * ndi_get_float_vec_x.c (NDI_GET_FLOAT_VEC_X_H): Remove
+        superfluous fission product check
 
-	* ndi_get_float_val_n.c ((state_struct *state, int in_key, int vec_num,
-			  FLOAT_TYPE * ret_val): Remove superfluous
-			  fission prduct check 
+        * ndi_get_float_val_n.c ((state_struct *state, int in_key, int vec_num,
+                          FLOAT_TYPE * ret_val): Remove superfluous
+                          fission prduct check 
 
-	* ndi_get_size_x.c (get_mg_size_x): Remove superfluous fission
-	product check 
+        * ndi_get_size_x.c (get_mg_size_x): Remove superfluous fission
+        product check 
 
-	* ndi_misc_depl.c (ndi_set_curr_rprod): Simplify code
+        * ndi_misc_depl.c (ndi_set_curr_rprod): Simplify code
 
 2007-02-28  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_size_x.c (ndi_c_get_size_x_h): added dosimetry_neutron
-	to valid library types 
+        * ndi_get_size_x.c (ndi_c_get_size_x_h): added dosimetry_neutron
+        to valid library types 
 
 2007-02-09  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_check_option.c (ndi_get_lib_type): updated library type list
-	
+        * ndi_check_option.c (ndi_get_lib_type): updated library type list
+        
 2007-02-07  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_set_option.c (ndi_set_e_avg): added FLAT_CALC, TD_CALC to options
+        * ndi_set_option.c (ndi_set_e_avg): added FLAT_CALC, TD_CALC to options
 
-	* ndi_internal.h: added FLAT_CALC, TD_CALC to options
+        * ndi_internal.h: added FLAT_CALC, TD_CALC to options
 
-	* ndi_define_float.c (main): registered FLAT, TD energy
-	calculation routines
+        * ndi_define_float.c (main): registered FLAT, TD energy
+        calculation routines
 
-	* ndi_get_float_vec.c (FLAT_ENERGY): added flat weight average
-	energy calculation
-	(TD_ENERGY): added td weight average energy calculation
+        * ndi_get_float_vec.c (FLAT_ENERGY): added flat weight average
+        energy calculation
+        (TD_ENERGY): added td weight average energy calculation
 
 2007-02-02  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_CALC_E_N): non-zero return for neutrons only
-	(COPY_SGNDF_E): changed 16_llnl to 16_lanl2
+        * ndi_get_float_vec.c (NDI_CALC_E_N): non-zero return for neutrons only
+        (COPY_SGNDF_E): changed 16_llnl to 16_lanl2
 
 2007-01-31  Mark G. Gray  <mgg@ffe1.lanl.gov>
 
-	* ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): added NDI_ENERGY_N
-	for Reqt 32
+        * ndimp_get_float_vec.c (NDIMP_GET_FLOAT_VEC): added NDI_ENERGY_N
+        for Reqt 32
 
-	* ndimp_get_size.c (ndimp_get_size): added NDI_ENERGY_N for Reqt 32
+        * ndimp_get_size.c (ndimp_get_size): added NDI_ENERGY_N for Reqt 32
 
 2006-09-27  Mark G. Gray  <mgg@ffe-64.lanl.gov>
 
-	* ndi_open_gendir.c (ndi_open_gendir): Added red storm path to
-	gendir search
+        * ndi_open_gendir.c (ndi_open_gendir): Added red storm path to
+        gendir search
 
 2006-08-11  Mark G. Gray  <mgg@qsc5>
 
-	* ndi_zaid_dir.c: (ndi_zaid_dir) added radchem_chains to lib match
+        * ndi_zaid_dir.c: (ndi_zaid_dir) added radchem_chains to lib match
 
 2006-01-27  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_set_isotope.c (ndi_c_set_zaid_h): call to ndi_std_z0id for
-	photons 
+        * ndi_set_isotope.c (ndi_c_set_zaid_h): call to ndi_std_z0id for
+        photons 
 
-	* ndi_internal.h: ndi_std_z0id declaration
+        * ndi_internal.h: ndi_std_z0id declaration
 
-	* ndi_std_zaid.c (ndi_std_z0id): zaid to z0id for Reqt 20
+        * ndi_std_zaid.c (ndi_std_z0id): zaid to z0id for Reqt 20
 
 2006-01-25  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_keywords.h (NDI_ERROR): added NDI_ERROR define
+        * ndi_keywords.h (NDI_ERROR): added NDI_ERROR define
 
-	* ndi_misc.c (ndi_error_string): added error string text
+        * ndi_misc.c (ndi_error_string): added error string text
 
-	* ndi_get_size_n.c (ndi_c_get_size_n_h): add NDI_ERROR option
+        * ndi_get_size_n.c (ndi_c_get_size_n_h): add NDI_ERROR option
 
-	* ndi_get_string_val_n.c ((state_struct *state, int in_key, int vec_num,
-			     char *ret_val, int str_size): add NDI_ERROR option
+        * ndi_get_string_val_n.c ((state_struct *state, int in_key, int vec_num,
+                             char *ret_val, int str_size): add NDI_ERROR option
 
 2006-01-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_init_iso_state.c (set_depl_array): used new call
+        * ndi_init_iso_state.c (set_depl_array): used new call
 
-	* ndi_read_rx_prod.c: cloned ndi_read_rx_prod for double multiplicities
+        * ndi_read_rx_prod.c: cloned ndi_read_rx_prod for double multiplicities
 
-	* ndi_internal.h: changed int to double for depl_rprod_struct.mult
+        * ndi_internal.h: changed int to double for depl_rprod_struct.mult
 
-	* ndi_get_float_vec_x.c (GET_RPROD_MLT): remove type cast from
-	mult; going double everywhere
+        * ndi_get_float_vec_x.c (GET_RPROD_MLT): remove type cast from
+        mult; going double everywhere
 
 2005-09-22  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_set_e_grps.c (doublecmp): replace within_epsilon and
-	greater_than_epsilon with doublecmp
+        * ndi_set_e_grps.c (doublecmp): replace within_epsilon and
+        greater_than_epsilon with doublecmp
 
 2005-09-12  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): changed strncmp to strcmp
-	with literal string as first argument
+        * ndi_set_e_grps.c (ndi_set_e_grps): changed strncmp to strcmp
+        with literal string as first argument
 
 2005-09-06  Mark G. Gray  <mgg@lambda2.lanl.gov>
 
-	* ndi_get_float_vec.c (NDI_GET_CHI_VEC): always normalize
-	calculated chi vector
+        * ndi_get_float_vec.c (NDI_GET_CHI_VEC): always normalize
+        calculated chi vector
 
 2005-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_get_string_val_n.c (get_string_n_mp): added NDI_REAC_LABEL
-	to multigroup_multi handle type
+        * ndi_get_string_val_n.c (get_string_n_mp): added NDI_REAC_LABEL
+        to multigroup_multi handle type
 
 2005-05-06  Mark G. Gray  <gray@azathoth.lanl.gov>
 
@@ -477,175 +477,175 @@
 
 2005-05-05  Mark G. Gray  <mgg@l84.lanl.gov>
 
-	* ndi_fortran.c (F_NDI_GET_INT_VEC_X): added fortran interface
+        * ndi_fortran.c (F_NDI_GET_INT_VEC_X): added fortran interface
 
-	* ndi_user_functions_no_h.c (ndi_c_get_int_vec_x): added new get
-	family function
+        * ndi_user_functions_no_h.c (ndi_c_get_int_vec_x): added new get
+        family function
 
-	* ndi_user_functions_handles.c (NDI2_get_int_vec_x): added
-	new get family function
+        * ndi_user_functions_handles.c (NDI2_get_int_vec_x): added
+        new get family function
 
 2005-01-18  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* VERSION: updated version to 2.0.1
+        * VERSION: updated version to 2.0.1
 
 2004-12-20  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* makefile.in (test%.out): added ./
-	(check_data): added ./
+        * makefile.in (test%.out): added ./
+        (check_data): added ./
 
 2004-12-15  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* makefile.in ($(FMANGLE)): added ./
-	($(VAR_TYPE)): added ./
+        * makefile.in ($(FMANGLE)): added ./
+        ($(VAR_TYPE)): added ./
 
 2004-12-03  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_fortran.c	(F_NDI_GET_STRING_VAL): fixed zero size test
-	(F_NDI_GET_STRING_VAL_N): fixed zero size test
-	(F_NDI2_GET_STRING_VAL_N): fixed zero size test
-	(F_NDI2_GET_STRING_VAL): fixed zero size test
+        * ndi_fortran.c        (F_NDI_GET_STRING_VAL): fixed zero size test
+        (F_NDI_GET_STRING_VAL_N): fixed zero size test
+        (F_NDI2_GET_STRING_VAL_N): fixed zero size test
+        (F_NDI2_GET_STRING_VAL): fixed zero size test
 
-	* ndi_get_string_val.c (ndi_c_get_string_val_h): immediate return
-	of error value 
+        * ndi_get_string_val.c (ndi_c_get_string_val_h): immediate return
+        of error value 
 
-	* ndi_get_string_val_n.c (ndi_c_get_string_val_n_h): immediate
-	return of error value
+        * ndi_get_string_val_n.c (ndi_c_get_string_val_n_h): immediate
+        return of error value
 
-	* ndi_get_size_n.c (get_mg_size_n): removed redundant test
+        * ndi_get_size_n.c (get_mg_size_n): removed redundant test
 
 2004-11-18  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_set_e_grps.c (ndi_set_e_grps): added 87_llnl
-	(ndi_set_e_grps): added 17_llnl, 66_llnl, 64_llnl
+        * ndi_set_e_grps.c (ndi_set_e_grps): added 87_llnl
+        (ndi_set_e_grps): added 17_llnl, 66_llnl, 64_llnl
 
 2004-10-25  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_user_functions_handles.c: added basic Doxygen headers
+        * ndi_user_functions_handles.c: added basic Doxygen headers
 
-	* ndi_open_gendir.c (isblank): made isblank static
+        * ndi_open_gendir.c (isblank): made isblank static
 
 2004-10-18  Mark G. Gray  <mgg@l82.lanl.gov>
 
-	* ndi_internal.h (NDI_CURR_ERR): uncomment and use macro
+        * ndi_internal.h (NDI_CURR_ERR): uncomment and use macro
 
-	* ndi_init.c (ndi_c_init_h): test serial ierr values to determine
-	which one to return
+        * ndi_init.c (ndi_c_init_h): test serial ierr values to determine
+        which one to return
 
-	* ndi_set0.c (set0_mg): removed warning 2 from set routines
+        * ndi_set0.c (set0_mg): removed warning 2 from set routines
 
 2004-10-15  Mark G. Gray  <mgg@l81.lanl.gov>
 
-	* ndi_open_gendir.c (ndi_open_gendir): Cleaned up search path
-	logic, handle blank strings
+        * ndi_open_gendir.c (ndi_open_gendir): Cleaned up search path
+        logic, handle blank strings
 
 2004-08-24  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_fortran.c (F_NDI2_GET_STRING_VAL): Added Fortran interface
+        * ndi_fortran.c (F_NDI2_GET_STRING_VAL): Added Fortran interface
 
 2004-07-09  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_user_functions_handles.c (NDI2_get_string_vec): added
-	functional ndid replacement in 2.0 interface
+        * ndi_user_functions_handles.c (NDI2_get_string_vec): added
+        functional ndid replacement in 2.0 interface
 
 2004-07-08  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndimp_get_int_val_n.c (ndimp_get_int_val_n): removed
-	NDI_PARTICLE_OF_TYPE option
+        * ndimp_get_int_val_n.c (ndimp_get_int_val_n): removed
+        NDI_PARTICLE_OF_TYPE option
 
 2004-07-07  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_user_functions_handles.c (NDI2_make_handle): combine
-	get_handle and set_lib_type into one function
+        * ndi_user_functions_handles.c (NDI2_make_handle): combine
+        get_handle and set_lib_type into one function
 
 2004-05-10  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_get_float_vec_n.c (GET_PNU_PR): added test for non-fissionable
-	(GET_SIG_PNU_PR): corrected test for non-fissionable
+        * ndi_get_float_vec_n.c (GET_PNU_PR): added test for non-fissionable
+        (GET_SIG_PNU_PR): corrected test for non-fissionable
 
 2004-05-07  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_get_string_val.c (get_string_mpmg): return particle 0 zaid
-	for NDI_ZAID keyword
+        * ndi_get_string_val.c (get_string_mpmg): return particle 0 zaid
+        for NDI_ZAID keyword
 
-	* ndimp_get_size.c (ndimp_get_size): return length of particle 0
-	zaid for NDI_ZAID keyword
+        * ndimp_get_size.c (ndimp_get_size): return length of particle 0
+        zaid for NDI_ZAID keyword
 
 2004-05-06  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndimp_get_size.c (ndimp_get_size): added NDI_ZAID to list of
-	active options in get_size
+        * ndimp_get_size.c (ndimp_get_size): added NDI_ZAID to list of
+        active options in get_size
 
-	* ndi_get_string_val.c (get_string_mpmg): added mpmg to list of
-	particle types
+        * ndi_get_string_val.c (get_string_mpmg): added mpmg to list of
+        particle types
 
-	* ndi_user_functions_handles.c (NDI2_set_zaid): copied input zaid
-	to multiparticle iso_stat.zaid
+        * ndi_user_functions_handles.c (NDI2_set_zaid): copied input zaid
+        to multiparticle iso_stat.zaid
 
-	* ndimp_set_option.c (ndimp_set_option): added NORM, MAT_ORDER,
-	TRANS_CORR to list of acceptable keywords
+        * ndimp_set_option.c (ndimp_set_option): added NORM, MAT_ORDER,
+        TRANS_CORR to list of acceptable keywords
 
 2004-04-29  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* makefile.in (SRC): moved ndi_skip_float_block from SRC_FLOAT to
-	SRC 
+        * makefile.in (SRC): moved ndi_skip_float_block from SRC_FLOAT to
+        SRC 
 
 2004-04-28  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_set_float_vec_option.c ((state_struct *state,
-				     const ndi_float64 * ebound_array,
-				     const int new_num_grps): moved
-				     n_group assigment inside if test 
+        * ndi_set_float_vec_option.c ((state_struct *state,
+                                     const ndi_float64 * ebound_array,
+                                     const int new_num_grps): moved
+                                     n_group assigment inside if test 
 
 2004-04-27  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_c_values.c: comment out unused functions: ndi_mt_to_label
-	and ndi_label_to_mt 
+        * ndi_c_values.c: comment out unused functions: ndi_mt_to_label
+        and ndi_label_to_mt 
 
-	* ndi_set_option.c (ndi_set_ebounds_curr_part): moved n_group
-	assignment inside if test
-	
-	* ndi_user_functions_handles.c (ndi2_get_handle): removed unused
-	variable: return_handle
+        * ndi_set_option.c (ndi_set_ebounds_curr_part): moved n_group
+        assignment inside if test
+        
+        * ndi_user_functions_handles.c (ndi2_get_handle): removed unused
+        variable: return_handle
 
 2004-02-05  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_user_functions_handles.c (ndi2_get_isotope): added get routine
-	(ndi2_get_zaid): added get routine
+        * ndi_user_functions_handles.c (ndi2_get_isotope): added get routine
+        (ndi2_get_zaid): added get routine
 
-	* ndi_init.c (ndi_c_clone_h): add first cut clone routine
+        * ndi_init.c (ndi_c_clone_h): add first cut clone routine
 
-	* ndi_close.c (ndi_c_close_h): close non-null handle_array elements
+        * ndi_close.c (ndi_c_close_h): close non-null handle_array elements
 
-	* ndi_init.c (ndi_c_init_h): initialize handle_array to NULL
+        * ndi_init.c (ndi_c_init_h): initialize handle_array to NULL
 
 2004-02-04  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_handle.c: add handle array to state structure
+        * ndi_handle.c: add handle array to state structure
 
-	* ndi_user_functions_handles.c: changed NDI2_ to ndi2_ throughout
-	added path to ndi2_open throughout
-	made path active for ndi2_open call
+        * ndi_user_functions_handles.c: changed NDI2_ to ndi2_ throughout
+        added path to ndi2_open throughout
+        made path active for ndi2_open call
 
 2003-09-30  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_get_float_vec_n.c (GET_SIG_PNU): fixed index error
+        * ndi_get_float_vec_n.c (GET_SIG_PNU): fixed index error
 
 2003-09-26  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_state.c: removed erroneous * from n_group declaration
+        * ndi_state.c: removed erroneous * from n_group declaration
 
 2003-09-18  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* makefile.in (SRC_TESTC): added test_pnu.c
+        * makefile.in (SRC_TESTC): added test_pnu.c
 
-	* ndi_get_float_vec_n.c: added NDI_PNU and NDI_SIG_PNU
+        * ndi_get_float_vec_n.c: added NDI_PNU and NDI_SIG_PNU
 
-	* ndi_get_size.c: added NDI_NUM_PNU
+        * ndi_get_size.c: added NDI_NUM_PNU
 
-	* ndi_get_size_n.c: added NDI_PNU and NDI_SIG_PNU
+        * ndi_get_size_n.c: added NDI_PNU and NDI_SIG_PNU
 
 2003-09-16  Mark G. Gray  <mgg@lambda.lanl.gov>
 
-	* ndi_get_int_val.c: added NDI_NUM_PNU case 
+        * ndi_get_int_val.c: added NDI_NUM_PNU case 
 

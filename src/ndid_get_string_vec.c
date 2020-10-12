@@ -1,8 +1,8 @@
 
 /*
- * File:	ndid_get_string_vec.c
- * Description:	User function--return list of multigroup-neutron zaids.
- * Time-stamp:	<2000-02-03 15:21:57 jomc>
+ * File:        ndid_get_string_vec.c
+ * Description: User function--return list of multigroup-neutron zaids.
+ * Time-stamp:  <2000-02-03 15:21:57 jomc>
  *
  */
 
@@ -22,7 +22,7 @@
 
 int
 ndid_c_get_string_vec(int in_key, const char *in_value,
-		      char *ret_str_arr, int arr_size)
+                      char *ret_str_arr, int arr_size)
 
 /*  Purpose: 
     
@@ -42,18 +42,18 @@ ndid_c_get_string_vec(int in_key, const char *in_value,
     /* Open gendir */
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
-	ndi_free((void **) &path);
+        ndi_free((void **) &path);
 
     if (ierr < 0) {
-	root = NULL;
+        root = NULL;
     } else {
-	root = ndi_build_tree(ndi_dir, in_key, in_value);
-	fclose(ndi_dir);
+        root = ndi_build_tree(ndi_dir, in_key, in_value);
+        fclose(ndi_dir);
     }
 
     /* Collect the strings into the return vec */
     if (ierr >= 0) {
-	ierr = ndi_collect_keys(root, ret_str_arr, arr_size);
+        ierr = ndi_collect_keys(root, ret_str_arr, arr_size);
     }
 
     ndi_close_tree(&root);

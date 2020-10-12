@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_avail.c
- * Description:	Internal functions--indicates is quantity is available.
- * Time-stamp:	<1999-06-28 13:37:09 jomc>
+ * File:        ndi_avail.c
+ * Description: Internal functions--indicates is quantity is available.
+ * Time-stamp:  <1999-06-28 13:37:09 jomc>
  *
  */
 
@@ -40,35 +40,35 @@ unsigned ndi_nusigf_avail(const state_struct *state, char nu_type)
     switch (nu_type) {
 
     case 't':
-	nu_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu1_ptr = state->iso_stat.nu_pr.file_ptr;
-	nu2_ptr = state->iso_stat.nu_del.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu1_ptr = state->iso_stat.nu_pr.file_ptr;
+        nu2_ptr = state->iso_stat.nu_del.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        break;
 
     case 'p':
-	nu_ptr = state->iso_stat.nu_pr.file_ptr;
-	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu2_ptr = state->iso_stat.nu_del.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_pr.file_ptr;
+        nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu2_ptr = state->iso_stat.nu_del.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        break;
 
     case 'd':
-	nu_ptr = state->iso_stat.nu_del.file_ptr;
-	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu2_ptr = state->iso_stat.nu_pr.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_del.file_ptr;
+        nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu2_ptr = state->iso_stat.nu_pr.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        break;
 
     default:
-	return flag;
-	break;
+        return flag;
+        break;
     }
 
     if (nusigf_ptr)
@@ -98,7 +98,7 @@ unsigned ndi_nu_avail(const state_struct *state, char nu_type)
     Return: nu | nu1 & nu2 | sig_reac_18 & (nusigf |
     | nu1 & nusigf2 | nusigf1 & nu2 | nusigf1 & nusigf2) */
 
-    unsigned flag = 0;		/* Default is false */
+    unsigned flag = 0;          /* Default is false */
 
     long int nu_ptr;
     long int nu1_ptr;
@@ -112,36 +112,36 @@ unsigned ndi_nu_avail(const state_struct *state, char nu_type)
     switch (nu_type) {
 
     case 't':
-	nu_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu1_ptr = state->iso_stat.nu_pr.file_ptr;
-	nu2_ptr = state->iso_stat.nu_del.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu1_ptr = state->iso_stat.nu_pr.file_ptr;
+        nu2_ptr = state->iso_stat.nu_del.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        break;
 
     case 'p':
-	nu_ptr = state->iso_stat.nu_pr.file_ptr;
-	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu2_ptr = state->iso_stat.nu_del.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_pr.file_ptr;
+        nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu2_ptr = state->iso_stat.nu_del.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        break;
 
     case 'd':
-	nu_ptr = state->iso_stat.nu_del.file_ptr;
-	nu1_ptr = state->iso_stat.nu_tot.file_ptr;
-	nu2_ptr = state->iso_stat.nu_pr.file_ptr;
-	nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
-	nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
-	nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
-	break;
+        nu_ptr = state->iso_stat.nu_del.file_ptr;
+        nu1_ptr = state->iso_stat.nu_tot.file_ptr;
+        nu2_ptr = state->iso_stat.nu_pr.file_ptr;
+        nusigf_ptr = state->iso_stat.nu_sig_f_del.file_ptr;
+        nusigf1_ptr = state->iso_stat.nu_sig_f_tot.file_ptr;
+        nusigf2_ptr = state->iso_stat.nu_sig_f_pr.file_ptr;
+        break;
 
     default:
-	return flag;
-	break;
-    }				/* switch */
+        return flag;
+        break;
+    }                                /* switch */
 
     if (nu_ptr)                 /* nu in library */
         flag |= NU;
@@ -177,16 +177,16 @@ int ndi_sigf_avail(const state_struct *state)
 
        ******************************************************************** */
 
-    int return_val = 0;		/* Default is false */
+    int return_val = 0;         /* Default is false */
     int reac_index = -1;
-    int mt = 18;		/*  Total fission cross-section  */
+    int mt = 18;                /*  Total fission cross-section  */
 
     assert(state);              /* REQUIRE */
 
     (void) ndi_find_reac_index(state->iso_stat.reac_mt, &reac_index,
-			       mt, state->iso_stat.num_reac);
+                               mt, state->iso_stat.num_reac);
     if (reac_index >= 0) {
-	return_val = -1;	/* True: sig_react_18 available */
+        return_val = -1;        /* True: sig_react_18 available */
     }
 
     return return_val;

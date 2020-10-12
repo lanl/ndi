@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_element_index.c
- * Description:	Internal function--convert elemental symbol to array index.
- * Time-stamp:	<1999-04-06 17:52:31 jomc>
+ * File:        ndi_element_index.c
+ * Description: Internal function--convert elemental symbol to array index.
+ * Time-stamp:  <1999-04-06 17:52:31 jomc>
  *
  */
 
@@ -42,9 +42,9 @@ int element_index(const char *el_symbol)
 
 ***********************************************************************/
 {
-    int row;			/* Array row--1st character of symbol a=0,b=1...      */
-    int col;			/* Array column--2nd character of symbol a=0,b=1...
-				   blank space or '-' = 26             */
+    int row;                    /* Array row--1st character of symbol a=0,b=1...      */
+    int col;                    /* Array column--2nd character of symbol a=0,b=1...
+                                   blank space or '-' = 26             */
 
 
 /******  How should errors be handled????   *******/
@@ -53,8 +53,8 @@ int element_index(const char *el_symbol)
     row = (int) (tolower(*el_symbol) - 'a');
     if ((row < 0) || (row >= 26)) {
 /*       printf("Error in row; char = *%c* row = %d  %d  %d\n",  */
-/* 	     *el_symbol, row, *el_symbol, 'a'); */
-	return 0;
+/*              *el_symbol, row, *el_symbol, 'a'); */
+        return 0;
     }
 
 
@@ -63,11 +63,11 @@ int element_index(const char *el_symbol)
     ++el_symbol;
     col = (int) (tolower(*el_symbol) - 'a');
     if ((*el_symbol == ' ') || (*el_symbol == '-')) {
-	col = 26;
+        col = 26;
     }
     if ((col < 0) || (col >= 27)) {
 /*       printf("Error in col\n"); */
-	return 0;
+        return 0;
     }
 
     return (row * 27) + col;

@@ -59,7 +59,7 @@ int NDI_GET_FLOAT_VEC_X_H(state_struct *state, int in_key,
         ierr = GET_FLOAT_VEC_X_MG(state, in_key, in_str, 
                                   return_vec, vec_size);
     } else if (state->library_type == 'x') {
-	ierr = GET_FLOAT_VEC_X_DEDX(state, in_key, in_str,
+        ierr = GET_FLOAT_VEC_X_DEDX(state, in_key, in_str,
                                     return_vec, vec_size);
     } else if (state->library_type == ' ') {
         NDI_THROW(ierr, -16);   /* Library type was not set */
@@ -134,7 +134,7 @@ static int GET_FLOAT_VEC_X_MG(state_struct *state, int in_key,
                                    given by global var. 'zaid' and
                                    product given by in_str */
         ierr = GET_PROD_REAC(state, in_str, return_vec, vec_size,
-			     binary);
+                             binary);
         break;
 
     case NDI_RPROD_MLT:         /* Reaction multiplicity */
@@ -249,7 +249,7 @@ int GET_PROD_REAC(state_struct *state, const char *rprod_in,
 
 
     /* For each reaction, read MT and mult */
-    /*     find sig_reac for MT, multiply by mult. and  and to total */
+    /* find sig_reac for MT, multiply by mult. and  and to total */
 
     ierr = ndi_c_check_option_h(state, NDI_REAC_ID, old_reac_id, old_reac_size);
     ierr = ndi_c_set_option_h(state, NDI_REAC_ID, "mt");
@@ -369,7 +369,7 @@ int GET_TARGET_DEDX(state_struct *state, const char *zaid_in,
 
 
     if ( curr_index < 0 ) {
-	ierr = -9;
+        ierr = -9;
     } else { 
         ierr = NDI_READ_FLOAT_BLOCK(state->lib_stream,
              state->dedx_stat.target_dedx.stat[curr_index].file_ptr,

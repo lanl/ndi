@@ -1,7 +1,7 @@
 /*
- * File:	ndi_element_symbols.h
- * Description:	Chemical symbol data for ZAID/symbol translations.
- * Time-stamp:	<2003-03-24 18:27:33 jomc>
+ * File:        ndi_element_symbols.h
+ * Description: Chemical symbol data for ZAID/symbol translations.
+ * Time-stamp:  <2003-03-24 18:27:33 jomc>
  *
  * This header file is included in internal library code only.
  */
@@ -123,4 +123,4 @@ static char *ndi_element_sym[104] = {
     /* Z = 103 */ "Lr"
 };
 
-#endif				/* NDI_ELEMENT_SYMBOLS_H */
+#endif                                /* NDI_ELEMENT_SYMBOLS_H */

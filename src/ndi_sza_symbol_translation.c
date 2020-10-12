@@ -1,7 +1,7 @@
 /*
- * File:	ndi_sza_symbol_translation.c
- * Description:	Functions for SZA to label conversions.
- * Time-stamp:	<2002-12-10 16:00:00 mcw>
+ * File:        ndi_sza_symbol_translation.c
+ * Description: Functions for SZA to label conversions.
+ * Time-stamp:  <2002-12-10 16:00:00 mcw>
  *
  */
 
@@ -25,48 +25,48 @@ int ndi_translate_sza_to_symbol(int sza, char *sym_str, int str_size)
     char tmp_str[MAX_IN_STR_LEN] = "";
 
     if (str_size < 1) {
-	return 7;
+        return 7;
     }
 
     if (ndi_special_sza(sza, sym_str, str_size)) {
-	return 0;
+        return 0;
     }
 
     ierr = ndi_parse_int_zaid(sza, &Z, &A, &S);
 
     if ((Z > 0) && (Z <= MAX_Z)) {
-	strcpy(tmp_sym_str, ndi_element_sym[Z]);
-	if (A > 0) {
-	    sprintf(tmp_str, "%d", A);
-	    strcat(tmp_sym_str, tmp_str);
-	    if (S > 0) {
-		sprintf(tmp_str, "m%d", S);
-		strcat(tmp_sym_str, tmp_str);
-	    }
-	}
+        strcpy(tmp_sym_str, ndi_element_sym[Z]);
+        if (A > 0) {
+            sprintf(tmp_str, "%d", A);
+            strcat(tmp_sym_str, tmp_str);
+            if (S > 0) {
+                sprintf(tmp_str, "m%d", S);
+                strcat(tmp_sym_str, tmp_str);
+            }
+        }
     } else {
-	if (Z == 0) {
-	    if (A == 0) {
-		strcpy(tmp_sym_str, "g");
-	    } else if (A == 1) {
-		strcpy(tmp_sym_str, "n");
-	    } else {
-		/* Error -- bad ZAID */
-		ierr = -22;
-	    }
-	} else {
-	    /* Error -- bad ZAID */
-	    ierr = -22;
-	}
+        if (Z == 0) {
+            if (A == 0) {
+                strcpy(tmp_sym_str, "g");
+            } else if (A == 1) {
+                strcpy(tmp_sym_str, "n");
+            } else {
+                /* Error -- bad ZAID */
+                ierr = -22;
+            }
+        } else {
+            /* Error -- bad ZAID */
+            ierr = -22;
+        }
     }
 
     if ((strlen(tmp_sym_str) + 1) <= (unsigned long) str_size) {
-	strcpy(sym_str, tmp_sym_str);
+        strcpy(sym_str, tmp_sym_str);
     } else {
-	if (str_size > 0) {
-	    strcpy(sym_str, tmp_sym_str);
-	}
-	ierr = 7;
+        if (str_size > 0) {
+            strcpy(sym_str, tmp_sym_str);
+        }
+        ierr = 7;
     }
     return ierr;
 }

@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_fill_element.c
- * Description:	Internal function--fill lookup array of elements.
- * Time-stamp:	<1998-09-14 19:42:17 jomc>
+ * File:        ndi_fill_element.c
+ * Description: Internal function--fill lookup array of elements.
+ * Time-stamp:  <1998-09-14 19:42:17 jomc>
  *
  */
 
@@ -43,16 +43,16 @@ int ndi_fill_elements(state_struct *state)
     int i;
 
     if (!state) {
-	return -2;
+        return -2;
     }
 
     /*  Allocate space and zero array  */
     if (state->ndi_elements)
-	ndi_free((void **) &(state->ndi_elements));
+        ndi_free((void **) &(state->ndi_elements));
     state->ndi_elements =
       (short *) ndi_calloc((rows * cols + 1), sizeof(short));
     for (i = 0; i < 702; i++) {
-	state->ndi_elements[i] = 0;
+        state->ndi_elements[i] = 0;
     }
 
     state->ndi_elements[element_index("h ")] = 1;
@@ -157,7 +157,7 @@ int ndi_fill_elements(state_struct *state)
     state->ndi_elements[element_index("fm")] = 100;
     state->ndi_elements[element_index("md")] = 101;
     state->ndi_elements[element_index("no")] = 102;
-    state->ndi_elements[element_index("lr")] = 103;	/* Value of MAX_Z */
+    state->ndi_elements[element_index("lr")] = 103;        /* Value of MAX_Z */
 
     return ret_code;
 

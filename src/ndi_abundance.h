@@ -1,7 +1,7 @@
 /*
- * File:	ndi_abundance.h
- * Description:	Natural abundance information
- * Time-stamp:	<2003-03-24 13:14:09 jomc>
+ * File:         ndi_abundance.h
+ * Description:  Natural abundance information
+ * Time-stamp:   <2003-03-24 13:14:09 jomc>
  *
  * This header file is included in internal library code only.
  */
@@ -603,4 +603,4 @@ ndi_float64 abundance_value[] = { 0.99985,
     0.992745
 };
 
-#endif				/* NDI_ABUNDANCE_H */
+#endif                                /* NDI_ABUNDANCE_H */

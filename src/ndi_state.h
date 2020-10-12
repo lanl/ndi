@@ -1,7 +1,7 @@
 /*
- * File:	ndi_state.h
- * Description:	Header file for libndi
- * Time-stamp:	<2000-02-03 11:34:05 jomc>
+ * File:        ndi_state.h
+ * Description: Header file for libndi
+ * Time-stamp:  <2000-02-03 11:34:05 jomc>
  *
  * This header file is included in library code only.
  */
@@ -11,7 +11,7 @@
 #ifndef NDI_STATE_H
 #define NDI_STATE_H
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -26,7 +26,7 @@ extern "C" {
 
     extern state_struct *default_h;
 
-#ifdef	__cplusplus
+#ifdef  __cplusplus
 }
 #endif
-#endif				/* NDI_STATE_H */
+#endif                                /* NDI_STATE_H */

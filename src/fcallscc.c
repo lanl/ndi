@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:	Discover Fortran-C name mangling 
+ * Description: Discover Fortran-C name mangling 
  *
  */
 

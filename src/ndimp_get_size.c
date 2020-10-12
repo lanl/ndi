@@ -7,7 +7,7 @@
 
 static int get_num_unique_reac(state_struct *h, int *ierr);
 static int get_sum_of_particle_sizes(state_struct *h, int in_key,
-				     int *ierr);
+                                     int *ierr);
 
 /**********************************************************************/
 
@@ -44,33 +44,33 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
     case NDI_CHI_VEC_TOT:
     case NDI_CHI_VEC_PR:
     case NDI_CHI_VEC_DEL:
-	/* Sum of individual particle sizes */
-	return_val = get_sum_of_particle_sizes(h, in_key, ierr);
-	break;
+        /* Sum of individual particle sizes */
+        return_val = get_sum_of_particle_sizes(h, in_key, ierr);
+        break;
 
     case NDI_REAC_MT:
-	return_val = get_num_unique_reac(h, ierr);
-	break;
+        return_val = get_num_unique_reac(h, ierr);
+        break;
 
-	/* Matrix values */
+        /* Matrix values */
     case NDI_CHI_MAT_TOT:
     case NDI_CHI_MAT_PR:
     case NDI_CHI_MAT_DEL:
-	return_val = get_sum_of_particle_sizes(h, in_key, ierr);
-	return_val *= return_val;
-	break;
+        return_val = get_sum_of_particle_sizes(h, in_key, ierr);
+        return_val *= return_val;
+        break;
 
-	/* All single values */
-    case NDI_ZAID:		/*  ZAID  */
-	return_val = strlen(handle[0]->iso_stat.zaid) + 1;
-	break;
+        /* All single values */
+    case NDI_ZAID:                /*  ZAID  */
+        return_val = strlen(handle[0]->iso_stat.zaid) + 1;
+        break;
     case NDI_NUM_GRPS:
     case NDI_PN_ORDER:
     case NDI_NUM_PNU_PR:
     case NDI_NUM_REAC:
     case NDI_FISSIONABLE:
-	return_val = 1;
-	break;
+        return_val = 1;
+        break;
 
         /* Multi-temperature (Reqt. 75) */
     case NDI_TEMPS:
@@ -81,9 +81,9 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
         break;
 
     default:
-	*ierr = -4;
-	return_val = 0;
-	break;
+        *ierr = -4;
+        return_val = 0;
+        break;
     }
 
     return return_val;
@@ -92,7 +92,7 @@ int ndimp_get_size(state_struct *h, int in_key, int *ierr)
 
 /**********************************************************************/
 static int get_sum_of_particle_sizes(state_struct *h, const int in_key,
-				     int *ierr)
+                                     int *ierr)
 {
 
     int i;
@@ -107,12 +107,12 @@ static int get_sum_of_particle_sizes(state_struct *h, const int in_key,
     num_parts = h->handle_free;
 
     for (i = 0; i < num_parts; i++) {
-	if ((statep = handle[i])) {
-	    tmp_val = ndi_c_get_size_h(statep, in_key, &tmp_err);
-	    if (tmp_val >= 0) {
-		sum += tmp_val;
-	    }
-	}
+        if ((statep = handle[i])) {
+            tmp_val = ndi_c_get_size_h(statep, in_key, &tmp_err);
+            if (tmp_val >= 0) {
+                sum += tmp_val;
+            }
+        }
     }
     return sum;
 }
@@ -135,25 +135,25 @@ static int get_num_unique_reac(state_struct *h, int *ierr)
     num_parts = h->handle_free;
 
     for (i = 0; i < num_parts; i++) {
-	if ((statep = handle[i])) {
-	    tmp_err = ndi_c_get_int_val_h(statep, NDI_NUM_REAC, &tmp_val);
-	    if (tmp_val >= 0) {
-		max_size += tmp_val;
-	    }
-	}
+        if ((statep = handle[i])) {
+            tmp_err = ndi_c_get_int_val_h(statep, NDI_NUM_REAC, &tmp_val);
+            if (tmp_val >= 0) {
+                max_size += tmp_val;
+            }
+        }
     }
 
     unique_mts = (int *) ndi_calloc(max_size, sizeof(int));
 
     *ierr = ndimp_get_int_vec(h, NDI_REAC_MT, unique_mts, max_size);
     for (i = 0; i < max_size; i++) {
-	if (unique_mts[i] > 0) {
-	    num_unique_mts++;
-	}
+        if (unique_mts[i] > 0) {
+            num_unique_mts++;
+        }
     }
 
     if (unique_mts)
-	ndi_free((void **) &unique_mts);
+        ndi_free((void **) &unique_mts);
 
     *ierr = tmp_err;
     return num_unique_mts;

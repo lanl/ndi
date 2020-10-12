@@ -1,9 +1,9 @@
 
 /*
- * File:	ndid_zaid_float_vec.c
- * Description:	User function--return list of multigroup-neutron zaids 
+ * File:        ndid_zaid_float_vec.c
+ * Description: User function--return list of multigroup-neutron zaids 
  *                             and float values.
- * Time-stamp:	<2000-02-03 15:13:59 jomc>
+ * Time-stamp:  <2000-02-03 15:13:59 jomc>
  *
  */
 
@@ -25,7 +25,7 @@
 
 int
 NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
-		    int arr_size, FLOAT_TYPE * float_arr, int fl_arr_size)
+                    int arr_size, FLOAT_TYPE * float_arr, int fl_arr_size)
 
 /*  Purpose: 
     
@@ -45,23 +45,23 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 
     ierr = ndi_open_gendir(&ndi_dir, "", &path);
     if (path)
-	ndi_free((void **) &path);
+        ndi_free((void **) &path);
 
     if (ierr < 0) {
-	root = NULL;
+        root = NULL;
     } else {
-	root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
-	fclose(ndi_dir);
+        root = BUILD_FLOAT_TREE(ndi_dir, in_key, in_value);
+        fclose(ndi_dir);
     }
 
     /* Collect the strings into the return vec */
     if (ierr >= 0) {
-	ierr = ndi_collect_keys(root, zaid_arr, arr_size);
+        ierr = ndi_collect_keys(root, zaid_arr, arr_size);
     }
 
     /* Collect the floats into the return vec */
     if (ierr >= 0) {
-	ierr = COLLECT_FLOAT_VAL(root, float_arr, fl_arr_size);
+        ierr = COLLECT_FLOAT_VAL(root, float_arr, fl_arr_size);
     }
 
     ndi_close_tree(&root);
@@ -72,14 +72,14 @@ NDID_ZAID_FLOAT_VEC(int in_key, const char *in_value, char *zaid_arr,
 /**********************************************************************/
 
 struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
-					   const char *in_value)
+                                           const char *in_value)
 {
     /* Gendir section (e.g. neutron_multigroup) */
     char section[50];
-    size_t sec_len;		/* Length of 'section' string */
-    char in_line[MAX_IN_STR_LEN];	/* Current input line */
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
-    int done = 0;		/* Flag indicating when processing of zaid is done */
+    size_t sec_len;              /* Length of 'section' string */
+    char in_line[MAX_IN_STR_LEN];/* Current input line */
+    int ierr = 0;                /* Error flag: 0=no error,pos=warning, neg=error */
+    int done = 0;                /* Flag indicating when processing of zaid is done */
     dir_entry mg_dir;
     char *zaid_p;
     FLOAT_TYPE curr_flt;
@@ -91,70 +91,70 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
 
     while (done == 0) {
 
-	/* Find correct section of directory file */
-	if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
-	    if (strncmp(in_line, section, sec_len) == 0) {
+        /* Find correct section of directory file */
+        if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
+            if (strncmp(in_line, section, sec_len) == 0) {
 
-		/* Read each line in this section */
-		while ((done == 0) && (ierr >= 0)) {
+                /* Read each line in this section */
+                while ((done == 0) && (ierr >= 0)) {
 
-		    if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
-			if (strncmp(in_line, "end", 3) != 0) {
-			    ierr =
-				read_dir_block(in_line, ndi_dir, &mg_dir);
-			    if (ierr >= 0) {
-				/* Add value to array */
+                    if (fgets(in_line, sizeof(in_line), ndi_dir) != NULL) {
+                        if (strncmp(in_line, "end", 3) != 0) {
+                            ierr =
+                                read_dir_block(in_line, ndi_dir, &mg_dir);
+                            if (ierr >= 0) {
+                                /* Add value to array */
 
-				zaid_p = (char *) &(mg_dir.zaid);
-				switch (in_key) {
-				case NDI_TEMP:
-				    curr_flt = (FLOAT_TYPE) mg_dir.temp;
-				    break;
+                                zaid_p = (char *) &(mg_dir.zaid);
+                                switch (in_key) {
+                                case NDI_TEMP:
+                                    curr_flt = (FLOAT_TYPE) mg_dir.temp;
+                                    break;
 
-				case NDI_SIG_0:
-				    curr_flt = (FLOAT_TYPE) mg_dir.sig_0;
-				    break;
+                                case NDI_SIG_0:
+                                    curr_flt = (FLOAT_TYPE) mg_dir.sig_0;
+                                    break;
 
-				case NDI_AT_WGT:
-				    curr_flt = (FLOAT_TYPE) mg_dir.at_wgt;
-				    break;
+                                case NDI_AT_WGT:
+                                    curr_flt = (FLOAT_TYPE) mg_dir.at_wgt;
+                                    break;
 
-				case NDI_AWR:
-				    curr_flt = (FLOAT_TYPE) mg_dir.awr;
-				    break;
+                                case NDI_AWR:
+                                    curr_flt = (FLOAT_TYPE) mg_dir.awr;
+                                    break;
 
-			  /**********  UNKNOWN KEYWORD  ***********/
+                          /**********  UNKNOWN KEYWORD  ***********/
 
-				default:
-				    ierr = -4;
-				    return NULL;
-				    break;
-				}
+                                default:
+                                    ierr = -4;
+                                    return NULL;
+                                    break;
+                                }
 
 
-				curr_node =
-				    CREATE_FLOAT_NODE(zaid_p, curr_flt);
-				ndi_insert_node(&root, curr_node);
+                                curr_node =
+                                    CREATE_FLOAT_NODE(zaid_p, curr_flt);
+                                ndi_insert_node(&root, curr_node);
 
-			    } else {
-				/* Add a warning???? */
-			    }
-			} else {
-			    /* End of section */
-			    done = -1;
-			}
-		    } else {
-			/* Error reading file */
-			ierr = -11;
-			done = -1;
-		    }
-		}		/* while */
-	    }
-	} else {
-	    /* Error reading file */
-	    ierr = -11;
-	    done = -1;
-	}
+                            } else {
+                                /* Add a warning???? */
+                            }
+                        } else {
+                            /* End of section */
+                            done = -1;
+                        }
+                    } else {
+                        /* Error reading file */
+                        ierr = -11;
+                        done = -1;
+                    }
+                }                /* while */
+            }
+        } else {
+            /* Error reading file */
+            ierr = -11;
+            done = -1;
+        }
     }
     return root;
 }

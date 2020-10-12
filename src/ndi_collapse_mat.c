@@ -1,8 +1,8 @@
 
 /*
- * File:	ndi_collapse_mat.c
- * Description:	Internal function--collapse matrix using weighting function.
- * Time-stamp:	<1999-07-13 13:25:30 jomc>
+ * File:        ndi_collapse_mat.c
+ * Description: Internal function--collapse matrix using weighting function.
+ * Time-stamp:  <1999-07-13 13:25:30 jomc>
  *
  */
 
@@ -22,20 +22,20 @@
 #ifdef FLOAT32
 int
 ndi_collapse_mat32(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-		   int old_grp_num_out, int new_grp_num_in,
-		   int new_grp_num_out, const int *new_ebounds_in,
-		   const int *new_ebounds_out,
-		   const ndi_float64 * local_weight,
-		   FLOAT_TYPE * new_mat, int new_size)
+                   int old_grp_num_out, int new_grp_num_in,
+                   int new_grp_num_out, const int *new_ebounds_in,
+                   const int *new_ebounds_out,
+                   const ndi_float64 * local_weight,
+                   FLOAT_TYPE * new_mat, int new_size)
 {
 #else
 int
 ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
-		   int old_grp_num_out, int new_grp_num_in,
-		   int new_grp_num_out, const int *new_ebounds_in,
-		   const int *new_ebounds_out,
-		   const ndi_float64 * local_weight,
-		   FLOAT_TYPE * new_mat, int new_size)
+                   int old_grp_num_out, int new_grp_num_in,
+                   int new_grp_num_out, const int *new_ebounds_in,
+                   const int *new_ebounds_out,
+                   const ndi_float64 * local_weight,
+                   FLOAT_TYPE * new_mat, int new_size)
 {
 #endif
 
@@ -80,97 +80,97 @@ ndi_collapse_mat64(const FLOAT_TYPE * old_mat, int old_grp_num_in,
 
 ***********************************************************************/
 
-    int i;			/* counter over old incident energy groups (rows) */
-    int j;			/* counter over old outgoing energy groups (cols) */
-    int k;			/* counter over new incident energy groups (rows) */
-    int l;			/* counter over new outgoing energy groups (cols) */
-    int ierr = 0;		/* Error flag: 0=no error,pos=warning, neg=error */
-    int curr_new_index;		/* Pointer into new (collapsed) vector */
-    int curr_old_index;		/* Pointer into old (uncollapsed) vector */
+    int i;                        /* counter over old incident energy groups (rows) */
+    int j;                        /* counter over old outgoing energy groups (cols) */
+    int k;                        /* counter over new incident energy groups (rows) */
+    int l;                        /* counter over new outgoing energy groups (cols) */
+    int ierr = 0;                 /* Error flag: 0=no error,pos=warning, neg=error */
+    int curr_new_index;           /* Pointer into new (collapsed) vector */
+    int curr_old_index;           /* Pointer into old (uncollapsed) vector */
     int low_bounds_in = 0;
     int up_bounds_in = 0;
-    int low_bounds_out = 0;	/* Smallest old index contained in current new group */
-    int up_bounds_out = 0;	/* Largest old index contained in current new group */
-    FLOAT_TYPE in_sum = 0;	/* Summing rows */
-    FLOAT_TYPE out_sum = 0;	/* Summing columns */
-    FLOAT_TYPE wt_sum = 0;	/* Sum of weights */
+    int low_bounds_out = 0;       /* Smallest old index contained in current new group */
+    int up_bounds_out = 0;        /* Largest old index contained in current new group */
+    FLOAT_TYPE in_sum = 0;        /* Summing rows */
+    FLOAT_TYPE out_sum = 0;       /* Summing columns */
+    FLOAT_TYPE wt_sum = 0;        /* Sum of weights */
 
 
     /* Check for non-valid matrix */
     if ((old_grp_num_in <= 0) || (old_grp_num_out <= 0)) {
-	/*  Fill with zeroes and return */
-	NDI_INIT_FLOAT_VEC(new_mat, new_size);
-	ierr = 9;
-	return ierr;
+        /*  Fill with zeroes and return */
+        NDI_INIT_FLOAT_VEC(new_mat, new_size);
+        ierr = 9;
+        return ierr;
     }
 
     for (k = 0; k < new_grp_num_in; k++) {
-	for (l = 0; l < new_grp_num_out; l++) {
+        for (l = 0; l < new_grp_num_out; l++) {
 
-	    if (new_ebounds_in) {
-		low_bounds_in = new_ebounds_in[k];
-		up_bounds_in = new_ebounds_in[k + 1];
-	    } else {
-		low_bounds_in = k;
-		up_bounds_in = k + 1;
-	    }
+            if (new_ebounds_in) {
+                low_bounds_in = new_ebounds_in[k];
+                up_bounds_in = new_ebounds_in[k + 1];
+            } else {
+                low_bounds_in = k;
+                up_bounds_in = k + 1;
+            }
 
-	    /* Outgoing groups must be "floored"--leftover "higher" and 
-	       "lower" groups must be put into first and last collaped
-	       groups.
-	     */
-	    if (new_ebounds_out) {
-		low_bounds_out = new_ebounds_out[l];
-		up_bounds_out = new_ebounds_out[l + 1];
-	    } else {
-		low_bounds_out = l;
-		up_bounds_out = l + 1;
-	    }
-	    if (l == 0) {
-		low_bounds_out = 0;
-	    }
-	    if ((l + 1) == new_grp_num_out) {
-		up_bounds_out = old_grp_num_out;
-	    }
+            /* Outgoing groups must be "floored"--leftover "higher" and 
+               "lower" groups must be put into first and last collaped
+               groups.
+             */
+            if (new_ebounds_out) {
+                low_bounds_out = new_ebounds_out[l];
+                up_bounds_out = new_ebounds_out[l + 1];
+            } else {
+                low_bounds_out = l;
+                up_bounds_out = l + 1;
+            }
+            if (l == 0) {
+                low_bounds_out = 0;
+            }
+            if ((l + 1) == new_grp_num_out) {
+                up_bounds_out = old_grp_num_out;
+            }
 
-	    in_sum = 0;
-	    wt_sum = 0;
-	    for (i = low_bounds_in; i < up_bounds_in; i++) {
-		out_sum = 0;
-		for (j = low_bounds_out; j < up_bounds_out; j++) {
-		    curr_old_index = (i * old_grp_num_out) + j;
+            in_sum = 0;
+            wt_sum = 0;
+            for (i = low_bounds_in; i < up_bounds_in; i++) {
+                out_sum = 0;
+                for (j = low_bounds_out; j < up_bounds_out; j++) {
+                    curr_old_index = (i * old_grp_num_out) + j;
 
-		    if ((curr_old_index >=
-			 (old_grp_num_in * old_grp_num_out))
-			|| (curr_old_index < 0)) {
-			/* Bounds check */
-			ierr = -21;
-			return ierr;
-		    }
-		    out_sum += old_mat[curr_old_index];
-		}		/* for j */
+                    if ((curr_old_index >=
+                         (old_grp_num_in * old_grp_num_out))
+                        || (curr_old_index < 0)) {
+                        /* Bounds check */
+                        ierr = -21;
+                        return ierr;
+                    }
+                    out_sum += old_mat[curr_old_index];
+                }                /* for j */
 
-		in_sum += out_sum * local_weight[i];
-		wt_sum += local_weight[i];
+                in_sum += out_sum * local_weight[i];
+                wt_sum += local_weight[i];
 
-	    }			/* for i */
+            }                    /* for i */
 
-	    if (wt_sum != 0) {
-		curr_new_index = (k * new_grp_num_out) + l;
-		if (curr_new_index >= new_size) {
-		    /* Bounds check */
-		    ierr = 7;
-		    return ierr;
-		}
+            if (wt_sum != 0) {
+                curr_new_index = (k * new_grp_num_out) + l;
+                if (curr_new_index >= new_size) {
+                    /* Bounds check */
+                    ierr = 7;
+                    return ierr;
+                }
 
-		new_mat[curr_new_index] = in_sum / wt_sum;
-	    } else {
-		/* Unexpected library data */
-		ierr = -12;
-	    }
+                new_mat[curr_new_index] = in_sum / wt_sum;
+            } else {
+                /* Unexpected library data */
+                ierr = -12;
+            }
 
-	}			/* for l */
-    }				/* for k */
+        }                        /* for l */
+    }                            /* for k */
 
     return ierr;
 }

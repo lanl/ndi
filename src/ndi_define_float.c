@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Description:	Define 32 & 64 bit floats and declarations
+ * Description: Define 32 & 64 bit floats and declarations
  *
  */
 
@@ -249,8 +249,8 @@ int main()
     printf("#endif\n\n\n");
 
     printf
-	("/**********************************************************************/\n\n");
-    printf("#endif	/* NDI_VAR_TYPE_H */\n\n");
+        ("/**********************************************************************/\n\n");
+    printf("#endif        /* NDI_VAR_TYPE_H */\n\n");
     return 0;
 
 }
@@ -262,6 +262,6 @@ void print_var_type_header()
     printf(" * Description: Internal header--defines float type.");
     printf(" */\n\n");
     printf
-	("/**********************************************************************/\n\n");
+        ("/**********************************************************************/\n\n");
 
 }

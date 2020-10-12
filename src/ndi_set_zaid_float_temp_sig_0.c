@@ -20,8 +20,8 @@
 /**********************************************************************/
 
 int NDI_SET_ZAID_FLOAT_TEMP_SIG_0(state_struct *state,
-				  const char *in_zaid, FLOAT_TYPE temp,
-				  FLOAT_TYPE sig0)
+                                  const char *in_zaid, FLOAT_TYPE temp,
+                                  FLOAT_TYPE sig0)
 {
     int ierr = 0;
     long fpos = -1;
@@ -58,10 +58,10 @@ int NDI_SET_ZAID_FLOAT_TEMP_SIG_0(state_struct *state,
         while (ndi_fget_next_dir(&rec, state->ndi_dir, 
                                  state->library_vers, tmp_zaid)) {
             if (fabs(rec.temp - temp) <= diff_temp &&
-		fabs(rec.sig_0 - sig0) <= diff_sig0) {
+                fabs(rec.sig_0 - sig0) <= diff_sig0) {
                 strcpy(zaid, rec.zaid);
                 diff_temp = fabs(rec.temp - temp);
-		diff_sig0 = fabs(rec.sig_0 - sig0);
+                diff_sig0 = fabs(rec.sig_0 - sig0);
             }
         }
 
