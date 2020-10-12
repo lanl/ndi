@@ -389,8 +389,8 @@ multigroup_neutron
     awr=2.33024800000000E+02 end
   z=92235.141nm:b l=mtmg01 d=04/11/2011 awr=233.02499390
     aw=235.04414367675781 t=2.530064158e-08 s0=10000000000.000000
-    f=@top_srcdir@/src/test/lib/u235bin
-    ft=bin o=32 ng=618
+    f=@top_srcdir@/build/src/test/lib/u235bin
+    ft=bin o=0 ng=618 ln=1
     end
   z=92235.121nm  d=04/06/2011  l=mtmg01
     f=@top_srcdir@/src/test/lib/u235asc

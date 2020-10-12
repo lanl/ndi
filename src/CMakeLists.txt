@@ -136,5 +136,18 @@ target_sources(ndi_F PRIVATE
   "${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c")
 
 if(ndi.tests)
+  add_executable(generate_u235bin
+    ${CMAKE_CURRENT_LIST_DIR}/test/lib/ndi_generate_u235bin.c)
+
+  add_custom_command(
+    OUTPUT u235bin
+    COMMAND generate_u235bin
+    COMMENT "Generating U-235"
+    VERBATIM)
+
+  add_custom_target(
+    generate_u235bin_dummy ALL
+    DEPENDS u235bin)
+
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/test)
 endif()
