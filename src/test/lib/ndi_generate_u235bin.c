@@ -27,7 +27,7 @@ int main() {
 	int num_keywords = sizeof(keyword_list) / sizeof(keyword_list[0]);
 	long lnum;
 
-	printf("Running: %s %s\n",string1[0], string1[1]);
+	/*printf("Running: %s %s\n",string1[0], string1[1]);*/
 
 	file =  fopen(string1[0], "rb");
 	file2 = fopen(string1[1], "wb");
@@ -35,7 +35,7 @@ int main() {
 	start = 0;
         while (fscanf(file, "%s", text) != EOF) {
 		fwrite(text, 1, sizeof(text), file2);
-		printf("Keyword: %s\n",text);
+		/*printf("Keyword: %s\n",text);*/
 		if (start == 0) {
 		    if (strcmp(text, "zaid") == 0)
 			start = 1;
@@ -65,7 +65,6 @@ int main() {
 		    while (yes_continue == 0) {
 		        for (k = 0; k < num_keywords; ++k) {
 			    if ( strcmp(text, keyword_list[k]) == 0 ) {
-				printf("E1\n");
 				yes_continue = 1;
 			        break;
 			    }
@@ -76,7 +75,6 @@ int main() {
 			}
 		    }
 		    if ( yes_continue == 1 ) {
-			printf("E2\n");
                         fseek(file, -strlen(keyword_list[k]), SEEK_CUR);
 		        strcpy(text, "break");
 		        fwrite(text, 1, sizeof(text), file2);
@@ -102,7 +100,6 @@ int main() {
 			if ( strcmp(text, "num_sec_parts") == 0 ) {
 				nsec_parts = num;
 			}
-			printf(" %d\n",num);
                         fwrite(&num, sizeof(num), 1, file2);
                 }
 		// doubles
