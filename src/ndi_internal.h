@@ -46,8 +46,8 @@
 #define BOUNDARY_PARAM          0
 #define TYPE_PARAM              1
 
-#define MAX_IN_STR_LEN        133
-#define MAX_IN_PATH_LEN       250
+#define MAX_IN_STR_LEN        512
+#define MAX_IN_PATH_LEN       512
 #define MAX_LIB_VERS_LEN       26
 #define MAX_NGROUP_STR_LEN     20
 #define MAX_Z                 103
