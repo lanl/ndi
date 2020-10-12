@@ -3,6 +3,7 @@
 #include <string.h>
 
 int main() {
+	int i, j;
 	int str_size = 512;
 	char text[str_size], zaid[512];
 	char *keyword_list[] = {"zaid", "date_source", "date_processed", "library_name",
@@ -116,7 +117,7 @@ int main() {
                 }
 		// 4 doubles
                 if ( strcmp(text, "norm") == 0 ) {
-                        for (int i = 0; i < 4; ++i) {
+                        for (i = 0; i < 4; ++i) {
                                 fscanf(file, "%f", &fnum);
                                 dnum = (double    ) fnum;
                                 fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -124,7 +125,7 @@ int main() {
                 }
 		// 6 doubles
 		if ( strcmp(text, "fiss_q") == 0 ) {
-			for (int i = 0; i < 6; ++i) {
+			for (i = 0; i < 6; ++i) {
                                 fscanf(file, "%f", &fnum);
                                 dnum = (double    ) fnum;
                                 fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -147,7 +148,7 @@ int main() {
                      strcmp(text, "chi_vec_pr") == 0 ||
                      strcmp(text, "chi_vec_del") == 0
                 ) {
-                        for (int i = 0; i < ng; ++i) {
+                        for (i = 0; i < ng; ++i) {
                                 fscanf(file, "%f", &fnum);
         	                dnum = (double    ) fnum;
 	                        fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -155,7 +156,7 @@ int main() {
                 }
 		// ng+1 doubles
                 if ( strcmp(text, "e_bounds") == 0 ){
-                        for (int i = 0; i < ng+1; ++i) {
+                        for (i = 0; i < ng+1; ++i) {
                                 fscanf(file, "%f", &fnum);
         	                dnum = (double    ) fnum;
 	                        fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -165,7 +166,7 @@ int main() {
 		if ( strcmp(text, "chi_mat_tot") == 0 ||
 		     strcmp(text, "chi_mat_pr") == 0 ||
  		     strcmp(text, "chi_mat_del") == 0 ) {
-                        for (int i = 0; i < ng*ng; ++i) {
+                        for (i = 0; i < ng*ng; ++i) {
                                 fscanf(file, "%f", &fnum);
                                 dnum = (double    ) fnum;
                                 fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -177,10 +178,10 @@ int main() {
 			ng_scatt = 1;
 			if ( strcmp(text, "pn_full") == 0 ) ng_scatt = ng*ng;
 			if ( strcmp(text, "pn_down_full") == 0 ) ng_scatt = ng*(ng+1)/2;
-			for (int i = 0; i < pn; ++i) {
+			for (i = 0; i < pn; ++i) {
 				fscanf(file, "%d", &num);
 				fwrite(&num, sizeof(num), 1, file2);
-				for (int j = 0; j < ng_scatt; ++j) {
+				for (j = 0; j < ng_scatt; ++j) {
 					fscanf(file, "%f", &fnum);
 					dnum = (double    ) fnum;
                                         fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -189,12 +190,12 @@ int main() {
 		}
 		// reaction cross sections
 		if ( strcmp(text, "sig_reac") == 0 ) {
-			for (int j = 0; j < nreac; ++j) {
+			for (j = 0; j < nreac; ++j) {
 				fscanf(file, "%d %f", &num, &fnum);
 				fwrite(&num, sizeof(num), 1, file2);
         	                dnum = (double   ) fnum;
 	                        fwrite(&dnum, sizeof(dnum), 1, file2);
-				for (int i = 0; i < ng; ++i) {
+				for (i = 0; i < ng; ++i) {
                         	        fscanf(file, "%f", &fnum);
         	        	        dnum = (double    ) fnum;
 	           	      		fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -206,7 +207,7 @@ int main() {
 		     strcmp(text, "rprod_rmo") == 0 ||
 		     strcmp(text, "rprod_few") == 0 ) {
 		    if ( nreac == 0 ) printf("ERROR in RPROD\n");
-		    for (int i = 0; i < nreac; ++i) {
+		    for (i = 0; i < nreac; ++i) {
 			fscanf(file, "%d", &num); // mt number
 			mt = num;
 			fwrite(&num, sizeof(num), 1, file2);
@@ -215,7 +216,7 @@ int main() {
                         fwrite(&num, sizeof(num), 1, file2);
 			if (num_prod == 0)
 			    printf("Warning, no reaction products for MT %d\n", mt);
-			for (int j = 0; j < num_prod; ++j) {
+			for (j = 0; j < num_prod; ++j) {
 			    fscanf(file, "%d", &num); // product
 			    fwrite(&num, sizeof(num), 1, file2);
                             fscanf(file, "%d", &num); // number of product
@@ -225,7 +226,7 @@ int main() {
 		}
 		// long int (secondary particle)
                 if ( strcmp(text, "sec_part_types") == 0 ) {
-                        for (int i = 0; i < nsec_parts; ++i) {
+                        for (i = 0; i < nsec_parts; ++i) {
                                 fscanf(file, "%ld", &lnum);
                                 fwrite(&lnum, sizeof(long), 1, file2);
                         }
@@ -233,7 +234,7 @@ int main() {
 
 		// strings (secondary particles)
 		if ( strcmp(text, "sec_part_zaids") == 0 ) {
-			for (int i = 0; i < nsec_parts; ++i) {
+			for (i = 0; i < nsec_parts; ++i) {
 				fscanf(file, "%s", text);
 				fwrite(text, 1, sizeof(text), file2);
 			}
@@ -252,7 +253,7 @@ int main() {
 		// ngsec doubles (secondary particles)
                 if ( strncmp(text, "kerma_", 6) == 0 ||
 		     strncmp(text, "heating_", 8) == 0 ) {
-                        for (int i = 0; i < ng; ++i) {
+                        for (i = 0; i < ng; ++i) {
                                 fscanf(file, "%f", &fnum);
                                 dnum = (double    ) fnum;
                                 fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -260,7 +261,7 @@ int main() {
                 }
 		// ngsec+1 doubles (secondary particles)
                 if ( strncmp(text, "e_bounds_", 9) == 0 ) {
-                        for (int i = 0; i < ngsec+1; ++i) {
+                        for (i = 0; i < ngsec+1; ++i) {
                                 fscanf(file, "%f", &fnum);
                                 dnum = (double    ) fnum;
                                 fwrite(&dnum, sizeof(dnum), 1, file2);
@@ -269,10 +270,10 @@ int main() {
 		// ngsec*ngsec doubles (secondary particles)
 		if ( strncmp(text, "pn_prod_full_", 13) == 0 ) {
                         ng_scatt = 1;
-                        for (int i = 0; i < pnsec; ++i) {
+                        for (i = 0; i < pnsec; ++i) {
                                 fscanf(file, "%d", &num);
                                 fwrite(&num, sizeof(num), 1, file2);
-                                for (int j = 0; j < ng*ngsec; ++j) {
+                                for (j = 0; j < ng*ngsec; ++j) {
                                         fscanf(file, "%f", &fnum);
                                         dnum = (double    ) fnum;
                                         fwrite(&dnum, sizeof(dnum), 1, file2);
