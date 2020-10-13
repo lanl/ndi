@@ -11961,7 +11961,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -11972,7 +11972,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -20844,7 +20844,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -20853,7 +20853,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -21438,7 +21438,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -21449,7 +21449,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -21586,7 +21586,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -21595,7 +21595,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -33036,7 +33036,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -33047,7 +33047,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -41919,7 +41919,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -41928,7 +41928,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -42513,7 +42513,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -42524,7 +42524,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -42661,7 +42661,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -42670,7 +42670,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -43033,7 +43033,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -43044,7 +43044,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -43181,7 +43181,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -43190,7 +43190,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -43928,11 +43928,11 @@ Velocities:
 Average energy: 
  1.450000000000000e+01   8.500000000000000e+00   7.500000000000000e+00   6.500000000000000e+00  
  5.500000000000000e+00   4.500000000000000e+00   3.500000000000000e+00   2.500000000000000e+00  
- 1.500000000000000e+00   7.499999999999999e-01   3.000000000000001e-01   5.500000000000001e-02  
+ 1.500000000000000e+00   7.500000000000000e-01   3.000000000000000e-01   5.500000000000001e-02  
 Energy available: 
  3.540631349855273e+09   1.129055334736514e+09   7.959884104613769e+08   5.435020707148163e+08  
  3.364688829298630e+08   2.248764068170140e+08   1.271533711736470e+08   6.044171672799167e+07  
- 2.948107390174995e+07   1.570570068058875e+07   1.556650992201751e+07   1.639396693195250e+07  
+ 2.948107390174995e+07   1.570570068058875e+07   1.556650992201750e+07   1.639396693195250e+07  
 Heating: 
  1.092131591428571e+01   6.746172960000000e+00   5.576544416666668e+00   4.576491850000000e+00  
  3.442225700000000e+00   2.866835816666667e+00   2.098532575000000e+00   1.324230551666667e+00  
@@ -44110,7 +44110,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -44121,7 +44121,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -44257,7 +44257,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -44266,7 +44266,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -44629,7 +44629,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -44640,7 +44640,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -44777,7 +44777,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -44786,7 +44786,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -44942,11 +44942,11 @@ Velocities:
 Average energy: 
  1.450000000000000e+01   8.500000000000000e+00   7.500000000000000e+00   6.500000000000000e+00  
  5.500000000000000e+00   4.500000000000000e+00   3.500000000000000e+00   2.500000000000000e+00  
- 1.500000000000000e+00   7.499999999999999e-01   3.000000000000001e-01   5.500000000000001e-02  
+ 1.500000000000000e+00   7.500000000000000e-01   3.000000000000000e-01   5.500000000000001e-02  
 Energy available: 
  3.540631349855273e+09   1.129055334736514e+09   7.959884104613769e+08   5.435020707148163e+08  
  3.364688829298630e+08   2.248764068170140e+08   1.271533711736470e+08   6.044171672799167e+07  
- 2.948107390174995e+07   1.570570068058875e+07   1.556650992201751e+07   1.639396693195250e+07  
+ 2.948107390174995e+07   1.570570068058875e+07   1.556650992201750e+07   1.639396693195250e+07  
 Heating: 
  1.092131591428571e+01   6.746172960000000e+00   5.576544416666668e+00   4.576491850000000e+00  
  3.442225700000000e+00   2.866835816666667e+00   2.098532575000000e+00   1.324230551666667e+00  
@@ -45124,7 +45124,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -45135,7 +45135,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -45271,7 +45271,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -45280,7 +45280,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -45643,7 +45643,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -45654,7 +45654,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -45791,7 +45791,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -45800,7 +45800,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -46163,7 +46163,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -46174,7 +46174,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -46311,7 +46311,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -46320,7 +46320,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -47839,7 +47839,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -47850,7 +47850,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -47987,7 +47987,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -47996,7 +47996,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -48359,7 +48359,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -48370,7 +48370,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -48507,7 +48507,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -48516,7 +48516,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -59957,7 +59957,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -59968,7 +59968,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -68840,7 +68840,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -68849,7 +68849,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -69434,7 +69434,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -69445,7 +69445,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -69582,7 +69582,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -69591,7 +69591,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -69954,7 +69954,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -69965,7 +69965,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -70102,7 +70102,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -70111,7 +70111,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -82707,7 +82707,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -82718,7 +82718,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -91590,7 +91590,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR -5 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -91599,7 +91599,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -92184,7 +92184,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -92195,7 +92195,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -92332,7 +92332,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -92341,7 +92341,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -103782,7 +103782,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -103793,7 +103793,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -112665,7 +112665,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -112674,7 +112674,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -113259,7 +113259,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -113270,7 +113270,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -113407,7 +113407,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -113416,7 +113416,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -113779,7 +113779,7 @@ Scatter matrix--full (99):
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -113790,7 +113790,7 @@ Photon prod matrix--full (0):
  0.000000000000000e+00   0.000000000000000e+00  
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
  0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00   0.000000000000000e+00  
@@ -113927,7 +113927,7 @@ Scatter matrix--full (99):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (0): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
@@ -113936,7 +113936,7 @@ Photon prod matrix--full (0):
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
 Photon prod matrix--full (99): 
 ***ERROR 9 GETTING SIZE FOR Photon prod matrix--full id.
-  **Error -999 in Photon prod matrix--full--returned value is:
+  **Error -36 in Photon prod matrix--full--returned value is:
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
  0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00    0.000000e+00   
