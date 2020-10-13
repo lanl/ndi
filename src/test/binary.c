@@ -23,7 +23,7 @@ int main ()
    int flt_vec_size;
    int pgrps = 2;
    double return_float = 0;
-   char zaid[80];
+   char zaid[512];
    ndi_float64 pbounds[] = { 20.0, 4.0, 0.1 };
    ndi_float64 *flt64_vec = NULL;
 
@@ -36,18 +36,27 @@ int main ()
    ierr = NDI2_make_handle(gendir_handle, "multigroup_neutron", &neutron_handle);
    if (ierr)
      printf("  **Error %d in NDI make_handle.\n\n", ierr );
-   ierr = NDI2_get_string_val(gendir_handle, NDI_GENDIR_PATH, zaid, 80);
 
    /*  Initialize binary library */
+
+   ierr = NDI2_get_string_val(gendir_handle, NDI_GENDIR_PATH, zaid, 512);
+   if (ierr)
+     printf("  **Error %d in NDI get gendir path.\n\n", ierr );
    ierr = NDI2_set_option(neutron_handle, NDI_LIBRARY, "mtmg01");
+   if (ierr)
+     printf("  **Error %d in NDI set library.\n\n", ierr );
    ierr = NDI2_set_option(neutron_handle, NDI_COLLAPSE, "2_lanl");
+   if (ierr)
+     printf("  **Error %d in NDI set collapse.\n\n", ierr );
    ierr = NDI2_set_isotope(neutron_handle, "92235.141nm:b");
+   if (ierr)
+     printf("  **Error %d in NDI set isotope.\n\n", ierr );
 
    /* start accessing data */
 
    printf("\n Start with binary data \n\n");
 
-   ierr = NDI2_get_string_val(neutron_handle, NDI_ZAID, zaid, 80);
+   ierr = NDI2_get_string_val(neutron_handle, NDI_ZAID, zaid, 512);
    if (ierr) 
         printf("\n  **Error %d getting number of groups.\n", ierr );
    printf("  Isotope zaid:  %s\n",zaid);
@@ -144,7 +153,7 @@ int main ()
    ierr = NDI2_set_isotope(neutron_handle, "92235.121nm");
 
    /* start accessing data */
-   ierr = NDI2_get_string_val(neutron_handle, NDI_ZAID, zaid, 80);
+   ierr = NDI2_get_string_val(neutron_handle, NDI_ZAID, zaid, 512);
    if (ierr)
         printf("\n  **Error %d getting number of groups.\n", ierr );
    printf("  Isotope zaid:  %s\n",zaid);
