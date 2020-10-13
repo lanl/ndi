@@ -1576,7 +1576,7 @@ static int set_string_array(FILE *stream, char **str_p, int data_num,
 int read_string_line(FILE *stream, char *line, int str_size)
 {
     int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
-    char input[MAX_IN_STR_LEN]; /* Current data item */
+    char input[133];            /* Current data item */
     char *seps = " ";           /* Data delimiters in library file */
 
     while (fread(input, sizeof(input), 1, stream) > 0) {
