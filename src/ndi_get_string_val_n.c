@@ -251,7 +251,7 @@ static int get_string_n_mp(state_struct *state, int in_key, char *ret_val,
 
     switch (in_key) {
 
-case NDI_REAC_LABEL:             /* Reaction label by MT */
+    case NDI_REAC_LABEL:             /* Reaction label by MT */
         ierr = ndi_mt_to_label(state, vec_num, ret_val, str_size);
         break;
 
