@@ -215,7 +215,7 @@ extern "C" {
 #define ndi_get_string_vec(x, y, z) ndi_c_get_string_vec(x, y, z)
 #define ndi_get_string_vec_x(w, x, y, z) ndi_c_get_string_vec_x(w, x, y, z)
 #define ndi_close() ndi_c_close()
-#define ndi_c_to_mt(x)  ndi_c_c_to_mt(x)uuu
+#define ndi_c_to_mt(x)  ndi_c_c_to_mt(x)
 #endif                                /* NDI_NO_NAME_SUB */
 
 #ifdef __cplusplus

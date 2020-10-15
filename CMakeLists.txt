@@ -78,7 +78,7 @@ add_library(ndi ${library_type}
 add_library(ndi::ndi ALIAS ndi)
 
 set_target_properties(ndi ndi_C ndi_F ndi_float32 ndi_float64 PROPERTIES
-  POSITION_INDEPENDENT_CODE "${ndi.position_independent_code}"
+  POSITION_INDEPENDENT_CODE ON # "${ndi.position_independent_code}"
   INTERPRODECURAL_OPTIMIZATION "${ndi.interprocedural_optimization}"
   C_EXTENSIONS OFF
   C_STANDARD 99
