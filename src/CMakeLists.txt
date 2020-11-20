@@ -13,7 +13,7 @@ add_executable(ndi_define_float
 
 add_custom_command(
   OUTPUT ndi_var_type.h
-  COMMAND ndi_define_float > ndi_var_type.h)
+  COMMAND $<TARGET_FILE:ndi_define_float> > ndi_var_type.h) #NOTE: probably not portable
 
 add_custom_target(generate_ndi_var_type DEPENDS ndi_var_type.h)
 
@@ -26,7 +26,7 @@ target_link_libraries(ndi_define_fmangle PRIVATE ndi_define_fmanglec)
 
 add_custom_command(
   OUTPUT fmangle.h
-  COMMAND ndi_define_fmangle > fmangle.h)
+  COMMAND $<TARGET_FILE:ndi_define_fmangle> > fmangle.h) #NOTE: probably not portable
 
 add_custom_target(generate_fmangle
   DEPENDS fmangle.h)
@@ -134,6 +134,8 @@ target_sources(ndi_C PRIVATE
 
 target_sources(ndi_F PRIVATE
   "${CMAKE_CURRENT_LIST_DIR}/ndi_fortran.c")
+target_include_directories(ndi_F PRIVATE
+  ${CMAKE_CURRENT_BINARY_DIR})
 
 if(ndi.tests)
   add_executable(generate_u235bin
@@ -141,7 +143,8 @@ if(ndi.tests)
 
   add_custom_command(
     OUTPUT u235bin
-    COMMAND generate_u235bin
+    COMMAND $<TARGET_FILE:generate_u235bin>
+    WORKING_DIRECTORY ${ndi_SOURCE_DIR}
     COMMENT "Generating U-235"
     VERBATIM)
 

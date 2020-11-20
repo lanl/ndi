@@ -121,7 +121,7 @@ endforeach()
 target_compile_definitions(ndi_float32 PRIVATE FLOAT32)
 target_compile_definitions(ndi_float64 PRIVATE FLOAT64)
 
-include(src/CMakeLists.txt)
+add_subdirectory(src)
 
 install(FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi.h"
