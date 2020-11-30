@@ -21,7 +21,7 @@ int main ()
    double *double_vec;
    char test_zaid[20] = "";
    char zaid_in[20] = "";
-   char string_val, tmp1[80], tmp2, tmp3, tmp4;
+   char string_val[80], tmp1[80], tmp2, tmp3, tmp4;
 
    printf("\n\n ********************************************************* \n" );
    printf("    TEST -- dE/dx data\n" );
@@ -42,7 +42,7 @@ int main ()
 /* Test get_string_val */
 
    int_val = NDI2_get_size(handle, NDI_ZAID, &ierr);
-   ierr = NDI2_get_string_val(handle, NDI_ZAID, &string_val, int_val);
+   ierr = NDI2_get_string_val(handle, NDI_ZAID, string_val, int_val);
    if( ierr != 0) printf("  Error %d retrieving ZAID.\n", ierr);
    printf("ZAID of length %d: %s\n",int_val, &string_val);
 
@@ -149,7 +149,7 @@ int main ()
    for( i = 0; i < num_grps; ++i) {
        printf("Energy(%d)=%e\n", i, double_vec[i]);
    }
-   free((void *) double_vec); 
+   free((void *) double_vec);
    printf("\n");
 
    double_vec = (double *) malloc(num_dens * sizeof(double));
@@ -158,7 +158,7 @@ int main ()
    for( i = 0; i < num_dens; ++i) {
        printf("Density(%d)=%e\n", i, double_vec[i]);
    }
-   free((void *) double_vec);  
+   free((void *) double_vec);
    printf("\n");
 
    double_vec = (double *) malloc(num_temps * sizeof(double));
@@ -200,5 +200,5 @@ int main ()
 
    ierr = NDI2_close_gendir(gendir_h);
    if (ierr) printf("  **Error %d in closing gendir\n\n", ierr );
-  
+
 }
