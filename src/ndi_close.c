@@ -18,12 +18,12 @@
 /**********************************************************************/
 
 /*  Purpose:  Deallocate memory and close directory and library files.
-    
+
     It is assumed that NDI has been initialized (ndi_initialized = -1).
-    
+
     Return values:  Returns negative value for error condition,
     positive value for warning, and a '0' if everything's ok.
-    
+
 ***********************************************************************/
 int ndi_c_close_h(state_struct **curr_state)
 {
@@ -91,6 +91,7 @@ int ndi_c_close_h(state_struct **curr_state)
     ierr = ndi_init_state_tn(state);
     ierr = ndi_init_state_tnreac(state);
     ierr = ndi_init_state_chain(state);
+    ierr = ndi_init_state_dedx(state);
 
     ndi_free((void **) curr_state);
 
