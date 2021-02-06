@@ -7,6 +7,8 @@
 #define MAX_HANDLES   15
 #define STRING_LEN    100
 
+/* Valgrind errors may be expected */
+
 int main ()
 {
     int ierr;

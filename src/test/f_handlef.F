@@ -1,5 +1,8 @@
 #include "ndi_keywords.h"
 
+c Valgrind errors are expected because of the double open_gendir
+c and close_gendir calls
+
       program main
 
       integer FVECS, AWRS, STRS, ZAIDS

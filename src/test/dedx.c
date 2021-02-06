@@ -110,6 +110,7 @@ int main ()
        printf("Target %d's ZAID %d\n", i, target_zaids[i]);
    }
    printf("\n");
+   free((void *) target_zaids);
 
 /* Test get_size */
 

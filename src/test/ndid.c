@@ -74,6 +74,8 @@ int test_ndid(void)
    else
      printf("  **Isotope set successfully.\n");
  
+   ierr = ndi_close();
+
    return(0);
 }
 

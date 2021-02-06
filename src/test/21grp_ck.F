@@ -48,6 +48,8 @@
       print *, "Energy to neutrons:"
       call print_float64_vec(e, num_grps)
       print *, " "
+
+      call ndi_close()
  
       end
 
