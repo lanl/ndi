@@ -140,6 +140,9 @@ static int get_gendir_size(state_struct *state, int in_key, int *ierr)
         break;
     }
     ndi_close_tree(&root);
+
+    if (return_value <= 0 ) *ierr = -8;
+
     return return_value;
 }
 
