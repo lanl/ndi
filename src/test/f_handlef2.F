@@ -187,6 +187,10 @@ c     Set new zaid
          zaid = str_arr(zd_cnt)
          call ndi2_set_isotope(handle, str_arr(zd_cnt), ierr )
          write(*, 301) zaid
+         if ( zaid == "2004.801nm" ) then
+             write(*,*) "Skip 2004.801nm, too many groups."
+             cycle
+         endif
  301     format("*****SETTING ISOTOPE ", a13 )
          write(*,302) zd_cnt, str_arr(zd_cnt), ierr
  302     format(i5, ":  >", a13, "<   err = ", i5)

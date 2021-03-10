@@ -183,6 +183,10 @@ c     Set new zaid
          zaid = str_arr(zd_cnt)
          call ndi_set_isotope( str_arr(zd_cnt), ierr )
          write(*, 301) zaid
+         if ( zaid == "2004.801nm" ) then
+             write(*,*) "Skip 2004.801nm, too many groups."
+             cycle
+         endif
  301     format("*****SETTING ISOTOPE ", a13 )
          write(*,302) zd_cnt, str_arr(zd_cnt), ierr
  302     format(i5, ":  >", a13, "<   err = ", i5)
@@ -445,6 +449,7 @@ c     Float vector from matrix
 
 c     Test error on closing twice
       call ndi_close(ierr)
+
       end
 
 
