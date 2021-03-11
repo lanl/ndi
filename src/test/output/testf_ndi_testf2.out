@@ -18504,8 +18504,8 @@ PartKerma   :
  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00
 ProdFull     2: 
 
-*****SETTING ISOTOPE 2004.801nm   
  Skip 2004.801nm, too many groups.
+  
 *****SETTING ISOTOPE 3006.500nm   
    14:  >3006.500nm   <   err =     0
 ZAID: 3006.500nm    err=   0
