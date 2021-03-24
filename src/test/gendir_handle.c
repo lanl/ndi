@@ -197,6 +197,11 @@ int main ()
        free(flt_arr);
    }
 
+   /* Test non-existant isotope (should return +19) */
+   printf("  Attempt to get atomic weight size of non-existant isotope, 92035.600nm\n");
+   size = NDI2_get_size_x(gendir0, NDI_AT_WGT, "92035.600nm", &ierr);
+   if (ierr != 0) printf("    ** Error getting at_wgt size is %d\n", ierr);
+   printf("\n");
        
    /* GET HANDLE 0 */
    ierr = NDI2_make_handle(gendir0, "multigroup_neutron", &handle0);
