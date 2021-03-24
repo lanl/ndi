@@ -650,7 +650,8 @@ char *ndi_error_string(int n)
         "Unknown keyword in library.", // 15
         "Invalid interpolation type.", // 16
         "Quantity outside maximum and minimum library values.", // 17 (was +30)
-        "New group structure is default but old group structure is not." // 18 (was 77)
+        "New group structure is default but old group structure is not.", // 18 (was 77)
+        "Isotope not found in gendir." // 19, warning version of -8
         // Warning 54 was changed to -34
     };
 

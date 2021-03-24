@@ -99,7 +99,7 @@ static int get_size_x_gendir(state_struct *state, int in_key,
             *ierr = count;
             count = 0;
         }
-	if ( count == 0 ) *ierr = -8;
+	if ( count == 0 ) *ierr = 19;
         break;
     default:
         NDI_THROW(*ierr, -4);      /* Unrecognized in_key */
