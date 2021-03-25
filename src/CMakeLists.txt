@@ -31,7 +31,7 @@ add_custom_command(
 add_custom_target(generate_fmangle
   DEPENDS fmangle.h)
 
-file(WRITE ${PROJECT_BINARY_DIR}/ndi_version.h "#define NDI_VERSION_DATA \"${ndi_VERSION}beta\"")
+file(WRITE ${PROJECT_BINARY_DIR}/ndi_version.h "#define NDI_VERSION_DATA \"${ndi_VERSION}beta-1\"")
 
 add_dependencies(ndi_float32 generate_ndi_var_type)
 add_dependencies(ndi_float64 generate_ndi_var_type)

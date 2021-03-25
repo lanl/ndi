@@ -109,6 +109,7 @@ int main ()
    for( i = 0; i < num_targets; ++i) {
        printf("Target %d's ZAID %d\n", i, target_zaids[i]);
    }
+   free((void *) target_zaids);
    printf("\n");
 
 /* Test get_size */

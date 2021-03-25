@@ -22,6 +22,17 @@ include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 include(Warnings)
 
+# Default to Release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if (CMAKE_C_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++. Requires -fp-model precise to match Debug
+  # or GCC builds
+  set(CMAKE_C_FLAGS_RELEASE "-O3 -fp-model precise")
+endif()
+
 #
 # NDI has no dependencies, but the specification block is provided for
 # consistency with other projects.
@@ -143,7 +154,7 @@ install(EXPORT ndiConfig
   DESTINATION share/cmake/ndi)
 
 write_basic_package_version_file("ndi-config-version.cmake"
-  VERSION "${PROJECT_VERSION}beta"
+  VERSION "${PROJECT_VERSION}beta-1"
   COMPATIBILITY SameMajorVersion)
 
 install(FILES

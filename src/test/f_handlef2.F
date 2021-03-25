@@ -185,6 +185,11 @@ c     print *, " ZAID float error is ", ierr
           
 c     Set new zaid
          zaid = str_arr(zd_cnt)
+         if ( zaid == "2004.801nm" ) then
+             write(*,*) "Skip 2004.801nm, too many groups."
+             write(*,*) " "
+             cycle
+         endif
          call ndi2_set_isotope(handle, str_arr(zd_cnt), ierr )
          write(*, 301) zaid
  301     format("*****SETTING ISOTOPE ", a13 )
@@ -454,6 +459,7 @@ c     Float vector from matrix
 
 c     Test error on closing twice
       call ndi2_close_gendir(gendir_h, ierr)
+
       end
 
 

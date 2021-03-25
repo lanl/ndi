@@ -54,6 +54,9 @@ GENDIR0 (path=gendir)
   Size of list is 1
  2.350440000000000e+02  
 
+  Attempt to get atomic weight size of non-existant isotope, 92035.600nm
+    ** Error getting at_wgt size is 19
+
   Handle0
     Gendir path:  gendir
     Library type:  multigroup_neutron
