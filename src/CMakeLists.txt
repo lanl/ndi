@@ -47,7 +47,7 @@ set_property(TARGET ndi ndi_F ndi_C ndi_float64 ndi_float32 PROPERTY
 target_include_directories(ndi INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
   $<BUILD_INTERFACE:${ndi_BINARY_DIR}>
-  $<INSTALL_INTERFACE:include/ndi>)
+  $<INSTALL_INTERFACE:include>)
 
 target_sources(ndi_float32 PRIVATE
   "${CMAKE_CURRENT_LIST_DIR}/ndi_set_zaid_float_temp.c"
