@@ -38,12 +38,6 @@ add_dependencies(ndi_float64 generate_ndi_var_type)
 add_dependencies(ndi_C generate_ndi_var_type)
 add_dependencies(ndi_F generate_fmangle)
 
-set_property(TARGET ndi ndi_F ndi_C ndi_float64 ndi_float32 PROPERTY
-  INCLUDE_DIRECTORIES
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
-  $<BUILD_INTERFACE:${ndi_BINARY_DIR}>
-  $<INSTALL_INTERFACE:include/ndi>)
-
 target_include_directories(ndi INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/>
   $<BUILD_INTERFACE:${ndi_BINARY_DIR}>
