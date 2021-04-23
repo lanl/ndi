@@ -154,7 +154,7 @@ install(EXPORT ndiConfig
   DESTINATION share/cmake/ndi)
 
 write_basic_package_version_file("ndi-config-version.cmake"
-  VERSION "${PROJECT_VERSION}beta-1"
+  VERSION "${PROJECT_VERSION}"
   COMPATIBILITY SameMajorVersion)
 
 install(FILES
