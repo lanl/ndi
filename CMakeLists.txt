@@ -6,7 +6,7 @@ if(DEFINED PROJECT_NAME)
 endif()
 
 project(ndi
-  VERSION 2.2.0
+  VERSION 2.2.5
   DESCRIPTION "Library Abstraction for NDI-format Nuclear Data"
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/NDT/repos/ndi"
   LANGUAGES C Fortran)
@@ -139,7 +139,7 @@ install(FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/ndi_keywords.h"
   "${CMAKE_CURRENT_BINARY_DIR}/ndi_keywords.i"
   "${CMAKE_CURRENT_BINARY_DIR}/src/ndi_var_type.h"
-  "${CMAKE_CURRENT_BINARY_DIR}/ndi_version.h"
+  "${CMAKE_CURRENT_LIST_DIR}/src/ndi_version.h"
   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(TARGETS ndi

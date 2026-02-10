@@ -1,0 +1,11 @@
+multigroup_neutron
+  z=3006.700nm  d=2/7/2022  l=mendf6
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/mendf6_gen2
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=6.01510E+00
+    awr=5.96343E+00 end
+  z=92235.700nm  d=2/7/2022  l=mendf6
+    f=@CMAKE_CURRENT_BINARY_DIR@/mendf6_gen2
+    ft=asc  ln=636  o=37956  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+end
+

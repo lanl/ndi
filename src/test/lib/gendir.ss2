@@ -1,0 +1,18 @@
+multigroup_neutron
+  z=92235.701nm  d=03/21/17  l=ss_test
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/testlib_ss701  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E-01  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.602nm  d=03/21/17  l=ss_test
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/testlib_ss601 ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+01  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.603nm  d=03/21/17  l=ss_test
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/testlib_ss603  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+03  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+  z=92235.610nm  d=03/21/17  l=ss_test
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/testlib_ss610  ft=asc  ln=1  o=0
+    ng=2  t=5.17043100000000E-08  s0=1.00000000000000E+10  aw=2.35043937521619E+02
+    awr=2.33024800000000E+02 end
+end

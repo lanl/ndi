@@ -61,6 +61,8 @@ ndi_c_get_size_n_h(state_struct *state, int in_key, int vec_num, int *ierr)
         size = (int) strlen(tmp_str) + 1;
     } else if (in_key == NDI_ERROR) {
         size = strlen(ndi_error_string(vec_num)) + 1;
+    } else if (in_key == NDI_NAME) {
+        size = strlen(ndi_keyword(vec_num)) + 1;
     } else {
         if (is_gendir(state)) {
             *ierr = -2;                /* case not handled currently */

@@ -182,6 +182,24 @@ static int get_int_vec_mg(state_struct *state, int in_key,
         }
         break;
 
+    case NDI_SEC_PART_TYPES:        /* Vector of secondary particle types */
+        if ((state->iso_stat.num_sec_parts > 0) && state->iso_stat.sec_part) {
+            int i;
+
+            for (i = 0; i < state->iso_stat.num_sec_parts; i++) {
+                if (i < vec_size) {
+                    return_vec[i] = state->iso_stat.sec_part[i].part_type;
+                } else {
+                    ierr = 7;
+                    break;
+                }
+            }
+        } else {
+            /* Error: data not available for this isotope */
+            ierr = -9;
+        }
+        break;
+
 
       /**********  UNKNOWN KEYWORD  ***********/
 
@@ -335,7 +353,6 @@ static int get_int_vec_tn(state_struct *state, int in_key,
         /* Vector of secondary particle types */
         if ((state->sec_part_filled > 0) && state->tn_stat.sec_part) {
             int i;
-
             for (i = 0; i < state->sec_part_filled; i++) {
                 if (i < return_size) {
                     return_vec[i] = state->tn_stat.sec_part[i].part_type;
@@ -352,8 +369,6 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     case NDI_EDIST_INTERP_REG:
         /* Vector of interpolation type for current particle's temperature
            interpolation regions */
-        if (state->grp_num_new <= 0)
-            return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -376,8 +391,6 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     case NDI_EDIST_INTERP_TYPE:
         /* Vector of endpoints for current particle's temperature 
            interpolation regions */
-        if (state->grp_num_new <= 0)
-            return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -400,8 +413,6 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     case NDI_EDIST_CONT_INTERP_REG:
         /* Vector of interpolation type for current particle's temperature
            interpolation regions */
-        if (state->grp_num_new <= 0)
-            return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -433,8 +444,6 @@ static int get_int_vec_tn(state_struct *state, int in_key,
     case NDI_EDIST_CONT_INTERP_TYPE:
         /* Vector of endpoints for current particle's temperature 
            interpolation regions */
-        if (state->grp_num_new <= 0)
-            return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;

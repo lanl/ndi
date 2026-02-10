@@ -15,6 +15,7 @@
 #include "ndi.h"
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
+#include "ndi_sf.h"
 
 static int GET_PROD_Q(state_struct *state, const int rprod_in,
                       FLOAT_TYPE * return_val);
@@ -128,6 +129,24 @@ int NDI_GET_FLOAT_VAL_N_H(state_struct *state, int in_key, int vec_num,
         ierr = GET_PROD_Q(state, vec_num, ret_val);
         break;
 
+
+    case NDI_SF_PNU:     /* Spontaneous Fission p(nu) */
+
+        if (state->iso_stat.fissionable == 0) {
+            *ret_val = 0.0;
+            ierr = 0;
+        } else {
+            spont_fiss_pnu *sf_pnu; /* Pointer to static data */
+            sf_pnu = ndi_get_sf_pnu_data(state->iso_stat.zaid); /* Lookup data */
+            if (!sf_pnu) {
+                *ret_val = 0.0;
+                ierr = 9;    /* Data not available */
+            } else {         /* Data found */
+                *ret_val = sf_pnu->pnu[vec_num];
+                ierr = 0;
+            }
+        }
+        break;
 
       /**********  UNKNOWN KEYWORD  ***********/
 

@@ -18,6 +18,12 @@ typedef struct spont_fiss {
     double b;
 } spont_fiss;
 
+typedef struct spont_fiss_pnu {
+    long za;
+    double pnu[11];
+} spont_fiss_pnu;
+
 extern spont_fiss *ndi_get_sf_data(const char *zaid);
+extern spont_fiss_pnu *ndi_get_sf_pnu_data(const char *zaid);
 
 #endif

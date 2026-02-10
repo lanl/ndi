@@ -69,16 +69,9 @@ ndi_read_rx_prod(FILE *stream, long file_pos, int **int_vec,
     int *curr_int_ptr = *int_vec;
 
 
-
-    /* Check input parameters */
-    if ((data_type < 0) && (data_type > 1)) {
-        /* Internal error: invalid input parameter. */
-        return -13;
-    }
-
-   /**********************************************/
+    /**********************************************/
     /*    Read reaction data from library file    */
-   /**********************************************/
+    /**********************************************/
     fseek(stream, file_pos, SEEK_SET);
 
     /* Read MT and number of reaction products */

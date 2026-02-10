@@ -1,7 +1,17 @@
-list(APPEND c_tests 5 5_handle abundance_test abundance_test_handle avg_e avg_e2 c_handle chi chi_handle dedx depl depl_handle depl2 depl2_handle depl_zaid ekerma ebounds edist err22 ex_avg_e ex_kerma1 ex_kerma2 handle_bashing he4 kerma_example kerma_example_handle library_check mg_sec_part mpmg mpmg_grps mpmg2 ndid ndid_handle neut ngk_test ngk_test_handle nonfissionables nonfissionables_handle old_rprod photon pnu pnu_handle radchem radchem_handle sgndf symbol_translate symbol_translate_handle testc tn3 tn3_handle tn4 tn4_handle tn5 tn5_handle tn_c tn_c_handle tn_chain tn_chain_handle tn_interp_params tn_interp_params_handle tn_new tn_new_handle tn_simple tn_simple_handle tn_use tn_use_handle tnreac_c tnreac_c_handle transfer_mat transpose_scat za za_handle gendir_handle ex_gendir_path gendir_path qsf_kerma zaid_temp_sig0 binary)
-list(APPEND f_tests ex_avg_ef ex_kerma1f ex_kerma2f f_handlef f_handlef2 library_checkf mpmgf  mpmg2f ndi_testf ndi_testf2 ndidf  ndidf_handle radchemf symbol_translatef transpose_scatf 21grp_ck gendir_handlef ex_gendir_pathf gendir_pathf zaid_tempf zaid_temp_sig_0)
+list(APPEND c_tests 5 5_handle abundance_test abundance_test_handle avg_e avg_e2 c_handle chi chi_handle dedx depl depl_handle depl2 depl2_handle depl_zaid ekerma ebounds edist err22 ex_avg_e ex_kerma1 ex_kerma2 handle_bashing he4 kerma_example kerma_example_handle library_check mg_sec_part mpmg mpmg_grps mpmg2 ndid ndid_handle neut new_weights ngk_test ngk_test_handle nonfissionables nonfissionables_handle old_rprod photon pnu pnu_handle radchem radchem_handle sf_pnu sgndf symbol_translate symbol_translate_handle testc tn3 tn3_handle tn4 tn4_handle tn5 tn5_handle tn_c tn_c_handle tn_chain tn_chain_handle tn_interp_params tn_interp_params_handle tn_new tn_new_handle tn_simple tn_simple_handle tn_use tn_use_handle tnreac_c tnreac_c_handle transfer_mat transpose_scat nested_gendirs unnested_gendirs za za_handle gendir_handle ex_gendir_path gendir_path qsf_kerma zaid_temp_sig0 binary)
+list(APPEND f_tests ex_avg_ef ex_kerma1f ex_kerma2f f_handlef f_handlef2 library_checkf mpmgf  mpmg2f ndi_testf ndi_testf2 ndidf  ndidf_handle new_weightsf radchemf symbol_translatef transpose_scatf 21grp_ck gendir_handlef ex_gendir_pathf gendir_pathf zaid_tempf zaid_temp_sig_0)
 
+configure_file(gendir.nest gendir.start)
+configure_file(gendir.nest2 gendir.start2)
 configure_file(gendir.in gendir @ONLY)
+configure_file(./lib/gendir.un gendir.unnested)
+configure_file(./lib/gendir.m5 ./lib/gendir.mendf5)
+configure_file(./lib/gendir.m6 ./lib/gendir.mendf6)
+configure_file(./lib/gendir.rm ./lib/gendir.rmoxsct)
+configure_file(./lib/gendir.ss ./lib/gendir.ss_test)
+configure_file(./lib/gendir.ss1 ./lib/gendir.ss_test1)
+configure_file(./lib/gendir.ss2 ./lib/gendir.ss_test2)
+configure_file(./lib/gendir.nd ./lib/gendir.newdata)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -31,4 +41,3 @@ foreach(test_name IN LISTS f_tests)
     -D script=${CMAKE_CURRENT_LIST_DIR}/fcmp.pl
     -P ${CMAKE_CURRENT_LIST_DIR}/runtest.cmake)
 endforeach()
-

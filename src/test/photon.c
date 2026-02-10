@@ -442,42 +442,13 @@ static int ndi_unknown_keyword_mgp(void)
      free(int_vec);
 
    /* Float64 vector */
-   printf( "Float64 vector (NDI_COLLAPSE):  ");
-   num_elements = ndi_get_size( NDI_COLLAPSE, &tmp_err );
-   if ( num_elements <= 0 ) {
-     num_elements = 30;
-     printf("***ERROR GETTING SIZE FOR Collapse (float64 vec).\n" );     
-   }
-   flt64_vec = (ndi_float64 *)malloc(num_elements * sizeof(ndi_float64) );
-   tmp_err = ndi_get_float64_vec( NDI_COLLAPSE, flt64_vec, num_elements );
-   if (tmp_err) {
-     printf("\n  **Error %d: in float64_vec (NDI_COLLAPSE) -- returned value is %d\n", 
-	    tmp_err, num_elements );
-     print_float64_vec( flt64_vec, num_elements );
-   }  else {
-     print_float64_vec( flt64_vec, num_elements );
-   }
-   if (flt64_vec)
-     free(flt64_vec);
+   /* There was a print for NDI_COLLAPSE before. Previously it would return an
+      error and all zeros. There is now an actual NDI_COLLAPSE that works with
+      ndi_get_float64_vec, but it requires state->lib_weight. That does not
+      exist for this call, so the call has been removed. */
 
    /* Float32 vector */
-   printf( "Float32 vector (NDI_COLLAPSE):  ");
-   num_elements = ndi_get_size( NDI_COLLAPSE, &tmp_err );
-   if ( num_elements <= 0 ) {
-     num_elements = 30;
-     printf("***ERROR GETTING SIZE FOR Collapse (Float32 vec).\n" );     
-   }
-   flt32_vec = (ndi_float32 *)malloc(num_elements * sizeof(ndi_float32) );
-   tmp_err = ndi_get_float32_vec( NDI_COLLAPSE, flt32_vec, num_elements );
-   if (tmp_err) {
-     printf("\n  **Error %d: in float32_vec (NDI_COLLAPSE) -- returned value is %d\n", 
-	    tmp_err, num_elements );
-     print_float32_vec( flt32_vec, num_elements );
-   }  else {
-     print_float32_vec( flt32_vec, num_elements );
-   }
-   if (flt32_vec)
-     free(flt32_vec);
+   /* See the Float64 version above. */
 
    /* Integer vector (n) */
    printf( "Integer vector--0 (NDI_COLLAPSE):  ");

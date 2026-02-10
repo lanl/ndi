@@ -62,7 +62,8 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
 
     /* Convert input zaid to standard zaid and read data from gendir */
     strcpy(tmp_zaid, in_zaid);
-    if ((state->library_type == 'm') || (state->library_type == 'd')) {
+    if ((state->library_type == 'm') || (state->library_type == 'd') ||
+        (state->library_type == 'x')) {
         if (!(strstr(in_zaid, "-999") || strstr(in_zaid, "99999"))) {
             ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
         }
@@ -78,6 +79,7 @@ int ndi_c_set_zaid_h(state_struct *state, const char *in_zaid)
                      &iso_start, &at_wgt, 0);
 
     if (ierr < 0) {
+        if (ierr == -8 && state->particle_type == 'd') ierr = -37;
         return ierr;
     }
 

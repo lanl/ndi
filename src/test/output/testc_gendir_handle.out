@@ -1,3 +1,5 @@
+NDI version: 2.2.5
+NDI data version: latest
 GENDIR0 (path=gendir)
   Library type:  multigroup_neutron
   Library:  mendf5

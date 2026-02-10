@@ -35,7 +35,7 @@ static FILE *fpath(const char *rel_path, const char *mode,
 int ndi_open_gendir(FILE **dir_stream, const char *in_path,
                     char **open_path)
 {
-    char *def_file = "$NDIROOT/" NDI_VERSION_DATA "/share/gendir";
+    char *def_file = "$NDIROOT/data/gendir/latest/gendir"; // NDI_VERSION_DATA "/share/gendir";
 
     int ierr = 0;
     char dir_file[MAX_IN_PATH_LEN];
@@ -141,8 +141,8 @@ FILE *fpath(const char *rel_path, const char *mode, char *file, int len)
     } else if (strncmp(rel_path, prefix2, strlen(prefix2)) == 0) {
         for (i = 0; strcmp(abs_path[i], ""); i++) {
             strncpy(file, abs_path[i], len);
-            strncat(file, NDI_VERSION_DATA "/share/", len);
             strncat(file, rel_path + strlen(prefix2), len);
+
             if ((f = fopen(file, mode)))
                 return f;         /* success */
         }

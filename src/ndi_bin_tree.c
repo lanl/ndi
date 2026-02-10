@@ -30,6 +30,8 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
     char in_line[MAX_IN_STR_LEN];  /* Current input line */
     int ierr = 0;                  /* Error flag: 0=no error,pos=warning, neg=error */
     int done = 0;                  /* Flag indicating when processing of zaid is done */
+    FILE *stream;
+    char *path = NULL;
 
     dir_entry mg_dir;
     char *str_of_interest;
@@ -53,6 +55,15 @@ struct ndi_bin_tree_node *ndi_build_tree(FILE *ndi_dir, int in_key,
                             ierr =
                                 read_dir_block(in_line, ndi_dir, &mg_dir);
                             if (ierr >= 0) {
+
+                                if (strncmp(mg_dir.zaid,"gendir",strlen("gendir")) == 0) {
+                                    ierr = ndi_open_gendir(&stream, mg_dir.path, &path);
+                                    if (ierr < 0 ) return root;
+                                    curr_node = ndi_build_tree(stream, in_key, in_value);
+                                    ndi_insert_node(&root, curr_node);
+                                    if (fclose(stream) != 0) ierr = -3;
+                                    continue;
+                                }
                                 /* Add value to array */
                                 switch (in_key) {
 

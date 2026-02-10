@@ -66,4 +66,8 @@ Instructions
     ```
     cmake --build . --target install
     ```
-    
+   
+COPYRIGHT INFORMATION
+====
+
+O# (O5071)

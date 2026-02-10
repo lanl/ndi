@@ -22,6 +22,9 @@ static int ndi_set_collapse_vec(state_struct *state,
 static int ndi_set_ebounds_curr_part(state_struct *state,
                                      const ndi_float64 * ebound_array,
                                      const int new_num_grps);
+static int ndi_set_wgts(state_struct *state,
+                        const ndi_float64 * new_wgts,
+                        const int new_num_grps);
 
 /**********************************************************************/
 int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
@@ -59,6 +62,10 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
         ierr = ndi_set_collapse_vec(state, option_array, array_size - 1);
         break;
 
+    case NDI_WGTS:
+        ierr = ndi_set_wgts(state, option_array, array_size );
+        break;
+
     case NDI_E_BOUNDS_CURR_PART:
         /* Set energy groups to collapse secondary particle */
         ierr =
@@ -78,6 +85,61 @@ int ndi_c_set_float64_vec_option_h(state_struct *state, const int in_key,
 
 /**********************************************************************/
 /*   FUNCTIONS INTERNAL TO FILE  */
+/**********************************************************************/
+
+static int ndi_set_wgts(state_struct *state,
+                        const ndi_float64 * new_wgts,
+                        const int new_num_grps)
+
+/* Valid inputs:
+   Any vector of floats that has the same number of elements as the number
+   of energy groups.
+
+   This function changes state->lib_weight to a new set of weights. These
+   are the weights used to do future group collapses. It requires the number
+   of groups for the new vector to have the same number of groups as the
+   original weight function. Only valid for multigroup or depletion.
+
+   -------------------------------------------------------------------------*/
+{
+
+    int i; 
+    int ierr = 0;
+
+    if (!state) {
+        return -2;
+    }
+
+    /* Check that number of groups is reasonable */
+    if (new_num_grps <= 0) {
+        return -23;
+    }
+
+    /* Check appropriate library type */
+    if ((state->library_type != 'm') &&
+        (state->library_type != 'd')) {
+        return -23;
+    }
+
+    /* Check that the number of groups is the same */
+    if (new_num_grps != state->iso_stat.num_grps) {
+        return -23;
+    }
+
+    /* Change lib_weight. lib_weight is used when collapsing multigroup
+       data, so changing it will affect future group collapses */
+    for (i = 0; i < new_num_grps; i++){
+        if (new_wgts[i] <= 0.0) {
+            ierr = -28;
+        }
+        state->lib_weight[i] = new_wgts[i];
+    }
+
+    return ierr;
+
+}
+
+/**********************************************************************/
 /**********************************************************************/
 
 static int ndi_set_collapse_vec(state_struct *state,

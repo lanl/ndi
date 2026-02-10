@@ -422,6 +422,7 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
 {
 
     int ierr = 0;               /* Error flag: 0=no error,pos=warning, neg=error */
+    int z, a;
 
     /*  Default return value is 0 */
     *ret_val = 0;
@@ -476,6 +477,17 @@ static int get_int_val_dedx(state_struct *state, int in_key, int *ret_val)
             ierr = -9;
         }
         break;
+
+    case NDI_ATOMIC_NUM:             /* Atomic number of current isotope -- Z */
+        ierr = ndi_parse_mg_zaid(state->dedx_stat.zaid, &z, &a);
+        *ret_val = z;
+        break;
+
+    case NDI_MASS_NUM:               /* Mass number of current isotope -- A */
+        ierr = ndi_parse_mg_zaid(state->dedx_stat.zaid, &z, &a);
+        *ret_val = a;
+        break;
+
 
       /**************  UNKNOWN KEYWORD  *****************/
 

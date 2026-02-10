@@ -57,6 +57,9 @@ int ndi_c_get_string_val_h(state_struct *state, int in_key, char *ret_val,
     } else if (in_key == NDI_VERSION) {
         /* Special case--library type need not be set if asking for version. */
         strncpy(ret_val, NDI_VERSION_DATA, str_size);
+    } else if (in_key == NDI_DATA_VERSION_KEYWORD) {
+        /* Special case--library type need not be set if asking for data version. */
+        strncpy(ret_val, NDI_DATA_VERSION, str_size);
     } else if (!state->ndi_initialized) {
         return -2;
     } else if (in_key == NDI_GENDIR_PATH) {

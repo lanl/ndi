@@ -38,10 +38,11 @@ int testc (void)
     int gendir_h = -1;
     int handle = -1;
    int ierr = 0;
-   int i;
+   int i, size;
    int num_zaid = 5;
    int ext_num_zaid = 24;
    char test_zaid[133] = "";
+   char keyword[50] = "";
 
    char *zaid_list[] = { "92235.", "1001.600nm", "o16", "pu239", "10020"  };
    char *extend_zaid_list[] = { "o16", "pu239", "U-233", "fe", "016", "Fl-19",
@@ -529,6 +530,52 @@ int testc (void)
      }
    }
    printf("\n");
+
+/****************************************************************
+     Test 15 -- Test printing keywords
+ ****************************************************************/
+
+    /* Bonus test! Getting keyword strings. */
+    for ( i = 0; i < 156; i++ ) {
+      size = NDI2_get_size_n(handle, NDI_NAME, i, &ierr);
+      ierr = NDI2_get_string_val_n(handle, NDI_NAME, i, keyword, size);
+      if (ierr) {
+        printf("  **Error %d in getting keyword string %d\n",ierr,i);
+      } else {
+        printf("Keyword %d is %s\n",i,keyword);
+      }
+    }
+
+    /* Some other keywords */
+    size = NDI2_get_size_n(handle, NDI_NAME, 1046, &ierr);
+    ierr = NDI2_get_string_val_n(handle, NDI_NAME, 1046, keyword, size);
+    if (ierr) {
+      printf("  **Error %d in getting keyword string %d\n",ierr,1046);
+    } else {
+      printf("Keyword %d is %s\n",1046,keyword);
+    }
+
+    size = NDI2_get_size_n(handle, NDI_NAME, 1100, &ierr);
+    ierr = NDI2_get_string_val_n(handle, NDI_NAME, 1100, keyword, size);
+    if (ierr) {
+      printf("  **Error %d in getting keyword string %d\n",ierr,1100);
+    } else {
+      printf("Keyword %d is %s\n",1100,keyword);
+    }
+
+    size = NDI2_get_size_n(handle, NDI_NAME, 1072, &ierr);
+    ierr = NDI2_get_string_val_n(handle, NDI_NAME, 1072, keyword, size);
+    if (ierr) {
+      printf("  **Error %d in getting keyword string %d\n",ierr,1072);
+    } else {
+      printf("Keyword %d is %s\n",1072,keyword);
+    }
+
+
+
+/****************************************************************
+   Close gendir
+ ****************************************************************/
 				
    ierr = NDI2_close_gendir(gendir_h);
    if (ierr)
@@ -1310,19 +1357,21 @@ static int check_ndi_int_vec_func_mgn(int handle)
    int n;
    int tmp_err = 0;
    int *ret_vec;
-   int num_keys = 4;
+   int num_keys = 5;
    int num_elements = 0;
    int inkey[] = {
       NDI_RPROD_ALL, 
       NDI_RPROD_RMO,
       NDI_RPROD_FEW, 
-      NDI_REAC_MT };
+      NDI_REAC_MT,
+      NDI_SEC_PART_TYPES };
 
    char *int_vec_str[] = {
       "No. reaction prod--all", 
       "No. reaction prod--rmo", 
       "No. reaction prod--few", 
-      "Reaction MT" };
+      "Reaction MT",
+      "Secondary particle types" };
 
 
    printf("\nINTEGER VECTORS:\n");
@@ -1331,6 +1380,7 @@ static int check_ndi_int_vec_func_mgn(int handle)
    for (n = 0; n < num_keys; n++) {
       printf( "%s:  ", int_vec_str[n]);
       num_elements = NDI2_get_size( handle, inkey[n], &tmp_err );
+      if ( inkey[n] == NDI_SEC_PART_TYPES ) num_elements = num_elements - 1;
       if ( num_elements <= 0 ) {
 	num_elements = 30;
 	printf("***ERROR GETTING SIZE FOR %s.\n", int_vec_str[n] );
@@ -1797,6 +1847,8 @@ static int check_ndi_sec_part_mgn(int handle)
    ndi_float32 *ret_flt32;
    int num_elements = 0;
    int num_sec_parts = 0;
+   int *int_vec;
+   int size;
 
    int num_int_val = 2;
    int num_float_vec = 3;
@@ -1976,6 +2028,16 @@ static int check_ndi_sec_part_mgn(int handle)
 	   free(ret_flt32);
        }
      }
+
+     int_vec = (int *) malloc(num_sec_parts * sizeof(int));
+     tmp_err = NDI2_get_int_vec( handle, NDI_SEC_PART_TYPES, int_vec, num_sec_parts );
+     if ( tmp_err ) {
+       printf("  **Error %d in %s--returned value is:\n", tmp_err, "NDI_SEC_PART_TYPES");
+     }
+     for (i = 0; i < num_sec_parts; i++) {     
+       printf("Secondary particle type (int): %d\n", int_vec[i]);
+     }
+
    }
    
    printf("\n");

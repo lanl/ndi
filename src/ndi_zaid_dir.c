@@ -24,6 +24,9 @@ static void ndi_find_first_string( char *in_line, int in_size,
                                    char *first_string, int string_size, 
                                    char *seps );
 */
+int find_zaid(state_struct *state, const char *in_zaid, char *real_zaid, char *library,
+              char *lib_path, char *lib_file_type, long int *iso_start, double *at_wgt,
+              char *section, FILE *dir_stream);
 
 /**********************************************************************/
 
@@ -59,15 +62,7 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
 {
 
     char section[30];                 /* Gendir section (e.g. neutron_multigroup) */
-    size_t sec_len;                   /* Length of 'section' string */
-    char in_line[MAX_IN_STR_LEN];     /* Current input line */
-    char zaid_string[MAX_IN_STR_LEN]; /* First string on current line */
-    char seps[] = " ,\t\n";
     int ierr = 0;                     /* Error flag: 0=no error,pos=warning, neg=error */
-    int done = 0;                     /* Flag indicating when processing of zaid is done */
-    char tmp_zaid[MAX_IN_STR_LEN];
-    dir_entry dir_rec;
-
 
     /* Initialize */
     strcpy(real_zaid, "");
@@ -126,84 +121,11 @@ int ndi_zaid_dir(state_struct *state, int pt_type, char l_type,
         return -1;
     }
 
-    (void) rewind(state->ndi_dir);
-    sec_len = strlen(section);
+    /* Find the specified ZAID in the gendir. Allow for nested gendirs with recursive
+       calls to find_zaid. */
+    ierr = find_zaid(state, in_zaid, real_zaid, library, lib_path, lib_file_type,
+                     iso_start, at_wgt, section, state->ndi_dir);
 
-    while (done == 0) {
-
-        /* Find correct section of directory file */
-        if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
-            if (strncmp(in_line, section, sec_len) == 0) {
-                while ((done == 0) && (ierr >= 0)) {
-
-                    /* Find correct zaid within section */
-                    if (fgets(in_line, sizeof(in_line), state->ndi_dir) !=
-                        NULL) {
-
-                        /* Check if current input line contains the desired zaid */
-                        if (strstr(in_line, "z=")) {
-                            (void) ndi_find_zaid_string(in_line,
-                                                        MAX_IN_STR_LEN,
-                                                        zaid_string,
-                                                        MAX_IN_STR_LEN,
-                                                        seps);
-                            if (strncmp
-                                (zaid_string, in_zaid,
-                                 strlen(in_zaid)) == 0) {
-                                ierr =
-                                    read_dir_block(in_line, state->ndi_dir,
-                                                   &dir_rec);
-                                strcpy(tmp_zaid, dir_rec.zaid);
-                                strcpy(library, dir_rec.lib);
-                                strcpy(lib_path, dir_rec.path);
-                                strcpy(lib_file_type, dir_rec.lib_type);
-                                *iso_start = dir_rec.offset;
-                                *at_wgt = dir_rec.at_wgt;
-
-
-                                if ((strchr(in_zaid, '.') != NULL) &&
-                                    (isalnum(*(strchr(in_zaid, '.') + 1)))) {
-                                    /* Partially qualified zaid */
-                                    done = -1;
-                                } else {
-                                    if ((!state->library_vers) ||
-                                        (strcmp(state->library_vers, "") !=
-                                         0)) {
-                                        if (strcmp
-                                            (state->library_vers,
-                                             library) == 0) {
-                                            /* Current library matches user-specified default */
-                                            done = -1;
-                                        }
-                                    } else {
-                                        /* No default library specified by user */
-                                        done = -1;
-                                    }
-                                }
-                            }
-                            /* strncmp */
-                        } else if (strncmp(in_line, "end", 3) == 0) {
-                            /* Isotope not found in gendir */
-                            ierr = -8;
-                            done = -1;
-                        }
-                    } else {
-                        /* Error reading file */
-                        ierr = -11;
-                        done = -1;
-                    }
-                }                /* while */
-            }                        /* strncmp */
-        } else {
-            /* Error reading file */
-            ierr = -11;
-            done = -1;
-        }
-    }                                /* while */
-
-    if (ierr >= 0) {
-        strcpy(real_zaid, tmp_zaid);
-    }
     return ierr;
 
 }
@@ -302,5 +224,116 @@ static void ndi_find_first_string( char *in_line, int in_size,
    return;
 }
 */
+
 /***********************************************************************/
+/* Find the gendir entry with the specified ZAID. For nested gendirs,  */
+/* recursively call find_zaid, but with a newly opened gendir.         */
 /***********************************************************************/
+
+int find_zaid(state_struct *state, const char *in_zaid, char *real_zaid, char *library,
+              char *lib_path, char *lib_file_type, long int *iso_start, double *at_wgt,
+              char *section, FILE *dir_stream) {
+
+    int ierr = 0;
+    int done = 0;
+    char in_line[MAX_IN_STR_LEN];
+    char zaid_string[MAX_IN_STR_LEN];
+    char tmp_zaid[MAX_IN_STR_LEN];
+    char seps[] = " ,\t\n";
+    char *path = NULL;
+    dir_entry dir_rec;
+    FILE *new_dir;
+
+    (void) rewind(dir_stream);
+
+    while (done == 0) {
+
+        /* Find correct section of directory file */
+        if (fgets(in_line, sizeof(in_line), dir_stream) != NULL) {
+            if (strncmp(in_line, section, strlen(section)) == 0) {
+                while ((done == 0) && (ierr >= 0)) {
+                    /* Find the correct zaid within the section */
+                    if (fgets(in_line, sizeof(in_line), dir_stream) != NULL) {
+                        if (strstr(in_line, "z=")) {
+                            (void) ndi_find_zaid_string(in_line, MAX_IN_STR_LEN,
+                                                        zaid_string, MAX_IN_STR_LEN, seps);
+                            /* A potential nested gendir entry */
+                            if (strncmp(zaid_string, "gendir", strlen("gendir")) == 0) {
+                                ierr = read_dir_block(in_line, dir_stream, &dir_rec);
+                                /* If it is a nested gendir entry, compare against the default library */
+                                if (state->library_vers) {
+                                    if (strcmp(state->library_vers, dir_rec.lib) == 0 ||
+                                        strcmp(state->library_vers, "") == 0) {
+                                        /* Open the nested gendir */
+                                        ierr = ndi_open_gendir(&new_dir, dir_rec.path, &path);
+                                        if (ierr < 0) return ierr;
+                                        ierr = find_zaid(state, in_zaid, tmp_zaid, library,
+                                                         lib_path, lib_file_type, iso_start,
+                                                         at_wgt, section, new_dir);
+                                        /* We are done with this gendir, so close the file */
+                                        if (fclose(new_dir) != 0) {
+                                            ierr = -3;
+                                            done = -1;
+                                        }
+                                        /* The isotope was found! */
+                                        if (ierr == 0) done = -1;
+                                        /* The isotope was not found in this gendir. There is
+                                           a chance it will be found in another gendir, so reset. */
+                                        if (ierr == -8) ierr = 0;
+                                    }
+                                }
+                            } else if (strncmp(zaid_string, in_zaid, strlen(in_zaid)) == 0) {
+                                /* We have found the correct zaid. Read in data and return. */
+                                ierr = read_dir_block(in_line, dir_stream, &dir_rec);
+                                strcpy(tmp_zaid, dir_rec.zaid);
+                                strcpy(library, dir_rec.lib);
+                                strcpy(lib_path, dir_rec.path);
+                                strcpy(lib_file_type, dir_rec.lib_type);
+                                *iso_start = dir_rec.offset;
+                                *at_wgt = dir_rec.at_wgt;
+
+                                if ((strchr(in_zaid, '.') != NULL &&
+                                    (isalnum(*(strchr(in_zaid, '.') + 1))))) {
+                                    /* Partially qualified zaid */
+                                    done = -1;
+                                } else {
+                                    if ((!state->library_vers) ||
+                                        (strcmp(state->library_vers, "") != 0)) {
+                                        if (strcmp(state->library_vers, library) == 0) {
+                                            /* Current library matches user-specified default */
+                                            done = -1;
+                                        }
+                                    } else {
+                                        /* No default library specified by user */
+                                        done = -1;
+                                    }
+                                }
+                            } /* strcmp */
+                        } else if (strncmp(in_line, "end", 3) == 0) {
+                            /* Did not find isotope in this gendir */
+                            ierr = -8;
+                            done = -1;
+                        }
+                    } else {
+                        /* Error reading file */
+                        ierr = -11;
+                        done = -1;
+                    }
+                }
+            }
+        } else {
+            /* Error reading file */
+            ierr = -11;
+            done = -1;
+        }
+    }
+
+    if (ierr >= 0) {
+        strcpy(real_zaid, tmp_zaid);
+    }
+
+    return ierr;
+
+}
+
+

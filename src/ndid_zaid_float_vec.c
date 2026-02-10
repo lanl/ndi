@@ -85,10 +85,11 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
     FLOAT_TYPE curr_flt;
     struct ndi_bin_tree_node *root = NULL;
     struct ndi_bin_tree_node *curr_node;
+    FILE *stream;
+    char *path = NULL;
 
     strcpy(section, in_value);
     sec_len = strlen(section);
-
     while (done == 0) {
 
         /* Find correct section of directory file */
@@ -103,8 +104,17 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
                             ierr =
                                 read_dir_block(in_line, ndi_dir, &mg_dir);
                             if (ierr >= 0) {
+                                /* If we have a nested gendir, open it and build a float
+                                   tree from it to be inserted into the current node */
+                                if (strncmp(mg_dir.zaid,"gendir",strlen("gendir")) == 0) {
+                                    ierr = ndi_open_gendir(&stream, mg_dir.path, &path);
+                                    if (ierr < 0 ) return root;
+                                    curr_node = BUILD_FLOAT_TREE(stream, in_key, in_value);
+                                    ndi_insert_node(&root, curr_node);
+                                    if (fclose(stream) != 0) ierr = -3;
+                                    continue;
+                                }
                                 /* Add value to array */
-
                                 zaid_p = (char *) &(mg_dir.zaid);
                                 switch (in_key) {
                                 case NDI_TEMP:
@@ -130,7 +140,6 @@ struct ndi_bin_tree_node *BUILD_FLOAT_TREE(FILE *ndi_dir, int in_key,
                                     return NULL;
                                     break;
                                 }
-
 
                                 curr_node =
                                     CREATE_FLOAT_NODE(zaid_p, curr_flt);

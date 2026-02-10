@@ -5,9 +5,10 @@
 
 #include "ndi.h"
 
-#define OPT_SIZE    24
+#define OPT_SIZE           24
 #define GENDIR_PATH_SIZE  200
-#define ZAID_SIZE   24
+#define ZAID_SIZE          24
+#define VERSION_SIZE       24
 
 static void print_float64_vec(ndi_float64 *flt64_ptr, int num_elements);
 static void print_string_vec(char *str_arr, int num_elements);
@@ -21,6 +22,7 @@ int main ()
    char gendir_path[GENDIR_PATH_SIZE];
    char option[OPT_SIZE];
    char zaid[ZAID_SIZE];
+   char version[VERSION_SIZE];
  
    int size, zaid_size;
    char *str_arr;
@@ -30,6 +32,24 @@ int main ()
    ierr = NDI2_open_gendir(&gendir0, "");
    if (ierr)
      printf("  **Error %d in NDI open gendir.\n\n", ierr );
+
+   /* Get NDI version number */
+   size = NDI2_get_size(gendir0, NDI_VERSION, &ierr);
+   if (ierr)
+     printf("  **Error %d in NDI get version size.\n\n", ierr);
+   ierr = NDI2_get_string_val(gendir0, NDI_VERSION, version, size);
+   if (ierr)
+     printf("  **Error %d in NDI get version.\n\n", ierr);
+   printf("NDI version: %s\n", version);
+
+   /* Get NDI data version number */
+   size = NDI2_get_size(gendir0, NDI_DATA_VERSION_KEYWORD, &ierr);
+   if (ierr)
+     printf("  **Error %d in NDI get data version size.\n\n", ierr);
+   ierr = NDI2_get_string_val(gendir0, NDI_DATA_VERSION_KEYWORD, version, size);
+   if (ierr)
+     printf("  **Error %d in NDI get data version.\n\n", ierr);
+   printf("NDI data version: %s\n", version);
 
    ierr = NDI2_set_option_gendir(gendir0, NDI_LIB_TYPE_DEFAULT, 
 				 "multigroup_neutron"); 

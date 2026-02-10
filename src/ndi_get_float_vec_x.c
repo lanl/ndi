@@ -23,6 +23,10 @@ static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
                                   const char *in_str,
                                   FLOAT_TYPE *return_vec, int vec_size);
 
+static int GET_NESTED_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
+                                         const char *in_str, FILE *stream,
+                                         double *vec, int vec_size, int *count);
+
 static int GET_FLOAT_VEC_X_DEDX(state_struct *state, int in_key,
                                 const char *in_str,
                                 FLOAT_TYPE *return_vec, int vec_size);
@@ -79,35 +83,163 @@ static int GET_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
                                   FLOAT_TYPE *return_vec, int vec_size)
 {
     int ierr = 0;
+    int done = 0;
     double *vec = NULL;
     int i;
     int size = vec_size;
+    int count = 0;
+    char *section[30];
+    char in_line[MAX_IN_STR_LEN];
+    int particle_type = state->particle_type;
+    char library_type = state->library_type;
+    int reaction_flag = state->ndi_depl_set;
+
+    fseek(state->ndi_dir, 0, SEEK_SET);
+
+    if (particle_type == 1 && library_type == 'm') {
+        if (reaction_flag == 0) {
+            strcpy(section, "multigroup_neutron");
+        } else {
+            strcpy(section, "neutron_depletion");
+        }
+    } else if ((particle_type == 1) && (library_type == 'd')) {
+        if (reaction_flag == 0) {
+            strcpy(section, "dosimetry_neutron");
+        } else {
+            strcpy(section, "radchem_chain");
+        }
+    } else if ((particle_type == 1001) && (library_type == 'd')) { /* Reqt 93 */
+        if (reaction_flag == 0) {
+            strcpy(section, "dosimetry_proton");
+        } else {
+            strcpy(section, "radchem_chain");
+        }
+    } else if ((particle_type == 0) && (library_type == 'm')) {
+        if (reaction_flag == 0) {
+            strcpy(section, "multigroup_photon");
+        } else {
+            strcpy(section, "photon_depletion");
+        }
+    } else if ((particle_type == -1) && (library_type == 's')) {
+        strcpy(section, "tndata");
+    } else if ((particle_type == -1) && (library_type == 'r')) {
+        strcpy(section, "tn_reactions");
+    } else if ((particle_type == -1) && (library_type == 'x')) {
+        strcpy(section, "dedx");
+    } else if (library_type == ' ') {
+        /* Error: library type not set */
+        NDI_THROW(ierr, -16);
+    } else {
+        NDI_THROW(ierr, -5);
+    }
+
+    while (done == 0) {
+        if (fgets(in_line, sizeof(in_line), state->ndi_dir) != NULL) {
+            if (strncmp(in_line, section, strlen(section)) == 0) {
+                /* We found the right section! */
+                done = -1;
+            }
+        } else {
+            /* Error reading file */
+            NDI_THROW(ierr, -11);
+        }
+    }
 
     if (!state && !state->ndi_dir) /* check state sanity */
         NDI_THROW(ierr, -2);
 
-    switch(in_key) {            /* Process keyword */
-    case NDI_TEMP:
-    case NDI_SIG_0:
-    case NDI_AT_WGT:
-    case NDI_AWR:
-        vec = (double *)ndi_malloc(vec_size*sizeof(double));
-        if (!vec) NDI_THROW(ierr, -14); /* Out of memory */
+    vec = (double *) ndi_malloc(vec_size*sizeof(double));
+    if (!vec) NDI_THROW(ierr, -14); /* Out of memory */
 
-        ierr = ndi_float_dir_block(state->ndi_dir, in_key, 
-                                   ndi_get_section(state),
-                                   state->library_vers, in_str, 
-                                   vec, &size);
+    ierr = GET_NESTED_FLOAT_VEC_X_GENDIR(state, in_key, in_str,
+                                         state->ndi_dir, vec, vec_size, &count);
 
-        for(i = 0; i < size; i++) return_vec[i] = (FLOAT_TYPE) vec[i];
-        break;
-    default:
-        NDI_THROW(ierr, -4);   /* Unrecognized input key */
+    for (i = 0; i < size; i++) {
+        return_vec[i] = (FLOAT_TYPE) vec[i];
     }
-
 
  catch:
     ndi_free((void **) &vec);
+    return ierr;
+}
+
+/*********************************************************************/
+/*                                                                   */
+/* Get vector of floats from the gendir file corresponding to in_str */
+/* If we come across a nested gendir, open it and see if in_str is   */
+/* present there.                                                     */
+/*                                                                   */
+/*********************************************************************/
+
+static int GET_NESTED_FLOAT_VEC_X_GENDIR(state_struct *state, int in_key,
+                                         const char *in_str, FILE *stream,
+                                         double *vec, int vec_size, int *count)
+{
+    int ierr = 0;
+    FILE *temp_stream;
+    dir_entry rec;
+    dir_entry *d = NULL;
+    long int len_diff = 0;
+    char *path = NULL;
+    char zaid[MAX_IN_STR_LEN];
+    char *token;
+    char seps[] = "ngz";
+    char seps_dot[] = ".";
+
+    while ((d = ndi_fget_dir_block(&rec,stream)) != NULL && ierr >= 0) {
+        strcpy(zaid,d->zaid);
+        /* If a nested gendir is found, check if it has the appropriate library
+           and open it. */
+        if (strncmp(d->zaid,"gendir",strlen("gendir")) == 0 &&
+            strncmp(d->lib,state->library_vers,strlen(state->library_vers)) == 0 &&
+            strlen(d->lib) == strlen(state->library_vers)) {
+
+            ierr = ndi_open_gendir(&temp_stream, d->path, &path);
+            if (ierr < 0) continue;
+            ierr = GET_NESTED_FLOAT_VEC_X_GENDIR(state, in_key, in_str, temp_stream,
+                                                 vec, vec_size, count);
+            if (fclose(temp_stream) != 0) ierr = -3;
+
+        /* If the gendir entry's zaid matches in_str, grab the appropriate float
+           for that gendir entry. This requires either a matching zaid with 
+           at least part of a zaid extension, or a matching zaid with matching
+           library. */
+        } else {
+            token = strtok(zaid,seps_dot);
+            if (token == NULL) continue;
+            len_diff = strlen(in_str) - strlen(token);
+            if (len_diff > 0) {
+                strcpy(zaid,d->zaid);
+                token = strtok(zaid,seps);
+            }
+            if ((len_diff > 1 && strncmp(token, in_str, strlen(in_str)) == 0) || /* Most of the zaid matches */
+                (strncmp(d->zaid, in_str, strlen(d->zaid)) == 0) || /* All of the zaid matches */
+                ((strncmp(d->zaid, in_str, strlen(in_str)) == 0) && /* The ZAID matches to the ., and... */
+                 ((strcmp("", state->library_vers) == 0) ||         /* there is no default library */
+                  (strcmp(d->lib, state->library_vers) == 0)))) {   /* or the default library matches */
+
+            switch(in_key) {            /* Process keyword */
+                case NDI_TEMP:
+                    vec[*count] = d->temp;
+                    break;
+                case NDI_SIG_0:
+                    vec[*count] = d->sig_0;
+                    break;
+                case NDI_AT_WGT:
+                    vec[*count] = d->at_wgt;
+                     break;
+                case NDI_AWR:
+                     vec[*count] = d->awr;
+                     break;
+                default:
+                     NDI_THROW(ierr, -4);
+            }
+
+            *count = *count + 1;
+            }
+        }
+    }
+  catch:
     return ierr;
 }
 

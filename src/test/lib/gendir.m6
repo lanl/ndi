@@ -1,0 +1,77 @@
+multigroup_neutron
+  z=1001.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00780E+00
+    awr=9.99142E-01 end
+  z=1002.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=558  o=35193  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00
+    awr=1.99680E+00 end
+  z=1003.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=1131  o=70995  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.01600E+00
+    awr=2.99009E+00 end
+  z=3006.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=1689  o=106314  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=6.01510E+00
+    awr=5.96343E+00 end
+  z=3007.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=2324  o=144270  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00
+    awr=6.95573E+00 end
+  z=5010.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=2943  o=181582  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00129E+01
+    awr=9.92688E+00 end
+  z=8016.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=3576  o=219463  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.59905E+01
+    awr=1.58531E+01 end
+  z=9019.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=4193  o=256764  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.89982E+01
+    awr=1.88350E+01 end
+  z=16000.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=4804  o=293851  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.20636E+01
+    awr=3.17882E+01 end
+  z=24000.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=5429  o=331421  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.19957E+01
+    awr=5.15490E+01 end
+  z=26000.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=6040  o=368584  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.58281E+01
+    awr=5.53485E+01 end
+  z=26054.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=6656  o=405860  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.39394E+01
+    awr=5.34760E+01 end
+  z=26056.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=7267  o=443023  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.59345E+01
+    awr=5.54540E+01 end
+  z=45117.900nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=7878  o=480110  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.16545E+02
+    awr=1.15544E+02 end
+  z=46119.900nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=8475  o=516713  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.18543E+02
+    awr=1.17525E+02 end
+  z=50998.990nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=9072  o=553392  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=50999.990nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=9629  o=588685  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=53129.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=10202  o=624511  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.28905E+02
+    awr=1.27798E+02 end
+  z=92233.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=10771  o=660149  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.33045E+02
+    awr=2.31043E+02 end
+  z=92235.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=11431  o=699637  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=94238.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=12234  o=747228  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02
+    awr=2.36005E+02 end
+  z=94239.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=12910  o=787250  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39055E+02
+    awr=2.37002E+02 end
+  z=94240.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=13602  o=827805  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
+    awr=2.37992E+02 end
+  z=94241.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=14295  o=868385  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41049E+02
+    awr=2.38978E+02 end
+  z=94242.600nm  d=5/2/2003  l=mendf6  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_gen
+    ft=asc  ln=14956  o=907899  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42058E+02
+    awr=2.39979E+02 end
+end

@@ -1,0 +1,22 @@
+multigroup_neutron
+  z=gendir l=mendf6
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/gendir.newdata
+    ft=path
+    end
+  z=gendir l=mendf6
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/gendir.mendf6
+    ft=path
+    end
+  z=gendir l=mendf5
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/gendir.mendf5
+    ft=path
+    end
+  z=gendir l=rmoxsct
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/gendir.rmoxsct
+    ft=path
+    end
+  z=gendir l=ss_test
+    f=@CMAKE_CURRENT_BINARY_DIR@/lib/gendir.ss_test
+    ft=path
+    end
+end

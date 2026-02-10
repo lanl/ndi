@@ -4,14 +4,15 @@
     TEST -- dE/dx data
  ********************************************************* 
 
-ZAID of length 5: 1001
+ZAID of length 11: 1001.000dx
 Info: This data has been converted from ACE to NDI
 Date processed: 2019-11-22
 Date source: unknown
 Library name: dedx
-
 Atomic weight 1.007280
 
+Atomic number 1
+Mass number 1
 Number of energies 91
 Number of densities 28
 Number of temperatures 28

@@ -11,7 +11,7 @@ int main ()
    int num_targets, num_grps, num_dens, num_temps, num_tot;
    int *int_vec;
    int * target_zaids;
-   int z,ai,i,n;
+   int a, z, i, n;
    int gendir_h;
    int handle;
    float err;
@@ -36,7 +36,7 @@ int main ()
    ierr = NDI2_set_option(handle, NDI_LIBRARY, "dedx");
    if( ierr != 0) printf("  Error %d setting library.\n", ierr);
 
-   ierr = NDI2_set_zaid(handle, "1001");
+   ierr = NDI2_set_zaid(handle, "h1");
    if( ierr != 0) printf("  Error %d setting isotope H-1.\n", ierr);
 
 /* Test get_string_val */
@@ -64,7 +64,7 @@ int main ()
    int_val = NDI2_get_size(handle, NDI_LIBRARY_NAME, &ierr);
    ierr = NDI2_get_string_val(handle, NDI_LIBRARY_NAME, tmp1, int_val);
    if( ierr != 0) printf("  Error %d retrieving library name.\n", ierr);
-   printf("Library name: %s\n", &tmp1);
+   printf("Library name: %s", &tmp1);
 
 /* Test get_float_val */
 
@@ -73,6 +73,14 @@ int main ()
    printf("Atomic weight %f\n\n", double_val);
 
 /* Test get_int_val */
+
+   ierr = NDI2_get_int_val(handle, NDI_ATOMIC_NUM, &z);
+   if( ierr != 0) printf("  Error %d retrieving atomic number.\n", ierr);
+   printf("Atomic number %d\n", z);
+
+   ierr = NDI2_get_int_val(handle, NDI_MASS_NUM, &a);
+   if( ierr != 0) printf("  Error %d retrieving mass number.\n", ierr);
+   printf("Mass number %d\n", a);
 
    ierr = NDI2_get_int_val(handle, NDI_NUM_GRPS, &num_grps);
    if( ierr != 0) printf("  Error %d retrieving number of energies.\n", ierr);

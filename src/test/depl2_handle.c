@@ -26,10 +26,19 @@ int main ()
    if (ierr)
      printf("  **Error %d in NDI init.\n\n", ierr );
    ierr = NDI2_make_handle(gendir_h, "multigroup_neutron", &handle);
-   if( ierr != 0) printf("  Error %d making particle handle.\n", ierr);
-   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2.002zpd" );
+   if (ierr != 0) printf("  Error %d making particle handle.\n", ierr);
 
-      
+   /* Quick test of bad depletion library */
+   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2.002zpdXX" );
+   if (ierr != 0) {
+     printf("  Expected error %d setting depletion library.\n", ierr);
+   } else {
+     printf("  No expected error setting depletion library!\n");
+   }
+
+   ierr = NDI2_set_option(handle,  NDI_DEPLETION, "test2.002zpd" );
+   if (ierr != 0) printf("  Error %d setting depletion library.\n", ierr);    
+
    /* Set isotope, no collapsing */
    ierr = NDI2_set_isotope(handle, "94242");
    if (ierr) 

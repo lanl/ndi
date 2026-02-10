@@ -3,7 +3,7 @@
       program main
 
       integer FVECS, AWRS, STRS, ZAIDS
-      parameter (FVECS=2000, AWRS=500, STRS=500, ZAIDS=13)
+      parameter (FVECS=2000, AWRS=500, STRS=500, ZAIDS=16)
       
       character*(ZAIDS) zaid, tmp_zaid
       character*132 info

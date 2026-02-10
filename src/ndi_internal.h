@@ -106,6 +106,7 @@ typedef struct _dir_entry {
     char path[MAX_IN_STR_LEN];
     char lib_type[4];
     char egrp[MAX_IN_STR_LEN];
+    char status[MAX_IN_STR_LEN];
     long int line_num;
     long int offset;
     int num_grps;
@@ -546,8 +547,14 @@ extern "C" {
     int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec);
     int ndi_fseek_section(FILE *stream, const char *str, int wherefrom);
     dir_entry *ndi_fget_dir_block(dir_entry *rec, FILE *stream);
-    dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream, 
+    dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
                                   const char *lib, const char *zaid);
+    dir_entry *ndi_fget_next_dir_temp(dir_entry *rec, FILE *stream,
+                                      const char *lib, const char *zaid,
+                                      FLOAT_TYPE temp);
+    dir_entry *ndi_fget_next_dir_temp_sig_0(dir_entry *rec, FILE *stream,
+                                            const char *lib, const char *zaid,
+                                            FLOAT_TYPE temp, FLOAT_TYPE sig0);
     int ndi_count_dir_block(FILE *stream, int in_key, const char *section,
                              const char *lib, const char *zaid);
     int ndi_float_dir_block(FILE *stream, int in_key, const char *section,
@@ -605,6 +612,7 @@ extern "C" {
     int ndi_use_sgndf_values(state_struct *state, int num_grps);
     int ndi_special_sza( int sza, char *sym_str, int str_size );
     char *ndi_error_string(int ierr);
+    char *ndi_keyword(int n);
     char *ndi_mt_label(int mt);
     int ndi_has_mt(state_struct *state, int mt);
     char ndi_get_incident_name(int sza);

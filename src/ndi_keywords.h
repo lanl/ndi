@@ -183,6 +183,11 @@
 #define NDI_DENSITIES                 151
 #define NDI_ENERGIES                  152
 
+#define NDI_SF_PNU                    153
+#define NDI_NAME                      154
+#define NDI_NEUT_MASS                 155
+#define NDI_DATA_VERSION_KEYWORD      156
+
 #define NDI_COLLAPSE_DEFAULT         1046
 #define NDI_CURR_PART_DEFAULT        1077
 #define NDI_E_AVG_DEFAULT            1069

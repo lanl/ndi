@@ -1,0 +1,50 @@
+multigroup_neutron
+  z=1001.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=1  o=0  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=1.00782E+00  awr=9.99167E-01 end
+  z=1002.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=558  o=35269  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00  awr=1.99680E+00 end
+  z=1003.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=1131  o=71071  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=3.01605E+00  awr=2.99014E+00 end
+  z=3006.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=1689  o=106389  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=6.01512E+00  awr=5.96345E+00 end
+  z=3007.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=2324  o=144345  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00  awr=6.95573E+00 end
+  z=8016.990nm  d=5/1/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=2958  o=182240  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=1.59949E+01  awr=1.58575E+01 end
+  z=26000.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=3575  o=219469  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=5.58462E+01  awr=5.53665E+01 end
+  z=50998.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=4177  o=256258  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02  awr=2.28024E+02 end
+  z=50999.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=4734  o=291551  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02  awr=2.28024E+02 end
+  z=92233.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=5307  o=327377  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.33040E+02  awr=2.31038E+02 end
+  z=92235.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=5985  o=366978  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02  awr=2.33025E+02 end
+  z=92238.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=6664  o=406604  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.38051E+02  awr=2.36006E+02 end
+  z=94238.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=7343  o=446230  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.38050E+02  awr=2.36005E+02 end
+  z=94239.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=8021  o=485831  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.39052E+02  awr=2.36999E+02 end
+  z=94240.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=8699  o=525432  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02  awr=2.37992E+02 end
+  z=94241.990nm  d=5/2/2003  l=rmoxsct
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/rmoxsct_gen  ft=asc  ln=9378  o=565058  ng=30
+    t=2.53000E-08  s0=1.00000E+30  aw=2.41057E+02  awr=2.38986E+02 end
+end

@@ -271,12 +271,23 @@ static int GET_FLOAT_VEC_MG(state_struct *state, int in_key,
 
     case NDI_WGTS:              /* Weights */
         num_elements = state->iso_stat.num_grps;
-        /*  Check bounds */
         ierr =
             GET_SIMPLE_FLOAT_VEC(state, state->lib_stream,
                                  state->iso_stat.wgts.file_ptr, 3,
                                  num_elements, return_vec, return_size,
                                  binary);
+        break;
+
+    case NDI_COLLAPSE:          /* Weights used to collapse (collapsed) */
+        num_elements = state->iso_stat.num_grps;
+        if (state->collapse_flag) {
+            ierr = NDI_COLLAPSE_FLOAT(state, state->lib_weight, num_elements, 3,
+                                      return_vec, return_size);
+        } else {
+            for (n = 0; n < num_elements; n++) {
+                return_vec[n] = state->lib_weight[n]; 
+            }
+        }
         break;
 
     case NDI_VEL:               /* Velocities */
@@ -692,15 +703,13 @@ static int GET_FLOAT_VEC_TN(state_struct *state, int in_key,
     case NDI_EDIST_TEMPS:
         /* Vector of interpolation type for current particle's interpolation 
            temperatures */
-        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
-              
+                          
             part = &(state->tn_stat.sec_part[state->curr_part_index]);
             if (part) {
                 int i;
-
                 for (i = 0; i < part->temp_interp.npts; i++)
                     return_vec[i] = part->edist[i].temp;
             } else {
@@ -2639,10 +2648,17 @@ static int NDI_GET_CHI_VEC(state_struct *state, char chi_type,
         wgts = (FLOAT_TYPE *) ndi_malloc(n * sizeof(FLOAT_TYPE));
         if (!wgts) NDI_THROW(ierr, -14); /* Out of memory */
 
-        jerr = GET_SIMPLE_FLOAT_VEC(state, state->lib_stream, 
-                                    state->iso_stat.wgts.file_ptr, 3, 
-                                    state->iso_stat.num_grps, wgts, n,
-                                    binary);
+        /* Using library weights and not the weights in the file */
+        /* because the library weights may have changed */
+        if (state->collapse_flag) {
+            jerr = NDI_COLLAPSE_FLOAT(state, state->lib_weight,
+                                      state->iso_stat.num_grps, 3, wgts, n);
+        } else { 
+            for (n = 0; n < num_grps; n++){
+                wgts[n] = state->lib_weight[n];
+            }
+        }
+
         if (jerr) NDI_THROW(ierr, jerr);
 
         /* Project matrix to vector */
@@ -3093,28 +3109,36 @@ Chi weight calculates nu_avg * sum over groups i ( sigf(i) * wgt(i) )
 
         /* Check errors */
         nusigf_ptr = nusigf;
-        wgts =
-            (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
         curr_size = num_elements;
 
-        ierr =
-            ndi_get_simple_float64_vec(state, state->lib_stream,
-                                       state->iso_stat.wgts.file_ptr, 2,
-                                       state->iso_stat.num_grps, wgts,
-                                       num_elements, binary);
-
-        /* Check errors */
-        wgt_ptr = wgts;
-        for (n = 0; n < num_elements; n++) {
-            nu_sum += *nusigf_ptr * *wgt_ptr;
-            nusigf_ptr++;
-            wgt_ptr++;
+        if ( state->lib_weight ) {
+            /* If library weights are set, use those */
+            wgt_ptr = state->lib_weight;
+            for (n = 0; n < num_elements; n++) {
+                nu_sum += *nusigf_ptr * *wgt_ptr;
+                nusigf_ptr++;
+                wgt_ptr++;
+            }
+        } else {
+            wgts =
+                (ndi_float64 *) ndi_malloc(num_elements * sizeof(ndi_float64));
+            /* If library weights are not set, grab from file */
+            ierr =
+                ndi_get_simple_float64_vec(state, state->lib_stream,
+                                           state->iso_stat.wgts.file_ptr, 2,
+                                           state->iso_stat.num_grps, wgts,
+                                           num_elements, binary);
+            for (n = 0; n < num_elements; n++) {
+                nu_sum += *nusigf_ptr * *wgts;
+                nusigf_ptr++;
+                wgts++;
+            }
+            if (wgts)
+                ndi_free((void **) &wgts);
         }
         *nu_avg = nu_sum;
         if (nusigf)
             ndi_free((void **) &nusigf);
-        if (wgts)
-            ndi_free((void **) &wgts);
     } else {
         ierr = -9;
         *nu_avg = 0.0;

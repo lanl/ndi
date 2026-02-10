@@ -177,6 +177,10 @@ static int GET_FLOAT_VAL_MG(state_struct *state, int in_key,
         }
         break;
 
+    case NDI_NEUT_MASS:         /* Neutron mass */
+        *ret_val = (FLOAT_TYPE) M_NEUT_AMU;
+        break;
+
       /*******************  UNKNOWN KEYWORD  ********************/
 
     default:

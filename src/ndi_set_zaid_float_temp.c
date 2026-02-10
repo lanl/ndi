@@ -16,6 +16,10 @@
 #include "ndi_internal.h"
 #include "ndi_var_type.h"
 
+static int NDI_NESTED_SET_ZAID_FLOAT_TEMP(state_struct *state, FILE *stream,
+                                         char *zaid, char *out_zaid, FLOAT_TYPE temp,
+                                         int num_grps, double *diff);
+
 /**********************************************************************/
 
 int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid, 
@@ -23,11 +27,15 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
 {
     int ierr = 0;
     long fpos = -1;
-    dir_entry rec;
     char *section;
     char tmp_zaid[MAX_IN_STR_LEN];
-    char zaid[MAX_TN_REAC_LEN];
+    char *zaid;
+    char *out_zaid;
     double diff = DBL_MAX;
+    char seps_dot[] = ".";
+    int num_grps;
+
+    out_zaid = (char *) ndi_calloc(MAX_IN_STR_LEN, sizeof(char));
 
     if (!state && !state->ndi_dir) 
         NDI_THROW(ierr, -2); /* Check state sanity */
@@ -35,34 +43,32 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     section = ndi_get_section(state);
     if (section == 0) NDI_THROW(ierr, -16); /* Lib type not set */
 
+    /* Make sure the isotope found is compatible with the set number of groups */
+    num_grps = state->iso_stat.num_grps;
+
     /* Convert input zaid to standard zaid */
     strcpy(tmp_zaid, in_zaid);
     ierr = ndi_std_zaid(state, tmp_zaid, sizeof(tmp_zaid));
-
     /* tmp_zaid now contains SZA.(\0|.*\0) */ 
     if (*(strchr(tmp_zaid, '.') + 1) != '\0') { /* Qualified zaid override */
 
         ierr = ndi_c_set_zaid_h(state, tmp_zaid);
 
     } else {                    /* Multi-temp search */
-
         fpos = ftell(state->ndi_dir); /* Remember file position */
 
         if (ndi_fseek_section(state->ndi_dir, section, 0) != 0)
             NDI_THROW(ierr, -11);   /* Section not found */
 
-        /* Find matching zaid: set if first or temperature closer than prev. */
-        while (ndi_fget_next_dir(&rec, state->ndi_dir, 
-                                 state->library_vers, tmp_zaid)) {
-            if (fabs(rec.temp - temp) < diff) {
-                strcpy(zaid, rec.zaid);
-                diff = fabs(rec.temp - temp);
-            }
-        }
+        zaid = strtok(tmp_zaid, seps_dot);
+        /* Find matching zaid: set if first or temperature closer than prev.
+           This now allows nested gendirs; if a new gendir is opened, then
+           state->ndi_dir is modified. */
+        ierr = NDI_NESTED_SET_ZAID_FLOAT_TEMP(state, state->ndi_dir, zaid, out_zaid, temp, num_grps, &diff);
 
         /* Set matching zaid with smallest temp diff */
         if (diff < DBL_MAX)
-            ierr = ndi_c_set_zaid_h(state, zaid);
+            ierr = ndi_c_set_zaid_h(state, out_zaid);
         else
             NDI_THROW(ierr, -8);    /* Isotope not found */
     }
@@ -71,6 +77,46 @@ int NDI_SET_ZAID_FLOAT_TEMP(state_struct *state, const char *in_zaid,
     if (fpos >= 0) fseek(state->ndi_dir, fpos, SEEK_SET);
     return ierr;
 }
+
+/**********************************************************************/
+/* Set zaid by temperature, allowing for nested gendirs. If a nested
+ * gendir is found, open it and look for the zaid there. This function
+ * will find the zaid with the closest temperature, even if it does not
+ * match exactly. If there are multiple zaids with the same temperature
+ * from the same library, this will return the first one. */
+
+static int NDI_NESTED_SET_ZAID_FLOAT_TEMP(state_struct *state, FILE *stream,
+                                         char *zaid, char *out_zaid, FLOAT_TYPE temp,
+                                         int num_grps, double *diff) {
+    int ierr = 0;
+    FILE *temp_stream = NULL;
+    dir_entry rec;
+    char *path = NULL;
+
+    /* Find a gendir entry with a matching zaid and library */
+    while (ndi_fget_next_dir(&rec, stream, state->library_vers, zaid) != NULL) {
+        if (strncmp(rec.zaid,"gendir",strlen("gendir")) == 0) {
+            /* Found a gendir with the correct library, open it up */
+            ierr = ndi_open_gendir(&temp_stream, rec.path, &path);
+            if (ierr < 0) break;
+            /* Call NDI_NESTED_SET_ZAID_FLOAT_TEMP recursively for nested gendirs */
+            ierr = NDI_NESTED_SET_ZAID_FLOAT_TEMP(state, temp_stream, zaid,
+                                                  out_zaid, temp, num_grps, diff);
+            if (ierr < 0) break;
+            /* Close the nested gendir */
+            if (fclose(temp_stream) != 0) ierr = -3;
+        } else if (fabs(rec.temp - temp) < *diff && // Check if the temperature is closer than the previously found zaid
+            (rec.num_grps == num_grps || num_grps == 0)) { // Make sure it has the correct number of groups, if the number of groups has been set
+            /* Store the current best zaid and temperature differential */
+            strcpy(out_zaid,rec.zaid);
+            *diff = fabs(rec.temp - temp);
+        }
+    }
+
+    return ierr;
+
+}
+
 
 /**********************************************************************/
 /* Set zaid by temperature for multi-particle handle (Reqt. 75).

@@ -41,6 +41,7 @@ zero as error.
 **********************************************************************/
 {
     int size = 0;
+    *ierr = 0;
 
     /* Check that ndi_init has been called. */
     if ((!state) || (!state->ndi_initialized)) {
@@ -51,6 +52,8 @@ zero as error.
     /* Special case--library type need not be set if asking for version. */
     if (in_key == NDI_VERSION) {
         size = (int) strlen(NDI_VERSION_DATA) + 1;
+    } else if (in_key == NDI_DATA_VERSION_KEYWORD) {
+        size = (int) strlen(NDI_DATA_VERSION) + 1;
     } else if (in_key == NDI_GENDIR_PATH) {
         size = (int) strlen(state->open_gendir_file) + 1;
     } else {
@@ -275,6 +278,7 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
     case NDI_ENERGY_N:          /* Energy given to neutrons */
     case NDI_ENERGY_AVAIL:      /* Energy available */
     case NDI_WGTS:              /* weights */
+    case NDI_COLLAPSE:          /* weights used to collapse data */
     case NDI_VEL:               /* Velocities */
     case NDI_HEATING:           /* Heating */
     case NDI_KERMA:             /* kerma */
@@ -305,7 +309,6 @@ static int get_mg_size(state_struct *state, int in_key, int *ierr)
         break;
 
         /* Arrays with element number not equal to number of groups */
-
 
     case NDI_TD_VAL:
     case NDI_E_BOUNDS:
@@ -569,7 +572,6 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
     case NDI_EDIST_INTERP_TYPE:
         /* Vector of interpolation type for current particle's temperature
            interpolation regions */
-        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -589,7 +591,6 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
     case NDI_EDIST_TEMPS:
         /* Vector of interpolation type for current particle's interpolation 
            temperatures */
-        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -608,7 +609,6 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     case NDI_EDIST_CONT_E:
     case NDI_EDIST_CONT_P:
-        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;
@@ -635,7 +635,6 @@ static int get_tn_size(state_struct *state, int in_key, int *ierr)
 
     case NDI_EDIST_CONT_INTERP_REG:
     case NDI_EDIST_CONT_INTERP_TYPE:
-        if (state->grp_num_new <= 0) return -21;
         if ((state->curr_part_index >= 0) ||
             (state->curr_part_index < state->sec_part_filled)) {
             sec_part_distr *part;

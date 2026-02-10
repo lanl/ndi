@@ -684,7 +684,7 @@ char *ndi_error_string(int n)
         "Null vector input by user.", // 25
         "Invalid error number.", // 26
         "Bad handle data.", // 27
-        "Invalid error number.", // 28
+        "Zero or negative user weight function.", // 28
         "Invalid error number.", // 29
         "NDI_DEPLETION not set.", // 30
         "Current zaid not in target set.", // 31
@@ -692,7 +692,8 @@ char *ndi_error_string(int n)
         "Last index greater than the number of particles.", // 33
         "Library not found in gendir.", // 34 (was +54)
         "Invalid particle handle.", // 35 (was -99)
-        "Bad particle." // 36 (was -999)
+        "Bad particle.", // 36 (was -999)
+        "Chain not found in gendir." // 37
     };
 
     int num_warnings = sizeof(warning) / sizeof(warning[0]);
@@ -705,6 +706,212 @@ char *ndi_error_string(int n)
     } else {
         return error[0];
     }
+}
+
+/**********************************************************************/
+/*
+ * Description: Return a string for the NDI keyword
+ *
+ */
+
+char *ndi_keyword(int n)
+{
+    static char *keywords[] = {
+        "Not a valid keyword", // 0
+        "NDI_ZAID", // 1
+        "NDI_INFO", // 2
+        "NDI_NUM_GRPS", // 3
+        "NDI_UP_GRPS", // 4
+        "NDI_DOWN_GRPS", // 5
+        "NDI_TEMP", // 6
+        "NDI_SIG_0", // 7
+        "NDI_AT_WGT", // 8
+        "NDI_AWR",  //  9
+        "NDI_E_BOUNDS", // 10
+        "NDI_WGTS", // 11
+        "NDI_VEL", // 12
+        "NDI_SIG_TOT", // 13
+        "NDI_NU_SIG_F_PR", // 14
+        "NDI_CHI_VEC_PR", // 15
+        "NDI_CHI_VEC_TOT", // 16
+        "NDI_PN_ORDER", // 17
+        "NDI_PN_DOWN_FULL", // 18
+        "NDI_NUM_REAC", // 19
+        "NDI_SIG_REAC", // 20
+        "NDI_RPROD_ALL", // 21
+        "NDI_RPROD_ID_ALL", // 22
+        "NDI_RPROD_MLT_ALL", // 23
+        "NDI_RPROD_RMO", // 24
+        "NDI_RPROD_ID_RMO", // 25
+        "NDI_RPROD_MLT_RMO", // 26
+        "NDI_RPROD_FEW", // 27
+        "NDI_RPROD_ID_FEW", // 28
+        "NDI_RPROD_MLT_FEW", // 29
+        "NDI_REAC_MT", // 30
+        "NDI_REAC_Q", // 31
+        "NDI_FISS_Q", // 32
+        "NDI_NUM_SEC_PARTS", // 33
+        "NDI_SEC_PART_TYPES", // 34
+        "NDI_NUM_GRPS_CURR_PART", // 35
+        "NDI_E_BOUNDS_CURR_PART", // 36
+        "NDI_PN_ORDER_CURR_PART", // 37
+        "NDI_PN_PROD_FULL_CURR_PART", // 38
+        "NDI_CHI_MAT_PR", // 39
+        "NDI_CHI_MAT_TOT", // 40
+        "NDI_PN_FULL", // 41
+        "NDI_VERSION", // 42
+        "NDI_LIB_TYPE", // 43
+        "NDI_LIBRARY", // 44
+        "NDI_MAT_ORDER", // 45
+        "NDI_COLLAPSE", // 46
+        "NDI_NUM_TEMPS or NDI_NUM_SIGVBARS", // 47
+        "NDI_NUM_SIGVBAR_INTERP or NDI_NUM_INTERP", // 48
+        "NDI_TEMPS", // 49
+        "NDI_SIGVBARS", // 50
+        "NDI_NUM_RPRODS", // 51
+        "NDI_RPRODS_ID", // 52
+        "NDI_RPRODS_MLT", // 53
+        "NDI_SIGVBAR_INTERP_REG", // 54
+        "NDI_SIGVBAR_INTERP_TYPE", // 55
+        "NDI_HEATING", // 56
+        "NDI_NU_TOT", // 57
+        "NDI_NU_PR", // 58
+        "NDI_NU_DEL", // 59
+        "NDI_NU_SIG_F_TOT", // 60
+        "NDI_NU_SIG_F_DEL", // 61
+        "NDI_CHI_VEC_DEL", // 62
+        "NDI_CHI_MAT_DEL", // 63
+        "NDI_SEC_PART_ZAIDS", // 64
+        "NDI_CORR_DIAG", // 65
+        "Not a valid keyword", // 66
+        "NDI_CORR_BHS", // 67
+        "Not a valid keyword ", // 68
+        "NDI_E_AVG", // 69
+        "NDI_ENERGY_N", // 70
+        "NDI_ENERGY_AVAIL", // 71
+        "NDI_TRANS_CORR", // 72
+        "NDI_REAC_ID", // 73
+        "NDI_TRANSFER_MAT_TOT", // 74
+        "NDI_TRANSFER_MAT_PR", // 75
+        "NDI_NORM", // 76
+        "NDI_CURR_PART", // 77
+        "NDI_TN_DATASET", // 78
+        "NDI_COUPLED_MG", // 79
+        "NDI_TN_NUM_REAC", // 80
+        "NDI_LIST_REAC", // 81
+        "NDI_TN_INFO", // 82
+        "NDI_REACTANTS_ID", // 83
+        "NDI_REACTANTS_MLT", // 84
+        "NDI_NUM_REACTANTS", // 85
+        "NDI_CURR_REAC", // 86
+        "NDI_EDIST", // 87
+        "NDI_NUM_TARGET", // 88
+        "NDI_TARGET", // 89
+        "NDI_CURR_ISO", // 90
+        "NDI_CHAIN or NDI_RADCHEM", // 91
+        "NDI_CHAIN_ZAID or NDI_RADCHEM_ZAID or NDI_DEPL_ZAID", // 92
+        "NDI_CHAIN_INFO or NDI_RADCHEM_INFO or NDI_DEPL_INFO", // 93
+        "NDI_TOT_PROD_XS", // 94
+        "NDI_KERMA", // 95
+        "NDI_HEATING_CURR_PART", // 96
+        "NDI_KERMA_CURR_PART", // 97
+        "NDI_TOT_DEPL_XS", // 98
+        "NDI_EAVG_OUT", // 99
+        "NDI_FISS_PROD", // 100
+        "NDI_EINBAR", // 101
+        "NDI_EOUTBAR", // 102
+        "NDI_ATOMIC_NUM", // 103
+        "NDI_MASS_NUM", // 104
+        "Not a valid keyword", // 105
+        "Not a valid keyword", // 106
+        "NDI_TOT_PROD_Q", // 107
+        "NDI_NUM_INC_PARTS", // 108
+        "NDI_NUM_REAC_NON_NULL", // 109
+        "NDI_NUM_TARGET_UNIQUE", // 110
+        "NDI_INC_PART_TYPES", // 111
+        "NDI_ABUNDANCE", // 112
+        "NDI_DATE_PROCESSED", // 113
+        "NDI_DATE_SOURCE", // 114
+        "NDI_LIBRARY_NAME", // 115
+        "NDI_LAST_GRP", // 116
+        "NDI_FISSIONABLE", // 117
+        "NDI_NUM_EINBAR_INTERP", // 118
+        "NDI_EINBAR_INTERP_REG", // 119
+        "NDI_EINBAR_INTERP_TYPE", // 120
+        "NDI_NUM_PNU_PR", // 121
+        "NDI_PNU_PR", // 122
+        "NDI_SIG_PNU_PR", // 123
+        "NDI_PARTICLE_TYPE or NDI_GENDIR_PATH", // 124
+        "NDI_PARTICLE_N", // 125
+        "NDI_RPROD_MLT", // 126
+        "NDI_REAC_LABEL", // 127
+        "NDI_EDIST_TEMPS", // 128
+        "NDI_EDIST_INTERP_REG", // 129
+        "NDI_EDIST_INTERP_TYPE", // 130
+        "NDI_ERROR", // 131
+        "NDI_EDIST_CONT_E", // 132
+        "NDI_EDIST_CONT_P", // 133
+        "NDI_EDIST_CONT_INTERP_REG", // 134
+        "NDI_EDIST_CONT_INTERP_TYPE", // 135
+        "NDI_SF_SPECTRA", // 136
+        "NDI_SPONTANEOUS_FISSIONABLE", // 137
+        "NDI_FISS_XFER_MAT_TOT", // 138
+        "NDI_FISS_XFER_MAT_PR", // 139
+        "NDI_FISS_XFER_MAT_DEL", // 140
+        "NDI_V_AVG", // 141
+        "NDI_Q_SIG_F_PR", // 142
+        "NDI_TD_HALF_MOMENT", // 143
+        "NDI_TD_VAL", // 144
+        "NDI_SF_RATE", // 145
+        "NDI_DEDX", // 146
+        "NDI_TARGET_ZAID", // 147
+        "NDI_TARGET_DEDX", // 148
+        "NDI_NUM_DENSITIES", // 149
+        "NDI_NUM_ENERGIES", // 150
+        "NDI_DENSITIES", // 151
+        "NDI_ENERGIES", // 152
+        "NDI_SF_PNU", // 153
+        "NDI_NAME" // 154
+    };
+
+    int num_keywords = sizeof(keywords) / sizeof(keywords[0]);
+
+    if ( n == 200 ) {
+        return "NDI_DEPLETION";
+    } else if ( n == 1046 ) {
+        return "NDI_COLLAPSE_DEFAULT";
+    } else if ( n == 1077 ) {
+        return "NDI_CURR_PART_DEFAULT";
+    } else if ( n == 1069 ) {
+        return "NDI_E_AVG_DEFAULT";
+    } else if ( n == 1036 ) {
+        return "NDI_E_BOUNDS_CURR_PART_DEFAULT";
+    } else if ( n == 1100 ) {
+        return "NDI_FISS_PRODUCT_DEFAULT";
+    } else if ( n == 1095 ) {
+        return "NDI_KERMA_DEFAULT";
+    } else if ( n == 1043 ) {
+        return "NDI_LIB_TYPE_DEFAULT";
+    } else if ( n == 1044 ) {
+        return "NDI_LIBRARY_DEFAULT";
+    } else if ( n == 1045 ) {
+        return "NDI_MAT_ORDER_DEFAULT";
+    } else if ( n == 1076 ) {
+        return "NDI_NORM_DEFAULT";
+    } else if ( n == 1073 ) {
+        return "NDI_REAC_ID_DEFAULT";
+    } else if ( n == 1006 ) {
+        return "NDI_TEMP_DEFAULT";
+    } else if ( n == 1072 ) {
+        return "NDI_TRANS_CORR_DEFAULT";
+    }
+
+    if (n > num_keywords-1) {
+        return "Keyword not found";
+    } else {
+        return keywords[n];
+    }
+
 }
 
 /**********************************************************************/

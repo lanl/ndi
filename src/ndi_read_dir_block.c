@@ -10,12 +10,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "ndi.h"
 #include "ndi_internal.h"
 
 
 static int ndi_init_dir_rec(dir_entry *dir_rec);
+int ndi_count_nested_dir_block(FILE *stream, int in_key,
+                               const char *lib, const char *zaid, int ierr);
 
 /**********************************************************************/
 /*  Purpose: Read a record ('line') from the gendir file for one ZAID.
@@ -104,6 +107,17 @@ int read_dir_block(char *in_line, FILE *dir_stream, dir_entry *dir_rec)
                 /* Energy group symbol */
                 token = strtok(NULL, seps);
                 strcpy(dir_rec->egrp, token);
+            } else if (strcmp(token, "s") == 0) {
+                /* File status (deprecated). This will typically not be present unless the file is deprecated. */
+                token = strtok(NULL, seps);
+                strcpy(dir_rec->status, token);
+                if (strncmp(token, "dep", strlen("dep")) == 0) {
+                    printf(" **WARNING: This data is deprecated. Use with caution.\n");
+                    if ( dir_rec->zaid ) {
+                        printf("    Trouble isotope: %s\n",dir_rec->zaid);
+                    }
+                    fflush(stdout);
+                }
             } else if (strcmp(token, "end") == 0) {
                 /* Done with this ZAID */
                 done = -1;
@@ -144,8 +158,8 @@ static int ndi_init_dir_rec(dir_entry *dir_rec)
     dir_rec->line_num = -1;
     dir_rec->offset = -1;
     dir_rec->num_grps = 0;
-    dir_rec->temp = 0.0;
-    dir_rec->sig_0 = 0.0;
+    dir_rec->temp = -1.0;
+    dir_rec->sig_0 = -1.0;
     dir_rec->at_wgt = 0.0;
     dir_rec->awr = 0.0;
 
@@ -287,36 +301,46 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 {
     dir_entry *d;
     long int len_diff = 0;
-    char dir_zaid[MAX_IN_STR_LEN];
-    char *token;
+    char dir_zaid[MAX_IN_STR_LEN], in_zaid[MAX_IN_STR_LEN];
+    char *dir_token, *in_token;
     char seps[] = "ngz"; // n(m) = neutron, g(m) = gamma, z(*) = everything else
     char seps_dot[] = ".";
 
-    while ((d = ndi_fget_dir_block(rec, stream)) != NULL) {
+    while ((d = ndi_fget_dir_block(rec,stream)) != NULL) {
+        if (strncmp(d->zaid,"gendir",strlen("gendir")) == 0) {
+            /* If this dir block contains a nested gendir,
+               return the entry for the calling function to
+               open the gendir */
+            return d;
+        }
+        /* The following allows for full or partial zaids */
         strcpy(dir_zaid,d->zaid);
-        token = strtok(dir_zaid,seps_dot);
-        if (token == NULL) continue;
-        len_diff = strlen(zaid) - strlen(token); 
+        dir_token = strtok(dir_zaid,seps_dot);
+        strcpy(in_zaid,zaid);
+        in_token = strtok(in_zaid,seps_dot);
+        if (dir_token == NULL || in_token == NULL) continue;
+        if (strncmp(dir_token,"gendir",strlen("gendir"))==0) continue;
+        len_diff = strlen(in_zaid) - strlen(dir_token); 
         if (len_diff > 0) {
             strcpy(dir_zaid,d->zaid);
-            token = strtok(dir_zaid,seps); 
+            dir_token = strtok(dir_zaid,seps); 
         }
-        if ((len_diff > 1 && strncmp(token, zaid, strlen(zaid)) == 0) || 
-            (strncmp(d->zaid, zaid, strlen(d->zaid)) == 0) ||
-            ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) &&
-             ((strcmp("", lib) == 0) ||
-              (strcmp(d->lib, lib) == 0)))) {
+        if ((len_diff > 1 && strncmp(dir_token, zaid, strlen(zaid)) == 0) || /* Most of the zaid matches */
+            ((strcmp(dir_token, in_token) == 0) && /* The zaid matches to the ".", and... */
+             ((strcmp("", lib) == 0) || /* ... there is no input library */
+              (strcmp(d->lib, lib) == 0)))) { /* ... or the input library matches */
+            /* We have found a correct directory! */
             break;
         }
     }
-     
+ 
     return d;
 }
 
 /**********************************************************************/
 /**********************************************************************/
 
-/* ndi_count_dir returns the size of in_key in the specified section
+/* ndi_count_dir_block returns the size of in_key in the specified section
  * of a GENDIR stream matching lib and zaid.  Returns the number of
  * matches for double quantities, or the total string length,
  * including EOS, for string quantities.  Restores original file
@@ -325,36 +349,101 @@ dir_entry *ndi_fget_next_dir(dir_entry *rec, FILE *stream,
 int ndi_count_dir_block(FILE *stream, int in_key, const char *section, 
                         const char *lib, const char *zaid)
 {
+    int ierr = 0;
     long fpos = -1;
-    dir_entry rec;
     int count = 0;
 
     if (section == 0) NDI_THROW(count, -16); /* Library type not set */
 
     fpos = ftell(stream); /* remember file position */
-        
+
     if (ndi_fseek_section(stream, section, 0) != 0)
         NDI_THROW(count, -11); /* Section not found */
-    
-    while (ndi_fget_next_dir(&rec, stream, lib, zaid))
-        switch (in_key) {
-        case NDI_ZAID:
-            count += strlen(rec.zaid) + 1;
-            break;
-        case NDI_TEMP:
-        case NDI_SIG_0:
-        case NDI_AT_WGT:
-        case NDI_AWR:
-            count++;
-            break;
-        default:
-            NDI_THROW(count, -4); /* Unrecognized input key */
-            break;
+
+    count = ndi_count_nested_dir_block(stream, in_key, lib, zaid, ierr);
+
+    catch:        
+        if (fpos >= 0) fseek(stream, fpos, SEEK_SET);
+        return count;
+
+}
+
+/**********************************************************************/
+/**********************************************************************/
+
+/* Read a gendir file to count number of in_key. This function
+ * allows for nested gendirs. If there are nested gendirs, it searches
+ * each one individually. */
+
+int ndi_count_nested_dir_block(FILE *stream, int in_key,
+                               const char *lib, const char *zaid, int ierr)
+{
+    dir_entry rec;
+    dir_entry *d = NULL;
+    int count = 0;
+    int len_diff;
+    FILE *temp_stream;
+    char *token;
+    char *path = NULL;
+    char seps[] = "ngz"; // n(m) = neutron, g(m) = gamma, z(*) = everything else
+    char seps_dot[] = ".";
+    char dir_zaid[MAX_IN_STR_LEN];
+
+    /* Read in the next gendir entry */
+    while ((d = ndi_fget_dir_block(&rec,stream)) != NULL) {
+        strcpy(dir_zaid,d->zaid);
+
+        if (strncmp(d->zaid,"gendir",strlen("gendir")) == 0 && // nested gendir!
+            ((strncmp(d->lib,lib,strlen(lib)) == 0 && // library matches
+              strlen(d->lib) == strlen(lib)) ||
+              strcmp(lib,"") == 0)) { // no library is given
+
+            /* Open the nested gendir */
+            ierr = ndi_open_gendir(&temp_stream, d->path, &path);
+            if (ierr != 0) return count;
+            /* Recursive call */
+            count += ndi_count_nested_dir_block(temp_stream, in_key, lib, zaid, ierr);
+            /* Close the nested gendir */
+            if (fclose(temp_stream) != 0) ierr = -3;
+
+        } else {
+
+            token = strtok(dir_zaid,seps_dot);
+            if (token == NULL) continue;
+            len_diff = strlen(zaid) - strlen(token);
+            if (len_diff > 0) { /* zaid has a suffix */
+                strcpy(dir_zaid, d->zaid);
+                token = strtok(dir_zaid, seps);
+            }
+
+            if ((len_diff > 1 && strncmp(token, zaid, strlen(zaid)) == 0) || /* Close enough */
+                (strncmp(d->zaid, zaid, strlen(d->zaid)) == 0) || /* Exact match */
+                ((strncmp(d->zaid, zaid, strlen(zaid)) == 0) && /* Zaid is good */
+                 ((strcmp("", lib) == 0) || /* Library is not specified */
+                  (strcmp(d->lib, lib) == 0)))) { /* Library matches */
+
+                /* Count either string length or the number of floats */
+                switch(in_key) {
+                    case NDI_ZAID:
+                        count += strlen(d->zaid) + 1;
+                        break;
+                    case NDI_TEMP:
+                    case NDI_SIG_0:
+                    case NDI_AT_WGT:
+                    case NDI_AWR:
+                        count++;
+                        break;
+                    default:
+                        NDI_THROW(count, -4); /* Unrecognized input key */
+                        break;
+                }
+            }
         }
 
+    }
  catch:
-    if (fpos >= 0) fseek(stream, fpos, SEEK_SET);
     return count;
+
 }
 
 /**********************************************************************/

@@ -1,0 +1,65 @@
+multigroup_neutron
+  z=1001.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=1  o=0  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.00782E+00
+    awr=9.99167E-01 end
+  z=1002.550nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=558  o=35269  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.01410E+00
+    awr=1.99680E+00 end
+  z=1003.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=1131  o=71071  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=3.01605E+00
+    awr=2.99014E+00 end
+  z=3006.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=1689  o=106389  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=6.01512E+00
+    awr=5.96345E+00 end
+  z=3007.550nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=2324  o=144345  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=7.01600E+00
+    awr=6.95573E+00 end
+  z=8016.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=2943  o=181732  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.59949E+01
+    awr=1.58575E+01 end
+  z=9019.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=3560  o=219033  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.89984E+01
+    awr=1.88352E+01 end
+  z=24000.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=4171  o=256196  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.19959E+01
+    awr=5.15493E+01 end
+  z=26000.550nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=4782  o=293359  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=5.58462E+01
+    awr=5.53665E+01 end
+  z=45117.900nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=5398  o=330635  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.16545E+02
+    awr=1.15544E+02 end
+  z=46119.900nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=5995  o=367315  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.18543E+02
+    awr=1.17525E+02 end
+  z=50120.350nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=6592  o=403995  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=1.17000E+02
+    awr=1.15995E+02 end
+  z=50998.990nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=7189  o=440675  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=50999.990nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=7746  o=475968  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.30000E+02
+    awr=2.28024E+02 end
+  z=92233.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=8319  o=511794  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.33040E+02
+    awr=2.31038E+02 end
+  z=92235.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=8979  o=551283  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.35044E+02
+    awr=2.33025E+02 end
+  z=92238.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=9672  o=591863  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.38051E+02
+    awr=2.36006E+02 end
+  z=94239.550nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=10365  o=632443  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.39052E+02
+    awr=2.36999E+02 end
+  z=94240.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=11057  o=672998  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.40054E+02
+    awr=2.37992E+02 end
+  z=94241.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=11750  o=713578  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.41057E+02
+    awr=2.38986E+02 end
+  z=94242.500nm  d=5/1/2003  l=mendf5  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf5_gen
+    ft=asc  ln=12411  o=753092  ng=30  t=2.53000E-08  s0=1.00000E+30  aw=2.42059E+02
+    awr=2.39979E+02 end
+end

@@ -203,6 +203,9 @@ multigroup_neutron
     f=@CMAKE_CURRENT_SOURCE_DIR@/lib/mendf6_ngk  ft=asc  ln=6111  o=478086  ng=33
     t=2.530000000000e-08  s0=1.000000000000e+30  aw=2.390550000000e+02
     awr=2.370020000000e+02 end
+  z=92236.901nm  d=4/30/2003  l=weights_test
+    f=@CMAKE_CURRENT_SOURCE_DIR@/lib/weights_test_lib  ft=asc  ln=3  o=98  ng=6
+    t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
   z=92236.601nm  d=4/30/2003  l=chi_test
     f=@CMAKE_CURRENT_SOURCE_DIR@/lib/chi_test_lib  ft=asc  ln=3  o=98  ng=6
     t=2.53000E-08  s0=1.00000E+30  aw=2.36046E+02  awr=2.34018E+02 end
@@ -736,6 +739,6 @@ tn_reactions
 end
 
 dedx
- z=1001  l=dedx  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/dedx  ft=asc  ln=2  o=45  aw=1.00780E+00  awr=9.99142E-01 end
+ z=1001.000dx  l=dedx  f=@CMAKE_CURRENT_SOURCE_DIR@/lib/dedx  ft=asc  ln=2  o=45  aw=1.00780E+00  awr=9.99142E-01 end
 end
 

@@ -1,0 +1,29 @@
+ Open gendir:
+  ok.
+ Make handle multigroup_neutron:
+  ok.
+ Set library weights_test:
+  ok.
+ Set isotope 92236.901nm:
+  ok.
+ Get zaid:
+  ok.
+   zaid = 92236.901nm             
+ Get number of groups:
+  ok.
+   number of groups =            6
+ Set number of groups to collapse to:
+  ok.
+ Get new number of groups:
+  ok.
+   number of groups =            2
+ Get the total cross section:
+  ok.
+   sig_tot =    7.0058997504109231        14.095215248509911     
+ Set new weight function
+  ok.
+ Get the new total cross section:
+  ok.
+   sig_tot =    7.3163268106893797        15.201630596436198     
+ Close gendir:
+  ok.
