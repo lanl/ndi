@@ -16,7 +16,7 @@ Instructions
     On the internet, those with access to github can acquire the NDI source code using the Git version control system.
    
     ```
-    git clone [ssh://git@xcp-stash.lanl.gov:7999/ndt/ndi.git](https://github.com/lanl/ndi.git)
+    git clone https://github.com/lanl/ndi.git
     ```
 
 1. Establish your environment
