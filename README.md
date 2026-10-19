@@ -7,16 +7,16 @@ Prerequisite
 + Git
 + A C compiler
 + A Fortran compiler
-+ CMake 3.9
++ CMake 3.12
 
 Instructions
 ---
 
 1. Acquire the source code
-    On LANL systems, those with access to the XCP bitbucket server can acquire the NDI source code using the Git version control system.
+    On the internet, those with access to github can acquire the NDI source code using the Git version control system.
    
     ```
-    git clone ssh://git@xcp-stash.lanl.gov:7999/ndt/ndi.git
+    git clone [ssh://git@xcp-stash.lanl.gov:7999/ndt/ndi.git](https://github.com/lanl/ndi.git)
     ```
 
 1. Establish your environment
@@ -41,7 +41,7 @@ Instructions
     Optionally, the configuration can be customized by calling to the `ccmake` text-based interface or `cmake-gui` graphical user interface.
     Notably, when building with a static configuration build tool---such as GNU Make or Google Ninja---it's advisable to set the `CMAKE_BUILD_TYPE` variable to either *Release* or *Debug*, according to your use case.
     In addition, for those intending to install NDI, the installation directory can be specified by setting the `CMAKE_INSTALLATION_PREFIX` variable.
-    See the CMake [documentation](https://cmake.org/cmake/help/v3.9/manual/cmake.1.html) for advanced usage.
+    See the CMake [documentation](https://cmake.org/cmake/help/v3.12/manual/cmake.1.html) for advanced usage.
 
 
 1. Build the source
@@ -50,7 +50,7 @@ Instructions
     cmake --build .
     ```
     
-    See the CMake build tool [documentation](https://cmake.org/cmake/help/v3.9/manual/cmake.1.html#build-tool-mode) for advanced usage.
+    See the CMake build tool [documentation](https://cmake.org/cmake/help/v3.12/manual/cmake.1.html#build-tool-mode) for advanced usage.
 
 1. Run the tests
 
@@ -58,7 +58,7 @@ Instructions
     ctest
     ```
     
-    See the CMake testing tool [documentation](https://cmake.org/cmake/help/v3.9/manual/ctest.1.html) for advanced usage.
+    See the CMake testing tool [documentation](https://cmake.org/cmake/help/v3.12/manual/ctest.1.html) for advanced usage.
 
 
 1. (Optional) Install the NDI library.
